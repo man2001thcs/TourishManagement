@@ -9,7 +9,8 @@
     "watch": "ng build --watch --configuration development",
     "predeploy": "ng build --configuration production --base-href https://man2001thcs.github.io/TourishManagement/",
     "deploy": "ng build --configuration production --base-href=/TourishManagement/",
-    "test": "ng test"
+    "test": "ng test",
+    "gh-build": "ngh --dir=dist/roxanne"
   },
   "private": true,
   "dependencies": {

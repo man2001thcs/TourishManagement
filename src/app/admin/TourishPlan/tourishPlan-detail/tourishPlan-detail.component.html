@@ -178,13 +178,12 @@
             <div class="row" style="margin-bottom: 1rem">
               <mat-form-field appearance="outline" class="full-width-input">
                 <mat-label>Trạng thái tour</mat-label>
-                <select matNativeControl required>
+                <select matNativeControl required formControlName="planStatus">
                   <option value="0">Chờ</option>
                   <option value="1">Thông tin đã xác định</option>
-                  <option value="2">Đã thanh toán toàn bộ</option>
-                  <option value="3">Đang diễn ra</option>
-                  <option value="4">Hoàn thành</option>
-                  <option value="5">Hủy bỏ</option>
+                  <option value="2">Đang diễn ra</option>
+                  <option value="3">Hoàn thành</option>
+                  <option value="4">Hủy bỏ</option>
                 </select>
               </mat-form-field>
             </div>

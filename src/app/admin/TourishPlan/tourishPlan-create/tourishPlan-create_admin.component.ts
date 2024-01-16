@@ -103,13 +103,13 @@ export class TourishPlanCreateAdminComponent
       // ],
 
       tourName: [
-        "Hà Nội - Đà Nẵng 4 ngày 3 đêm",
+        "Hà Nội - Đà Nẵng 4 ngày 3 đêm (Ví dụ)",
         Validators.compose([Validators.required, Validators.minLength(3)]),
       ],
 
-      startingPoint: ["Hà Nội", Validators.compose([Validators.required])],
-      endingPoint: ["Đà Nẵng", Validators.compose([Validators.required])],
-      supportNumber: ["043532432", Validators.compose([Validators.required])],
+      startingPoint: ["", Validators.compose([Validators.required])],
+      endingPoint: ["", Validators.compose([Validators.required])],
+      supportNumber: ["", Validators.compose([Validators.required])],
       planStatus: [0, Validators.compose([Validators.required])],
       startDate: ["", Validators.compose([Validators.required])],
       endDate: ["", Validators.compose([Validators.required])],
@@ -121,9 +121,9 @@ export class TourishPlanCreateAdminComponent
         Validators.compose([Validators.required, Validators.minLength(3)]),
       ],
 
-      movingScheduleString: ["", Validators.compose([Validators.required])],
-      eatingScheduleString: ["", Validators.compose([Validators.required])],
-      stayingScheduleString: ["", Validators.compose([Validators.required])],
+      movingScheduleString: [""],
+      eatingScheduleString: [""],
+      stayingScheduleString: [""],
     });
 
     this.subscriptions.push(
@@ -163,6 +163,7 @@ export class TourishPlanCreateAdminComponent
 
   formSubmit_create_info(): void {
     this.isSubmitted = true;
+    console.log(this.createformGroup.valid);
     if (this.createformGroup.valid) {
       this.store.dispatch(
         TourishPlanActions.createTourishPlan({
@@ -286,4 +287,9 @@ export class TourishPlanCreateAdminComponent
       this.movingScheduleString
     );
   };
+
+  getJsonList(listString: string){
+    if (listString === "") return [];
+    return JSON.parse(listString);
+  }
 }

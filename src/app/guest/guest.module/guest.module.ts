@@ -44,6 +44,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { SharedModule } from "src/app/shared.module";
 import { UserCreateComponent } from "../log/signIn/signIn-create.component";
 import { UserCreateEffects } from "../log/signIn/signIn-create.store.effect";
+import { ChatComponent } from "src/app/utility/chat/chat.component";
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { UserCreateEffects } from "../log/signIn/signIn-create.store.effect";
     HeaderComponent,
     HomeComponent,
     UserCreateComponent,
+    ChatComponent,
     nl2brPipe,
   ],
   imports: [

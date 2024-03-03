@@ -22,11 +22,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AuthInterceptor } from "./utility/user_service/http.inceptor";
 import { RouterModule } from "@angular/router";
 import { MatButtonModule } from "@angular/material/button";
-import { NbLayoutModule, NbThemeModule } from "@nebular/theme";
 import { MatDialog, MatDialogModule } from "@angular/material/dialog";
 
 import { CommonModule } from "@angular/common";
-import { FooterComponent } from "./utility/footer/footer.component";
 import { LoadingDialogComponent } from "./utility/notification_admin/loading-dialog.component";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 

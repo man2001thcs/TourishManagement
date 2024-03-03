@@ -8,6 +8,7 @@ import { SearchResolver } from "../resolver/search.resolver";
 import { HomeComponent } from "../home/home.component";
 import { UserCreateComponent } from "../log/signIn/signIn-create.component";
 import { LoginComponent } from "../log/login/login.component";
+import { ChatComponent } from "src/app/utility/chat/chat.component";
 
 const routes: Routes = [
   {
@@ -25,6 +26,10 @@ const routes: Routes = [
       {
         path: "home",
         component: HomeComponent,
+      },
+      {
+        path: "test",
+        component: ChatComponent,
       },
     ],
   },

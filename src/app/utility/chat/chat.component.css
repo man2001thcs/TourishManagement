@@ -1,0 +1,83 @@
+.chat-container {
+  width: 350px;
+  height: 450px;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-content {
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  overflow-y: auto;
+}
+
+.chat-send {
+  margin: 0px 10px 5px 0;
+  max-width: 150px;
+  align-self: flex-end !important;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-send mat-card {
+  background-color: #3084e4;
+  color: floralwhite;
+}
+
+mat-card-content {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.chat-send mat-label {
+  font-size: 11px;
+}
+
+.chat-receive {
+  margin: 0px 0px 5px 10px;
+  max-width: 150px;
+  align-self: flex-start !important;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-receive mat-card {
+  background-color: #F0F0F0;
+  color: black;
+}
+
+.chat-receive mat-label {
+  font-size: 11px;
+}
+
+.mat-mdc-card-content {
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+}
+
+.chat-input {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+::ng-deep .mat-form-field-outline-start {
+  border-radius: 50% 0 0 50% !important;
+  min-width: 10px !important;
+}
+
+::ng-deep .mat-form-field-outline-end {
+  border-radius: 0 50% 50% 0 !important;
+  min-width: 10px !important;
+}
+
+/* Add padding to move the label and input into the center to prevent overlapping the rounded border */
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-flex {
+  padding: 0 10px !important;
+}

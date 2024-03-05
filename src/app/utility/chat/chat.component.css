@@ -77,7 +77,13 @@ mat-card-content {
   min-width: 10px !important;
 }
 
-/* Add padding to move the label and input into the center to prevent overlapping the rounded border */
-::ng-deep .mat-form-field-appearance-outline .mat-form-field-flex {
-  padding: 0 10px !important;
+::ng-deep .chat-input .mat-form-field {
+  font-size: 14px;
+}
+
+::ng-deep .chat-input .mat-mdc-text-field-wrapper {
+  height: 42px !important;
+}
+::ng-deep .chat-input .mat-mdc-form-field-flex {
+  margin-top: -8px !important;
 }

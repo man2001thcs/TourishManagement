@@ -112,9 +112,7 @@ export class EatingMultiselectAutocompleteComponent implements OnInit {
     private messageService: MessageService,
     private fb: FormBuilder
   ) {
-    this.filteredEatings = this.eatingCtrl.valueChanges.pipe(
-      debounceTime(200)
-    );
+    this.filteredEatings = this.eatingCtrl.valueChanges.pipe(debounceTime(200));
 
     this.eatingListState = this.store
       .select(getEatingList)
@@ -165,91 +163,6 @@ export class EatingMultiselectAutocompleteComponent implements OnInit {
       ],
     });
 
-    tinymce.init({
-      selector: '#myTextarea'
-      // Add your TinyMCE configuration options here
-    });
-    // tinymce.activeEditor.setMode('readonly');
-    this.tinyMceSetting = {
-      height: 500,
-      menubar: true,
-      plugins: [
-        'advlist autolink lists link image charmap print preview anchor image',
-        'searchreplace visualblocks code fullscreen',
-        'insertdatetime media table paste code help wordcount table codesample'
-      ],
-      // eslint-disable-next-line
-      font_formats:
-        'Andale Mono=andale mono,times; Arial=arial,helvetica,sans-serif; \
-        Arial Black=arial black,avant garde; Book Antiqua=book antiqua,palatino; \
-        Comic Sans MS=comic sans ms,sans-serif; Courier New=courier new,courier; \
-        Georgia=georgia,palatino; Helvetica=helvetica; Impact=impact,chicago; \
-        Oswald=oswald; Symbol=symbol; Tahoma=tahoma,arial,helvetica,sans-serif; \
-        Terminal=terminal,monaco; Times New Roman=times new roman,times; \
-        Trebuchet MS=trebuchet ms,geneva; Verdana=verdana,geneva; Webdings=webdings; \
-        Wingdings=wingdings,zapf dingbats',
-      toolbar:
-        'undo redo | formatselect | fontsizeselect | fontselect | codesample \
-        | bold italic underline backcolor | image  \
-        | alignleft aligncenter alignright alignjustify | \
-        | table tabledelete | tableprops tablerowprops tablecellprops \
-        | tableinsertrowbefore tableinsertrowafter tabledeleterow \
-        | tableinsertcolbefore tableinsertcolafter tabledeletecol \
-        bullist numlist outdent indent | removeformat | fullscreen | help',
-      // eslint-disable-next-line
-      image_title: true,
-      // eslint-disable-next-line
-      automatic_uploads: true,
-      // eslint-disable-next-line
-      file_picker_types: 'image',
-      // eslint-disable-next-line
-      file_picker_callback(cb: any, value: any, meta: any): void {
-        console.log('abc');
-        // eslint-disable-next-line
-
-        const element: HTMLInputElement | null = document.querySelector('input[type="file"]');
-
-        if (element) {
-          const fileSelectedPromise = new Promise<File | null>(resolve => {
-            element.onchange = () => {
-              const file = element.files?.[0];
-              resolve(file ?? null);
-            };
-          });
-
-          // Trigger the click event
-          element.click();
-
-          // Wait for the promise to resolve
-          fileSelectedPromise.then(file => {
-            if (file) {
-              // Handle the selected file, for example, log its details
-              const reader = new FileReader();
-              reader.onload = () => {
-                const id = 'blobid' + new Date().getTime();
-                const blobCache = tinymce.activeEditor.editorUpload.blobCache;
-                if (reader.result !== null) {
-                  const base64 = (reader.result as string).split(',')[1];
-                  const blobInfo = blobCache.create(id, file, base64);
-                  blobCache.add(blobInfo);
-
-                  /* call the callback and populate the Title field with the file name */
-                  cb(blobInfo.blobUri(), { title: file.name });
-                }
-              };
-              reader.readAsDataURL(file);
-
-              // You can perform additional logic or trigger further actions with the file here
-            } else {
-              console.log('No file selected');
-            }
-          });
-        }
-      },
-      // eslint-disable-next-line
-      content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
-    };
-
     this.subscriptions.push(
       this.filteredEatings.subscribe((state) => {
         // Reset
@@ -265,7 +178,7 @@ export class EatingMultiselectAutocompleteComponent implements OnInit {
             payload: {
               search: (state ?? "").toLowerCase(),
               page: 1,
-              pageSize: 6
+              pageSize: 6,
             },
           })
         );
@@ -320,6 +233,110 @@ export class EatingMultiselectAutocompleteComponent implements OnInit {
         },
       })
     );
+
+    this.tinyMceSetting = {
+      base_url: "/tinymce", // Root for resources
+      suffix: ".min", // Suffix to use when loading resources
+      height: 500,
+      menubar: true,
+      file_picker_types: "file image media",
+      plugins: [
+        "advlist",
+        "autolink",
+        "lists",
+        "link",
+        "image",
+        "charmap",
+        "print",
+        "preview",
+        "anchor",
+        "image",
+        "searchreplace",
+        "visualblocks",
+        "code",
+        "fullscreen",
+        "insertdatetime",
+        "media",
+        "table",
+        "paste",
+        "code",
+        "help",
+        "wordcount",
+        "table",
+        "codesample",
+      ],
+      // eslint-disable-next-line
+      font_formats:
+        "Andale Mono=andale mono,times; Arial=arial,helvetica,sans-serif; \
+        Arial Black=arial black,avant garde; Book Antiqua=book antiqua,palatino; \
+        Comic Sans MS=comic sans ms,sans-serif; Courier New=courier new,courier; \
+        Georgia=georgia,palatino; Helvetica=helvetica; Impact=impact,chicago; \
+        Oswald=oswald; Symbol=symbol; Tahoma=tahoma,arial,helvetica,sans-serif; \
+        Terminal=terminal,monaco; Times New Roman=times new roman,times; \
+        Trebuchet MS=trebuchet ms,geneva; Verdana=verdana,geneva; Webdings=webdings; \
+        Wingdings=wingdings,zapf dingbats",
+      toolbar:
+        "undo redo | formatselect | fontsizeselect | fontselect | image \
+        | bold italic underline backcolor | codesample \
+        | alignleft aligncenter alignright alignjustify | \
+        | table tabledelete | tableprops tablerowprops tablecellprops \
+        | tableinsertrowbefore tableinsertrowafter tabledeleterow \
+        | tableinsertcolbefore tableinsertcolafter tabledeletecol \
+        bullist numlist outdent indent | removeformat | fullscreen | help",
+      // eslint-disable-next-line
+      image_title: true,
+      // eslint-disable-next-line
+      automatic_uploads: true,
+      // eslint-disable-next-line
+      // eslint-disable-next-line
+      file_picker_callback(cb: any, value: any, meta: any): void {
+        // eslint-disable-next-line
+
+        const element: HTMLInputElement | null =
+          document.querySelector('input[type="file"]');
+
+        if (element) {
+          const fileSelectedPromise = new Promise<File | null>((resolve) => {
+            element.onchange = () => {
+              const file = element.files?.[0];
+              resolve(file ?? null);
+            };
+          });
+
+          // Trigger the click event
+          element.click();
+
+          // Wait for the promise to resolve
+          fileSelectedPromise.then((file) => {
+            console.log("No file selected");
+            if (file) {
+              // Handle the selected file, for example, log its details
+              const reader = new FileReader();
+              reader.onload = () => {
+                const id = "blobid" + new Date().getTime();
+                const blobCache = tinymce.activeEditor.editorUpload.blobCache;
+                if (reader.result !== null) {
+                  const base64 = (reader.result as string).split(",")[1];
+                  const blobInfo = blobCache.create(id, file, base64);
+                  blobCache.add(blobInfo);
+
+                  /* call the callback and populate the Title field with the file name */
+                  cb(blobInfo.blobUri(), { title: file.name });
+                }
+              };
+              reader.readAsDataURL(file);
+
+              // You can perform additional logic or trigger further actions with the file here
+            } else {
+              console.log("No file selected");
+            }
+          });
+        }
+      },
+      // eslint-disable-next-line
+      content_style:
+        "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+    };
   }
 
   ngOnDestroy(): void {
@@ -394,16 +411,16 @@ export class EatingMultiselectAutocompleteComponent implements OnInit {
         singlePrice: this.eatingFormGroup.value.singlePrice,
         startDate: this.eatingFormGroup.value.startDate,
         endDate: this.eatingFormGroup.value.endDate,
-        description: this.eatingFormGroup.value.description,
+        description: this.editorContent,
       };
 
       this.eatingScheduleList = [schedule, ...this.eatingScheduleList];
 
-      this.eatingScheduleList.sort(
-        (a: EatSchedule, b: EatSchedule) => {
-          return moment(a.startDate).valueOf() - moment(b.startDate).valueOf();
-        }
-      );
+      this.eatingScheduleList.sort((a: EatSchedule, b: EatSchedule) => {
+        return moment(a.startDate).valueOf() - moment(b.startDate).valueOf();
+      });
+
+      this.editorContent = "";
 
       this.emitAdjustedData();
       this.formReset();
@@ -445,14 +462,13 @@ export class EatingMultiselectAutocompleteComponent implements OnInit {
       this.editEatingFormGroup.controls["description"].setValue(
         this.eatingScheduleEdit.description
       );
+
+      this.editorContent = this.eatingScheduleEdit.description;
     }
   }
 
   editToSchedulesList() {
-    if (
-      this.indexEatScheduleEdit > -1 &&
-      this.eatingScheduleEdit != null
-    ) {
+    if (this.indexEatScheduleEdit > -1 && this.eatingScheduleEdit != null) {
       this.data_selected_edit[this.indexEatScheduleEdit] = {
         placeName: this.editEatingFormGroup.value.placeName,
         address: this.editEatingFormGroup.value.address,
@@ -462,7 +478,7 @@ export class EatingMultiselectAutocompleteComponent implements OnInit {
         status: this.editEatingFormGroup.value.status,
         startDate: this.editEatingFormGroup.value.startDate,
         endDate: this.editEatingFormGroup.value.endDate,
-        description: this.editEatingFormGroup.value.description,
+        description: this.editorContent,
       };
 
       this.messageService
@@ -480,9 +496,7 @@ export class EatingMultiselectAutocompleteComponent implements OnInit {
   }
 
   removeSchedule(id: string): void {
-    var index = this.eatingScheduleList.findIndex(
-      (entity) => entity.id === id
-    );
+    var index = this.eatingScheduleList.findIndex((entity) => entity.id === id);
 
     if (index > -1) {
       console.log(this.eatingScheduleList[index]);
@@ -561,5 +575,9 @@ export class EatingMultiselectAutocompleteComponent implements OnInit {
 
   cancelLoading() {
     this.isLoading = false;
+  }
+
+  outTest(input: any){
+    console.log(input);
   }
 }

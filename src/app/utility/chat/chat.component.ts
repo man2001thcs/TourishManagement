@@ -32,5 +32,6 @@ export class ChatComponent {
     } else if (timeChanges >= 2592000) {
       return (timeChanges / 2592000).toFixed(0) + " tháng trước";
     }
+    return (timeChanges / 2592000).toFixed(0) + " tháng trước";
   }
 }

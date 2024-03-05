@@ -205,7 +205,7 @@ import { UserListEffects } from "../User/user_list/user-list.store.effect";
 import { AccountInfoComponent } from "../Account/account-info/account-info.component";
 import { AccountEffects } from "../Account/account-info/account-info.store.effect";
 
-import { EditorModule } from '@tinymce/tinymce-angular';
+import { EditorModule, TINYMCE_SCRIPT_SRC } from "@tinymce/tinymce-angular";
 
 @NgModule({
   declarations: [
@@ -389,6 +389,9 @@ import { EditorModule } from '@tinymce/tinymce-angular';
     EffectsModule.forFeature([UserListEffects]),
 
     EffectsModule.forFeature([AccountEffects]),
+  ],
+  providers: [
+    { provide: TINYMCE_SCRIPT_SRC, useValue: "tinymce/tinymce.min.js" },
   ],
 })
 export class AdminModule {}

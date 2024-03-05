@@ -4,253 +4,12 @@
       <div class="row">
         <h2
           mat-form-label
-          style="font-weight: heavy; font-size: 16px; margin-bottom: 0px"
-        >
-          Thêm thông tin lịnh trình ăn uống
-        </h2>
-      </div>
-      <div class="row">
-        <mat-form-field
-          class="example-chip-list"
-          appearance="outline"
-          class="full-width-input"
-        >
-          <mat-label>Danh sách lịch trình nơi ăn uống</mat-label>
-          <mat-chip-grid #chipGrid aria-label="Fruit selection">
-            <mat-chip-row
-              *ngFor="let eating of eatingNameList"
-              (removed)="remove(eating)"
-              style="font-size: 16px"
-            >
-              {{ eating }}
-              <button matChipRemove [attr.aria-label]="'remove ' + eating">
-                <mat-icon>cancel</mat-icon>
-              </button>
-            </mat-chip-row>
-          </mat-chip-grid>
-
-          <input
-            *ngIf="eatingNameList.length < 1"
-            placeholder="New Category..."
-            #eatingInput
-            [formControl]="eatingCtrl"
-            [matChipInputFor]="chipGrid"
-            [matAutocomplete]="auto"
-            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-            (matChipInputTokenEnd)="add($event)"
-          />
-
-          <mat-autocomplete
-            #auto="matAutocomplete"
-            (optionSelected)="selected($event)"
-            (optionsScroll)="onScroll($event)"
-          >
-            <mat-option
-              *ngFor="let eating of data"
-              [value]="eating"
-              [disabled]="isChecked(eating)"
-            >
-              <div>
-                <div style="font-weight: bold">
-                  {{ eating.placeBranch }}
-                  <mat-icon>{{ isChecked(eating) && "checked" }}</mat-icon>
-                </div>
-
-                <small>{{ onDisplayAtr(eating) }}</small>
-              </div>
-            </mat-option>
-          </mat-autocomplete>
-        </mat-form-field>
-      </div>
-
-      <div *ngIf="eatingNameList.length >= 1" [formGroup]="eatingFormGroup">
-        <div class="row">
-          <h4
-            mat-form-label
-            style="font-weight: bold; text-decoration: underline"
-          >
-            Thêm thông tin nơi ăn uống
-          </h4>
-        </div>
-
-        <div class="row">
-          <mat-form-field appearance="outline" class="full-width-input">
-            <mat-label>Tình trạng</mat-label>
-            <select matNativeControl required (change)="changeStatus($event)">
-              <option value="0">Mới tạo</option>
-              <option value="1">Đang thực hiện</option>
-              <option value="2">Hoàn thành</option>
-              <option value="2">Hủy</option>
-            </select>
-          </mat-form-field>
-        </div>
-
-        <div class="row">
-          <mat-form-field appearance="outline" class="full-width-input">
-            <mat-label>Địa chỉ nơi uống</mat-label>
-            <input
-              matInput
-              fullwidth
-              placeholder="Vd: Bồ Công Anh"
-              formControlName="address"
-            />
-          </mat-form-field>
-          <app-validation
-            *ngIf="isSubmit"
-            [formGroup]="eatingFormGroup"
-            [formGroupControlName]="'address'"
-          ></app-validation>
-        </div>
-
-        <div class="row">
-          <mat-form-field appearance="outline" class="full-width-input">
-            <mat-label>Số diện thoại hỗ trợ</mat-label>
-            <input
-              matInput
-              fullwidth
-              placeholder="Vd: Bồ Công Anh"
-              formControlName="supportNumber"
-            />
-          </mat-form-field>
-          <app-validation
-            *ngIf="isSubmit"
-            [formGroup]="eatingFormGroup"
-            [formGroupControlName]="'supportNumber'"
-          ></app-validation>
-        </div>
-
-        <div class="row">
-          <mat-form-field appearance="outline" class="full-width-input">
-            <mat-label>Giá đơn vé trung bình</mat-label>
-            <input
-              matInput
-              fullwidth
-              placeholder="Vd: 180.000đ"
-              formControlName="singlePrice"
-            />
-          </mat-form-field>
-          <app-validation
-            *ngIf="isSubmit"
-            [formGroup]="eatingFormGroup"
-            [formGroupControlName]="'singlePrice'"
-          ></app-validation>
-        </div>
-
-        <div class="row">
-          <mat-form-field appearance="outline" class="full-width-input">
-            <mat-label>Ngày bắt đầu</mat-label>
-            <input
-              matInput
-              [ngxMatDatetimePicker]="eatingPicker"
-              placeholder="Choose a date"
-              formControlName="startDate"
-            />
-            <mat-datepicker-toggle
-              matSuffix
-              [for]="$any(eatingPicker)"
-            ></mat-datepicker-toggle>
-            <ngx-mat-datetime-picker
-              #eatingPicker
-              [showSpinners]="true"
-              [showSeconds]="true"
-              [touchUi]="touchUi"
-              [color]="color"
-              [enableMeridian]="enableMeridian"
-            >
-            </ngx-mat-datetime-picker>
-          </mat-form-field>
-          <app-validation
-            *ngIf="isSubmit"
-            [formGroup]="eatingFormGroup"
-            [formGroupControlName]="'startDate'"
-          ></app-validation>
-        </div>
-
-        <div class="row">
-          <mat-form-field appearance="outline" class="full-width-input">
-            <mat-label>Ngày kết thúc</mat-label>
-            <input
-              matInput
-              [ngxMatDatetimePicker]="picker"
-              placeholder="Choose a date"
-              formControlName="endDate"
-            />
-            <mat-datepicker-toggle
-              matSuffix
-              [for]="$any(picker)"
-            ></mat-datepicker-toggle>
-            <ngx-mat-datetime-picker
-              #picker
-              [showSpinners]="true"
-              [showSeconds]="true"
-              [touchUi]="touchUi"
-              [color]="color"
-              [enableMeridian]="enableMeridian"
-            >
-            </ngx-mat-datetime-picker>
-          </mat-form-field>
-          <app-validation
-            *ngIf="isSubmit"
-            [formGroup]="eatingFormGroup"
-            [formGroupControlName]="'endDate'"
-          ></app-validation>
-        </div>
-
-        <div
-          class="row"
-          style="display: flex; flex-direction: column !important; flex-wrap: 1"
-        >
-          <mat-form-field style="width: 80%">
-            <textarea
-              matInput
-              class="form-control"
-              id="description"
-              placeholder="Thông tin đính kèm"
-              formControlName="description"
-              rows="10"
-            ></textarea>
-          </mat-form-field>
-          <app-validation
-            *ngIf="isSubmit"
-            [formGroup]="eatingFormGroup"
-            [formGroupControlName]="'description'"
-          ></app-validation>
-        </div>
-
-        <div
-          class="row"
-          style="display: flex; flex-direction: row !important; flex-wrap: 1"
-        >
-          <div style="margin-right: 20px">
-            <button
-              mat-raised-button
-              color="primary"
-              type="button"
-              (click)="addToSchedule()"
-            >
-              Thêm
-            </button>
-          </div>
-
-          <div>
-            <button
-              mat-raised-button
-              color="warn"
-              type="button"
-              (click)="this.formReset()"
-            >
-              Khôi phục
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
-      <div class="row">
-        <h2
-          mat-form-label
-          style="font-weight: heavy; font-size: 16px; margin-bottom: 0px"
+          style="
+            font-weight: heavy;
+            font-size: 16px;
+            margin-bottom: 0px;
+            margin-left: 20px;
+          "
         >
           Danh sách lịch trình nơi ăn uống
         </h2>
@@ -258,6 +17,7 @@
 
       <div
         class="row"
+        style="margin-left: 20px"
         *ngIf="eatingScheduleList.length < 1 && data_selected.length < 1"
       >
         <mat-chip color="warn" style="font-size: 16px"
@@ -440,166 +200,159 @@
         margin-top: 30px;
       "
     >
-      <form [formGroup]="editEatingFormGroup">
-        <div class="row">
-          <h4
-            mat-form-label
-            style="font-weight: bold; text-decoration: underline"
-          >
-            Chỉnh sửa thông tin lịch trình
-          </h4>
-        </div>
-        <div class="row">
-          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
-            <div class="row">
-              <mat-form-field appearance="outline" class="full-width-input">
-                <mat-label>Tình trạng</mat-label>
-                <select matNativeControl required (change)="changeStatusExist($event)">
-                  <option value="0">Mới tạo</option>
-                  <option value="1">Đang thực hiện</option>
-                  <option value="2">Hoàn thành</option>
-                  <option value="2">Hủy</option>
-                </select>
-              </mat-form-field>
-            </div>
-
-            <div class="row">
-              <mat-form-field appearance="outline" class="full-width-input">
-                <mat-label>Địa chỉ nơi ăn uống</mat-label>
-                <input
-                  matInput
-                  fullwidth
-                  placeholder="Vd: Bồ Công Anh"
-                  formControlName="address"
-                />
-              </mat-form-field>
-              <app-validation
-                *ngIf="isSubmit"
-                [formGroup]="editEatingFormGroup"
-                [formGroupControlName]="'address'"
-              ></app-validation>
-            </div>
-
-            <div class="row">
-              <mat-form-field appearance="outline" class="full-width-input">
-                <mat-label>Số diện thoại hỗ trợ</mat-label>
-                <input
-                  matInput
-                  fullwidth
-                  placeholder="Vd: Bồ Công Anh"
-                  formControlName="supportNumber"
-                />
-              </mat-form-field>
-              <app-validation
-                *ngIf="isSubmit"
-                [formGroup]="editEatingFormGroup"
-                [formGroupControlName]="'supportNumber'"
-              ></app-validation>
-            </div>
-
-            <div class="row">
-              <mat-form-field appearance="outline" class="full-width-input">
-                <mat-label>Giá đơn vé trung bình</mat-label>
-                <input
-                  matInput
-                  fullwidth
-                  placeholder="Vd: 180.000đ"
-                  formControlName="singlePrice"
-                />
-              </mat-form-field>
-              <app-validation
-                *ngIf="isSubmit"
-                [formGroup]="editEatingFormGroup"
-                [formGroupControlName]="'singlePrice'"
-              ></app-validation>
-            </div>
+      <div class="row">
+        <h4
+          mat-form-label
+          style="font-weight: bold; text-decoration: underline"
+        >
+          Chỉnh sửa thông tin lịch trình
+        </h4>
+      </div>
+      <div class="row" [formGroup]="editEatingFormGroup">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form">
+          <div class="row">
+            <mat-form-field appearance="outline" class="full-width-input">
+              <mat-label>Tình trạng</mat-label>
+              <select
+                matNativeControl
+                required
+                (change)="changeStatusExist($event)"
+              >
+                <option value="0">Mới tạo</option>
+                <option value="1">Đang thực hiện</option>
+                <option value="2">Hoàn thành</option>
+                <option value="2">Hủy</option>
+              </select>
+            </mat-form-field>
           </div>
 
-          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
-            <div class="row">
-              <mat-form-field appearance="outline" class="full-width-input">
-                <mat-label>Ngày bắt đầu</mat-label>
-                <input
-                  matInput
-                  [ngxMatDatetimePicker]="eatingPicker"
-                  placeholder="Choose a date"
-                  formControlName="startDate"
-                />
-                <mat-datepicker-toggle
-                  matSuffix
-                  [for]="$any(eatingPicker)"
-                ></mat-datepicker-toggle>
-                <ngx-mat-datetime-picker
-                  #eatingPicker
-                  [showSpinners]="true"
-                  [showSeconds]="true"
-                  [touchUi]="touchUi"
-                  [color]="color"
-                  [enableMeridian]="enableMeridian"
-                >
-                </ngx-mat-datetime-picker>
-              </mat-form-field>
-              <app-validation
-                *ngIf="isSubmit"
-                [formGroup]="editEatingFormGroup"
-                [formGroupControlName]="'startDate'"
-              ></app-validation>
-            </div>
+          <div class="row">
+            <mat-form-field appearance="outline" class="full-width-input">
+              <mat-label>Địa chỉ nơi ăn uống</mat-label>
+              <input
+                matInput
+                fullwidth
+                placeholder="Vd: Bồ Công Anh"
+                formControlName="address"
+              />
+            </mat-form-field>
+            <app-validation
+              *ngIf="isSubmit"
+              [formGroup]="editEatingFormGroup"
+              [formGroupControlName]="'address'"
+            ></app-validation>
+          </div>
 
-            <div class="row">
-              <mat-form-field appearance="outline" class="full-width-input">
-                <mat-label>Ngày kết thúc</mat-label>
-                <input
-                  matInput
-                  [ngxMatDatetimePicker]="picker"
-                  placeholder="Choose a date"
-                  formControlName="endDate"
-                />
-                <mat-datepicker-toggle
-                  matSuffix
-                  [for]="$any(picker)"
-                ></mat-datepicker-toggle>
-                <ngx-mat-datetime-picker
-                  #picker
-                  [showSpinners]="true"
-                  [showSeconds]="true"
-                  [touchUi]="touchUi"
-                  [color]="color"
-                  [enableMeridian]="enableMeridian"
-                >
-                </ngx-mat-datetime-picker>
-              </mat-form-field>
-              <app-validation
-                *ngIf="isSubmit"
-                [formGroup]="editEatingFormGroup"
-                [formGroupControlName]="'endDate'"
-              ></app-validation>
-            </div>
+          <div class="row">
+            <mat-form-field appearance="outline" class="full-width-input">
+              <mat-label>Số diện thoại hỗ trợ</mat-label>
+              <input
+                matInput
+                fullwidth
+                placeholder="Vd: Bồ Công Anh"
+                formControlName="supportNumber"
+              />
+            </mat-form-field>
+            <app-validation
+              *ngIf="isSubmit"
+              [formGroup]="editEatingFormGroup"
+              [formGroupControlName]="'supportNumber'"
+            ></app-validation>
+          </div>
+
+          <div class="row">
+            <mat-form-field appearance="outline" class="full-width-input">
+              <mat-label>Giá đơn vé trung bình</mat-label>
+              <input
+                matInput
+                fullwidth
+                placeholder="Vd: 180.000đ"
+                formControlName="singlePrice"
+              />
+            </mat-form-field>
+            <app-validation
+              *ngIf="isSubmit"
+              [formGroup]="editEatingFormGroup"
+              [formGroupControlName]="'singlePrice'"
+            ></app-validation>
           </div>
         </div>
 
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
+          <div class="row">
+            <mat-form-field appearance="outline" class="full-width-input">
+              <mat-label>Ngày bắt đầu</mat-label>
+              <input
+                matInput
+                [ngxMatDatetimePicker]="eatingPicker"
+                placeholder="Choose a date"
+                formControlName="startDate"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="$any(eatingPicker)"
+              ></mat-datepicker-toggle>
+              <ngx-mat-datetime-picker
+                #eatingPicker
+                [showSpinners]="true"
+                [showSeconds]="true"
+                [touchUi]="touchUi"
+                [color]="color"
+                [enableMeridian]="enableMeridian"
+              >
+              </ngx-mat-datetime-picker>
+            </mat-form-field>
+            <app-validation
+              *ngIf="isSubmit"
+              [formGroup]="editEatingFormGroup"
+              [formGroupControlName]="'startDate'"
+            ></app-validation>
+          </div>
+
+          <div class="row">
+            <mat-form-field appearance="outline" class="full-width-input">
+              <mat-label>Ngày kết thúc</mat-label>
+              <input
+                matInput
+                [ngxMatDatetimePicker]="picker"
+                placeholder="Choose a date"
+                formControlName="endDate"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="$any(picker)"
+              ></mat-datepicker-toggle>
+              <ngx-mat-datetime-picker
+                #picker
+                [showSpinners]="true"
+                [showSeconds]="true"
+                [touchUi]="touchUi"
+                [color]="color"
+                [enableMeridian]="enableMeridian"
+              >
+              </ngx-mat-datetime-picker>
+            </mat-form-field>
+            <app-validation
+              *ngIf="isSubmit"
+              [formGroup]="editEatingFormGroup"
+              [formGroupControlName]="'endDate'"
+            ></app-validation>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="eatingNameList.length >= 1">
         <div
-          class="row"
+          class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form"
           style="display: flex; flex-direction: column !important; flex-wrap: 1"
         >
-          <editor #filePickerEditor [(ngModel)]="editorContent" [init]="this.tinyMceSetting"></editor>
-          
-          <mat-form-field style="width: 90%">
-            <textarea
-              matInput
-              class="form-control"
-              id="description"
-              placeholder="Thông tin đính kèm"
-              formControlName="description"
-              rows="10"
-            ></textarea>
-          </mat-form-field>
-
-          <app-validation
-            *ngIf="isSubmit"
-            [formGroup]="editEatingFormGroup"
-            [formGroupControlName]="'description'"
-          ></app-validation>
+          <editor
+            style="width: 91% !important"
+            #filePickerEditor
+            [(ngModel)]="editorContent"
+            [init]="this.tinyMceSetting"
+          ></editor>
+          <input type="file" style="visibility: hidden" />
         </div>
 
         <div
@@ -628,7 +381,242 @@
             </button>
           </div>
         </div>
-      </form>
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form">
+      <div class="row">
+        <h2
+          mat-form-label
+          style="
+            font-weight: heavy;
+            font-size: 16px;
+            margin-bottom: 0px;
+            margin-left: 20px;
+          "
+        >
+          Thêm thông tin lịnh trình ăn uống
+        </h2>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
+        <mat-form-field
+          class="example-chip-list"
+          appearance="outline"
+          class="full-width-input"
+        >
+          <mat-label>Danh sách lịch trình nơi ăn uống</mat-label>
+          <mat-chip-grid #chipGrid aria-label="Fruit selection">
+            <mat-chip-row
+              *ngFor="let eating of eatingNameList"
+              (removed)="remove(eating)"
+              style="font-size: 16px"
+            >
+              {{ eating }}
+              <button matChipRemove [attr.aria-label]="'remove ' + eating">
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip-row>
+          </mat-chip-grid>
+
+          <input
+            *ngIf="eatingNameList.length < 1"
+            placeholder="New Category..."
+            #eatingInput
+            [formControl]="eatingCtrl"
+            [matChipInputFor]="chipGrid"
+            [matAutocomplete]="auto"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            (matChipInputTokenEnd)="add($event)"
+          />
+
+          <mat-autocomplete
+            #auto="matAutocomplete"
+            (optionSelected)="selected($event)"
+            (optionsScroll)="onScroll($event)"
+          >
+            <mat-option
+              *ngFor="let eating of data"
+              [value]="eating"
+              [disabled]="isChecked(eating)"
+            >
+              <div>
+                <div style="font-weight: bold">
+                  {{ eating.placeBranch }}
+                  <mat-icon>{{ isChecked(eating) && "checked" }}</mat-icon>
+                </div>
+
+                <small>{{ onDisplayAtr(eating) }}</small>
+              </div>
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+
+      <div *ngIf="eatingNameList.length >= 1" [formGroup]="eatingFormGroup">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Tình trạng</mat-label>
+            <select matNativeControl required (change)="changeStatus($event)">
+              <option value="0">Mới tạo</option>
+              <option value="1">Đang thực hiện</option>
+              <option value="2">Hoàn thành</option>
+              <option value="2">Hủy</option>
+            </select>
+          </mat-form-field>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Địa chỉ nơi uống</mat-label>
+            <input
+              matInput
+              fullwidth
+              placeholder="Vd: Bồ Công Anh"
+              formControlName="address"
+            />
+          </mat-form-field>
+          <app-validation
+            *ngIf="isSubmit"
+            [formGroup]="eatingFormGroup"
+            [formGroupControlName]="'address'"
+          ></app-validation>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Số diện thoại hỗ trợ</mat-label>
+            <input
+              matInput
+              fullwidth
+              placeholder="Vd: Bồ Công Anh"
+              formControlName="supportNumber"
+            />
+          </mat-form-field>
+          <app-validation
+            *ngIf="isSubmit"
+            [formGroup]="eatingFormGroup"
+            [formGroupControlName]="'supportNumber'"
+          ></app-validation>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Giá đơn vé trung bình</mat-label>
+            <input
+              matInput
+              fullwidth
+              placeholder="Vd: 180.000đ"
+              formControlName="singlePrice"
+            />
+          </mat-form-field>
+          <app-validation
+            *ngIf="isSubmit"
+            [formGroup]="eatingFormGroup"
+            [formGroupControlName]="'singlePrice'"
+          ></app-validation>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Ngày bắt đầu</mat-label>
+            <input
+              matInput
+              [ngxMatDatetimePicker]="eatingPicker"
+              placeholder="Choose a date"
+              formControlName="startDate"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="$any(eatingPicker)"
+            ></mat-datepicker-toggle>
+            <ngx-mat-datetime-picker
+              #eatingPicker
+              [showSpinners]="true"
+              [showSeconds]="true"
+              [touchUi]="touchUi"
+              [color]="color"
+              [enableMeridian]="enableMeridian"
+            >
+            </ngx-mat-datetime-picker>
+          </mat-form-field>
+          <app-validation
+            *ngIf="isSubmit"
+            [formGroup]="eatingFormGroup"
+            [formGroupControlName]="'startDate'"
+          ></app-validation>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Ngày kết thúc</mat-label>
+            <input
+              matInput
+              [ngxMatDatetimePicker]="picker"
+              placeholder="Choose a date"
+              formControlName="endDate"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="$any(picker)"
+            ></mat-datepicker-toggle>
+            <ngx-mat-datetime-picker
+              #picker
+              [showSpinners]="true"
+              [showSeconds]="true"
+              [touchUi]="touchUi"
+              [color]="color"
+              [enableMeridian]="enableMeridian"
+            >
+            </ngx-mat-datetime-picker>
+          </mat-form-field>
+          <app-validation
+            *ngIf="isSubmit"
+            [formGroup]="eatingFormGroup"
+            [formGroupControlName]="'endDate'"
+          ></app-validation>
+        </div>
+      </div>
+      <div *ngIf="eatingNameList.length >= 1">
+        <div
+          class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form"
+          style="display: flex; flex-direction: column !important; flex-wrap: 1"
+        >
+          <editor
+            style="width: 91% !important"
+            #filePickerEditor
+            [(ngModel)]="editorContent"
+            [init]="this.tinyMceSetting"
+          ></editor>
+          <input type="file" style="visibility: hidden" />
+        </div>
+
+        <div
+          class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form"
+          style="display: flex; flex-direction: row !important; flex-wrap: 1"
+        >
+          <div style="margin-right: 20px">
+            <button
+              mat-raised-button
+              color="primary"
+              type="button"
+              (click)="addToSchedule()"
+            >
+              Thêm
+            </button>
+          </div>
+
+          <div>
+            <button
+              mat-raised-button
+              color="warn"
+              type="button"
+              (click)="this.formReset()"
+            >
+              Khôi phục
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

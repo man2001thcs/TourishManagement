@@ -582,6 +582,8 @@
           class="row"
           style="display: flex; flex-direction: column !important; flex-wrap: 1"
         >
+          <editor #filePickerEditor [(ngModel)]="editorContent" [init]="this.tinyMceSetting"></editor>
+          
           <mat-form-field style="width: 90%">
             <textarea
               matInput
@@ -592,6 +594,7 @@
               rows="10"
             ></textarea>
           </mat-form-field>
+
           <app-validation
             *ngIf="isSubmit"
             [formGroup]="editEatingFormGroup"

@@ -205,6 +205,8 @@ import { UserListEffects } from "../User/user_list/user-list.store.effect";
 import { AccountInfoComponent } from "../Account/account-info/account-info.component";
 import { AccountEffects } from "../Account/account-info/account-info.store.effect";
 
+import { EditorModule } from '@tinymce/tinymce-angular';
+
 @NgModule({
   declarations: [
     PassengerCarCreateComponent,
@@ -284,6 +286,8 @@ import { AccountEffects } from "../Account/account-info/account-info.store.effec
     MatDatepickerModule,
 
     NbChatModule,
+
+    EditorModule,
 
     StoreModule.forFeature(TourishPlanCreateStoreKey, TourishPlanCreateReducer),
     StoreModule.forFeature(TourishPlanListStoreKey, TourishPlanListReducer),

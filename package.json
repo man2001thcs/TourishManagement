@@ -36,6 +36,7 @@
     "@ngrx/router-store": "^15.1.0",
     "@ngrx/store": "^15.1.0",
     "@popperjs/core": "^2.11.6",
+    "@tinymce/tinymce-angular": "^7.0.0",
     "bootstrap": "^5.3.1",
     "crypto-js": "^4.1.1",
     "eva-icons": "^1.1.3",

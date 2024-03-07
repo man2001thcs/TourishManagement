@@ -32,6 +32,7 @@ import { Hotel, StayingSchedule } from "src/app/model/baseModel";
 
 import moment from "moment";
 import { ThemePalette } from "@angular/material/core";
+declare let tinymce: any;
 
 /**
  * @title Chips Autocomplete
@@ -50,7 +51,9 @@ export class StayingMultiselectAutocompleteComponent implements OnInit {
 
   @Input() data_selected: Array<StayingSchedule> = [];
   @Input() key: string = "";
-
+  tinyMceSetting: any;
+  editorContent = "";
+  
   data_selected_edit: StayingSchedule[] = [];
 
   stayingScheduleList: StayingSchedule[] = [];
@@ -265,7 +268,7 @@ export class StayingMultiselectAutocompleteComponent implements OnInit {
         payload: {
           search: this.searchWord.toLowerCase(),
           page: this.pageIndex + 1,
-          pageSize: 6
+          pageSize: 6,
         },
       })
     );

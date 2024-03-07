@@ -32,7 +32,7 @@ import { PassengerCar, MovingSchedule } from "src/app/model/baseModel";
 
 import moment from "moment";
 import { ThemePalette } from "@angular/material/core";
-
+declare let tinymce: any;
 /**
  * @title Chips Autocomplete
  */
@@ -50,7 +50,9 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
 
   @Input() data_selected: Array<MovingSchedule> = [];
   @Input() key: string = "";
-
+  tinyMceSetting: any;
+  editorContent = "";
+  
   data_selected_edit: MovingSchedule[] = [];
 
   movingScheduleList: MovingSchedule[] = [];
@@ -107,9 +109,7 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
     private messageService: MessageService,
     private fb: FormBuilder
   ) {
-    this.filteredMovings = this.movingCtrl.valueChanges.pipe(
-      debounceTime(400)
-    );
+    this.filteredMovings = this.movingCtrl.valueChanges.pipe(debounceTime(400));
 
     this.movingListState = this.store
       .select(getMovingList)
@@ -237,6 +237,110 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
         },
       })
     );
+
+    this.tinyMceSetting = {
+      base_url: "/tinymce", // Root for resources
+      suffix: ".min", // Suffix to use when loading resources
+      height: 500,
+      menubar: true,
+      file_picker_types: "file image media",
+      plugins: [
+        "advlist",
+        "autolink",
+        "lists",
+        "link",
+        "image",
+        "charmap",
+        "print",
+        "preview",
+        "anchor",
+        "image",
+        "searchreplace",
+        "visualblocks",
+        "code",
+        "fullscreen",
+        "insertdatetime",
+        "media",
+        "table",
+        "paste",
+        "code",
+        "help",
+        "wordcount",
+        "table",
+        "codesample",
+      ],
+      // eslint-disable-next-line
+      font_formats:
+        "Andale Mono=andale mono,times; Arial=arial,helvetica,sans-serif; \
+        Arial Black=arial black,avant garde; Book Antiqua=book antiqua,palatino; \
+        Comic Sans MS=comic sans ms,sans-serif; Courier New=courier new,courier; \
+        Georgia=georgia,palatino; Helvetica=helvetica; Impact=impact,chicago; \
+        Oswald=oswald; Symbol=symbol; Tahoma=tahoma,arial,helvetica,sans-serif; \
+        Terminal=terminal,monaco; Times New Roman=times new roman,times; \
+        Trebuchet MS=trebuchet ms,geneva; Verdana=verdana,geneva; Webdings=webdings; \
+        Wingdings=wingdings,zapf dingbats",
+      toolbar:
+        "undo redo | formatselect | fontsizeselect | fontselect | image \
+        | bold italic underline backcolor | codesample \
+        | alignleft aligncenter alignright alignjustify | \
+        | table tabledelete | tableprops tablerowprops tablecellprops \
+        | tableinsertrowbefore tableinsertrowafter tabledeleterow \
+        | tableinsertcolbefore tableinsertcolafter tabledeletecol \
+        bullist numlist outdent indent | removeformat | fullscreen | help",
+      // eslint-disable-next-line
+      image_title: true,
+      // eslint-disable-next-line
+      automatic_uploads: true,
+      // eslint-disable-next-line
+      // eslint-disable-next-line
+      file_picker_callback(cb: any, value: any, meta: any): void {
+        // eslint-disable-next-line
+
+        const element: HTMLInputElement | null =
+          document.querySelector('input[type="file"]');
+
+        if (element) {
+          const fileSelectedPromise = new Promise<File | null>((resolve) => {
+            element.onchange = () => {
+              const file = element.files?.[0];
+              resolve(file ?? null);
+            };
+          });
+
+          // Trigger the click event
+          element.click();
+
+          // Wait for the promise to resolve
+          fileSelectedPromise.then((file) => {
+            console.log("No file selected");
+            if (file) {
+              // Handle the selected file, for example, log its details
+              const reader = new FileReader();
+              reader.onload = () => {
+                const id = "blobid" + new Date().getTime();
+                const blobCache = tinymce.activeEditor.editorUpload.blobCache;
+                if (reader.result !== null) {
+                  const base64 = (reader.result as string).split(",")[1];
+                  const blobInfo = blobCache.create(id, file, base64);
+                  blobCache.add(blobInfo);
+
+                  /* call the callback and populate the Title field with the file name */
+                  cb(blobInfo.blobUri(), { title: file.name });
+                }
+              };
+              reader.readAsDataURL(file);
+
+              // You can perform additional logic or trigger further actions with the file here
+            } else {
+              console.log("No file selected");
+            }
+          });
+        }
+      },
+      // eslint-disable-next-line
+      content_style:
+        "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+    };
   }
 
   ngOnDestroy(): void {
@@ -269,7 +373,7 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
           search: this.searchWord.toLowerCase(),
           page: this.pageIndex + 1,
           pageSize: 6,
-          movingType: this.movingType
+          movingType: this.movingType,
         },
       })
     );
@@ -348,11 +452,9 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
 
       this.movingScheduleList = [schedule, ...this.movingScheduleList];
 
-      this.movingScheduleList.sort(
-        (a: MovingSchedule, b: MovingSchedule) => {
-          return moment(a.startDate).valueOf() - moment(b.startDate).valueOf();
-        }
-      );
+      this.movingScheduleList.sort((a: MovingSchedule, b: MovingSchedule) => {
+        return moment(a.startDate).valueOf() - moment(b.startDate).valueOf();
+      });
 
       this.emitAdjustedData();
       this.formReset();
@@ -410,14 +512,11 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
   }
 
   editToSchedulesList() {
-    if (
-      this.indexMovingScheduleEdit > -1 &&
-      this.movingScheduleEdit != null
-    ) {
+    if (this.indexMovingScheduleEdit > -1 && this.movingScheduleEdit != null) {
       this.data_selected_edit[this.indexMovingScheduleEdit] = {
         driverName: this.editMovingFormGroup.value.driverName,
         branchName: this.editMovingFormGroup.value.branchName,
-        vehiclePlate :this.editMovingFormGroup.value.vehiclePlate,
+        vehiclePlate: this.editMovingFormGroup.value.vehiclePlate,
         phoneNumber: this.editMovingFormGroup.value.phoneNumber,
 
         transportId: this.editMovingFormGroup.value.transportId,
@@ -447,9 +546,7 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
   }
 
   removeSchedule(id: string): void {
-    var index = this.movingScheduleList.findIndex(
-      (entity) => entity.id === id
-    );
+    var index = this.movingScheduleList.findIndex((entity) => entity.id === id);
 
     if (index > -1) {
       console.log(this.movingScheduleList[index]);

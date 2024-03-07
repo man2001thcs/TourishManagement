@@ -6,9 +6,7 @@
 .container-fluid {
   display: flex;
   flex-direction: row !important;
-
   flex-wrap: wrap;
-
   justify-content: space-evenly;
   width: 100%;
   align-items: center;
@@ -61,28 +59,33 @@ img.img-logo {
   max-height: 50px;
 }
 
+.title-nav {
+  background-color: #2A3650; width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 112px;
+}
+
 .sidenav {
-  padding-left: 40px;
-  padding-right: 40px;
+  box-shadow: 0 0 21px 0 rgba(89, 102, 122, 0.1);
+  word-break: keep-all !important;
   height: 100%;
   width: 340px;
   position: fixed;
   z-index: 1;
-  top: 25px;
+  top: 0;
   left: 0;
   background-color: #ffffff;
   overflow-x: hidden !important;
+  overflow-y: hidden;
   transition: 0.5s;
   flex-direction: column;
-
-  overflow-y: auto;
-
   display: flex;
   align-items: center;
   flex-grow: 0;
   opacity: 1;
 
-  margin-top: 10px;
 
   margin-bottom: 20px;
 
@@ -90,17 +93,30 @@ img.img-logo {
   border-bottom-left-radius: 20px;
 }
 
+.sidenav .sideNavContent {
+  overflow-y: auto;
+  width: 100%;
+  padding: 0 0 20px 0;
+  background-color: #2A3650 !important;
+}
+
 .sidenav .sideNavContent .sidenavCategory {
+  background-color: #2A3650 !important;
+  white-space: nowrap;
   width: 100%;
   flex-direction: column;
   display: flex;
   overflow-x: hidden !important;
   margin-bottom: 15px;
-  border-bottom: 3px solid #696868;
+  border-bottom: 1px solid #666666;
+}
+
+mat-expansion-panel {
+  background-color: #2A3650 !important;
 }
 
 .sidenav .sideNavContent .sidenavCategory:first-child {
-  border-top: 3px solid #696868;
+  border-top: 1px solid #666666;;
 }
 
 .autocomplete-search {
@@ -159,6 +175,14 @@ img.img-logo {
 
 button {
   font-size: 16px;
+  font-weight: bolder;
+  color: #6B7383;
+}
+
+.nav-pills .nav-link.active {
+  color: white; /* Font color when active */
+  background-color: #374462;
+  width: 100%;
 }
 
 ::ng-deep .mat-form-field-outline-start {

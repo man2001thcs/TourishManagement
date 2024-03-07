@@ -2,7 +2,7 @@
     padding-top: 2% !important;
     padding-bottom: 2% !important;
     background-color: #FAFAFA;
-    min-height: 550px !important;
+    min-height: 100% !important;
     padding-left: 5%;
     padding-right: 5%;
     transition: 0.5s;
@@ -13,5 +13,6 @@
     transition: 0.5s;
     opacity: 1;
     margin-left: 340px;  
+    height: 75%;
   }
   

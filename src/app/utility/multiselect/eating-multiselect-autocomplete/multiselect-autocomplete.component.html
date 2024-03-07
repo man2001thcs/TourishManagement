@@ -210,7 +210,7 @@
       </div>
       <div class="row" [formGroup]="editEatingFormGroup">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form">
-          <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
             <mat-form-field appearance="outline" class="full-width-input">
               <mat-label>Tình trạng</mat-label>
               <select
@@ -226,7 +226,7 @@
             </mat-form-field>
           </div>
 
-          <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
             <mat-form-field appearance="outline" class="full-width-input">
               <mat-label>Địa chỉ nơi ăn uống</mat-label>
               <input
@@ -243,7 +243,7 @@
             ></app-validation>
           </div>
 
-          <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
             <mat-form-field appearance="outline" class="full-width-input">
               <mat-label>Số diện thoại hỗ trợ</mat-label>
               <input
@@ -260,7 +260,7 @@
             ></app-validation>
           </div>
 
-          <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
             <mat-form-field appearance="outline" class="full-width-input">
               <mat-label>Giá đơn vé trung bình</mat-label>
               <input
@@ -278,8 +278,8 @@
           </div>
         </div>
 
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
-          <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form">
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
             <mat-form-field appearance="outline" class="full-width-input">
               <mat-label>Ngày bắt đầu</mat-label>
               <input
@@ -309,7 +309,7 @@
             ></app-validation>
           </div>
 
-          <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
             <mat-form-field appearance="outline" class="full-width-input">
               <mat-label>Ngày kết thúc</mat-label>
               <input
@@ -341,7 +341,7 @@
         </div>
       </div>
 
-      <div *ngIf="eatingNameList.length >= 1">
+      <div *ngIf="eatingScheduleEdit != null">
         <div
           class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form"
           style="display: flex; flex-direction: column !important; flex-wrap: 1"
@@ -384,7 +384,7 @@
       </div>
     </div>
 
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form" *ngIf="eatingScheduleEdit == null">
       <div class="row">
         <h2
           mat-form-label

@@ -58,7 +58,7 @@ export class EatingMultiselectAutocompleteComponent implements OnInit {
 
   eatingScheduleList: EatSchedule[] = [];
 
-  eatingScheduleEdit!: EatSchedule | null;
+  eatingScheduleEdit: EatSchedule | null = null;
   indexEatScheduleEdit: number = -1;
 
   eatingIdList: string[] = [];
@@ -401,6 +401,11 @@ export class EatingMultiselectAutocompleteComponent implements OnInit {
     this.isSubmit = true;
     console.log(this.eatingFormGroup.errors);
     console.log(this.eatingFormGroup.valid);
+
+    this.eatingFormGroup.controls["description"].setValue(
+      this.editorContent
+    );
+
     if (this.eatingFormGroup.valid && this.eatingFormGroup.dirty) {
       const schedule: EatSchedule = {
         placeName: this.eatingFormGroup.value.placeName,

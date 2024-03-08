@@ -6,6 +6,7 @@ import {
   OnDestroy,
   OnInit,
   Output,
+  Renderer2,
   ViewChild,
 } from "@angular/core";
 import {
@@ -59,7 +60,8 @@ export class HeaderAdminComponent implements OnDestroy {
     private dialog: MatDialog,
     private tokenService: TokenStorageService,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private renderer: Renderer2
   ) {}
 
   id = 0;
@@ -126,26 +128,27 @@ export class HeaderAdminComponent implements OnDestroy {
   }
 
   openNav() {
-    if (window.screen.width >= 650){
+    console.log(window.innerWidth);
+
+    if (window.innerWidth >= 850){
       this.myNameElem.nativeElement.style.width = "340px";
       this.myNameElem.nativeElement.style["margin-right"] = "0px";
-      this.myNameElem.nativeElement.style["padding-top"] = "25px";
+      this.myNameElem.nativeElement.style["padding-top"] = "0px";
       this.myNameElem.nativeElement.style["padding-left"] = "0px";
       this.myNameElem.nativeElement.style["padding-right"] = "0px";
       this.myNameElem.nativeElement.style["border-bottom"] = "2px solid #EDF1F7";
-      this.myNameElem.nativeElement.style["border-left"] = "2px solid #EDF1F7";
-      this.myNameElem.nativeElement.style["border-right"] = "2px solid #EDF1F7";
-      
-      this.headerElem.nativeElement.style["width"] = "100%";
+      this.myNameElem.nativeElement.style["border-right"] = "2px solid #EDF1F7";      
     } else {
-      this.myNameElem.nativeElement.style.width = "100%";
+      console.log("abc");
+      this.renderer.setStyle(this.myNameElem.nativeElement, 'width', '100%');
+
+      //this.myNameElem.nativeElement.style.width = "100%";
       this.myNameElem.nativeElement.style["margin-top"] = "0px";
       this.myNameElem.nativeElement.style["margin-right"] = "0px";
-      this.myNameElem.nativeElement.style["padding-top"] = "25px";
+      this.myNameElem.nativeElement.style["padding-top"] = "0px";
       this.myNameElem.nativeElement.style["padding-left"] = "40px";
       this.myNameElem.nativeElement.style["padding-right"] = "25px";
       this.myNameElem.nativeElement.style["border-bottom"] = "2px solid #EDF1F7";
-      this.myNameElem.nativeElement.style["border-left"] = "2px solid #EDF1F7";
       this.myNameElem.nativeElement.style["border-right"] = "2px solid #EDF1F7";
     }
 
@@ -154,7 +157,7 @@ export class HeaderAdminComponent implements OnDestroy {
   }
 
   closeNav() {
-    this.myNameElem.nativeElement.style.width = "0";
+    this.myNameElem.nativeElement.style.width = "80px";
     this.myNameElem.nativeElement.style["margin-right"] = "0px";
     this.myNameElem.nativeElement.style["margin-top"] = "0px";
     this.myNameElem.nativeElement.style["padding-left"] = "0px";

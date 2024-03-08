@@ -64,33 +64,29 @@ img.img-logo {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 112px;
+  height: 105px;
 }
 
 .sidenav {
-  box-shadow: 0 0 21px 0 rgba(89, 102, 122, 0.1);
-  word-break: keep-all !important;
+  background-color: #2A3650 !important;
+  /* box-shadow: 0 0 21px 0 rgba(89, 102, 122, 0.1);
+  word-break: keep-all !important; */
   height: 100%;
   width: 340px;
   position: fixed;
-  z-index: 1;
+  z-index: 2;
   top: 0;
   left: 0;
   background-color: #ffffff;
   overflow-x: hidden !important;
   overflow-y: hidden;
   transition: 0.5s;
-  flex-direction: column;
+  /* flex-direction: column;
   display: flex;
   align-items: center;
-  flex-grow: 0;
+  flex-grow: 0; */
   opacity: 1;
-
-
   margin-bottom: 20px;
-
-  border-end-end-radius: 20px;
-  border-bottom-left-radius: 20px;
 }
 
 .sidenav .sideNavContent {
@@ -179,6 +175,10 @@ button {
   color: #6B7383;
 }
 
+::ng-deep .mat-expansion-panel-body {
+  padding: 0 0px 16px !important;
+}
+
 .nav-pills .nav-link.active {
   color: white; /* Font color when active */
   background-color: #374462;
@@ -215,5 +215,15 @@ button {
   }
   .sidenav a {
     font-size: 18px;
+  }
+
+  .searchInput {
+    max-width: 400px !important;
+  }
+}
+
+@media screen and (max-height: 850px) {
+  .searchInput {
+    max-width: 600px !important;
   }
 }

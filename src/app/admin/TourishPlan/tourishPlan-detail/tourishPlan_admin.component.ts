@@ -205,7 +205,7 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
 
     this.subscriptions.push(
       this.errorMessageState.subscribe((state) => {
-        if (state) {
+        if (state !== "" && state !== null) {
           this.messageService.closeAllDialog();
           this.messageService.openMessageNotifyDialog(state);
         }
@@ -214,7 +214,7 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
 
     this.subscriptions.push(
       this.errorSystemState.subscribe((state) => {
-        if (state) {
+        if (state !== "" && state !== null) {
           this.messageService.closeAllDialog();
           this.messageService.openSystemFailNotifyDialog(state);
         }

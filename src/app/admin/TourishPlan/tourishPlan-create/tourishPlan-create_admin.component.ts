@@ -137,8 +137,8 @@ export class TourishPlanCreateAdminComponent
 
     this.subscriptions.push(
       this.errorMessageState.subscribe((state) => {
-        if (state) {
-          this.messageService.closeLoadingDialog();
+        if (state !== "" && state !== null) {
+          this.messageService.closeAllDialog();
           this.messageService.openMessageNotifyDialog(state);
         }
       })

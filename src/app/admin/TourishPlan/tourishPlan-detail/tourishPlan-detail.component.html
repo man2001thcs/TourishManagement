@@ -1,46 +1,68 @@
 <div class="container" style="padding: 20px 0 20px">
-  <div class="outlet" style="
+  <div class="container-controller">
+    <div class="row" style="display: flex; flex-direction: row !important; flex-wrap: 1">
+      <div style="margin-right: 20px">
+        <button mat-raised-button color="primary" (click)="saveInfomation()">
+          Lưu thay đổi
+        </button>
+      </div>
+
+      <div>
+        <button mat-raised-button color="warn" type="button" (click)="formReset_create_info()">
+          Khôi phục ban đầu
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="outlet"
+    style="
       display: flex;
       justify-content: center;
       width: 100%;
       flex-direction: column !important;
       background-color: white;
       padding-bottom: 40px;
-    ">
-    <div class="row" style="
+    "
+  >
+    <div
+      class="row"
+      style="
         display: flex;
         flex-direction: column !important;
         flex-wrap: 1;
         padding-left: 90px !important;
-      ">
+      "
+    >
       <div class="row">
-        <h2 mat-form-label style="font-weight: heavy">Chỉnh sửa thông tin Tour</h2>
+        <h2 mat-form-label style="font-weight: heavy">
+          Chỉnh sửa thông tin Tour
+        </h2>
       </div>
 
-      <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs" style="margin-bottom: 20px;">
+      <ul
+        ngbNav
+        #nav="ngbNav"
+        [(activeId)]="active"
+        class="nav-tabs"
+        style="margin-bottom: 20px"
+      >
         <li [ngbNavItem]="1">
           <button ngbNavLink>Thông tin tour</button>
-          <ng-template ngbNavContent>
-
-          </ng-template>
+          <ng-template ngbNavContent> </ng-template>
         </li>
         <li [ngbNavItem]="2">
           <button ngbNavLink>Lịch trình ăn uống</button>
-          <ng-template ngbNavContent>
-
-          </ng-template>
+          <ng-template ngbNavContent> </ng-template>
         </li>
         <li [ngbNavItem]="3">
           <button ngbNavLink>Lịch trình di chuyển</button>
-          <ng-template ngbNavContent>
-
-          </ng-template>
+          <ng-template ngbNavContent> </ng-template>
         </li>
         <li [ngbNavItem]="4">
           <button ngbNavLink>Lịch trình nơi ở</button>
-          <ng-template ngbNavContent>
-
-          </ng-template>
+          <ng-template ngbNavContent> </ng-template>
         </li>
       </ul>
 
@@ -50,41 +72,67 @@
             <div class="row" style="margin-bottom: 1rem">
               <mat-form-field appearance="outline" class="full-width-input">
                 <mat-label>Tên tour</mat-label>
-                <input matInput fullwidth placeholder="Vd: Bồ Công Anh" formControlName="tourName" />
+                <input
+                  matInput
+                  fullwidth
+                  placeholder="Vd: Bồ Công Anh"
+                  formControlName="tourName"
+                />
               </mat-form-field>
 
               <div style="margin-top: -20px; margin-bottom: 10px">
-                <app-validation *ngIf="
+                <app-validation
+                  *ngIf="
                     this.editformGroup_info.get('tourName')?.errors &&
                     (editformGroup_info.get('tourName')?.touched || isSubmitted)
-                  " [formGroup]="editformGroup_info" [formGroupControlName]="'tourName'"></app-validation>
+                  "
+                  [formGroup]="editformGroup_info"
+                  [formGroupControlName]="'tourName'"
+                ></app-validation>
               </div>
             </div>
 
             <div class="row" style="margin-bottom: 1rem">
               <mat-form-field appearance="outline" class="full-width-input">
                 <mat-label>Điểm xuất phát</mat-label>
-                <input matInput placeholder="Vd: Hà Nội" formControlName="startingPoint" />
+                <input
+                  matInput
+                  placeholder="Vd: Hà Nội"
+                  formControlName="startingPoint"
+                />
               </mat-form-field>
               <div style="margin-top: -20px; margin-bottom: 10px">
-                <app-validation *ngIf="
+                <app-validation
+                  *ngIf="
                     this.editformGroup_info.get('startingPoint')?.errors &&
                     (editformGroup_info.get('startingPoint')?.touched ||
                       isSubmitted)
-                  " [formGroup]="editformGroup_info" [formGroupControlName]="'startingPoint'"></app-validation>
+                  "
+                  [formGroup]="editformGroup_info"
+                  [formGroupControlName]="'startingPoint'"
+                ></app-validation>
               </div>
             </div>
 
             <div class="row" style="margin-bottom: 1rem">
               <mat-form-field appearance="outline" class="full-width-input">
                 <mat-label>Điểm kết thúc</mat-label>
-                <input matInput placeholder="Đà Nẵng" formControlName="endingPoint" />
+                <input
+                  matInput
+                  placeholder="Đà Nẵng"
+                  formControlName="endingPoint"
+                />
               </mat-form-field>
               <div style="margin-top: -20px; margin-bottom: 10px">
-                <app-validation *ngIf="
+                <app-validation
+                  *ngIf="
                     this.editformGroup_info.get('endingPoint')?.errors &&
-                    (editformGroup_info.get('endingPoint')?.touched || isSubmitted)
-                  " [formGroup]="editformGroup_info" [formGroupControlName]="'endingPoint'"></app-validation>
+                    (editformGroup_info.get('endingPoint')?.touched ||
+                      isSubmitted)
+                  "
+                  [formGroup]="editformGroup_info"
+                  [formGroupControlName]="'endingPoint'"
+                ></app-validation>
               </div>
             </div>
           </div>
@@ -93,41 +141,66 @@
             <div class="row" style="margin-bottom: 1rem">
               <mat-form-field appearance="outline" class="full-width-input">
                 <mat-label>Số điện thoại hỗ trợ</mat-label>
-                <input matInput placeholder="VD: 0354324599" formControlName="supportNumber" />
+                <input
+                  matInput
+                  placeholder="VD: 0354324599"
+                  formControlName="supportNumber"
+                />
               </mat-form-field>
               <div style="margin-top: -20px; margin-bottom: 10px">
-                <app-validation *ngIf="
+                <app-validation
+                  *ngIf="
                     this.editformGroup_info.get('supportNumber')?.errors &&
                     (editformGroup_info.get('supportNumber')?.touched ||
                       isSubmitted)
-                  " [formGroup]="editformGroup_info" [formGroupControlName]="'supportNumber'"></app-validation>
+                  "
+                  [formGroup]="editformGroup_info"
+                  [formGroupControlName]="'supportNumber'"
+                ></app-validation>
               </div>
             </div>
 
             <div class="row" style="margin-bottom: 1rem">
               <mat-form-field appearance="outline" class="full-width-input">
                 <mat-label>Tổng số vé</mat-label>
-                <input matInput placeholder="Vd: 10" formControlName="totalTicket" />
+                <input
+                  matInput
+                  placeholder="Vd: 10"
+                  formControlName="totalTicket"
+                />
               </mat-form-field>
               <div style="margin-top: -20px; margin-bottom: 10px">
-                <app-validation *ngIf="
+                <app-validation
+                  *ngIf="
                     this.editformGroup_info.get('totalTicket')?.errors &&
-                    (editformGroup_info.get('totalTicket')?.touched || isSubmitted)
-                  " [formGroup]="editformGroup_info" [formGroupControlName]="'totalTicket'"></app-validation>
+                    (editformGroup_info.get('totalTicket')?.touched ||
+                      isSubmitted)
+                  "
+                  [formGroup]="editformGroup_info"
+                  [formGroupControlName]="'totalTicket'"
+                ></app-validation>
               </div>
             </div>
 
             <div class="row" style="margin-bottom: 1rem">
               <mat-form-field appearance="outline" class="full-width-input">
                 <mat-label>Số vé còn lại</mat-label>
-                <input matInput placeholder="Vd: 2" formControlName="remainTicket" />
+                <input
+                  matInput
+                  placeholder="Vd: 2"
+                  formControlName="remainTicket"
+                />
               </mat-form-field>
               <div style="margin-top: -20px; margin-bottom: 10px">
-                <app-validation *ngIf="
+                <app-validation
+                  *ngIf="
                     this.editformGroup_info.get('remainTicket')?.errors &&
                     (editformGroup_info.get('remainTicket')?.touched ||
                       isSubmitted)
-                  " [formGroup]="editformGroup_info" [formGroupControlName]="'remainTicket'"></app-validation>
+                  "
+                  [formGroup]="editformGroup_info"
+                  [formGroupControlName]="'remainTicket'"
+                ></app-validation>
               </div>
             </div>
           </div>
@@ -138,17 +211,29 @@
             <div class="row" style="margin-bottom: 1rem">
               <mat-form-field appearance="outline" class="full-width-input">
                 <mat-label>Ngày bắt đầu</mat-label>
-                <input matInput [ngxMatDatetimePicker]="picker1" placeholder="Choose a date"
-                  formControlName="startDate" />
-                <mat-datepicker-toggle matSuffix [for]="$any(picker1)"></mat-datepicker-toggle>
+                <input
+                  matInput
+                  [ngxMatDatetimePicker]="picker1"
+                  placeholder="Choose a date"
+                  formControlName="startDate"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="$any(picker1)"
+                ></mat-datepicker-toggle>
                 <ngx-mat-datetime-picker #picker1> </ngx-mat-datetime-picker>
               </mat-form-field>
 
               <div style="margin-top: -20px; margin-bottom: 10px">
-                <app-validation *ngIf="
+                <app-validation
+                  *ngIf="
                     this.editformGroup_info.get('startDate')?.errors &&
-                    (editformGroup_info.get('startDate')?.touched || isSubmitted)
-                  " [formGroup]="editformGroup_info" [formGroupControlName]="'startDate'"></app-validation>
+                    (editformGroup_info.get('startDate')?.touched ||
+                      isSubmitted)
+                  "
+                  [formGroup]="editformGroup_info"
+                  [formGroupControlName]="'startDate'"
+                ></app-validation>
               </div>
             </div>
           </div>
@@ -157,17 +242,28 @@
             <div class="row" style="margin-bottom: 1rem">
               <mat-form-field appearance="outline" class="full-width-input">
                 <mat-label>Ngày kết thúc</mat-label>
-                <input matInput [ngxMatDatetimePicker]="picker2" placeholder="Choose a date"
-                  formControlName="endDate" />
-                <mat-datepicker-toggle matSuffix [for]="$any(picker2)"></mat-datepicker-toggle>
+                <input
+                  matInput
+                  [ngxMatDatetimePicker]="picker2"
+                  placeholder="Choose a date"
+                  formControlName="endDate"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="$any(picker2)"
+                ></mat-datepicker-toggle>
                 <ngx-mat-datetime-picker #picker2> </ngx-mat-datetime-picker>
               </mat-form-field>
 
               <div style="margin-top: -20px; margin-bottom: 10px">
-                <app-validation *ngIf="
+                <app-validation
+                  *ngIf="
                     this.editformGroup_info.get('endDate')?.errors &&
                     (editformGroup_info.get('endDate')?.touched || isSubmitted)
-                  " [formGroup]="editformGroup_info" [formGroupControlName]="'endDate'"></app-validation>
+                  "
+                  [formGroup]="editformGroup_info"
+                  [formGroupControlName]="'endDate'"
+                ></app-validation>
               </div>
             </div>
           </div>
@@ -190,36 +286,73 @@
           </div>
         </div>
 
-        <div class="row" style="display: flex; flex-direction: column !important; flex-wrap: 1; margin-bottom: 15px;" *ngIf="active === 1">
-          <h4>Giá đơn vé: <span style="font-weight: bold;">{{getTotalPrice()}}</span></h4>
+        <div
+          class="row"
+          style="
+            display: flex;
+            flex-direction: column !important;
+            flex-wrap: 1;
+            margin-bottom: 15px;
+          "
+          *ngIf="active === 1"
+        >
+          <h4>
+            Giá đơn vé:
+            <span style="font-weight: bold">{{ getTotalPrice() }}</span>
+          </h4>
         </div>
 
-        <div class="row" style="display: flex; flex-direction: column !important; flex-wrap: 1" *ngIf="active === 1">
+        <div
+          class="row"
+          style="display: flex; flex-direction: column !important; flex-wrap: 1"
+          *ngIf="active === 1"
+        >
           <mat-form-field style="width: 90%">
-            <textarea matInput class="form-control" id="description" placeholder="Thông tin đính kèm"
-              formControlName="description" rows="10"></textarea>
+            <textarea
+              matInput
+              class="form-control"
+              id="description"
+              placeholder="Thông tin đính kèm"
+              formControlName="description"
+              rows="10"
+            ></textarea>
           </mat-form-field>
           <div style="margin-top: -20px; margin-bottom: 10px">
-            <app-validation *ngIf="
+            <app-validation
+              *ngIf="
                 this.editformGroup_info.get('description')?.errors &&
                 (editformGroup_info.get('description')?.touched || isSubmitted)
-              " [formGroup]="editformGroup_info" [formGroupControlName]="'description'"></app-validation>
+              "
+              [formGroup]="editformGroup_info"
+              [formGroupControlName]="'description'"
+            ></app-validation>
           </div>
         </div>
 
-        <staying-multiselect-autocomplete [data_selected]="tourishPlan.stayingSchedules ?? []"
-          (result)="selectChangeStaying($event)" *ngIf="active === 4">
+        <staying-multiselect-autocomplete
+          [data_selected]="tourishPlan.stayingSchedules ?? []"
+          (result)="selectChangeStaying($event)"
+          *ngIf="active === 4"
+        >
         </staying-multiselect-autocomplete>
 
-        <moving-multiselect-autocomplete [data_selected]="tourishPlan.movingSchedules ?? []"
-          (result)="selectChangeMoving($event)" *ngIf="active === 3">
+        <moving-multiselect-autocomplete
+          [data_selected]="tourishPlan.movingSchedules ?? []"
+          (result)="selectChangeMoving($event)"
+          *ngIf="active === 3"
+        >
         </moving-multiselect-autocomplete>
 
-        <eating-multiselect-autocomplete [data_selected]="tourishPlan.eatSchedules ?? []"
-          (result)="selectChangeEating($event)" *ngIf="active === 2">
+        <eating-multiselect-autocomplete
+          [data_selected]="tourishPlan.eatSchedules ?? []"
+          (result)="selectChangeEating($event)"
+          *ngIf="active === 2"
+        >
         </eating-multiselect-autocomplete>
 
-        <div class="row" style="
+        <div
+          class="row"
+          style="
             display: flex;
             justify-content: center;
             align-items: center;
@@ -227,21 +360,8 @@
             margin-top: 30px;
             margin-bottom: 30px;
             width: 93%;
-          "></div>
-
-        <div class="row" style="display: flex; flex-direction: row !important; flex-wrap: 1">
-          <div style="margin-right: 20px">
-            <button mat-raised-button color="primary" (click)="saveInfomation()">
-              Lưu thay đổi
-            </button>
-          </div>
-
-          <div>
-            <button mat-raised-button color="warn" type="button" (click)="formReset_create_info()">
-              Khôi phục ban đầu
-            </button>
-          </div>
-        </div>
+          "
+        ></div>
       </form>
     </div>
   </div>

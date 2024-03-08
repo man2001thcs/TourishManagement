@@ -207,9 +207,12 @@ button {
   .sidenav a {
     font-size: 18px;
   }
+  .searchInput {
+    max-width: 400px !important;
+  }
 }
 
-@media screen and (max-height: 650px) {
+@media screen and (max-height: 1300px) {
   .sidenav {
     padding-top: 15px;
   }
@@ -218,12 +221,20 @@ button {
   }
 
   .searchInput {
-    max-width: 400px !important;
+    max-width: 300px !important;
+  }
+
+  .container-fluid{
+    justify-content: center;
   }
 }
 
-@media screen and (max-height: 850px) {
+@media screen and (max-height: 1400px) {
   .searchInput {
-    max-width: 600px !important;
+    max-width: 380px !important;
+  }
+
+  .container-fluid{
+    justify-content: space-evenly;
   }
 }

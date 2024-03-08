@@ -3,6 +3,14 @@
     padding: 30px 50px 0px;
 }
 
+.container-controller {
+    padding: 20px 110px 20px !important;
+    display: flex;
+    flex-direction: row;
+    background-color: #ffffff;
+    margin-bottom: 20px;
+  }
+
 .edit-form{
    
     padding-top: 10px;

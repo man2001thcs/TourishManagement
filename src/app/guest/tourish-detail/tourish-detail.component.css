@@ -1,0 +1,45 @@
+.container {
+  width: 100%;
+}
+
+.below-title {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding: 15px 10px 15px;
+  background-color: #e3e7ed;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.below-title span {
+  font-weight: bold;
+  font-size: 22px;
+  margin-right: 20px;
+}
+
+.below-title span#tour-id {
+  font-weight: 300 !important;
+  font-size: 20px;
+  margin-left: auto;
+}
+
+.tour-description {
+  margin-top: 20px;
+  background-color: white;
+  padding: 15px 10px 15px;
+  font-size: 16px;
+}
+
+.tour-description h4.tour-name {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.full-width-input{
+  width: 100%;
+}
+
+ul li button {
+  font-size: 20px !important;
+}

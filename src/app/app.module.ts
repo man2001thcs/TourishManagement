@@ -28,7 +28,14 @@ import { CommonModule } from "@angular/common";
 import { LoadingDialogComponent } from "./utility/notification_admin/loading-dialog.component";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
-import { SocialLoginModule, SocialAuthServiceConfig, FacebookLoginProvider, GoogleLoginProvider, GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
+import {
+  SocialLoginModule,
+  SocialAuthServiceConfig,
+  FacebookLoginProvider,
+  GoogleLoginProvider,
+  GoogleSigninButtonModule,
+} from "@abacritt/angularx-social-login";
+import { CarouselSlider } from "angular-carousel-slider";
 
 @NgModule({
   declarations: [
@@ -64,27 +71,27 @@ import { SocialLoginModule, SocialAuthServiceConfig, FacebookLoginProvider, Goog
   ],
   providers: [
     {
-      provide: 'SocialAuthServiceConfig',
+      provide: "SocialAuthServiceConfig",
       useValue: {
         autoLogin: false,
         providers: [
           {
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider(
-              '614502632255-431u4lhjtostn9rpngh1vtqolujli60d.apps.googleusercontent.com'
-            )
+              "614502632255-431u4lhjtostn9rpngh1vtqolujli60d.apps.googleusercontent.com"
+            ),
           },
           {
             id: FacebookLoginProvider.PROVIDER_ID,
-            provider: new FacebookLoginProvider('clientId')
-          }
+            provider: new FacebookLoginProvider("clientId"),
+          },
         ],
         onError: (err) => {
           console.error(err);
-        }
+        },
       } as SocialAuthServiceConfig,
     },
-    
+
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

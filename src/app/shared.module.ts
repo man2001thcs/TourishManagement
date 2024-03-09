@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from "@angular/core";
 import { StoreModule } from "@ngrx/store";
 import { EffectsModule } from "@ngrx/effects";
 
@@ -7,35 +7,43 @@ import { FormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 import { OutsideClickDirective } from "./utility/clickDirective";
 import { FooterComponent } from "./utility/footer/footer.component";
-import {MatStepperModule} from '@angular/material/stepper';
-import { NgbAlertModule } from "@ng-bootstrap/ng-bootstrap";
+import { MatStepperModule } from "@angular/material/stepper";
+import {
+  NgbAlertModule,
+  NgbCarouselModule,
+  NgbNavModule,
+} from "@ng-bootstrap/ng-bootstrap";
 import { ValidationComponent } from "./utility/validation/validation.component";
 import { MatInputModule } from "@angular/material/input";
 import { GoogleSigninButtonModule } from "@abacritt/angularx-social-login";
+import { CarouselSlider } from "angular-carousel-slider";
+import { ImageSliderComponent } from "./utility/image-slider/image-slider.component";
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 
 @NgModule({
-  declarations: [
-    FooterComponent,
-    OutsideClickDirective,
-    
-    ValidationComponent,
-    
-  ],
+  declarations: [FooterComponent, OutsideClickDirective, ValidationComponent,ImageSliderComponent],
   imports: [
     CommonModule,
     RouterModule,
+    NgbNavModule,
     FormsModule,
     MatInputModule,
+    CarouselSlider,
+    FontAwesomeModule
   ],
 
   exports: [
+    ImageSliderComponent,
+    CarouselSlider,
     FooterComponent,
-    NgbAlertModule,
     MatStepperModule,
+    NgbCarouselModule,
+    NgbNavModule,
     FormsModule,
     OutsideClickDirective,
     ValidationComponent,
     GoogleSigninButtonModule
   ],
 })
+
 export class SharedModule {}

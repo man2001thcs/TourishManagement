@@ -128,7 +128,6 @@ export class HeaderAdminComponent implements OnDestroy {
   }
 
   openNav() {
-    console.log(window.innerWidth);
 
     if (window.innerWidth >= 850){
       this.myNameElem.nativeElement.style.width = "340px";

@@ -45,6 +45,7 @@ import { SharedModule } from "src/app/shared.module";
 import { UserCreateComponent } from "../log/signIn/signIn-create.component";
 import { UserCreateEffects } from "../log/signIn/signIn-create.store.effect";
 import { ChatComponent } from "src/app/utility/chat/chat.component";
+import { TourishPlanCardComponent } from "src/app/utility/tourish-card/tourish-card.component";
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { ChatComponent } from "src/app/utility/chat/chat.component";
     HomeComponent,
     UserCreateComponent,
     ChatComponent,
+    TourishPlanCardComponent,
     nl2brPipe,
   ],
   imports: [

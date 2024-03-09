@@ -12,6 +12,14 @@
   min-height: 3em;
 }
 
+mat-expansion-panel p {
+  margin-left: 30px;
+}
+
+mat-expansion-panel button {
+  margin-left: 30px;
+}
+
 :host /deep/ .mat-autocomplete-panel {
   max-height: 150px !important;
 }

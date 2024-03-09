@@ -4,7 +4,12 @@
       <div class="row">
         <h2
           mat-form-label
-          style="font-weight: heavy; font-size: 16px; margin-bottom: 0px; margin-left: 20px;"
+          style="
+            font-weight: heavy;
+            font-size: 16px;
+            margin-bottom: 0px;
+            margin-left: 20px;
+          "
         >
           Danh sách lịch trình nơi ở
         </h2>
@@ -15,7 +20,7 @@
         *ngIf="movingScheduleList.length < 1 && data_selected.length < 1"
         style="margin-bottom: 20px"
       >
-        <mat-chip color="warn" style="font-size: 16px;margin-left: 20px;"
+        <mat-chip color="warn" style="font-size: 16px; margin-left: 20px"
           >Chưa có danh sách</mat-chip
         >
       </div>
@@ -38,6 +43,7 @@
             flex-direction: row;
             align-items: center;
             margin-bottom: 10px;
+            padding-left: 15px;
           "
         >
           <mat-expansion-panel
@@ -100,6 +106,7 @@
             flex-direction: row;
             align-items: center;
             margin-bottom: 10px;
+            padding-left: 15px;
           "
         >
           <mat-expansion-panel
@@ -194,7 +201,7 @@
       </ng-container>
     </div>
 
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form" *ngIf="movingScheduleEdit === null">
       <div class="row">
         <h2
           mat-form-label
@@ -202,7 +209,7 @@
             font-weight: heavy;
             font-size: 16px;
             margin-bottom: 0px;
-            margin: left 20px;
+            margin-left: 20px;
           "
         >
           Thêm thông tin lịnh trình di chuyển
@@ -464,255 +471,9 @@
             [formGroupControlName]="'endDate'"
           ></app-validation>
         </div>
-
-        <div *ngIf="movingNameList.length >= 1">
-          <div
-            class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form"
-            style="
-              display: flex;
-              flex-direction: column !important;
-              flex-wrap: 1;
-            "
-          >
-            <editor
-              style="width: 91% !important"
-              #filePickerEditor
-              [(ngModel)]="editorContent"
-              [init]="this.tinyMceSetting"
-            ></editor>
-            <input type="file" style="visibility: hidden" />
-          </div>
-
-          <div
-            class="row"
-            style="display: flex; flex-direction: row !important; flex-wrap: 1"
-          >
-            <div style="margin-right: 20px">
-              <button
-                mat-raised-button
-                color="primary"
-                type="button"
-                (click)="addToSchedule()"
-              >
-                Thêm
-              </button>
-            </div>
-
-            <div>
-              <button
-                mat-raised-button
-                color="warn"
-                type="button"
-                (click)="this.formReset()"
-              >
-                Khôi phục
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div
-      *ngIf="movingScheduleEdit != null"
-      style="
-        width: 90%;
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 30px;
-      "
-    >
-      <div class="row" [formGroup]="editMovingFormGroup">
-        <h4
-          mat-form-label
-          style="font-weight: bold; text-decoration: underline"
-        >
-          Chỉnh sửa thông tin lịch trình
-        </h4>
-      </div>
-      <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
-          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
-            <mat-form-field appearance="outline" class="full-width-input">
-              <mat-label>Tình trạng</mat-label>
-              <select
-                matNativeControl
-                required
-                (change)="changeStatusExist($event)"
-              >
-                <option value="0">Mới tạo</option>
-                <option value="1">Đang thực hiện</option>
-                <option value="2">Hoàn thành</option>
-                <option value="2">Hủy</option>
-              </select>
-            </mat-form-field>
-          </div>
-
-          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
-            <mat-form-field appearance="outline" class="full-width-input">
-              <mat-label>Tên lái xe</mat-label>
-              <input
-                matInput
-                fullwidth
-                placeholder="Vd: Bồ Công Anh"
-                formControlName="driverName"
-              />
-            </mat-form-field>
-            <app-validation
-              *ngIf="isSubmit"
-              [formGroup]="editMovingFormGroup"
-              [formGroupControlName]="'driverName'"
-            ></app-validation>
-          </div>
-
-          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
-            <mat-form-field appearance="outline" class="full-width-input">
-              <mat-label>Tên hãng xe</mat-label>
-              <input
-                matInput
-                fullwidth
-                placeholder="Vd: Bồ Công Anh"
-                formControlName="branchName"
-              />
-            </mat-form-field>
-            <app-validation
-              *ngIf="isSubmit"
-              [formGroup]="movingFormGroup"
-              [formGroupControlName]="'branchName'"
-            ></app-validation>
-          </div>
-
-          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
-            <mat-form-field appearance="outline" class="full-width-input">
-              <mat-label>Số diện thoại hỗ trợ</mat-label>
-              <input
-                matInput
-                fullwidth
-                placeholder="Vd: 0432423423"
-                formControlName="phoneNumber"
-              />
-            </mat-form-field>
-            <app-validation
-              *ngIf="isSubmit"
-              [formGroup]="editMovingFormGroup"
-              [formGroupControlName]="'phoneNumber'"
-            ></app-validation>
-          </div>
-
-          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
-            <mat-form-field appearance="outline" class="full-width-input">
-              <mat-label>Nơi xuất phát</mat-label>
-              <input
-                matInput
-                fullwidth
-                placeholder="Vd: Hà Nội"
-                formControlName="startingPlace"
-              />
-            </mat-form-field>
-            <app-validation
-              *ngIf="isSubmit"
-              [formGroup]="movingFormGroup"
-              [formGroupControlName]="'startingPlace'"
-            ></app-validation>
-          </div>
-
-          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
-            <mat-form-field appearance="outline" class="full-width-input">
-              <mat-label>Nơi đến</mat-label>
-              <input
-                matInput
-                fullwidth
-                placeholder="Vd: Đà Nẵng"
-                formControlName="headingPlace"
-              />
-            </mat-form-field>
-            <app-validation
-              *ngIf="isSubmit"
-              [formGroup]="movingFormGroup"
-              [formGroupControlName]="'headingPlace'"
-            ></app-validation>
-          </div>
-
-          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
-            <mat-form-field appearance="outline" class="full-width-input">
-              <mat-label>Giá đơn vé trung bình</mat-label>
-              <input
-                matInput
-                fullwidth
-                placeholder="Vd: 180.000đ"
-                formControlName="singlePrice"
-              />
-            </mat-form-field>
-            <app-validation
-              *ngIf="isSubmit"
-              [formGroup]="editMovingFormGroup"
-              [formGroupControlName]="'singlePrice'"
-            ></app-validation>
-          </div>
-
-          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
-            <mat-form-field appearance="outline" class="full-width-input">
-              <mat-label>Ngày bắt đầu</mat-label>
-              <input
-                matInput
-                [ngxMatDatetimePicker]="movingPicker"
-                placeholder="Choose a date"
-                formControlName="startDate"
-              />
-              <mat-datepicker-toggle
-                matSuffix
-                [for]="$any(movingPicker)"
-              ></mat-datepicker-toggle>
-              <ngx-mat-datetime-picker
-                #movingPicker
-                [showSpinners]="true"
-                [showSeconds]="true"
-                [touchUi]="touchUi"
-                [color]="color"
-                [enableMeridian]="enableMeridian"
-              >
-              </ngx-mat-datetime-picker>
-            </mat-form-field>
-            <app-validation
-              *ngIf="isSubmit"
-              [formGroup]="editMovingFormGroup"
-              [formGroupControlName]="'startDate'"
-            ></app-validation>
-          </div>
-
-          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
-            <mat-form-field appearance="outline" class="full-width-input">
-              <mat-label>Ngày kết thúc</mat-label>
-              <input
-                matInput
-                [ngxMatDatetimePicker]="picker"
-                placeholder="Choose a date"
-                formControlName="endDate"
-              />
-              <mat-datepicker-toggle
-                matSuffix
-                [for]="$any(picker)"
-              ></mat-datepicker-toggle>
-              <ngx-mat-datetime-picker
-                #picker
-                [showSpinners]="true"
-                [showSeconds]="true"
-                [touchUi]="touchUi"
-                [color]="color"
-                [enableMeridian]="enableMeridian"
-              >
-              </ngx-mat-datetime-picker>
-            </mat-form-field>
-            <app-validation
-              *ngIf="isSubmit"
-              [formGroup]="editMovingFormGroup"
-              [formGroupControlName]="'endDate'"
-            ></app-validation>
-          </div>
-        </div>
       </div>
 
-      <div *ngIf="movingScheduleEdit != null">
+      <div *ngIf="movingScheduleEdit == null && movingNameList.length >= 1">
         <div
           class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form"
           style="display: flex; flex-direction: column !important; flex-wrap: 1"
@@ -735,9 +496,9 @@
               mat-raised-button
               color="primary"
               type="button"
-              (click)="editToSchedulesList()"
+              (click)="addToSchedule()"
             >
-              Lưu
+              Thêm
             </button>
           </div>
 
@@ -746,11 +507,246 @@
               mat-raised-button
               color="warn"
               type="button"
-              (click)="cancelEditSchedule()"
+              (click)="this.formReset()"
             >
-              Hủy
+              Khôi phục
             </button>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      *ngIf="movingScheduleEdit != null && this.movingNameList.length < 1"
+      class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form"
+    >
+      <div class="row">
+        <h4
+          mat-form-label
+          style="font-weight: bold; text-decoration: underline"
+        >
+          Chỉnh sửa thông tin lịch trình
+        </h4>
+      </div>
+      <div class="row" [formGroup]="editMovingFormGroup">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Tình trạng</mat-label>
+            <select
+              matNativeControl
+              required
+              (change)="changeStatusExist($event)"
+            >
+              <option value="0">Mới tạo</option>
+              <option value="1">Đang thực hiện</option>
+              <option value="2">Hoàn thành</option>
+              <option value="2">Hủy</option>
+            </select>
+          </mat-form-field>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Tên lái xe</mat-label>
+            <input
+              matInput
+              fullwidth
+              placeholder="Vd: Bồ Công Anh"
+              formControlName="driverName"
+            />
+          </mat-form-field>
+          <app-validation
+            *ngIf="isSubmit"
+            [formGroup]="editMovingFormGroup"
+            [formGroupControlName]="'driverName'"
+          ></app-validation>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Tên hãng xe</mat-label>
+            <input
+              matInput
+              fullwidth
+              placeholder="Vd: Bồ Công Anh"
+              formControlName="branchName"
+            />
+          </mat-form-field>
+          <app-validation
+            *ngIf="isSubmit"
+            [formGroup]="movingFormGroup"
+            [formGroupControlName]="'branchName'"
+          ></app-validation>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Số diện thoại hỗ trợ</mat-label>
+            <input
+              matInput
+              fullwidth
+              placeholder="Vd: 0432423423"
+              formControlName="phoneNumber"
+            />
+          </mat-form-field>
+          <app-validation
+            *ngIf="isSubmit"
+            [formGroup]="editMovingFormGroup"
+            [formGroupControlName]="'phoneNumber'"
+          ></app-validation>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Nơi xuất phát</mat-label>
+            <input
+              matInput
+              fullwidth
+              placeholder="Vd: Hà Nội"
+              formControlName="startingPlace"
+            />
+          </mat-form-field>
+          <app-validation
+            *ngIf="isSubmit"
+            [formGroup]="movingFormGroup"
+            [formGroupControlName]="'startingPlace'"
+          ></app-validation>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Nơi đến</mat-label>
+            <input
+              matInput
+              fullwidth
+              placeholder="Vd: Đà Nẵng"
+              formControlName="headingPlace"
+            />
+          </mat-form-field>
+          <app-validation
+            *ngIf="isSubmit"
+            [formGroup]="movingFormGroup"
+            [formGroupControlName]="'headingPlace'"
+          ></app-validation>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Giá đơn vé trung bình</mat-label>
+            <input
+              matInput
+              fullwidth
+              placeholder="Vd: 180.000đ"
+              formControlName="singlePrice"
+            />
+          </mat-form-field>
+          <app-validation
+            *ngIf="isSubmit"
+            [formGroup]="editMovingFormGroup"
+            [formGroupControlName]="'singlePrice'"
+          ></app-validation>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Ngày bắt đầu</mat-label>
+            <input
+              matInput
+              [ngxMatDatetimePicker]="movingPicker"
+              placeholder="Choose a date"
+              formControlName="startDate"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="$any(movingPicker)"
+            ></mat-datepicker-toggle>
+            <ngx-mat-datetime-picker
+              #movingPicker
+              [showSpinners]="true"
+              [showSeconds]="true"
+              [touchUi]="touchUi"
+              [color]="color"
+              [enableMeridian]="enableMeridian"
+            >
+            </ngx-mat-datetime-picker>
+          </mat-form-field>
+          <app-validation
+            *ngIf="isSubmit"
+            [formGroup]="editMovingFormGroup"
+            [formGroupControlName]="'startDate'"
+          ></app-validation>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Ngày kết thúc</mat-label>
+            <input
+              matInput
+              [ngxMatDatetimePicker]="picker"
+              placeholder="Choose a date"
+              formControlName="endDate"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="$any(picker)"
+            ></mat-datepicker-toggle>
+            <ngx-mat-datetime-picker
+              #picker
+              [showSpinners]="true"
+              [showSeconds]="true"
+              [touchUi]="touchUi"
+              [color]="color"
+              [enableMeridian]="enableMeridian"
+            >
+            </ngx-mat-datetime-picker>
+          </mat-form-field>
+          <app-validation
+            *ngIf="isSubmit"
+            [formGroup]="editMovingFormGroup"
+            [formGroupControlName]="'endDate'"
+          ></app-validation>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="movingScheduleEdit != null">
+      <div
+        class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form"
+        style="display: flex; flex-direction: column !important; flex-wrap: 1"
+      >
+        <editor
+          style="width: 91% !important"
+          #filePickerEditor
+          [(ngModel)]="editorContent"
+          [init]="this.tinyMceSetting"
+        ></editor>
+        <input type="file" style="visibility: hidden" />
+      </div>
+
+      <div
+        class="row"
+        style="display: flex; flex-direction: row !important; flex-wrap: 1"
+      >
+        <div style="margin-right: 20px">
+          <button
+            mat-raised-button
+            color="primary"
+            type="button"
+            (click)="editToSchedulesList()"
+          >
+            Lưu
+          </button>
+        </div>
+
+        <div>
+          <button
+            mat-raised-button
+            color="warn"
+            type="button"
+            (click)="cancelEditSchedule()"
+          >
+            Hủy
+          </button>
         </div>
       </div>
     </div>

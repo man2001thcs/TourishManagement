@@ -50,14 +50,16 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
 
   @Input() data_selected: Array<MovingSchedule> = [];
   @Input() key: string = "";
+  @Input() createFormOpen = false;
+
   tinyMceSetting: any;
   editorContent = "";
-  
+
   data_selected_edit: MovingSchedule[] = [];
 
   movingScheduleList: MovingSchedule[] = [];
 
-  movingScheduleEdit!: MovingSchedule | null;
+  movingScheduleEdit: MovingSchedule | null = null;
   indexMovingScheduleEdit: number = -1;
 
   movingIdList: string[] = [];
@@ -138,10 +140,7 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
       startDate: ["", Validators.compose([Validators.required])],
       endDate: ["", Validators.compose([Validators.required])],
 
-      description: [
-        "",
-        Validators.compose([Validators.required, Validators.minLength(3)]),
-      ],
+      description: ["", Validators.compose([Validators.required])],
     });
 
     this.editMovingFormGroup = this.fb.group({
@@ -160,10 +159,7 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
       startDate: ["", Validators.compose([Validators.required])],
       endDate: ["", Validators.compose([Validators.required])],
 
-      description: [
-        "",
-        Validators.compose([Validators.required, Validators.minLength(3)]),
-      ],
+      description: ["", Validators.compose([Validators.required])],
     });
 
     this.subscriptions.push(
@@ -385,6 +381,7 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
     // Add our moving
     if (value) {
       this.movingNameList.push(value);
+      this.createFormOpen = true;
     }
 
     // Clear the input value
@@ -398,6 +395,7 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
     if (index >= 0) {
       this.movingNameList.splice(index, 1);
       this.movingIdList.splice(index, 1);
+      this.createFormOpen = false;
     }
 
     this.emitAdjustedData();
@@ -429,8 +427,11 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
 
   addToSchedule(): void {
     this.isSubmit = true;
-    console.log(this.movingFormGroup.value);
+
     console.log(this.movingFormGroup.valid);
+
+    this.movingFormGroup.controls["description"].setValue(this.editorContent);
+
     if (this.movingFormGroup.valid && this.movingFormGroup.dirty) {
       const schedule: MovingSchedule = {
         driverName: this.movingFormGroup.value.driverName,
@@ -447,7 +448,7 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
         singlePrice: this.movingFormGroup.value.singlePrice,
         startDate: this.movingFormGroup.value.startDate,
         endDate: this.movingFormGroup.value.endDate,
-        description: this.movingFormGroup.value.description,
+        description: this.editorContent,
       };
 
       this.movingScheduleList = [schedule, ...this.movingScheduleList];
@@ -462,12 +463,14 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
   }
 
   clickEditSchedule(id: string): void {
+    this.movingNameList = [];
     var existIndex = this.data_selected_edit.findIndex(
       (entity) => entity.id === id
     );
     if (existIndex > -1) {
       this.movingScheduleEdit = this.data_selected_edit[existIndex];
       this.indexMovingScheduleEdit = existIndex;
+      this.editorContent = this.movingScheduleEdit.description;
 
       this.editMovingFormGroup.controls["driverName"].setValue(
         this.movingScheduleEdit.driverName
@@ -528,7 +531,7 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
 
         startDate: this.editMovingFormGroup.value.startDate,
         endDate: this.editMovingFormGroup.value.endDate,
-        description: this.editMovingFormGroup.value.description,
+        description: this.editorContent,
       };
 
       this.messageService
@@ -543,6 +546,7 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
   cancelEditSchedule(): void {
     this.movingScheduleEdit = null;
     this.indexMovingScheduleEdit = -1;
+    this.editorContent = "";
   }
 
   removeSchedule(id: string): void {

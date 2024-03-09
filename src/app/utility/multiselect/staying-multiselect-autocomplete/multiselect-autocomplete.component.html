@@ -1,10 +1,15 @@
-<div [formGroup]="stayingFormGroup">
+<div>
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
       <div class="row">
         <h2
           mat-form-label
-          style="font-weight: heavy; font-size: 16px; margin-bottom: 0px;margin-left: 20px;"
+          style="
+            font-weight: heavy;
+            font-size: 16px;
+            margin-bottom: 0px;
+            margin-left: 20px;
+          "
         >
           Danh sách lịch trình nơi ở
         </h2>
@@ -14,7 +19,7 @@
         class="row"
         *ngIf="stayingScheduleList.length < 1 && data_selected.length < 1"
       >
-        <mat-chip color="warn" style="font-size: 16px;margin-left: 20px;"
+        <mat-chip color="warn" style="font-size: 16px; margin-left: 20px"
           >Chưa có danh sách</mat-chip
         >
       </div>
@@ -37,6 +42,7 @@
             flex-direction: row;
             align-items: center;
             margin-bottom: 10px;
+            padding-left: 15px;
           "
         >
           <mat-expansion-panel
@@ -96,11 +102,12 @@
             flex-direction: row;
             align-items: center;
             margin-bottom: 10px;
+            padding-left: 15px;
           "
         >
           <mat-expansion-panel
             [expanded]="false"
-            style="width: 80%; margin-right: 10px"
+            style="width: 80%; margin-right: 10px;"
           >
             <mat-expansion-panel-header>
               <mat-panel-title style="color: green">
@@ -187,7 +194,10 @@
       </ng-container>
     </div>
 
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form">
+    <div
+      class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form"
+      *ngIf="stayingScheduleEdit === null"
+    >
       <div class="row">
         <h2
           mat-form-label
@@ -197,7 +207,7 @@
         </h2>
       </div>
 
-      <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
         <mat-form-field appearance="outline" class="full-width-input">
           <mat-label>Loại nhà nghỉ</mat-label>
           <select matNativeControl required (change)="changeType($event)">
@@ -206,7 +216,8 @@
           </select>
         </mat-form-field>
       </div>
-      <div class="row">
+
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
         <mat-form-field
           class="example-chip-list"
           appearance="outline"
@@ -260,16 +271,7 @@
         </mat-form-field>
       </div>
 
-      <div *ngIf="stayingNameList.length >= 1">
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
-          <h4
-            mat-form-label
-            style="font-weight: bold; text-decoration: underline"
-          >
-            Thêm thông tin nơi ở
-          </h4>
-        </div>
-
+      <div *ngIf="stayingNameList.length >= 1" [formGroup]="stayingFormGroup">
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
           <mat-form-field appearance="outline" class="full-width-input">
             <mat-label>Tình trạng</mat-label>
@@ -439,12 +441,7 @@
 
     <div
       *ngIf="stayingScheduleEdit != null"
-      style="
-        width: 90%;
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 30px;
-      "
+      class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form"
     >
       <div class="row">
         <h4
@@ -456,73 +453,71 @@
       </div>
 
       <div class="row" [formGroup]="editStayingFormGroup">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form">
-          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
-            <mat-form-field appearance="outline" class="full-width-input">
-              <mat-label>Tình trạng</mat-label>
-              <select
-                matNativeControl
-                required
-                (change)="changeStatusExist($event)"
-              >
-                <option value="0">Mới tạo</option>
-                <option value="1">Đang thực hiện</option>
-                <option value="2">Hoàn thành</option>
-                <option value="2">Hủy</option>
-              </select>
-            </mat-form-field>
-          </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Tình trạng</mat-label>
+            <select
+              matNativeControl
+              required
+              (change)="changeStatusExist($event)"
+            >
+              <option value="0">Mới tạo</option>
+              <option value="1">Đang thực hiện</option>
+              <option value="2">Hoàn thành</option>
+              <option value="2">Hủy</option>
+            </select>
+          </mat-form-field>
+        </div>
 
-          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
-            <mat-form-field appearance="outline" class="full-width-input">
-              <mat-label>Địa chỉ nơi ở</mat-label>
-              <input
-                matInput
-                fullwidth
-                placeholder="Vd: Bồ Công Anh"
-                formControlName="address"
-              />
-            </mat-form-field>
-            <app-validation
-              *ngIf="isSubmit"
-              [formGroup]="editStayingFormGroup"
-              [formGroupControlName]="'address'"
-            ></app-validation>
-          </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Địa chỉ nơi ở</mat-label>
+            <input
+              matInput
+              fullwidth
+              placeholder="Vd: Bồ Công Anh"
+              formControlName="address"
+            />
+          </mat-form-field>
+          <app-validation
+            *ngIf="isSubmit"
+            [formGroup]="editStayingFormGroup"
+            [formGroupControlName]="'address'"
+          ></app-validation>
+        </div>
 
-          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
-            <mat-form-field appearance="outline" class="full-width-input">
-              <mat-label>Số diện thoại hỗ trợ</mat-label>
-              <input
-                matInput
-                fullwidth
-                placeholder="Vd: Bồ Công Anh"
-                formControlName="supportNumber"
-              />
-            </mat-form-field>
-            <app-validation
-              *ngIf="isSubmit"
-              [formGroup]="editStayingFormGroup"
-              [formGroupControlName]="'supportNumber'"
-            ></app-validation>
-          </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Số diện thoại hỗ trợ</mat-label>
+            <input
+              matInput
+              fullwidth
+              placeholder="Vd: Bồ Công Anh"
+              formControlName="supportNumber"
+            />
+          </mat-form-field>
+          <app-validation
+            *ngIf="isSubmit"
+            [formGroup]="editStayingFormGroup"
+            [formGroupControlName]="'supportNumber'"
+          ></app-validation>
+        </div>
 
-          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
-            <mat-form-field appearance="outline" class="full-width-input">
-              <mat-label>Giá đơn vé trung bình</mat-label>
-              <input
-                matInput
-                fullwidth
-                placeholder="Vd: 180.000đ"
-                formControlName="singlePrice"
-              />
-            </mat-form-field>
-            <app-validation
-              *ngIf="isSubmit"
-              [formGroup]="editStayingFormGroup"
-              [formGroupControlName]="'singlePrice'"
-            ></app-validation>
-          </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Giá đơn vé trung bình</mat-label>
+            <input
+              matInput
+              fullwidth
+              placeholder="Vd: 180.000đ"
+              formControlName="singlePrice"
+            />
+          </mat-form-field>
+          <app-validation
+            *ngIf="isSubmit"
+            [formGroup]="editStayingFormGroup"
+            [formGroupControlName]="'singlePrice'"
+          ></app-validation>
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">

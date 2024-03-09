@@ -1,0 +1,33 @@
+.example-card {
+    width: 360px;
+    height: fit-content;
+    min-height: 420px;
+}
+
+.tour-name {
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.tour-judge {
+    font-size: 14px;
+    margin-bottom: 0px !important; 
+}
+
+.tour-history {
+    font-size: 14px;
+    font-weight: bold;
+    color: rgb(211, 24, 24);
+    background-color: #FCEAEA;
+    padding: 5px 5px 5px 5px;
+}
+
+.tour-price {
+    font-size: 24px;
+    font-weight: bold;
+    color: #F79321;
+    right: 0 !important;
+    margin-left: 10px;
+    
+}

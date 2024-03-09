@@ -9,6 +9,7 @@ import { HomeComponent } from "../home/home.component";
 import { UserCreateComponent } from "../log/signIn/signIn-create.component";
 import { LoginComponent } from "../log/login/login.component";
 import { ChatComponent } from "src/app/utility/chat/chat.component";
+import { TourishPlanCardComponent } from "src/app/utility/tourish-card/tourish-card.component";
 
 const routes: Routes = [
   {
@@ -29,7 +30,7 @@ const routes: Routes = [
       },
       {
         path: "test",
-        component: ChatComponent,
+        component: TourishPlanCardComponent,
       },
     ],
   },

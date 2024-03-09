@@ -152,6 +152,7 @@ export class TourishPlanMultiselectAutocompleteComponent implements OnInit {
         },
       })
     );
+    
   }
 
   ngOnDestroy(): void {

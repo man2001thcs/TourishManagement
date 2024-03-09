@@ -136,7 +136,9 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
             state.startingPoint
           );
 
-          this.editformGroup_info.controls["endingPoint"].setValue(state.endPoint);
+          this.editformGroup_info.controls["endingPoint"].setValue(
+            state.endPoint
+          );
 
           this.editformGroup_info.controls["supportNumber"].setValue(
             state.supportNumber
@@ -159,14 +161,12 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
             state.startDate
           );
 
-          this.editformGroup_info.controls["endDate"].setValue(
-            state.endDate
-          );
+          this.editformGroup_info.controls["endDate"].setValue(state.endDate);
 
           this.editformGroup_info.controls["planStatus"].setValue(
             state.planStatus
-          );   
-          
+          );
+
           this.editformGroup_info.controls["eatingScheduleString"].setValue(
             JSON.stringify(state.eatSchedules)
           );
@@ -198,25 +198,29 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
                 id: this.tourishPlanId,
               },
             })
-          );           
+          );
         }
       })
     );
 
     this.subscriptions.push(
       this.errorMessageState.subscribe((state) => {
-        if (state !== "" && state !== null) {
-          this.messageService.closeAllDialog();
-          this.messageService.openMessageNotifyDialog(state);
+        if (state) {
+          if (state !== "" && state !== null) {
+            this.messageService.closeAllDialog();
+            this.messageService.openMessageNotifyDialog(state);
+          }
         }
       })
     );
 
     this.subscriptions.push(
       this.errorSystemState.subscribe((state) => {
-        if (state !== "" && state !== null) {
-          this.messageService.closeAllDialog();
-          this.messageService.openSystemFailNotifyDialog(state);
+        if (state) {
+          if (state !== "" && state !== null) {
+            this.messageService.closeAllDialog();
+            this.messageService.openSystemFailNotifyDialog(state);
+          }
         }
       })
     );
@@ -228,7 +232,7 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
           id: this.tourishPlanId,
         },
       })
-    );   
+    );
 
     this.store.dispatch(TourishPlanActions.initial());
 
@@ -324,23 +328,22 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
   }
 
   getTotalPrice(): number {
-    let totalPrice  = 0;
+    let totalPrice = 0;
 
-    this.tourishPlan.stayingSchedules?.forEach(entity => {
-      totalPrice  += entity.singlePrice ?? 0;
+    this.tourishPlan.stayingSchedules?.forEach((entity) => {
+      totalPrice += entity.singlePrice ?? 0;
     });
 
-    this.tourishPlan.eatSchedules?.forEach(entity => {
-      totalPrice  += entity.singlePrice ?? 0;
+    this.tourishPlan.eatSchedules?.forEach((entity) => {
+      totalPrice += entity.singlePrice ?? 0;
     });
 
-    this.tourishPlan.movingSchedules?.forEach(entity => {
-      totalPrice  += entity.singlePrice ?? 0;
+    this.tourishPlan.movingSchedules?.forEach((entity) => {
+      totalPrice += entity.singlePrice ?? 0;
     });
 
     return totalPrice;
   }
-
 
   uploadFinished(event: any) {
     console.log(event);
@@ -355,10 +358,7 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return (
-      !this.editformGroup_info.dirty ||
-      this.openDialog()
-    );
+    return !this.editformGroup_info.dirty || this.openDialog();
   }
 
   selectChangeStaying = (event: any) => {

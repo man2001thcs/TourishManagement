@@ -73,6 +73,12 @@ export const ERR_MESSAGE_CODE_EN: Map<string, string> = new Map([
   ["C512", "Receipt branch update error"],
   ["C513", "Receipt branch delete error"],
   ["C514", "Receipt branch SQL error"],
+
+  ["C610", "Tour comment not found"],
+  ["C611", "Tour comment add error"],
+  ["C612", "Tour comment update error"],
+  ["C613", "Tour comment delete error"],
+  ["C614", "Tour comment SQL error"],
   
 ]);
 
@@ -146,6 +152,12 @@ export const ERR_MESSAGE_CODE_VI: Map<string, string> = new Map([
     ["C513", "Hóa đơn xóa thất bại"],
     ["C514", "Hóa đơn đang gặp lỗi cơ sở dữ liệu"],
     ["C515", "Tour không còn đủ số vé"],
+
+    ["C610", "Tour comment không tồn tại"],
+    ["C611", "Tour comment thêm vào bị lỗi"],
+    ["C612", "Tour comment sửa đang gặp lỗi cập nhật"],
+    ["C613", "Tour comment xóa thất bại"],
+    ["C614", "Tour comment đang gặp lỗi cơ sở dữ liệu"],
   ]);
 
   export function getViErrMessagePhase(key: string): string {
@@ -198,6 +210,10 @@ export const SUCCESS_MESSAGE_CODE_EN: Map<string, string> = new Map([
     ["I511", "Receipt branch add ok"],
     ["I512", "Receipt branch update ok"],
     ["I513", "Receipt branch delete ok"],
+
+    ["I611", "Tour comment add ok"],
+    ["I612", "Tour comment update ok"],
+    ["I613", "Tour comment delete ok"],
     
   ]);
 
@@ -243,4 +259,8 @@ export const SUCCESS_MESSAGE_CODE_EN: Map<string, string> = new Map([
     ["I511", "Hóa đơn thêm thành công"],
     ["I512", "Hóa đơn update thành công"],
     ["I513", "Hóa đơn xóa thành công"],
+
+    ["I611", "Tour comment thêm thành công"],
+    ["I612", "Tour comment update thành công"],
+    ["I613", "Tour comment xóa thành công"],
   ]);

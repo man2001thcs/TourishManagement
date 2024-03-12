@@ -5,6 +5,7 @@ import {
   HostListener,
   OnInit,
   Output,
+  Renderer2,
   TemplateRef,
   ViewChild,
 } from "@angular/core";
@@ -60,7 +61,8 @@ export class HeaderComponent implements OnInit {
     private messageService: MessageService,
     private router: Router,
     private _elementRef: ElementRef,
-    private _api: UserService
+    private _api: UserService,
+    private renderer: Renderer2
   ) {
     this.filteredInput = this.searchControl.valueChanges.pipe(
       debounceTime(400)
@@ -93,33 +95,45 @@ export class HeaderComponent implements OnInit {
   formSubmit(): void {}
 
   openNav() {
-    this.myNameElem.nativeElement.style.width = "340px";
-    this.myNameElem.nativeElement.style["margin-right"] = "0px";
-    this.myNameElem.nativeElement.style["padding-top"] = "25px";
-    this.myNameElem.nativeElement.style["padding-right"] = "25px";
-    this.myNameElem.nativeElement.style["border-bottom"] = "2px solid #EDF1F7";
-    this.myNameElem.nativeElement.style["border-left"] = "2px solid #EDF1F7";
-    this.myNameElem.nativeElement.style["border-right"] = "2px solid #EDF1F7";
 
-    this.headerElem.nativeElement.style['width'] = "100%";
+    if (window.innerWidth >= 850){
+      this.myNameElem.nativeElement.style.width = "340px";
+      this.myNameElem.nativeElement.style["margin-right"] = "0px";
+      this.myNameElem.nativeElement.style["padding-top"] = "0px";
+      this.myNameElem.nativeElement.style["padding-left"] = "0px";
+      this.myNameElem.nativeElement.style["padding-right"] = "0px";
+      this.myNameElem.nativeElement.style["border-bottom"] = "2px solid #EDF1F7";
+      this.myNameElem.nativeElement.style["border-right"] = "2px solid #EDF1F7";      
+    } else {
+      console.log("abc");
+      this.renderer.setStyle(this.myNameElem.nativeElement, 'width', '100%');
+
+      //this.myNameElem.nativeElement.style.width = "100%";
+      this.myNameElem.nativeElement.style["margin-top"] = "0px";
+      this.myNameElem.nativeElement.style["margin-right"] = "0px";
+      this.myNameElem.nativeElement.style["padding-top"] = "0px";
+      this.myNameElem.nativeElement.style["padding-left"] = "40px";
+      this.myNameElem.nativeElement.style["padding-right"] = "25px";
+      this.myNameElem.nativeElement.style["border-bottom"] = "2px solid #EDF1F7";
+      this.myNameElem.nativeElement.style["border-right"] = "2px solid #EDF1F7";
+    }
 
     this.isNavOpen = true;
     this.addNewItem(this.isNavOpen);
   }
 
   closeNav() {
-    this.myNameElem.nativeElement.style.width = "0";
+    this.myNameElem.nativeElement.style.width = "80px";
     this.myNameElem.nativeElement.style["margin-right"] = "0px";
     this.myNameElem.nativeElement.style["margin-top"] = "0px";
+    this.myNameElem.nativeElement.style["padding-left"] = "0px";
     this.myNameElem.nativeElement.style["padding-right"] = "0px";
     this.myNameElem.nativeElement.style["border-bottom"] = "0px solid #EDF1F7";
     this.myNameElem.nativeElement.style["border-left"] = "0px solid #EDF1F7";
     this.myNameElem.nativeElement.style["border-right"] = "0px solid #EDF1F7";
 
-    
-    this.headerElem.nativeElement.style['width'] = "70%";
+    this.headerElem.nativeElement.style["width"] = "70%";
     document.body.style.backgroundColor = "white";
-
 
     this.isNavOpen = false;
     this.countNavClick = 0;
@@ -178,5 +192,9 @@ export class HeaderComponent implements OnInit {
     } else if (!this.isNavOpen) {
       await this.openNav();
     }
+  }
+
+  async navigateUrl(url: string) {
+    this.router.navigate(["guest/" + url]);
   }
 }

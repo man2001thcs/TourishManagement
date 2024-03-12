@@ -62,40 +62,52 @@ img.img-logo {
 }
 
 .sidenav {
-  padding-left: 40px;
-  padding-right: 40px;
+  background-color: #2A3650 !important;
+  /* box-shadow: 0 0 21px 0 rgba(89, 102, 122, 0.1);
+  word-break: keep-all !important; */
   height: 100%;
   width: 340px;
   position: fixed;
-  z-index: 1;
-  top: 25px;
+  z-index: 2;
+  top: 0;
   left: 0;
   background-color: #ffffff;
   overflow-x: hidden !important;
+  overflow-y: hidden;
   transition: 0.5s;
-  flex-direction: column;
-
+  /* flex-direction: column;
   display: flex;
-  flex-grow: 0;
+  align-items: center;
+  flex-grow: 0; */
   opacity: 1;
+  margin-bottom: 20px;
+}
 
-  margin-top: 10px;
-
-  border-end-end-radius: 20px;
-  border-bottom-left-radius: 20px;
+.sidenav .sideNavContent {
+  overflow-y: auto;
+  height: auto;
+  width: 100%;
+  padding: 0 0 20px 0;
+  background-color: #2A3650 !important;
 }
 
 .sidenav .sideNavContent .sidenavCategory {
-  width: 260px;
+  background-color: #2A3650 !important;
+  white-space: nowrap;
+  width: 100%;
   flex-direction: column;
   display: flex;
   overflow-x: hidden !important;
   margin-bottom: 15px;
-  border-bottom: 3px solid #696868;
+  border-bottom: 1px solid #666666;
+}
+
+mat-expansion-panel {
+  background-color: #2A3650 !important;
 }
 
 .sidenav .sideNavContent .sidenavCategory:first-child {
-  border-top: 3px solid #696868;
+  border-top: 1px solid #666666;
 }
 
 .autocomplete-search {
@@ -156,6 +168,16 @@ button {
   font-size: 16px;
 }
 
+::ng-deep .mat-expansion-panel-body {
+  padding: 0 0px 16px !important;
+}
+
+.nav-pills .nav-link.active {
+  color: white; /* Font color when active */
+  background-color: #374462;
+  width: 100%;
+}
+
 ::ng-deep .mat-form-field-outline-start {
   border-radius: 28px 0 0 28px !important;
   min-width: 28px !important;
@@ -172,10 +194,34 @@ button {
 }
 
 @media screen and (max-height: 450px) {
-  .sidenav {
-    padding-top: 15px;
-  }
   .sidenav a {
     font-size: 18px;
+  }
+  .searchInput {
+    max-width: 400px !important;
+  }
+}
+
+@media screen and (max-height: 1300px) {
+  .sidenav a {
+    font-size: 18px;
+  }
+
+  .searchInput {
+    max-width: 300px !important;
+  }
+
+  .container-fluid{
+    justify-content: center;
+  }
+}
+
+@media screen and (max-height: 1400px) {
+  .searchInput {
+    max-width: 380px !important;
+  }
+
+  .container-fluid{
+    justify-content: space-evenly;
   }
 }

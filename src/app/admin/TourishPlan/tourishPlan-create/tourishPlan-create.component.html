@@ -1,27 +1,4 @@
 <div class="container" style="padding: 20px 0 20px">
-  <div class="container-controller">
-    <div style="margin-right: 20px">
-      <button
-        mat-raised-button
-        color="primary"
-        (click)="formSubmit_create_info()"
-      >
-      <i class="fa fa-floppy-o" aria-hidden="true"></i> Lưu
-      </button>
-    </div>
-
-    <div>
-      <button
-        mat-raised-button
-        color="warn"
-        type="button"
-        (click)="formReset_create_info()"
-      >
-      <i class="fa fa-undo" aria-hidden="true"></i> Khôi phục
-      </button>
-    </div>
-  </div>
-
   <div
     class="outlet"
     style="
@@ -42,7 +19,30 @@
       "
     >
       <div class="row">
-        <h2 mat-form-label style="font-weight: heavy">Thêm thông tin Tour</h2>
+        <h2 mat-form-label style="font-weight: heavy">Thêm thông tin Tour</h2>       
+      </div>
+
+      <div class="container-controller">
+        <div style="margin-right: 20px">
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="formSubmit_create_info()"
+          >
+          <i class="fa fa-floppy-o" aria-hidden="true"></i> Lưu
+          </button>
+        </div>
+    
+        <div>
+          <button
+            mat-raised-button
+            color="warn"
+            type="button"
+            (click)="formReset_create_info()"
+          >
+          <i class="fa fa-undo" aria-hidden="true"></i> Khôi phục
+          </button>
+        </div>
       </div>
 
       <ul
@@ -288,31 +288,26 @@
         </div>
 
         <div
-          class="row"
-          style="display: flex; flex-direction: column !important; flex-wrap: 1"
-          *ngIf="active === 1"
-        >
-          <mat-form-field style="width: 90%">
-            <textarea
-              matInput
-              class="form-control"
-              id="description"
-              placeholder="Thông tin đính kèm"
-              formControlName="description"
-              rows="10"
-            ></textarea>
-          </mat-form-field>
-          <div style="margin-top: -20px; margin-bottom: 10px">
-            <app-validation
-              *ngIf="
-                this.createformGroup.get('description')?.errors &&
-                (createformGroup.get('description')?.touched || isSubmitted)
-              "
-              [formGroup]="createformGroup"
-              [formGroupControlName]="'description'"
-            ></app-validation>
-          </div>
+        class="row"
+      >
+        <editor
+          style="width: 91% !important"
+          #filePickerEditor
+          [(ngModel)]="editorContent"
+          [init]="this.tinyMceSetting"
+        ></editor>
+        <input type="file" style="visibility: hidden" />
+        <div style="margin-top: -20px; margin-bottom: 10px">
+          <app-validation
+            *ngIf="
+              this.createformGroup.get('description')?.errors &&
+              (createformGroup.get('description')?.touched || isSubmitted)
+            "
+            [formGroup]="createformGroup"
+            [formGroupControlName]="'description'"
+          ></app-validation>
         </div>
+      </div>
 
         <staying-multiselect-autocomplete
           [data_selected]="getJsonList(stayingScheduleString) ?? []"

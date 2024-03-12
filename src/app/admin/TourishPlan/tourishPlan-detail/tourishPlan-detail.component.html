@@ -1,20 +1,4 @@
 <div class="container" style="padding: 20px 0 20px">
-  <div class="container-controller">
-    <div class="row" style="display: flex; flex-direction: row !important; flex-wrap: 1">
-      <div style="margin-right: 20px">
-        <button mat-raised-button color="primary" (click)="saveInfomation()">
-          Lưu thay đổi
-        </button>
-      </div>
-
-      <div>
-        <button mat-raised-button color="warn" type="button" (click)="formReset_create_info()">
-          Khôi phục ban đầu
-        </button>
-      </div>
-    </div>
-  </div>
-
   <div
     class="outlet"
     style="
@@ -39,6 +23,34 @@
         <h2 mat-form-label style="font-weight: heavy">
           Chỉnh sửa thông tin Tour
         </h2>
+      </div>
+
+      <div class="container-controller">
+        <div
+          class="row"
+          style="display: flex; flex-direction: row !important; flex-wrap: 1"
+        >
+          <div style="margin-right: 20px">
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="saveInfomation()"
+            >
+              Lưu thay đổi
+            </button>
+          </div>
+
+          <div>
+            <button
+              mat-raised-button
+              color="warn"
+              type="button"
+              (click)="formReset_create_info()"
+            >
+              Khôi phục ban đầu
+            </button>
+          </div>
+        </div>
       </div>
 
       <ul
@@ -301,68 +313,50 @@
             <span style="font-weight: bold">{{ getTotalPrice() }}</span>
           </h4>
         </div>
-
-        <div
-          class="row"
-          style="display: flex; flex-direction: column !important; flex-wrap: 1"
-          *ngIf="active === 1"
-        >
-          <mat-form-field style="width: 90%">
-            <textarea
-              matInput
-              class="form-control"
-              id="description"
-              placeholder="Thông tin đính kèm"
-              formControlName="description"
-              rows="10"
-            ></textarea>
-          </mat-form-field>
-          <div style="margin-top: -20px; margin-bottom: 10px">
-            <app-validation
-              *ngIf="
-                this.editformGroup_info.get('description')?.errors &&
-                (editformGroup_info.get('description')?.touched || isSubmitted)
-              "
-              [formGroup]="editformGroup_info"
-              [formGroupControlName]="'description'"
-            ></app-validation>
-          </div>
-        </div>
-
-        <staying-multiselect-autocomplete
-          [data_selected]="tourishPlan.stayingSchedules ?? []"
-          (result)="selectChangeStaying($event)"
-          *ngIf="active === 4"
-        >
-        </staying-multiselect-autocomplete>
-
-        <moving-multiselect-autocomplete
-          [data_selected]="tourishPlan.movingSchedules ?? []"
-          (result)="selectChangeMoving($event)"
-          *ngIf="active === 3"
-        >
-        </moving-multiselect-autocomplete>
-
-        <eating-multiselect-autocomplete
-          [data_selected]="tourishPlan.eatSchedules ?? []"
-          (result)="selectChangeEating($event)"
-          *ngIf="active === 2"
-        >
-        </eating-multiselect-autocomplete>
-
-        <div
-          class="row"
-          style="
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-bottom: 3px solid #696868;
-            margin-top: 30px;
-            margin-bottom: 30px;
-            width: 93%;
-          "
-        ></div>
       </form>
+
+      <div
+        class="row"
+      >
+        <editor
+          style="width: 91% !important"
+          #filePickerEditor
+          [(ngModel)]="editorContent"
+          [init]="this.tinyMceSetting"
+        ></editor>
+        <input type="file" style="visibility: hidden" />
+        <div style="margin-top: -20px; margin-bottom: 10px">
+          <app-validation
+            *ngIf="
+              this.editformGroup_info.get('description')?.errors &&
+              (editformGroup_info.get('description')?.touched || isSubmitted)
+            "
+            [formGroup]="editformGroup_info"
+            [formGroupControlName]="'description'"
+          ></app-validation>
+        </div>
+      </div>
+
+      <staying-multiselect-autocomplete
+        [data_selected]="tourishPlan.stayingSchedules ?? []"
+        (result)="selectChangeStaying($event)"
+        *ngIf="active === 4"
+      >
+      </staying-multiselect-autocomplete>
+
+      <moving-multiselect-autocomplete
+        [data_selected]="tourishPlan.movingSchedules ?? []"
+        (result)="selectChangeMoving($event)"
+        *ngIf="active === 3"
+      >
+      </moving-multiselect-autocomplete>
+
+      <eating-multiselect-autocomplete
+        [data_selected]="tourishPlan.eatSchedules ?? []"
+        (result)="selectChangeEating($event)"
+        *ngIf="active === 2"
+      >
+      </eating-multiselect-autocomplete>
     </div>
   </div>
 </div>

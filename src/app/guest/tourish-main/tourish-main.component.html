@@ -1,0 +1,235 @@
+<div class="search-container">
+  <div class="tour-search">
+    <div
+      class="row"
+      [formGroup]="setTourForm"
+      style="height: fit-content !important"
+    >
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form">
+        <h4 class="tour-name">Đặt vé ngay</h4>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form">
+        <mat-form-field appearance="outline" class="full-width-input">
+          <mat-label>Bạn muốn đi đâu</mat-label>
+          <input
+            matInput
+            fullwidth
+            placeholder="Vd: Bồ Công Anh"
+            formControlName="name"
+          />
+        </mat-form-field>
+        <app-validation
+          *ngIf="isSubmit"
+          [formGroup]="setTourForm"
+          [formGroupControlName]="'name'"
+        ></app-validation>
+      </div>
+
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 create-form">
+        <mat-form-field appearance="outline" class="full-width-input">
+          <mat-label>Nơi bắt đầu</mat-label>
+          <input
+            matInput
+            fullwidth
+            placeholder="Vd: Bồ Công Anh"
+            formControlName="address"
+          />
+        </mat-form-field>
+        <app-validation
+          *ngIf="isSubmit"
+          [formGroup]="setTourForm"
+          [formGroupControlName]="'address'"
+        ></app-validation>
+      </div>
+
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 create-form">
+        <mat-form-field appearance="outline" class="full-width-input">
+          <mat-label>Ngày kết thúc</mat-label>
+          <input
+            matInput
+            [ngxMatDatetimePicker]="picker"
+            placeholder="Choose a date"
+            formControlName="endDate"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="$any(picker)"
+          ></mat-datepicker-toggle>
+          <ngx-mat-datetime-picker
+            #picker
+            [showSpinners]="true"
+            [showSeconds]="true"
+            [touchUi]="touchUi"
+            [color]="color"
+            [enableMeridian]="enableMeridian"
+          >
+          </ngx-mat-datetime-picker>
+        </mat-form-field>
+        <app-validation
+          *ngIf="isSubmit"
+          [formGroup]="setTourForm"
+          [formGroupControlName]="'endDate'"
+        ></app-validation>
+      </div>
+
+      <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 create-form">
+        <button mat-raised-button color="primary" style="height: 56px; font-size: 14px;">Tìm</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <app-image-slider
+    [indicatorsVisible]="true"
+    [animationSpeed]="400"
+    [slides]="slides"
+    [autoPlay]="true"
+    [autoPlaySpeed]="6000"
+  ></app-image-slider>
+
+  <div class="below-title">
+    <span
+      ><i class="fa fa-location-arrow" aria-hidden="true"></i> Hồ Chí Minh</span
+    >
+    <span><i class="fa fa-clock-o" aria-hidden="true"></i> Trong ngày</span>
+    <span><i class="fa fa-bus" aria-hidden="true"></i> Phương tiện</span>
+
+    <span id="tour-id"> Mã tour: </span>
+  </div>
+
+  <div class="tour-description">
+    <h4 class="tour-name">Tour Núi Bà Đen và Tòa Thánh Tây Ninh</h4>
+    Trong Ngày Khám phá vẻ đẹp kỳ bí của Núi Bà Đen và Tòa Thánh Tây Ninh trong
+    một chuyến du lịch ngày từ TP. Hồ Chí Minh! Hành trình đưa bạn đến những địa
+    danh linh thiêng và kiến trúc đặc sắc, bao gồm cả cáp treo hiện đại tới Núi
+    Bà Đen, Điện Bà, Động Thanh Long và nhiều hơn nữa. Đừng bỏ lỡ cơ hội khám
+    phá Tòa Thánh Tây Ninh, kiệt tác kiến trúc của Đạo Cao Đài, và tham quan
+    Chùa Gò Kén, ngôi chùa cổ kính. Trải nghiệm ngay cùng iVIVU!
+  </div>
+
+  <div class="tour-description">
+    <h4 class="tour-name">Hướng dẫn viên</h4>
+    Hướng Dẫn Viên (HDV) sẽ liên lạc với Quý Khách khoảng 1 ngày trước khi khởi
+    hành để sắp xếp giờ đón và cung cấp các thông tin cần thiết cho chuyển đi.
+  </div>
+
+  <div class="tour-description">
+    <ul
+      ngbNav
+      #nav="ngbNav"
+      [(activeId)]="active"
+      class="nav-tabs"
+      style="margin-bottom: 20px"
+    >
+      <li [ngbNavItem]="1">
+        <button ngbNavLink>Lịch trình ăn uống</button>
+        <ng-template ngbNavContent> </ng-template>
+      </li>
+      <li [ngbNavItem]="2">
+        <button ngbNavLink>Lịch trình di chuyển</button>
+        <ng-template ngbNavContent> </ng-template>
+      </li>
+      <li [ngbNavItem]="3">
+        <button ngbNavLink>Lịch trình nơi ở</button>
+        <ng-template ngbNavContent> </ng-template>
+      </li>
+    </ul>
+  </div>
+
+  <div class="tour-description">
+    <div
+      class="row"
+      [formGroup]="setTourForm"
+      style="height: fit-content !important"
+    >
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form">
+        <h4 class="tour-name">Đặt vé ngay</h4>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 create-form">
+        <mat-form-field appearance="outline" class="full-width-input">
+          <mat-label>Họ & tên</mat-label>
+          <input
+            matInput
+            fullwidth
+            placeholder="Vd: Bồ Công Anh"
+            formControlName="name"
+          />
+        </mat-form-field>
+        <app-validation
+          *ngIf="isSubmit"
+          [formGroup]="setTourForm"
+          [formGroupControlName]="'name'"
+        ></app-validation>
+      </div>
+
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 create-form">
+        <mat-form-field appearance="outline" class="full-width-input">
+          <mat-label>Địa chỉ</mat-label>
+          <input
+            matInput
+            fullwidth
+            placeholder="Vd: Bồ Công Anh"
+            formControlName="address"
+          />
+        </mat-form-field>
+        <app-validation
+          *ngIf="isSubmit"
+          [formGroup]="setTourForm"
+          [formGroupControlName]="'address'"
+        ></app-validation>
+      </div>
+
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 create-form">
+        <mat-form-field appearance="outline" class="full-width-input">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            fullwidth
+            placeholder="Vd: Bồ Công Anh"
+            formControlName="email"
+          />
+        </mat-form-field>
+        <app-validation
+          *ngIf="isSubmit"
+          [formGroup]="setTourForm"
+          [formGroupControlName]="'email'"
+        ></app-validation>
+      </div>
+
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 create-form">
+        <mat-form-field appearance="outline" class="full-width-input">
+          <mat-label>Sđt liên lạc</mat-label>
+          <input
+            matInput
+            fullwidth
+            placeholder="Vd: 123456789"
+            formControlName="phoneNumber"
+          />
+        </mat-form-field>
+        <app-validation
+          *ngIf="isSubmit"
+          [formGroup]="setTourForm"
+          [formGroupControlName]="'phoneNumber'"
+        ></app-validation>
+      </div>
+
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 create-form">
+        <mat-form-field appearance="outline" class="full-width-input">
+          <mat-label>Số vé</mat-label>
+          <input
+            matInput
+            fullwidth
+            placeholder="Vd: 2"
+            formControlName="totalTicket"
+          />
+        </mat-form-field>
+        <app-validation
+          *ngIf="isSubmit"
+          [formGroup]="setTourForm"
+          [formGroupControlName]="'totalTicket'"
+        ></app-validation>
+      </div>
+    </div>
+  </div>
+</div>

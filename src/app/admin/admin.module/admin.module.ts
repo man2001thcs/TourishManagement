@@ -280,10 +280,6 @@ import { EditorModule, TINYMCE_SCRIPT_SRC } from "@tinymce/tinymce-angular";
     NgbAlertModule,
 
     MatExpansionModule,
-    NgxMatDatetimePickerModule,
-    NgxMatTimepickerModule,
-    NgxMatMomentModule,
-    MatDatepickerModule,
 
     NbChatModule,
 

@@ -58,6 +58,7 @@ import { TourishDetailComponent } from "../tourish-detail/tourish-detail.compone
 
 import { NgImageSliderModule } from "ng-image-slider";
 import { CarouselSlider } from "angular-carousel-slider";
+import { TourishMainComponent } from "../tourish-main/tourish-main.component";
 
 
 
@@ -71,6 +72,7 @@ import { CarouselSlider } from "angular-carousel-slider";
     ChatComponent,
     TourishPlanCardComponent,
     TourishDetailComponent,
+    TourishMainComponent,
     nl2brPipe,
    
   ],

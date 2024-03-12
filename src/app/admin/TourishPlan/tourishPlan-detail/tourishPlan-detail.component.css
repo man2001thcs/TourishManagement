@@ -4,11 +4,11 @@
 }
 
 .container-controller {
-    padding: 20px 110px 20px !important;
+    padding: 0px 10px 10px !important;
     display: flex;
     flex-direction: row;
     background-color: #ffffff;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
   }
 
 .edit-form{

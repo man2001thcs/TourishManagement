@@ -6,9 +6,8 @@
 .container-fluid {
   display: flex;
   flex-direction: row !important;
-
+  min-height: 105px;
   flex-wrap: wrap;
-
   justify-content: space-evenly;
   width: 100%;
   align-items: center;
@@ -16,6 +15,14 @@
   opacity: 1;
   top: 0;
   padding-bottom: 8px;
+}
+
+.title-nav {
+  background-color: #2A3650; width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 105px;
 }
 
 .container-fluid::after {
@@ -166,7 +173,10 @@ mat-expansion-panel {
 
 button {
   font-size: 16px;
+  font-weight: bolder;
+  color: #6B7383;
 }
+
 
 ::ng-deep .mat-expansion-panel-body {
   padding: 0 0px 16px !important;

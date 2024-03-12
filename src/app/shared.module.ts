@@ -19,6 +19,9 @@ import { GoogleSigninButtonModule } from "@abacritt/angularx-social-login";
 import { CarouselSlider } from "angular-carousel-slider";
 import { ImageSliderComponent } from "./utility/image-slider/image-slider.component";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
+import { NgxMatDatetimePickerModule, NgxMatTimepickerModule } from "@angular-material-components/datetime-picker";
+import { NgxMatMomentModule } from "@angular-material-components/moment-adapter";
+import { MatDatepickerModule } from "@angular/material/datepicker";
 
 @NgModule({
   declarations: [FooterComponent, OutsideClickDirective, ValidationComponent,ImageSliderComponent],
@@ -29,7 +32,11 @@ import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
     FormsModule,
     MatInputModule,
     CarouselSlider,
-    FontAwesomeModule
+    FontAwesomeModule,
+    NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule,
+    NgxMatMomentModule,
+    MatDatepickerModule,
   ],
 
   exports: [
@@ -42,7 +49,11 @@ import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
     FormsModule,
     OutsideClickDirective,
     ValidationComponent,
-    GoogleSigninButtonModule
+    GoogleSigninButtonModule,
+    NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule,
+    NgxMatMomentModule,
+    MatDatepickerModule,
   ],
 })
 

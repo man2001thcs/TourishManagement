@@ -38,12 +38,11 @@ export class HeaderComponent implements OnInit {
 
   @Output() checkNavOpen = new EventEmitter<boolean>();
 
-
   addNewItem(value: boolean) {
     this.checkNavOpen.emit(value);
   }
 
-  activeItem = '1st';
+  activeItem = "1st";
   isNavOpen = true;
   isAutoCompleteOpen = false;
 
@@ -95,18 +94,18 @@ export class HeaderComponent implements OnInit {
   formSubmit(): void {}
 
   openNav() {
-
-    if (window.innerWidth >= 850){
+    if (window.innerWidth >= 850) {
       this.myNameElem.nativeElement.style.width = "340px";
       this.myNameElem.nativeElement.style["margin-right"] = "0px";
       this.myNameElem.nativeElement.style["padding-top"] = "0px";
       this.myNameElem.nativeElement.style["padding-left"] = "0px";
       this.myNameElem.nativeElement.style["padding-right"] = "0px";
-      this.myNameElem.nativeElement.style["border-bottom"] = "2px solid #EDF1F7";
-      this.myNameElem.nativeElement.style["border-right"] = "2px solid #EDF1F7";      
+      this.myNameElem.nativeElement.style["border-bottom"] =
+        "2px solid #EDF1F7";
+      this.myNameElem.nativeElement.style["border-right"] = "2px solid #EDF1F7";
     } else {
       console.log("abc");
-      this.renderer.setStyle(this.myNameElem.nativeElement, 'width', '100%');
+      this.renderer.setStyle(this.myNameElem.nativeElement, "width", "100%");
 
       //this.myNameElem.nativeElement.style.width = "100%";
       this.myNameElem.nativeElement.style["margin-top"] = "0px";
@@ -114,7 +113,8 @@ export class HeaderComponent implements OnInit {
       this.myNameElem.nativeElement.style["padding-top"] = "0px";
       this.myNameElem.nativeElement.style["padding-left"] = "40px";
       this.myNameElem.nativeElement.style["padding-right"] = "25px";
-      this.myNameElem.nativeElement.style["border-bottom"] = "2px solid #EDF1F7";
+      this.myNameElem.nativeElement.style["border-bottom"] =
+        "2px solid #EDF1F7";
       this.myNameElem.nativeElement.style["border-right"] = "2px solid #EDF1F7";
     }
 

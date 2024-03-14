@@ -1,119 +1,37 @@
-.search-container {
-  /* background-image: src("./../../../assets/background-main.jpg"); */
-  min-height: 400px;
-  height: fit-content;
-  width: 100%;
-  background-image: url("https://bookstore1storage.blob.core.windows.net/start-container/painting-mountain-lake-with-mountain-background%20(1).jpg");
-  background-size: cover; /* This property ensures that the background image covers the entire element */
-  background-repeat: no-repeat;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-
-.page-info-container {
-  /* background-image: src("./../../../assets/background-main.jpg"); */
-  height: fit-content;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  
-}
-
-.page-info-container .page-info {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-
-.page-info-container .page-info .page-info-image {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  margin-right: 10px;
-}
-
-.page-info-container .page-info .page-info-image i {
-  font-size: 40px !important;
-}
-
-.page-info-container .page-info .info-description {
+.pack-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  background-color: inherit;
+  padding: 30px 12% 30px;
+}
+
+.tourish-pack {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  background-color: inherit;
+}
+
+.tourish-pack-description {
+  background-color: inherit;
+}
+
+.tourish-pack app-tourish-card {
+  margin-bottom: 20px;
+}
+
+.tourish-pack-description h3 {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.tourish-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
   align-items: center;
 }
 
-.page-info-container .page-info .info-description h3{
-  font-weight: bold;
-  margin-bottom: 0px !important;
-}
-
-.page-info-container .page-info .info-description h4{
-  margin-bottom: 0px !important;
-}
-
-.tour-search {
-  width: 50%;
-  background-color: white;
-  padding: 20px 30px 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.tour-search .mat-mdc-form-field-infix ng-tns-c23-2 {
-  background-color: white;
-}
-
-.container {
-  width: 100%;
-}
-
-.below-title {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  padding: 15px 10px 15px;
-  background-color: #e3e7ed;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-}
-
-.below-title span {
-  font-weight: bold;
-  font-size: 22px;
-  margin-right: 20px;
-}
-
-.below-title span#tour-id {
-  font-weight: 300 !important;
-  font-size: 20px;
-  margin-left: auto;
-}
-
-.tour-description {
-  margin-top: 20px;
-  background-color: white;
-  padding: 15px 10px 15px;
-  font-size: 16px;
-}
-
-.tour-description h4.tour-name {
-  font-weight: bold;
-  font-size: 18px;
-}
-
-.full-width-input {
-  width: 100%;
-}
-
-ul li button {
-  font-size: 20px !important;
-}

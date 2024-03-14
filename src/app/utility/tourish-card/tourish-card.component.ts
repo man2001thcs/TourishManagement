@@ -1,7 +1,7 @@
 import { Component, Input } from "@angular/core";
 
 @Component({
-  selector: "tourish-card",
+  selector: "app-tourish-card",
   templateUrl: "./tourish-card.component.html",
   styleUrls: ["./tourish-card.component.css"],
 })

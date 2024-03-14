@@ -117,3 +117,7 @@
 ul li button {
   font-size: 20px !important;
 }
+
+app-tourish-pack:nth-child(odd) {
+  background-color: #ECF0F5 !important;
+}

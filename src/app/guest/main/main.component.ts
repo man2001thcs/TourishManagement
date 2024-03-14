@@ -28,7 +28,7 @@ export class MainComponent implements OnInit {
   }
 
   closetNav() {
-    this.myNameElem.nativeElement.style["margin-left"] = "0";
+    this.myNameElem.nativeElement.style["margin-left"] = "80px";
     this.isNavOpen = false;
   }
 }

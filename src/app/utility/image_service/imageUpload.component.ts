@@ -6,11 +6,13 @@ import {
 } from "@angular/common/http";
 import {
   Component,
+  ElementRef,
   EventEmitter,
   Input,
   OnDestroy,
   OnInit,
   Output,
+  ViewChild,
 } from "@angular/core";
 import { Observable, Subscription, catchError, finalize } from "rxjs";
 import { MessageService } from "../user_service/message.service";
@@ -27,7 +29,7 @@ import { Store } from "@ngrx/store";
 import { FileModel } from "./imageUpload.component.model";
 
 @Component({
-  selector: "file-upload",
+  selector: "app-file-upload",
   templateUrl: "imageUpload.component.html",
   styleUrls: ["imageUpload.component.css"],
 })
@@ -41,6 +43,8 @@ export class FileUploadComponent implements OnInit, OnDestroy {
   @Input()
   requiredFileType?: string;
   @Output() public onUploadFinished = new EventEmitter();
+
+  @ViewChild('file') fileInputRef!: ElementRef;
 
   fileName = "";
   uploadProgress?: number;
@@ -99,7 +103,6 @@ export class FileUploadComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.imageDeleteState.subscribe((state) => {
         if (state) {
-          console.log("abc: ", state);
           this.messageService.openMessageNotifyDialog(state.messageCode);
 
           if (state.resultCd === 0) {
@@ -119,7 +122,9 @@ export class FileUploadComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.errorMessageState.subscribe((state) => {
         if (state) {
-          this.messageService.openMessageNotifyDialog(state);
+          if (state !== "" && state !== null) {
+            this.messageService.openMessageNotifyDialog(state);
+          }
         }
       })
     );
@@ -127,7 +132,9 @@ export class FileUploadComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.errorSystemState.subscribe((state) => {
         if (state) {
-          this.messageService.openSystemFailNotifyDialog(state);
+          if (state !== "" && state !== null) {
+            this.messageService.openSystemFailNotifyDialog(state);
+          }
         }
       })
     );
@@ -145,7 +152,9 @@ export class FileUploadComponent implements OnInit, OnDestroy {
   }
 
   changeFile(files: any) {
-    if (files === null) {
+    console.log(files);
+
+    if (files === null || files.length <= 0) {    
       return;
     }
 
@@ -171,6 +180,8 @@ export class FileUploadComponent implements OnInit, OnDestroy {
 
     this.urlList.splice(index, 1);
     this.filesToUpload.splice(index, 1);
+
+    this.fileInputRef.nativeElement.value = '';
   }
 
   isRemoved(id: any): boolean {
@@ -265,16 +276,21 @@ export class FileUploadComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    console.log("Destroy");
+    this.store.dispatch(ImageListActions.resetImageList());
+
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+
     this.reset();
   }
 
   cancelUpload() {
-    this.uploadSub.unsubscribe();
+    if (this.uploadSub) this.uploadSub.unsubscribe();
     this.reset();
   }
 
   reset() {
     this.uploadProgress = 0;
-    this.uploadSub.unsubscribe();
+    if (this.uploadSub) this.uploadSub.unsubscribe();
   }
 }

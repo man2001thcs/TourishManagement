@@ -144,6 +144,14 @@ export interface Author {
   updateDate: string;
 }
 
+export interface TourishCategory {
+  id?: string;
+  name: string;
+  description: string;
+  createDate?: Date;
+  updateDate?: Date;
+}
+
 export interface TourishPlan {
   id?: string;
   tourName: string;
@@ -162,6 +170,7 @@ export interface TourishPlan {
   startDate: string;
   endDate: string;
 
+  tourishCategories?: TourishCategory[];
   stayingSchedules?: StayingSchedule[];
   eatSchedules?: EatSchedule[];
   movingSchedules?: MovingSchedule[];

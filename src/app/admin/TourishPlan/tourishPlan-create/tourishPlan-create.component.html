@@ -50,7 +50,7 @@
         #nav="ngbNav"
         [(activeId)]="active"
         class="nav-tabs"
-        style="margin-bottom: 20px"
+        style="margin-bottom: 20px; margin-right: 90px !important;"
       >
         <li [ngbNavItem]="1">
           <button ngbNavLink>Thông tin tour</button>
@@ -288,7 +288,7 @@
         </div>
 
         <div
-        class="row"
+        class="row" *ngIf="active === 1"
       >
         <editor
           style="width: 91% !important"

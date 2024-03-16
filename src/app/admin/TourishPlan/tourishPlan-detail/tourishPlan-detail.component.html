@@ -58,7 +58,7 @@
         #nav="ngbNav"
         [(activeId)]="active"
         class="nav-tabs"
-        style="margin-bottom: 20px"
+        style="margin-bottom: 20px; margin-right: 90px !important;"
       >
         <li [ngbNavItem]="1">
           <button ngbNavLink>Thông tin tour</button>
@@ -74,6 +74,10 @@
         </li>
         <li [ngbNavItem]="4">
           <button ngbNavLink>Lịch trình nơi ở</button>
+          <ng-template ngbNavContent> </ng-template>
+        </li>
+        <li [ngbNavItem]="5">
+          <button ngbNavLink>Cập nhật ảnh</button>
           <ng-template ngbNavContent> </ng-template>
         </li>
       </ul>
@@ -316,7 +320,7 @@
       </form>
 
       <div
-        class="row"
+        class="row" *ngIf="active === 1"
       >
         <editor
           style="width: 91% !important"
@@ -357,6 +361,10 @@
         *ngIf="active === 2"
       >
       </eating-multiselect-autocomplete>
+
+      <app-file-upload  *ngIf="active === 5" [productId]="this.tourishPlan.id" [productType]="1">
+
+      </app-file-upload>
     </div>
   </div>
 </div>

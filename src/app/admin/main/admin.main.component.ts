@@ -32,7 +32,7 @@ export class AdminMainComponent {
   }
 
   closetNav() {
-    this.myNameElem.nativeElement.style["margin-left"] = "0";
+    this.myNameElem.nativeElement.style["margin-left"] = "80px";
     this.adminContent.nativeElement.style["padding-left"] = "18%";
     this.adminContent.nativeElement.style["padding-right"] = "18%";
     this.isNavOpen = false;

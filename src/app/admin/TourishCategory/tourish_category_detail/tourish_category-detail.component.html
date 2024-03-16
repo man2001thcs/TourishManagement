@@ -1,0 +1,107 @@
+<div class="container" style="padding: 20px 0 20px">
+  <div
+    class="outlet"
+    style="
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      flex-direction: column !important;
+    "
+  >
+    <div
+      class="row"
+      style="
+        display: flex;
+        flex-direction: column !important;
+        flex-wrap: 1;
+        padding-left: 90px !important;
+      "
+    >
+      <div class="row">
+        <h2 mat-form-label style="font-weight: heavy">Thêm thể loại</h2>
+      </div>
+      <form [formGroup]="editformGroup_info">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
+            <div class="row">
+              <mat-form-field appearance="outline" class="full-width-input">
+                <mat-label>Thể loại</mat-label>
+                <input
+                  matInput
+                  fullwidth
+                  placeholder="Vd: Bồ Công Anh"
+                  formControlName="name"
+                />
+              </mat-form-field>
+
+              <div style="margin-top: -20px; margin-bottom: 10px">
+                <app-validation
+                  *ngIf="
+                    this.editformGroup_info.get('name')?.errors &&
+                    (editformGroup_info.get('name')?.touched || isSubmitted)
+                  "
+                  [formGroup]="editformGroup_info"
+                  [formGroupControlName]="'name'"
+                ></app-validation>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="row"
+          style="display: flex; flex-direction: column !important; flex-wrap: 1"
+        >
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form">
+            <mat-form-field style="width: 90%">
+              <textarea
+                matInput
+                class="form-control"
+                id="description"
+                placeholder="Thông tin đính kèm"
+                formControlName="description"
+                rows="10"
+              ></textarea>
+            </mat-form-field>
+            <div style="margin-top: -20px; margin-bottom: 10px">
+              <app-validation
+                *ngIf="
+                  this.editformGroup_info.get('description')?.errors &&
+                  (editformGroup_info.get('description')?.touched ||
+                    isSubmitted)
+                "
+                [formGroup]="editformGroup_info"
+                [formGroupControlName]="'description'"
+              ></app-validation>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="row"
+          style="display: flex; flex-direction: row !important; flex-wrap: 1"
+        >
+          <div style="margin-right: 20px">
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="formSubmit_edit_info()"
+            >
+              Lưu
+            </button>
+          </div>
+
+          <div>
+            <button
+              mat-raised-button
+              color="warn"
+              type="button"
+              (click)="formReset()"
+            >
+              Khôi phục
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

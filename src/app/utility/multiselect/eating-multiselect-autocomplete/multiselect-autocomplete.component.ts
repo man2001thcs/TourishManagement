@@ -399,8 +399,6 @@ export class EatingMultiselectAutocompleteComponent implements OnInit {
 
   addToSchedule(): void {
     this.isSubmit = true;
-    console.log(this.eatingFormGroup.errors);
-    console.log(this.eatingFormGroup.valid);
 
     this.eatingFormGroup.controls["description"].setValue(
       this.editorContent

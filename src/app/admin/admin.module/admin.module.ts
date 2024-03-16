@@ -89,6 +89,17 @@ import { reducer as TourishPlanListReducer } from "../TourishPlan/tourishPlan-li
 import { storeKey as TourishPlanDetailStoreKey } from "../TourishPlan/tourishPlan-detail/tourishPlan-detail.store.action";
 import { reducer as TourishPlanDetailReducer } from "../TourishPlan/tourishPlan-detail/tourishPlan-detail.store.reducer";
 
+
+import { storeKey as TourishCategoryCreateStoreKey } from "../TourishCategory/tourish_category_create/tourish_category-create.store.action";
+import { reducer as TourishCategoryCreateReducer } from "../TourishCategory/tourish_category_create/tourish_category-create.store.reducer";
+
+import { storeKey as TourishCategoryListStoreKey } from "../TourishCategory/tourish_category_list/tourish_category-list.store.action";
+import { reducer as TourishCategoryListReducer } from "../TourishCategory/tourish_category_list/tourish_category-list.store.reducer";
+
+import { storeKey as TourishCategoryDetailStoreKey } from "../TourishCategory/tourish_category_detail/tourish_category-detail.store.action";
+import { reducer as TourishCategoryDetailReducer } from "../TourishCategory/tourish_category_detail/tourish_category-detail.store.reducer";
+
+
 import { storeKey as AirPlaneCreateStoreKey } from "../AirPlane/air_plane_create/air_plane-create.store.action";
 import { reducer as AirPlaneCreateReducer } from "../AirPlane/air_plane_create/air_plane-create.store.reducer";
 
@@ -206,6 +217,12 @@ import { AccountInfoComponent } from "../Account/account-info/account-info.compo
 import { AccountEffects } from "../Account/account-info/account-info.store.effect";
 
 import { EditorModule, TINYMCE_SCRIPT_SRC } from "@tinymce/tinymce-angular";
+import { TourishCategoryCreateComponent } from "../TourishCategory/tourish_category_create/tourish_category-create.component";
+import { TourishCategoryDetailComponent } from "../TourishCategory/tourish_category_detail/tourish_category-detail.component";
+import { TourishCategoryListComponent } from "../TourishCategory/tourish_category_list/tourish_category-list.component";
+import { TourishCategoryCreateEffects } from "../TourishCategory/tourish_category_create/tourish_category-create.store.effect";
+import { TourishCategoryEffects } from "../TourishCategory/tourish_category_detail/tourish_category-detail.store.effect";
+import { TourishCategoryListEffects } from "../TourishCategory/tourish_category_list/tourish_category-list.store.effect";
 
 @NgModule({
   declarations: [
@@ -232,6 +249,10 @@ import { EditorModule, TINYMCE_SCRIPT_SRC } from "@tinymce/tinymce-angular";
     TourishPlanCreateAdminComponent,
     TourishPlanListAdminComponent,
     TourishPlanDetailAdminComponent,
+
+    TourishCategoryCreateComponent,
+    TourishCategoryDetailComponent,
+    TourishCategoryListComponent,
 
     ReceiptCreateComponent,
     ReceiptListComponent,
@@ -289,6 +310,10 @@ import { EditorModule, TINYMCE_SCRIPT_SRC } from "@tinymce/tinymce-angular";
     StoreModule.forFeature(TourishPlanListStoreKey, TourishPlanListReducer),
     StoreModule.forFeature(TourishPlanDetailStoreKey, TourishPlanDetailReducer),
 
+    StoreModule.forFeature(TourishCategoryCreateStoreKey, TourishCategoryCreateReducer),
+    StoreModule.forFeature(TourishCategoryListStoreKey, TourishCategoryListReducer),
+    StoreModule.forFeature(TourishCategoryDetailStoreKey,TourishCategoryDetailReducer),
+
     StoreModule.forFeature(
       PassengerCarCreateStoreKey,
       PassengerCarCreateReducer
@@ -345,6 +370,10 @@ import { EditorModule, TINYMCE_SCRIPT_SRC } from "@tinymce/tinymce-angular";
     ),
 
     StoreModule.forFeature(ImageListStoreKey, ImageListReducer),
+
+    EffectsModule.forFeature([TourishCategoryCreateEffects]),
+    EffectsModule.forFeature([TourishCategoryEffects]),
+    EffectsModule.forFeature([TourishCategoryListEffects]),
 
     EffectsModule.forFeature([StayingAutoCompleteListEffects]),
     EffectsModule.forFeature([MovingAutoCompleteListEffects]),

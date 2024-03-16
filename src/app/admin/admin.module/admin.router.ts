@@ -22,6 +22,7 @@ import { TourishPlanListAdminComponent } from "../TourishPlan/tourishPlan-list/t
 import { ReceiptListComponent } from "../Receipt/receipt_list/receipt-list.component";
 import { UserListComponent } from "../User/user_list/user-list.component";
 import { AccountInfoComponent } from "../Account/account-info/account-info.component";
+import { TourishCategoryListComponent } from "../TourishCategory/tourish_category_list/tourish_category-list.component";
 
 const routes: Routes = [
   {
@@ -46,7 +47,10 @@ const routes: Routes = [
         path: "tourish-plan/list",
         component: TourishPlanListAdminComponent,
       },
-
+      {
+        path: "tour/category/list",
+        component: TourishCategoryListComponent,
+      },
       {
         path: "transport/passenger-car/list",
         component: PassengerCarListComponent,

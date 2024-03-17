@@ -276,15 +276,14 @@ export const SUCCESS_MESSAGE_CODE_EN: Map<string, string> = new Map([
     ["I412", "Tour cập nhật thành công"],
     ["I413", "Tour xóa thành công"],
 
-    ["I411", "Thể loại tour thêm thành công"],
-    ["I412", "Thể loại tour cập nhật thành công"],
-    ["I413", "Thể loại tour xóa thành công"],
+    ["I421", "Thể loại tour thêm thành công"],
+    ["I422", "Thể loại tour cập nhật thành công"],
+    ["I423", "Thể loại tour xóa thành công"],
 
     ["I511", "Hóa đơn thêm thành công"],
     ["I512", "Hóa đơn cập nhật thành công"],
     ["I513", "Hóa đơn xóa thành công"],
 
-    
     ["I601", "Tin nhắn thêm thành công"],
     ["I602", "Tin nhắn cập nhật thành công"],
     ["I603", "Tin nhắn xóa thành công"],

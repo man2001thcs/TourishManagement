@@ -46,12 +46,12 @@ export class TourishCategoryDetailComponent implements OnInit, OnDestroy {
   isEditing: boolean = true;
   isSubmitted = false;
 
-  passengerCar: TourishCategory = {
+  tourishCategory: TourishCategory = {
     id: "",
     name: "",
     description: "",
   };
-  passengerCarParam!: TourishCategoryParam;
+  tourishCategoryParam!: TourishCategoryParam;
 
   this_announce = "";
   firstTime = false;
@@ -59,7 +59,7 @@ export class TourishCategoryDetailComponent implements OnInit, OnDestroy {
 
   errorMessageState!: Observable<any>;
   errorSystemState!: Observable<any>;
-  passengerCarState!: Observable<any>;
+  tourishCategoryState!: Observable<any>;
   editTourishCategoryState!: Observable<any>;
   subscriptions: Subscription[] = [];
 
@@ -72,7 +72,7 @@ export class TourishCategoryDetailComponent implements OnInit, OnDestroy {
     private _route: ActivatedRoute,
     @Inject(MAT_DIALOG_DATA) public data: TourishCategoryParam
   ) {
-    this.passengerCarState = this.store.select(getTourishCategory);
+    this.tourishCategoryState = this.store.select(getTourishCategory);
     this.editTourishCategoryState = this.store.select(editTourishCategory);
     this.errorMessageState = this.store.select(getMessage);
     this.errorSystemState = this.store.select(getSysError);
@@ -86,9 +86,10 @@ export class TourishCategoryDetailComponent implements OnInit, OnDestroy {
     });
 
     this.subscriptions.push(
-      this.passengerCarState.subscribe((state) => {
+      this.tourishCategoryState.subscribe((state) => {
         if (state) {
-          this.passengerCar = state;
+          this.tourishCategory = state;
+          console.log(state);
           this.messageService.closeLoadingDialog();
 
           this.editformGroup_info.controls["name"].setValue(
@@ -154,8 +155,8 @@ export class TourishCategoryDetailComponent implements OnInit, OnDestroy {
 
   formReset(): void {
     this.editformGroup_info.setValue({
-      name: this.passengerCar.name ?? "",
-      description: this.passengerCar.description,
+      name: this.tourishCategory.name ?? "",
+      description: this.tourishCategory.description,
     });
   }
 

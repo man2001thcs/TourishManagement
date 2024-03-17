@@ -18,7 +18,7 @@ import {
 } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 
-import { TourishPlan } from "src/app/model/baseModel";
+import { TourishCategoryRelation, TourishPlan } from "src/app/model/baseModel";
 
 import { AdminService } from "../../service/admin.service";
 import { CheckDeactivate } from "../../interface/admin.check_edit";
@@ -45,6 +45,8 @@ export class TourishPlanCreateAdminComponent
   active = 1;
   isEditing: boolean = true;
   isSubmitting: boolean = false;
+
+  tourishCategoryRelations: TourishCategoryRelation[] = [];
 
   coverMaterial = 0;
   this_announce = "";
@@ -120,10 +122,7 @@ export class TourishPlanCreateAdminComponent
 
       totalTicket: [7, Validators.compose([Validators.required])],
       remainTicket: [2, Validators.compose([Validators.required])],
-      description: [
-        "Không có",
-        Validators.compose([Validators.required, Validators.minLength(3)]),
-      ],
+      description: ["Không có", Validators.compose([Validators.required])],
 
       movingScheduleString: [""],
       eatingScheduleString: [""],
@@ -273,7 +272,10 @@ export class TourishPlanCreateAdminComponent
 
   formSubmit_create_info(): void {
     this.isSubmitted = true;
+
     this.createformGroup.controls["description"].setValue(this.editorContent);
+
+    console.log(this.createformGroup.controls["description"].value);
 
     if (this.createformGroup.valid) {
       this.store.dispatch(
@@ -292,6 +294,8 @@ export class TourishPlanCreateAdminComponent
             totalTicket: this.createformGroup.value.totalTicket,
             remainTicket: this.createformGroup.value.remainTicket,
             description: this.editorContent,
+
+            tourishCategoryRelations: this.tourishCategoryRelations,
 
             movingScheduleString:
               this.createformGroup.value.movingScheduleString,
@@ -368,12 +372,14 @@ export class TourishPlanCreateAdminComponent
     return !this.createformGroup.dirty || this.openDialog();
   }
 
-  // selectChange_author = (event: any) => {
-  //   console.log(event.data);
-  //   this.author_submit = [...event.data];
-  //   //console.log(this.author_submit);
-  //   this.authorSubmitString = this.author_submit.join(";");
-  // };
+  selectChangeCategory = (event: any) => { 
+    if (event.data == null) {
+      this.tourishCategoryRelations = [];
+      return;
+    }
+
+    this.tourishCategoryRelations = event.data;
+  };
 
   selectChangeStaying = (event: any) => {
     console.log(event.data);

@@ -58,7 +58,7 @@
         #nav="ngbNav"
         [(activeId)]="active"
         class="nav-tabs"
-        style="margin-bottom: 20px; margin-right: 90px !important;"
+        style="margin-bottom: 20px; margin-right: 90px !important"
       >
         <li [ngbNavItem]="1">
           <button ngbNavLink>Thông tin tour</button>
@@ -300,6 +300,16 @@
               </mat-form-field>
             </div>
           </div>
+
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
+            <div class="row" style="margin-bottom: 1rem; width: 100%">
+              <tourishCategory-multiselect-autocomplete style="width: 100%"
+                [data_selected]="tourishPlan.tourishCategoryRelations ?? []"
+                (result)="selectChangeCategory($event)"
+              >
+              </tourishCategory-multiselect-autocomplete>
+            </div>
+          </div>
         </div>
 
         <div
@@ -319,9 +329,7 @@
         </div>
       </form>
 
-      <div
-        class="row" *ngIf="active === 1"
-      >
+      <div class="row" *ngIf="active === 1">
         <editor
           style="width: 91% !important"
           #filePickerEditor
@@ -362,8 +370,11 @@
       >
       </eating-multiselect-autocomplete>
 
-      <app-file-upload  *ngIf="active === 5" [productId]="this.tourishPlan.id" [productType]="1">
-
+      <app-file-upload
+        *ngIf="active === 5"
+        [productId]="this.tourishPlan.id"
+        [productType]="1"
+      >
       </app-file-upload>
     </div>
   </div>

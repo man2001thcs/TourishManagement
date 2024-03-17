@@ -169,7 +169,7 @@ export class TourishPlanListAdminComponent
   openDeleteDialog(id: string) {
     const ref = this.dialog.open(ConfirmDialogComponent, {
       data: {
-        title: "Bạn có muốn xóa tourishPlan này không?",
+        title: "Bạn có muốn xóa tour này không?",
       },
     });
 

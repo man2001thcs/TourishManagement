@@ -32,19 +32,19 @@
             matInput
             fullwidth
             placeholder="Vd: Bồ Công Anh"
-            formControlName="address"
+            formControlName="startingPlace"
           />
         </mat-form-field>
         <app-validation
           *ngIf="isSubmit"
           [formGroup]="setTourForm"
-          [formGroupControlName]="'address'"
+          [formGroupControlName]="'startingPlace'"
         ></app-validation>
       </div>
 
       <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 create-form">
         <mat-form-field appearance="outline" class="full-width-input">
-          <mat-label>Ngày kết thúc</mat-label>
+          <mat-label>Ngày bắt đầu</mat-label>
           <input
             matInput
             [ngxMatDatetimePicker]="picker"
@@ -68,7 +68,7 @@
         <app-validation
           *ngIf="isSubmit"
           [formGroup]="setTourForm"
-          [formGroupControlName]="'endDate'"
+          [formGroupControlName]="'startDate'"
         ></app-validation>
       </div>
 

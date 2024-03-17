@@ -1,0 +1,47 @@
+<div>
+  <mat-form-field appearance="outline" class="full-width-input">
+    <mat-label>Thể loại</mat-label>
+    <mat-chip-grid #chipGrid aria-label="Fruit selection">
+      <mat-chip-row
+        *ngFor="let tourishCategory of tourishCategoryNameList"
+        (removed)="remove(tourishCategory)"
+        style="font-size: 16px"
+      >
+        {{ tourishCategory }}
+        <button matChipRemove [attr.aria-label]="'remove ' + tourishCategory">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-chip-row>
+    </mat-chip-grid>
+    <input
+      placeholder="Chọn tour"
+      #tourishCategoryInput
+      [formControl]="tourishCategoryCtrl"
+      [matChipInputFor]="chipGrid"
+      [matAutocomplete]="auto"
+      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+      (matChipInputTokenEnd)="add($event)"
+    />
+
+    <mat-autocomplete
+      #auto="matAutocomplete"
+      (optionSelected)="selected($event)"
+      (optionsScroll)="onScroll($event)"
+    >
+      <mat-option
+        *ngFor="let tourishCategory of data"
+        [value]="tourishCategory"
+        [disabled]="isChecked(tourishCategory)"
+      >
+        <div>
+          <div style="font-weight: bold">
+            {{ tourishCategory.name }}
+            <mat-icon>{{ isChecked(tourishCategory) && "checked" }}</mat-icon>
+          </div>
+
+          <small>{{ onDisplayAtr(tourishCategory) }}</small>
+        </div>
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</div>

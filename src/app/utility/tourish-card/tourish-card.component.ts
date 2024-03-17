@@ -7,13 +7,11 @@ import { Component, Input } from "@angular/core";
 })
 export class TourishPlanCardComponent {
   @Input()
-  data!: string;
-  @Input()
   score = 10;
   @Input()
   judgeNumber = 19;
   @Input()
-  tourName = "Tour ABC xyz tới GHZ";
+  tourName ="";
   @Input()
   tourPrice = 1400000;
   @Input()

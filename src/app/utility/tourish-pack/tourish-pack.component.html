@@ -1,18 +1,19 @@
 <div class="pack-container" id="pack-container" #packContainer>
   <div class="tourish-pack-description">
-    <h3>Tour Du Lịch Hành Hương</h3>
+    <h3>Tour {{ capitalizeFirstLetter(category)}}</h3>
     <h4>Tìm Về Chốn Thiêng, Lòng Người An Bình</h4>
   </div>
   <div class="tourish-pack">
-    <app-tourish-card></app-tourish-card>
-    <app-tourish-card></app-tourish-card>
-    <app-tourish-card></app-tourish-card>
-    <app-tourish-card></app-tourish-card>
-    <app-tourish-card></app-tourish-card>
-    <app-tourish-card></app-tourish-card>
+    <app-tourish-card
+      *ngFor="let tour of tourishPLanList"
+      [tourName]="tour.tourName"
+      [tourPrice]="getTotalPrice(tour)"
+    ></app-tourish-card>
   </div>
 
   <div class="tourish-button">
-    <button mat-stroked-button style="color: rgb(4, 201, 201); font-size: 16px;">Xem thêm</button>
+    <button mat-stroked-button style="color: rgb(4, 201, 201); font-size: 16px">
+      Xem thêm
+    </button>
   </div>
 </div>

@@ -33,7 +33,7 @@ import {
   getSysError,
 } from "./tourishPlan-detail.store.selector";
 import { MessageService } from "src/app/utility/user_service/message.service";
-import { EatSchedule, TourishPlan } from "src/app/model/baseModel";
+import { EatSchedule, TourishCategoryRelation, TourishPlan } from "src/app/model/baseModel";
 import { TourishPlanParam } from "./tourishPlan-detail.component.model";
 declare let tinymce: any;
 
@@ -69,7 +69,10 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
     stayingSchedules: [],
     eatSchedules: [],
     movingSchedules: [],
+    tourishCategoryRelations: []
   };
+
+  tourishCategoryRelations: TourishCategoryRelation[] = [];
 
   isSubmitted = false;
 
@@ -381,6 +384,8 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
             remainTicket: this.editformGroup_info.value.remainTicket,
             description: this.editorContent,
 
+            tourishCategoryRelations: this.tourishCategoryRelations,
+
             movingScheduleString:
               this.editformGroup_info.value.movingScheduleString,
             EatingScheduleString:
@@ -472,6 +477,11 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
     | UrlTree {
     return !this.editformGroup_info.dirty || this.openDialog();
   }
+
+  selectChangeCategory = (event: any) => {
+    this.tourishCategoryRelations = event.data;
+    console.log(this.tourishCategoryRelations);
+  };
 
   selectChangeStaying = (event: any) => {
     console.log(event.data);

@@ -21,6 +21,9 @@ import { MatButtonModule } from "@angular/material/button";
 import { StoreModule } from "@ngrx/store";
 import { EffectsModule } from "@ngrx/effects";
 
+import { storeKey as TourishCategoryAutocompleteStoreKey } from "src/app/utility/multiselect/tourishCategory-multiselect-autocomplete/multiselect-autocomplete.store.action";
+import { reducer as TourishCategoryAutocompleteReducer } from "src/app/utility/multiselect/tourishCategory-multiselect-autocomplete/multiselect-autocomplete.store.reducer";
+
 import { storeKey as StayingAutocompleteStoreKey } from "src/app/utility/multiselect/staying-multiselect-autocomplete/multiselect-autocomplete.store.action";
 import { reducer as StayingAutocompleteReducer } from "src/app/utility/multiselect/staying-multiselect-autocomplete/multiselect-autocomplete.store.reducer";
 
@@ -223,6 +226,8 @@ import { TourishCategoryListComponent } from "../TourishCategory/tourish_categor
 import { TourishCategoryCreateEffects } from "../TourishCategory/tourish_category_create/tourish_category-create.store.effect";
 import { TourishCategoryEffects } from "../TourishCategory/tourish_category_detail/tourish_category-detail.store.effect";
 import { TourishCategoryListEffects } from "../TourishCategory/tourish_category_list/tourish_category-list.store.effect";
+import { TourishCategoryMultiselectAutocompleteComponent } from "src/app/utility/multiselect/tourishCategory-multiselect-autocomplete/multiselect-autocomplete.component";
+import { TourishCategoryAutoCompleteListEffects } from "src/app/utility/multiselect/tourishCategory-multiselect-autocomplete/multiselect-autocomplete.store.effect";
 
 @NgModule({
   declarations: [
@@ -270,6 +275,7 @@ import { TourishCategoryListEffects } from "../TourishCategory/tourish_category_
     MovingMultiselectAutocompleteComponent,
     EatingMultiselectAutocompleteComponent,
     TourishPlanMultiselectAutocompleteComponent,
+    TourishCategoryMultiselectAutocompleteComponent,
 
     FileUploadComponent,
 
@@ -350,6 +356,11 @@ import { TourishCategoryListEffects } from "../TourishCategory/tourish_category_
     StoreModule.forFeature(AccountInfoStoreKey, AccountInfoReducer),
 
     StoreModule.forFeature(
+      TourishCategoryAutocompleteStoreKey,
+      TourishCategoryAutocompleteReducer
+    ),
+
+    StoreModule.forFeature(
       StayingAutocompleteStoreKey,
       StayingAutocompleteReducer
     ),
@@ -375,6 +386,7 @@ import { TourishCategoryListEffects } from "../TourishCategory/tourish_category_
     EffectsModule.forFeature([TourishCategoryEffects]),
     EffectsModule.forFeature([TourishCategoryListEffects]),
 
+    EffectsModule.forFeature([TourishCategoryAutoCompleteListEffects]),
     EffectsModule.forFeature([StayingAutoCompleteListEffects]),
     EffectsModule.forFeature([MovingAutoCompleteListEffects]),
     EffectsModule.forFeature([EatingAutoCompleteListEffects]),

@@ -9,7 +9,7 @@
 .tourish-pack {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   background-color: inherit;
@@ -21,6 +21,8 @@
 
 .tourish-pack app-tourish-card {
   margin-bottom: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .tourish-pack-description h3 {

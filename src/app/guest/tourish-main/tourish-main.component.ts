@@ -33,14 +33,8 @@ export class TourishMainComponent implements OnInit{
   ngOnInit(){
     this.setTourForm = this.fb.group({
       name: ["", Validators.compose([Validators.required])],
-      endDate: ["", Validators.compose([Validators.required])],
-      email: ["", Validators.compose([Validators.required])],
-      phoneNumber: ["", Validators.compose([Validators.required])],
-      totalTicket: [0, Validators.compose([Validators.required])],
-      description: [
-        "",
-        Validators.compose([Validators.required, Validators.minLength(3)]),
-      ],
+      startDate: ["", Validators.compose([Validators.required])],
+      startingPlace: ["", Validators.compose([Validators.required])],
     });
   }
 

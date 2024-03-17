@@ -1,3 +1,4 @@
+import { HttpClient, HttpParams } from "@angular/common/http";
 import {
   AfterViewInit,
   Component,
@@ -9,8 +10,10 @@ import {
 } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ThemePalette } from "@angular/material/core";
+
 import { NgbCarouselConfig } from "@ng-bootstrap/ng-bootstrap";
 import { Slider } from "angular-carousel-slider/lib/angular-carousel-slider.component";
+import { TourishPlan } from "src/app/model/baseModel";
 
 @Component({
   selector: "app-tourish-pack",
@@ -19,7 +22,7 @@ import { Slider } from "angular-carousel-slider/lib/angular-carousel-slider.comp
 })
 export class TourishPackComponent implements OnInit, AfterViewInit {
   @Input()
-  data!: string;
+  category: string = "Du lịch hành hương";
   @ViewChild("picker") eatingPicker: any;
   @ViewChild("packContainer") packContainer!: ElementRef;
 
@@ -32,9 +35,16 @@ export class TourishPackComponent implements OnInit, AfterViewInit {
   touchUi = false;
   enableMeridian = false;
 
+  tourishPLanList: TourishPlan[] = [];
+  length = 0;
+
   color: ThemePalette = "primary";
 
-  constructor(private fb: FormBuilder, private renderer: Renderer2) {}
+  constructor(
+    private fb: FormBuilder,
+    private renderer: Renderer2,
+    private http: HttpClient
+  ) {}
 
   ngOnInit() {
     this.setTourForm = this.fb.group({
@@ -48,12 +58,14 @@ export class TourishPackComponent implements OnInit, AfterViewInit {
         Validators.compose([Validators.required, Validators.minLength(3)]),
       ],
     });
+
+    this.getTourPack();
   }
 
   ngAfterViewInit() {
     this.adjustSize();
 
-    const resizeObserver = new ResizeObserver(entries => {
+    const resizeObserver = new ResizeObserver((entries) => {
       for (const entry of entries) {
         this.adjustSize();
       }
@@ -101,23 +113,39 @@ export class TourishPackComponent implements OnInit, AfterViewInit {
     }
   }
 
-  slides: any[] = [
-    {
-      url: "https://picsum.photos/id/944/900/500",
-      title: "First slide",
-      description: "This is the first slide",
-    },
-    {
-      url: "https://picsum.photos/id/1011/900/500",
-      title: "Second slide",
-      description: "This is the second slide",
-    },
-    {
-      url: "https://picsum.photos/id/984/900/500",
-      title: "Third slide",
-      description: "This is the third slide",
-    },
-  ];
+  getTourPack() {
+    const params = {
+      page: 1,
+      category: this.category,
+      pageSize: 6
+    };
 
-  images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
+    this.http.get("/api/GetTourishPlan", { params: params }).subscribe((response: any) => {
+      this.tourishPLanList = response.data;
+      console.log(response);
+      this.length = response.count;
+    });
+  }
+
+  getTotalPrice(tourishPlan: TourishPlan): number {
+    let totalPrice = 0;
+
+    tourishPlan.stayingSchedules?.forEach((entity) => {
+      totalPrice += entity.singlePrice ?? 0;
+    });
+
+    tourishPlan.eatSchedules?.forEach((entity) => {
+      totalPrice += entity.singlePrice ?? 0;
+    });
+
+    tourishPlan.movingSchedules?.forEach((entity) => {
+      totalPrice += entity.singlePrice ?? 0;
+    });
+
+    return totalPrice;
+  }
+
+  capitalizeFirstLetter(sentence: string): string {
+    return sentence.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+}
 }

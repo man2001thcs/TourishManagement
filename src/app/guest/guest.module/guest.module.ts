@@ -60,6 +60,7 @@ import { NgImageSliderModule } from "ng-image-slider";
 import { CarouselSlider } from "angular-carousel-slider";
 import { TourishMainComponent } from "../tourish-main/tourish-main.component";
 import { TourishPackComponent } from "src/app/utility/tourish-pack/tourish-pack.component";
+import { EditorComponent, EditorModule, TINYMCE_SCRIPT_SRC } from "@tinymce/tinymce-angular";
 
 
 
@@ -104,6 +105,7 @@ import { TourishPackComponent } from "src/app/utility/tourish-pack/tourish-pack.
     NgImageSliderModule,
     HttpClientModule,
     ReactiveFormsModule,
+    EditorModule,
 
     StoreModule.forFeature(LoginStoreKey, LoginReducer),
     StoreModule.forFeature(SignInStoreKey, SignInReducer),
@@ -112,5 +114,8 @@ import { TourishPackComponent } from "src/app/utility/tourish-pack/tourish-pack.
     EffectsModule.forFeature([UserCreateEffects]),
   ],
   exports: [RouterModule],
+  providers: [
+    { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' }
+  ]
 })
 export class GuestModule {}

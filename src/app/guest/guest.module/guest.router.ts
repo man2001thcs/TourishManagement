@@ -35,7 +35,7 @@ const routes: Routes = [
         component: TourishPlanCardComponent,
       },
       {
-        path: "detail",
+        path: "tour/:id/detail",
         component: TourishDetailComponent,
       },
       {

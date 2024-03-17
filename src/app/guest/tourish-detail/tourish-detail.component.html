@@ -14,17 +14,17 @@
     <span><i class="fa fa-clock-o" aria-hidden="true"></i> Trong ngày</span>
     <span><i class="fa fa-bus" aria-hidden="true"></i> Phương tiện</span>
 
-    <span id="tour-id"> Mã tour: </span>
+    <span id="tour-id"> Mã tour: {{ tourishPlan?.id }}</span>
   </div>
 
-  <div class="tour-description">
-    <h4 class="tour-name">Tour Núi Bà Đen và Tòa Thánh Tây Ninh</h4>
-    Trong Ngày Khám phá vẻ đẹp kỳ bí của Núi Bà Đen và Tòa Thánh Tây Ninh trong
-    một chuyến du lịch ngày từ TP. Hồ Chí Minh! Hành trình đưa bạn đến những địa
-    danh linh thiêng và kiến trúc đặc sắc, bao gồm cả cáp treo hiện đại tới Núi
-    Bà Đen, Điện Bà, Động Thanh Long và nhiều hơn nữa. Đừng bỏ lỡ cơ hội khám
-    phá Tòa Thánh Tây Ninh, kiệt tác kiến trúc của Đạo Cao Đài, và tham quan
-    Chùa Gò Kén, ngôi chùa cổ kính. Trải nghiệm ngay cùng iVIVU!
+  <div class="tour-description" style="pointer-events: none;">
+    <editor
+      [disabled]="true"
+      #filePickerEditor
+      apiKey="your-api-key"
+      [ngModel]="tourDescription"
+      [init]="this.tinyMceSetting"
+    ></editor>
   </div>
 
   <div class="tour-description">

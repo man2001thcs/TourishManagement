@@ -1,4 +1,5 @@
 import { Component, Input } from "@angular/core";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-tourish-card",
@@ -9,13 +10,17 @@ export class TourishPlanCardComponent {
   @Input()
   score = 10;
   @Input()
+  id = "";
+  @Input()
   judgeNumber = 19;
   @Input()
-  tourName ="";
+  tourName = "";
   @Input()
   tourPrice = 1400000;
   @Input()
   customerNumber = 19;
+
+  constructor(private router: Router) {}
 
   getRateString(input: number) {
     if (0 <= input && 5 > input) {
@@ -24,7 +29,8 @@ export class TourishPlanCardComponent {
       return "Trung bình";
     } else if (8 <= input && 10 >= input) {
       return "Tuyệt vời";
-    } return "";
+    }
+    return "";
   }
 
   getRateColor(input: number) {
@@ -34,6 +40,11 @@ export class TourishPlanCardComponent {
       return "#F79321";
     } else if (8 <= input && 10 >= input) {
       return "#9fc43a";
-    } return "";
+    }
+    return "";
+  }
+
+  navigateToDetail(): void {
+    this.router.navigate(["guest/tour/" + this.id + "/detail"]);
   }
 }

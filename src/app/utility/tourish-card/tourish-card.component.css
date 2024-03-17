@@ -1,7 +1,11 @@
 .example-card {
     width: 360px;
     height: fit-content;
-    min-height: 420px;
+    min-height: 420px;    
+}
+
+.example-card:hover {
+    cursor: pointer;
 }
 
 .tour-name {

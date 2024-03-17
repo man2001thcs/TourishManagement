@@ -1,6 +1,7 @@
 <div class="slides">
   <div
     class="slide"
+    *ngIf="slides[currentSlide] !== undefined"
     [ngStyle]="{
       'background-image': 'url(' + slides[currentSlide].url + ')',
       opacity: hidden ? 0 : 1,

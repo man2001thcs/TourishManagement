@@ -204,6 +204,14 @@ export interface TotalReceipt {
   tourishPlan?: TourishPlan;
 }
 
+export interface SaveFile {
+  id?: string;
+  accessSourceId: string;
+  resourceType: number;
+  fileType: string;
+  createDate: string;
+}
+
 export interface FullReceipt {
   fullReceiptId?: string;
   totalReceiptId?: string;

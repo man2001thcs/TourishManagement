@@ -6,6 +6,7 @@
   <div class="tourish-pack">
     <app-tourish-card
       *ngFor="let tour of tourishPLanList"
+      [id]="tour.id ?? ''"
       [tourName]="tour.tourName"
       [tourPrice]="getTotalPrice(tour)"
     ></app-tourish-card>

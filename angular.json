@@ -84,6 +84,7 @@
           "options": {
             "browserTarget": "roxanne:build",
             "proxyConfig": "src/app/proxy_config.json"
+            
           },
           "defaultConfiguration": "development"
         },
@@ -104,7 +105,9 @@
               "src/styles.css",
               "src/default.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/tinymce/tinymce.min.js"
+            ]
           }
         }
       }

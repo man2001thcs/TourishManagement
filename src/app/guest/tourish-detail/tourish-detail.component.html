@@ -17,7 +17,7 @@
     <span id="tour-id"> Mã tour: {{ tourishPlan?.id }}</span>
   </div>
 
-  <div class="tour-description" style="pointer-events: none;">
+  <div class="tour-description" style="pointer-events: none">
     <editor
       [disabled]="true"
       #filePickerEditor
@@ -54,6 +54,39 @@
         <ng-template ngbNavContent> </ng-template>
       </li>
     </ul>
+  </div>
+
+  <div *ngIf="active == 1 && tourishPlan?.eatSchedules != undefined">
+    <editor
+      *ngFor="let eatSchedule of tourishPlan?.eatSchedules"
+      [disabled]="true"
+      #filePickerEditor
+      apiKey="your-api-key"
+      [ngModel]="eatSchedule.description"
+      [init]="this.tinyMceSetting"
+    ></editor>
+  </div>
+
+  <div *ngIf="active == 2 && tourishPlan?.movingSchedules != undefined">
+    <editor
+      *ngFor="let movingSchedule of tourishPlan?.movingSchedules"
+      [disabled]="true"
+      #filePickerEditor
+      apiKey="your-api-key"
+      [ngModel]="movingSchedule.description"
+      [init]="this.tinyMceSetting"
+    ></editor>
+  </div>
+
+  <div *ngIf="active == 3 && tourishPlan?.stayingSchedules != undefined">
+    <editor
+      *ngFor="let stayingSchedule of tourishPlan?.stayingSchedules"
+      [disabled]="true"
+      #filePickerEditor
+      apiKey="your-api-key"
+      [ngModel]="stayingSchedule.description"
+      [init]="this.tinyMceSetting"
+    ></editor>
   </div>
 
   <div class="tour-description">

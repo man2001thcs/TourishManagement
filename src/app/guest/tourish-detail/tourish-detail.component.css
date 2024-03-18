@@ -12,6 +12,11 @@
   border-bottom-right-radius: 10px;
 }
 
+:host ::ng-deep .tox-tinymce {
+  border-radius: 0 !important;
+  border: none !important;
+}
+
 .below-title span {
   font-weight: bold;
   font-size: 22px;
@@ -36,7 +41,7 @@
   font-size: 18px;
 }
 
-.full-width-input{
+.full-width-input {
   width: 100%;
 }
 

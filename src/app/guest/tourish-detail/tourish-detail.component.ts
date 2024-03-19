@@ -1,5 +1,12 @@
 import { HttpClient } from "@angular/common/http";
-import { Component, Input, OnInit, ViewChild } from "@angular/core";
+import {
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  Renderer2,
+  ViewChild,
+} from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { ActivatedRoute } from "@angular/router";
@@ -38,7 +45,9 @@ export class TourishDetailComponent implements OnInit {
     private fb: FormBuilder,
     private _route: ActivatedRoute,
     private http: HttpClient,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private rendered2: Renderer2,
+    private elementRef: ElementRef
   ) {}
 
   ngOnInit() {
@@ -71,8 +80,15 @@ export class TourishDetailComponent implements OnInit {
       toolbar: false,
       menubar: false,
       statusbar: false,
-      readOnly: 1,
-      noneditable_editable_class: "mce-content-body",
+    
+      readonly: 1,
+
+      setup: (editor: any) => {
+        editor.on('init', () => {
+          // Get content from TinyMCE and append it to the specified div
+          editor.getBody().setAttribute('contenteditable', 'false');
+        });
+      },
 
       plugins: [
         "autoresize",
@@ -99,6 +115,7 @@ export class TourishDetailComponent implements OnInit {
         "codesample",
       ],
       // eslint-disable-next-line
+      // eslint-disable-next-line
       font_formats:
         "Andale Mono=andale mono,times; Arial=arial,helvetica,sans-serif; \
         Arial Black=arial black,avant garde; Book Antiqua=book antiqua,palatino; \
@@ -108,14 +125,63 @@ export class TourishDetailComponent implements OnInit {
         Terminal=terminal,monaco; Times New Roman=times new roman,times; \
         Trebuchet MS=trebuchet ms,geneva; Verdana=verdana,geneva; Webdings=webdings; \
         Wingdings=wingdings,zapf dingbats",
+     
       // eslint-disable-next-line
       image_title: true,
       // eslint-disable-next-line
       automatic_uploads: true,
+      // eslint-disable-next-line
+      // eslint-disable-next-line
+      file_picker_callback(cb: any, value: any, meta: any): void {
+        // eslint-disable-next-line
+
+        const element: HTMLInputElement | null =
+          document.querySelector('input[type="file"]');
+
+        if (element) {
+          const fileSelectedPromise = new Promise<File | null>((resolve) => {
+            element.onchange = () => {
+              const file = element.files?.[0];
+              resolve(file ?? null);
+            };
+          });
+
+          // Trigger the click event
+          element.click();
+
+          // Wait for the promise to resolve
+          fileSelectedPromise.then((file) => {
+            console.log("No file selected");
+            if (file) {
+              // Handle the selected file, for example, log its details
+              const reader = new FileReader();
+              reader.onload = () => {
+                const id = "blobid" + new Date().getTime();
+                const blobCache = tinymce.activeEditor.editorUpload.blobCache;
+                if (reader.result !== null) {
+                  const base64 = (reader.result as string).split(",")[1];
+                  const blobInfo = blobCache.create(id, file, base64);
+                  blobCache.add(blobInfo);
+
+                  /* call the callback and populate the Title field with the file name */
+                  cb(blobInfo.blobUri(), { title: file.name });
+                }
+              };
+              reader.readAsDataURL(file);
+
+              // You can perform additional logic or trigger further actions with the file here
+            } else {
+              console.log("No file selected");
+            }
+          });
+        }
+      },
 
       content_style:
         "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
     };
+
+    // tinymce.activeEditor.getBody().setAttribute('contenteditable', false);
   }
 
   slides: any[] = [];

@@ -23,6 +23,9 @@ import { TourishPlan } from "src/app/model/baseModel";
 export class TourishPackComponent implements OnInit, AfterViewInit {
   @Input()
   category: string = "Du lịch hành hương";
+  @Input()
+  description: string = "Tìm Về Chốn Thiêng, Lòng Người An Bình";
+
   @ViewChild("picker") eatingPicker: any;
   @ViewChild("packContainer") packContainer!: ElementRef;
 

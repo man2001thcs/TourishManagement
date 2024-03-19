@@ -49,7 +49,7 @@
             matInput
             [ngxMatDatetimePicker]="picker"
             placeholder="Choose a date"
-            formControlName="endDate"
+            formControlName="startDate"
           />
           <mat-datepicker-toggle
             matSuffix
@@ -118,6 +118,5 @@
 </div>
 
 <div>
-  <app-tourish-pack></app-tourish-pack>
-  <app-tourish-pack></app-tourish-pack>
+  <app-tourish-pack *ngFor="let category of categoryList" [category]="category.name" [description]="category.description"></app-tourish-pack>
 </div>

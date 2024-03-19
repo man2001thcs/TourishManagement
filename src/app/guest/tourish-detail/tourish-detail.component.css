@@ -17,14 +17,8 @@
   border: none !important;
 }
 
-:host ::ng-deep .nav-tabs .tox-tinymce {
-  pointer-events: none;
-  user-select: text !important; 
-}
-
 :host ::ng-deep .schedule-description .tox-tinymce {
-  pointer-events: none;
-  user-select: text !important; 
+
   border-radius: 0 !important;
   border: none !important;
 }

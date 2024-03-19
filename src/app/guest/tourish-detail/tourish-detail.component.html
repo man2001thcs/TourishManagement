@@ -17,13 +17,14 @@
     <span id="tour-id"> Mã tour: {{ tourishPlan?.id }}</span>
   </div>
 
-  <div class="tour-description" style="pointer-events: none">
+  <div class="tour-description">
     <editor
       [disabled]="true"
       #filePickerEditor
       apiKey="your-api-key"
       [ngModel]="tourDescription"
       [init]="this.tinyMceSetting"
+      class="mceNonEditable"
     ></editor>
   </div>
 
@@ -56,7 +57,7 @@
     </ul>
   </div>
 
-  <div *ngIf="active == 1 && tourishPlan?.eatSchedules != undefined">
+  <div *ngIf="active == 1 && tourishPlan?.eatSchedules != undefined" class="schedule-description">
     <editor
       *ngFor="let eatSchedule of tourishPlan?.eatSchedules"
       [disabled]="true"

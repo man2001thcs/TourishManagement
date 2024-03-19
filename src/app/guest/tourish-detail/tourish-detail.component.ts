@@ -1,9 +1,11 @@
 import { HttpClient } from "@angular/common/http";
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { ActivatedRoute } from "@angular/router";
 
 import { NgbCarouselConfig } from "@ng-bootstrap/ng-bootstrap";
+import { EditorComponent } from "@tinymce/tinymce-angular";
 import { Slider } from "angular-carousel-slider/lib/angular-carousel-slider.component";
 import { SaveFile, TourishPlan } from "src/app/model/baseModel";
 declare let tinymce: any;
@@ -28,12 +30,15 @@ export class TourishDetailComponent implements OnInit {
   tourishPlan?: TourishPlan;
   tourImage: SaveFile[] = [];
 
+  @ViewChild(EditorComponent) editor!: EditorComponent;
+
   tinyMceSetting!: any;
 
   constructor(
     private fb: FormBuilder,
     private _route: ActivatedRoute,
-    private http: HttpClient
+    private http: HttpClient,
+    private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit() {
@@ -61,20 +66,14 @@ export class TourishDetailComponent implements OnInit {
     // });
 
     this.tinyMceSetting = {
-      base_url: "/tinymce", // Root for resources
-      suffix: ".min", // Suffix to use when loading resources
-      toolbar: false, // hide the toolbar
-      menubar: false, // hide the menu bar
-      statusbar: false, // hide the status bar
-      readonly: true, // make it read-only
+      base_url: "/tinymce",
+      suffix: ".min",
+      toolbar: false,
+      menubar: false,
+      statusbar: false,
+      readOnly: 1,
+      noneditable_editable_class: "mce-content-body",
 
-      setup: function (editor: any) {
-        editor.on("BeforeSetContent", function (e: any) {
-          if (editor.readonly) {
-            e.preventDefault(); // Prevent content from being set
-          }
-        });
-      },
       plugins: [
         "autoresize",
         "advlist",
@@ -120,6 +119,10 @@ export class TourishDetailComponent implements OnInit {
   }
 
   slides: any[] = [];
+
+  getSanitizedContent(content: string): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(content);
+  }
 
   getTour() {
     this.http

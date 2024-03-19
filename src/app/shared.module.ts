@@ -22,9 +22,10 @@ import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { NgxMatDatetimePickerModule, NgxMatTimepickerModule } from "@angular-material-components/datetime-picker";
 import { NgxMatMomentModule } from "@angular-material-components/moment-adapter";
 import { MatDatepickerModule } from "@angular/material/datepicker";
+import { HtmlSanitizerComponent } from "./utility/html-sanitizer/html-sanitizer.component";
 
 @NgModule({
-  declarations: [FooterComponent, OutsideClickDirective, ValidationComponent,ImageSliderComponent],
+  declarations: [FooterComponent, OutsideClickDirective, ValidationComponent,ImageSliderComponent, HtmlSanitizerComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -41,6 +42,7 @@ import { MatDatepickerModule } from "@angular/material/datepicker";
 
   exports: [
     ImageSliderComponent,
+    HtmlSanitizerComponent,
     CarouselSlider,
     FooterComponent,
     MatStepperModule,

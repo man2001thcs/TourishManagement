@@ -31,4 +31,5 @@ export class HtmlSanitizerComponent {
     const safeStyle = this.sanitizer.bypassSecurityTrustStyle(tinyMceStyles);
     return this.sanitizer.bypassSecurityTrustHtml(`<style>${tinyMceStyles}</style>${sanitizedContent}`);
   }
+  
 }

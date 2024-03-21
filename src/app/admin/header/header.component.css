@@ -61,7 +61,8 @@ img.img-logo {
 }
 
 .title-nav {
-  background-color: #2A3650; width: 100%;
+  background-color: #2a3650;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -69,7 +70,7 @@ img.img-logo {
 }
 
 .sidenav {
-  background-color: #2A3650 !important;
+  background-color: #2a3650 !important;
   /* box-shadow: 0 0 21px 0 rgba(89, 102, 122, 0.1);
   word-break: keep-all !important; */
   height: 100%;
@@ -96,11 +97,11 @@ img.img-logo {
   height: auto;
   width: 100%;
   padding: 0 0 20px 0;
-  background-color: #2A3650 !important;
+  background-color: #2a3650 !important;
 }
 
 .sidenav .sideNavContent .sidenavCategory {
-  background-color: #2A3650 !important;
+  background-color: #2a3650 !important;
   white-space: nowrap;
   width: 100%;
   flex-direction: column;
@@ -111,7 +112,7 @@ img.img-logo {
 }
 
 mat-expansion-panel {
-  background-color: #2A3650 !important;
+  background-color: #2a3650 !important;
 }
 
 .sidenav .sideNavContent .sidenavCategory:first-child {
@@ -175,7 +176,7 @@ mat-expansion-panel {
 button {
   font-size: 16px;
   font-weight: bolder;
-  color: #6B7383;
+  color: #6b7383;
 }
 
 button:hover {
@@ -202,6 +203,34 @@ button:hover {
   min-width: 28px !important;
 }
 
+.single-notification {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 20px 2px;
+}
+
+.single-notification .content {
+  display: flex;
+  flex-direction: row;
+}
+
+.single-notification .content span {
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.single-notification .time {
+  display: flex;
+  flex-direction: row;
+  align-self: flex-end;
+}
+
+.single-notification .time span {
+  font-weight: lighter;
+  font-size: 14px;
+}
+
+
 /* Add padding to move the label and input into the center to prevent overlapping the rounded border */
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-flex {
   padding: 0 32px !important;
@@ -225,7 +254,7 @@ button:hover {
     max-width: 300px !important;
   }
 
-  .container-fluid{
+  .container-fluid {
     justify-content: center;
   }
 }
@@ -235,7 +264,7 @@ button:hover {
     max-width: 380px !important;
   }
 
-  .container-fluid{
+  .container-fluid {
     justify-content: space-evenly;
   }
 }

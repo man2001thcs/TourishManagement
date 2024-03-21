@@ -43,13 +43,28 @@
       <i class="fa fa-search" aria-hidden="true" style="font-size: 15px"></i>
     </button>
 
-    <button mat-button ghost status="primary">
+    <button
+      mat-button
+      ghost
+      status="primary"
+      [matMenuTriggerFor]="beforeNotifyMenu"
+    >
       <i
         class="fa fa-bell"
         aria-hidden="true"
         style="font-size: 22px; color: rgb(105, 104, 104)"
       ></i>
     </button>
+    <mat-menu #beforeNotifyMenu="matMenu" xPosition="before">
+      <div class="single-notification">
+        <div class="content">
+          <span>Bạn A đã chỉnh sửa tour B</span>
+        </div>
+        <div class="time">
+          <span>5 giờ trước</span>
+        </div>
+      </div>
+    </mat-menu>
 
     <button mat-button [matMenuTriggerFor]="menu">
       <i
@@ -145,7 +160,7 @@
               Danh sách
             </button>
           </ng-container>
-          
+
           <ng-container ngbNavItem="10th">
             <button ngbNavLink (click)="navigateUrl('tour/category/list')">
               Thể loại

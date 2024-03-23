@@ -1,0 +1,48 @@
+<form>
+  <mat-form-field appearance="outline" class="full-width-input">
+    <mat-label>Favorite TourishPlans</mat-label>
+    <mat-chip-grid #chipGrid aria-label="Fruit selection">
+      <mat-chip-row
+        *ngFor="let user of userNameList"
+        (removed)="remove(user)"
+        style="font-size: 16px"
+      >
+        {{ user }}
+        <button matChipRemove [attr.aria-label]="'remove ' + user">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-chip-row>
+    </mat-chip-grid>
+    <input
+      *ngIf="userNameList.length < 1"
+      placeholder="Chọn tour"
+      #userInput
+      [formControl]="userCtrl"
+      [matChipInputFor]="chipGrid"
+      [matAutocomplete]="auto"
+      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+      (matChipInputTokenEnd)="add($event)"
+    />
+
+    <mat-autocomplete
+      #auto="matAutocomplete"
+      (optionSelected)="selected($event)"
+      (optionsScroll)="onScroll($event)"
+    >
+      <mat-option
+        *ngFor="let user of data"
+        [value]="user"
+        [disabled]="isChecked(user)"
+      >
+        <div>
+          <div style="font-weight: bold">
+            {{ user.fullName }}
+            <mat-icon>{{ isChecked(user) && "checked" }}</mat-icon>
+          </div>
+
+          <small>{{ onDisplayAtr(user) }}</small>
+        </div>
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>

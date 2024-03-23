@@ -244,3 +244,19 @@ export interface User {
 
   createDate?: string;
 }
+
+export interface Notification {
+  id?: string;
+  userCreateId: string;
+  userReceiveId?: string;
+  content: string;
+  contentCode?: string;
+  isRead: boolean;
+  isDeleted: boolean;
+  createDate?: string;
+  updateDate?: string;
+
+  // Relationships
+  userCreator?: User;
+  userReceiver?: User;
+}

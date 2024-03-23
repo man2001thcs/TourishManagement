@@ -36,6 +36,9 @@ import { reducer as MovingAutocompleteReducer } from "src/app/utility/multiselec
 import { storeKey as TourishPlanAutocompleteStoreKey } from "src/app/utility/multiselect/tourishPlan-multiselect-autocomplete/multiselect-autocomplete.store.action";
 import { reducer as TourishPlanAutocompleteReducer } from "src/app/utility/multiselect/tourishPlan-multiselect-autocomplete/multiselect-autocomplete.store.reducer";
 
+import { storeKey as UserAutocompleteStoreKey } from "src/app/utility/multiselect/user-multiselect-autocomplete/multiselect-autocomplete.store.action";
+import { reducer as UserAutocompleteReducer } from "src/app/utility/multiselect/user-multiselect-autocomplete/multiselect-autocomplete.store.reducer";
+
 import { storeKey as ImageListStoreKey } from "../../utility/image_service/imageUpload.store.action";
 import { reducer as ImageListReducer } from "../../utility/image_service/imageUpload.store.reducer";
 
@@ -228,6 +231,25 @@ import { TourishCategoryEffects } from "../TourishCategory/tourish_category_deta
 import { TourishCategoryListEffects } from "../TourishCategory/tourish_category_list/tourish_category-list.store.effect";
 import { TourishCategoryMultiselectAutocompleteComponent } from "src/app/utility/multiselect/tourishCategory-multiselect-autocomplete/multiselect-autocomplete.component";
 import { TourishCategoryAutoCompleteListEffects } from "src/app/utility/multiselect/tourishCategory-multiselect-autocomplete/multiselect-autocomplete.store.effect";
+import { NotificationCreateComponent } from "../notification/notification_create/notification-create.component";
+import { NotificationDetailComponent } from "../notification/notification_detail/notification-detail.component";
+import { NotificationListComponent } from "../notification/notification_list/notification-list.component";
+import { UserMultiselectAutocompleteComponent } from "src/app/utility/multiselect/user-multiselect-autocomplete/multiselect-autocomplete.component";
+import { UserAutoCompleteListEffects } from "src/app/utility/multiselect/user-multiselect-autocomplete/multiselect-autocomplete.store.effect";
+
+import { storeKey as NotificationCreateStoreKey } from "../notification/notification_create/notification-create.store.action";
+import { reducer as NotificationCreateReducer } from "../notification/notification_create/notification-create.store.reducer";
+
+import { storeKey as NotificationListStoreKey } from "../notification/notification_list/notification-list.store.action";
+import { reducer as NotificationListReducer } from "../notification/notification_list/notification-list.store.reducer";
+
+import { storeKey as NotificationDetailStoreKey } from "../notification/notification_detail/notification-detail.store.action";
+import { reducer as NotificationDetailReducer } from "../notification/notification_detail/notification-detail.store.reducer";
+import { NotificationCreateEffects } from "../notification/notification_create/notification-create.store.effect";
+import { NotificationEffects } from "../notification/notification_detail/notification-detail.store.effect";
+import { NotificationListEffects } from "../notification/notification_list/notification-list.store.effect";
+
+
 
 @NgModule({
   declarations: [
@@ -259,6 +281,10 @@ import { TourishCategoryAutoCompleteListEffects } from "src/app/utility/multisel
     TourishCategoryDetailComponent,
     TourishCategoryListComponent,
 
+    NotificationCreateComponent,
+    NotificationDetailComponent,
+    NotificationListComponent,
+
     ReceiptCreateComponent,
     ReceiptListComponent,
     ReceiptDetailComponent,
@@ -276,6 +302,7 @@ import { TourishCategoryAutoCompleteListEffects } from "src/app/utility/multisel
     EatingMultiselectAutocompleteComponent,
     TourishPlanMultiselectAutocompleteComponent,
     TourishCategoryMultiselectAutocompleteComponent,
+    UserMultiselectAutocompleteComponent,
 
     FileUploadComponent,
 
@@ -319,6 +346,10 @@ import { TourishCategoryAutoCompleteListEffects } from "src/app/utility/multisel
     StoreModule.forFeature(TourishCategoryCreateStoreKey, TourishCategoryCreateReducer),
     StoreModule.forFeature(TourishCategoryListStoreKey, TourishCategoryListReducer),
     StoreModule.forFeature(TourishCategoryDetailStoreKey,TourishCategoryDetailReducer),
+
+    StoreModule.forFeature(NotificationCreateStoreKey, NotificationCreateReducer),
+    StoreModule.forFeature(NotificationListStoreKey, NotificationListReducer),
+    StoreModule.forFeature(NotificationDetailStoreKey,NotificationDetailReducer),
 
     StoreModule.forFeature(
       PassengerCarCreateStoreKey,
@@ -380,17 +411,27 @@ import { TourishCategoryAutoCompleteListEffects } from "src/app/utility/multisel
       TourishPlanAutocompleteReducer
     ),
 
+    StoreModule.forFeature(
+      UserAutocompleteStoreKey,
+      UserAutocompleteReducer
+    ),
+
     StoreModule.forFeature(ImageListStoreKey, ImageListReducer),
 
     EffectsModule.forFeature([TourishCategoryCreateEffects]),
     EffectsModule.forFeature([TourishCategoryEffects]),
     EffectsModule.forFeature([TourishCategoryListEffects]),
 
+    EffectsModule.forFeature([NotificationCreateEffects]),
+    EffectsModule.forFeature([NotificationEffects]),
+    EffectsModule.forFeature([NotificationListEffects]),
+
     EffectsModule.forFeature([TourishCategoryAutoCompleteListEffects]),
     EffectsModule.forFeature([StayingAutoCompleteListEffects]),
     EffectsModule.forFeature([MovingAutoCompleteListEffects]),
     EffectsModule.forFeature([EatingAutoCompleteListEffects]),
     EffectsModule.forFeature([TourishPlanAutoCompleteListEffects]),
+    EffectsModule.forFeature([UserAutoCompleteListEffects]),
 
     EffectsModule.forFeature([ImageListEffects]),
 

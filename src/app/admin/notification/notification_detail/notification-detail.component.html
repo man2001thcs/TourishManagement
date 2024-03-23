@@ -1,0 +1,161 @@
+<div class="container" style="padding: 20px 0 20px">
+  <div
+    class="outlet"
+    style="
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      flex-direction: column !important;
+    "
+  >
+    <div
+      class="row"
+      style="
+        display: flex;
+        flex-direction: column !important;
+        flex-wrap: 1;
+        padding-left: 90px !important;
+      "
+    >
+      <div class="row">
+        <h2 mat-form-label style="font-weight: heavy">
+          Chỉnh sửa thông tin đối tác nhà hàng
+        </h2>
+      </div>
+      <form [formGroup]="editformGroup_info">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
+            <div class="row">
+              <mat-form-field appearance="outline" class="full-width-input">
+                <mat-label>Tên đối tác</mat-label>
+                <input
+                  matInput
+                  fullwidth
+                  placeholder="Vd: Bồ Công Anh"
+                  formControlName="contentCode"
+                />
+              </mat-form-field>
+              <div style="margin-top: -20px; margin-bottom: 10px">
+                <app-validation
+                  *ngIf="
+                    this.editformGroup_info.get('contentCode')?.errors &&
+                    (editformGroup_info.get('contentCode')?.touched ||
+                      isSubmitted)
+                  "
+                  [formGroup]="editformGroup_info"
+                  [formGroupControlName]="'contentCode'"
+                ></app-validation>
+              </div>
+            </div>
+
+            <div class="row">
+              <mat-form-field appearance="outline" class="full-width-input">
+                <mat-label>Đã đọc</mat-label>
+                <select
+                  matNativeControl
+                  placeholder="Vd: 0123456789"
+                  formControlName="isRead"
+                >
+                  <option value="0">Không</option>
+                  <option value="1">Có</option>
+                </select>
+              </mat-form-field>
+              <div style="margin-top: -20px; margin-bottom: 10px">
+                <app-validation
+                  *ngIf="
+                    this.editformGroup_info.get('isRead')?.errors &&
+                    (editformGroup_info.get('isRead')?.touched || isSubmitted)
+                  "
+                  [formGroup]="editformGroup_info"
+                  [formGroupControlName]="'isRead'"
+                ></app-validation>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
+            <div class="row">
+              <mat-form-field appearance="outline" class="full-width-input">
+                <mat-label>Đã xóa</mat-label>
+                <select
+                  matNativeControl
+                  placeholder="Vd: 0123456789"
+                  formControlName="isDeleted"
+                >
+                  <option value="0">Không</option>
+                  <option value="1">Có</option>
+                </select>
+              </mat-form-field>
+              <div style="margin-top: -20px; margin-bottom: 10px">
+                <app-validation
+                  *ngIf="
+                    this.editformGroup_info.get('isDeleted')?.errors &&
+                    (editformGroup_info.get('isDeleted')?.touched ||
+                      isSubmitted)
+                  "
+                  [formGroup]="editformGroup_info"
+                  [formGroupControlName]="'isDeleted'"
+                ></app-validation>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="row"
+          style="display: flex; flex-direction: column !important; flex-wrap: 1"
+        >
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form">
+            <mat-form-field style="width: 90%">
+              <textarea
+                matInput
+                class="form-control"
+                id="description"
+                placeholder="Thông tin đính kèm"
+                formControlName="description"
+                rows="10"
+              ></textarea>
+            </mat-form-field>
+            <div style="margin-top: -20px; margin-bottom: 10px">
+              <app-validation
+                *ngIf="
+                  this.editformGroup_info.get('description')?.errors &&
+                  (editformGroup_info.get('description')?.touched ||
+                    isSubmitted)
+                "
+                [formGroup]="editformGroup_info"
+                [formGroupControlName]="'description'"
+              ></app-validation>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="row"
+          style="display: flex; flex-direction: row !important; flex-wrap: 1"
+        >
+          <div style="margin-right: 20px">
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="formSubmit_edit_info()"
+            >
+              Lưu
+            </button>
+          </div>
+
+          <div>
+            <button
+              mat-raised-button
+              color="warn"
+              type="button"
+              (click)="formReset()"
+            >
+              Khôi phục
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

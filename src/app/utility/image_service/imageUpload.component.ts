@@ -27,6 +27,7 @@ import {
 import * as ImageListActions from "./imageUpload.store.action";
 import { Store } from "@ngrx/store";
 import { FileModel } from "./imageUpload.component.model";
+import { environment } from "src/environments/environment";
 
 @Component({
   selector: "app-file-upload",
@@ -88,7 +89,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
           if (this.imageList?.length > 0) {
             this.imageList.forEach((image) => {
               this.urlListOld.push(
-                "https://bookstore1storage.blob.core.windows.net/1-container/" +
+                environment.backend.blobURL + "1-container/" +
                   this.productType.toString() +
                   "_" +
                   image.id +
@@ -267,7 +268,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
 
   generateUrl(image: FileModel) {
     return (
-      "https://bookstore1storage.blob.core.windows.net/1-container/" +
+      environment.backend.blobURL + "1-container/" +
       this.productType.toString() +
       "_" +
       image.id +

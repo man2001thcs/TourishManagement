@@ -17,6 +17,13 @@
   padding-bottom: 8px;
 }
 
+.avatar {
+  vertical-align: middle;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
 .container-fluid::after {
   content: "";
   clear: both;
@@ -201,33 +208,6 @@ button:hover {
 ::ng-deep .mat-form-field-outline-end {
   border-radius: 0 28px 28px 0 !important;
   min-width: 28px !important;
-}
-
-.single-notification {
-  display: flex;
-  flex-direction: column;
-  padding: 10px 20px 2px;
-}
-
-.single-notification .content {
-  display: flex;
-  flex-direction: row;
-}
-
-.single-notification .content span {
-  font-weight: 500;
-  font-size: 16px;
-}
-
-.single-notification .time {
-  display: flex;
-  flex-direction: row;
-  align-self: flex-end;
-}
-
-.single-notification .time span {
-  font-weight: lighter;
-  font-size: 14px;
 }
 
 

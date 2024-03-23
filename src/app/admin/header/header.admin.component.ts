@@ -23,6 +23,9 @@ import { UserService } from "src/app/utility/user_service/user.service";
 
 import { filter } from "rxjs/operators";
 import { getHeaderPhase } from "src/app/utility/config/headerCode";
+import { environment } from "src/environments/environment";
+import { HttpClient } from "@angular/common/http";
+import { FileModel } from "src/app/utility/image_avatar_service/imageUpload.component.model";
 
 @Component({
   selector: "app-admin-header",
@@ -46,6 +49,7 @@ export class HeaderAdminComponent implements OnDestroy {
   activeItem = "1st";
   isNavOpen = true;
   isAutoCompleteOpen = false;
+  avatarUrl = environment.backend.blobURL +  "/0-container/0_anonymus.png";
 
   filteredInput!: Observable<string | null>;
   searchFormGroup!: FormGroup;
@@ -61,7 +65,8 @@ export class HeaderAdminComponent implements OnDestroy {
     private tokenService: TokenStorageService,
     private fb: FormBuilder,
     private router: Router,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private http: HttpClient
   ) {}
 
   id = 0;
@@ -93,6 +98,8 @@ export class HeaderAdminComponent implements OnDestroy {
         ]),
       ],
     });
+
+    this.getImageList();
   }
 
   ngOnDestroy(): void {
@@ -128,18 +135,18 @@ export class HeaderAdminComponent implements OnDestroy {
   }
 
   openNav() {
-
-    if (window.innerWidth >= 850){
+    if (window.innerWidth >= 850) {
       this.myNameElem.nativeElement.style.width = "340px";
       this.myNameElem.nativeElement.style["margin-right"] = "0px";
       this.myNameElem.nativeElement.style["padding-top"] = "0px";
       this.myNameElem.nativeElement.style["padding-left"] = "0px";
       this.myNameElem.nativeElement.style["padding-right"] = "0px";
-      this.myNameElem.nativeElement.style["border-bottom"] = "2px solid #EDF1F7";
-      this.myNameElem.nativeElement.style["border-right"] = "2px solid #EDF1F7";      
+      this.myNameElem.nativeElement.style["border-bottom"] =
+        "2px solid #EDF1F7";
+      this.myNameElem.nativeElement.style["border-right"] = "2px solid #EDF1F7";
     } else {
       console.log("abc");
-      this.renderer.setStyle(this.myNameElem.nativeElement, 'width', '100%');
+      this.renderer.setStyle(this.myNameElem.nativeElement, "width", "100%");
 
       //this.myNameElem.nativeElement.style.width = "100%";
       this.myNameElem.nativeElement.style["margin-top"] = "0px";
@@ -147,7 +154,8 @@ export class HeaderAdminComponent implements OnDestroy {
       this.myNameElem.nativeElement.style["padding-top"] = "0px";
       this.myNameElem.nativeElement.style["padding-left"] = "40px";
       this.myNameElem.nativeElement.style["padding-right"] = "25px";
-      this.myNameElem.nativeElement.style["border-bottom"] = "2px solid #EDF1F7";
+      this.myNameElem.nativeElement.style["border-bottom"] =
+        "2px solid #EDF1F7";
       this.myNameElem.nativeElement.style["border-right"] = "2px solid #EDF1F7";
     }
 
@@ -214,6 +222,44 @@ export class HeaderAdminComponent implements OnDestroy {
 
   async navigateUrl(url: string) {
     this.router.navigate(["admin/" + url]);
+  }
+
+  getImageList() {
+    const user = this.tokenService.getUser();
+    const payload = {
+      resourceId: user.Id,
+      resourceType: 0,
+    };
+
+    return this.http
+      .get("/api/GetFile", { params: payload })
+      .subscribe((state: any) => {
+        if (state.data?.length > 0) {
+          this.avatarUrl = this.generateUrl(state.data[0]);
+        }
+        if (
+          state.data == undefined ||
+          state.data == null ||
+          state.data.length == 0
+        ) {
+          this.avatarUrl = environment.backend.blobURL +  "/0-container/0_anonymus.png";
+        }
+
+      });
+  }
+
+  generateUrl(image: FileModel) {
+    return (
+      environment.backend.blobURL +  "/0-container/" +
+      "0" +
+      "_" +
+      image.id +
+      image.fileType
+    );
+  }
+
+  getBlobUrl(){
+    return environment.backend.blobURL;
   }
 
   formSubmit(): void {}

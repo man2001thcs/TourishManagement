@@ -18,6 +18,7 @@ import { Observable, Subscription, debounceTime } from "rxjs";
 import { UserService } from "src/app/utility/user_service/user.service";
 import { MessageService } from "src/app/utility/user_service/message.service";
 import { Router } from "@angular/router";
+import { environment } from "src/environments/environment";
 
 @Component({
   selector: "app-guest-header",
@@ -196,5 +197,9 @@ export class HeaderComponent implements OnInit {
 
   async navigateUrl(url: string) {
     this.router.navigate(["guest/" + url]);
+  }
+
+  getBlobUrl(){
+    return environment.backend.blobURL;
   }
 }

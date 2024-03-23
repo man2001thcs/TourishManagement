@@ -248,6 +248,8 @@ import { reducer as NotificationDetailReducer } from "../notification/notificati
 import { NotificationCreateEffects } from "../notification/notification_create/notification-create.store.effect";
 import { NotificationEffects } from "../notification/notification_detail/notification-detail.store.effect";
 import { NotificationListEffects } from "../notification/notification_list/notification-list.store.effect";
+import { NotificationPackComponent } from "src/app/utility/notification-pack/notification-pack.component";
+import { AvatarUploadComponent } from "src/app/utility/image_avatar_service/imageUpload.component";
 
 
 
@@ -293,6 +295,7 @@ import { NotificationListEffects } from "../notification/notification_list/notif
     UserListComponent,
 
     AccountInfoComponent,
+    AvatarUploadComponent,
 
     AdminMainComponent,
     HeaderAdminComponent,
@@ -303,6 +306,8 @@ import { NotificationListEffects } from "../notification/notification_list/notif
     TourishPlanMultiselectAutocompleteComponent,
     TourishCategoryMultiselectAutocompleteComponent,
     UserMultiselectAutocompleteComponent,
+
+    NotificationPackComponent,
 
     FileUploadComponent,
 

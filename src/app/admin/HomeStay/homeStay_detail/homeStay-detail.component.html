@@ -1,4 +1,9 @@
-<div class="container" style="padding: 20px 0 20px">
+<div class="container" style="padding: 0px 0 20px">
+  <div class="row" style="background-color: #2a3650; padding: 15px 50px 0px">
+    <h2 mat-form-label style="font-weight: heavy; color: white">
+      Chỉnh sửa thông tin đối tác homeStay
+    </h2>
+  </div>
   <div
     class="outlet"
     style="
@@ -8,12 +13,6 @@
       flex-direction: column !important;
     "
   >
-    <div class="row">
-      <h2 mat-form-label style="font-weight: heavy">
-        Chỉnh sửa thông tin đối tác homeStay
-      </h2>
-    </div>
-
     <div
       class="row"
       style="
@@ -40,7 +39,8 @@
                 <app-validation
                   *ngIf="
                     this.editformGroup_info.get('placeBranch')?.errors &&
-                    (editformGroup_info.get('placeBranch')?.touched || isSubmitted)
+                    (editformGroup_info.get('placeBranch')?.touched ||
+                      isSubmitted)
                   "
                   [formGroup]="editformGroup_info"
                   [formGroupControlName]="'placeBranch'"
@@ -61,7 +61,8 @@
                 <app-validation
                   *ngIf="
                     this.editformGroup_info.get('supportEmail')?.errors &&
-                    (editformGroup_info.get('supportEmail')?.touched || isSubmitted)
+                    (editformGroup_info.get('supportEmail')?.touched ||
+                      isSubmitted)
                   "
                   [formGroup]="editformGroup_info"
                   [formGroupControlName]="'supportEmail'"
@@ -82,7 +83,8 @@
                 <app-validation
                   *ngIf="
                     this.editformGroup_info.get('hotlineNumber')?.errors &&
-                    (editformGroup_info.get('hotlineNumber')?.touched || isSubmitted)
+                    (editformGroup_info.get('hotlineNumber')?.touched ||
+                      isSubmitted)
                   "
                   [formGroup]="editformGroup_info"
                   [formGroupControlName]="'hotlineNumber'"
@@ -104,9 +106,9 @@
               <div style="margin-top: -20px; margin-bottom: 10px">
                 <app-validation
                   *ngIf="
-                    this.editformGroup_info.get('headQuarterAddress')
-                      ?.errors &&
-                    (editformGroup_info.get('headQuarterAddress')?.touched || isSubmitted)
+                    this.editformGroup_info.get('headQuarterAddress')?.errors &&
+                    (editformGroup_info.get('headQuarterAddress')?.touched ||
+                      isSubmitted)
                   "
                   [formGroup]="editformGroup_info"
                   [formGroupControlName]="'headQuarterAddress'"
@@ -126,7 +128,8 @@
                 <app-validation
                   *ngIf="
                     this.editformGroup_info.get('discountAmount')?.errors &&
-                    (editformGroup_info.get('discountAmount')?.touched || isSubmitted)
+                    (editformGroup_info.get('discountAmount')?.touched ||
+                      isSubmitted)
                   "
                   [formGroup]="editformGroup_info"
                   [formGroupControlName]="'discountAmount'"
@@ -146,7 +149,8 @@
                 <app-validation
                   *ngIf="
                     this.editformGroup_info.get('discountFloat')?.errors &&
-                    (editformGroup_info.get('discountFloat')?.touched || isSubmitted)
+                    (editformGroup_info.get('discountFloat')?.touched ||
+                      isSubmitted)
                   "
                   [formGroup]="editformGroup_info"
                   [formGroupControlName]="'discountFloat'"
@@ -173,10 +177,11 @@
             </mat-form-field>
             <div style="margin-top: -20px; margin-bottom: 10px">
               <app-validation
-              *ngIf="
-              this.editformGroup_info.get('description')?.errors &&
-              (editformGroup_info.get('description')?.touched || isSubmitted)
-            "
+                *ngIf="
+                  this.editformGroup_info.get('description')?.errors &&
+                  (editformGroup_info.get('description')?.touched ||
+                    isSubmitted)
+                "
                 [formGroup]="editformGroup_info"
                 [formGroupControlName]="'description'"
               ></app-validation>

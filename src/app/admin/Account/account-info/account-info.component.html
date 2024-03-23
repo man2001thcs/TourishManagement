@@ -27,6 +27,12 @@
 
           </ng-template>
         </li>
+        <li [ngbNavItem]="3">
+          <button ngbNavLink>Avatar</button>
+          <ng-template ngbNavContent>
+
+          </ng-template>
+        </li>
 
       </ul>
 
@@ -193,6 +199,10 @@
           </div>
         </div>
       </form>
+
+      <div>
+        <app-avatar-upload *ngIf="active === 3"></app-avatar-upload>
+      </div>
     </div>
 
 

@@ -7,7 +7,7 @@
   <!-- Nav tabs -->
   <div style="display: flex; flex-direction: row; align-items: center">
     <img
-      src="https://bookstore1storage.blob.core.windows.net/start-container/book_logo.png?sv=2021-10-04&st=2023-09-26T12%3A36%3A33Z&se=2040-01-27T12%3A36%3A00Z&sr=b&sp=r&sig=4WMWtw0igWEoBTLwaZvfyk6grD6JCurSP1z7fdNPJUc%3D"
+      src="{{getBlobUrl() + '/start-container/book_logo.png?sv=2021-10-04&st=2023-09-26T12%3A36%3A33Z&se=2040-01-27T12%3A36%3A00Z&sr=b&sp=r&sig=4WMWtw0igWEoBTLwaZvfyk6grD6JCurSP1z7fdNPJUc%3D'}}"
       class="img-logo"
       style="border: 2px solid black; border-radius: 10px; margin-right: 20px"
     />
@@ -38,7 +38,7 @@
     </mat-form-field>
   </div>
 
-  <div style="display: flex; flex-direction: row">
+  <div style="display: flex; flex-direction: row; align-items: center;">
     <button mat-button status="primary">
       <i class="fa fa-search" aria-hidden="true" style="font-size: 15px"></i>
     </button>
@@ -56,22 +56,11 @@
       ></i>
     </button>
     <mat-menu #beforeNotifyMenu="matMenu" xPosition="before">
-      <div class="single-notification">
-        <div class="content">
-          <span>Bạn A đã chỉnh sửa tour B</span>
-        </div>
-        <div class="time">
-          <span>5 giờ trước</span>
-        </div>
-      </div>
+        <app-notification-pack></app-notification-pack>
     </mat-menu>
 
-    <button mat-button [matMenuTriggerFor]="menu">
-      <i
-        class="fa fa-user"
-        aria-hidden="true"
-        style="font-size: 22px; color: rgb(105, 104, 104)"
-      ></i>
+    <button [matMenuTriggerFor]="menu" mat-mini-fab  color="primary" style="margin: 0 10px 0">
+      <img src="{{avatarUrl}}" alt="Avatar" class="avatar">
     </button>
   </div>
 

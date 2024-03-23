@@ -1,0 +1,26 @@
+.single-notification {
+  display: flex;
+  flex-direction: column;
+  padding: 5px 20px 2px;
+}
+
+.single-notification .content {
+  display: flex;
+  flex-direction: row;
+}
+
+.single-notification .content span {
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.single-notification .time {
+  display: flex;
+  flex-direction: row;
+  align-self: flex-end;
+}
+
+.single-notification .time span {
+  font-weight: lighter;
+  font-size: 14px;
+}

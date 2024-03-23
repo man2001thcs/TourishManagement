@@ -5,6 +5,7 @@ import {
   Observable,
   Subject,
   catchError,
+  distinctUntilChanged,
   throwError,
 } from "rxjs";
 import {
@@ -17,14 +18,16 @@ import proxy_config from "../../proxy_config.json";
 import { TokenStorageService } from "src/app/utility/user_service/token.service";
 import { MessageService } from "src/app/utility/user_service/message.service";
 import { Router } from "@angular/router";
+import { environment } from "src/environments/environment";
 
 @Injectable({
   providedIn: "root",
 })
 export class SignalRService {
-  private readonly url = proxy_config["/api/*"].target;
+  private readonly url = environment.backend.baseURL;
   private hubConnection!: HubConnection;
   private $allFeed = new Subject<any>();
+  private $clientFeed = new Subject<any>();
   private isRefreshing = false;
 
   private err401String =
@@ -67,7 +70,11 @@ export class SignalRService {
   }
 
   public get AllFeedObservable(): Observable<any> {
-    return this.$allFeed.asObservable();
+    return this.$allFeed.asObservable().pipe(distinctUntilChanged());
+  }
+
+  public get ClientFeedObservable(): Observable<any> {
+    return this.$clientFeed.asObservable().pipe(distinctUntilChanged());
   }
 
   public listenToAllFeeds(listenPort: string) {
@@ -78,12 +85,12 @@ export class SignalRService {
     });
   }
 
-  public listenToAllFeedsTwo(listenPort: string) {
+  public listenToClientFeeds(listenPort: string) {
     (<HubConnection>this.hubConnection).on(
       listenPort,
       (data1: any, data2: any) => {
         if (data1) {
-          this.$allFeed.next(data2);
+          this.$clientFeed.next(data2);
         }
       }
     );
@@ -94,7 +101,7 @@ export class SignalRService {
     (<HubConnection>this.hubConnection).invoke(listenMethod, userReceiveId, data);
   }
 
-  public invokeAllFeeds(listenMethod: string, data: any) {
+  public invokeClientFeeds(listenMethod: string, data: any) {
     (<HubConnection>this.hubConnection).invoke(listenMethod, data);
   }
 

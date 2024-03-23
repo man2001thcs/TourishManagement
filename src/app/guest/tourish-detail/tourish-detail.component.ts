@@ -15,6 +15,7 @@ import { NgbCarouselConfig } from "@ng-bootstrap/ng-bootstrap";
 import { EditorComponent } from "@tinymce/tinymce-angular";
 import { Slider } from "angular-carousel-slider/lib/angular-carousel-slider.component";
 import { SaveFile, TourishPlan } from "src/app/model/baseModel";
+import { environment } from "src/environments/environment";
 declare let tinymce: any;
 
 @Component({
@@ -227,8 +228,7 @@ export class TourishDetailComponent implements OnInit {
       this.slides = [
         ...this.slides,
         {
-          url:
-            "https://bookstore1storage.blob.core.windows.net/1-container/" +
+          url: environment.backend.blobURL + "1-container/" +
             "1" +
             "_" +
             saveFile.id +

@@ -259,4 +259,5 @@ export interface Notification {
   // Relationships
   userCreator?: User;
   userReceiver?: User;
+  tourishPlan?: TourishPlan;
 }

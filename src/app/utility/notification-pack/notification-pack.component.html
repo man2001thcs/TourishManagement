@@ -1,0 +1,23 @@
+<div>
+  <div
+    class="single-notification"
+    *ngFor="let notification of notificationList"
+  >
+    <div class="content">
+      <span
+        ><span style="font-weight: bold">{{ getCreator(notification) }}</span
+        >{{ getContent(notification) }}</span
+      >
+    </div>
+    <div class="time">
+      <span>{{ getTime(notification.updateDate ?? "") }}</span>
+    </div>
+  </div>
+  <div
+    class="single-notification"
+    *ngIf="firstLoading"
+    style="display: flex; flex-direction: row; align-items: center;"
+  >
+    <span style="margin-right: 5px;">Đang tải</span> <mat-spinner [diameter]="20"></mat-spinner>
+  </div>
+</div>

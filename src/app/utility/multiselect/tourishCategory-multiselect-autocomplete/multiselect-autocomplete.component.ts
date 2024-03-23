@@ -159,8 +159,6 @@ export class TourishCategoryMultiselectAutocompleteComponent implements OnInit {
         },
       })
     );
-
-    
   }
 
   ngOnDestroy(): void {

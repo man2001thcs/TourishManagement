@@ -34,7 +34,8 @@ import {
 } from "./notification-create.store.selector";
 import { FailNotifyDialogComponent } from "src/app/utility/notification_admin/fail-notify-dialog.component";
 import { MessageService } from "src/app/utility/user_service/message.service";
-import { Notification } from "src/app/model/baseModel";
+import { KeyValue, Notification } from "src/app/model/baseModel";
+import { SUCCESS_MESSAGE_CODE_VI } from "src/app/utility/config/notificationCode";
 
 @Component({
   selector: "app-book-create",
@@ -58,6 +59,7 @@ export class NotificationCreateComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
 
   isSubmitted = false;
+  successNotifyCode: KeyValue[] = [];
 
   constructor(
     private dialog: MatDialog,
@@ -74,6 +76,10 @@ export class NotificationCreateComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    SUCCESS_MESSAGE_CODE_VI.forEach((value, key) => {
+      this.successNotifyCode.push({ key, value: this.getNotifyCodeInfo(value) });
+    });
+    
     this.subscriptions.push(
       this.createNotificationState.subscribe((state) => {
         if (state) {
@@ -110,8 +116,8 @@ export class NotificationCreateComponent implements OnInit, OnDestroy {
     this.createformGroup_info = this.fb.group({
       content: ["", Validators.compose([Validators.required])],
       contentCode: [""],
-      isRead: [false, Validators.compose([Validators.required])],
-      isDeleted: [false, Validators.compose([Validators.required])]
+      isRead: ["0", Validators.compose([Validators.required])],
+      isDeleted: ["0", Validators.compose([Validators.required])],
     });
   }
 
@@ -127,7 +133,7 @@ export class NotificationCreateComponent implements OnInit, OnDestroy {
       content: "",
       contentCode: "",
       isRead: false,
-      isDeleted: false
+      isDeleted: false,
     });
   }
 
@@ -138,8 +144,9 @@ export class NotificationCreateComponent implements OnInit, OnDestroy {
         userCreateId: "",
         content: this.createformGroup_info.value.placeBranch,
         contentCode: this.createformGroup_info.value.contentCode,
-        isRead: this.createformGroup_info.value.isRead,
-        isDeleted: this.createformGroup_info.value.isDeleted
+        isRead: this.createformGroup_info.value.isRead === "1" ? true : false,
+        isDeleted:
+          this.createformGroup_info.value.isDeletedd === "1" ? true : false,
       };
 
       this.store.dispatch(
@@ -148,5 +155,10 @@ export class NotificationCreateComponent implements OnInit, OnDestroy {
         })
       );
     }
+  }
+
+  getNotifyCodeInfo(str: string){
+    let strCapital = str.charAt(0).toUpperCase() + str.slice(1);
+    return strCapital.replaceAll(":", "");
   }
 }

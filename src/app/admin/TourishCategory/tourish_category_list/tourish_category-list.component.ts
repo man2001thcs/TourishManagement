@@ -285,4 +285,8 @@ export class TourishCategoryListComponent
     } else {
     }
   }
+
+  getIndex(elementId: string) {
+    return this.tourishCategoryList.findIndex((el) => el.id === elementId) + 1;
+  }
 }

@@ -297,4 +297,8 @@ export class RestaurantListComponent
     } else {
     }
   }
+
+  getIndex(elementId: string) {
+    return this.restaurantList.findIndex((el) => el.id === elementId) + 1;
+  }
 }

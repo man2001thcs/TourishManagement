@@ -60,7 +60,7 @@
         </th>
         <td mat-cell *matCellDef="let element">
           <a routerLink="/admin/authorDetail/{{ element.id }}/edit">
-            {{ element.id }}</a
+            {{  getIndex(element.id) }}</a
           >
         </td>
       </ng-container>

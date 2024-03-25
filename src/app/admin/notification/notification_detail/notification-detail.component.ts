@@ -35,7 +35,8 @@ import {
   getSysError,
 } from "./notification-detail.store.selector";
 import { MessageService } from "src/app/utility/user_service/message.service";
-import { Notification } from "src/app/model/baseModel";
+import { KeyValue, Notification } from "src/app/model/baseModel";
+import { SUCCESS_MESSAGE_CODE_VI } from "src/app/utility/config/notificationCode";
 
 @Component({
   selector: "app-book-detail",
@@ -51,10 +52,12 @@ export class NotificationDetailComponent implements OnInit, OnDestroy {
     contentCode: "",
     userCreateId: "",
     isDeleted: false,
-    isRead: false
+    isRead: false,
   };
 
   notificationParam!: NotificationParam;
+
+  successNotifyCode: KeyValue[] = [];
 
   this_announce = "";
   firstTime = false;
@@ -85,9 +88,16 @@ export class NotificationDetailComponent implements OnInit, OnDestroy {
     this.editformGroup_info = this.fb.group({
       id: [this.data.id, Validators.compose([Validators.required])],
       content: ["", Validators.compose([Validators.required])],
-      contentId: [""],
-      isRead: [false, Validators.compose([Validators.required])],
-      isDeleted: [false, Validators.compose([Validators.required])]
+      contentCode: [""],
+      isRead: ["0", Validators.compose([Validators.required])],
+      isDeleted: ["0", Validators.compose([Validators.required])],
+    });
+
+    SUCCESS_MESSAGE_CODE_VI.forEach((value, key) => {
+      this.successNotifyCode.push({
+        key,
+        value: this.getNotifyCodeInfo(value),
+      });
     });
 
     this.subscriptions.push(
@@ -95,18 +105,16 @@ export class NotificationDetailComponent implements OnInit, OnDestroy {
         if (state) {
           this.notification = state;
 
-          this.editformGroup_info.controls["content"].setValue(
-            state.content
-          );
-          this.editformGroup_info.controls["contentId"].setValue(
-            state.contentId
+          this.editformGroup_info.controls["content"].setValue(state.content);
+          this.editformGroup_info.controls["contentCode"].setValue(
+            state.contentCode
           );
           this.editformGroup_info.controls["isRead"].setValue(
-            state.isRead
+            state.isRead == "1" ? true : false
           );
           this.editformGroup_info.controls["isDeleted"].setValue(
-            state.isDeleted
-          );        
+            state.isDeleted == "1" ? true : false
+          );
         }
       })
     );
@@ -159,10 +167,10 @@ export class NotificationDetailComponent implements OnInit, OnDestroy {
 
   formReset(): void {
     this.editformGroup_info.setValue({
-      content : this.notification.content ?? "",
-      contentCode : this.notification.contentCode ?? "",
-      isRead: this.notification.isRead ?? false,
-      isDeleted: this.notification.isDeleted ?? false
+      content: this.notification.content ?? "",
+      contentCode: this.notification.contentCode ?? "",
+      isRead: this.notification.isRead ?? "0",
+      isDeleted: this.notification.isDeleted ?? "0",
     });
   }
 
@@ -172,21 +180,31 @@ export class NotificationDetailComponent implements OnInit, OnDestroy {
 
   formSubmit_edit_info(): void {
     this.isSubmitted = true;
-    if (this.editformGroup_info.valid){
+    if (this.editformGroup_info.valid) {
       const payload: Notification = {
         id: this.data.id,
         userCreateId: this.notification.userCreateId,
         content: this.editformGroup_info.value.content,
         contentCode: this.editformGroup_info.value.contentCode,
-        isRead: this.editformGroup_info.value.isRead,
-        isDeleted: this.editformGroup_info.value.isDeleted
+        isRead: this.editformGroup_info.value.isRead == "1" ? true : false,
+        isDeleted:
+          this.editformGroup_info.value.isDeleted == "1" ? true : false,
       };
-  
+
       this.store.dispatch(
         NotificationActions.editNotification({
           payload: payload,
         })
       );
-    } 
+    }
+  }
+
+  selectChangeReceiver($event: any) {
+    console.log($event);
+  }
+
+  getNotifyCodeInfo(str: string) {
+    let strCapital = str.charAt(0).toUpperCase() + str.slice(1);
+    return strCapital.replaceAll(":", "");
   }
 }

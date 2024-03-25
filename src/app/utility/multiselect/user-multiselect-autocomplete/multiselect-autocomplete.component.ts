@@ -201,7 +201,7 @@ export class UserMultiselectAutocompleteComponent implements OnInit {
     this.userNameList = [];
 
     this.userIdList.push(event.option.value.id);
-    this.userNameList.push(event.option.value.fullname);
+    this.userNameList.push(event.option.value.fullName);
 
     this.userInput.nativeElement.value = "";
     this.userCtrl.setValue(null);

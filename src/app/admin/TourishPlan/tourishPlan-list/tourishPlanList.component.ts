@@ -262,4 +262,8 @@ export class TourishPlanListAdminComponent
     } else {
     }
   }
+
+  getIndex(elementId: string) {
+    return this.tourishPlanList.findIndex((el) => el.id === elementId) + 1;
+  }
 }

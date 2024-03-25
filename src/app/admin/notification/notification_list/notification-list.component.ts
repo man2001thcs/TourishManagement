@@ -293,4 +293,8 @@ export class NotificationListComponent
     } else {
     }
   }
+
+  getIndex(element: Notification) {
+    return this.notificationList.findIndex((el) => el.id === element.id) + 1;
+  }
 }

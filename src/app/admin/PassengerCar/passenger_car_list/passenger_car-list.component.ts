@@ -300,4 +300,8 @@ export class PassengerCarListComponent
     } else {
     }
   }
+
+  getIndex(element: PassengerCar) {
+    return this.passengerCarList.findIndex((el) => el.id === element.id) + 1;
+  }
 }

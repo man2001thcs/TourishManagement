@@ -371,4 +371,8 @@ export class ReceiptListComponent implements OnInit, AfterViewInit, OnDestroy {
     } else {
     }
   }
+
+  getIndex(elementId: string) {
+    return this.receiptList.findIndex((el) => el.totalReceiptId === elementId) + 1;
+  }
 }

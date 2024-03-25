@@ -300,4 +300,8 @@ export class HomeStayListComponent
     } else {
     }
   }
+
+  getIndex(elementId: string) {
+    return this.homeStayList.findIndex((el) => el.id === elementId) + 1;
+  }
 }

@@ -251,6 +251,8 @@ export interface Notification {
   userReceiveId?: string;
   content: string;
   contentCode?: string;
+  creatorFullName?: string;
+  tourName?: string;
   isRead: boolean;
   isDeleted: boolean;
   createDate?: string;
@@ -260,4 +262,9 @@ export interface Notification {
   userCreator?: User;
   userReceiver?: User;
   tourishPlan?: TourishPlan;
+}
+
+export interface KeyValue {
+  key: string;
+  value: string;
 }

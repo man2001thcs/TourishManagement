@@ -23,6 +23,7 @@ import { ReceiptListComponent } from "../Receipt/receipt_list/receipt-list.compo
 import { UserListComponent } from "../User/user_list/user-list.component";
 import { AccountInfoComponent } from "../Account/account-info/account-info.component";
 import { TourishCategoryListComponent } from "../TourishCategory/tourish_category_list/tourish_category-list.component";
+import { NotificationListComponent } from "../notification/notification_list/notification-list.component";
 
 const routes: Routes = [
   {
@@ -46,6 +47,10 @@ const routes: Routes = [
       {
         path: "tourish-plan/list",
         component: TourishPlanListAdminComponent,
+      },
+      {
+        path: "notification/list",
+        component: NotificationListComponent,
       },
       {
         path: "tour/category/list",

@@ -71,8 +71,16 @@ export class NotificationPackComponent implements OnInit {
     this. signalRNotification();
 
     this.subscriptions.push(
-      this.signalRService.ClientFeedObservable.subscribe((res: Notification) => {
-        console.log("Here im standing:", res);
+      this.signalRService.ClientFeedObservable.subscribe((notification: Notification) => {
+        if (notification){
+          let index = this.notificationList.findIndex(res => res.id === notification.id);
+
+          if (index > -1){
+            this.notificationList[index] = notification;
+          } else this.notificationList = [notification, ...this.notificationList];
+        }
+
+        this.showNotification("Cập nhật từ Roxanne", this.getContent(notification));
       })
     );
   }
@@ -112,17 +120,27 @@ export class NotificationPackComponent implements OnInit {
 
   getContent(notify: Notification): string {
     let contentPhase = "";
+    let tourName = "";
+
+    if (notify.tourName != null && notify.tourName.length > 0){
+      tourName = notify.tourName;
+    } else tourName = notify.tourishPlan?.tourName ?? "";
+
     if (notify.contentCode !== null) {
       contentPhase =
         getViNotifyMessagePhase(notify.contentCode ?? "") +
-        notify.tourishPlan?.tourName;
+        tourName;
     } else contentPhase = notify.content;
 
     return contentPhase;
   }
 
   getCreator(notify: Notification): string {
-    return notify.userCreator?.fullName + "";
+    let creatorName  = "";
+    if (notify.creatorFullName != null && notify.creatorFullName.length > 0){
+      creatorName = notify.creatorFullName;
+    } else creatorName = notify.userCreator?.fullName ?? "Anonymus";
+    return creatorName + "";
   }
 
   getTime(input: string) {
@@ -153,5 +171,22 @@ export class NotificationPackComponent implements OnInit {
       return (timeChanges / 2592000).toFixed(0) + " tháng trước";
     }
     return (timeChanges / 2592000).toFixed(0) + " tháng trước";
+  }
+
+  showNotification(title: string, body: string): void {
+    if (!('Notification' in window)) {
+      console.log('This browser does not support notifications');
+      return;
+    }
+
+    if (Notification.permission === 'granted') {
+      new Notification(title, { body: body });
+    } else if (Notification.permission !== 'denied') {
+      Notification.requestPermission().then(permission => {
+        if (permission === 'granted') {
+          new Notification(title, { body: body });
+        }
+      });
+    }
   }
 }

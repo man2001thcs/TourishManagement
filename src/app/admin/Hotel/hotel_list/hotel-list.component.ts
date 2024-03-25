@@ -299,4 +299,8 @@ export class HotelListComponent implements OnInit, AfterViewInit, OnDestroy {
     } else {
     }
   }
+
+  getIndex(elementId: string) {
+    return this.hotelList.findIndex((el) => el.id === elementId) + 1;
+  }
 }

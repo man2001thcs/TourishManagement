@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   backend: {
-    baseURL: "https://tourishapi20240305102130.azurewebsites.net",
+    baseURL: "https://localhost:7070",
     blobURL: "https://bookstore1storage.blob.core.windows.net"
   },
   firebaseConfig : {
@@ -15,3 +15,6 @@ export const environment = {
     vapidKey: "BEE4ewd9nu-1UCReW35Wo_FwxW1nU_V7Bfb5R-l2n1ASvCxUUSVuIqAK_Krm7Xp123ovrYNSI4GHt3lTA6CyTjs"
   }
 };
+
+// https://localhost:7070/
+// https://tourishapi20240305102130.azurewebsites.net

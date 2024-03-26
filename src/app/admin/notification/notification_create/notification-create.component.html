@@ -103,6 +103,12 @@
               </div>
             </div>
           </div>
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
+            <user-multiselect-autocomplete
+              [data_selected]="undefined"
+              (result)="selectChangeReceiver($event)"
+            ></user-multiselect-autocomplete>
+          </div>
         </div>
 
         <div

@@ -19,6 +19,8 @@ import { getViNotifyMessagePhase } from "../config/notificationCode";
 import { SignalRService } from "../user_service/signalr.service";
 import { Subscription } from "rxjs";
 import { SwPush } from "@angular/service-worker";
+import { environment } from "src/environments/environment";
+import { messaging } from "src/conf/firebase.conf";
 
 @Component({
   selector: "app-notification-pack",
@@ -57,6 +59,9 @@ export class NotificationPackComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.requestPermission();
+    this.listen();
+
     this.setTourForm = this.fb.group({
       name: ["", Validators.compose([Validators.required])],
       endDate: ["", Validators.compose([Validators.required])],
@@ -70,24 +75,29 @@ export class NotificationPackComponent implements OnInit {
     });
 
     this.getTourPack();
-    this. signalRNotification();
+    this.signalRNotification();
 
     this.subscriptions.push(
-      this.signalRService.ClientFeedObservable.subscribe((notification: Notification) => {
-        if (notification){
-          let index = this.notificationList.findIndex(res => res.id === notification.id);
+      this.signalRService.ClientFeedObservable.subscribe(
+        (notification: Notification) => {
+          if (notification) {
+            console.log("Here i am: ", notification);
 
-          if (index > -1){
-            this.notificationList[index] = notification;
-          } else this.notificationList = [notification, ...this.notificationList];
+            let index = this.notificationList.findIndex(
+              (res) => res.id === notification.id
+            );
+
+            if (index > -1) {
+              this.notificationList[index] = notification;
+            } else
+              this.notificationList = [notification, ...this.notificationList];
+          }
         }
-
-        this.showNotification("Cập nhật từ Roxanne", this.getContent(notification));
-      })
+      )
     );
   }
 
-  signalRNotification(){
+  signalRNotification() {
     this.signalRService.startConnection("/api/user/notify").then(() => {
       // 2 - register for ALL relay
       this.signalRService.listenToClientFeeds("SendOffersToUser");
@@ -124,22 +134,21 @@ export class NotificationPackComponent implements OnInit {
     let contentPhase = "";
     let tourName = "";
 
-    if (notify.tourName != null && notify.tourName.length > 0){
+    if (notify.tourName != null && notify.tourName.length > 0) {
       tourName = notify.tourName;
     } else tourName = notify.tourishPlan?.tourName ?? "";
 
     if (notify.contentCode !== null) {
       contentPhase =
-        getViNotifyMessagePhase(notify.contentCode ?? "") +
-        tourName;
+        getViNotifyMessagePhase(notify.contentCode ?? "") + tourName;
     } else contentPhase = notify.content;
 
     return contentPhase;
   }
 
   getCreator(notify: Notification): string {
-    let creatorName  = "";
-    if (notify.creatorFullName != null && notify.creatorFullName.length > 0){
+    let creatorName = "";
+    if (notify.creatorFullName != null && notify.creatorFullName.length > 0) {
       creatorName = notify.creatorFullName;
     } else creatorName = notify.userCreator?.fullName ?? "Anonymus";
     return creatorName + "";
@@ -176,42 +185,55 @@ export class NotificationPackComponent implements OnInit {
   }
 
   async showNotification(title: string, body: string): Promise<void> {
-    if (!('Notification' in window)) {
-      console.log('This browser does not support notifications');
+    if (!("Notification" in window)) {
+      console.log("This browser does not support notifications");
       return;
     }
 
-    if (Notification.permission === 'granted') {
+    if (Notification.permission === "granted") {
       new Notification(title, { body: body });
-    } else if (Notification.permission !== 'denied') {
-      Notification.requestPermission().then(async permission => {
-        if (permission === 'granted') {
+    } else if (Notification.permission !== "denied") {
+      Notification.requestPermission().then(async (permission) => {
+        if (permission === "granted") {
           // await this.swPush.requestSubscription({ serverPublicKey: 'your-server-public-key' });
-          new Notification(title, { body: body });
+          // new Notification(title, { body: body });
         }
       });
     }
   }
 
-  public async subscribeToNotifications() {
-    try {
-      const subscription = await this.swPush.requestSubscription({
-        serverPublicKey: 'your-vapid-public-key' // Replace with your VAPID public key
+  requestPermission() {
+    messaging
+      .getToken({ vapidKey: environment.firebaseConfig.vapidKey })
+      .then((currentToken) => {
+        if (currentToken) {
+          console.log("abc", currentToken);
+
+          const userId = this.tokenStorage.getUser().Id;
+          const payload = {
+            deviceToken: currentToken,
+            userId: userId
+          };
+
+          this.http
+            .post("/api/SaveNotifyFcmToken", payload)
+            .subscribe((response: any) => {
+              console.log(response);
+            });
+        } else {
+          console.log(
+            "No registration token available. Request permission to generate one."
+          );
+        }
+      })
+      .catch((err) => {
+        console.log(err);
       });
-      console.log('Push notification subscription:', subscription);
-    } catch (error) {
-      console.error('Error subscribing to push notifications:', error);
-    }
   }
 
-  public async sendNotification(message: string) {
-    try {
-      const options = {
-        body: message,
-        icon: '/assets/notification-icon.png'
-      };
-    } catch (error) {
-      console.error('Error sending push notification:', error);
-    }
+  listen() {
+    messaging.onMessage((incomingMessage) => {
+      console.log(incomingMessage);
+    });
   }
 }

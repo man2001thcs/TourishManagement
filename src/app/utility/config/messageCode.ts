@@ -234,6 +234,7 @@ export const SUCCESS_MESSAGE_CODE_EN: Map<string, string> = new Map([
     ["I701", "Notification add ok"],
     ["I702", "Notification update ok"],
     ["I703", "Notification delete ok"],
+    ["I704", "Save FCM token successfully"],
 
     ["I811", "Tour comment add ok"],
     ["I812", "Tour comment update ok"],
@@ -291,6 +292,7 @@ export const SUCCESS_MESSAGE_CODE_EN: Map<string, string> = new Map([
     ["I701", "Thông báo thêm thành công"],
     ["I702", "Thông báo cập nhật thành công"],
     ["I703", "Thông báo xóa thành công"],
+    ["I704", "Lưu FCM token thành công"],
 
     ["I811", "Tour comment thêm thành công"],
     ["I812", "Tour comment cập nhật thành công"],

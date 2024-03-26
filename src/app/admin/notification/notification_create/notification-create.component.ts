@@ -19,6 +19,7 @@ import {
 import { MessageService } from "src/app/utility/user_service/message.service";
 import { KeyValue, Notification } from "src/app/model/baseModel";
 import { SUCCESS_MESSAGE_CODE_VI } from "src/app/utility/config/notificationCode";
+import { TokenStorageService } from "src/app/utility/user_service/token.service";
 
 @Component({
   selector: "app-book-create",
@@ -31,6 +32,7 @@ export class NotificationCreateComponent implements OnInit, OnDestroy {
   notificationParam!: NotificationParam;
 
   this_announce = "";
+  userReceiveId= "";
 
   createformGroup_info!: FormGroup;
 
@@ -49,6 +51,7 @@ export class NotificationCreateComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private store: Store<passenger_carState>,
     private messageService: MessageService,
+    private tokenStorage: TokenStorageService,
     private _route: ActivatedRoute,
     @Inject(MAT_DIALOG_DATA) public data: NotificationParam
   ) {
@@ -124,7 +127,8 @@ export class NotificationCreateComponent implements OnInit, OnDestroy {
     this.isSubmitted = true;
     if (this.createformGroup_info.valid) {
       const payload: Notification = {
-        userCreateId: "",
+        userCreateId: this.tokenStorage.getUser().Id,
+        userReceiveId: this.userReceiveId,
         content: this.createformGroup_info.value.placeBranch,
         contentCode: this.createformGroup_info.value.contentCode,
         isRead: this.createformGroup_info.value.isRead === "1" ? true : false,
@@ -143,5 +147,10 @@ export class NotificationCreateComponent implements OnInit, OnDestroy {
   getNotifyCodeInfo(str: string){
     let strCapital = str.charAt(0).toUpperCase() + str.slice(1);
     return strCapital.replaceAll(":", "");
+  }
+
+  selectChangeReceiver($event: any) {
+    console.log($event.data[0]);
+    this.userReceiveId = $event.data[0];
   }
 }

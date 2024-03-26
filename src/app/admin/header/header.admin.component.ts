@@ -49,7 +49,7 @@ export class HeaderAdminComponent implements OnDestroy {
   activeItem = "1st";
   isNavOpen = true;
   isAutoCompleteOpen = false;
-  avatarUrl = environment.backend.blobURL +  "/0-container/0_anonymus.png";
+  avatarUrl = environment.backend.blobURL + "/0-container/0_anonymus.png";
 
   filteredInput!: Observable<string | null>;
   searchFormGroup!: FormGroup;
@@ -74,7 +74,7 @@ export class HeaderAdminComponent implements OnDestroy {
   ngOnInit(): void {
     this.id = Number(localStorage.getItem("id")) ?? 0;
     console.log(localStorage.getItem("id"));
-
+    this.showNotification();
     this.activeItem = getHeaderPhase(this.router.url);
 
     this.subscriptions.push(
@@ -242,15 +242,16 @@ export class HeaderAdminComponent implements OnDestroy {
           state.data == null ||
           state.data.length == 0
         ) {
-          this.avatarUrl = environment.backend.blobURL +  "/0-container/0_anonymus.png";
+          this.avatarUrl =
+            environment.backend.blobURL + "/0-container/0_anonymus.png";
         }
-
       });
   }
 
   generateUrl(image: FileModel) {
     return (
-      environment.backend.blobURL +  "/0-container/" +
+      environment.backend.blobURL +
+      "/0-container/" +
       "0" +
       "_" +
       image.id +
@@ -258,9 +259,20 @@ export class HeaderAdminComponent implements OnDestroy {
     );
   }
 
-  getBlobUrl(){
+  getBlobUrl() {
     return environment.backend.blobURL;
   }
 
   formSubmit(): void {}
+
+  showNotification(): void {
+    if (!("Notification" in window)) {
+      console.log("This browser does not support notifications");
+      return;
+    }
+
+    if (Notification.permission !== "denied") {
+      Notification.requestPermission().then((permission) => {});
+    }
+  }
 }

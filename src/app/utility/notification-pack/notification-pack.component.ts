@@ -18,6 +18,7 @@ import { TokenStorageService } from "../user_service/token.service";
 import { getViNotifyMessagePhase } from "../config/notificationCode";
 import { SignalRService } from "../user_service/signalr.service";
 import { Subscription } from "rxjs";
+import { SwPush } from "@angular/service-worker";
 
 @Component({
   selector: "app-notification-pack",
@@ -51,6 +52,7 @@ export class NotificationPackComponent implements OnInit {
     private renderer: Renderer2,
     private tokenStorage: TokenStorageService,
     private http: HttpClient,
+    private swPush: SwPush,
     private signalRService: SignalRService
   ) {}
 
@@ -173,7 +175,7 @@ export class NotificationPackComponent implements OnInit {
     return (timeChanges / 2592000).toFixed(0) + " tháng trước";
   }
 
-  showNotification(title: string, body: string): void {
+  async showNotification(title: string, body: string): Promise<void> {
     if (!('Notification' in window)) {
       console.log('This browser does not support notifications');
       return;
@@ -182,11 +184,34 @@ export class NotificationPackComponent implements OnInit {
     if (Notification.permission === 'granted') {
       new Notification(title, { body: body });
     } else if (Notification.permission !== 'denied') {
-      Notification.requestPermission().then(permission => {
+      Notification.requestPermission().then(async permission => {
         if (permission === 'granted') {
+          // await this.swPush.requestSubscription({ serverPublicKey: 'your-server-public-key' });
           new Notification(title, { body: body });
         }
       });
+    }
+  }
+
+  public async subscribeToNotifications() {
+    try {
+      const subscription = await this.swPush.requestSubscription({
+        serverPublicKey: 'your-vapid-public-key' // Replace with your VAPID public key
+      });
+      console.log('Push notification subscription:', subscription);
+    } catch (error) {
+      console.error('Error subscribing to push notifications:', error);
+    }
+  }
+
+  public async sendNotification(message: string) {
+    try {
+      const options = {
+        body: message,
+        icon: '/assets/notification-icon.png'
+      };
+    } catch (error) {
+      console.error('Error sending push notification:', error);
     }
   }
 }

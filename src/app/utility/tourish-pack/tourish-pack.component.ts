@@ -14,6 +14,8 @@ import { ThemePalette } from "@angular/material/core";
 import { NgbCarouselConfig } from "@ng-bootstrap/ng-bootstrap";
 import { Slider } from "angular-carousel-slider/lib/angular-carousel-slider.component";
 import { TourishPlan } from "src/app/model/baseModel";
+import { messaging } from "src/conf/firebase.conf";
+import { environment } from "src/environments/environment";
 
 @Component({
   selector: "app-tourish-pack",
@@ -50,6 +52,9 @@ export class TourishPackComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit() {
+    this.requestPermission();
+    this.listen();
+
     this.setTourForm = this.fb.group({
       name: ["", Validators.compose([Validators.required])],
       endDate: ["", Validators.compose([Validators.required])],
@@ -120,14 +125,16 @@ export class TourishPackComponent implements OnInit, AfterViewInit {
     const params = {
       page: 1,
       category: this.category,
-      pageSize: 6
+      pageSize: 6,
     };
 
-    this.http.get("/api/GetTourishPlan", { params: params }).subscribe((response: any) => {
-      this.tourishPLanList = response.data;
-      console.log(response);
-      this.length = response.count;
-    });
+    this.http
+      .get("/api/GetTourishPlan", { params: params })
+      .subscribe((response: any) => {
+        this.tourishPLanList = response.data;
+        console.log(response);
+        this.length = response.count;
+      });
   }
 
   getTotalPrice(tourishPlan: TourishPlan): number {
@@ -149,6 +156,28 @@ export class TourishPackComponent implements OnInit, AfterViewInit {
   }
 
   capitalizeFirstLetter(sentence: string): string {
-    return sentence.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
-}
+    return sentence
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+  }
+
+  requestPermission() {
+    messaging.getToken({vapidKey: environment.firebaseConfig.vapidKey})
+      .then((currentToken) => {
+        if (currentToken) {
+          console.log(currentToken);
+        } else {
+          console.log('No registration token available. Request permission to generate one.');
+        }
+      }).catch((err) => {
+        console.log(err);
+      });
+  }
+
+  listen() {
+    messaging.onMessage((incomingMessage) => {
+      console.log(incomingMessage);
+    })
+  }
 }

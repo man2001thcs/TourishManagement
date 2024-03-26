@@ -28,13 +28,15 @@
           <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
             <div class="row">
               <mat-form-field appearance="outline" class="full-width-input">
-                <mat-label>Mã nội dung (Có thể bỏ trống)</mat-label>
-                <input
-                  matInput
-                  fullwidth
-                  placeholder="Vd: Bồ Công Anh"
+                <mat-label>Mã code</mat-label>
+                <select
+                  matNativeControl
+                  placeholder="Vd: 0123456789"
                   formControlName="contentCode"
-                />
+                >
+                  <option value="''">Không</option>
+                  <option *ngFor="let notificationCode of successNotifyCode" value="{{notificationCode.key}}">{{notificationCode.key}}: {{notificationCode.value}}</option>
+                </select>
               </mat-form-field>
               <div style="margin-top: -20px; margin-bottom: 10px">
                 <app-validation

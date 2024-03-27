@@ -168,7 +168,9 @@ export class NotificationPackComponent implements OnInit {
 
     let isoDate = new Date(now.toISOString());
 
-    let timeChanges = (isoDate.valueOf() - sendTime.valueOf()) / 1000;
+    let timeChanges = (now.valueOf() - sendTime.valueOf()) / 1000;
+
+    console.log(timeChanges);
 
     if (timeChanges < 60) {
       return "Gần 1 phút trước";

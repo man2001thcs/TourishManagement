@@ -33,7 +33,11 @@ import {
   getSysError,
 } from "./tourishPlan-detail.store.selector";
 import { MessageService } from "src/app/utility/user_service/message.service";
-import { EatSchedule, TourishCategoryRelation, TourishPlan } from "src/app/model/baseModel";
+import {
+  EatSchedule,
+  TourishCategoryRelation,
+  TourishPlan,
+} from "src/app/model/baseModel";
 import { TourishPlanParam } from "./tourishPlan-detail.component.model";
 declare let tinymce: any;
 
@@ -69,7 +73,7 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
     stayingSchedules: [],
     eatSchedules: [],
     movingSchedules: [],
-    tourishCategoryRelations: []
+    tourishCategoryRelations: [],
   };
 
   tourishCategoryRelations: TourishCategoryRelation[] = [];
@@ -185,6 +189,8 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
           this.editformGroup_info.controls["stayingScheduleString"].setValue(
             JSON.stringify(state.stayingSchedules)
           );
+
+          this.tourishCategoryRelations = state.tourishCategoryRelations ?? [];
 
           this.messageService.closeLoadingDialog();
 
@@ -364,6 +370,16 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
     this.editformGroup_info.controls["description"].setValue(
       this.editorContent
     );
+    let tourishCategoryRelationInsert: TourishCategoryRelation[] = [];
+    
+    this.tourishCategoryRelations.forEach((relation) => {
+      tourishCategoryRelationInsert = [
+        ...tourishCategoryRelationInsert,
+        {
+          tourishCategory: relation.tourishCategory,
+        },
+      ];
+    });
 
     if (this.editformGroup_info.valid) {
       this.store.dispatch(
@@ -384,7 +400,7 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
             remainTicket: this.editformGroup_info.value.remainTicket,
             description: this.editorContent,
 
-            tourishCategoryRelations: this.tourishCategoryRelations,
+            tourishCategoryRelations: tourishCategoryRelationInsert,
 
             movingScheduleString:
               this.editformGroup_info.value.movingScheduleString,
@@ -421,6 +437,9 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
       EatingScheduleString: JSON.stringify(this.tourishPlan.eatSchedules),
       stayingScheduleString: JSON.stringify(this.tourishPlan.stayingSchedules),
     });
+
+    this.tourishCategoryRelations =
+      this.tourishPlan.tourishCategoryRelations ?? [];
   }
 
   openDialog() {

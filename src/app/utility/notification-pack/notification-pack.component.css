@@ -1,7 +1,21 @@
 .single-notification {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
   padding: 5px 20px 2px;
+}
+
+.image img {
+  height: 80px;
+  width: 80px;
+}
+
+.image {
+  border-radius: 50%;
+  height: fit-content;
+  width: fit-content;
+  margin-bottom: 20px;
+  margin-right: 10px;
 }
 
 .single-notification .content {
@@ -9,7 +23,17 @@
   flex-direction: row;
 }
 
-.single-notification .content span {
+.single-notification .content {
+  display: flex;
+  flex-direction: column;
+}
+
+.single-notification .content .content-description {
+  display: flex;
+  flex-direction: row;
+}
+
+.single-notification .content .content-description span {
   font-weight: 500;
   font-size: 16px;
 }

@@ -17,6 +17,10 @@
   padding-bottom: 8px;
 }
 
+::ng-deep .notification.mat-mdc-menu-panel.mat-mdc-menu-panel {
+  max-width: 400px !important;
+}
+
 .avatar {
   vertical-align: middle;
   width: 30px;
@@ -209,7 +213,6 @@ button:hover {
   border-radius: 0 28px 28px 0 !important;
   min-width: 28px !important;
 }
-
 
 /* Add padding to move the label and input into the center to prevent overlapping the rounded border */
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-flex {

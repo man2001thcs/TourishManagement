@@ -12,7 +12,6 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ThemePalette } from "@angular/material/core";
 
 import { NgbCarouselConfig } from "@ng-bootstrap/ng-bootstrap";
-import { Slider } from "angular-carousel-slider/lib/angular-carousel-slider.component";
 import { Notification } from "src/app/model/baseModel";
 import { TokenStorageService } from "../user_service/token.service";
 import { getViNotifyMessagePhase } from "../config/notificationCode";
@@ -34,6 +33,7 @@ export class NotificationPackComponent implements OnInit {
   description: string = "Tìm Về Chốn Thiêng, Lòng Người An Bình";
 
   active = 1;
+  avatarUrl = environment.backend.blobURL + "/0-container/0_anonymus.png";
 
   setTourForm!: FormGroup;
   isSubmit = false;
@@ -61,6 +61,7 @@ export class NotificationPackComponent implements OnInit {
   ngOnInit() {
     this.requestPermission();
     this.listen();
+    this.signalRNotification();
 
     this.setTourForm = this.fb.group({
       name: ["", Validators.compose([Validators.required])],
@@ -75,7 +76,6 @@ export class NotificationPackComponent implements OnInit {
     });
 
     this.getTourPack();
-    this.signalRNotification();
 
     this.subscriptions.push(
       this.signalRService.ClientFeedObservable.subscribe(
@@ -117,7 +117,7 @@ export class NotificationPackComponent implements OnInit {
       .get("/api/GetNotification/receiver", { params: params })
       .subscribe((response: any) => {
         this.notificationList = response.data;
-        console.log(response);
+        console.log("notify: ", response);
         this.length = response.count;
         this.firstLoading = false;
       });
@@ -212,7 +212,7 @@ export class NotificationPackComponent implements OnInit {
           const userId = this.tokenStorage.getUser().Id;
           const payload = {
             deviceToken: currentToken,
-            userId: userId
+            userId: userId,
           };
 
           this.http
@@ -236,4 +236,5 @@ export class NotificationPackComponent implements OnInit {
       console.log(incomingMessage);
     });
   }
+  
 }

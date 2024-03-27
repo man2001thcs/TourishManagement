@@ -3,21 +3,29 @@
     class="single-notification"
     *ngFor="let notification of notificationList"
   >
-    <div class="content">
-      <span
-        ><span style="font-weight: bold">{{ getCreator(notification) }}</span
-        >{{ getContent(notification) }}</span
-      >
+    <div  class="image">
+      <img src="{{ avatarUrl }}" alt="Avatar" class="avatar" />
     </div>
-    <div class="time">
-      <span>{{ getTime(notification.updateDate ?? "") }}</span>
+
+    <div class="content">
+      <div class="content-description">
+        <span
+          ><span style="font-weight: bold">{{ getCreator(notification) }}</span
+          >{{ getContent(notification) }}</span
+        >
+      </div>
+      <div class="time">
+        <span>{{ getTime(notification.updateDate ?? "") }}</span>
+      </div>
     </div>
   </div>
+
   <div
     class="single-notification"
     *ngIf="firstLoading"
-    style="display: flex; flex-direction: row; align-items: center;"
+    style="display: flex; flex-direction: row; align-items: center"
   >
-    <span style="margin-right: 5px;">Đang tải</span> <mat-spinner [diameter]="20"></mat-spinner>
+    <span style="margin-right: 5px">Đang tải</span>
+    <mat-spinner [diameter]="20"></mat-spinner>
   </div>
 </div>

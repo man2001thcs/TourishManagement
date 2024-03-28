@@ -170,8 +170,6 @@ export class NotificationPackComponent implements OnInit {
 
     let timeChanges = (now.valueOf() - sendTime.valueOf()) / 1000;
 
-    console.log(timeChanges);
-
     if (timeChanges < 60) {
       return "Gần 1 phút trước";
     } else if (timeChanges >= 60 && timeChanges < 3600) {

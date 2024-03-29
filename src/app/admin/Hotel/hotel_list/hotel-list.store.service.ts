@@ -9,10 +9,10 @@ export class HotelListStoreService {
   constructor(private http: HttpClient) {}
 
   getHotelList(payload: any): Observable<any> {
-    return this.http.get("/api/GetHotel", {params: payload});
+    return this.http.get("/api/GetRestHouseContact", {params: payload});
   }
 
   deleteHotel(payload: any): Observable<any> {
-    return this.http.delete("/api/DeleteHotel/" + payload.id, payload);
+    return this.http.delete("/api/DeleteRestHouseContact/" + payload.id, payload);
   }
 }

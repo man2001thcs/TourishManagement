@@ -9,6 +9,6 @@ export class HotelStoreService {
   constructor(private http: HttpClient) {}
 
   createHotel(payload: any): Observable<any> {
-    return this.http.post('/api/AddHotel', payload);
+    return this.http.post('/api/AddRestHouseContact', payload);
   }
 }

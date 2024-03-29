@@ -15,6 +15,7 @@ export interface Restaurant {
 export interface HomeStay {
   id?: string;
   placeBranch: string;
+  restHouseType: number;
   hotlineNumber: string;
   supportEmail: string;
   headQuarterAddress: string;
@@ -29,6 +30,7 @@ export interface HomeStay {
 export interface Hotel {
   id?: string;
   placeBranch: string;
+  restHouseType: number;
   hotlineNumber: string;
   supportEmail: string;
   headQuarterAddress: string;
@@ -43,6 +45,7 @@ export interface Hotel {
 export interface PassengerCar {
   id?: string;
   branchName: string;
+  vehicleType: number;
   hotlineNumber: string;
   supportEmail: string;
   headQuarterAddress: string;
@@ -57,6 +60,7 @@ export interface PassengerCar {
 export interface AirPlane {
   id?: string;
   branchName: string;
+  vehicleType: number;
   hotlineNumber: string;
   supportEmail: string;
   headQuarterAddress: string;

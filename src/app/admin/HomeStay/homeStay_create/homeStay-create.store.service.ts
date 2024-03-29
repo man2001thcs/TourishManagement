@@ -9,6 +9,6 @@ export class HomeStayStoreService {
   constructor(private http: HttpClient) {}
 
   createHomeStay(payload: any): Observable<any> {
-    return this.http.post('/api/AddHomeStay', payload);
+    return this.http.post('/api/AddRestHouseContact', payload);
   }
 }

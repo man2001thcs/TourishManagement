@@ -137,6 +137,7 @@ export class PassengerCarCreateComponent implements OnInit, OnDestroy {
     if (this.createformGroup_info.valid) {
       const payload: PassengerCar = {
         branchName: this.createformGroup_info.value.branchName,
+        vehicleType: 0,
         hotlineNumber: this.createformGroup_info.value.hotlineNumber,
         supportEmail: this.createformGroup_info.value.supportEmail,
         headQuarterAddress: this.createformGroup_info.value.headQuarterAddress,

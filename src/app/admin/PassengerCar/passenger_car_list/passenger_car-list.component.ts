@@ -106,6 +106,7 @@ export class PassengerCarListComponent
                 payload: {
                   search: this.searchPhase,
                   page: this.pageIndex + 1,
+                  type: 0,
                 },
               })
             );
@@ -120,6 +121,7 @@ export class PassengerCarListComponent
       PassengerCarListActions.getPassengerCarList({
         payload: {
           page: this.pageIndex + 1,
+          type: 0,
         },
       })
     );
@@ -170,6 +172,7 @@ export class PassengerCarListComponent
           payload: {
             page: this.pageIndex + 1,
             search: this.searchPhase,
+            type: 0,
           },
         })
       );
@@ -189,6 +192,7 @@ export class PassengerCarListComponent
           payload: {
             page: this.pageIndex + 1,
             search: this.searchPhase,
+            type: 0,
           },
         })
       );
@@ -244,6 +248,7 @@ export class PassengerCarListComponent
         payload: {
           page: this.pageIndex + 1,
           pageSize: this.pageSize,
+          type: 0,
         },
       })
     );
@@ -261,6 +266,7 @@ export class PassengerCarListComponent
           page: this.pageIndex + 1,
           pageSize: this.pageSize,
           search: this.searchPhase,
+          type: 0,
         },
       })
     );
@@ -280,6 +286,7 @@ export class PassengerCarListComponent
               page: 1,
               pageSize: this.pageSize,
               search: this.searchPhase,
+              type: 0,
             },
           })
         );
@@ -292,6 +299,7 @@ export class PassengerCarListComponent
               page: 1,
               pageSize: this.pageSize,
               search: this.searchPhase,
+              type: 0,
             },
           })
         );

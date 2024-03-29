@@ -81,7 +81,7 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
   touchUi = false;
   enableMeridian = false;
 
-  movingType = "PassengerCar";
+  vehicleType = 0;
 
   color: ThemePalette = "primary";
 
@@ -178,7 +178,7 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
               search: (state ?? "").toLowerCase(),
               page: 1,
               pageSize: 6,
-              movingType: this.movingType,
+              type: this.vehicleType,
             },
           })
         );
@@ -229,7 +229,7 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
           search: this.searchWord.toLowerCase(),
           page: this.pageIndex + 1,
           pageSize: 6,
-          movingType: this.movingType,
+          type: this.vehicleType,
         },
       })
     );
@@ -348,9 +348,9 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
 
   changeType($event: any) {
     if (parseInt($event.target.value) === 0) {
-      this.movingType = "PassengerCar";
+      this.vehicleType = 0;
     } else if (parseInt($event.target.value) === 1) {
-      this.movingType = "AirPlane";
+      this.vehicleType = 1;
     }
 
     this.movingFormGroup.controls["vehicleType"].setValue(
@@ -369,7 +369,7 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
           search: this.searchWord.toLowerCase(),
           page: this.pageIndex + 1,
           pageSize: 6,
-          movingType: this.movingType,
+          type: this.vehicleType,
         },
       })
     );
@@ -596,6 +596,7 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
               search: this.searchWord.toLowerCase(),
               page: this.pageIndex + 1,
               pageSize: 6,
+              type: this.vehicleType
             },
           })
         );

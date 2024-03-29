@@ -9,10 +9,10 @@ export class HomeStayListStoreService {
   constructor(private http: HttpClient) {}
 
   getHomeStayList(payload: any): Observable<any> {
-    return this.http.get("/api/GetHomeStay", {params: payload});
+    return this.http.get("/api/GetRestHouseContact", {params: payload});
   }
 
   deleteHomeStay(payload: any): Observable<any> {
-    return this.http.delete("/api/DeleteHomeStay/" + payload.id, payload);
+    return this.http.delete("/api/DeleteRestHouseContact/" + payload.id, payload);
   }
 }

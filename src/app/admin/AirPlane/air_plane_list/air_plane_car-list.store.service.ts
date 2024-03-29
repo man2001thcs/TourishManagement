@@ -9,10 +9,10 @@ export class AirPlaneListStoreService {
   constructor(private http: HttpClient) {}
 
   getAirPlaneList(payload: any): Observable<any> {
-    return this.http.get("/api/GetAirPlane", {params: payload});
+    return this.http.get("/api/GetMovingContact", {params: payload});
   }
 
   deleteAirPlane(payload: any): Observable<any> {
-    return this.http.delete("/api/DeleteAirPlane/" + payload.id, payload);
+    return this.http.delete("/api/DeleteMovingContact/" + payload.id, payload);
   }
 }

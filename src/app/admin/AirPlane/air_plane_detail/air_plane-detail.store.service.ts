@@ -9,11 +9,11 @@ export class AirPlaneDetailStoreService {
   constructor(private http: HttpClient) {}
 
   getAirPlane(payload: any): Observable<any> {
-    return this.http.get('/api/GetAirPlane/' + payload.id);
+    return this.http.get('/api/GetMovingContact/' + payload.id);
   }
 
   editAirPlane(payload: any): Observable<any> {
     console.log('ok');
-    return this.http.put('/api/UpdateAirPlane/' + payload.id, payload);
+    return this.http.put('/api/UpdateMovingContact/' + payload.id, payload);
   }
 }

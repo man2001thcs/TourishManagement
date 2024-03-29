@@ -23,9 +23,11 @@ import { NgxMatDatetimePickerModule, NgxMatTimepickerModule } from "@angular-mat
 import { NgxMatMomentModule } from "@angular-material-components/moment-adapter";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { HtmlSanitizerComponent } from "./utility/html-sanitizer/html-sanitizer.component";
+import { NotificationSingleComponent } from "./utility/notification-single/notification-single.component";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
 @NgModule({
-  declarations: [FooterComponent, OutsideClickDirective, ValidationComponent,ImageSliderComponent, HtmlSanitizerComponent],
+  declarations: [FooterComponent, OutsideClickDirective, ValidationComponent,ImageSliderComponent, HtmlSanitizerComponent, NotificationSingleComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -38,9 +40,11 @@ import { HtmlSanitizerComponent } from "./utility/html-sanitizer/html-sanitizer.
     NgxMatTimepickerModule,
     NgxMatMomentModule,
     MatDatepickerModule,
+    MatProgressSpinnerModule,
   ],
 
   exports: [
+    NotificationSingleComponent,
     ImageSliderComponent,
     HtmlSanitizerComponent,
     CarouselSlider,

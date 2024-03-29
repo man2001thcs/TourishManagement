@@ -9,6 +9,6 @@ export class MultiSelectMovingListStoreService {
   constructor(private http: HttpClient) {}
 
   getMovingList(payload: any): Observable<any> {
-    return this.http.get("/api/Get" + payload.movingType, {params: payload});
+    return this.http.get("/api/GetMovingContact", {params: payload});
   }
 }

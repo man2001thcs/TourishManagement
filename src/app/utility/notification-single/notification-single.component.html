@@ -1,0 +1,17 @@
+<div class="single-notification">
+  <div class="image">
+    <img src="{{ avatarUrl }}" alt="Avatar" class="avatar" />
+  </div>
+
+  <div class="content">
+    <div class="content-description">
+      <span
+        ><span style="font-weight: bold">{{ getCreator(notification) }}</span
+        >{{ getContent(notification) }}</span
+      >
+    </div>
+    <div class="time">
+      <span>{{ getTime(notification.updateDate ?? "") }}</span>
+    </div>
+  </div>
+</div>

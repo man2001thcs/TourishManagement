@@ -49,6 +49,7 @@ export class PassengerCarDetailComponent implements OnInit, OnDestroy {
   passengerCar: PassengerCar = {
     id: "",
     branchName: "",
+    vehicleType: 0,
     hotlineNumber: "",
     supportEmail: "",
     headQuarterAddress: "",
@@ -220,6 +221,7 @@ export class PassengerCarDetailComponent implements OnInit, OnDestroy {
       const payload: PassengerCar = {
         id: this.data.id,
         branchName: this.editformGroup_info.value.branchName,
+        vehicleType: 0,
         hotlineNumber: this.editformGroup_info.value.hotlineNumber,
         supportEmail: this.editformGroup_info.value.supportEmail,
         headQuarterAddress: this.editformGroup_info.value.headQuarterAddress,

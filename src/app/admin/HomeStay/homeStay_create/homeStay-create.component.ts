@@ -144,6 +144,7 @@ export class HomeStayCreateComponent implements OnInit, OnDestroy {
     if (this.createformGroup_info.valid) {
       const payload: HomeStay = {
         placeBranch: this.createformGroup_info.value.placeBranch,
+        restHouseType: 0,
         hotlineNumber: this.createformGroup_info.value.hotlineNumber,
         supportEmail: this.createformGroup_info.value.supportEmail,
         headQuarterAddress: this.createformGroup_info.value.headQuarterAddress,

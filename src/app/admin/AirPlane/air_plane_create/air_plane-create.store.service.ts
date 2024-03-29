@@ -9,6 +9,6 @@ export class AirPlaneCreateStoreService {
   constructor(private http: HttpClient) {}
 
   createAirPlane(payload: any): Observable<any> {
-    return this.http.post('/api/AddAirPlane', payload);
+    return this.http.post('/api/AddMovingContact', payload);
   }
 }

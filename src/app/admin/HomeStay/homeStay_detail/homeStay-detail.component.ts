@@ -48,6 +48,7 @@ export class HomeStayDetailComponent implements OnInit, OnDestroy {
   homeStay: HomeStay = {
     id: "",
     placeBranch: "",
+    restHouseType: 0,
     hotlineNumber: "",
     supportEmail: "",
     headQuarterAddress: "",
@@ -207,6 +208,7 @@ export class HomeStayDetailComponent implements OnInit, OnDestroy {
       const payload: HomeStay = {
         id: this.data.id,
         placeBranch: this.editformGroup_info.value.placeBranch,
+        restHouseType: 0,
         hotlineNumber: this.editformGroup_info.value.hotlineNumber,
         supportEmail: this.editformGroup_info.value.supportEmail,
         headQuarterAddress: this.editformGroup_info.value.headQuarterAddress,

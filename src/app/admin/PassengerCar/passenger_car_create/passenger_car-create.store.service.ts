@@ -9,6 +9,6 @@ export class PassengerCarStoreService {
   constructor(private http: HttpClient) {}
 
   createPassengerCar(payload: any): Observable<any> {
-    return this.http.post('/api/AddPassengerCar', payload);
+    return this.http.post('/api/AddMovingContact', payload);
   }
 }

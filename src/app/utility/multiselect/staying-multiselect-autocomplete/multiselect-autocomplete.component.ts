@@ -80,7 +80,7 @@ export class StayingMultiselectAutocompleteComponent implements OnInit {
   touchUi = false;
   enableMeridian = false;
 
-  stayingType = "Hotel";
+  restHouseType = 1;
 
   color: ThemePalette = "primary";
 
@@ -180,7 +180,7 @@ export class StayingMultiselectAutocompleteComponent implements OnInit {
               search: (state ?? "").toLowerCase(),
               page: 1,
               pageSize: 6,
-              stayingType: this.stayingType,
+              type: this.restHouseType,
             },
           })
         );
@@ -231,7 +231,7 @@ export class StayingMultiselectAutocompleteComponent implements OnInit {
           search: this.searchWord.toLowerCase(),
           page: this.pageIndex + 1,
           pageSize: 6,
-          stayingType: this.stayingType,
+          restHouseType: this.restHouseType,
         },
       })
     );
@@ -352,9 +352,9 @@ export class StayingMultiselectAutocompleteComponent implements OnInit {
     console.log($event.target.value);
 
     if (parseInt($event.target.value) === 1) {
-      this.stayingType = "Hotel";
+      this.restHouseType = 1;
     } else if (parseInt($event.target.value) === 0) {
-      this.stayingType = "HomeStay";
+      this.restHouseType = 0;
     }
 
     this.stayingFormGroup.controls["restHouseType"].setValue(

@@ -9,11 +9,11 @@ export class PassengerCarStoreService {
   constructor(private http: HttpClient) {}
 
   getPassengerCar(payload: any): Observable<any> {
-    return this.http.get('/api/GetPassengerCar/' + payload.id);
+    return this.http.get('/api/GetMovingContact/' + payload.id);
   }
 
   editPassengerCar(payload: any): Observable<any> {
     console.log('ok');
-    return this.http.put('/api/UpdatePassengerCar/' + payload.id, payload);
+    return this.http.put('/api/UpdateMovingContact/' + payload.id, payload);
   }
 }

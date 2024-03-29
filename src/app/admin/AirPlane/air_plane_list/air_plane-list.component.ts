@@ -105,6 +105,7 @@ export class AirPlaneListComponent
               AirPlaneListActions.getAirPlaneList({
                 payload: {
                   page: this.pageIndex + 1,
+                  type: 1,
                   search: this.searchPhase
                 },
               })
@@ -120,6 +121,7 @@ export class AirPlaneListComponent
       AirPlaneListActions.getAirPlaneList({
         payload: {
           page: this.pageIndex + 1,
+          type: 1,
           search: this.searchPhase
         },
       })
@@ -166,6 +168,7 @@ export class AirPlaneListComponent
         AirPlaneListActions.getAirPlaneList({
           payload: {
             page: this.pageIndex + 1,
+            type: 1,
             search: this.searchPhase
           },
         })
@@ -186,6 +189,7 @@ export class AirPlaneListComponent
         AirPlaneListActions.getAirPlaneList({
           payload: {
             page: this.pageIndex + 1,
+            type: 1,
             search: this.searchPhase
           },
         })
@@ -239,6 +243,7 @@ export class AirPlaneListComponent
       AirPlaneListActions.getAirPlaneList({
         payload: {
           page: this.pageIndex + 1,
+          type: 1,
           pageSize: this.pageSize,
           search: this.searchPhase
         },
@@ -255,6 +260,7 @@ export class AirPlaneListComponent
       AirPlaneListActions.getAirPlaneList({
         payload: {
           page: this.pageIndex + 1,
+          type: 1,
           pageSize: this.pageSize,
           search: this.searchPhase
         },

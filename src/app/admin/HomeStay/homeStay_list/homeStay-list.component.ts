@@ -33,9 +33,7 @@ import { HomeStay } from "src/app/model/baseModel";
   templateUrl: "./homeStay-list.component.html",
   styleUrls: ["./homeStay-list.component.css"],
 })
-export class HomeStayListComponent
-  implements OnInit, AfterViewInit, OnDestroy
-{
+export class HomeStayListComponent implements OnInit, AfterViewInit, OnDestroy {
   homeStayList!: HomeStay[];
   subscriptions: Subscription[] = [];
 
@@ -86,7 +84,7 @@ export class HomeStayListComponent
   ngOnInit(): void {
     this.subscriptions.push(
       this.homeStayListState.subscribe((state) => {
-        if (state) {         
+        if (state) {
           this.messageService.closeLoadingDialog();
           this.homeStayList = state.data;
           this.length = state.count;
@@ -105,7 +103,8 @@ export class HomeStayListComponent
               HomeStayListActions.getHomeStayList({
                 payload: {
                   page: this.pageIndex + 1,
-                  search: this.searchPhase
+                  search: this.searchPhase,
+                  type: 0,
                 },
               })
             );
@@ -119,7 +118,8 @@ export class HomeStayListComponent
       HomeStayListActions.getHomeStayList({
         payload: {
           page: this.pageIndex + 1,
-          search: this.searchPhase
+          search: this.searchPhase,
+          type: 0,
         },
       })
     );
@@ -168,7 +168,8 @@ export class HomeStayListComponent
         HomeStayListActions.getHomeStayList({
           payload: {
             page: this.pageIndex + 1,
-            search: this.searchPhase
+            type: 0,
+            search: this.searchPhase,
           },
         })
       );
@@ -186,7 +187,8 @@ export class HomeStayListComponent
         HomeStayListActions.getHomeStayList({
           payload: {
             page: this.pageIndex + 1,
-            search: this.searchPhase
+            search: this.searchPhase,
+            type: 0,
           },
         })
       );
@@ -240,7 +242,8 @@ export class HomeStayListComponent
         payload: {
           page: this.pageIndex + 1,
           pageSize: this.pageSize,
-          search: this.searchPhase
+          search: this.searchPhase,
+          type: 0,
         },
       })
     );
@@ -260,7 +263,8 @@ export class HomeStayListComponent
         payload: {
           page: this.pageIndex + 1,
           pageSize: this.pageSize,
-          search: this.searchPhase
+          search: this.searchPhase,
+          type: 0,
         },
       })
     );
@@ -280,7 +284,8 @@ export class HomeStayListComponent
             payload: {
               page: 1,
               pageSize: this.pageSize,
-              search: this.searchPhase
+              search: this.searchPhase,
+              type: 0,
             },
           })
         );
@@ -292,7 +297,8 @@ export class HomeStayListComponent
               sortBy: "name_desc",
               page: 1,
               pageSize: this.pageSize,
-              search: this.searchPhase
+              search: this.searchPhase,
+              type: 0,
             },
           })
         );

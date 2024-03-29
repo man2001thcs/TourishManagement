@@ -104,6 +104,7 @@ export class HotelListComponent implements OnInit, AfterViewInit, OnDestroy {
               HotelListActions.getHotelList({
                 payload: {
                   page: this.pageIndex + 1,
+                  type: 1,
                 },
               })
             );
@@ -119,6 +120,7 @@ export class HotelListComponent implements OnInit, AfterViewInit, OnDestroy {
         payload: {
           page: this.pageIndex + 1,
           search: this.searchPhase,
+          type: 1,
         },
       })
     );
@@ -169,6 +171,7 @@ export class HotelListComponent implements OnInit, AfterViewInit, OnDestroy {
           payload: {
             page: this.pageIndex + 1,
             search: this.searchPhase,
+            type: 1,
           },
         })
       );
@@ -187,6 +190,7 @@ export class HotelListComponent implements OnInit, AfterViewInit, OnDestroy {
           payload: {
             page: this.pageIndex + 1,
             search: this.searchPhase,
+            type: 1,
           },
         })
       );
@@ -240,6 +244,7 @@ export class HotelListComponent implements OnInit, AfterViewInit, OnDestroy {
           page: this.pageIndex + 1,
           pageSize: this.pageSize,
           search: this.searchPhase,
+          type: 1,
         },
       })
     );
@@ -259,6 +264,7 @@ export class HotelListComponent implements OnInit, AfterViewInit, OnDestroy {
           page: this.pageIndex + 1,
           pageSize: this.pageSize,
           search: this.searchPhase,
+          type: 1,
         },
       })
     );
@@ -279,6 +285,7 @@ export class HotelListComponent implements OnInit, AfterViewInit, OnDestroy {
               page: 1,
               pageSize: this.pageSize,
               search: this.searchPhase,
+              type: 1,
             },
           })
         );
@@ -291,6 +298,7 @@ export class HotelListComponent implements OnInit, AfterViewInit, OnDestroy {
               page: 1,
               pageSize: this.pageSize,
               search: this.searchPhase,
+              type: 1,
             },
           })
         );

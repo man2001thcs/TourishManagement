@@ -48,6 +48,7 @@ export class HotelDetailComponent implements OnInit, OnDestroy {
   hotel: Hotel = {
     id: "",
     placeBranch: "",
+    restHouseType: 1,
     hotlineNumber: "",
     supportEmail: "",
     headQuarterAddress: "",
@@ -207,6 +208,7 @@ export class HotelDetailComponent implements OnInit, OnDestroy {
     if (this.editformGroup_info.valid){
       const payload: Hotel = {
         id: this.data.id,
+        restHouseType: 1,
         placeBranch: this.editformGroup_info.value.placeBranch,
         hotlineNumber: this.editformGroup_info.value.hotlineNumber,
         supportEmail: this.editformGroup_info.value.supportEmail,

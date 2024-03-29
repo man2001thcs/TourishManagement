@@ -9,6 +9,6 @@ export class MultiSelectStayingListStoreService {
   constructor(private http: HttpClient) {}
 
   getStayingList(payload: any): Observable<any> {
-    return this.http.get("/api/Get" + payload.stayingType, {params: payload});
+    return this.http.get("/api/GetRestHouseContact", {params: payload});
   }
 }

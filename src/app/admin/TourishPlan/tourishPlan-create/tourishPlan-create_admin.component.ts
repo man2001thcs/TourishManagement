@@ -409,4 +409,8 @@ export class TourishPlanCreateAdminComponent
     if (listString === "") return [];
     return JSON.parse(listString);
   }
+
+  getTinyMceResult($event: any) {
+    this.editorContent = $event.data;
+  }
 }

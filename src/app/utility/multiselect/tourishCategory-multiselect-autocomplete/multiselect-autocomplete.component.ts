@@ -170,8 +170,11 @@ export class TourishCategoryMultiselectAutocompleteComponent implements OnInit {
 
   ngOnChanges(): void {
     this.tourishCategoryRelationReturnList = [];
+    this.tourishCategoryNameList = [];
+    
     if (this.data_selected.length > 0) {
       this.tourishCategoryRelationReturnList = [...this.data_selected];
+
       this.data_selected.forEach((e) => {
         this.tourishCategoryNameList.push(e.tourishCategory.name);
       });
@@ -202,8 +205,6 @@ export class TourishCategoryMultiselectAutocompleteComponent implements OnInit {
     const index1 = this.tourishCategoryRelationReturnList.findIndex(
       (e) => e.tourishCategory.name === tourishCategory
     );
-
-    console.log(index1);
 
     if (index >= 0) {
       this.tourishCategoryRelationReturnList.splice(index1, 1);

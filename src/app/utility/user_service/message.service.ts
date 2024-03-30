@@ -73,11 +73,13 @@ export class MessageService {
     let message_announce = "";
     if (this_announce_code.startsWith("C")) {
       message_announce = ERR_MESSAGE_CODE_VI.get(this_announce_code) ?? "";
-      this.openFailNotifyDialog(message_announce ?? "");
+      return this.openFailNotifyDialog(message_announce ?? "");
     } else if (this_announce_code.startsWith("I")) {
       message_announce = SUCCESS_MESSAGE_CODE_VI.get(this_announce_code) ?? "";
-      this.openNotifyDialog(message_announce ?? "");
+      return this.openNotifyDialog(message_announce ?? "");
     }
+
+    return null;
   }
 
   openSystemErrNotifyDialog(this_announce_code: string, this_err_mess: string) {

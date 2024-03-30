@@ -24,6 +24,7 @@ import { UserListComponent } from "../User/user_list/user-list.component";
 import { AccountInfoComponent } from "../Account/account-info/account-info.component";
 import { TourishCategoryListComponent } from "../TourishCategory/tourish_category_list/tourish_category-list.component";
 import { NotificationListComponent } from "../notification/notification_list/notification-list.component";
+import { BigChatComponent } from "src/app/utility/big-chat/big-chat.component";
 
 const routes: Routes = [
   {
@@ -87,6 +88,10 @@ const routes: Routes = [
       {
         path: "account/info",
         component: AccountInfoComponent,
+      },
+      {
+        path: "chat",
+        component: BigChatComponent,
       },
     ],
   },

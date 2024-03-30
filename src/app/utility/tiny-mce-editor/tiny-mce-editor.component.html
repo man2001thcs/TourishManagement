@@ -1,0 +1,8 @@
+<editor
+  style="width: 100% !important"
+  #filePickerEditor
+  [(ngModel)]="editorContent"
+  (ngModelChange)="emitAdjustedData()"
+  [init]="this.tinyMceSetting"
+></editor>
+<input type="file" style="visibility: hidden" />

@@ -145,6 +145,7 @@ export class HotelCreateComponent implements OnInit, OnDestroy {
     if (this.createformGroup_info.valid) {
       const payload: Hotel = {
         placeBranch: this.createformGroup_info.value.placeBranch,
+        restHouseType: 1,
         hotlineNumber: this.createformGroup_info.value.hotlineNumber,
         supportEmail: this.createformGroup_info.value.supportEmail,
         headQuarterAddress: this.createformGroup_info.value.headQuarterAddress,

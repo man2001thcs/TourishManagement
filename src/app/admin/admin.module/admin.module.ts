@@ -250,6 +250,7 @@ import { NotificationEffects } from "../notification/notification_detail/notific
 import { NotificationListEffects } from "../notification/notification_list/notification-list.store.effect";
 import { NotificationPackComponent } from "src/app/utility/notification-pack/notification-pack.component";
 import { AvatarUploadComponent } from "src/app/utility/image_avatar_service/imageUpload.component";
+import { BigChatComponent } from "src/app/utility/big-chat/big-chat.component";
 
 
 
@@ -306,11 +307,9 @@ import { AvatarUploadComponent } from "src/app/utility/image_avatar_service/imag
     TourishPlanMultiselectAutocompleteComponent,
     TourishCategoryMultiselectAutocompleteComponent,
     UserMultiselectAutocompleteComponent,
-
     NotificationPackComponent,
-
     FileUploadComponent,
-
+    BigChatComponent,
     OptionsScrollDirective,
   ],
   imports: [

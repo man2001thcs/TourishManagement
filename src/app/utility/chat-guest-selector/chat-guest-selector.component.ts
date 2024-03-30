@@ -12,7 +12,11 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ThemePalette } from "@angular/material/core";
 
 import { NgbCarouselConfig } from "@ng-bootstrap/ng-bootstrap";
-import { Notification, SaveFile } from "src/app/model/baseModel";
+import {
+  GuestMessageConHistory,
+  Notification,
+  SaveFile,
+} from "src/app/model/baseModel";
 import { TokenStorageService } from "../user_service/token.service";
 import { getViNotifyMessagePhase } from "../config/notificationCode";
 import { SignalRService } from "../user_service/signalr.service";
@@ -23,13 +27,13 @@ import { messaging } from "src/conf/firebase.conf";
 import { FileModel } from "../image_avatar_service/imageUpload.component.model";
 
 @Component({
-  selector: "app-notification-single",
-  templateUrl: "./notification-single.component.html",
-  styleUrls: ["./notification-single.component.css"],
+  selector: "app-chat-guest-selector",
+  templateUrl: "./chat-guest-selector.component.html",
+  styleUrls: ["./chat-guest-selector.component.css"],
 })
-export class NotificationSingleComponent implements OnInit {
+export class ChatGuestSelectorComponent implements OnInit {
   @Input()
-  notification!: Notification;
+  guestMessageConHistory!: GuestMessageConHistory;
 
   imageList: SaveFile[] = [];
 
@@ -92,40 +96,6 @@ export class NotificationSingleComponent implements OnInit {
       }
     } else creatorName = "Anonymus";
     return creatorName + "";
-  }
-
-  getImageList() {
-    const payload = {
-      resourceId: this.notification.userCreateId,
-      resourceType: 0,
-    };
-
-    return this.http
-      .get("/api/GetFile", { params: payload })
-      .subscribe((state: any) => {
-        if (state.data?.length > 0) {
-          this.avatarUrl = this.generateUrl(state.data[0]);
-        }
-        if (
-          state.data == undefined ||
-          state.data == null ||
-          state.data.length == 0
-        ) {
-          this.avatarUrl =
-            environment.backend.blobURL + "/0-container/0_anonymus.png";
-        }
-      });
-  }
-
-  generateUrl(image: FileModel) {
-    return (
-      environment.backend.blobURL +
-      "/0-container/" +
-      "0" +
-      "_" +
-      image.id +
-      image.fileType
-    );
   }
 
   getTime(input: string) {

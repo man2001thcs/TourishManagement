@@ -107,7 +107,7 @@
         >
           <mat-expansion-panel
             [expanded]="false"
-            style="width: 80%; margin-right: 10px;"
+            style="width: 80%; margin-right: 10px"
           >
             <mat-expansion-panel-header>
               <mat-panel-title style="color: green">
@@ -401,13 +401,12 @@
           class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form"
           style="display: flex; flex-direction: column !important; flex-wrap: 1"
         >
-          <editor
-            style="width: 91% !important"
-            #filePickerEditor
-            [(ngModel)]="editorContent"
-            [init]="this.tinyMceSetting"
-          ></editor>
-          <input type="file" style="visibility: hidden" />
+          <app-tiny-mce-editor
+            style="width: 90% !important"
+            [blobName]="getScheduleEditId()"
+            [containerName]="'stayingschedule-content-container'"
+            (result)="getTinyMceResult($event)"
+          ></app-tiny-mce-editor>
         </div>
 
         <div
@@ -586,13 +585,12 @@
           class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form"
           style="display: flex; flex-direction: column !important; flex-wrap: 1"
         >
-          <editor
-            style="width: 91% !important"
-            #filePickerEditor
-            [(ngModel)]="editorContent"
-            [init]="this.tinyMceSetting"
-          ></editor>
-          <input type="file" style="visibility: hidden" />
+          <app-tiny-mce-editor
+            style="width: 90% !important"
+            [blobName]="getScheduleEditId()"
+            [containerName]="'stayingschedule-content-container'"
+            (result)="getTinyMceResult($event)"
+          ></app-tiny-mce-editor>
         </div>
 
         <div

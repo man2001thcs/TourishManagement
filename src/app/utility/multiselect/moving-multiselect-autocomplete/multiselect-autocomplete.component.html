@@ -201,7 +201,10 @@
       </ng-container>
     </div>
 
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form" *ngIf="movingScheduleEdit === null">
+    <div
+      class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form"
+      *ngIf="movingScheduleEdit === null"
+    >
       <div class="row">
         <h2
           mat-form-label
@@ -478,13 +481,12 @@
           class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form"
           style="display: flex; flex-direction: column !important; flex-wrap: 1"
         >
-          <editor
-            style="width: 91% !important"
-            #filePickerEditor
-            [(ngModel)]="editorContent"
-            [init]="this.tinyMceSetting"
-          ></editor>
-          <input type="file" style="visibility: hidden" />
+          <app-tiny-mce-editor
+            style="width: 90% !important"
+            [blobName]="getScheduleEditId()"
+            [containerName]="'movingschedule-content-container'"
+            (result)="getTinyMceResult($event)"
+          ></app-tiny-mce-editor>
         </div>
 
         <div
@@ -714,13 +716,12 @@
         class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form"
         style="display: flex; flex-direction: column !important; flex-wrap: 1"
       >
-        <editor
-          style="width: 91% !important"
-          #filePickerEditor
-          [(ngModel)]="editorContent"
-          [init]="this.tinyMceSetting"
-        ></editor>
-        <input type="file" style="visibility: hidden" />
+        <app-tiny-mce-editor
+          style="width: 90% !important"
+          [blobName]="getScheduleEditId()"
+          [containerName]="'movingschedule-content-container'"
+          (result)="getTinyMceResult($event)"
+        ></app-tiny-mce-editor>
       </div>
 
       <div

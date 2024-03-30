@@ -135,7 +135,7 @@ export class HeaderAdminComponent implements OnDestroy {
   }
 
   openNav() {
-    if (window.innerWidth >= 850) {
+    if (window.innerWidth >= 1000) {
       this.myNameElem.nativeElement.style.width = "340px";
       this.myNameElem.nativeElement.style["margin-right"] = "0px";
       this.myNameElem.nativeElement.style["padding-top"] = "0px";
@@ -147,7 +147,6 @@ export class HeaderAdminComponent implements OnDestroy {
     } else {
       console.log("abc");
       this.renderer.setStyle(this.myNameElem.nativeElement, "width", "100%");
-
       //this.myNameElem.nativeElement.style.width = "100%";
       this.myNameElem.nativeElement.style["margin-top"] = "0px";
       this.myNameElem.nativeElement.style["margin-right"] = "0px";

@@ -272,3 +272,46 @@ export interface KeyValue {
   key: string;
   value: string;
 }
+
+export interface GuestMessage {
+  id: string;
+  groupId?: string;
+  content: string;
+  isRead: boolean;
+  isDeleted: boolean;
+  createDate: string;
+  updateDate: string;
+  guestMessageConId: string;
+}
+
+export interface GuestMessageCon {
+  id: string;
+
+  guestConHisId: string;
+
+  // Guest
+  guestName?: string;
+  guestEmail?: string;
+  guestPhoneNumber?: string;
+
+  // Or admin
+  adminId?: string;
+
+  connectionID: string;
+  userAgent: string;
+  connected: boolean;
+  createDate: Date;
+
+  admin?: User;
+  guestMessageConHis: GuestMessageConHistory;
+  guestMessages: GuestMessage[];
+}
+
+export interface GuestMessageConHistory {
+  id: string;
+  guestConId: string;
+  adminConId: string;
+  createDate: Date;
+  guestCon: GuestMessageCon;
+  adminCon: GuestMessageCon;
+}

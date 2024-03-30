@@ -1,0 +1,181 @@
+<div class="big-chat-container">
+  <div class="chat-container">
+    <div class="chat-content">
+      <ng-template
+        #chat_send_template
+        let-id="id"
+        let-sender="sender"
+        let-receiver="receiver"
+        let-sendTime="sendTime"
+        let-content="content"
+      >
+        <div class="chat-send">
+          <mat-card>
+            <mat-card-content>{{ content }}</mat-card-content>
+          </mat-card>
+          <mat-label
+            ><span class="mess-status">Đã gửi </span> -
+            <span>{{ getTime(sendTime) }}</span></mat-label
+          >
+        </div>
+      </ng-template>
+
+      <ng-template
+        #chat_receive_template
+        let-id="id"
+        let-sender="sender"
+        let-receiver="receiver"
+        let-sendTime="sendTime"
+        let-content="content"
+      >
+        <div class="chat-receive">
+          <mat-card>
+            <mat-card-content>{{ content }}</mat-card-content>
+          </mat-card>
+          <mat-label
+            ><span class="mess-status">Đã gửi </span> -
+            <span>{{ getTime(sendTime) }}</span></mat-label
+          >
+        </div>
+      </ng-template>
+
+      <ng-container
+        [ngTemplateOutlet]="chat_send_template"
+        [ngTemplateOutletContext]="{
+          content: 'bro wtf are u doing',
+          sendTime: '2024-03-07 15:58:48.9264304',
+          sender: 'Heller'
+        }"
+      ></ng-container>
+
+      <ng-container
+        [ngTemplateOutlet]="chat_receive_template"
+        [ngTemplateOutletContext]="{
+          content: 'bro wtf are u doing',
+          sendTime: '2024-03-07 15:58:48.9264304',
+          sender: 'Heller'
+        }"
+      ></ng-container>
+
+      <ng-container
+        [ngTemplateOutlet]="chat_send_template"
+        [ngTemplateOutletContext]="{
+          content: 'bro wtf are u doing',
+          sendTime: '2024-03-07 15:58:48.9264304',
+          sender: 'Heller'
+        }"
+      ></ng-container>
+
+      <ng-container
+        [ngTemplateOutlet]="chat_receive_template"
+        [ngTemplateOutletContext]="{
+          content: 'bro wtf are u doing',
+          sendTime: '2024-03-07 15:58:48.9264304',
+          sender: 'Heller'
+        }"
+      ></ng-container>
+
+      <ng-container
+        [ngTemplateOutlet]="chat_send_template"
+        [ngTemplateOutletContext]="{
+          content: 'bro wtf are u doing',
+          sendTime: '2024-03-07 15:58:48.9264304',
+          sender: 'Heller'
+        }"
+      ></ng-container>
+
+      <ng-container
+        [ngTemplateOutlet]="chat_receive_template"
+        [ngTemplateOutletContext]="{
+          content: 'bro wtf are u doing',
+          sendTime: '2024-03-07 15:58:48.9264304',
+          sender: 'Heller'
+        }"
+      ></ng-container>
+
+      <ng-container
+        [ngTemplateOutlet]="chat_send_template"
+        [ngTemplateOutletContext]="{
+          content: 'bro wtf are u doing',
+          sendTime: '2024-03-07 15:58:48.9264304',
+          sender: 'Heller'
+        }"
+      ></ng-container>
+
+      <ng-container
+        [ngTemplateOutlet]="chat_receive_template"
+        [ngTemplateOutletContext]="{
+          content: 'bro wtf are u doing',
+          sendTime: '2024-03-07 15:58:48.9264304',
+          sender: 'Heller'
+        }"
+      ></ng-container>
+
+      <ng-container
+        [ngTemplateOutlet]="chat_send_template"
+        [ngTemplateOutletContext]="{
+          content: 'bro wtf are u doing',
+          sendTime: '2024-03-07 15:58:48.9264304',
+          sender: 'Heller'
+        }"
+      ></ng-container>
+
+      <ng-container
+        [ngTemplateOutlet]="chat_receive_template"
+        [ngTemplateOutletContext]="{
+          content: 'bro wtf are u doing',
+          sendTime: '2024-03-07 15:58:48.9264304',
+          sender: 'Heller'
+        }"
+      ></ng-container>
+    </div>
+
+    <div class="chat-input" [formGroup]="messFb">
+      <div class="emoji">
+        <emoji-mart
+          class="emoji-mart"
+          *ngIf="showEmojiPicker"
+          (emojiSelect)="addEmoji($event)"
+          title="Pick your emoji…"
+        ></emoji-mart>
+        <button mat-mini-fab (click)="toggleEmojiPicker()">😀</button>
+      </div>
+
+      <div style="margin-top: -20px; margin-bottom: 10px">
+        <app-validation
+          *ngIf="
+            this.messFb.get('messsage')?.errors &&
+            (messFb.get('messsage')?.touched || isSubmitted)
+          "
+          [formGroup]="messFb"
+          [formGroupControlName]="'messsage'"
+        ></app-validation>
+      </div>
+      <mat-form-field
+        appearance="outline"
+        class="chat-input-mat"
+        style="margin-top: 22px; margin-right: 20px; width: 100%"
+      >
+        <input
+          matInput
+          fullwidth
+          placeholder="Vd: Bồ Công Anh"
+          formControlName="message"
+        />
+      </mat-form-field>
+
+      <button
+        mat-icon-button
+        color="primary"
+        aria-label="Example icon button with a home icon"
+      >
+        <mat-icon>send</mat-icon>
+      </button>
+    </div>
+
+  </div>
+  <div class="guest-container">
+    <app-chat-guest-selector></app-chat-guest-selector>
+    <app-chat-guest-selector></app-chat-guest-selector>
+  </div>
+</div>

@@ -287,12 +287,12 @@
       </div>
 
       <div class="row" *ngIf="active === 1">
-        <editor
-          style="width: 91% !important"
-          #filePickerEditor
-          [(ngModel)]="editorContent"
-          [init]="this.tinyMceSetting"
-        ></editor>
+        <app-tiny-mce-editor
+          style="width: 90% !important"
+          [blobName]="''"
+          [containerName]="'tourish-content-container'"
+          (result)="getTinyMceResult($event)"
+        ></app-tiny-mce-editor>
         <input type="file" style="visibility: hidden" />
         <div style="margin-top: -10px; margin-bottom: 10px">
           <app-validation

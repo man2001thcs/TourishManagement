@@ -10,6 +10,9 @@ export class MainComponent implements OnInit {
   @ViewChild("guestMain")
   myNameElem!: ElementRef;
 
+  @ViewChild("outerChat")
+  outerChat!: ElementRef;
+
   ngOnInit(): void {
     console.log("init");
   }
@@ -30,5 +33,14 @@ export class MainComponent implements OnInit {
   closetNav() {
     this.myNameElem.nativeElement.style["margin-left"] = "80px";
     this.isNavOpen = false;
+  }
+
+  isChatOpen($event:boolean){
+    console.log($event);
+    if ($event){
+      this.outerChat.nativeElement.style["transform"] = "translate(0, -400px)";
+    } else {
+      this.outerChat.nativeElement.style["transform"] = "translate(0, 0)";
+    }
   }
 }

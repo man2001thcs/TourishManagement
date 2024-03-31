@@ -1,17 +1,54 @@
 .chat-container {
   width: 350px;
-  height: 450px;
+  height: auto;
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  padding: 0px 0 0px;
+  border-top-left-radius: 10px;
+}
+
+.chat-title {
+  background-color: #2a3650;
+  display: flex;
+  flex-direction: row;
+  align-items: center !important;
+  justify-content: space-between;
+  padding: 10px 10px 10px;
+}
+
+.chat-title h3 {
+  color: white;
+  font-weight: bold;
+  margin-bottom: 0 !important;
+  margin-left: 10px;
+}
+
+.chat-box {
+  height: 0px;
+  white-space: nowrap;
+  overflow-y: auto;
 }
 
 .chat-content {
-  height: 80%;
+  padding: 10px 5px 10px;
+  height: 338px;
   display: flex;
   flex-direction: column;
   align-items: start;
   overflow-y: auto;
+  border-bottom: 1px solid #f3f3f3;
+}
+
+.chat-input {
+  padding-top: 7px;
+  padding-bottom: 7px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  justify-self: end !important;
 }
 
 .chat-send {
@@ -47,7 +84,7 @@ mat-card-content {
 }
 
 .chat-receive mat-card {
-  background-color: #F0F0F0;
+  background-color: #f0f0f0;
   color: black;
 }
 
@@ -60,11 +97,12 @@ mat-card-content {
   padding-bottom: 8px !important;
 }
 
-.chat-input {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
+.chat-send span.mess-status {
+  font-weight: 700 !important;
+}
+
+.chat-receive span.mess-status {
+  font-weight: 700 !important;
 }
 
 ::ng-deep .mat-form-field-outline-start {
@@ -86,4 +124,28 @@ mat-card-content {
 }
 ::ng-deep .chat-input .mat-mdc-form-field-flex {
   margin-top: -8px !important;
+}
+
+::ng-deep .mat-form-field {
+  padding-top: 5px !important;
+  padding-bottom: 5px !important;
+}
+
+emoji-mart {
+  position: absolute;
+  bottom: 60px;
+  overflow: auto;
+  width: 330px;
+  height: 300px;
+  z-index: 1;
+}
+
+.emoji {
+  position: relative;
+  margin-right: 10px;
+  width: max-content;
+}
+
+::ng-deep .mat-mdc-form-field-subscript-wrapper {
+  display: none !important;
 }

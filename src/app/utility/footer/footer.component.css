@@ -1,17 +1,14 @@
 .site-footer {
   background-color: #ffffff;
   padding: 10px 6% 10px !important;
-  opacity: 0.95;
   font-size: 15px;
   line-height: 24px;
   color: #333333;
-
-  transition: 0.5s;
+  display: block;
 }
 
 .site-footer hr {
   border-top-color: #333333;
-  opacity: 0.5;
 }
 .site-footer hr.small {
   margin: 20px 0;
@@ -109,9 +106,6 @@
   text-align: center;
   margin-right: 8px;
   border-radius: 100%;
-  -webkit-transition: all 0.2s linear;
-  -o-transition: all 0.2s linear;
-  transition: all 0.2s linear;
 }
 .social-icons a:active,
 .social-icons a:focus,
@@ -137,6 +131,7 @@
 .social-icons a.dribbble:hover {
   background-color: #ea4c89;
 }
+
 @media (max-width: 767px) {
   .social-icons li.title {
     display: block;

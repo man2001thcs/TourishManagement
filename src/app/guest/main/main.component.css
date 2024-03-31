@@ -1,15 +1,36 @@
-.container-fluid {
-  padding-top: 2% !important;
-  padding-bottom: 2% !important;
-  background-color: #FAFAFA;
-  min-height: 550px !important;
-  padding-right: 0px !important;
-  padding-left: 0px !important;
-}
-
-#guest-main {
+.guest-main {
   transition: 0.5s;
   opacity: 1;
   margin-left: 340px;
+  display: block;
+  position: relative;
+}
 
+.container-fluid {
+  padding-top: 2% !important;
+  background-color: #fafafa;
+  padding-right: 0px !important;
+  padding-left: 0px !important;
+  position: relative;
+}
+
+.outer-chat-container {
+  position: sticky;
+  right: 0;
+  bottom: 0;
+  transform: translate(0, 0);
+  height: 56px;
+  white-space: nowrap;
+  text-align: right;
+}
+app-chat {
+  overflow-y: auto;
+  z-index: 1000;
+  right: 0;
+  position: absolute;
+  right: 0;
+}
+
+app-footer {
+  z-index: 0;
 }

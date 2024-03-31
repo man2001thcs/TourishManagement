@@ -2,11 +2,15 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  EventEmitter,
   Input,
   OnChanges,
+  Output,
+  Renderer2,
   SimpleChanges,
   ViewChild,
 } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 import moment from "moment";
 
@@ -16,6 +20,23 @@ import moment from "moment";
   styleUrls: ["./chat.component.css"],
 })
 export class ChatComponent {
+  @ViewChild("myChat")
+  myChat!: ElementRef;
+
+  @Output() checkChatOpen = new EventEmitter<boolean>();
+
+  constructor(private fb: FormBuilder, private renderer: Renderer2) {}
+  messFb!: FormGroup;
+  isSubmitted = false;
+  ngOnInit(): void {
+    this.messFb = this.fb.group({
+      message: ["", Validators.compose([Validators.required])],
+    });
+  }
+  showEmojiPicker = false;
+  message = "";
+  isNavOpen = false;
+
   getTime(input: string) {
     const sendTime = new Date(input);
     const nowTime = new Date();
@@ -33,5 +54,36 @@ export class ChatComponent {
       return (timeChanges / 2592000).toFixed(0) + " tháng trước";
     }
     return (timeChanges / 2592000).toFixed(0) + " tháng trước";
+  }
+
+  toggleEmojiPicker() {
+    console.log(this.showEmojiPicker);
+    this.showEmojiPicker = !this.showEmojiPicker;
+  }
+
+  addEmoji(event: any) {
+    this.messFb.controls["message"].setValue(
+      this.messFb.controls["message"].value + event.emoji.native
+    );
+    // this.showEmojiPicker = false;
+  }
+
+  openChat() {
+    //this.myChat.nativeElement.style.display = "none";
+    this.myChat.nativeElement.style.height = "400px";
+    this.isNavOpen = true;
+    this.checkChatOpen.emit(true);
+  }
+
+  closeChat() {
+    //this.myChat.nativeElement.style.display = "block";
+    this.myChat.nativeElement.style.height = "0px";
+    this.isNavOpen = false;
+    this.checkChatOpen.emit(false);
+  }
+
+  chatBoxInteract() {
+    if (this.isNavOpen) this.closeChat();
+    else this.openChat();
   }
 }

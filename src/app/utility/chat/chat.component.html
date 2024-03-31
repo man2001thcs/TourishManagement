@@ -1,113 +1,100 @@
 <div class="chat-container">
-  <div class="chat-content">
-    <ng-template
-      #chat_send_template
-      let-id="id"
-      let-sender="sender"
-      let-receiver="receiver"
-      let-sendTime="sendTime"
-      let-content="content"
-    >
-      <div class="chat-send">
-        <mat-card>
-          <mat-card-content>{{ content }}</mat-card-content>
-        </mat-card>
-        <mat-label>Đã gửi {{ getTime(sendTime) }}</mat-label>
-      </div>
-    </ng-template>
-
-    <ng-template
-      #chat_receive_template
-      let-id="id"
-      let-sender="sender"
-      let-receiver="receiver"
-      let-sendTime="sendTime"
-      let-content="content"
-    >
-      <div class="chat-receive">
-        <mat-label>{{ sender }}</mat-label>
-        <mat-card>
-          <mat-card-content>{{ content }}</mat-card-content>
-        </mat-card>
-        <mat-label>Đã gửi {{ getTime(sendTime) }}</mat-label>
-      </div>
-    </ng-template>
-
-    <div class="chat-send">
-      <mat-card>
-        <mat-card-content
-          >Simple card 1231212312 312212312 312321312223</mat-card-content
-        >
-      </mat-card>
-      <mat-label>Đã gửi 11 giờ</mat-label>
-    </div>
-
-    <div class="chat-receive">
-      <mat-card>
-        <mat-card-content
-          >Simple card 1231212312 312212312 312321312223</mat-card-content
-        >
-      </mat-card>
-      <mat-label>Đã gửi 11 giờ</mat-label>
-    </div>
-
-    <div class="chat-send">
-      <mat-card>
-        <mat-card-content
-          >Simple card 1231212312 312212312 312321312223</mat-card-content
-        >
-      </mat-card>
-      <mat-label>Đã gửi 11 giờ</mat-label>
-    </div>
-
-    <div class="chat-receive">
-      <mat-card>
-        <mat-card-content
-          >Simple card 1231212312 312212312 312321312223</mat-card-content
-        >
-      </mat-card>
-      <mat-label>Đã gửi 11 giờ</mat-label>
-    </div>
-
-    <div class="chat-send">
-      <mat-card>
-        <mat-card-content
-          >Simple card 1231212312 312212312 312321312223</mat-card-content
-        >
-      </mat-card>
-      <mat-label>Đã gửi 11 giờ</mat-label>
-    </div>
-
-    <div class="chat-receive">
-      <mat-card>
-        <mat-card-content
-          >Simple card 1231212312 312212312 312321312223</mat-card-content
-        >
-      </mat-card>
-      <mat-label>Đã gửi 11 giờ</mat-label>
-    </div>
-  </div>
-  <div class="chat-input">
-    <mat-form-field
-      appearance="outline"
-      class="chat-input-mat"
-      style="margin-top: 22px; margin-right: 20px"
-    >
-      <input
-        matInput
-        fullwidth
-        style="font-size: 12px; height: 12px;"
-        placeholder="Vd: Bồ Công Anh"
-        formControlName="branchName"
-      />
-    </mat-form-field>
-
-    <button
-      mat-icon-button
-      color="primary"
-      aria-label="Example icon button with a home icon"
-    >
-      <mat-icon>send</mat-icon>
+  <div class="chat-title">
+    <h3>Trò chuyện</h3>
+    <button mat-button style="color: white" (click)="chatBoxInteract()">
+      <i class="fa fa-bars" aria-hidden="true"></i>
     </button>
+  </div>
+  <div #myChat class="chat-box">
+    <div class="chat-content">
+      <ng-template
+        #chat_send_template
+        let-id="id"
+        let-sender="sender"
+        let-receiver="receiver"
+        let-sendTime="sendTime"
+        let-content="content"
+      >
+        <div class="chat-send">
+          <mat-card>
+            <mat-card-content>{{ content }}</mat-card-content>
+          </mat-card>
+          <mat-label
+            ><span class="mess-status">Đã gửi </span> -
+            <span>{{ getTime(sendTime) }}</span></mat-label
+          >
+        </div>
+      </ng-template>
+
+      <ng-template
+        #chat_receive_template
+        let-id="id"
+        let-sender="sender"
+        let-receiver="receiver"
+        let-sendTime="sendTime"
+        let-content="content"
+      >
+        <div class="chat-receive">
+          <mat-card>
+            <mat-card-content>{{ content }}</mat-card-content>
+          </mat-card>
+          <mat-label
+            ><span class="mess-status">Đã gửi </span> -
+            <span>{{ getTime(sendTime) }}</span></mat-label
+          >
+        </div>
+      </ng-template>
+
+      <ng-container
+        [ngTemplateOutlet]="chat_send_template"
+        [ngTemplateOutletContext]="{
+          content: 'bro wtf are u doing',
+          sendTime: '2024-03-07 15:58:48.9264304',
+          sender: 'Heller'
+        }"
+      ></ng-container>
+
+      <ng-container
+        [ngTemplateOutlet]="chat_receive_template"
+        [ngTemplateOutletContext]="{
+          content: 'bro wtf are u doing',
+          sendTime: '2024-03-07 15:58:48.9264304',
+          sender: 'Heller'
+        }"
+      ></ng-container>
+    </div>
+    <div class="chat-input" [formGroup]="messFb">
+      <div class="emoji">
+        <emoji-mart
+          class="emoji-mart"
+          *ngIf="showEmojiPicker"
+          (emojiSelect)="addEmoji($event)"
+          title="Pick your emoji…"
+        ></emoji-mart>
+        <button mat-mini-fab (click)="toggleEmojiPicker()">😀</button>
+      </div>
+
+      <mat-form-field
+        appearance="outline"
+        class="chat-input-mat"
+        style="margin-right: 20px"
+      >
+        <input
+          matInput
+          fullwidth
+          style="font-size: 12px; height: 12px"
+          placeholder="Vd: Bồ Công Anh"
+          formControlName="message"
+        />
+      </mat-form-field>
+
+      <button
+        mat-icon-button
+        color="primary"
+        aria-label="Example icon button with a home icon"
+      >
+        <mat-icon>send</mat-icon>
+      </button>
+    </div>
   </div>
 </div>

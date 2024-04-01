@@ -6,7 +6,7 @@
     </button>
   </div>
   <div #myChat class="chat-box">
-    <div class="chat-content">
+    <div class="chat-content" *ngIf="isChatSet">
       <ng-template
         #chat_send_template
         let-id="id"
@@ -63,7 +63,8 @@
         }"
       ></ng-container>
     </div>
-    <div class="chat-input" [formGroup]="messFb">
+
+    <div class="chat-input" [formGroup]="messFb" *ngIf="isChatSet">
       <div class="emoji">
         <emoji-mart
           class="emoji-mart"
@@ -74,11 +75,7 @@
         <button mat-mini-fab (click)="toggleEmojiPicker()">😀</button>
       </div>
 
-      <mat-form-field
-        appearance="outline"
-        class="chat-input-mat"
-        style="margin-right: 20px"
-      >
+      <mat-form-field appearance="outline" class="chat-input-mat">
         <input
           matInput
           fullwidth
@@ -95,6 +92,82 @@
       >
         <mat-icon>send</mat-icon>
       </button>
+    </div>
+
+    <div class="chat-form" [formGroup]="messRegister" *ngIf="!isChatSet">
+      <div class="chat-form-field">
+        <mat-form-field appearance="outline" class="chat-input-mat">
+          <mat-label>Tên</mat-label>
+          <input
+            matInput
+            fullwidth
+            placeholder="Vd: Bồ Công Anh"
+            formControlName="guestName"
+          />
+        </mat-form-field>
+
+        <div style="margin-top: -30px">
+          <app-validation
+            *ngIf="
+              this.messRegister.get('guestName')?.errors &&
+              (messRegister.get('guestName')?.touched || isSubmitted)
+            "
+            [formGroup]="messRegister"
+            [formGroupControlName]="'guestName'"
+          ></app-validation>
+        </div>
+      </div>
+
+      <div class="chat-form-field">
+        <mat-form-field appearance="outline" class="chat-input-mat">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            fullwidth
+            style="font-size: 14px !important; height: 12px !important"
+            placeholder="Vd: boconganh@gmail.com"
+            formControlName="guestEmail"
+          />
+        </mat-form-field>
+
+        <div style="margin-top: -30px">
+          <app-validation
+            *ngIf="
+              this.messRegister.get('guestEmail')?.errors &&
+              (messRegister.get('guestEmail')?.touched || isSubmitted)
+            "
+            [formGroup]="messRegister"
+            [formGroupControlName]="'guestEmail'"
+          ></app-validation>
+        </div>
+      </div>
+      <div class="chat-form-field">
+        <mat-form-field appearance="outline" class="chat-input-mat">
+          <mat-label>Số điện thoại</mat-label>
+          <input
+            matInput
+            fullwidth
+            style="font-size: 14px !important; height: 12px !important"
+            placeholder="Vd: 123123123"
+            formControlName="guestPhoneNumber"
+          />
+        </mat-form-field>
+
+        <div style="margin-top: -30px">
+          <app-validation
+            *ngIf="
+              this.messRegister.get('guestPhoneNumber')?.errors &&
+              (messRegister.get('guestPhoneNumber')?.touched || isSubmitted)
+            "
+            [formGroup]="messRegister"
+            [formGroupControlName]="'guestPhoneNumber'"
+          ></app-validation>
+        </div>
+      </div>
+
+      <div style="width: 80%">
+        <button mat-flat-button color="primary"  style="width: 100%">Nhận tư vấn</button>
+      </div>
     </div>
   </div>
 </div>

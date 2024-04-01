@@ -51,6 +51,36 @@ export class SignalRService {
     return new Promise((resolve, reject) => {
       this.hubConnection = new HubConnectionBuilder()
         .withUrl(this.url + urlExtend, {
+          accessTokenFactory: async () => this.tokenService.getToken()
+        })
+        .configureLogging(LogLevel.Information)
+        .build();
+
+      this.hubConnection
+        .start()
+        .then(() => {
+          console.log(urlExtend + " connection established");
+          return resolve(true);
+        })
+        .catch((err: any) => {
+          if (err.toString() === this.err401String) this.handle401Error();
+          reject(err);
+        });
+    });
+  }
+
+  public startConnectionWithParam(urlExtend: string, param: any) {
+    //"user/notify"
+    if (
+      this.hubConnection?.state === HubConnectionState.Connected ||
+      this.hubConnection?.state === HubConnectionState.Connecting
+    ) {
+      this.hubConnection.stop();
+    }
+
+    return new Promise((resolve, reject) => {
+      this.hubConnection = new HubConnectionBuilder()
+        .withUrl(this.buildUrlWithParams(this.url + urlExtend, param), {
           accessTokenFactory: async () => this.tokenService.getToken(),
         })
         .configureLogging(LogLevel.Information)
@@ -67,6 +97,19 @@ export class SignalRService {
           reject(err);
         });
     });
+  }
+
+  private buildUrlWithParams(baseUrl: string, params: any): string {
+    let url = baseUrl;
+    if (params) {
+      const queryString = Object.keys(params)
+        .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
+        .join('&');
+      if (queryString) {
+        url += '?' + queryString;
+      }
+    }
+    return url;
   }
 
   public get AllFeedObservable(): Observable<any> {

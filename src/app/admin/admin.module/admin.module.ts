@@ -237,6 +237,9 @@ import { NotificationListComponent } from "../notification/notification_list/not
 import { UserMultiselectAutocompleteComponent } from "src/app/utility/multiselect/user-multiselect-autocomplete/multiselect-autocomplete.component";
 import { UserAutoCompleteListEffects } from "src/app/utility/multiselect/user-multiselect-autocomplete/multiselect-autocomplete.store.effect";
 
+import { storeKey as ChatConHistoryListStoreKey } from "../ChatConHistory/chat_con_his_list//chat_con_his_list.store.action";
+import { reducer as ChatConHistoryListReducer } from "../ChatConHistory/chat_con_his_list/chat_con_his_list.store.reducer";
+
 import { storeKey as NotificationCreateStoreKey } from "../notification/notification_create/notification-create.store.action";
 import { reducer as NotificationCreateReducer } from "../notification/notification_create/notification-create.store.reducer";
 
@@ -251,6 +254,8 @@ import { NotificationListEffects } from "../notification/notification_list/notif
 import { NotificationPackComponent } from "src/app/utility/notification-pack/notification-pack.component";
 import { AvatarUploadComponent } from "src/app/utility/image_avatar_service/imageUpload.component";
 import { BigChatComponent } from "src/app/utility/big-chat/big-chat.component";
+import { GuestMessageConHistoryListComponent } from "../ChatConHistory/chat_con_his_list/chat_con_his_list.component";
+import { GuestMessageConHistoryListEffects } from "../ChatConHistory/chat_con_his_list/chat_con_his_list.store.effect";
 
 
 
@@ -300,6 +305,7 @@ import { BigChatComponent } from "src/app/utility/big-chat/big-chat.component";
 
     AdminMainComponent,
     HeaderAdminComponent,
+    GuestMessageConHistoryListComponent,
 
     StayingMultiselectAutocompleteComponent,
     MovingMultiselectAutocompleteComponent,
@@ -364,6 +370,7 @@ import { BigChatComponent } from "src/app/utility/big-chat/big-chat.component";
       PassengerCarDetailStoreKey,
       PassengerCarDetailReducer
     ),
+    StoreModule.forFeature(ChatConHistoryListStoreKey, ChatConHistoryListReducer),
 
     StoreModule.forFeature(HotelCreateStoreKey, HotelCreateReducer),
     StoreModule.forFeature(HotelListStoreKey, HotelListReducer),
@@ -438,6 +445,7 @@ import { BigChatComponent } from "src/app/utility/big-chat/big-chat.component";
     EffectsModule.forFeature([UserAutoCompleteListEffects]),
 
     EffectsModule.forFeature([ImageListEffects]),
+    EffectsModule.forFeature([GuestMessageConHistoryListEffects]),
 
     EffectsModule.forFeature([TourishPlanCreateEffects]),
     EffectsModule.forFeature([TourishPlanDetailEffects]),

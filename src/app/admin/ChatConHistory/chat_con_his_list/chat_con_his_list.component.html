@@ -1,0 +1,154 @@
+<div>
+  <mat-card style="margin-bottom: 20px; padding: 10px 10px 10px">
+    <mat-card-header>
+      <mat-card-title>Yêu cầu tư vấn</mat-card-title>
+    </mat-card-header>
+    <mat-card-actions>
+
+      <div
+      style="
+        flex-direction: row;
+        align-items: center;
+        margin-left: 15px;
+        margin-top: 22px !important;
+      "
+    >
+      <mat-form-field appearance="outline" class="full-width-input">
+        <input
+          #searchInput
+          matInput
+          type="text"
+          fullwidth
+          name="search"
+          id="search"
+          placeholder="Tìm kiếm sản phẩm"
+          [(ngModel)]="searchPhase"
+        />
+      </mat-form-field>
+      <button mat-button status="primary" (click)="search()">
+        <i
+          class="fa fa-search"
+          aria-hidden="true"
+          style="font-size: 15px"
+        ></i>
+      </button>
+    </div>
+    </mat-card-actions>
+  </mat-card>
+
+  <div class="table-responsive">
+    <table
+      mat-table
+      [dataSource]="guestMessageConHistoryList"
+      matSort
+      matSort
+      class="mat-elevation-z8"
+      (matSortChange)="announceSortChange($event)"
+    >
+      <!-- Position Column -->
+      <ng-container matColumnDef="id">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by id"
+        >
+          No.
+        </th>
+        <td mat-cell *matCellDef="let element">
+          <a routerLink="/admin/authorDetail/{{ element.id }}/edit">
+            {{ element.id }}</a
+          >
+        </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="guestName">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by guestName"
+        >
+          Tên khách
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.guestCon.guestName }}</td>
+      </ng-container>
+
+      <!-- SS Column -->
+      <ng-container matColumnDef="guestEmail">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by guestEmail"
+        >
+          Email
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.guestCon.guestEmail }}</td>
+      </ng-container>
+
+      <!-- SS Column -->
+      <ng-container matColumnDef="guestPhoneNumber">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by guestPhoneNumber"
+        >
+          Số điện thoại liên lạc
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.guestCon.guestPhoneNumber }}</td>
+      </ng-container>
+
+      <!-- SS Column -->
+      <ng-container matColumnDef="isOpen">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by isOpen"
+        >
+          Tình trạng
+        </th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.isOpen }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="createDate">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by createDate"
+        >
+          Ngày tạo
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.createDate }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="edit">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-button (click)="openEditDialog(element.id)">Edit</button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: displayedColumns"
+        [class.demo-row-is-clicked]=""
+      ></tr>
+    </table>
+  </div>
+  <mat-paginator
+    [pageSizeOptions]="pageSizeOpstion"
+    [length]="length"
+    (page)="handlePageEvent($event)"
+    showFirstLastButtons
+    aria-label="Select page of periodic elements"
+  >
+  </mat-paginator>
+</div>

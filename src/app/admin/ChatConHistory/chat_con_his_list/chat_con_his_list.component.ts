@@ -16,7 +16,6 @@ import { Observable, Subscription } from "rxjs";
 import { State as GuestMessageConHistoryListState } from "./chat_con_his_list.store.reducer";
 import {
   getGuestMessageConHistoryList,
-  getDeleteStatus,
   getMessage,
   getSysError,
 } from "./chat_con_his_list.store.selector";
@@ -40,7 +39,6 @@ export class GuestMessageConHistoryListComponent
   searchPhase= "";
 
   guestMessageConHistoryListState!: Observable<any>;
-  guestMessageConHistoryDeleteState!: Observable<any>;
   errorMessageState!: Observable<any>;
   errorSystemState!: Observable<any>;
 
@@ -71,7 +69,6 @@ export class GuestMessageConHistoryListComponent
     private store: Store<GuestMessageConHistoryListState>
   ) {
     this.guestMessageConHistoryListState = this.store.select(getGuestMessageConHistoryList);
-    this.guestMessageConHistoryDeleteState = this.store.select(getDeleteStatus);
     this.errorMessageState = this.store.select(getMessage);
     this.errorSystemState = this.store.select(getSysError);
   }
@@ -83,27 +80,6 @@ export class GuestMessageConHistoryListComponent
           this.messageService.closeLoadingDialog();
           this.guestMessageConHistoryList = state.data;
           this.length = state.count;
-        }
-      })
-    );
-
-    this.subscriptions.push(
-      this.guestMessageConHistoryDeleteState.subscribe((state) => {
-        if (state) {
-          this.messageService.closeLoadingDialog();
-          this.messageService.openMessageNotifyDialog(state.messageCode);
-
-          if (state.resultCd === 0) {
-            this.store.dispatch(
-              GuestMessageConHistoryListActions.getGuestMessageConHistoryList({
-                payload: {
-                  page: this.pageIndex + 1,
-                  type: 1,
-                  search: this.searchPhase
-                },
-              })
-            );
-          }
         }
       })
     );

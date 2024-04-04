@@ -28,6 +28,7 @@ export class SignalRService {
   private hubConnection!: HubConnection;
   private $allFeed = new Subject<any>();
   private $clientFeed = new Subject<any>();
+  private $connFeed = new Subject<any>();
   private isRefreshing = false;
 
   private err401String =
@@ -51,7 +52,7 @@ export class SignalRService {
     return new Promise((resolve, reject) => {
       this.hubConnection = new HubConnectionBuilder()
         .withUrl(this.url + urlExtend, {
-          accessTokenFactory: async () => this.tokenService.getToken()
+          accessTokenFactory: async () => this.tokenService.getToken(),
         })
         .configureLogging(LogLevel.Information)
         .build();
@@ -103,10 +104,13 @@ export class SignalRService {
     let url = baseUrl;
     if (params) {
       const queryString = Object.keys(params)
-        .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
-        .join('&');
+        .map(
+          (key) =>
+            `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`
+        )
+        .join("&");
       if (queryString) {
-        url += '?' + queryString;
+        url += "?" + queryString;
       }
     }
     return url;
@@ -118,6 +122,10 @@ export class SignalRService {
 
   public get ClientFeedObservable(): Observable<any> {
     return this.$clientFeed.asObservable().pipe(distinctUntilChanged());
+  }
+
+  public get ConnFeedObservable(): Observable<any> {
+    return this.$connFeed.asObservable().pipe(distinctUntilChanged());
   }
 
   public listenToAllFeeds(listenPort: string) {
@@ -139,13 +147,33 @@ export class SignalRService {
     );
   }
 
-  public invokeFeed(listenMethod: string, userSendId: string, userReceiveId: string, data: any) {
-    console.log(this.hubConnection.baseUrl);
-    (<HubConnection>this.hubConnection).invoke(listenMethod, userReceiveId, data);
+  public listenToConnFeeds(listenPort: string) {
+    (<HubConnection>this.hubConnection).on(
+      listenPort,
+      (data1: string, data2: any) => {
+        if (data1) {
+          this.$clientFeed.next({ adminId: data1, connHis: data2 });
+        }
+      }
+    );
   }
 
-  public invokeClientFeeds(listenMethod: string, data: any) {
-    (<HubConnection>this.hubConnection).invoke(listenMethod, data);
+  public invokeTwoInfoFeed(
+    listenMethod: string,
+    info1: string,
+    info2: string,
+    data: any
+  ) {
+    (<HubConnection>this.hubConnection).invoke(
+      listenMethod,
+      info1,
+      info2,
+      data
+    );
+  }
+
+  public invokeOneInfoFeeds(listenMethod: string, info1: string, data: any) {
+    (<HubConnection>this.hubConnection).invoke(listenMethod, info1, data);
   }
 
   public stopConnect() {
@@ -168,13 +196,13 @@ export class SignalRService {
 
               this.messageService.closeAllDialog();
               this.tokenService.signOut();
-              this.messageService.openFailNotifyDialog(
-                "Có lỗi xảy ra, vui lòng đăng nhập lại"
-              ).subscribe(() => {
-                setTimeout(() => {
-                  this.router.navigate(["/guest/list"]);
-                }, 1000);
-              });
+              this.messageService
+                .openFailNotifyDialog("Có lỗi xảy ra, vui lòng đăng nhập lại")
+                .subscribe(() => {
+                  setTimeout(() => {
+                    this.router.navigate(["/guest/list"]);
+                  }, 1000);
+                });
               return throwError(() => err);
             })
           )

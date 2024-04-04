@@ -9,11 +9,6 @@ export const getGuestMessageConHistoryList = createSelector(
   (state) => state.guestMessageConHistoryList
 );
 
-export const getDeleteStatus = createSelector(
-  guestMessageConHistoryListFeatureState,
-  (state) => state.deleteStatus
-);
-
 export const getMessage = createSelector(
   guestMessageConHistoryListFeatureState,
   (state) => state.messageCode

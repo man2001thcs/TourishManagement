@@ -27,6 +27,7 @@ export class ChatComponent {
   myChat!: ElementRef;
 
   isChatSet = false;
+  adminId = "";
   subscriptions: Subscription[] = [];
   messageList: GuestMessage[] = [];
 
@@ -52,6 +53,17 @@ export class ChatComponent {
       guestEmail: ["", Validators.compose([Validators.required])],
       guestPhoneNumber: ["", Validators.compose([Validators.required])],
     });
+
+    this.subscriptions.push(
+      this.signalRService.ConnFeedObservable.subscribe((notify: any) => {
+        if (notify.adminId !== undefined) {
+          console.log("Here i am: ", notify.adminId);
+          this.adminId = this.adminId;
+          this.isChatSet = true;
+          this.signalRService.listenToClientFeeds("SendMessageToAdmin");
+        }
+      })
+    );
 
     this.subscriptions.push(
       this.signalRService.ClientFeedObservable.subscribe(
@@ -124,17 +136,33 @@ export class ChatComponent {
     else this.openChat();
   }
 
-  signalRNotification() {
+  sendMessage() {
+    const guestMessage: GuestMessage = {
+      content: this.message,
+    };
+
+    this.signalRService.invokeTwoInfoFeed(
+      "SendMessageToAdmin",
+      this.adminId,
+      this.messFb.controls["guestPhoneNumber"].value,
+      guestMessage
+    );
+  }
+
+  openSignalRHub() {
     const queryParameters = {
-      adminId: "123",
       guestEmail: this.messFb.controls["guestEmail"].value,
       guestName: this.messFb.controls["guestName"].value,
       guestPhoneNumber: this.messFb.controls["guestPhoneNumber"].value,
     };
 
-    this.signalRService.startConnectionWithParam("/api/guest/message", queryParameters).then(() => {
-      // 2 - register for ALL relay
-      this.signalRService.listenToClientFeeds("SendMessageToGuest");
-    });
+    if (!this.messFb.invalid) {
+      this.signalRService
+        .startConnectionWithParam("/api/guest/message", queryParameters)
+        .then(() => {
+          // 2 - register for ALL relay
+          this.signalRService.listenToConnFeeds("NotifyNewCon");
+        });
+    }
   }
 }

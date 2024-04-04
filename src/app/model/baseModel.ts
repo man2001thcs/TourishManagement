@@ -274,14 +274,14 @@ export interface KeyValue {
 }
 
 export interface GuestMessage {
-  id: string;
+  id?: string;
   groupId?: string;
   content: string;
-  isRead: boolean;
-  isDeleted: boolean;
-  createDate: string;
-  updateDate: string;
-  guestMessageConId: string;
+  isRead?: boolean;
+  isDeleted?: boolean;
+  createDate?: string;
+  updateDate?: string;
+  guestMessageConId?: string;
 }
 
 export interface GuestMessageCon {

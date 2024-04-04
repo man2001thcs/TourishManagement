@@ -1,5 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { ActivatedRoute, Route } from "@angular/router";
+import { SignalRService } from "../user_service/signalr.service";
+import { GuestMessage } from "src/app/model/baseModel";
+import { Subscription } from "rxjs";
+import { TokenStorageService } from "../user_service/token.service";
 
 @Component({
   selector: "app-big-chat",
@@ -7,14 +12,45 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
   styleUrls: ["./big-chat.component.css"],
 })
 export class BigChatComponent implements OnInit {
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private signalRService: SignalRService,
+    private tokenStorageService: TokenStorageService
+  ) {}
   messFb!: FormGroup;
   isSubmitted = false;
+  guestEmail = "";
+  guestPhoneNumber = "";
+  subscriptions: Subscription[] = [];
+  messageList: GuestMessage[]  = [];
+
   ngOnInit(): void {
+    this.guestEmail = this.route.snapshot.queryParamMap.get("guestEmail") ?? "";
+    this.guestPhoneNumber =
+      this.route.snapshot.queryParamMap.get("guestPhoneNumber") ?? "";
+
     this.messFb = this.fb.group({
       message: ["", Validators.compose([Validators.required])],
     });
+
+    this.subscriptions.push(
+      this.signalRService.ClientFeedObservable.subscribe(
+        (mess: GuestMessage) => {
+          if (mess) {
+            console.log("Here i am: ", mess);
+
+            let index = this.messageList.findIndex((res) => res.id === mess.id);
+
+            if (index > -1) {
+              this.messageList[index] = mess;
+            } else this.messageList = [mess, ...this.messageList];
+          }
+        }
+      )
+    );
   }
+
   showEmojiPicker = false;
   message = "";
 
@@ -47,5 +83,32 @@ export class BigChatComponent implements OnInit {
       return (timeChanges / 2592000).toFixed(0) + " tháng trước";
     }
     return (timeChanges / 2592000).toFixed(0) + " tháng trước";
+  }
+
+  sendMessage(){
+    const userId = this.tokenStorageService.getUser().Id;
+
+    const guestMessage: GuestMessage = {
+      content: this.message,
+
+    };
+    
+    this.signalRService.invokeTwoInfoFeed("SendMessageToUser", userId, this.guestEmail, guestMessage);
+  }
+
+  signalRNotification() {
+    const queryParameters = {
+      adminId: "123",
+      guestEmail: this.messFb.controls["guestEmail"].value,
+      guestName: this.messFb.controls["guestName"].value,
+      guestPhoneNumber: this.messFb.controls["guestPhoneNumber"].value,
+    };
+
+    this.signalRService
+      .startConnectionWithParam("/api/guest/message", queryParameters)
+      .then(() => {
+        // 2 - register for ALL relay
+        this.signalRService.listenToClientFeeds("SendMessageToUser");
+      });
   }
 }

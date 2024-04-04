@@ -151,12 +151,13 @@ export class ChatComponent {
 
   openSignalRHub() {
     const queryParameters = {
-      guestEmail: this.messFb.controls["guestEmail"].value,
-      guestName: this.messFb.controls["guestName"].value,
-      guestPhoneNumber: this.messFb.controls["guestPhoneNumber"].value,
+      guestEmail: this.messRegister.value.guestEmail,
+      guestName: this.messRegister.value.guestName,
+      guestPhoneNumber: this.messRegister.value.guestPhoneNumber,
     };
 
-    if (!this.messFb.invalid) {
+    if (!this.messRegister.invalid) {
+      console.log("ok");
       this.signalRService
         .startConnectionWithParam("/api/guest/message", queryParameters)
         .then(() => {

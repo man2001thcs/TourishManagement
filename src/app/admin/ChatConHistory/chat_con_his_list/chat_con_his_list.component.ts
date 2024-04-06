@@ -24,6 +24,8 @@ import { MatDialog } from "@angular/material/dialog";
 import { MessageService } from "src/app/utility/user_service/message.service";
 import { ConfirmDialogComponent } from "src/app/utility/confirm-dialog/confirm-dialog.component";
 import { GuestMessageConHistory } from "src/app/model/baseModel";
+import { Router } from "@angular/router";
+import { SignalRService } from "src/app/utility/user_service/signalr.service";
 
 @Component({
   selector: "app-chat-his-con-list",
@@ -36,7 +38,7 @@ export class GuestMessageConHistoryListComponent
   guestMessageConHistoryList!: GuestMessageConHistory[];
   subscriptions: Subscription[] = [];
 
-  searchPhase= "";
+  searchPhase = "";
 
   guestMessageConHistoryListState!: Observable<any>;
   errorMessageState!: Observable<any>;
@@ -46,11 +48,10 @@ export class GuestMessageConHistoryListComponent
     "id",
     "guestName",
     "guestEmail",
-    "guestPhoneNumber", 
+    "guestPhoneNumber",
     "isOpen",
     "createDate",
     "edit",
-    "delete",
   ];
   @ViewChild(MatPaginator) paraginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -66,9 +67,13 @@ export class GuestMessageConHistoryListComponent
     private adminService: AdminService,
     public dialog: MatDialog,
     private messageService: MessageService,
-    private store: Store<GuestMessageConHistoryListState>
+    private store: Store<GuestMessageConHistoryListState>,
+    private signalRService: SignalRService,
+    private router: Router
   ) {
-    this.guestMessageConHistoryListState = this.store.select(getGuestMessageConHistoryList);
+    this.guestMessageConHistoryListState = this.store.select(
+      getGuestMessageConHistoryList
+    );
     this.errorMessageState = this.store.select(getMessage);
     this.errorSystemState = this.store.select(getSysError);
   }
@@ -84,6 +89,12 @@ export class GuestMessageConHistoryListComponent
       })
     );
 
+    this.subscriptions.push(
+      this.signalRService.ConnFeedObservable.subscribe((notify: any) => {
+        console.log(notify);
+      })
+    );
+
     this.store.dispatch(GuestMessageConHistoryListActions.initial());
 
     this.store.dispatch(
@@ -91,7 +102,7 @@ export class GuestMessageConHistoryListComponent
         payload: {
           page: this.pageIndex + 1,
           type: 1,
-          search: this.searchPhase
+          search: this.searchPhase,
         },
       })
     );
@@ -109,7 +120,7 @@ export class GuestMessageConHistoryListComponent
     );
 
     this.subscriptions.push(
-      this.errorSystemState.subscribe((state) => {  
+      this.errorSystemState.subscribe((state) => {
         if (state) {
           this.messageService.closeLoadingDialog();
           this.messageService.openSystemFailNotifyDialog(state);
@@ -120,15 +131,15 @@ export class GuestMessageConHistoryListComponent
   ngAfterViewInit(): void {}
 
   ngOnDestroy(): void {
-    this.store.dispatch(GuestMessageConHistoryListActions.resetGuestMessageConHistoryList());
+    this.store.dispatch(
+      GuestMessageConHistoryListActions.resetGuestMessageConHistoryList()
+    );
     this.messageService.closeAllDialog();
 
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
-  openEditDialog(id: string): void {
-    
-  }
+  openEditDialog(id: string): void {}
 
   async openConfirmDialog(this_announce: string) {
     const ref = this.dialog.open(ConfirmDialogComponent, {
@@ -158,7 +169,7 @@ export class GuestMessageConHistoryListComponent
           page: this.pageIndex + 1,
           type: 1,
           pageSize: this.pageSize,
-          search: this.searchPhase
+          search: this.searchPhase,
         },
       })
     );
@@ -175,7 +186,7 @@ export class GuestMessageConHistoryListComponent
           page: this.pageIndex + 1,
           type: 1,
           pageSize: this.pageSize,
-          search: this.searchPhase
+          search: this.searchPhase,
         },
       })
     );
@@ -211,4 +222,36 @@ export class GuestMessageConHistoryListComponent
     } else {
     }
   }
+
+  getIndex(elementId: string) {
+    return (
+      this.guestMessageConHistoryList.findIndex((el) => el.id === elementId) + 1
+    );
+  }
+
+  getStatus(input: number) {
+    if (input == 2) return "Đang mở";
+    else if (input == 0) return "Đã đóng";
+    else if (input == 1) return "Đang bận";
+    return "";
+  } 
+
+  connectStatus(input: number) {
+    if (input == 2) return "Kết nối";
+    else if (input == 0) return "Đã đóng";
+    else if (input == 1) return "Đang bận";
+    return "";
+  } 
+
+  onClickConnect(id: string) {
+    this.router.navigate(["admin/chat/display/" + id + "/edit"]);
+  }
+
+  signalRNotification() {
+    this.signalRService.startConnection("/api/guest/message").then(() => {
+      // 2 - register for ALL relay
+      this.signalRService.listenToClientFeeds("NotifyNewCon");
+    });
+  }
+
 }

@@ -79,6 +79,10 @@ export class NotificationSingleComponent implements OnInit {
     if (notify.contentCode !== null) {
       contentPhase =
         getViNotifyMessagePhase(notify.contentCode ?? "") + tourName;
+
+      if ((notify.contentCode ?? "").length <= 0) {
+        contentPhase = notify.content;
+      }
     } else contentPhase = notify.content;
 
     return contentPhase;

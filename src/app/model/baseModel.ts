@@ -290,12 +290,9 @@ export interface GuestMessageCon {
   guestConHisId: string;
 
   // Guest
-  guestName?: string;
-  guestEmail?: string;
-  guestPhoneNumber?: string;
-
-  // Or admin
-  adminId?: string;
+  guestName: string;
+  guestEmail: string;
+  guestPhoneNumber: string;
 
   connectionID: string;
   userAgent: string;
@@ -307,11 +304,30 @@ export interface GuestMessageCon {
   guestMessages: GuestMessage[];
 }
 
+export interface AdminMessageCon {
+  id: string;
+
+  guestConHisId: string;
+
+  // Or admin
+  adminId: string;
+  adminFullName: string;
+
+  connectionID: string;
+  userAgent: string;
+  connected: boolean;
+  createDate: Date;
+
+  guestMessageConHis: GuestMessageConHistory;
+  guestMessages: GuestMessage[];
+}
+
 export interface GuestMessageConHistory {
   id: string;
   guestConId: string;
   adminConId: string;
   createDate: Date;
-  guestCon: GuestMessageCon;
-  adminCon: GuestMessageCon;
+  guestMessageCon: GuestMessageCon;
+  adminMessageCon: AdminMessageCon;
+  status: number;
 }

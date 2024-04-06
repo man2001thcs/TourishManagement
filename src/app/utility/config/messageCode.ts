@@ -86,6 +86,8 @@ export const ERR_MESSAGE_CODE_EN: Map<string, string> = new Map([
   ["C912", "Image update error"],
   ["C913", "Image delete error"],
   ["C914", "Image SQL error"],
+
+  ["C1114", "Failed to get the list"],
   
 ]);
 
@@ -178,6 +180,9 @@ export const ERR_MESSAGE_CODE_VI: Map<string, string> = new Map([
     ["C902", "Ảnh lỗi cập nhật"],
     ["C903", "Ảnh xóa thất bại"],
     ["C904", "Ảnh lỗi cơ sở dữ liệu"],
+
+    ["C1114", "Lấy danh sách thất bại"],
+    
   ]);
 
   export function getViErrMessagePhase(key: string): string {

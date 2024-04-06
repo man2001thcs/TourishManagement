@@ -56,8 +56,9 @@ export class ChatComponent {
 
     this.subscriptions.push(
       this.signalRService.ConnFeedObservable.subscribe((notify: any) => {
+        console.log(notify);
         if (notify.adminId !== undefined) {
-          console.log("Here i am: ", notify.adminId);
+          
           this.adminId = this.adminId;
           this.isChatSet = true;
           this.signalRService.listenToClientFeeds("SendMessageToAdmin");

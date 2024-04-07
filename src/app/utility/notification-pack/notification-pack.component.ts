@@ -78,7 +78,7 @@ export class NotificationPackComponent implements OnInit {
     this.getTourPack();
 
     this.subscriptions.push(
-      this.signalRService.ClientFeedObservable.subscribe(
+      this.signalRService.NotifyFeedObservable.subscribe(
         (notification: Notification) => {
           if (notification) {
             console.log("Here i am: ", notification);
@@ -100,7 +100,7 @@ export class NotificationPackComponent implements OnInit {
   signalRNotification() {
     this.signalRService.startConnection("/api/user/notify").then(() => {
       // 2 - register for ALL relay
-      this.signalRService.listenToClientFeeds("SendOffersToUser");
+      this.signalRService.listenToNotifyFeeds("SendOffersToUser");
     });
   }
 

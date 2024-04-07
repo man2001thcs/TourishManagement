@@ -15,7 +15,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import moment from "moment";
 import { Subscription } from "rxjs";
 import { SignalRService } from "../user_service/signalr.service";
-import { GuestMessage } from "src/app/model/baseModel";
+import { GuestMessage, GuestMessageConHistory } from "src/app/model/baseModel";
 
 @Component({
   selector: "app-chat",
@@ -30,6 +30,7 @@ export class ChatComponent {
   adminId = "";
   subscriptions: Subscription[] = [];
   messageList: GuestMessage[] = [];
+  conHis!: GuestMessageConHistory;
 
   @Output() checkChatOpen = new EventEmitter<boolean>();
 
@@ -57,29 +58,43 @@ export class ChatComponent {
     this.subscriptions.push(
       this.signalRService.ConnFeedObservable.subscribe((notify: any) => {
         console.log(notify);
-        if (notify.adminId !== undefined) {
-          
-          this.adminId = this.adminId;
+        if (notify.adminId !== undefined) {         
+          this.adminId = notify.adminId;
+          this.conHis = notify.conHis;
           this.isChatSet = true;
-          this.signalRService.listenToClientFeeds("SendMessageToAdmin");
+          this.signalRService.listenToClientFeedsThree("SendMessageToUser");
         }
       })
     );
 
     this.subscriptions.push(
-      this.signalRService.ClientFeedObservable.subscribe(
-        (mess: GuestMessage) => {
-          if (mess) {
-            console.log("Here i am: ", mess);
+      this.signalRService.ClientFeedObservable.subscribe((res: any) => {
+        console.log("Here i am: ", res);
+        if (res) {
+          console.log("Here i am: ", res.data3);
 
-            let index = this.messageList.findIndex((res) => res.id === mess.id);
+          if (res.data3 !== null && res.data3 !== undefined) {
+            var insertMess = res.data3;
+            if (res.data3.state === 1) {
+              
+              let index = this.messageList.findIndex(
+                (mess) => mess.state === 0
+              );
+              this.messageList[index] = insertMess;
 
-            if (index > -1) {
-              this.messageList[index] = mess;
-            } else this.messageList = [mess, ...this.messageList];
+            } else {
+              let index = this.messageList.findIndex(
+                (mess) => mess.id === res.data3.id
+              );
+              insertMess.side = 2;
+
+              if (index > -1) {
+                this.messageList[index] = insertMess;
+              } else this.messageList = [...this.messageList, insertMess];
+            }
           }
         }
-      )
+      })
     );
   }
 
@@ -88,9 +103,20 @@ export class ChatComponent {
   isNavOpen = false;
 
   getTime(input: string) {
+    if (input === "") return "Gần 1 phút trước";
     const sendTime = new Date(input);
-    const nowTime = new Date();
-    const timeChanges = (nowTime.valueOf() - sendTime.valueOf()) / 1000;
+
+    const now = new Date(); // Get current date and time
+
+    // Calculate the time difference between local timezone and GMT+0 in milliseconds
+    const offset = now.getTimezoneOffset() * 60000; // getTimezoneOffset returns minutes, so convert to milliseconds
+
+    // Adjust to GMT+0
+    now.setTime(now.getTime() + offset);
+
+    let isoDate = new Date(now.toISOString());
+
+    let timeChanges = (now.valueOf() - sendTime.valueOf()) / 1000;
 
     if (timeChanges < 60) {
       return "Gần 1 phút trước";
@@ -106,6 +132,13 @@ export class ChatComponent {
     return (timeChanges / 2592000).toFixed(0) + " tháng trước";
   }
 
+  getState(input: number) {
+    if (input === 0) return "Đang gửi";
+    else if (input === 1) return "Đã gửi";
+    else if (input === 2) return "Thất bại";
+    return "";
+  }
+
   toggleEmojiPicker() {
     console.log(this.showEmojiPicker);
     this.showEmojiPicker = !this.showEmojiPicker;
@@ -113,7 +146,7 @@ export class ChatComponent {
 
   addEmoji(event: any) {
     this.messFb.controls["message"].setValue(
-      this.messFb.controls["message"].value + event.emoji.native
+      this.messFb.value.message + event.emoji.native
     );
     // this.showEmojiPicker = false;
   }
@@ -139,15 +172,20 @@ export class ChatComponent {
 
   sendMessage() {
     const guestMessage: GuestMessage = {
-      content: this.message,
+      state: 0,
+      side: 1,
+      content: this.messFb.value.message,
+      createDate: (new Date()).toISOString()
     };
 
     this.signalRService.invokeTwoInfoFeed(
       "SendMessageToAdmin",
       this.adminId,
-      this.messFb.controls["guestPhoneNumber"].value,
+      this.messRegister.value.guestEmail,
       guestMessage
     );
+
+    this.messageList.push(guestMessage);
   }
 
   openSignalRHub() {

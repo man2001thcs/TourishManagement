@@ -13,6 +13,7 @@ import { ThemePalette } from "@angular/material/core";
 
 import { NgbCarouselConfig } from "@ng-bootstrap/ng-bootstrap";
 import {
+  GuestMessage,
   GuestMessageConHistory,
   Notification,
   SaveFile,
@@ -35,6 +36,7 @@ export class ChatGuestSelectorComponent implements OnInit {
   @Input()
   guestMessageConHistory!: GuestMessageConHistory;
 
+  lastMessage!: GuestMessage;
   imageList: SaveFile[] = [];
 
   active = 1;
@@ -126,5 +128,34 @@ export class ChatGuestSelectorComponent implements OnInit {
       return (timeChanges / 2592000).toFixed(0) + " tháng trước";
     }
     return (timeChanges / 2592000).toFixed(0) + " tháng trước";
+  }
+
+  getUserName() {
+    if (this.guestMessageConHistory.guestMessageCon != null) {
+      return this.guestMessageConHistory.guestMessageCon.guestName;
+    } else return "Anonymus";
+  }
+
+  getLastMessage() {
+    if (this.guestMessageConHistory.guestMessageCon != null) {
+      if (this.guestMessageConHistory.guestMessageCon.guestMessages.length > 0)
+        this.lastMessage =
+          this.guestMessageConHistory.guestMessageCon.guestMessages[0];
+    }
+  }
+
+  getLastContent() {
+    if (this.lastMessage) {
+      if (this.lastMessage.content) return this.lastMessage.content;
+    }
+    return "";
+  }
+
+  getLastTime() {
+    if (this.lastMessage) {
+      if (this.lastMessage.createDate)
+        return this.getTime(this.lastMessage.createDate);
+    }
+    return this.getTime("");
   }
 }

@@ -279,8 +279,12 @@ export interface GuestMessage {
   content: string;
   isRead?: boolean;
   isDeleted?: boolean;
+  state: number;
   createDate?: string;
   updateDate?: string;
+
+  // 1: Sender, 2: Receiver
+  side?: number;
   guestMessageConId?: string;
 }
 

@@ -8,13 +8,14 @@
         let-receiver="receiver"
         let-sendTime="sendTime"
         let-content="content"
+        let-state="state"
       >
         <div class="chat-send">
           <mat-card>
             <mat-card-content>{{ content }}</mat-card-content>
           </mat-card>
           <mat-label
-            ><span class="mess-status">Đã gửi </span> -
+            ><span class="mess-status">{{ getState(state) }} </span> -
             <span>{{ getTime(sendTime) }}</span></mat-label
           >
         </div>
@@ -27,107 +28,42 @@
         let-receiver="receiver"
         let-sendTime="sendTime"
         let-content="content"
+        let-state="state"
       >
         <div class="chat-receive">
           <mat-card>
             <mat-card-content>{{ content }}</mat-card-content>
           </mat-card>
           <mat-label
-            ><span class="mess-status">Đã gửi </span> -
+            ><span class="mess-status">{{ getState(state) }} </span> -
             <span>{{ getTime(sendTime) }}</span></mat-label
           >
         </div>
       </ng-template>
 
-      <ng-container
-        [ngTemplateOutlet]="chat_send_template"
-        [ngTemplateOutletContext]="{
-          content: 'bro wtf are u doing',
-          sendTime: '2024-03-07 15:58:48.9264304',
-          sender: 'Heller'
-        }"
-      ></ng-container>
+      <ng-container *ngFor="let message of messageList">
+        <ng-container
+          *ngIf="message.side == 1"
+          [ngTemplateOutlet]="chat_send_template"
+          [ngTemplateOutletContext]="{
+            content: message.content,
+            sendTime: message.createDate,
+            state: message.state,
+            sender: 'Heller'
+          }"
+        ></ng-container>
 
-      <ng-container
-        [ngTemplateOutlet]="chat_receive_template"
-        [ngTemplateOutletContext]="{
-          content: 'bro wtf are u doing',
-          sendTime: '2024-03-07 15:58:48.9264304',
-          sender: 'Heller'
-        }"
-      ></ng-container>
-
-      <ng-container
-        [ngTemplateOutlet]="chat_send_template"
-        [ngTemplateOutletContext]="{
-          content: 'bro wtf are u doing',
-          sendTime: '2024-03-07 15:58:48.9264304',
-          sender: 'Heller'
-        }"
-      ></ng-container>
-
-      <ng-container
-        [ngTemplateOutlet]="chat_receive_template"
-        [ngTemplateOutletContext]="{
-          content: 'bro wtf are u doing',
-          sendTime: '2024-03-07 15:58:48.9264304',
-          sender: 'Heller'
-        }"
-      ></ng-container>
-
-      <ng-container
-        [ngTemplateOutlet]="chat_send_template"
-        [ngTemplateOutletContext]="{
-          content: 'bro wtf are u doing',
-          sendTime: '2024-03-07 15:58:48.9264304',
-          sender: 'Heller'
-        }"
-      ></ng-container>
-
-      <ng-container
-        [ngTemplateOutlet]="chat_receive_template"
-        [ngTemplateOutletContext]="{
-          content: 'bro wtf are u doing',
-          sendTime: '2024-03-07 15:58:48.9264304',
-          sender: 'Heller'
-        }"
-      ></ng-container>
-
-      <ng-container
-        [ngTemplateOutlet]="chat_send_template"
-        [ngTemplateOutletContext]="{
-          content: 'bro wtf are u doing',
-          sendTime: '2024-03-07 15:58:48.9264304',
-          sender: 'Heller'
-        }"
-      ></ng-container>
-
-      <ng-container
-        [ngTemplateOutlet]="chat_receive_template"
-        [ngTemplateOutletContext]="{
-          content: 'bro wtf are u doing',
-          sendTime: '2024-03-07 15:58:48.9264304',
-          sender: 'Heller'
-        }"
-      ></ng-container>
-
-      <ng-container
-        [ngTemplateOutlet]="chat_send_template"
-        [ngTemplateOutletContext]="{
-          content: 'bro wtf are u doing',
-          sendTime: '2024-03-07 15:58:48.9264304',
-          sender: 'Heller'
-        }"
-      ></ng-container>
-
-      <ng-container
-        [ngTemplateOutlet]="chat_receive_template"
-        [ngTemplateOutletContext]="{
-          content: 'bro wtf are u doing',
-          sendTime: '2024-03-07 15:58:48.9264304',
-          sender: 'Heller'
-        }"
-      ></ng-container>
+        <ng-container
+          *ngIf="message.side == 2"
+          [ngTemplateOutlet]="chat_receive_template"
+          [ngTemplateOutletContext]="{
+            content: message.content,
+            sendTime: message.createDate,
+            state: message.state,
+            sender: 'Heller'
+          }"
+        ></ng-container>
+      </ng-container>
     </div>
 
     <div class="chat-input" [formGroup]="messFb">
@@ -168,14 +104,17 @@
         mat-icon-button
         color="primary"
         aria-label="Example icon button with a home icon"
+        (click)="sendMessage()"
+        [disabled]="!this.isOpen"
       >
         <mat-icon>send</mat-icon>
       </button>
     </div>
-
   </div>
   <div class="guest-container">
-    <app-chat-guest-selector></app-chat-guest-selector>
-    <app-chat-guest-selector></app-chat-guest-selector>
+    <app-chat-guest-selector
+      *ngFor="let conHis of guestConHistoryList"
+      [guestMessageConHistory]="conHis"
+    ></app-chat-guest-selector>
   </div>
 </div>

@@ -79,6 +79,8 @@ export class GuestMessageConHistoryListComponent
   }
 
   ngOnInit(): void {
+    this.store.dispatch(GuestMessageConHistoryListActions.initial());
+
     this.subscriptions.push(
       this.guestMessageConHistoryListState.subscribe((state) => {
         if (state) {
@@ -88,14 +90,6 @@ export class GuestMessageConHistoryListComponent
         }
       })
     );
-
-    this.subscriptions.push(
-      this.signalRService.ConnFeedObservable.subscribe((notify: any) => {
-        console.log(notify);
-      })
-    );
-
-    this.store.dispatch(GuestMessageConHistoryListActions.initial());
 
     this.store.dispatch(
       GuestMessageConHistoryListActions.getGuestMessageConHistoryList({
@@ -125,6 +119,13 @@ export class GuestMessageConHistoryListComponent
           this.messageService.closeLoadingDialog();
           this.messageService.openSystemFailNotifyDialog(state);
         }
+      })
+    );
+
+    this.signalRNotification();
+    this.subscriptions.push(
+      this.signalRService.ConnFeedObservable.subscribe((notify: any) => {
+        console.log(notify);
       })
     );
   }
@@ -244,7 +245,7 @@ export class GuestMessageConHistoryListComponent
   } 
 
   onClickConnect(id: string) {
-    this.router.navigate(["admin/chat/display/" + id + "/edit"]);
+    this.router.navigate(["admin/chat/display/" + id]);
   }
 
   signalRNotification() {

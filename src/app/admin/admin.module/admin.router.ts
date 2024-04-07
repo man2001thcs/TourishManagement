@@ -95,7 +95,7 @@ const routes: Routes = [
         component: GuestMessageConHistoryListComponent,
       },
       {
-        path: "chat/display",
+        path: "chat/display/:id",
         component: BigChatComponent,
       },
     ],

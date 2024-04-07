@@ -4,6 +4,7 @@
   margin-left: 340px;
   display: block;
   position: relative;
+  height: 100%;
 }
 
 .container-fluid {
@@ -12,6 +13,7 @@
   padding-right: 0px !important;
   padding-left: 0px !important;
   position: relative;
+  min-height: 600px !important;
 }
 
 .outer-chat-container {

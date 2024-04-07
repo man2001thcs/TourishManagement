@@ -6,6 +6,7 @@ import { GuestMessage, GuestMessageConHistory } from "src/app/model/baseModel";
 import { Subscription } from "rxjs";
 import { TokenStorageService } from "../user_service/token.service";
 import { HttpClient } from "@angular/common/http";
+import { MessageService } from "../user_service/message.service";
 
 @Component({
   selector: "app-big-chat",
@@ -18,6 +19,7 @@ export class BigChatComponent implements OnInit {
     private route: ActivatedRoute,
     private signalRService: SignalRService,
     private tokenStorageService: TokenStorageService,
+    private messageService: MessageService,
     private http: HttpClient
   ) {}
   messFb!: FormGroup;
@@ -29,29 +31,43 @@ export class BigChatComponent implements OnInit {
   guestConHistoryList: GuestMessageConHistory[] = [];
   currentGuestConHis!: GuestMessageConHistory;
   guestConLength = 0;
+  isOpen = false;
+  isSending = false;
 
   ngOnInit(): void {
-    this.connectionId =
-      this.route.snapshot.queryParamMap.get("connectionId") ?? "";
+    this.connectionId = this.route.snapshot.paramMap.get("id") ?? "";
+    this.getMessageConList();
 
     this.messFb = this.fb.group({
       message: ["", Validators.compose([Validators.required])],
     });
 
     this.subscriptions.push(
-      this.signalRService.ClientFeedObservable.subscribe(
-        (mess: GuestMessage) => {
-          if (mess) {
-            console.log("Here i am: ", mess);
+      this.signalRService.ClientFeedObservable.subscribe((res: any) => {
+        console.log("Here i am: ", res);
+        if (res) {
+          console.log("Here i am: ", res.data3);
 
-            let index = this.messageList.findIndex((res) => res.id === mess.id);
+          if (res.data3 !== null && res.data3 !== undefined) {
+            var insertMess = res.data3;
+            if (res.data3.state === 1) {
+              let index = this.messageList.findIndex(
+                (mess) => mess.state === 0
+              );
+              this.messageList[index] = insertMess;
+            } else {
+              let index = this.messageList.findIndex(
+                (mess) => mess.id === res.data3.id
+              );
+              insertMess.side = 2;
 
-            if (index > -1) {
-              this.messageList[index] = mess;
-            } else this.messageList = [mess, ...this.messageList];
+              if (index > -1) {
+                this.messageList[index] = insertMess;
+              } else this.messageList = [...this.messageList, insertMess];
+            }
           }
         }
-      )
+      })
     );
   }
 
@@ -65,15 +81,26 @@ export class BigChatComponent implements OnInit {
 
   addEmoji(event: any) {
     this.messFb.controls["message"].setValue(
-      this.messFb.controls["message"].value + event.emoji.native
+      this.messFb.value.message + event.emoji.native
     );
     // this.showEmojiPicker = false;
   }
 
   getTime(input: string) {
+    if (input === "") return "Gần 1 phút trước";
     const sendTime = new Date(input);
-    const nowTime = new Date();
-    const timeChanges = (nowTime.valueOf() - sendTime.valueOf()) / 1000;
+
+    const now = new Date(); // Get current date and time
+
+    // Calculate the time difference between local timezone and GMT+0 in milliseconds
+    const offset = now.getTimezoneOffset() * 60000; // getTimezoneOffset returns minutes, so convert to milliseconds
+
+    // Adjust to GMT+0
+    now.setTime(now.getTime() + offset);
+
+    let isoDate = new Date(now.toISOString());
+
+    let timeChanges = (now.valueOf() - sendTime.valueOf()) / 1000;
 
     if (timeChanges < 60) {
       return "Gần 1 phút trước";
@@ -89,34 +116,50 @@ export class BigChatComponent implements OnInit {
     return (timeChanges / 2592000).toFixed(0) + " tháng trước";
   }
 
+  getState(input: number) {
+    if (input === 0) return "Đang gửi";
+    else if (input === 1) return "Đã gửi";
+    else if (input === 2) return "Thất bại";
+    return "";
+  }
+
   sendMessage() {
     const userId = this.tokenStorageService.getUser().Id;
 
     const guestMessage: GuestMessage = {
-      content: this.message,
+      id: undefined,
+      state: 0,
+      content: this.messFb.value.message,
+      side: 1,
+      createDate: (new Date()).toISOString()
     };
 
+    this.isSending = true;
     this.signalRService.invokeTwoInfoFeed(
       "SendMessageToUser",
       userId,
-      this.connectionId,
+      this.currentGuestConHis.guestMessageCon.guestEmail,
       guestMessage
     );
+
+    this.messageList.push(guestMessage);
   }
 
   signalRNotification() {
+    const adminId = this.tokenStorageService.getUser().Id;
     const queryParameters = {
-      adminId: "123",
-      guestEmail: this.messFb.controls["guestEmail"].value,
-      guestName: this.messFb.controls["guestName"].value,
-      guestPhoneNumber: this.messFb.controls["guestPhoneNumber"].value,
+      adminId: adminId,
+      guestEmail: this.currentGuestConHis.guestMessageCon.guestEmail,
+      guestName: this.currentGuestConHis.guestMessageCon.guestName,
+      guestPhoneNumber:
+        this.currentGuestConHis.guestMessageCon.guestPhoneNumber,
     };
 
     this.signalRService
       .startConnectionWithParam("/api/guest/message", queryParameters)
       .then(() => {
         // 2 - register for ALL relay
-        this.signalRService.listenToClientFeeds("SendMessageToUser");
+        this.signalRService.listenToClientFeedsThree("SendMessageToAdmin");
       });
   }
 
@@ -126,12 +169,20 @@ export class BigChatComponent implements OnInit {
       pageSize: 6,
     };
 
+    this.messageService.openLoadingDialog();
     this.http
-      .get("/api/GuestMessageConHistory/admin", { params: params })
+      .get("/api/GetGuestMessageConHistory/admin", { params: params })
       .subscribe((response: any) => {
-        this.guestConHistoryList = response.data;
-        console.log(response);
-        this.guestConLength = response.count;
+        this.messageService.closeAllDialog();
+        if (response) {
+          this.guestConHistoryList = response.data;
+          console.log(response);
+          this.guestConLength = response.count;
+
+          if (this.connectionId.length > 0) {
+            this.getMessageCon();
+          }
+        }
       });
   }
 
@@ -141,10 +192,38 @@ export class BigChatComponent implements OnInit {
         connectionId: this.connectionId,
       };
 
+      this.messageService.openLoadingDialog();
       this.http
-        .get("/api/GuestMessageConHistory/guest-connection", { params: params })
+        .get("/api/GetGuestMessageConHistory/guest-connection", {
+          params: params,
+        })
         .subscribe((response: any) => {
-          this.currentGuestConHis = response.data;
+          this.messageService.closeAllDialog();
+          if (response) {
+            this.currentGuestConHis = response.data;
+
+            var existIndex = this.guestConHistoryList.findIndex(
+              (conHis) => conHis.id === this.currentGuestConHis.id
+            );
+
+            if (existIndex > -1) {
+              this.guestConHistoryList[existIndex] = this.currentGuestConHis;
+            } else {
+              this.guestConHistoryList = [
+                this.currentGuestConHis,
+                ...this.guestConHistoryList,
+              ];
+            }
+
+            console.log(this.guestConHistoryList);
+
+            if (this.currentGuestConHis.guestMessageCon.connected) {
+              this.signalRNotification();
+              this.isOpen = true;
+            } else {
+              this.isOpen = false;
+            }
+          }
         });
     }
   }

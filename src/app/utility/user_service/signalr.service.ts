@@ -27,6 +27,7 @@ export class SignalRService {
   private readonly url = environment.backend.baseURL;
   private hubConnection!: HubConnection;
   private $allFeed = new Subject<any>();
+  private $notifyFeed = new Subject<any>();
   private $clientFeed = new Subject<any>();
   private $connFeed = new Subject<any>();
   private isRefreshing = false;
@@ -120,6 +121,10 @@ export class SignalRService {
     return this.$allFeed.asObservable().pipe(distinctUntilChanged());
   }
 
+  public get NotifyFeedObservable(): Observable<any> {
+    return this.$notifyFeed.asObservable().pipe(distinctUntilChanged());
+  }
+
   public get ClientFeedObservable(): Observable<any> {
     return this.$clientFeed.asObservable().pipe(distinctUntilChanged());
   }
@@ -136,6 +141,17 @@ export class SignalRService {
     });
   }
 
+  public listenToNotifyFeeds(listenPort: string) {
+    (<HubConnection>this.hubConnection).on(
+      listenPort,
+      (data1: any, data2: any) => {
+        if (data1) {
+          this.$notifyFeed.next(data2);
+        }
+      }
+    );
+  }
+
   public listenToClientFeeds(listenPort: string) {
     (<HubConnection>this.hubConnection).on(
       listenPort,
@@ -147,12 +163,23 @@ export class SignalRService {
     );
   }
 
+  public listenToClientFeedsThree(listenPort: string) {
+    (<HubConnection>this.hubConnection).on(
+      listenPort,
+      (data1: any, data2: any, data3: any) => {
+        if (data1) {
+          this.$clientFeed.next({ data1: data1, data2: data2, data3: data3 });
+        }
+      }
+    );
+  }
+
   public listenToConnFeeds(listenPort: string) {
     (<HubConnection>this.hubConnection).on(
       listenPort,
       (data1: string, data2: any) => {
         if (data1) {
-          this.$clientFeed.next({ adminId: data1, connHis: data2 });
+          this.$connFeed.next({ adminId: data1, connHis: data2 });
         }
       }
     );

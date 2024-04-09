@@ -13,7 +13,7 @@
     class="row"
     style="margin-bottom: 15px; margin-right: 12px"
   >
-    <button mat-button (click)="removeFile(index)">Gỡ</button>
+    <button mat-button (click)="removeFile(index)" [disabled]="disabled">Gỡ</button>
   </div>
 </ng-template>
 
@@ -32,10 +32,10 @@
     class="row"
     style="margin-bottom: 15px; margin-right: 12px"
   >
-    <button *ngIf="!isRemoved(id)" mat-button (click)="removeOldFile(id)">
+    <button *ngIf="!isRemoved(id)" mat-button (click)="removeOldFile(id)" [disabled]="disabled">
       Gỡ
     </button>
-    <button *ngIf="isRemoved(id)" mat-button (click)="undoRemoveOldFile(id)">
+    <button *ngIf="isRemoved(id)" mat-button (click)="undoRemoveOldFile(id)" [disabled]="disabled">
       Undo
     </button>
   </div>
@@ -48,6 +48,7 @@
       #file
       placeholder="Choose file"
       (change)="changeFile(file.files)"
+      [disabled]="disabled"
       style="display: none"
     />
 
@@ -60,10 +61,11 @@
         class="btn btn-success"
         (click)="file.click()"
         style="margin-right: 12px"
+        [disabled]="disabled"
       >
         Upload File
       </button>
-      <button type="button" class="btn btn-primary" (click)="uploadFile()">
+      <button type="button" class="btn btn-primary" (click)="uploadFile()" [disabled]="disabled">
         Update image
       </button>
     </div>
@@ -97,9 +99,5 @@
         </ng-container>
       </div>
     </div>
-  </div>
-
-  <div class="col-md-4">
-    <span class="upload" *ngIf="progress > 0"> {{ progress }}% </span>
   </div>
 </div>

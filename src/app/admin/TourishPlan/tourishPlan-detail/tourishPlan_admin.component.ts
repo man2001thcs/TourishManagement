@@ -36,6 +36,7 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
   isSubmitting = false;
   active = 1;
   editorContent = "";
+  disabled = false;
 
   tourishPlan: TourishPlan = {
     id: "",

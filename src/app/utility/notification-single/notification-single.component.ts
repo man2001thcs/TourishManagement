@@ -21,6 +21,7 @@ import { SwPush } from "@angular/service-worker";
 import { environment } from "src/environments/environment";
 import { messaging } from "src/conf/firebase.conf";
 import { FileModel } from "../image_avatar_service/imageUpload.component.model";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-notification-single",
@@ -56,7 +57,8 @@ export class NotificationSingleComponent implements OnInit {
     private tokenStorage: TokenStorageService,
     private http: HttpClient,
     private swPush: SwPush,
-    private signalRService: SignalRService
+    private signalRService: SignalRService,
+    private router: Router
   ) {}
 
   ngOnInit() {}
@@ -160,5 +162,16 @@ export class NotificationSingleComponent implements OnInit {
       return (timeChanges / 2592000).toFixed(0) + " tháng trước";
     }
     return (timeChanges / 2592000).toFixed(0) + " tháng trước";
+  }
+
+  onClickRedirect(notify: Notification) {
+    if (notify.contentCode?.includes("I41"))
+      this.router.navigate([
+        "admin/tourish-plan/detail/" +
+          this.notification.tourishPlan?.id +
+          "/edit",
+      ]);
+    if (notify.content.includes("Hệ thống nhận được yêu cầu tư vấn mới"))
+      this.router.navigate(["admin/chat/display/" + this.notification.connectionId]);
   }
 }

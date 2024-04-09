@@ -105,9 +105,13 @@
         color="primary"
         aria-label="Example icon button with a home icon"
         (click)="sendMessage()"
-        [disabled]="!this.isOpen"
+        [disabled]="!this.isOpen || this.isSending"
       >
-        <mat-icon>send</mat-icon>
+        <mat-spinner
+          [diameter]="20"
+          *ngIf="!this.isOpen || this.isSending"
+        ></mat-spinner>
+        <mat-icon *ngIf="this.isOpen && !this.isSending">send</mat-icon>
       </button>
     </div>
   </div>

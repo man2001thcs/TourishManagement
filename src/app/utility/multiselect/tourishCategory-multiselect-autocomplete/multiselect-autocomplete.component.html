@@ -8,7 +8,7 @@
         style="font-size: 16px"
       >
         {{ tourishCategory }}
-        <button matChipRemove [attr.aria-label]="'remove ' + tourishCategory">
+        <button matChipRemove [attr.aria-label]="'remove ' + tourishCategory" [disabled]="disabled">
           <mat-icon>cancel</mat-icon>
         </button>
       </mat-chip-row>
@@ -21,6 +21,7 @@
       [matAutocomplete]="auto"
       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
       (matChipInputTokenEnd)="add($event)"
+      [disabled]="disabled"
     />
 
     <mat-autocomplete

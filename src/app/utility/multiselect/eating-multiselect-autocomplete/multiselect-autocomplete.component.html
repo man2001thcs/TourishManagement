@@ -77,6 +77,7 @@
               mat-raised-button
               color="primary"
               (click)="removeSchedule(id)"
+              [disabled]="disabled"
             >
               Gỡ
             </button>
@@ -144,6 +145,7 @@
               color="primary"
               (click)="clickEditSchedule(id)"
               style="margin-right: 10px"
+              [disabled]="disabled"
             >
               Chỉnh sửa
             </button>
@@ -151,6 +153,7 @@
               mat-raised-button
               color="danger"
               (click)="removeSchedule(id)"
+              [disabled]="disabled"
             >
               Gỡ
             </button>
@@ -194,7 +197,7 @@
     </div>
 
     <div
-      *ngIf="eatingScheduleEdit != null"
+      *ngIf="eatingScheduleEdit != null && !disabled"
       style="
         width: 90%;
         margin-left: auto;
@@ -603,6 +606,7 @@
               color="primary"
               type="button"
               (click)="addToSchedule()"
+              [disabled]="disabled"
             >
               Thêm
             </button>
@@ -614,6 +618,7 @@
               color="warn"
               type="button"
               (click)="this.formReset()"
+              [disabled]="disabled"
             >
               Khôi phục
             </button>

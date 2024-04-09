@@ -63,6 +63,7 @@ import { ChatGuestSelectorComponent } from "./utility/chat-guest-selector/chat-g
     MatDatepickerModule,
     MatProgressSpinnerModule,
     EditorModule,
+    MatProgressSpinnerModule
   ],
 
   exports: [
@@ -85,6 +86,7 @@ import { ChatGuestSelectorComponent } from "./utility/chat-guest-selector/chat-g
     MatDatepickerModule,
     TinyMceEditorComponent,
     ChatGuestSelectorComponent,
+    MatProgressSpinnerModule
   ],
   providers: [
     { provide: TINYMCE_SCRIPT_SRC, useValue: "tinymce/tinymce.min.js" },

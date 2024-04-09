@@ -256,6 +256,7 @@ export interface Notification {
   content: string;
   contentCode?: string;
   creatorFullName?: string;
+  connectionId?: string;
   tourName?: string;
   isRead: boolean;
   isDeleted: boolean;

@@ -32,6 +32,9 @@ export class ChatComponent {
   messageList: GuestMessage[] = [];
   conHis!: GuestMessageConHistory;
 
+  isOpen = false;
+  isSending = false;
+
   @Output() checkChatOpen = new EventEmitter<boolean>();
 
   constructor(
@@ -75,13 +78,12 @@ export class ChatComponent {
 
           if (res.data3 !== null && res.data3 !== undefined) {
             var insertMess = res.data3;
-            if (res.data3.state === 1) {
-              
+            if (res.data3.state === 1) {              
               let index = this.messageList.findIndex(
                 (mess) => mess.state === 0
               );
               this.messageList[index] = insertMess;
-
+              this.isSending = false;
             } else {
               let index = this.messageList.findIndex(
                 (mess) => mess.id === res.data3.id
@@ -177,6 +179,8 @@ export class ChatComponent {
       content: this.messFb.value.message,
       createDate: (new Date()).toISOString()
     };
+
+    this.isSending = true;
 
     this.signalRService.invokeTwoInfoFeed(
       "SendMessageToAdmin",

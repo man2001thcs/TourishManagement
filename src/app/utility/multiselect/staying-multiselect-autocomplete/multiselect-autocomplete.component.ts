@@ -79,6 +79,7 @@ export class StayingMultiselectAutocompleteComponent implements OnInit {
 
   restHouseType = 1;
 
+  @Input() disabled: boolean = false;
   color: ThemePalette = "primary";
 
   public formGroup = new FormGroup({

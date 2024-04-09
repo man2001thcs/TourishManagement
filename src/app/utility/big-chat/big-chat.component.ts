@@ -55,6 +55,7 @@ export class BigChatComponent implements OnInit {
                 (mess) => mess.state === 0
               );
               this.messageList[index] = insertMess;
+              this.isSending = false;
             } else {
               let index = this.messageList.findIndex(
                 (mess) => mess.id === res.data3.id

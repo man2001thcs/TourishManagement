@@ -34,9 +34,31 @@
             <button
               mat-raised-button
               color="primary"
+              (click)="disabled = false"
+              *ngIf="disabled"
+            >
+              Sửa đổi
+            </button>
+          </div>
+          <div style="margin-right: 20px">
+            <button
+              mat-raised-button
+              color="primary"
               (click)="saveInfomation()"
+              *ngIf="!disabled"
             >
               Lưu thay đổi
+            </button>
+          </div>
+
+          <div style="margin-right: 20px">
+            <button
+              mat-raised-button
+              color="danger"
+              (click)="disabled = true"
+              *ngIf="!disabled"
+            >
+              Hủy
             </button>
           </div>
 
@@ -46,6 +68,7 @@
               color="warn"
               type="button"
               (click)="formReset_create_info()"
+              *ngIf="!disabled"
             >
               Khôi phục ban đầu
             </button>
@@ -93,6 +116,7 @@
                   fullwidth
                   placeholder="Vd: Bồ Công Anh"
                   formControlName="tourName"
+                  [disabled]="disabled"
                 />
               </mat-form-field>
 
@@ -115,6 +139,7 @@
                   matInput
                   placeholder="Vd: Hà Nội"
                   formControlName="startingPoint"
+                  [disabled]="disabled"
                 />
               </mat-form-field>
               <div style="margin-top: -20px; margin-bottom: 10px">
@@ -137,6 +162,7 @@
                   matInput
                   placeholder="Đà Nẵng"
                   formControlName="endingPoint"
+                  [disabled]="disabled"
                 />
               </mat-form-field>
               <div style="margin-top: -20px; margin-bottom: 10px">
@@ -161,6 +187,7 @@
                   matInput
                   placeholder="VD: 0354324599"
                   formControlName="supportNumber"
+                  [disabled]="disabled"
                 />
               </mat-form-field>
               <div style="margin-top: -20px; margin-bottom: 10px">
@@ -183,6 +210,7 @@
                   matInput
                   placeholder="Vd: 10"
                   formControlName="totalTicket"
+                  [disabled]="disabled"
                 />
               </mat-form-field>
               <div style="margin-top: -20px; margin-bottom: 10px">
@@ -205,6 +233,7 @@
                   matInput
                   placeholder="Vd: 2"
                   formControlName="remainTicket"
+                  [disabled]="disabled"
                 />
               </mat-form-field>
               <div style="margin-top: -20px; margin-bottom: 10px">
@@ -232,10 +261,12 @@
                   [ngxMatDatetimePicker]="picker1"
                   placeholder="Choose a date"
                   formControlName="startDate"
+                  [disabled]="disabled"
                 />
                 <mat-datepicker-toggle
                   matSuffix
                   [for]="$any(picker1)"
+                  [disabled]="disabled"
                 ></mat-datepicker-toggle>
                 <ngx-mat-datetime-picker #picker1> </ngx-mat-datetime-picker>
               </mat-form-field>
@@ -263,10 +294,12 @@
                   [ngxMatDatetimePicker]="picker2"
                   placeholder="Choose a date"
                   formControlName="endDate"
+                  [disabled]="disabled"
                 />
                 <mat-datepicker-toggle
                   matSuffix
                   [for]="$any(picker2)"
+                  [disabled]="disabled"
                 ></mat-datepicker-toggle>
                 <ngx-mat-datetime-picker #picker2> </ngx-mat-datetime-picker>
               </mat-form-field>
@@ -290,7 +323,12 @@
             <div class="row" style="margin-bottom: 1rem">
               <mat-form-field appearance="outline" class="full-width-input">
                 <mat-label>Trạng thái tour</mat-label>
-                <select matNativeControl required formControlName="planStatus">
+                <select
+                  matNativeControl
+                  required
+                  formControlName="planStatus"
+                  [disabled]="disabled"
+                >
                   <option value="0">Chờ</option>
                   <option value="1">Thông tin đã xác định</option>
                   <option value="2">Đang diễn ra</option>
@@ -305,6 +343,7 @@
             <div class="row" style="margin-bottom: 1rem; width: 100%">
               <tourishCategory-multiselect-autocomplete
                 style="width: 100%"
+                [disabled]="disabled"
                 [data_selected]="tourishPlan.tourishCategoryRelations ?? []"
                 (result)="selectChangeCategory($event)"
               >
@@ -351,6 +390,7 @@
       </div>
 
       <staying-multiselect-autocomplete
+        [disabled]="disabled"
         [data_selected]="tourishPlan.stayingSchedules ?? []"
         (result)="selectChangeStaying($event)"
         *ngIf="active === 4"
@@ -358,6 +398,7 @@
       </staying-multiselect-autocomplete>
 
       <moving-multiselect-autocomplete
+        [disabled]="disabled"
         [data_selected]="tourishPlan.movingSchedules ?? []"
         (result)="selectChangeMoving($event)"
         *ngIf="active === 3"
@@ -365,6 +406,7 @@
       </moving-multiselect-autocomplete>
 
       <eating-multiselect-autocomplete
+        [disabled]="disabled"
         [data_selected]="tourishPlan.eatSchedules ?? []"
         (result)="selectChangeEating($event)"
         *ngIf="active === 2"

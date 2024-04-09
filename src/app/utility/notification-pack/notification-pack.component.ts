@@ -20,6 +20,7 @@ import { Subscription } from "rxjs";
 import { SwPush } from "@angular/service-worker";
 import { environment } from "src/environments/environment";
 import { messaging } from "src/conf/firebase.conf";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-notification-pack",
@@ -55,6 +56,7 @@ export class NotificationPackComponent implements OnInit {
     private tokenStorage: TokenStorageService,
     private http: HttpClient,
     private swPush: SwPush,
+    private router: Router,
     private signalRService: SignalRService
   ) {}
 
@@ -235,6 +237,5 @@ export class NotificationPackComponent implements OnInit {
     messaging.onMessage((incomingMessage) => {
       console.log(incomingMessage);
     });
-  }
-  
+  } 
 }

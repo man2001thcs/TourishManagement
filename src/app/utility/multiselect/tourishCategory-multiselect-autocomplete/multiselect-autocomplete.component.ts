@@ -39,6 +39,7 @@ import {
 export class TourishCategoryMultiselectAutocompleteComponent implements OnInit {
   separatorKeysCodes: number[] = [ENTER, COMMA];
   tourishCategoryCtrl = new FormControl("");
+  
 
   @Output() result = new EventEmitter<{
     data: Array<TourishCategoryRelation>;
@@ -46,6 +47,7 @@ export class TourishCategoryMultiselectAutocompleteComponent implements OnInit {
 
   @Input() data_selected: Array<TourishCategoryRelation> = [];
   @Input() key: string = "";
+  @Input() disabled: boolean = false;
 
   tourishCategoryIdList: string[] = [];
   tourishCategoryNameList: string[] = [];

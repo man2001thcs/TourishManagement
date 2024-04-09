@@ -94,6 +94,7 @@ export class EatingMultiselectAutocompleteComponent implements OnInit {
 
   isSubmit = false;
   disableType = false;
+  @Input() disabled: boolean = false;
 
   subscriptions: Subscription[] = [];
   eatingListState!: Observable<any>;

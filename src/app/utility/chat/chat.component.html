@@ -96,6 +96,7 @@
         color="primary"
         aria-label="Example icon button with a home icon"
         (click)="sendMessage()"
+        [disabled]="!this.isOpen || this.isSending"
       >
         <mat-icon>send</mat-icon>
       </button>

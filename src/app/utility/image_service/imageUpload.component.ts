@@ -42,10 +42,13 @@ export class FileUploadComponent implements OnInit, OnDestroy {
   productType: number = 1;
 
   @Input()
+  disabled = false;
+
+  @Input()
   requiredFileType?: string;
   @Output() public onUploadFinished = new EventEmitter();
 
-  @ViewChild('file') fileInputRef!: ElementRef;
+  @ViewChild("file") fileInputRef!: ElementRef;
 
   fileName = "";
   uploadProgress?: number;
@@ -89,7 +92,8 @@ export class FileUploadComponent implements OnInit, OnDestroy {
           if (this.imageList?.length > 0) {
             this.imageList.forEach((image) => {
               this.urlListOld.push(
-                environment.backend.blobURL + "1-container/" +
+                environment.backend.blobURL +
+                  "1-container/" +
                   this.productType.toString() +
                   "_" +
                   image.id +
@@ -155,7 +159,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
   changeFile(files: any) {
     console.log(files);
 
-    if (files === null || files.length <= 0) {    
+    if (files === null || files.length <= 0) {
       return;
     }
 
@@ -182,7 +186,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
     this.urlList.splice(index, 1);
     this.filesToUpload.splice(index, 1);
 
-    this.fileInputRef.nativeElement.value = '';
+    this.fileInputRef.nativeElement.value = "";
   }
 
   isRemoved(id: any): boolean {
@@ -268,7 +272,8 @@ export class FileUploadComponent implements OnInit, OnDestroy {
 
   generateUrl(image: FileModel) {
     return (
-      environment.backend.blobURL + "1-container/" +
+      environment.backend.blobURL +
+      "1-container/" +
       this.productType.toString() +
       "_" +
       image.id +

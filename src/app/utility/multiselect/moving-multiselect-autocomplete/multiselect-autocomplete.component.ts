@@ -93,6 +93,7 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
 
   isSubmit = false;
   disableType = false;
+  @Input() disabled: boolean = false;
 
   subscriptions: Subscription[] = [];
   movingListState!: Observable<any>;

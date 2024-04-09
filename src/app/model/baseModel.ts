@@ -280,7 +280,7 @@ export interface GuestMessage {
   content: string;
   isRead?: boolean;
   isDeleted?: boolean;
-  state: number;
+  state?: number;
   createDate?: string;
   updateDate?: string;
 
@@ -334,5 +334,6 @@ export interface GuestMessageConHistory {
   createDate: Date;
   guestMessageCon: GuestMessageCon;
   adminMessageCon: AdminMessageCon;
+  guestMessages?: GuestMessage[];
   status: number;
 }

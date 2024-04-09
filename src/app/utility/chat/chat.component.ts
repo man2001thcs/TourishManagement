@@ -27,6 +27,7 @@ export class ChatComponent {
   myChat!: ElementRef;
 
   isChatSet = false;
+  isWaitingForSet = false;
   adminId = "";
   subscriptions: Subscription[] = [];
   messageList: GuestMessage[] = [];
@@ -61,10 +62,12 @@ export class ChatComponent {
     this.subscriptions.push(
       this.signalRService.ConnFeedObservable.subscribe((notify: any) => {
         console.log(notify);
-        if (notify.adminId !== undefined) {         
+        if (notify.adminId !== undefined) {       
+          this.isWaitingForSet = false;  
           this.adminId = notify.adminId;
           this.conHis = notify.conHis;
           this.isChatSet = true;
+          this.isOpen = true;
           this.signalRService.listenToClientFeedsThree("SendMessageToUser");
         }
       })
@@ -72,27 +75,36 @@ export class ChatComponent {
 
     this.subscriptions.push(
       this.signalRService.ClientFeedObservable.subscribe((res: any) => {
-        console.log("Here i am: ", res);
         if (res) {
-          console.log("Here i am: ", res.data3);
-
           if (res.data3 !== null && res.data3 !== undefined) {
             var insertMess = res.data3;
-            if (res.data3.state === 1) {              
+            const guestMessage: GuestMessage = {
+              id: res.data3.id,
+              state: res.data3.state,
+              content: res.data3.content,
+              side: 1,
+              createDate: res.data3.createDate,
+            };
+            console.log(guestMessage);
+
+            if (parseInt(insertMess.state) === 1 || parseInt(insertMess.state) === 3) {
               let index = this.messageList.findIndex(
                 (mess) => mess.state === 0
               );
-              this.messageList[index] = insertMess;
-              this.isSending = false;
-            } else {
+
+              if (index > -1) {
+                this.messageList[index] = guestMessage;
+                this.isSending = false;
+              }
+            } else  if (parseInt(insertMess.state) === 2) {
               let index = this.messageList.findIndex(
                 (mess) => mess.id === res.data3.id
               );
-              insertMess.side = 2;
+              guestMessage.side = 2;
 
               if (index > -1) {
-                this.messageList[index] = insertMess;
-              } else this.messageList = [...this.messageList, insertMess];
+                this.messageList[index] = guestMessage;
+              } else this.messageList = [...this.messageList, guestMessage];
             }
           }
         }
@@ -137,7 +149,8 @@ export class ChatComponent {
   getState(input: number) {
     if (input === 0) return "Đang gửi";
     else if (input === 1) return "Đã gửi";
-    else if (input === 2) return "Thất bại";
+    else if (input === 2) return "Đã gửi";
+    else if (input === 3) return "Thất bại";
     return "";
   }
 
@@ -200,7 +213,7 @@ export class ChatComponent {
     };
 
     if (!this.messRegister.invalid) {
-      console.log("ok");
+      this.isWaitingForSet = true;
       this.signalRService
         .startConnectionWithParam("/api/guest/message", queryParameters)
         .then(() => {

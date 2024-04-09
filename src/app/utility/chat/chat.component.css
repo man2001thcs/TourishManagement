@@ -55,7 +55,7 @@
   margin: 0px 10px 5px 0;
   max-width: 150px;
   align-self: flex-end !important;
-  align-items: center;
+  align-items: flex-end;
   display: flex;
   flex-direction: column;
 }
@@ -78,7 +78,7 @@ mat-card-content {
   margin: 0px 0px 5px 10px;
   max-width: 150px;
   align-self: flex-start !important;
-  align-items: center;
+  align-items: flex-start;
   display: flex;
   flex-direction: column;
 }

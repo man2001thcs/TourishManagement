@@ -36,7 +36,7 @@
 .chat-send {
   margin: 0px 10px 0px 0;
   align-self: flex-end !important;
-  align-items: center;
+  align-items: flex-end;
   max-width: 650px;
   display: flex;
   flex-direction: column;
@@ -46,7 +46,7 @@
 .chat-receive {
   margin: 0px 0px 0px 10px;
   align-self: flex-start !important;
-  align-items: center;
+  align-items: flex-start;
   max-width: 650px;
   display: flex;
   flex-direction: column;

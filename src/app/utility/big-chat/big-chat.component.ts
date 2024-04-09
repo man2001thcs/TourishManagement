@@ -44,27 +44,37 @@ export class BigChatComponent implements OnInit {
 
     this.subscriptions.push(
       this.signalRService.ClientFeedObservable.subscribe((res: any) => {
-        console.log("Here i am: ", res);
         if (res) {
-          console.log("Here i am: ", res.data3);
-
           if (res.data3 !== null && res.data3 !== undefined) {
             var insertMess = res.data3;
-            if (res.data3.state === 1) {
+            const guestMessage: GuestMessage = {
+              id: res.data3.id,
+              state: res.data3.state,
+              content: res.data3.content,
+              side: 1,
+              createDate: res.data3.createDate,
+            };
+            if (
+              parseInt(insertMess.state) === 1 ||
+              parseInt(insertMess.state) === 3
+            ) {
               let index = this.messageList.findIndex(
                 (mess) => mess.state === 0
               );
-              this.messageList[index] = insertMess;
-              this.isSending = false;
-            } else {
+
+              if (index > -1) {
+                this.messageList[index] = guestMessage;
+                this.isSending = false;
+              }
+            } else if (parseInt(insertMess.state) === 2) {
               let index = this.messageList.findIndex(
                 (mess) => mess.id === res.data3.id
               );
-              insertMess.side = 2;
+              guestMessage.side = 2;
 
               if (index > -1) {
-                this.messageList[index] = insertMess;
-              } else this.messageList = [...this.messageList, insertMess];
+                this.messageList[index] = guestMessage;
+              } else this.messageList = [...this.messageList, guestMessage];
             }
           }
         }
@@ -120,7 +130,8 @@ export class BigChatComponent implements OnInit {
   getState(input: number) {
     if (input === 0) return "Đang gửi";
     else if (input === 1) return "Đã gửi";
-    else if (input === 2) return "Thất bại";
+    else if (input === 2) return "Đã gửi";
+    else if (input === 3) return "Thất bại";
     return "";
   }
 
@@ -132,7 +143,7 @@ export class BigChatComponent implements OnInit {
       state: 0,
       content: this.messFb.value.message,
       side: 1,
-      createDate: (new Date()).toISOString()
+      createDate: new Date().toISOString(),
     };
 
     this.isSending = true;
@@ -143,7 +154,7 @@ export class BigChatComponent implements OnInit {
       guestMessage
     );
 
-    this.messageList.push(guestMessage);
+    this.messageList = [...this.messageList, guestMessage];
   }
 
   signalRNotification() {
@@ -180,9 +191,7 @@ export class BigChatComponent implements OnInit {
           console.log(response);
           this.guestConLength = response.count;
 
-          if (this.connectionId.length > 0) {
-            this.getMessageCon();
-          }
+          this.getMessageCon();
         }
       });
   }
@@ -215,6 +224,8 @@ export class BigChatComponent implements OnInit {
                 ...this.guestConHistoryList,
               ];
             }
+
+            this.messageList = this.currentGuestConHis.guestMessages ?? [];
 
             console.log(this.guestConHistoryList);
 

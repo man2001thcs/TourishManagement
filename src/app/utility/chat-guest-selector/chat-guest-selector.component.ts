@@ -36,6 +36,9 @@ export class ChatGuestSelectorComponent implements OnInit {
   @Input()
   guestMessageConHistory!: GuestMessageConHistory;
 
+  @Input()
+  isSelected = false;
+
   lastMessage!: GuestMessage;
   imageList: SaveFile[] = [];
 
@@ -129,7 +132,6 @@ export class ChatGuestSelectorComponent implements OnInit {
     }
     return (timeChanges / 2592000).toFixed(0) + " tháng trước";
   }
-
   getUserName() {
     if (this.guestMessageConHistory.guestMessageCon != null) {
       return this.guestMessageConHistory.guestMessageCon.guestName;

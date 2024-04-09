@@ -15,8 +15,8 @@
             <mat-card-content>{{ content }}</mat-card-content>
           </mat-card>
           <mat-label
-            ><span class="mess-status">{{ getState(state) }} </span> -
-            <span>{{ getTime(sendTime) }}</span></mat-label
+            ><span class="mess-status">{{ getState(state) }} </span>
+            <span *ngIf="state > 0"> - {{ getTime(sendTime) }}</span></mat-label
           >
         </div>
       </ng-template>
@@ -35,11 +35,18 @@
             <mat-card-content>{{ content }}</mat-card-content>
           </mat-card>
           <mat-label
-            ><span class="mess-status">{{ getState(state) }} </span> -
-            <span>{{ getTime(sendTime) }}</span></mat-label
+            ><span class="mess-status">{{ getState(state) }} </span>
+            <span *ngIf="state > 0"> - {{ getTime(sendTime) }}</span></mat-label
           >
         </div>
       </ng-template>
+
+      <h3
+        style="margin-left: 20px; font-weight: bold"
+        *ngIf="messageList.length <= 0"
+      >
+        Nhập nội dung cần gửi
+      </h3>
 
       <ng-container *ngFor="let message of messageList">
         <ng-container
@@ -100,18 +107,30 @@
         />
       </mat-form-field>
 
+      <mat-spinner
+        [diameter]="40"
+        style="margin-left: 10px"
+        *ngIf="this.isSending"
+      ></mat-spinner>
+
+      <button
+        mat-raised-button
+        color="danger"
+        [disabled]="true"
+        *ngIf="!this.isOpen"
+        style="font-size: 12px;"
+      >
+        Đóng
+      </button>
+
       <button
         mat-icon-button
         color="primary"
         aria-label="Example icon button with a home icon"
         (click)="sendMessage()"
-        [disabled]="!this.isOpen || this.isSending"
+        *ngIf="this.isOpen && !this.isSending"
       >
-        <mat-spinner
-          [diameter]="20"
-          *ngIf="!this.isOpen || this.isSending"
-        ></mat-spinner>
-        <mat-icon *ngIf="this.isOpen && !this.isSending">send</mat-icon>
+        <mat-icon>send</mat-icon>
       </button>
     </div>
   </div>
@@ -119,6 +138,7 @@
     <app-chat-guest-selector
       *ngFor="let conHis of guestConHistoryList"
       [guestMessageConHistory]="conHis"
+      [isSelected]="conHis.guestMessageCon.connectionID === connectionId"
     ></app-chat-guest-selector>
   </div>
 </div>

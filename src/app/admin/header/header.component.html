@@ -46,12 +46,7 @@
       <i class="fa fa-search" aria-hidden="true" style="font-size: 15px"></i>
     </button>
 
-    <button
-      mat-button
-      ghost
-      status="primary"
-      [matMenuTriggerFor]="beforeNotifyMenu"
-    >
+    <button mat-button ghost status="primary" (click)="openNotificationNav()">
       <i
         class="fa fa-bell"
         aria-hidden="true"
@@ -63,7 +58,6 @@
       xPosition="before"
       class="notification"
     >
-      <app-notification-pack></app-notification-pack>
     </mat-menu>
 
     <button
@@ -421,9 +415,27 @@
               Danh sách thông báo
             </button>
           </ng-container>
-
         </div>
       </mat-expansion-panel>
     </div>
   </div>
+</div>
+
+<div
+  id="myNotification"
+  #notificationTab
+  class="notification-panel nowrap"
+  (appOutsideClick)="outsideNotificationClick($event)"
+>
+  <div class="title nowrap">
+    <h2 mat-form-label style="font-weight: heavy; margin-bottom: 0 !important">
+      Thông báo
+    </h2>
+    <div class="button-wrap">
+      <button mat-mini-fab color="accent" (click)="closeNotificationNav()">
+        <i class="fa fa-times" aria-hidden="true" style="color: white"></i>
+      </button>
+    </div>
+  </div>
+  <app-notification-pack></app-notification-pack>
 </div>

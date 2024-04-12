@@ -36,6 +36,7 @@ import {
 } from "@tinymce/tinymce-angular";
 import { PickerModule } from "@ctrl/ngx-emoji-mart";
 import { ChatGuestSelectorComponent } from "./utility/chat-guest-selector/chat-guest-selector.component";
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { ChatGuestSelectorComponent } from "./utility/chat-guest-selector/chat-g
     MatDatepickerModule,
     MatProgressSpinnerModule,
     EditorModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSidenavModule
   ],
 
   exports: [
@@ -86,7 +88,8 @@ import { ChatGuestSelectorComponent } from "./utility/chat-guest-selector/chat-g
     MatDatepickerModule,
     TinyMceEditorComponent,
     ChatGuestSelectorComponent,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSidenavModule
   ],
   providers: [
     { provide: TINYMCE_SCRIPT_SRC, useValue: "tinymce/tinymce.min.js" },

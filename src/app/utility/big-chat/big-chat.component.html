@@ -129,6 +129,7 @@
         aria-label="Example icon button with a home icon"
         (click)="sendMessage()"
         *ngIf="this.isOpen && !this.isSending"
+        (keyup.enter)="sendMessage()"
       >
         <mat-icon>send</mat-icon>
       </button>

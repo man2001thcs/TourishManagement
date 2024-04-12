@@ -47,13 +47,6 @@
         </div>
       </ng-template>
 
-      <h3
-        style="margin-left: 11px; font-weight: bold"
-        *ngIf="messageList.length <= 0"
-      >
-        Nhập nội dung cần gửi
-      </h3>
-
       <ng-container *ngFor="let message of messageList" style="width: 100%">
         <ng-container
           *ngIf="message.side == 1"
@@ -102,14 +95,16 @@
 
       <mat-spinner
         [diameter]="20"
-        style="margin-left: 10px;"
         *ngIf="!this.isOpen || this.isSending"
       ></mat-spinner>
 
       <button
         mat-icon-button
         color="primary"
+        aria-label="Example icon button with a home icon"
         (click)="sendMessage()"
+        [disabled]="!this.isOpen || this.isSending"
+        (keyup.enter)="sendMessage()"
         *ngIf="this.isOpen && !this.isSending"
       >
         <mat-icon>send</mat-icon>
@@ -125,7 +120,6 @@
             fullwidth
             placeholder="Vd: Bồ Công Anh"
             formControlName="guestName"
-            [readonly]="isWaitingForSet"
           />
         </mat-form-field>
 
@@ -149,7 +143,6 @@
             fullwidth
             placeholder="Vd: boconganh@gmail.com"
             formControlName="guestEmail"
-            [readonly]="isWaitingForSet"
           />
         </mat-form-field>
 
@@ -172,7 +165,6 @@
             fullwidth
             placeholder="Vd: 123123123"
             formControlName="guestPhoneNumber"
-            [readonly]="isWaitingForSet"
           />
         </mat-form-field>
 
@@ -195,7 +187,7 @@
           style="width: 100%"
           (click)="openSignalRHub()"
         >
-          {{this.isWaitingForSet ? "Vui lòng chờ" : "Yêu cầu tư vấn"}}
+          Nhận tư vấn
         </button>
       </div>
     </div>

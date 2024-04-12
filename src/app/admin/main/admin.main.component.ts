@@ -26,15 +26,15 @@ export class AdminMainComponent {
 
   openNav() {
     this.myNameElem.nativeElement.style["margin-left"] = "340px";
-    this.adminContent.nativeElement.style["padding-left"] = "5%";
-    this.adminContent.nativeElement.style["padding-right"] = "5%";
+    this.adminContent.nativeElement.style["padding-left"] = "3%";
+    this.adminContent.nativeElement.style["padding-right"] = "3%";
     this.isNavOpen = true;
   }
 
   closetNav() {
     this.myNameElem.nativeElement.style["margin-left"] = "80px";
-    this.adminContent.nativeElement.style["padding-left"] = "18%";
-    this.adminContent.nativeElement.style["padding-right"] = "18%";
+    this.adminContent.nativeElement.style["padding-left"] = "12%";
+    this.adminContent.nativeElement.style["padding-right"] = "12%";
     this.isNavOpen = false;
   }
 }

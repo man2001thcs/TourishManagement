@@ -36,6 +36,9 @@ export class HeaderAdminComponent implements OnDestroy {
   @ViewChild("mySidenav")
   myNameElem!: ElementRef;
 
+  @ViewChild("notificationTab")
+  nottifyTabElem!: ElementRef;
+
   @ViewChild("header")
   headerElem!: ElementRef;
 
@@ -48,6 +51,7 @@ export class HeaderAdminComponent implements OnDestroy {
 
   activeItem = "1st";
   isNavOpen = true;
+  isNotifyOpen = false;
   isAutoCompleteOpen = false;
   avatarUrl = environment.backend.blobURL + "/0-container/0_anonymus.png";
 
@@ -57,6 +61,7 @@ export class HeaderAdminComponent implements OnDestroy {
   searchControl = new FormControl("");
 
   countNavClick = 0;
+  countNotifyClick = 0;
   countSearchClick = 0;
   subscriptions: Subscription[] = [];
 
@@ -120,7 +125,15 @@ export class HeaderAdminComponent implements OnDestroy {
     //   this.countNavClick++;
     //   console.log(this.countNavClick);
     //   if (this.countNavClick >= 2) this.closeNav();
-    // }
+    // } 
+  }
+
+  outsideNotificationClick(hasClickedOutside: any) {
+    if (hasClickedOutside && this.isNotifyOpen) {
+      this.countNotifyClick++;
+      console.log(this.countNotifyClick);
+      if (this.countNotifyClick >= 2) this.closeNotificationNav();
+    }
   }
 
   outsideAutoCompleteSearchClick(hasClickedOutside: any) {
@@ -178,6 +191,47 @@ export class HeaderAdminComponent implements OnDestroy {
     this.isNavOpen = false;
     this.countNavClick = 0;
     this.addNewItem(this.isNavOpen);
+  }
+
+  openNotificationNav() {
+    if (window.innerWidth >= 1000) {
+      this.nottifyTabElem.nativeElement.style.width = "360px";
+      this.nottifyTabElem.nativeElement.style["margin-right"] = "0px";
+      this.nottifyTabElem.nativeElement.style["padding-top"] = "0px";
+      this.nottifyTabElem.nativeElement.style["padding-left"] = "0px";
+      this.nottifyTabElem.nativeElement.style["padding-right"] = "0px";
+      this.nottifyTabElem.nativeElement.style["border-bottom"] =
+        "2px solid #EDF1F7";
+      this.nottifyTabElem.nativeElement.style["border-right"] = "2px solid #EDF1F7";
+    } else {
+      this.renderer.setStyle(this.nottifyTabElem.nativeElement, "width", "100%");
+      //this.myNameElem.nativeElement.style.width = "100%";
+      this.nottifyTabElem.nativeElement.style["margin-top"] = "0px";
+      this.nottifyTabElem.nativeElement.style["margin-right"] = "0px";
+      this.nottifyTabElem.nativeElement.style["padding-top"] = "0px";
+      this.nottifyTabElem.nativeElement.style["padding-left"] = "40px";
+      this.nottifyTabElem.nativeElement.style["padding-right"] = "25px";
+      this.nottifyTabElem.nativeElement.style["border-bottom"] =
+        "2px solid #EDF1F7";
+      this.nottifyTabElem.nativeElement.style["border-right"] = "2px solid #EDF1F7";      
+    }
+    
+    this.isNotifyOpen = true;
+  }
+
+  closeNotificationNav() {
+    this.nottifyTabElem.nativeElement.style.width = "0px";
+    this.nottifyTabElem.nativeElement.style["margin-right"] = "0px";
+    this.nottifyTabElem.nativeElement.style["margin-top"] = "0px";
+    this.nottifyTabElem.nativeElement.style["padding-left"] = "0px";
+    this.nottifyTabElem.nativeElement.style["padding-right"] = "0px";
+    this.nottifyTabElem.nativeElement.style["border-bottom"] = "0px solid #EDF1F7";
+    this.nottifyTabElem.nativeElement.style["border-left"] = "0px solid #EDF1F7";
+    this.nottifyTabElem.nativeElement.style["border-right"] = "0px solid #EDF1F7";
+    document.body.style.backgroundColor = "white";
+
+    this.countNotifyClick = 0;
+    this.isNotifyOpen = false;
   }
 
   openAutoCompleteSearch() {

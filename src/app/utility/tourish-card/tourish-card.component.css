@@ -2,6 +2,7 @@
     width: 360px;
     height: fit-content;
     min-height: 420px;    
+    white-space: nowrap;
 }
 
 .example-card:hover {

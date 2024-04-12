@@ -47,6 +47,7 @@ import {
   NgbAlertModule,
   NgbDropdownModule,
   NgbNavModule,
+  NgbOffcanvasModule,
 } from "@ng-bootstrap/ng-bootstrap";
 import { FileUploadComponent } from "src/app/utility/image_service/imageUpload.component";
 import { NbChatModule, NbThemeModule } from "@nebular/theme";
@@ -340,7 +341,7 @@ import { GuestMessageConHistoryListEffects } from "../ChatConHistory/chat_con_hi
     NgbDropdownModule,
     MatProgressSpinnerModule,
     NgbNavModule,
-
+    NgbOffcanvasModule,
     NgbAlertModule,
 
     MatExpansionModule,

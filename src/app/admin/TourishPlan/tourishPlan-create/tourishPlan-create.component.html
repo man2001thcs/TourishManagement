@@ -272,19 +272,19 @@
               </select>
             </mat-form-field>
           </div>
+
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
+            <div style="margin-bottom: 1rem; width: 100%">
+              <tourishCategory-multiselect-autocomplete
+                style="width: 100%"
+                [data_selected]="[]"
+                (result)="selectChangeCategory($event)"
+              >
+              </tourishCategory-multiselect-autocomplete>
+            </div>
+          </div>
         </div>
       </form>
-
-      <div class="row" *ngIf="active === 1" style="padding-right: 40px">
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
-          <tourishCategory-multiselect-autocomplete
-            style="width: 100%"
-            [data_selected]="[]"
-            (result)="selectChangeCategory($event)"
-          >
-          </tourishCategory-multiselect-autocomplete>
-        </div>
-      </div>
 
       <div class="row" *ngIf="active === 1">
         <app-tiny-mce-editor

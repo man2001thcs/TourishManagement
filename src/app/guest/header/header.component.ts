@@ -44,7 +44,7 @@ export class HeaderComponent implements OnInit {
   }
 
   activeItem = "1st";
-  isNavOpen = true;
+  isNavOpen = false;
   isAutoCompleteOpen = false;
 
   filteredInput!: Observable<string | null>;
@@ -124,7 +124,7 @@ export class HeaderComponent implements OnInit {
   }
 
   closeNav() {
-    this.myNameElem.nativeElement.style.width = "80px";
+    this.myNameElem.nativeElement.style.width = "60px";
     this.myNameElem.nativeElement.style["margin-right"] = "0px";
     this.myNameElem.nativeElement.style["margin-top"] = "0px";
     this.myNameElem.nativeElement.style["padding-left"] = "0px";

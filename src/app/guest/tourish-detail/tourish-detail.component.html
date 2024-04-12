@@ -18,14 +18,12 @@
   </div>
 
   <div class="tour-description">
-    <editor
-      #filePickerEditor
-      apiKey="your-api-key"
-      [ngModel]="tourDescription"
-      [init]="this.tinyMceSetting"
-      [disabled]="true"
-      class="mceNonEditable"
-    ></editor>
+    <app-tiny-mce-editor
+      style="width: 90% !important"
+      [blobName]="this.tourishPlanId"
+      [containerName]="'tourish-content-container'"
+      [editable]="false"
+    ></app-tiny-mce-editor>
   </div>
 
   <div class="tour-description">
@@ -57,131 +55,135 @@
     </ul>
   </div>
 
-  <div *ngIf="active == 1 && tourishPlan?.eatSchedules != undefined" class="schedule-description">
-    <editor
+  <div
+    *ngIf="active == 1 && tourishPlan?.eatSchedules != undefined"
+    class="schedule-description"
+  >
+    <app-tiny-mce-editor
       *ngFor="let eatSchedule of tourishPlan?.eatSchedules"
-      [disabled]="true"
-      #filePickerEditor
-      apiKey="your-api-key"
-      [ngModel]="eatSchedule.description"
-      [init]="this.tinyMceSetting"
-    ></editor>
+      [blobName]="this.eatSchedule.id ?? ''"
+      [containerName]="'eatschedule-content-container'"
+      [editable]="false"
+    ></app-tiny-mce-editor>
   </div>
 
   <div *ngIf="active == 2 && tourishPlan?.movingSchedules != undefined">
-    <editor
-      *ngFor="let movingSchedule of tourishPlan?.movingSchedules"
-      [disabled]="true"
-      #filePickerEditor
-      apiKey="your-api-key"
-      [ngModel]="movingSchedule.description"
-      [init]="this.tinyMceSetting"
-    ></editor>
+    <app-tiny-mce-editor
+      *ngFor="let eatSchedule of tourishPlan?.movingSchedules"
+      [blobName]="this.eatSchedule.id ?? ''"
+      [containerName]="'movingschedule-content-container'"
+      [editable]="false"
+    ></app-tiny-mce-editor>
   </div>
 
   <div *ngIf="active == 3 && tourishPlan?.stayingSchedules != undefined">
-    <editor
-      *ngFor="let stayingSchedule of tourishPlan?.stayingSchedules"
-      [disabled]="true"
-      #filePickerEditor
-      apiKey="your-api-key"
-      [ngModel]="stayingSchedule.description"
-      [init]="this.tinyMceSetting"
-    ></editor>
+    <app-tiny-mce-editor
+      *ngFor="let eatSchedule of tourishPlan?.stayingSchedules"
+      [blobName]="this.eatSchedule.id ?? ''"
+      [containerName]="'stayingschedule-content-container'"
+      [editable]="false"
+    ></app-tiny-mce-editor>
   </div>
 
   <div class="tour-description">
-    <div
-      class="row"
-      [formGroup]="setTourForm"
-      style="height: fit-content !important"
-    >
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form">
-        <h4 class="tour-name">Đặt vé ngay</h4>
-      </div>
-      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 create-form">
-        <mat-form-field appearance="outline" class="full-width-input">
-          <mat-label>Họ & tên</mat-label>
-          <input
-            matInput
-            fullwidth
-            placeholder="Vd: Bồ Công Anh"
-            formControlName="name"
-          />
-        </mat-form-field>
-        <app-validation
-          *ngIf="isSubmit"
-          [formGroup]="setTourForm"
-          [formGroupControlName]="'name'"
-        ></app-validation>
-      </div>
+    <div class="register-container">
+      <div
+        class="row tour-register"
+        [formGroup]="setTourForm"
+        style="height: fit-content !important"
+      >
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form">
+          <h4 class="tour-name">Đặt vé ngay</h4>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 create-form">
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Họ & tên</mat-label>
+            <input
+              matInput
+              fullwidth
+              placeholder="Vd: Bồ Công Anh"
+              formControlName="name"
+            />
+          </mat-form-field>
+          <app-validation
+            *ngIf="isSubmit"
+            [formGroup]="setTourForm"
+            [formGroupControlName]="'name'"
+          ></app-validation>
+        </div>
 
-      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 create-form">
-        <mat-form-field appearance="outline" class="full-width-input">
-          <mat-label>Địa chỉ</mat-label>
-          <input
-            matInput
-            fullwidth
-            placeholder="Vd: Bồ Công Anh"
-            formControlName="address"
-          />
-        </mat-form-field>
-        <app-validation
-          *ngIf="isSubmit"
-          [formGroup]="setTourForm"
-          [formGroupControlName]="'address'"
-        ></app-validation>
-      </div>
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 create-form">
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Địa chỉ</mat-label>
+            <input
+              matInput
+              fullwidth
+              placeholder="Vd: Bồ Công Anh"
+              formControlName="address"
+            />
+          </mat-form-field>
+          <app-validation
+            *ngIf="isSubmit"
+            [formGroup]="setTourForm"
+            [formGroupControlName]="'address'"
+          ></app-validation>
+        </div>
 
-      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 create-form">
-        <mat-form-field appearance="outline" class="full-width-input">
-          <mat-label>Email</mat-label>
-          <input
-            matInput
-            fullwidth
-            placeholder="Vd: Bồ Công Anh"
-            formControlName="email"
-          />
-        </mat-form-field>
-        <app-validation
-          *ngIf="isSubmit"
-          [formGroup]="setTourForm"
-          [formGroupControlName]="'email'"
-        ></app-validation>
-      </div>
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 create-form">
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Email</mat-label>
+            <input
+              matInput
+              fullwidth
+              placeholder="Vd: Bồ Công Anh"
+              formControlName="email"
+            />
+          </mat-form-field>
+          <app-validation
+            *ngIf="isSubmit"
+            [formGroup]="setTourForm"
+            [formGroupControlName]="'email'"
+          ></app-validation>
+        </div>
 
-      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 create-form">
-        <mat-form-field appearance="outline" class="full-width-input">
-          <mat-label>Sđt liên lạc</mat-label>
-          <input
-            matInput
-            fullwidth
-            placeholder="Vd: 123456789"
-            formControlName="phoneNumber"
-          />
-        </mat-form-field>
-        <app-validation
-          *ngIf="isSubmit"
-          [formGroup]="setTourForm"
-          [formGroupControlName]="'phoneNumber'"
-        ></app-validation>
-      </div>
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 create-form">
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Sđt liên lạc</mat-label>
+            <input
+              matInput
+              fullwidth
+              placeholder="Vd: 123456789"
+              formControlName="phoneNumber"
+            />
+          </mat-form-field>
+          <app-validation
+            *ngIf="isSubmit"
+            [formGroup]="setTourForm"
+            [formGroupControlName]="'phoneNumber'"
+          ></app-validation>
+        </div>
 
-      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 create-form">
-        <mat-form-field appearance="outline" class="full-width-input">
-          <mat-label>Số vé</mat-label>
-          <input
-            matInput
-            fullwidth
-            placeholder="Vd: 2"
-            formControlName="totalTicket"
-          />
-        </mat-form-field>
-        <app-validation
-          *ngIf="isSubmit"
-          [formGroup]="setTourForm"
-          [formGroupControlName]="'totalTicket'"
-        ></app-validation>
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 create-form">
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Số vé</mat-label>
+            <input
+              matInput
+              fullwidth
+              placeholder="Vd: 2"
+              formControlName="totalTicket"
+            />
+          </mat-form-field>
+          <app-validation
+            *ngIf="isSubmit"
+            [formGroup]="setTourForm"
+            [formGroupControlName]="'totalTicket'"
+          ></app-validation>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form">
+          <button mat-flat-button color="primary" style="width: 100%;">Gửi</button>
+        </div>
+
       </div>
     </div>
   </div>

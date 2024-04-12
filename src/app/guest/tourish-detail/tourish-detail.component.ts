@@ -228,7 +228,7 @@ export class TourishDetailComponent implements OnInit {
       this.slides = [
         ...this.slides,
         {
-          url: environment.backend.blobURL + "1-container/" +
+          url: environment.backend.blobURL + "/1-container/" +
             "1" +
             "_" +
             saveFile.id +

@@ -40,6 +40,12 @@
   margin-right: 10px;
 }
 
+.page-info-container .page-info .page-info-image img{
+
+  width: 50px;
+  height: 50px;
+}
+
 .page-info-container .page-info .page-info-image i {
   font-size: 40px !important;
 }

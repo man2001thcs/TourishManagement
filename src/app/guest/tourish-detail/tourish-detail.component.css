@@ -18,7 +18,6 @@
 }
 
 :host ::ng-deep .schedule-description .tox-tinymce {
-
   border-radius: 0 !important;
   border: none !important;
 }
@@ -49,13 +48,40 @@
 
 .full-width-input {
   width: 100%;
+  margin-bottom: 25px !important;
 }
 
 ul li button {
   font-size: 20px !important;
 }
 
-.html-show-container{
+.html-show-container {
   height: fit-content;
   overflow-x: auto;
+}
+
+.mce-content-body img {
+  width: 100%;
+}
+
+.tour-register {
+  width: 70%;
+  background-color: white;
+  padding: 20px 30px 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.register-container {
+  /* background-image: src("./../../../assets/background-main.jpg"); */
+  min-height: 400px;
+  height: fit-content;
+  width: 100%;
+  background-image: url("https://bookstore1storage.blob.core.windows.net/0-container/register-background.jpg");
+  background-size: cover; /* This property ensures that the background image covers the entire element */
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }

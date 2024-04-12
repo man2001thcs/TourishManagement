@@ -3,6 +3,6 @@
   #filePickerEditor
   [(ngModel)]="editorContent"
   (ngModelChange)="emitAdjustedData()"
-  [init]="this.tinyMceSetting"
+  [init]="editable ? this.tinyMceSetting : this.tinyMceSettingShow"
 ></editor>
 <input type="file" style="visibility: hidden" />

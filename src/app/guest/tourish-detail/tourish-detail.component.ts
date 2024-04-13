@@ -15,6 +15,7 @@ import { NgbCarouselConfig } from "@ng-bootstrap/ng-bootstrap";
 import { EditorComponent } from "@tinymce/tinymce-angular";
 import { Slider } from "angular-carousel-slider/lib/angular-carousel-slider.component";
 import { SaveFile, TourishPlan } from "src/app/model/baseModel";
+import { MessageService } from "src/app/utility/user_service/message.service";
 import { environment } from "src/environments/environment";
 declare let tinymce: any;
 
@@ -48,6 +49,7 @@ export class TourishDetailComponent implements OnInit {
     private http: HttpClient,
     private sanitizer: DomSanitizer,
     private rendered2: Renderer2,
+    private messageService: MessageService,
     private elementRef: ElementRef
   ) {}
 
@@ -81,13 +83,13 @@ export class TourishDetailComponent implements OnInit {
       toolbar: false,
       menubar: false,
       statusbar: false,
-    
+
       readonly: 1,
 
       setup: (editor: any) => {
-        editor.on('init', () => {
+        editor.on("init", () => {
           // Get content from TinyMCE and append it to the specified div
-          editor.getBody().setAttribute('contenteditable', 'false');
+          editor.getBody().setAttribute("contenteditable", "false");
         });
       },
 
@@ -126,7 +128,7 @@ export class TourishDetailComponent implements OnInit {
         Terminal=terminal,monaco; Times New Roman=times new roman,times; \
         Trebuchet MS=trebuchet ms,geneva; Verdana=verdana,geneva; Webdings=webdings; \
         Wingdings=wingdings,zapf dingbats",
-     
+
       // eslint-disable-next-line
       image_title: true,
       // eslint-disable-next-line
@@ -228,7 +230,9 @@ export class TourishDetailComponent implements OnInit {
       this.slides = [
         ...this.slides,
         {
-          url: environment.backend.blobURL + "/1-container/" +
+          url:
+            environment.backend.blobURL +
+            "/1-container/" +
             "1" +
             "_" +
             saveFile.id +
@@ -238,5 +242,24 @@ export class TourishDetailComponent implements OnInit {
         },
       ];
     });
+  }
+
+  register() {
+    const payload = {
+      guestName: this.setTourForm.value.name,
+      guestEmail: this.setTourForm.value.email,
+      guestPhoneNumber: this.setTourForm.value.phoneNumber,
+      totalTicket: this.setTourForm.value.totalTicket,
+    };
+
+    this.messageService.openLoadingDialog();
+    this.http
+      .post("/api/AddReceipt/client", payload)
+      .subscribe((response: any) => {
+        if (response) {
+          this.messageService.closeAllDialog();
+          this.messageService.openMessageNotifyDialog(response.messageCode);
+        }
+      });
   }
 }

@@ -186,8 +186,9 @@
           color="primary"
           style="width: 100%"
           (click)="openSignalRHub()"
+          [disabled]="isWaitingForSet"
         >
-          Nhận tư vấn
+          {{ isWaitingForSet ? "Vui lòng chờ" : "Nhận tư vấn" }}
         </button>
       </div>
     </div>

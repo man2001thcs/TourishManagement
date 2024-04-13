@@ -196,6 +196,17 @@ export interface TourishPlan {
   movingSchedules?: MovingSchedule[];
 }
 
+export interface TourishComment {
+  id: string;
+  userId: string;
+  userName: string;
+  tourishPlanId: string;
+  content?: string;
+  createDate: Date;
+  updateDate: Date;
+}
+
+
 export interface TotalReceipt {
   totalReceiptId?: string;
   tourishPlanId: string;

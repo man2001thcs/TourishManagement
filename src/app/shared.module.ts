@@ -37,6 +37,9 @@ import {
 import { PickerModule } from "@ctrl/ngx-emoji-mart";
 import { ChatGuestSelectorComponent } from "./utility/chat-guest-selector/chat-guest-selector.component";
 import {MatSidenavModule} from '@angular/material/sidenav';
+import { CommentSectionComponent } from "./utility/comment-section/comment-section.component";
+import { MatButtonModule } from "@angular/material/button";
+import { CommentTourSingleComponent } from "./utility/comment-tour-single/comment-tour-single.component";
 
 @NgModule({
   declarations: [
@@ -48,6 +51,8 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     NotificationSingleComponent,
     TinyMceEditorComponent,
     ChatGuestSelectorComponent,
+    CommentSectionComponent,
+    CommentTourSingleComponent
   ],
   imports: [
     PickerModule,
@@ -56,6 +61,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     NgbNavModule,
     FormsModule,
     MatInputModule,
+    MatButtonModule,
     CarouselSlider,
     FontAwesomeModule,
     NgxMatDatetimePickerModule,
@@ -89,7 +95,9 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     TinyMceEditorComponent,
     ChatGuestSelectorComponent,
     MatProgressSpinnerModule,
-    MatSidenavModule
+    MatSidenavModule,
+    CommentSectionComponent,
+    CommentTourSingleComponent
   ],
   providers: [
     { provide: TINYMCE_SCRIPT_SRC, useValue: "tinymce/tinymce.min.js" },

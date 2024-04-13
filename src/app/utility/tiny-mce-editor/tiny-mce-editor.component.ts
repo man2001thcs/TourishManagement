@@ -22,7 +22,9 @@ export class TinyMceEditorComponent implements OnInit {
 
   tinyMceSetting: any;
   tinyMceSettingShow: any;
-  editorContent = "";
+  editorContent =
+    "Bạn có biết 'Kẻ thứ 3 trên giường' mà rất nhiều cặp đôi đang gặp phải không? Xem ngay video mới nhất từ Cởi Mở để Minh Trang và Phương Nam giải đáp nhá. \n" +
+    "Durex tự hào đồng hành cùng Vietcetera trong hành trình Cởi_Mở và khám phá bản thân. ";
 
   color: ThemePalette = "primary";
 
@@ -139,7 +141,8 @@ export class TinyMceEditorComponent implements OnInit {
       toolbar: false,
       menubar: false,
       statusbar: false,
-
+      resize: 'both',
+      autoresize_bottom_margin: 0,
       readonly: 1,
 
       setup: (editor: any) => {
@@ -254,7 +257,6 @@ export class TinyMceEditorComponent implements OnInit {
         .get("/api/GetTourishPlanDescription", { params: payload })
         .subscribe((state: any) => {
           if (state) {
-            console.log("abc: ", state);
             this.editorContent = state.data;
             this.emitAdjustedData();
           }

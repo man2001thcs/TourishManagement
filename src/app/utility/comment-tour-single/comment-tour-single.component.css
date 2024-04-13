@@ -1,0 +1,55 @@
+.single-comment {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  padding: 0 10px 0;
+}
+
+.single-comment:hover{
+
+}
+
+.single-comment .content {
+  display: flex;
+  flex-direction: row;
+}
+
+.single-comment .content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.single-comment .content .content-description {
+  display: flex;
+  flex-direction: row;
+}
+
+.single-comment .content .content-description span {
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.single-comment .time {
+  display: flex;
+  flex-direction: row;
+  align-self: flex-end;
+}
+
+.single-comment .time span {
+  font-weight: lighter;
+  font-size: 14px;
+}
+
+.single-comment .image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 16px;
+  width: 60px;
+}
+
+.single-comment .image img {
+  height: 55px;
+  width: 55px;
+}

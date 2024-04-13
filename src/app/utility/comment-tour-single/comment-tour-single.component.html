@@ -1,0 +1,25 @@
+<div class="single-comment">
+  <div class="image">
+    <img
+      src="{{ avatarLink }}"
+      alt="Avatar"
+      class="avatar"
+      style="border-radius: 50%"
+    />
+    <span style="font-weight: bold; text-wrap: break-word;">{{ senderName }}</span>
+  </div>
+
+  <div class="content">
+    <div class="content-description">
+      <app-tiny-mce-editor
+        [blobName]="''"
+        [containerName]="''"
+        [editable]="false"
+        style="width: 100%; height: fit-content;"
+      ></app-tiny-mce-editor>
+    </div>
+    <div class="time">
+      <span>{{ getTime(sendTime) }}</span>
+    </div>
+  </div>
+</div>

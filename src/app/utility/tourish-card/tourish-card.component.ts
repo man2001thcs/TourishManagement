@@ -47,4 +47,12 @@ export class TourishPlanCardComponent {
   navigateToDetail(): void {
     this.router.navigate(["guest/tour/" + this.id + "/detail"]);
   }
+
+  getTourName(inputString: string) {
+    if (inputString.length <= 32) {
+      return inputString;
+    } else {
+      return inputString.substring(0, 32) + "...";
+    }
+  }
 }

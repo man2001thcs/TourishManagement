@@ -1,0 +1,40 @@
+<div class="pack-container" id="pack-container" #packContainer>
+  <div class="title">
+    <h4 class="tour-name">Bình luận</h4>
+  </div>
+  <div class="comment-pack">
+    <button
+      mat-stroked-button
+      style="
+        color: rgb(4, 201, 201);
+        font-size: 16px;
+        align-self: start !important;
+      "
+      (click)="sendComment()"
+      [disabled]="isSending"
+    >
+      Gửi
+    </button>
+    <app-tiny-mce-editor
+      [blobName]="''"
+      [containerName]="''"
+      (result)="getTinyMceResult($event)"
+      style="width: 100%; z-index: 0"
+    ></app-tiny-mce-editor>
+  </div>
+
+  <div class="comment-list">
+    <app-comment-tour-single style="width: 100%;" [content]="'123'" [userId]="'597e0d84-46c4-4ed7-a82d-e8204105379b'" [senderName]="'Heller'" [sendTime]="'2024-03-16 15:52:33.2618414'"/>
+  </div>
+
+  <div class="comment-button">
+    <button
+      mat-stroked-button
+      style="color: rgb(4, 201, 201); font-size: 16px"
+      (click)="getTourComment()"
+      [disabled]="isLoading"
+    >
+      Xem thêm
+    </button>
+  </div>
+</div>

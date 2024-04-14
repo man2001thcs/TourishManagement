@@ -252,7 +252,6 @@ import { reducer as NotificationDetailReducer } from "../notification/notificati
 import { NotificationCreateEffects } from "../notification/notification_create/notification-create.store.effect";
 import { NotificationEffects } from "../notification/notification_detail/notification-detail.store.effect";
 import { NotificationListEffects } from "../notification/notification_list/notification-list.store.effect";
-import { NotificationPackComponent } from "src/app/utility/notification-pack/notification-pack.component";
 import { AvatarUploadComponent } from "src/app/utility/image_avatar_service/imageUpload.component";
 import { BigChatComponent } from "src/app/utility/big-chat/big-chat.component";
 import { GuestMessageConHistoryListComponent } from "../ChatConHistory/chat_con_his_list/chat_con_his_list.component";
@@ -314,7 +313,6 @@ import { GuestMessageConHistoryListEffects } from "../ChatConHistory/chat_con_hi
     TourishPlanMultiselectAutocompleteComponent,
     TourishCategoryMultiselectAutocompleteComponent,
     UserMultiselectAutocompleteComponent,
-    NotificationPackComponent,
     FileUploadComponent,
     BigChatComponent,
     OptionsScrollDirective,

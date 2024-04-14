@@ -244,6 +244,26 @@ export class TourishDetailComponent implements OnInit {
     });
   }
 
+  getTotalPrice(): number {
+    let totalPrice = 0;
+
+    if (this.tourishPlan) {
+      this.tourishPlan.stayingSchedules?.forEach((entity) => {
+        totalPrice += entity.singlePrice ?? 0;
+      });
+
+      this.tourishPlan.eatSchedules?.forEach((entity) => {
+        totalPrice += entity.singlePrice ?? 0;
+      });
+
+      this.tourishPlan.movingSchedules?.forEach((entity) => {
+        totalPrice += entity.singlePrice ?? 0;
+      });
+    }
+
+    return totalPrice;
+  }
+
   register() {
     const payload = {
       guestName: this.setTourForm.value.name,

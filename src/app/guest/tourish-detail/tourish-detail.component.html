@@ -33,56 +33,170 @@
   </div>
 
   <div class="tour-description">
-    <ul
-      ngbNav
-      #nav="ngbNav"
-      [(activeId)]="active"
-      class="nav-tabs"
-      style="margin-bottom: 20px"
-    >
-      <li [ngbNavItem]="1">
-        <button ngbNavLink>Lịch trình ăn uống</button>
-        <ng-template ngbNavContent> </ng-template>
-      </li>
-      <li [ngbNavItem]="2">
-        <button ngbNavLink>Lịch trình di chuyển</button>
-        <ng-template ngbNavContent> </ng-template>
-      </li>
-      <li [ngbNavItem]="3">
-        <button ngbNavLink>Lịch trình nơi ở</button>
-        <ng-template ngbNavContent> </ng-template>
-      </li>
-    </ul>
+    <mat-tab-group>
+      <mat-tab label="Lịch trình ăn uống">
+        <ng-template matTabContent>
+          <div
+            *ngIf="tourishPlan?.eatSchedules != undefined"
+            class="schedule-description"
+          >
+            <app-tiny-mce-editor
+              *ngFor="let eatSchedule of tourishPlan?.eatSchedules"
+              [blobName]="this.eatSchedule.id ?? ''"
+              [containerName]="'eatschedule-content-container'"
+              [editable]="false"
+            ></app-tiny-mce-editor>
+          </div>
+        </ng-template>
+      </mat-tab>
+
+      <mat-tab label="Lịch trình di chuyển">
+        <ng-template matTabContent>
+          <div *ngIf="tourishPlan?.movingSchedules != undefined">
+            <app-tiny-mce-editor
+              *ngFor="let eatSchedule of tourishPlan?.movingSchedules"
+              [blobName]="this.eatSchedule.id ?? ''"
+              [containerName]="'movingschedule-content-container'"
+              [editable]="false"
+            ></app-tiny-mce-editor>
+          </div>
+        </ng-template>
+      </mat-tab>
+
+      <mat-tab label="Lịch trình nơi ở">
+        <ng-template matTabContent>
+          <div *ngIf="tourishPlan?.stayingSchedules != undefined">
+            <app-tiny-mce-editor
+              *ngFor="let eatSchedule of tourishPlan?.stayingSchedules"
+              [blobName]="this.eatSchedule.id ?? ''"
+              [containerName]="'stayingschedule-content-container'"
+              [editable]="false"
+            ></app-tiny-mce-editor></div
+        ></ng-template>
+      </mat-tab>
+    </mat-tab-group>
   </div>
 
-  <div
-    *ngIf="active == 1 && tourishPlan?.eatSchedules != undefined"
-    class="schedule-description"
-  >
-    <app-tiny-mce-editor
-      *ngFor="let eatSchedule of tourishPlan?.eatSchedules"
-      [blobName]="this.eatSchedule.id ?? ''"
-      [containerName]="'eatschedule-content-container'"
-      [editable]="false"
-    ></app-tiny-mce-editor>
-  </div>
-
-  <div *ngIf="active == 2 && tourishPlan?.movingSchedules != undefined">
-    <app-tiny-mce-editor
-      *ngFor="let eatSchedule of tourishPlan?.movingSchedules"
-      [blobName]="this.eatSchedule.id ?? ''"
-      [containerName]="'movingschedule-content-container'"
-      [editable]="false"
-    ></app-tiny-mce-editor>
-  </div>
-
-  <div *ngIf="active == 3 && tourishPlan?.stayingSchedules != undefined">
-    <app-tiny-mce-editor
-      *ngFor="let eatSchedule of tourishPlan?.stayingSchedules"
-      [blobName]="this.eatSchedule.id ?? ''"
-      [containerName]="'stayingschedule-content-container'"
-      [editable]="false"
-    ></app-tiny-mce-editor>
+  <div class="tour-description">
+    <div class="title">
+      <h4 class="tour-name">Chi tiết giá</h4>
+    </div>
+    <mat-tab-group>
+      <mat-tab label="Giá bao gồm">
+        <div class="price-container">
+          <p>
+            <span style="font-weight: bold">Tổng giá:</span>
+            {{ getTotalPrice() }}. Dịch vụ bao gồm:
+          </p>
+          <h3 *ngIf="(tourishPlan?.eatSchedules ?? []).length > 0">
+            Dịch vụ ăn uống
+          </h3>
+          <mat-list>
+            <mat-list-item
+              *ngFor="let schedule of tourishPlan?.eatSchedules ?? []"
+            >
+              <span matListItemTitle
+                >Tên nhà hàng: {{ schedule.placeName }}</span
+              >
+              <span matListItemLine
+                >Ngày bắt đầu: {{ schedule.startDate }}</span
+              >
+              <span matListItemLine>Giá cả: {{ schedule.singlePrice }}</span>
+            </mat-list-item>
+          </mat-list>
+          <h3 *ngIf="(tourishPlan?.movingSchedules ?? []).length > 0">
+            Dịch vụ di chuyển
+          </h3>
+          <mat-list>
+            <mat-list-item
+              *ngFor="let schedule of tourishPlan?.movingSchedules ?? []"
+            >
+              <span matListItemTitle>Dịch vụ: {{ schedule.branchName }}</span>
+              <span matListItemLine
+                >Ngày bắt đầu: {{ schedule.startDate }}</span
+              >
+              <span matListItemLine>Giá cả: {{ schedule.singlePrice }}</span>
+            </mat-list-item>
+          </mat-list>
+          <h3 *ngIf="(tourishPlan?.stayingSchedules ?? []).length > 0">
+            Dịch vụ ăn ở
+          </h3>
+          <mat-list>
+            <mat-list-item
+              *ngFor="let schedule of tourishPlan?.stayingSchedules ?? []"
+            >
+              <span matListItemTitle
+                >Tên nhà hàng: {{ schedule.placeName }}</span
+              >
+              <span matListItemLine
+                >Ngày bắt đầu: {{ schedule.startDate }}</span
+              >
+              <span matListItemLine>Giá cả: {{ schedule.singlePrice }}</span>
+            </mat-list-item>
+          </mat-list>
+        </div>
+      </mat-tab>
+      <mat-tab label="Giá không bao gồm">
+        <div class="price-container">
+          <p>
+            - Hộ chiếu phải còn thời hạn sử dụng trên 6 tháng, Tính từ ngày khởi
+            hành đi và về.
+          </p>
+          <p>
+            - Hành lý quá cước qui định. Xe vận chuyển ngoài chương trình + Các
+            show về đêm.
+          </p>
+          <p>
+            - Điện thoại, giặt ủi, nước uống trong phòng khách sạn và các chi
+            phí cá nhân khác.
+          </p>
+          <p>- Phí bồi dưỡng cho hướng dẫn viên 125.000VND/Ngày/Khách.</p>
+        </div></mat-tab
+      >
+      <mat-tab label="Lưu ý">
+        <div class="price-container">
+          <p>- Tour du lịch thuần túy, Quý khách vui lòng không rời đoàn.</p>
+          <p>
+            - Du khách Việt Kiều hoặc nước ngoài phải có visa tái nhập nhiều lần
+            hoặc miễn thị thực 5 năm và mang theo khi tham gia tour.
+          </p>
+          <p>
+            - Trẻ em dưới 16 tuổi phải có bố mẹ đi cùng hoặc người được uỷ quyền
+            có giấy uỷ quyền từ bố mẹ.
+          </p>
+          <p>
+            - Hộ chiếu phải mang theo bản gốc hợp lệ không bị rạn, phai mờ, và
+            còn thời hạn sử dụng trên 6 tháng (tính từ ngày khởi hành).
+          </p>
+          <p>
+            - Không sử dụng thẻ xanh. Nếu sử dụng Sổ Du lịch (yêu cầu visa nước
+            nhập cảnh), vui lòng thông báo cho nhân viên nhận tour nếu Quý khách
+            sử dụng các hồ sơ khác ngoài hộ chiếu.
+          </p>
+          <p>
+            - Công ty du lịch không chịu trách nhiệm nếu Quý khách bị từ chối
+            nhập cảnh với bất kỳ lý do nào từ hải quan nước ngoài.
+          </p>
+          <p>
+            - Công ty được phép thay đổi lịch trình chuyến đi và sử dụng các
+            hãng hàng không thay thế, nhưng vẫn đảm bảo tham quan đầy đủ các
+            điểm theo chương trình.
+          </p>
+          <p>
+            - Thứ tự điểm tham quan và lộ trình có thể thay đổi tùy theo tình
+            hình thực tế, nhưng vẫn đảm bảo đầy đủ các điểm tham quan như ban
+            đầu.
+          </p>
+          <p>
+            - Trong trường hợp bất khả kháng như khủng bố, thiên tai hoặc thay
+            đổi lịch trình của phương tiện công cộng (máy bay, tàu hỏa...), Công
+            ty du lịch giữ quyền điều chỉnh lộ trình tour cho phù hợp và an toàn
+            cho khách hàng, mà không phải chịu trách nhiệm bồi thường thiệt hại
+            phát sinh.
+          </p>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
   </div>
 
   <div class="tour-description">
@@ -181,14 +295,15 @@
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form">
-          <button mat-flat-button color="primary" style="width: 100%;">Gửi</button>
+          <button mat-flat-button color="primary" style="width: 100%">
+            Gửi
+          </button>
         </div>
-
       </div>
     </div>
   </div>
 
   <div class="tour-description">
-    <app-comment-section></app-comment-section>
+    <app-comment-section [tourishPlanId]="tourishPlanId"></app-comment-section>
   </div>
 </div>

@@ -1,5 +1,10 @@
-<div>
-  <app-notification-single *ngFor="let notification of notificationList" [notification]="notification">
+<div class="notify-pack" #notifyPack>
+  <app-notification-single
+    #singleNotify
+    *ngFor="let notification of notificationList"
+    [notification]="notification"
+    [ngStyle]="{width: signleNotifyWidth}"
+  >
   </app-notification-single>
 
   <div

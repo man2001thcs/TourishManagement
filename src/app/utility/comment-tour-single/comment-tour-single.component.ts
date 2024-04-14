@@ -26,7 +26,9 @@ export class CommentTourSingleComponent implements OnInit {
   @Input()
   sendTime: string = "";
   @Input()
-  content: string = "";
+  blobContainerName: string = "";
+  @Input()
+  blobName: string = "";
   @Input()
   userId: string = "";
 

@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes, CanLoad } from '@angular/router';
-import { CanLoadGuardAdmin } from './admin/guard/can-load.guard';
 import { isAdminGuard } from './admin/guard/can-load.guard';
 import { isGuestGuard } from './guest/guard/can-load-guest.guard';
+import { isUserGuard } from './user/guard/can-load.guard';
 
 const routes: Routes = [
   {
@@ -22,7 +22,14 @@ const routes: Routes = [
     loadChildren: () =>
       import('./admin/admin.module/admin.module').then((m) => m.AdminModule),
     canLoad: [isAdminGuard],
-    data :{permittedRoles:['Staff', 'Admin']}
+    data :{permittedRoles:['Admin']}
+  },
+  {
+    path: 'user',
+    loadChildren: () =>
+      import('./user/user.module/user.module').then((m) => m.UserModule),
+    canLoad: [isUserGuard],
+    data :{permittedRoles:['User']}
   },
 ];
 

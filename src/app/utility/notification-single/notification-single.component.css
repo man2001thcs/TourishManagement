@@ -3,6 +3,8 @@
   flex-direction: row;
   align-items: center;
   padding: 5px 20px 2px;
+  width: 100%;
+  flex-wrap: nowrap;
 }
 
 .image img {
@@ -36,7 +38,8 @@
 .single-notification .content .content-description span {
   font-weight: 500;
   font-size: 16px;
-  text-wrap: nowrap;
+  word-wrap: break-word;
+  min-width: 250px;
 }
 
 .single-notification .time {

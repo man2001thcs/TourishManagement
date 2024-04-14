@@ -33,8 +33,12 @@ export class NotificationPackComponent implements OnInit {
   @Input()
   description: string = "Tìm Về Chốn Thiêng, Lòng Người An Bình";
 
+  @ViewChild("singleNotify") singleNotifyContainer!: ElementRef;
+  @ViewChild("notifyPack") notifyPackContainer!: ElementRef;
+
   active = 1;
   avatarUrl = environment.backend.blobURL + "/0-container/0_anonymus.png";
+  signleNotifyWidth = "350px";
 
   setTourForm!: FormGroup;
   isSubmit = false;
@@ -97,6 +101,18 @@ export class NotificationPackComponent implements OnInit {
         }
       )
     );
+  }
+
+  ngAfterViewInit(): void {
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        this.adjustSize();
+      }
+    });
+
+    // Observe the childDiv element for size changes
+    resizeObserver.observe(this.notifyPackContainer.nativeElement);
+    this.adjustSize();
   }
 
   signalRNotification() {
@@ -237,5 +253,18 @@ export class NotificationPackComponent implements OnInit {
     messaging.onMessage((incomingMessage) => {
       console.log(incomingMessage);
     });
-  } 
+  }
+
+  adjustSize() {
+    let childWidth = parseInt(
+      this.notifyPackContainer.nativeElement.offsetWidth,
+      0
+    );
+
+    if (childWidth >= 1000) {
+      this.signleNotifyWidth = "350px";
+    } else {
+      this.signleNotifyWidth = "100%";
+    }
+  }
 }

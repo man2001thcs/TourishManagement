@@ -60,9 +60,11 @@ import { NgImageSliderModule } from "ng-image-slider";
 import { CarouselSlider } from "angular-carousel-slider";
 import { TourishMainComponent } from "../tourish-main/tourish-main.component";
 import { TourishPackComponent } from "src/app/utility/tourish-pack/tourish-pack.component";
-import { EditorComponent, EditorModule, TINYMCE_SCRIPT_SRC } from "@tinymce/tinymce-angular";
-
-
+import {
+  EditorComponent,
+  EditorModule,
+  TINYMCE_SCRIPT_SRC,
+} from "@tinymce/tinymce-angular";
 
 @NgModule({
   declarations: [
@@ -71,13 +73,7 @@ import { EditorComponent, EditorModule, TINYMCE_SCRIPT_SRC } from "@tinymce/tiny
     HeaderComponent,
     HomeComponent,
     UserCreateComponent,
-    ChatComponent,
-    TourishPlanCardComponent,
-    TourishDetailComponent,
-    TourishMainComponent,
-    TourishPackComponent,
     nl2brPipe,
-   
   ],
   imports: [
     CommonModule,
@@ -85,22 +81,6 @@ import { EditorComponent, EditorModule, TINYMCE_SCRIPT_SRC } from "@tinymce/tiny
     SharedModule,
     GuestRouterModule,
     MatExpansionModule,
-    MatListModule,
-    MatInputModule,
-    MatTableModule,
-    MatMenuModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatListModule,
-    ReactiveFormsModule,
-    MatDialogModule,
-    MatAutocompleteModule,
-    MatRadioModule,
-    MatChipsModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatButtonModule,
-    MatCardModule,
     NgbDropdownModule,
     NgImageSliderModule,
     HttpClientModule,
@@ -113,9 +93,21 @@ import { EditorComponent, EditorModule, TINYMCE_SCRIPT_SRC } from "@tinymce/tiny
     EffectsModule.forFeature([LoginEffects]),
     EffectsModule.forFeature([UserCreateEffects]),
   ],
-  exports: [RouterModule],
+  exports: [
+    RouterModule,
+    LoginComponent,
+    HeaderComponent,
+    HomeComponent,
+    UserCreateComponent,
+    ChatComponent,
+    TourishPlanCardComponent,
+    TourishDetailComponent,
+    TourishMainComponent,
+    TourishPackComponent,
+    nl2brPipe,
+  ],
   providers: [
-    { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' }
-  ]
+    { provide: TINYMCE_SCRIPT_SRC, useValue: "tinymce/tinymce.min.js" },
+  ],
 })
 export class GuestModule {}

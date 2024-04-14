@@ -24,7 +24,18 @@
   </div>
 
   <div class="comment-list">
-    <app-comment-tour-single style="width: 100%;" [content]="'123'" [userId]="'597e0d84-46c4-4ed7-a82d-e8204105379b'" [senderName]="'Heller'" [sendTime]="'2024-03-16 15:52:33.2618414'"/>
+    <app-comment-tour-single
+    *ngFor="let tourComment of tourishPLanCommentList"
+      style="width: 100%"
+      [blobName]="tourComment.id"
+      [blobContainerName]="'tourish-comment-container'"
+      [userId]="tourComment.userId"
+      [senderName]="tourComment.userName"
+      [sendTime]="tourComment.createDate"
+    />
+    <h3 *ngIf="tourishPLanCommentList.length <= 0" style="font-size: 25px; font-weight: bold;">
+      <i class="fa fa-commenting-o" aria-hidden="true"></i> Không có bình luận
+    </h3>
   </div>
 
   <div class="comment-button">
@@ -33,6 +44,7 @@
       style="color: rgb(4, 201, 201); font-size: 16px"
       (click)="getTourComment()"
       [disabled]="isLoading"
+      *ngIf="canLoadMore"
     >
       Xem thêm
     </button>

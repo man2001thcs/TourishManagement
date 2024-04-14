@@ -48,3 +48,11 @@
   font-weight: lighter;
   font-size: 14px;
 }
+
+app-notification-single {
+  width: 350px;
+}
+
+.notify-pack {
+  width: 100%;
+}

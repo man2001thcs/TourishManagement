@@ -119,8 +119,8 @@ export class LoginComponent implements OnInit {
                   this.messageService
                   .openNotifyDialog("Tài khoản đã liên kết, vui lòng chờ admin xét duyệt");
                 }
-                if (response.Role === "Staff") {
-                  this.router.navigate(["/admin/tourish-plan/list"]);
+                if (response.Role === "User") {
+                  this.router.navigate(["/user/main-page"]);
                 } else if (response.Role === "Admin") {
                   this.router.navigate(["/admin/tourish-plan/list"]);
                 }

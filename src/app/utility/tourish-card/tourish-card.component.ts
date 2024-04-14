@@ -1,5 +1,6 @@
 import { Component, Input } from "@angular/core";
 import { Router } from "@angular/router";
+import { TokenStorageService } from "../user_service/token.service";
 
 @Component({
   selector: "app-tourish-card",
@@ -20,7 +21,10 @@ export class TourishPlanCardComponent {
   @Input()
   customerNumber = 19;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private tokenStorageService: TokenStorageService
+  ) {}
 
   getRateString(input: number) {
     if (0 <= input && 5 > input) {
@@ -45,7 +49,9 @@ export class TourishPlanCardComponent {
   }
 
   navigateToDetail(): void {
-    this.router.navigate(["guest/tour/" + this.id + "/detail"]);
+    if (this.tokenStorageService.getUserRole() == "User") {
+      this.router.navigate(["user/tour/" + this.id + "/detail"]);
+    } else this.router.navigate(["guest/tour/" + this.id + "/detail"]);
   }
 
   getTourName(inputString: string) {

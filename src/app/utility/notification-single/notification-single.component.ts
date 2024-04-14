@@ -172,6 +172,10 @@ export class NotificationSingleComponent implements OnInit {
           "/edit",
       ]);
     if (notify.content.includes("Hệ thống nhận được yêu cầu tư vấn mới"))
-      this.router.navigate(["admin/chat/display/" + this.notification.connectionId]);
+      this.router.navigate([
+        "admin/chat/display/" + this.notification.connectionId,
+      ]);
   }
+
+  
 }

@@ -202,8 +202,8 @@ export interface TourishComment {
   userName: string;
   tourishPlanId: string;
   content?: string;
-  createDate: Date;
-  updateDate: Date;
+  createDate: string;
+  updateDate: string;
 }
 
 

@@ -1,0 +1,15 @@
+<div class="user-main" #userMain>
+  <app-user-header
+    (checkNavOpen)="checkNavOpen($event)"
+    style="height: 100% !important"
+  ></app-user-header>
+
+  <div class="container-fluid" style="width: 100%; padding-top: 0px !important">
+    <router-outlet></router-outlet>
+    <div class="outer-chat-container" #outerChat>
+      <app-chat (checkChatOpen)="isChatOpen($event)"></app-chat>
+    </div>
+  </div>
+
+  <app-footer [isNavOpen]="isNavOpen"></app-footer>
+</div>

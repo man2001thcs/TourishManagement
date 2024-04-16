@@ -95,3 +95,7 @@ ul li button {
   margin-bottom: 0;
   padding-bottom: 0;
 }
+
+::ng-deep .mat-mdc-tab-body-wrapper {
+ z-index: 0 !important;
+}

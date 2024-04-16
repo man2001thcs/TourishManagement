@@ -42,6 +42,7 @@
           >
             <app-tiny-mce-editor
               *ngFor="let eatSchedule of tourishPlan?.eatSchedules"
+              style="z-index: 0 !important;"
               [blobName]="this.eatSchedule.id ?? ''"
               [containerName]="'eatschedule-content-container'"
               [editable]="false"
@@ -55,6 +56,7 @@
           <div *ngIf="tourishPlan?.movingSchedules != undefined">
             <app-tiny-mce-editor
               *ngFor="let eatSchedule of tourishPlan?.movingSchedules"
+              style="z-index: 0;"
               [blobName]="this.eatSchedule.id ?? ''"
               [containerName]="'movingschedule-content-container'"
               [editable]="false"
@@ -68,6 +70,7 @@
           <div *ngIf="tourishPlan?.stayingSchedules != undefined">
             <app-tiny-mce-editor
               *ngFor="let eatSchedule of tourishPlan?.stayingSchedules"
+              style="z-index: 0;"
               [blobName]="this.eatSchedule.id ?? ''"
               [containerName]="'stayingschedule-content-container'"
               [editable]="false"

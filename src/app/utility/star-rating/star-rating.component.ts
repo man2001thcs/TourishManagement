@@ -30,12 +30,15 @@ export class StarRatingComponent implements OnInit, OnDestroy {
   @Input("tourishPlanId") tourishPlanId: string = "";
   @Input("rating") rating: number = 3;
   @Input("starCount") starCount: number = 5;
-  @Input("color") color: string = "accent";
   @Output() ratingUpdated = new EventEmitter();
 
   showRating = 3;
+  showColor = "#F5C000";
 
   @ViewChild("ratingButton") buttonRef!: ElementRef;
+
+  ratingList: any[] = [];
+  ratingNumber = 0;
 
   snackBarDuration: number = 2000;
   ratingArr: number[] = [];
@@ -56,6 +59,8 @@ export class StarRatingComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.showRating = this.rating;
+    this.getRating();
+    this.getRatingForTour();
     this.subscriptions.push(
       this.clickSubject
         .pipe(debounceTime(2000), distinctUntilChanged())
@@ -80,7 +85,7 @@ export class StarRatingComponent implements OnInit, OnDestroy {
   onClickRating(rating: number) {
     this.currentRating = rating;
     this.showRating = rating;
-    console.log(rating);
+    this.showColor = "#F5C000";
     this.clickSubject.next(rating);
   }
 
@@ -106,6 +111,52 @@ export class StarRatingComponent implements OnInit, OnDestroy {
           this.ratingUpdated.emit(rating);
         }
       });
+  }
+
+  getRating() {
+    const userId = this.tokenServiceStorage.getUser().Id;
+    const payload = {
+      tourishPlanId: this.tourishPlanId,
+      userId: userId,
+    };
+
+    this.http
+      .get("/api/GetTourRating/user", { params: payload })
+      .subscribe((state: any) => {
+        if (state) {
+          if (state.data?.rating !== undefined) {
+            this.showRating = state.data.rating;
+          } else {
+            this.showRating = 3;
+            this.showColor = "#F7F29A";
+          }
+        }
+      });
+  }
+
+  getRatingForTour() {
+    const payload = {
+      tourishPlanId: this.tourishPlanId,
+    };
+
+    this.http
+      .get("/api/GetTourRating/tourishplan", { params: payload })
+      .subscribe((state: any) => {
+        if (state) {
+          console.log("abc", state);
+          this.ratingList = state.data;
+          this.ratingNumber = state.count;
+        }
+      });
+  }
+
+  caculateRating() {
+    let totalPoint = 0;
+    this.ratingList.forEach((entity) => {
+      totalPoint += entity.rating;
+    });
+
+    return this.ratingNumber != 0 ? totalPoint / this.ratingNumber : 0;
   }
 }
 export enum StarRatingColor {

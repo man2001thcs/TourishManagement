@@ -33,9 +33,6 @@ export class CommentSectionComponent implements OnInit {
 
   rating:number = 3;
   starCount:number = 5;
-  starColor:StarRatingColor = StarRatingColor.accent;
-  starColorP:StarRatingColor = StarRatingColor.primary;
-  starColorW:StarRatingColor = StarRatingColor.warn;
 
   setTourForm!: FormGroup;
   isSubmit = false;

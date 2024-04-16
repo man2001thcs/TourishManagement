@@ -51,3 +51,8 @@
   align-items: center;
   width: 100%;
 }
+
+.send-rate {
+  display: flex;
+  flex-direction: row;
+}

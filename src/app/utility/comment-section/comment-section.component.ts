@@ -14,6 +14,8 @@ import { TourishComment } from "src/app/model/baseModel";
 import { MessageService } from "../user_service/message.service";
 import { environment } from "src/environments/environment";
 import { FileModel } from "../image_avatar_service/imageUpload.component.model";
+import { TokenStorageService } from "../user_service/token.service";
+import { StarRatingColor } from "../star-rating/star-rating.component";
 
 @Component({
   selector: "app-comment-section",
@@ -28,6 +30,12 @@ export class CommentSectionComponent implements OnInit {
   @ViewChild("packContainer") packContainer!: ElementRef;
 
   active = 1;
+
+  rating:number = 3;
+  starCount:number = 5;
+  starColor:StarRatingColor = StarRatingColor.accent;
+  starColorP:StarRatingColor = StarRatingColor.primary;
+  starColorW:StarRatingColor = StarRatingColor.warn;
 
   setTourForm!: FormGroup;
   isSubmit = false;
@@ -50,6 +58,7 @@ export class CommentSectionComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private renderer: Renderer2,
+    private tokenStorageService: TokenStorageService,
     private http: HttpClient,
     private messageService: MessageService
   ) {}
@@ -112,6 +121,11 @@ export class CommentSectionComponent implements OnInit {
           this.messageService.openMessageNotifyDialog(response.messageCode);
         }
       });
+  }
+
+  isUserLogin() {
+    if (this.tokenStorageService.getUserRole() === "User") return true;
+    else return false;
   }
 
   getTinyMceResult($event: any) {
@@ -181,5 +195,9 @@ export class CommentSectionComponent implements OnInit {
       image.id +
       image.fileType
     );
+  }
+
+  onRatingChanged($event: any){
+    
   }
 }

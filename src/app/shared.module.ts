@@ -60,6 +60,8 @@ import { TourishPlanCardComponent } from "./utility/tourish-card/tourish-card.co
 import { TourishDetailComponent } from "./guest/tourish-detail/tourish-detail.component";
 import { TourishMainComponent } from "./guest/tourish-main/tourish-main.component";
 import { TourishPackComponent } from "./utility/tourish-pack/tourish-pack.component";
+import { StarRatingComponent } from "./utility/star-rating/star-rating.component";
+import { MatTooltipModule } from "@angular/material/tooltip";
 
 @NgModule({
   declarations: [
@@ -79,6 +81,7 @@ import { TourishPackComponent } from "./utility/tourish-pack/tourish-pack.compon
     TourishDetailComponent,
     TourishMainComponent,
     TourishPackComponent,
+    StarRatingComponent
   ],
   imports: [
     MatListModule,
@@ -116,12 +119,14 @@ import { TourishPackComponent } from "./utility/tourish-pack/tourish-pack.compon
     EditorModule,
     MatProgressSpinnerModule,
     MatExpansionModule,
+    MatTooltipModule,
     MatSidenavModule,
   ],
 
   exports: [
     PickerModule,
     MatListModule,
+    MatTooltipModule,
     NotificationSingleComponent,
     MatListModule,
     MatTabsModule,
@@ -169,6 +174,7 @@ import { TourishPackComponent } from "./utility/tourish-pack/tourish-pack.compon
     TourishDetailComponent,
     TourishMainComponent,
     TourishPackComponent,
+    StarRatingComponent
   ],
   providers: [
     { provide: TINYMCE_SCRIPT_SRC, useValue: "tinymce/tinymce.min.js" },

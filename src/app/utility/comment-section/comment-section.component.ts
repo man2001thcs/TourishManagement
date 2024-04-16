@@ -119,6 +119,9 @@ export class CommentSectionComponent implements OnInit {
           this.isSending = false;
           this.messageService.closeAllDialog();
           this.messageService.openMessageNotifyDialog(response.messageCode);
+
+
+          this.tourishPLanCommentList = [response.data, ...this.tourishPLanCommentList];
         }
       });
   }

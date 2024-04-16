@@ -53,6 +53,8 @@
 }
 
 .send-rate {
+  align-self: flex-start;
   display: flex;
   flex-direction: row;
+  align-items: center !important; 
 }

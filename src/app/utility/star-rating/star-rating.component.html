@@ -1,10 +1,11 @@
-<div>
+<div class="app-rating">
   <button
     mat-icon-button
+    #ratingButton
     [color]="color"
     *ngFor="let ratingId of ratingArr; index as i"
     [id]="'star_' + i"
-    (click)="onClick(i + 1)"
+    (click)=" onClickRating(i + 1)"
     [matTooltip]="(ratingId + 1).toString()"
     matTooltipPosition="above"
   >

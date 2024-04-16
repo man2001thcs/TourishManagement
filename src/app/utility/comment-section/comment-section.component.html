@@ -3,25 +3,29 @@
     <h4 class="tour-name">Bình luận</h4>
   </div>
   <div class="comment-pack">
-    <button
-      *ngIf="isUserLogin()"
-      mat-stroked-button
-      style="
-        color: rgb(4, 201, 201);
-        font-size: 16px;
-        align-self: start !important;
-      "
-      (click)="sendComment()"
-      [disabled]="isSending"
-    >
-      Gửi
-    </button>
-    <app-star-rating
-      [rating]="rating"
-      [starCount]="starCount"
-      [color]="starColor"
-      (ratingUpdated)="onRatingChanged($event)"
-    ></app-star-rating>
+    <div class="send-rate">
+      <button
+        *ngIf="isUserLogin()"
+        mat-stroked-button
+        style="
+          color: rgb(4, 201, 201);
+          font-size: 16px;
+        "
+        (click)="sendComment()"
+        [disabled]="isSending"
+      >
+        Gửi
+      </button>
+
+      <app-star-rating
+        *ngIf="isUserLogin()"
+        [rating]="rating"
+        [starCount]="starCount"
+        [color]="starColor"
+        [tourishPlanId]="tourishPlanId"
+        (ratingUpdated)="onRatingChanged($event)"
+      ></app-star-rating>
+    </div>
     <app-tiny-mce-editor
       *ngIf="isUserLogin()"
       [blobName]="''"

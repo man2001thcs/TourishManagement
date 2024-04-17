@@ -44,6 +44,7 @@ export class UserMultiselectAutocompleteComponent implements OnInit {
 
   userIdList: string[] = [];
   userNameList: string[] = [];
+userType = 1;
 
   data!: User[];
   length: number = 0;
@@ -98,6 +99,7 @@ export class UserMultiselectAutocompleteComponent implements OnInit {
             payload: {
               search: (state ?? "").toLowerCase(),
               page: 1,
+              type: this.userType,
               pageSize: 6,
             },
           })
@@ -147,6 +149,7 @@ export class UserMultiselectAutocompleteComponent implements OnInit {
       UserListActions.getUserList({
         payload: {
           search: this.searchWord.toLowerCase(),
+          type: this.userType,
           page: this.pageIndex + 1,
           pageSize: 6,
         },
@@ -218,12 +221,37 @@ export class UserMultiselectAutocompleteComponent implements OnInit {
             payload: {
               search: this.searchWord.toLowerCase(),
               page: this.pageIndex + 1,
+              type: this.userType,
               pageSize: 6,
             },
           })
         );
       }
     }
+  }
+
+  changeType($event: any) {
+    if (parseInt($event.target.value) === 1) {
+      this.userType = 1;
+    } else if (parseInt($event.target.value) === 2) {
+      this.userType = 2;
+    }
+
+    this.userNameList = [];
+    this.userIdList = [];
+    
+    this.newSearch = true;
+    this.pageIndex = 0;
+
+    this.store.dispatch(
+      UserListActions.getUserList({
+        payload: {
+          search: this.searchWord.toLowerCase(),
+          page: this.pageIndex + 1,
+          type: this.userType,
+          pageSize: 6,
+        }})
+    );
   }
 
   onDisplayAtr(user: User): string {

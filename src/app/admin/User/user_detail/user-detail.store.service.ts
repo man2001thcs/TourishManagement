@@ -9,7 +9,7 @@ export class UserStoreService {
   constructor(private http: HttpClient) {}
 
   getUser(payload: any): Observable<any> {
-    return this.http.post("/api/User/GetUser", null, {
+    return this.http.get("/api/User/GetUser", {
       params: payload,
     });
   }

@@ -99,6 +99,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.userState.subscribe((state) => {
         if (state) {
+          this.messageService.closeLoadingDialog();
           this.user = state;
 
           this.editformGroup_info.controls["userName"].setValue(state.userName);
@@ -118,6 +119,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.editUserState.subscribe((state) => {
         if (state) {
+          this.messageService.closeLoadingDialog();
           this.messageService.openMessageNotifyDialog(state.messageCode);
         }
       })
@@ -126,6 +128,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.errorMessageState.subscribe((state) => {
         if (state) {
+          this.messageService.closeLoadingDialog();
           this.messageService.openMessageNotifyDialog(state);
         }
       })
@@ -139,10 +142,12 @@ export class UserDetailComponent implements OnInit, OnDestroy {
       })
     );
 
+    this.messageService.openLoadingDialog();
     this.store.dispatch(
       UserActions.getUser({
         payload: {
           id: this.data.id,
+          type: this.data.type
         },
       })
     );

@@ -5,6 +5,7 @@
 .below-title {
   display: flex;
   flex-direction: row;
+  align-items: center;
   width: 100%;
   padding: 15px 10px 15px;
   background-color: #e3e7ed;
@@ -28,7 +29,7 @@
   margin-right: 20px;
 }
 
-.below-title span#tour-id {
+.below-title span#rating {
   font-weight: 300 !important;
   font-size: 20px;
   margin-left: auto;

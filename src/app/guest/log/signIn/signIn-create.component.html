@@ -68,6 +68,21 @@
               ></app-validation>
             </div>
 
+            <div class="row">
+              <mat-form-field appearance="outline" class="full-width-input">
+                <mat-label>Vai trò</mat-label>
+                <select matNativeControl required formControlName="role">
+                  <option value="1">Người dùng</option>
+                  <option value="2">Nhân viên quản lý</option>
+                </select>
+              </mat-form-field>
+              <app-validation
+                *ngIf="submited"
+                [formGroup]="createformGroup"
+                [formGroupControlName]="'role'"
+              ></app-validation>
+            </div>
+
             <div>
               <button mat-button matStepperNext [disabled]="!isContinueStep1">
                 Tiếp tục
@@ -195,8 +210,7 @@
           <mat-step>
             <ng-template matStepLabel>Hoàn thành</ng-template>
             <p>
-              Đăng kí thành công. Vui lòng chờ Admin chấp nhận đăng kí tài khoản
-              của bạn.
+              Đăng kí thành công. Hẫy quay lại trang đăng nhập.
             </p>
             <div>
               <button mat-button>Quay lại</button>

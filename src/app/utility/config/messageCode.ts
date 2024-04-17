@@ -14,6 +14,7 @@ export const ERR_MESSAGE_CODE_EN: Map<string, string> = new Map([
   ["C012", "Failed at Account's password change"],
   ["C013", "Get account list unsuccessfully"],
   ["C014", "Get account unsuccessfully"],
+  ["C015", "No permission aquired"],
 
   ["C110", "PassengerCar not found"],
   ["C111", "PassengerCar add error"],
@@ -107,6 +108,7 @@ export const ERR_MESSAGE_CODE_VI: Map<string, string> = new Map([
     ["C012", "Cập nhật mật khẩu không thành công"],
     ["C013", "Lấy danh sách không thành công"],
     ["C014", "Lấy thông tin người dùng không thành công"],
+    ["C015", "Không có thẩm quyền"],
 
     ["C110", "Đối tác không tồn tại"],
     ["C111", "Đối tác thêm vào bị lỗi"],

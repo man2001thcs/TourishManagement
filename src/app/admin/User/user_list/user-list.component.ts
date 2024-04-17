@@ -38,6 +38,8 @@ export class UserListComponent
 {
   userList!: User[];
   subscriptions: Subscription[] = [];
+  userType = 1;
+  selectTab = 0;
 
   userListState!: Observable<any>;
   userDeleteState!: Observable<any>;
@@ -101,6 +103,7 @@ export class UserListComponent
               UserListActions.getUserList({
                 payload: {
                   page: this.pageIndex + 1,
+                  type: this.userType,
                 },
               })
             );
@@ -115,6 +118,7 @@ export class UserListComponent
       UserListActions.getUserList({
         payload: {
           page: this.pageIndex + 1,
+          type: this.userType,
         },
       })
     );
@@ -154,7 +158,7 @@ export class UserListComponent
 
   openEditDialog(id: string): void {
     const dialogRef = this.dialog.open(UserDetailComponent, {
-      data: { id: id },
+      data: { id: id, type: this.userType },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -164,6 +168,7 @@ export class UserListComponent
         UserListActions.getUserList({
           payload: {
             page: this.pageIndex + 1,
+            type: this.userType,
           },
         })
       );
@@ -217,6 +222,7 @@ export class UserListComponent
     this.store.dispatch(
       UserListActions.getUserList({
         payload: {
+          type: this.userType,
           page: this.pageIndex + 1,
           pageSize: this.pageSize,
         },
@@ -236,6 +242,7 @@ export class UserListComponent
           UserListActions.getUserList({
             payload: {
               page: 1,
+              type: this.userType,
               pageSize: this.pageSize,
             },
           })
@@ -246,6 +253,7 @@ export class UserListComponent
             payload: {
               sortBy: "name_desc",
               page: 1,
+              type: this.userType,
               pageSize: this.pageSize,
             },
           })
@@ -253,5 +261,22 @@ export class UserListComponent
       }
     } else {
     }
+  }
+
+  onChangeUserType($event: number){
+    this.userType = $event + 1;
+    this.pageIndex = 0;
+
+    this.userList = [];
+    this.messageService.openLoadingDialog();
+    this.store.dispatch(
+      UserListActions.getUserList({
+        payload: {
+          type: this.userType,
+          page: this.pageIndex + 1,
+          pageSize: this.pageSize,
+        },
+      })
+    );
   }
 }

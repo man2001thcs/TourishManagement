@@ -42,6 +42,8 @@ export class TourishDetailComponent implements OnInit {
   @ViewChild(EditorComponent) editor!: EditorComponent;
 
   tinyMceSetting!: any;
+  ratingAverage = 3;
+  ratingArr:number[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -55,6 +57,12 @@ export class TourishDetailComponent implements OnInit {
 
   ngOnInit() {
     this.tourishPlanId = this._route.snapshot.paramMap.get("id") ?? "";
+
+    for (let index = 0; index < 5; index++) {
+      this.ratingArr.push(index);
+    }
+
+    this.getRatingForTour();
 
     this.setTourForm = this.fb.group({
       name: ["", Validators.compose([Validators.required])],
@@ -282,4 +290,28 @@ export class TourishDetailComponent implements OnInit {
         }
       });
   }
+
+  getRatingForTour() {
+    const payload = {
+      tourishPlanId: this.tourishPlanId,
+    };
+
+    this.http
+      .get("/api/GetTourRating/tourishplan", { params: payload })
+      .subscribe((state: any) => {
+        if (state) {
+          console.log("abc", state);
+          this.ratingAverage = state.averagePoint;
+        }
+      });
+  }
+
+  showIcon(index: number) {
+    if (this.ratingAverage >= index + 1) {
+      return "star";
+    } else {
+      return "star_border";
+    }
+  }
+
 }

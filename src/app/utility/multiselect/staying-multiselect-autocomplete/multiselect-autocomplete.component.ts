@@ -260,6 +260,7 @@ export class StayingMultiselectAutocompleteComponent implements OnInit {
     this.stayingFormGroup.controls["placeName"].setValue("");
 
     this.newSearch = true;
+    this.pageIndex = 0;
 
     this.store.dispatch(
       StayingListActions.getStayingList({

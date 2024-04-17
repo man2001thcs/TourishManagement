@@ -256,7 +256,8 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
     this.movingFormGroup.controls["branchName"].setValue("");
 
     this.newSearch = true;
-
+    this.pageIndex = 0;
+    
     this.store.dispatch(
       MovingListActions.getMovingList({
         payload: {

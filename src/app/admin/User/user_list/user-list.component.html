@@ -5,6 +5,10 @@
     </mat-card-header>
   </mat-card>
 
+  <mat-tab-group (selectedIndexChange)="onChangeUserType($event)" style="background-color: white;">
+    <mat-tab label="Người dùng"> </mat-tab>
+    <mat-tab label="Quản lý"> </mat-tab>
+  </mat-tab-group>
   <div class="table-responsive">
     <table
       mat-table

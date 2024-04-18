@@ -22,16 +22,18 @@
       <div class="row">
         <h2 mat-form-label style="font-weight: heavy">Đăng kí tài khoản</h2>
       </div>
-      <form [formGroup]="createformGroup">
-        <mat-stepper [linear]="true" #stepper>
-          <mat-step label="Điền tên tài khoản">
-            <div class="row" *ngIf="accountMessage !== ''">
+
+      <mat-stepper [linear]="true" #stepper>
+        <mat-step label="Điền tên tài khoản">
+          <form [formGroup]="createformGroup">
+            <div class="row" *ngIf="accountMessage.length > 0">
               <mat-card style="background-color: #f8d7da">
                 <mat-card-content style="color: #b55529"
                   >Tài khoản đã tồn tại</mat-card-content
                 >
               </mat-card>
             </div>
+
             <div class="row">
               <mat-form-field appearance="outline" class="full-width-input">
                 <mat-label>Tài khoản</mat-label>
@@ -88,9 +90,11 @@
                 Tiếp tục
               </button>
             </div>
-          </mat-step>
+          </form>
+        </mat-step>
 
-          <mat-step label="Điền thông tin liên lạc">
+        <mat-step label="Điền thông tin liên lạc">
+          <form [formGroup]="createformGroup">
             <div class="row">
               <mat-form-field appearance="outline" class="full-width-input">
                 <mat-label>Email</mat-label>
@@ -98,10 +102,10 @@
                   matInput
                   placeholder="Vd: khangVd123@gmail.com"
                   formControlName="email"
-                  required
                 />
               </mat-form-field>
               <app-validation
+                *ngIf="this.createformGroup.get('email')?.touched"
                 [formGroup]="createformGroup"
                 [formGroupControlName]="'email'"
               ></app-validation>
@@ -113,10 +117,10 @@
                   matInput
                   placeholder="Vd: số 10 Nguyễn Chí Thanh"
                   formControlName="address"
-                  required
                 />
               </mat-form-field>
               <app-validation
+                *ngIf="this.createformGroup.get('address')?.touched"
                 [formGroup]="createformGroup"
                 [formGroupControlName]="'address'"
               ></app-validation>
@@ -128,10 +132,10 @@
                   matInput
                   placeholder="Vd: 012345678"
                   formControlName="phoneNumber"
-                  required
                 />
               </mat-form-field>
               <app-validation
+                *ngIf="this.createformGroup.get('phoneNumber')?.touched"
                 [formGroup]="createformGroup"
                 [formGroupControlName]="'phoneNumber'"
               ></app-validation>
@@ -150,9 +154,11 @@
                 Tiếp tục
               </button>
             </div>
-          </mat-step>
+          </form>
+        </mat-step>
 
-          <mat-step label="Điền mật khẩu">
+        <mat-step label="Điền mật khẩu">
+          <form [formGroup]="createformGroup">
             <div
               class="row"
               *ngIf="createformGroup.errors?.['matchPassword'] &&  !this.createformGroup.get('rePassword')?.invalid"
@@ -170,10 +176,11 @@
                   matInput
                   placeholder="Vd: 10"
                   formControlName="password"
-                  required
+                  type="password"
                 />
               </mat-form-field>
               <app-validation
+                *ngIf="this.createformGroup.get('password')?.touched"
                 [formGroup]="createformGroup"
                 [formGroupControlName]="'password'"
               ></app-validation>
@@ -185,10 +192,11 @@
                   matInput
                   placeholder="Vd: 10"
                   formControlName="rePassword"
-                  required
+                  type="password"
                 />
               </mat-form-field>
               <app-validation
+                *ngIf="this.createformGroup.get('rePassword')?.touched"
                 [formGroup]="createformGroup"
                 [formGroupControlName]="'rePassword'"
               ></app-validation>
@@ -206,18 +214,16 @@
                 Tiếp tục
               </button>
             </div>
-          </mat-step>
-          <mat-step>
-            <ng-template matStepLabel>Hoàn thành</ng-template>
-            <p>
-              Đăng kí thành công. Hẫy quay lại trang đăng nhập.
-            </p>
-            <div>
-              <button mat-button>Quay lại</button>
-            </div>
-          </mat-step>
-        </mat-stepper>
-      </form>
+          </form>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>Hoàn thành</ng-template>
+          <p>Đăng kí thành công. Hẫy quay lại trang đăng nhập.</p>
+          <div>
+            <button mat-button (click)="toLoginPage()">Quay lại</button>
+          </div>
+        </mat-step>
+      </mat-stepper>
     </div>
   </div>
 </div>

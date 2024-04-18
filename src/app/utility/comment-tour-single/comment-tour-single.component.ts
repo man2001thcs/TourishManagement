@@ -94,6 +94,8 @@ export class CommentTourSingleComponent implements OnInit {
           }
         }
       });
+
+      this.avatarLink = avatarLink;
   }
 
   generateUrl(image: FileModel) {

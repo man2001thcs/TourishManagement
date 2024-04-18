@@ -188,11 +188,11 @@ export const ERR_MESSAGE_CODE_VI: Map<string, string> = new Map([
   ]);
 
   export function getViErrMessagePhase(key: string): string {
-    return SUCCESS_MESSAGE_CODE_VI.get(key) ?? "";
+    return ERR_MESSAGE_CODE_VI.get(key) ?? "";
   }
 
   export function getViMessagePhase(key: string): string {
-    return ERR_MESSAGE_CODE_VI.get(key) ?? "";
+    return SUCCESS_MESSAGE_CODE_VI.get(key) ?? "";
   }
 
 export const SUCCESS_MESSAGE_CODE_EN: Map<string, string> = new Map([
@@ -256,7 +256,7 @@ export const SUCCESS_MESSAGE_CODE_EN: Map<string, string> = new Map([
   export const SUCCESS_MESSAGE_CODE_VI: Map<string, string> = new Map([
     ["I000", "Đăng nhập thành công"],
     ["I001", "Token đã được làm mới"],
-    ["I010", "Tài khoản này có thể được dùng"],
+    ["I010", "Tài khoản đã được tạo, vui lòng truy cập địa chỉ mail của bạn để xác nhận tài khoản"],
     ["I011", "Thay đổi thông tin tài khoản thành công"],
     ["I012", "Thay đổi mật khẩu tài khoản thành công"],
 

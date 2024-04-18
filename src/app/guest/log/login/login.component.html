@@ -13,6 +13,7 @@
       <h2 style="font-size: 24px">Đăng nhập</h2>
       <h3 class="error-message">{{ errorMessage }}</h3>
     </mat-card-header>
+
     <div
       class="row"
       style="display: flex; flex-direction: row !important; flex-wrap: 1"
@@ -94,7 +95,9 @@
         <h3 style="font-size: 16px; margin-bottom: 0; font-weight: bold">
           Nếu chưa có tài khoản, hãy đăng kí
         </h3>
-        <button mat-button (click)="navigateRegister()">Vào trang đăng kí</button>
+        <button mat-button (click)="navigateRegister()">
+          Vào trang đăng kí
+        </button>
         <asl-google-signin-button
           type="standard"
           size="medium"

@@ -236,7 +236,7 @@
             />
           </mat-form-field>
           <app-validation
-            *ngIf="isSubmit"
+            *ngIf="this.setTourForm.get('name')?.touched"
             [formGroup]="setTourForm"
             [formGroupControlName]="'name'"
           ></app-validation>
@@ -253,7 +253,7 @@
             />
           </mat-form-field>
           <app-validation
-            *ngIf="isSubmit"
+            *ngIf="this.setTourForm.get('address')?.touched"
             [formGroup]="setTourForm"
             [formGroupControlName]="'address'"
           ></app-validation>
@@ -270,7 +270,7 @@
             />
           </mat-form-field>
           <app-validation
-            *ngIf="isSubmit"
+            *ngIf="this.setTourForm.get('email')?.touched"
             [formGroup]="setTourForm"
             [formGroupControlName]="'email'"
           ></app-validation>
@@ -287,7 +287,7 @@
             />
           </mat-form-field>
           <app-validation
-            *ngIf="isSubmit"
+            *ngIf="this.setTourForm.get('phoneNumber')?.touched"
             [formGroup]="setTourForm"
             [formGroupControlName]="'phoneNumber'"
           ></app-validation>
@@ -304,14 +304,19 @@
             />
           </mat-form-field>
           <app-validation
-            *ngIf="isSubmit"
+            *ngIf="this.setTourForm.get('totalTicket')?.touched"
             [formGroup]="setTourForm"
             [formGroupControlName]="'totalTicket'"
           ></app-validation>
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form">
-          <button mat-flat-button color="primary" style="width: 100%">
+          <button
+            mat-flat-button
+            color="primary"
+            style="width: 100%"
+            (click)="register()"
+          >
             Gửi
           </button>
         </div>

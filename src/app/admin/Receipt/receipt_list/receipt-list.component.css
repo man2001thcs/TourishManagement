@@ -30,12 +30,16 @@ tr.example-detail-row {
 
 .receipt-info {
   padding: 20px 20px 0px;
-  width: 160px;
+  min-width: 160px;
   text-wrap: wrap;
 }
 
 .receipt-button {
   padding: 20px 20px 0px;
   width: 70px;
+  text-wrap: wrap;
+}
+
+.receipt-info span {
   text-wrap: wrap;
 }

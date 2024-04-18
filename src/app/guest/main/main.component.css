@@ -13,7 +13,8 @@
   padding-right: 0px !important;
   padding-left: 0px !important;
   position: relative;
-  min-height: 600px !important;
+  width: 100%;
+  padding-top: 0px !important;
 }
 
 .outer-chat-container {

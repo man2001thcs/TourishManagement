@@ -102,15 +102,16 @@ export class CommentSectionComponent implements OnInit {
   }
 
   sendComment() {
+    const userId = this.tokenStorageService.getUser().Id;
     const payload = {
       tourishPlanId: this.tourishPlanId,
       content: this.editorContent,
-      userId: "",
+      userId: userId,
     };
 
     this.isSending = true;
     this.http
-      .post("/api/AddTourishComment", payload)
+      .post("/api/AddTourComment", payload)
       .subscribe((response: any) => {
         if (response) {
           this.isSending = false;

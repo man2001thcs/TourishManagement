@@ -1,5 +1,9 @@
-
-<div class="container" style="padding: 20px 0 20px; max-height: 600px;">
+<div class="container" style="padding: 0cqi 0 20px; max-height: 600px">
+  <div class="row" style="background-color: #2a3650; padding: 15px 50px 0px">
+    <h2 mat-form-label style="font-weight: heavy; color: white">
+      Chỉnh sửa thông tin hóa đơn
+    </h2>
+  </div>
   <div
     class="outlet"
     style="
@@ -18,11 +22,6 @@
         padding-left: 90px !important;
       "
     >
-      <div class="row">
-        <h2 mat-form-label style="font-weight: heavy">
-          Chỉnh sửa thông tin hóa đơn
-        </h2>
-      </div>
       <form [formGroup]="editformGroup_info">
         <div class="row">
           <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 edit-form">
@@ -40,7 +39,8 @@
                 <app-validation
                   *ngIf="
                     this.editformGroup_info.get('guestName')?.errors &&
-                    (editformGroup_info.get('guestName')?.touched || isSubmitted)
+                    (editformGroup_info.get('guestName')?.touched ||
+                      isSubmitted)
                   "
                   [formGroup]="editformGroup_info"
                   [formGroupControlName]="'guestName'"
@@ -82,7 +82,8 @@
                 <app-validation
                   *ngIf="
                     this.editformGroup_info.get('phoneNumber')?.errors &&
-                    (editformGroup_info.get('phoneNumber')?.touched || isSubmitted)
+                    (editformGroup_info.get('phoneNumber')?.touched ||
+                      isSubmitted)
                   "
                   [formGroup]="editformGroup_info"
                   [formGroupControlName]="'phoneNumber'"
@@ -105,7 +106,8 @@
                 <app-validation
                   *ngIf="
                     this.editformGroup_info.get('originalPrice')?.errors &&
-                    (editformGroup_info.get('originalPrice')?.touched || isSubmitted)
+                    (editformGroup_info.get('originalPrice')?.touched ||
+                      isSubmitted)
                   "
                   [formGroup]="editformGroup_info"
                   [formGroupControlName]="'originalPrice'"
@@ -138,7 +140,8 @@
                 <app-validation
                   *ngIf="
                     this.editformGroup_info.get('totalTicket')?.errors &&
-                    (editformGroup_info.get('totalTicket')?.touched || isSubmitted)
+                    (editformGroup_info.get('totalTicket')?.touched ||
+                      isSubmitted)
                   "
                   [formGroup]="editformGroup_info"
                   [formGroupControlName]="'totalTicket'"
@@ -163,7 +166,8 @@
                 <app-validation
                   *ngIf="
                     this.editformGroup_info.get('discountAmount')?.errors &&
-                    (editformGroup_info.get('discountAmount')?.touched || isSubmitted)
+                    (editformGroup_info.get('discountAmount')?.touched ||
+                      isSubmitted)
                   "
                   [formGroup]="editformGroup_info"
                   [formGroupControlName]="'discountAmount'"
@@ -184,7 +188,8 @@
                 <app-validation
                   *ngIf="
                     this.editformGroup_info.get('discountFloat')?.errors &&
-                    (editformGroup_info.get('discountFloat')?.touched || isSubmitted)
+                    (editformGroup_info.get('discountFloat')?.touched ||
+                      isSubmitted)
                   "
                   [formGroup]="editformGroup_info"
                   [formGroupControlName]="'discountFloat'"
@@ -213,7 +218,8 @@
               <app-validation
                 *ngIf="
                   this.editformGroup_info.get('description')?.errors &&
-                  (editformGroup_info.get('description')?.touched || isSubmitted)
+                  (editformGroup_info.get('description')?.touched ||
+                    isSubmitted)
                 "
                 [formGroup]="editformGroup_info"
                 [formGroupControlName]="'description'"

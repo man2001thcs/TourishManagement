@@ -3,7 +3,7 @@ import { FormGroup, Validators } from "@angular/forms";
 import { FormBuilder } from "@angular/forms";
 import { UserService } from "../../../utility/user_service/user.service";
 import { HashService } from "../../../utility/user_service/hash.service";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Observable, Subscription, timeout } from "rxjs";
 import { LoginUnionActions } from "./login.store.action";
 import { Store } from "@ngrx/store";
@@ -23,6 +23,7 @@ import {
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { SocialAuthService, SocialUser } from "@abacritt/angularx-social-login";
 import { getUser } from "../signIn/signIn-create.store.selector";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 export interface DialogSignInData {
   title: string;
@@ -44,6 +45,7 @@ export class LoginComponent implements OnInit {
 
   subscriptions: Subscription[] = [];
   loginProfile: any;
+  activated = "1";
 
   constructor(
     private fb: FormBuilder,
@@ -53,7 +55,9 @@ export class LoginComponent implements OnInit {
     private hash: HashService,
     private router: Router,
     private store: Store<LoginUnionActions>,
-    private socialAuthService: SocialAuthService
+    private socialAuthService: SocialAuthService,
+    private _route: ActivatedRoute,
+    private _snackBar: MatSnackBar
   ) {
     this.getLoginProfile = this.store.select(getLoginProfile);
     this.errorMessageState = this.store.select(getMessage);
@@ -61,6 +65,15 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.activated = this._route.snapshot.queryParamMap.get("activated") ?? "";
+    console.log(this.activated);
+
+    if (this.activated == "1")
+      this.openSnackBar(
+        "Tài khoản đã xác nhận thành công, hãy đăng nhập",
+        "Đóng"
+      );
+
     this.socialAuthService.authState.subscribe((user: SocialUser) => {
       this.store.dispatch(
         LoginAction.login({
@@ -73,7 +86,7 @@ export class LoginComponent implements OnInit {
             address: "Chưa có",
             phoneNumber: "Chưa có",
             googleToken: user.idToken,
-            loginPhase: 'GoogleSignIn'
+            loginPhase: "GoogleSignIn",
           },
         })
       );
@@ -83,10 +96,7 @@ export class LoginComponent implements OnInit {
     this.signInformGroup = this.fb.group({
       userName: [
         "",
-        Validators.compose([
-          Validators.required,
-          Validators.minLength(4),
-        ]),
+        Validators.compose([Validators.required, Validators.minLength(4)]),
       ],
       password: [
         "",
@@ -116,8 +126,9 @@ export class LoginComponent implements OnInit {
               if (response) {
                 console.log(response);
                 if (response.Role === "New") {
-                  this.messageService
-                  .openNotifyDialog("Tài khoản đã liên kết, vui lòng chờ admin xét duyệt");
+                  this.messageService.openNotifyDialog(
+                    "Tài khoản đã liên kết, vui lòng chờ admin xét duyệt"
+                  );
                 }
                 if (response.Role === "User") {
                   this.router.navigate(["/user/main-page"]);
@@ -160,6 +171,10 @@ export class LoginComponent implements OnInit {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, { verticalPosition: "top",  duration: 5000,  });
+  }
+
   valueChange(target: string, event: Event) {
     this.signInformGroup.value[target] = event;
     console.log(event);
@@ -169,12 +184,12 @@ export class LoginComponent implements OnInit {
     this.signInformGroup.setValue({
       userName: "man2001thcs",
       password: "123",
-      loginPhase: 'login'
+      loginPhase: "login",
     });
   }
 
-  navigateRegister(){
-    this.router.navigate(['guest/signIn']);
+  navigateRegister() {
+    this.router.navigate(["guest/signIn"]);
   }
 
   formSubmit(): void {
@@ -185,7 +200,7 @@ export class LoginComponent implements OnInit {
         payload: {
           userName: this.signInformGroup.value.userName,
           password: this.signInformGroup.value.password,
-          loginPhase: 'login'
+          loginPhase: "login",
         },
       })
     );

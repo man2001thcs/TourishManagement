@@ -9,6 +9,7 @@ import {
 import {
   ActivatedRouteSnapshot,
   CanDeactivate,
+  Router,
   RouterStateSnapshot,
   UrlTree,
 } from "@angular/router";
@@ -39,7 +40,10 @@ import {
   getSysError,
 } from "./signIn-create.store.selector";
 import { HttpClient, HttpParams, HttpRequest } from "@angular/common/http";
-import { getViErrMessagePhase, getViMessagePhase } from "src/app/utility/config/messageCode";
+import {
+  getViErrMessagePhase,
+  getViMessagePhase,
+} from "src/app/utility/config/messageCode";
 import { MatStepper } from "@angular/material/stepper";
 
 export const matchPasswordValidator: ValidatorFn = (
@@ -107,7 +111,8 @@ export class UserCreateComponent implements OnInit, OnDestroy {
     private _route: ActivatedRoute,
     private store: Store<UserState>,
     private http: HttpClient,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private router: Router
   ) {
     this.userState = this.store.select(getUser);
 
@@ -119,7 +124,7 @@ export class UserCreateComponent implements OnInit, OnDestroy {
     this.createformGroup = this.fb.group(
       {
         userName: [
-          "man2003thcs",
+          "",
           Validators.compose([Validators.required, Validators.minLength(3)]),
         ],
 
@@ -134,7 +139,7 @@ export class UserCreateComponent implements OnInit, OnDestroy {
         ],
 
         role: [0, Validators.compose([Validators.required])],
-        email: ["", Validators.compose([Validators.required])],
+        email: ["", Validators.compose([Validators.required, Validators.email])],
         fullName: ["", Validators.compose([Validators.required])],
         address: ["", Validators.compose([Validators.required])],
         phoneNumber: ["", Validators.compose([Validators.required])],
@@ -155,15 +160,12 @@ export class UserCreateComponent implements OnInit, OnDestroy {
             .subscribe((returnValue: any) => {
               const messageCode: string = returnValue?.messageCode;
               if (messageCode.charAt(0) === "C") {
-                this.accountMessage = getViErrMessagePhase(
-                  returnValue?.messageCode
-                );
+                this.accountMessage = getViErrMessagePhase(messageCode);
                 this.isContinueStep1 = false;
               } else {
                 if (messageCode.charAt(0) === "I") {
-                this.accountMessage = getViMessagePhase(
-                  returnValue?.messageCode
-                );
+                  this.accountMessage = getViMessagePhase(messageCode);
+                  this.accountMessage = "";
                 }
                 this.isContinueStep1 = true;
               }
@@ -224,7 +226,7 @@ export class UserCreateComponent implements OnInit, OnDestroy {
             fullName: this.createformGroup.value.fullName,
             address: this.createformGroup.value.address,
             phoneNumber: this.createformGroup.value.phoneNumber,
-            signInPhase: "SignIn"
+            signInPhase: "SignIn",
           },
         })
       );
@@ -243,7 +245,7 @@ export class UserCreateComponent implements OnInit, OnDestroy {
       email: "",
       fullName: "",
       address: "",
-      phoneNumber: ""
+      phoneNumber: "",
     });
   }
 
@@ -263,6 +265,10 @@ export class UserCreateComponent implements OnInit, OnDestroy {
       },
     });
     return ref.afterClosed();
+  }
+
+  toLoginPage() {
+    this.router.navigate(["/guest/login"]);
   }
 
   // selectChange_author = (event: any) => {

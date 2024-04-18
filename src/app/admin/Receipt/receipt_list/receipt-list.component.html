@@ -10,23 +10,34 @@
     </mat-card-actions>
   </mat-card>
 
-  <div class="outlet" style="
+  <div
+    class="outlet"
+    style="
       width: 100%;
       flex-direction: column !important;
       background-color: white;
       padding-top: 2%;
       padding-left: 2%;
-    ">
+    "
+  >
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-        <tourishPlan-multiselect-autocomplete (result)="selectChangeReceipt($event)">
+        <tourishPlan-multiselect-autocomplete
+          (result)="selectChangeReceipt($event)"
+        >
         </tourishPlan-multiselect-autocomplete>
       </div>
     </div>
   </div>
 
-  <ul ngbNav #nav="ngbNav" [(activeId)]="active" (activeIdChange)="tourStatusChange()" class="nav-tabs"
-    style="margin-bottom: 20px">
+  <ul
+    ngbNav
+    #nav="ngbNav"
+    [(activeId)]="active"
+    (activeIdChange)="tourStatusChange()"
+    class="nav-tabs"
+    style="margin-bottom: 20px"
+  >
     <li [ngbNavItem]="0">
       <button ngbNavLink>Tour mới tạo</button>
     </li>
@@ -42,11 +53,22 @@
   </ul>
 
   <div class="table-responsive">
-    <table mat-table [dataSource]="receiptList" matSort class="mat-elevation-z8"
-      (matSortChange)="announceSortChange($event)" multiTemplateDataRows>
+    <table
+      mat-table
+      [dataSource]="receiptList"
+      matSort
+      class="mat-elevation-z8"
+      (matSortChange)="announceSortChange($event)"
+      multiTemplateDataRows
+    >
       <!-- Position Column -->
       <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by id">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by id"
+        >
           No.
         </th>
         <td mat-cell *matCellDef="let element">
@@ -56,7 +78,12 @@
 
       <!-- SS Column -->
       <ng-container matColumnDef="tourName">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by tourName">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by tourName"
+        >
           Tên tour
         </th>
         <td mat-cell *matCellDef="let element">
@@ -66,9 +93,7 @@
 
       <!-- SS Column -->
       <ng-container matColumnDef="singlePrice">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>
-          Giá đơn vé
-        </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Giá đơn vé</th>
         <td mat-cell *matCellDef="let element">
           {{ getTotalPrice(element.tourishPlan) }}
         </td>
@@ -76,7 +101,12 @@
 
       <!-- SS Column -->
       <ng-container matColumnDef="totalTicketAll">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by totalTicketAll">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by totalTicketAll"
+        >
           Tổng số vé
         </th>
         <td mat-cell *matCellDef="let element">
@@ -86,7 +116,12 @@
 
       <!-- SS Column -->
       <ng-container matColumnDef="remainTicket">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by remainTicket">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by remainTicket"
+        >
           Số vé còn lại
         </th>
         <td mat-cell *matCellDef="let element">
@@ -95,14 +130,24 @@
       </ng-container>
 
       <ng-container matColumnDef="createDate">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by createDate">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by createDate"
+        >
           Ngày tạo
         </th>
         <td mat-cell *matCellDef="let element">{{ element.createdDate }}</td>
       </ng-container>
 
       <ng-container matColumnDef="completeDate">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by completeDate">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by completeDate"
+        >
           Ngày kêt thúc
         </th>
         <td mat-cell *matCellDef="let element">{{ element.completeDate }}</td>
@@ -114,12 +159,20 @@
           &nbsp;
         </th>
         <td mat-cell *matCellDef="let element">
-          <button mat-icon-button aria-label="expand row" (click)="
+          <button
+            mat-icon-button
+            aria-label="expand row"
+            (click)="
               expandedElement = expandedElement === element ? null : element;
               $event.stopPropagation()
-            ">
-            <mat-icon *ngIf="expandedElement !== element">keyboard_arrow_down</mat-icon>
-            <mat-icon *ngIf="expandedElement === element">keyboard_arrow_up</mat-icon>
+            "
+          >
+            <mat-icon *ngIf="expandedElement !== element"
+              >keyboard_arrow_down</mat-icon
+            >
+            <mat-icon *ngIf="expandedElement === element"
+              >keyboard_arrow_up</mat-icon
+            >
           </button>
         </td>
       </ng-container>
@@ -131,13 +184,26 @@
       "discountAmount", -->
 
       <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
-      <ng-container matColumnDef="expandedDetail">
-        <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumnsWithExpand.length">
-          <div [@detailExpand]="
+      <ng-container
+        matColumnDef="expandedDetail"
+        style="width: 100% !important"
+      >
+        <td
+          mat-cell
+          *matCellDef="let element"
+          [attr.colspan]="displayedColumnsWithExpand.length"
+        >
+          <div
+            [@detailExpand]="
               element == expandedElement ? 'expanded' : 'collapsed'
-            ">
-            <div class="example-element-diagram" style="display: flex; flex-direction: row"
-              *ngFor="let fullReceipt of element.fullReceiptList; index as i">
+            "
+            style="margin-left: auto;"
+          >
+            <div
+              class="example-element-diagram"
+              style="display: flex; flex-direction: row"
+              *ngFor="let fullReceipt of element.fullReceiptList; index as i"
+            >
               <div class="receipt-info">
                 <span style="font-weight: bold">STT</span>
                 <div>{{ i + 1 }}</div>
@@ -160,16 +226,24 @@
               </div>
               <div class="receipt-info">
                 <span style="font-weight: bold">Tổng giá</span>
-                <div>{{ getTotalPriceReceipt(element.tourishPlan, fullReceipt)}} đ</div>
+                <div>
+                  {{ getTotalPriceReceipt(element.tourishPlan, fullReceipt) }} đ
+                </div>
               </div>
               <div class="receipt-button">
-                <button mat-button (click)="openEditDialog(fullReceipt.fullReceiptId)">
+                <button
+                  mat-button
+                  (click)="openEditDialog(fullReceipt.fullReceiptId)"
+                >
                   Edit
                 </button>
               </div>
 
               <div class="receipt-button">
-                <button mat-button (click)="openDeleteDialog(fullReceipt.fullReceiptId)">
+                <button
+                  mat-button
+                  (click)="openDeleteDialog(fullReceipt.fullReceiptId)"
+                >
                   Delete
                 </button>
               </div>
@@ -179,14 +253,27 @@
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumnsWithExpand"></tr>
-      <tr mat-row *matRowDef="let element; columns: displayedColumnsWithExpand" class="example-element-row"
+      <tr
+        mat-row
+        *matRowDef="let element; columns: displayedColumnsWithExpand"
+        class="example-element-row"
         [class.example-expanded-row]="expandedElement === element"
-        (click)="expandedElement = expandedElement === element ? null : element"></tr>
-      <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+        (click)="expandedElement = expandedElement === element ? null : element"
+      ></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: ['expandedDetail']"
+        class="example-detail-row"
+      ></tr>
     </table>
   </div>
 
-  <mat-paginator [pageSizeOptions]="pageSizeOpstion" [length]="length" (page)="handlePageEvent($event)"
-    showFirstLastButtons aria-label="Select page of periodic elements">
+  <mat-paginator
+    [pageSizeOptions]="pageSizeOpstion"
+    [length]="length"
+    (page)="handlePageEvent($event)"
+    showFirstLastButtons
+    aria-label="Select page of periodic elements"
+  >
   </mat-paginator>
 </div>

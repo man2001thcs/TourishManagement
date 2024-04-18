@@ -23,8 +23,7 @@ export class TinyMceEditorComponent implements OnInit {
   tinyMceSetting: any;
   tinyMceSettingShow: any;
   editorContent =
-    "Bạn có biết 'Kẻ thứ 3 trên giường' mà rất nhiều cặp đôi đang gặp phải không? Xem ngay video mới nhất từ Cởi Mở để Minh Trang và Phương Nam giải đáp nhá. \n" +
-    "Durex tự hào đồng hành cùng Vietcetera trong hành trình Cởi_Mở và khám phá bản thân. ";
+    "";
 
   color: ThemePalette = "primary";
 

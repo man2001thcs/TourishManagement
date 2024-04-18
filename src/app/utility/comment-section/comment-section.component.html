@@ -7,14 +7,11 @@
       <button
         *ngIf="isUserLogin()"
         mat-stroked-button
-        style="
-          color: rgb(4, 201, 201);
-          font-size: 16px;
-        "
+        style="color: rgb(4, 201, 201); font-size: 16px"
         (click)="sendComment()"
         [disabled]="isSending"
       >
-        Gửi
+        {{ !isSending ? "Gửi" : "Đang gửi" }}
       </button>
 
       <app-star-rating
@@ -35,6 +32,10 @@
     <h3 *ngIf="!isUserLogin()" style="font-size: 25px; font-weight: bold">
       Vui lòng đăng nhập để bình luận
     </h3>
+  </div>
+
+  <div class="title">
+    <h4 class="tour-name">Danh sách bình luận</h4>
   </div>
 
   <div class="comment-list">

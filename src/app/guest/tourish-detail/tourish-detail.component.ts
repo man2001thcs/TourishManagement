@@ -14,8 +14,9 @@ import { ActivatedRoute } from "@angular/router";
 import { NgbCarouselConfig } from "@ng-bootstrap/ng-bootstrap";
 import { EditorComponent } from "@tinymce/tinymce-angular";
 import { Slider } from "angular-carousel-slider/lib/angular-carousel-slider.component";
-import { SaveFile, TourishPlan } from "src/app/model/baseModel";
+import { SaveFile, TourishPlan, User } from "src/app/model/baseModel";
 import { MessageService } from "src/app/utility/user_service/message.service";
+import { TokenStorageService } from "src/app/utility/user_service/token.service";
 import { environment } from "src/environments/environment";
 declare let tinymce: any;
 
@@ -31,6 +32,7 @@ export class TourishDetailComponent implements OnInit {
   active = 1;
 
   setTourForm!: FormGroup;
+  user!: User;
 
   isSubmit = false;
   tourishPlanId = "";
@@ -43,7 +45,7 @@ export class TourishDetailComponent implements OnInit {
 
   tinyMceSetting!: any;
   ratingAverage = 3;
-  ratingArr:number[] = [];
+  ratingArr: number[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -52,7 +54,8 @@ export class TourishDetailComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private rendered2: Renderer2,
     private messageService: MessageService,
-    private elementRef: ElementRef
+    private elementRef: ElementRef,
+    private tokenStorageService: TokenStorageService
   ) {}
 
   ngOnInit() {
@@ -61,24 +64,22 @@ export class TourishDetailComponent implements OnInit {
     for (let index = 0; index < 5; index++) {
       this.ratingArr.push(index);
     }
-
-    this.getRatingForTour();
-
     this.setTourForm = this.fb.group({
       name: ["", Validators.compose([Validators.required])],
       address: ["", Validators.compose([Validators.required])],
       email: ["", Validators.compose([Validators.required])],
       phoneNumber: ["", Validators.compose([Validators.required])],
-      totalTicket: [0, Validators.compose([Validators.required])],
+      totalTicket: [1, Validators.compose([Validators.required, Validators.min(1)])],
       description: [
         "",
         Validators.compose([Validators.required, Validators.minLength(3)]),
       ],
     });
 
+    this.getRatingForTour();
     this.getTourImage();
     this.getTour();
-
+    this.getAccount();
     // var result = tinymce.editors;
     // result.forEach((element: any) => {
     //   tinymce.get(element.id).getBody().setAttribute("contenteditable", false);
@@ -201,6 +202,32 @@ export class TourishDetailComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustHtml(content);
   }
 
+  getAccount() {
+    if (this.tokenStorageService.getUserRole() == "User") {
+      const user = this.tokenStorageService.getUser();
+      const payload = {
+        id: user.Id,
+      };
+
+      this.http
+        .post("/api/User/SelfGetUser", null, {
+          params: payload,
+        })
+        .subscribe((response: any) => {
+          if (response) {
+            this.user = response.data;
+
+            this.setTourForm.controls["phoneNumber"].setValue(
+              this.user.phoneNumber
+            );
+            this.setTourForm.controls["email"].setValue(this.user.email);
+            this.setTourForm.controls["address"].setValue(this.user.address);
+            this.setTourForm.controls["name"].setValue(this.user.fullName);
+          }
+        });
+    }
+  }
+
   getTour() {
     this.http
       .get("/api/GetTourishPlan/" + this.tourishPlanId)
@@ -275,9 +302,10 @@ export class TourishDetailComponent implements OnInit {
   register() {
     const payload = {
       guestName: this.setTourForm.value.name,
-      guestEmail: this.setTourForm.value.email,
-      guestPhoneNumber: this.setTourForm.value.phoneNumber,
+      email: this.setTourForm.value.email,
+      phoneNumber: this.setTourForm.value.phoneNumber,
       totalTicket: this.setTourForm.value.totalTicket,
+      tourishPlanId: this.tourishPlanId
     };
 
     this.messageService.openLoadingDialog();
@@ -313,5 +341,4 @@ export class TourishDetailComponent implements OnInit {
       return "star_border";
     }
   }
-
 }

@@ -5,6 +5,7 @@ import { RouterModule } from "@angular/router";
 import { UserMainComponent } from "../main/main.component";
 import { TourishDetailComponent } from "src/app/guest/tourish-detail/tourish-detail.component";
 import { TourishMainComponent } from "src/app/guest/tourish-main/tourish-main.component";
+import { UserAccountInfoComponent } from "../account-info/account-info.component";
 
 const routes: Routes = [
   {
@@ -18,6 +19,10 @@ const routes: Routes = [
       {
         path: "main-page",
         component: TourishMainComponent,
+      },
+      {
+        path: "account",
+        component: UserAccountInfoComponent,
       },
     ],
   },

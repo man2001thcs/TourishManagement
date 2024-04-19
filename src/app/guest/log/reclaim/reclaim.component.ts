@@ -30,15 +30,11 @@ import { ActivatedRoute } from "@angular/router";
 
 import { User } from "src/app/model/baseModel";
 
-import * as UserActions from "./signIn-create.store.action";
-import { State as UserState } from "./signIn-create.store.reducer";
+import * as UserActions from "./reclaim.store.action";
+import { State as UserState } from "./reclaim.store.reducer";
 import { Store } from "@ngrx/store";
 import { MessageService } from "src/app/utility/user_service/message.service";
-import {
-  getUser,
-  getMessage,
-  getSysError,
-} from "./signIn-create.store.selector";
+import { reclaimUser, getMessage, getSysError, assignPassword } from "./reclaim.store.selector";
 import { HttpClient, HttpParams, HttpRequest } from "@angular/common/http";
 import {
   getViErrMessagePhase,
@@ -64,10 +60,10 @@ export const matchPasswordValidator: ValidatorFn = (
 
 @Component({
   selector: "app-user-create",
-  templateUrl: "./signIn-create.component.html",
-  styleUrls: ["./signIn-create.component.css"],
+  templateUrl: "./reclaim.component.html",
+  styleUrls: ["./reclaim.component.css"],
 })
-export class UserCreateComponent implements OnInit, OnDestroy {
+export class ReclaimUserComponent implements OnInit, OnDestroy {
   isEditing: boolean = true;
   isSubmitting: boolean = false;
 
@@ -89,11 +85,7 @@ export class UserCreateComponent implements OnInit, OnDestroy {
   errorMessageState!: Observable<any>;
   errorSystemState!: Observable<any>;
   userState!: Observable<any>;
-
-  authorListState!: Observable<any>;
-  voucherListState!: Observable<any>;
-  publishListState!: Observable<any>;
-  categoryListState!: Observable<any>;
+  reclaimState!: Observable<any>;
 
   subscriptions: Subscription[] = [];
 
@@ -105,6 +97,8 @@ export class UserCreateComponent implements OnInit, OnDestroy {
 
   accountObservable!: Observable<string | null>;
 
+  reclaimToken = "";
+
   constructor(
     private dialog: MatDialog,
     private fb: FormBuilder,
@@ -114,35 +108,30 @@ export class UserCreateComponent implements OnInit, OnDestroy {
     private messageService: MessageService,
     private router: Router
   ) {
-    this.userState = this.store.select(getUser);
+    this.userState = this.store.select(reclaimUser);
+    this.reclaimState = this.store.select(assignPassword);
 
     this.errorMessageState = this.store.select(getMessage);
     this.errorSystemState = this.store.select(getSysError);
   }
 
   ngOnInit(): void {
+    this.reclaimToken = this._route.snapshot.queryParamMap.get("reclaimToken") ?? "";
+
     this.createformGroup = this.fb.group(
       {
         userName: [
           "",
           Validators.compose([Validators.required, Validators.minLength(3)]),
         ],
-
         password: [
           "",
           Validators.compose([Validators.required, Validators.minLength(6)]),
         ],
-
         rePassword: [
           "",
           Validators.compose([Validators.required, Validators.minLength(6)]),
         ],
-
-        role: [0, Validators.compose([Validators.required])],
-        email: ["", Validators.compose([Validators.required, Validators.email])],
-        fullName: ["", Validators.compose([Validators.required])],
-        address: ["", Validators.compose([Validators.required])],
-        phoneNumber: ["", Validators.compose([Validators.required])],
       },
       { validators: matchPasswordValidator }
     );
@@ -152,37 +141,11 @@ export class UserCreateComponent implements OnInit, OnDestroy {
         .pipe(debounceTime(400))
         .subscribe((state) => {
           var payload = {
-            userName: state,
+            reclaimInfo: state,
           };
 
           this.http
-            .post("/api/User/CheckExist", null, { params: payload })
-            .subscribe((returnValue: any) => {
-              const messageCode: string = returnValue?.messageCode;
-              if (messageCode.charAt(0) === "C") {
-                this.accountMessage = getViErrMessagePhase(messageCode);
-                this.isContinueStep1 = false;
-              } else {
-                if (messageCode.charAt(0) === "I") {
-                  this.accountMessage = getViMessagePhase(messageCode);
-                  this.accountMessage = "";
-                }
-                this.isContinueStep1 = true;
-              }
-            });
-        })
-    );
-
-    this.subscriptions.push(
-      this.createformGroup?.controls["email"].valueChanges
-        .pipe(debounceTime(400))
-        .subscribe((state) => {
-          var payload = {
-            email: state,
-          };
-
-          this.http
-            .post("/api/User/CheckExist/email", null, { params: payload })
+            .post("/api/User/CheckExist/reclaim", null, { params: payload })
             .subscribe((returnValue: any) => {
               const messageCode: string = returnValue?.messageCode;
               if (messageCode.charAt(0) === "C") {
@@ -190,7 +153,6 @@ export class UserCreateComponent implements OnInit, OnDestroy {
                 this.isContinueStep2 = false;
               } else {
                 if (messageCode.charAt(0) === "I") {
-                  this.accountMessage = getViMessagePhase(messageCode);
                   this.accountMessage = "";
                 }
                 this.isContinueStep2 = true;
@@ -201,6 +163,16 @@ export class UserCreateComponent implements OnInit, OnDestroy {
 
     this.subscriptions.push(
       this.userState.subscribe((state) => {
+        if (state) {
+          this.messageService.closeLoadingDialog();
+          this.messageService.openMessageNotifyDialog(state.messageCode);
+          this.myStepper.next();
+        }
+      })
+    );
+
+    this.subscriptions.push(
+      this.reclaimState.subscribe((state) => {
         if (state) {
           this.messageService.closeLoadingDialog();
           this.messageService.openMessageNotifyDialog(state.messageCode);
@@ -237,20 +209,16 @@ export class UserCreateComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
-  formSubmit_create_info(): void {
+  formSubmit_reclaim_info(): void {
     this.submited = true;
     if (this.createformGroup.valid) {
       this.messageService.openLoadingDialog();
       this.store.dispatch(
-        UserActions.createUser({
+        UserActions.reclaimUser({
           payload: {
             userName: this.createformGroup.value.userName,
-            password: this.createformGroup.value.password,
-            role: this.createformGroup.value.role,
+            password: this.createformGroup.value.password, 
             email: this.createformGroup.value.email,
-            fullName: this.createformGroup.value.fullName,
-            address: this.createformGroup.value.address,
-            phoneNumber: this.createformGroup.value.phoneNumber,
             signInPhase: "SignIn",
           },
         })
@@ -260,18 +228,20 @@ export class UserCreateComponent implements OnInit, OnDestroy {
     console.log(this.createformGroup.value);
   }
 
-  formReset_create_info(): void {
-    this.isSubmitting = true;
-    this.createformGroup.setValue({
-      userName: "",
-      password: "",
-      rePassword: "",
-      role: 0,
-      email: "",
-      fullName: "",
-      address: "",
-      phoneNumber: "",
-    });
+  formSubmit_assign_info(): void {
+    this.submited = true;
+    if (this.createformGroup.valid) {
+      this.messageService.openLoadingDialog();
+      this.store.dispatch(
+        UserActions.assignPassword({
+          payload: {
+            userName: this.createformGroup.value.userName,
+            password: this.createformGroup.value.password, 
+            reclaimToken: this.reclaimToken,
+          },
+        })
+      );
+    }
   }
 
   openDialog() {

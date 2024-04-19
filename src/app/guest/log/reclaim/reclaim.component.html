@@ -1,0 +1,141 @@
+<div class="container" style="padding: 20px 0 20px">
+  <div
+    class="outlet"
+    style="
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      flex-direction: column !important;
+      background-color: white;
+    "
+  >
+    <div
+      class="row"
+      style="
+        display: flex;
+        flex-direction: column !important;
+        flex-wrap: 1;
+        padding-left: 90px !important;
+        align-items: center;
+      "
+    >
+      <div class="row">
+        <h2 mat-form-label style="font-weight: heavy">Khôi phục tài khoản</h2>
+      </div>
+
+      <mat-stepper [linear]="true" #stepper>
+        <mat-step label="Điền tên tài khoản">
+          <form [formGroup]="createformGroup">
+            <div class="row" *ngIf="accountMessage.length > 0">
+              <mat-card style="background-color: #f8d7da">
+                <mat-card-content style="color: #b55529"
+                  >Tài khoản đã tồn tại</mat-card-content
+                >
+              </mat-card>
+            </div>
+
+            <div class="row">
+              <mat-form-field appearance="outline" class="full-width-input">
+                <mat-label>Tài khoản hoặc email đăng kí</mat-label>
+                <input
+                  #accountInput
+                  matInput
+                  placeholder="Vd: 10"
+                  formControlName="userName"
+                  required
+                />
+              </mat-form-field>
+              <app-validation
+                *ngIf="submited"
+                [formGroup]="createformGroup"
+                [formGroupControlName]="'userName'"
+              ></app-validation>
+            </div>         
+            <div>
+              <button mat-button (click)="formSubmit_reclaim_info()" [disabled]="!isContinueStep1">
+                Tiếp tục
+              </button>
+            </div>
+          </form>
+        </mat-step>
+
+        <mat-step label="Xác nhận  qua mail">
+          <div class="row" *ngIf="accountMessage.length > 0">
+              <mat-card style="background-color: #f8d7da">
+                <mat-card-content style="color: #b55529"
+                  >Vui lòng truy cập mail để xác nhận tài khoản</mat-card-content
+                >
+              </mat-card>
+            </div>
+        </mat-step>
+
+        <mat-step label="Điền mật khẩu mới">
+          <form [formGroup]="createformGroup">
+            <div
+              class="row"
+              *ngIf="createformGroup.errors?.['matchPassword'] &&  !this.createformGroup.get('rePassword')?.invalid"
+            >
+              <mat-card style="background-color: #f8d7da">
+                <mat-card-content style="color: #b55529"
+                  >Mật khẩu không khớp</mat-card-content
+                >
+              </mat-card>
+            </div>
+            <div class="row">
+              <mat-form-field appearance="outline" class="full-width-input">
+                <mat-label>Điền mật khẩu mới</mat-label>
+                <input
+                  matInput
+                  placeholder="Vd: 10"
+                  formControlName="password"
+                  type="password"
+                />
+              </mat-form-field>
+              <app-validation
+                *ngIf="this.createformGroup.get('password')?.touched"
+                [formGroup]="createformGroup"
+                [formGroupControlName]="'password'"
+              ></app-validation>
+            </div>
+            <div class="row">
+              <mat-form-field appearance="outline" class="full-width-input">
+                <mat-label>Điền lại mật khẩu</mat-label>
+                <input
+                  matInput
+                  placeholder="Vd: 10"
+                  formControlName="rePassword"
+                  type="password"
+                />
+              </mat-form-field>
+              <app-validation
+                *ngIf="this.createformGroup.get('rePassword')?.touched"
+                [formGroup]="createformGroup"
+                [formGroupControlName]="'rePassword'"
+              ></app-validation>
+            </div>
+            <div>
+              <button mat-button matStepperPrevious>Trước</button>
+              <button
+                mat-button
+                (click)="formSubmit_assign_info()"
+                [disabled]="
+                  this.createformGroup.get('password')?.invalid ||
+                  this.createformGroup.get('rePassword')?.invalid || createformGroup.errors?.['matchPassword']
+                "
+              >
+                Tiếp tục
+              </button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>Hoàn thành</ng-template>
+          <p>Khôi phục thành công. Hẫy quay lại trang đăng nhập.</p>
+          <div>
+            <button mat-button (click)="toLoginPage()">Quay lại</button>
+          </div>
+        </mat-step>
+      </mat-stepper>
+    </div>
+  </div>
+</div>

@@ -301,7 +301,6 @@ import { GuestMessageConHistoryListEffects } from "../ChatConHistory/chat_con_hi
     UserListComponent,
 
     AccountInfoComponent,
-    AvatarUploadComponent,
 
     AdminMainComponent,
     HeaderAdminComponent,

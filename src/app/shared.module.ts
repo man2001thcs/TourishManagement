@@ -63,6 +63,7 @@ import { TourishPackComponent } from "./utility/tourish-pack/tourish-pack.compon
 import { StarRatingComponent } from "./utility/star-rating/star-rating.component";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { AvatarUploadComponent } from "./utility/image_avatar_service/imageUpload.component";
 
 @NgModule({
   declarations: [
@@ -82,7 +83,8 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
     TourishDetailComponent,
     TourishMainComponent,
     TourishPackComponent,
-    StarRatingComponent
+    StarRatingComponent,
+    AvatarUploadComponent
   ],
   imports: [
     MatListModule,
@@ -176,7 +178,8 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
     TourishMainComponent,
     TourishPackComponent,
     StarRatingComponent,
-    MatSnackBarModule
+    MatSnackBarModule,
+    AvatarUploadComponent
   ],
   providers: [
     { provide: TINYMCE_SCRIPT_SRC, useValue: "tinymce/tinymce.min.js" },

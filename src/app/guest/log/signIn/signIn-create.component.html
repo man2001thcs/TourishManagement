@@ -148,7 +148,8 @@
                 matStepperNext
                 [disabled]="
                   this.createformGroup.get('phoneNumber')?.invalid ||
-                  this.createformGroup.get('address')?.invalid
+                  this.createformGroup.get('address')?.invalid ||
+                  !isContinueStep2
                 "
               >
                 Tiếp tục

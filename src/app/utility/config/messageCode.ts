@@ -9,6 +9,7 @@ export const ERR_MESSAGE_CODE_EN: Map<string, string> = new Map([
   ["C008", "Token doesn't match"],
   ["C009", "Unexpected error"],
   ["C010", "Account existed"],
+  ["C010e", "Email existed"],
 
   ["C011", "Failed at Account's information change"],
   ["C012", "Failed at Account's password change"],
@@ -103,6 +104,7 @@ export const ERR_MESSAGE_CODE_VI: Map<string, string> = new Map([
     ["C008", "Token không khớp"],
     ["C009", "Lỗi không xác định"],
     ["C010", "Tài khoản đã tồn tại"],
+    ["C010e", "Email đã được đăng kí, vui lòng kiểm tra lại"],
 
     ["C011", "Cập nhật thông tin không thành công"],
     ["C012", "Cập nhật mật khẩu không thành công"],
@@ -199,6 +201,7 @@ export const SUCCESS_MESSAGE_CODE_EN: Map<string, string> = new Map([
     ["I000", "Login success"],
     ["I001", "Token has been renewed"],
     ["I010", "Account can be created"],
+    ["I010a", "Account has been registered"],
     ["I011", "Account's information change successfully"],
     ["I012", "Account's password change successfully"],
 
@@ -257,6 +260,8 @@ export const SUCCESS_MESSAGE_CODE_EN: Map<string, string> = new Map([
     ["I000", "Đăng nhập thành công"],
     ["I001", "Token đã được làm mới"],
     ["I010", "Tài khoản đã được tạo, vui lòng truy cập địa chỉ mail của bạn để xác nhận tài khoản"],
+    ["I010a", "Tài khoản đã được tạo, vui lòng truy cập địa chỉ mail của bạn để xác nhận tài khoản"],
+    ["I010b", "Tài khoản có tồn tại"],
     ["I011", "Thay đổi thông tin tài khoản thành công"],
     ["I012", "Thay đổi mật khẩu tài khoản thành công"],
 

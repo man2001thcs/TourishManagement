@@ -2,8 +2,6 @@ import { HttpClient } from "@angular/common/http";
 import { Component, Input, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ThemePalette } from "@angular/material/core";
-import { NgbCarouselConfig } from "@ng-bootstrap/ng-bootstrap";
-import { Slider } from "angular-carousel-slider/lib/angular-carousel-slider.component";
 import { TourishCategory } from "src/app/model/baseModel";
 
 @Component({

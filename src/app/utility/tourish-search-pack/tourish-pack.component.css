@@ -1,0 +1,55 @@
+.pack-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: inherit;
+  padding: 30px 0 20px;
+  width: 100%;
+}
+
+.tourish-pack {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  background-color: inherit;
+  width: 100%;
+}
+
+.tourish-pack-description {
+  background-color: inherit;
+}
+
+.tourish-pack app-tourish-card {
+  margin-bottom: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.tourish-pack-description h3 {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.tourish-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.pagination {
+  align-self: flex-end;
+}
+
+.disabled {
+  opacity: 0.5; /* or any other styles to indicate it's disabled */
+  cursor: not-allowed;
+  pointer-events: none; /* prevents clicking */
+}
+
+.page-link {
+  cursor: pointer;
+}
+

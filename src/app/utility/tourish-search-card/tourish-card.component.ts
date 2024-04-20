@@ -6,11 +6,11 @@ import { SaveFile } from "src/app/model/baseModel";
 import { environment } from "src/environments/environment";
 
 @Component({
-  selector: "app-tourish-card",
+  selector: "app-tourish-search-card",
   templateUrl: "./tourish-card.component.html",
   styleUrls: ["./tourish-card.component.css"],
 })
-export class TourishPlanCardComponent implements OnInit {
+export class TourishPlanSearchCardComponent implements OnInit{
   @Input()
   score = 4;
   @Input()
@@ -23,8 +23,10 @@ export class TourishPlanCardComponent implements OnInit {
   tourPrice = 1400000;
   @Input()
   customerNumber = 19;
+
+  firstImageUrl = "";
   tourImage: SaveFile[] = [];
-  firstImageUrl: string = "";
+  ratingAverage: any;
 
   constructor(
     private router: Router,
@@ -33,6 +35,7 @@ export class TourishPlanCardComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.getTourImage();
+    this.getRatingForTour();
   }
 
   getRateString(input: number) {
@@ -46,27 +49,12 @@ export class TourishPlanCardComponent implements OnInit {
     return "";
   }
 
-  getRatingForTour() {
-    const payload = {
-      tourishPlanId: this.id,
-    };
-
-    this.http
-      .get("/api/GetTourRating/tourishplan", { params: payload })
-      .subscribe((state: any) => {
-        if (state) {
-          console.log("abc", state);
-          this.score = state.averagePoint;
-        }
-      });
-  }
-
   getRateColor(input: number) {
-    if (0 <= input && 5 > input) {
+    if (0 <= input && 2.5 > input) {
       return "#d31818";
-    } else if (5 <= input && 8 > input) {
+    } else if (2.5 <= input && 4 > input) {
       return "#F79321";
-    } else if (8 <= input && 10 >= input) {
+    } else if (4 <= input && 5 >= input) {
       return "#9fc43a";
     }
     return "";
@@ -101,6 +89,21 @@ export class TourishPlanCardComponent implements OnInit {
       saveFile.fileType;
   }
 
+  getRatingForTour() {
+    const payload = {
+      tourishPlanId: this.id,
+    };
+
+    this.http
+      .get("/api/GetTourRating/tourishplan", { params: payload })
+      .subscribe((state: any) => {
+        if (state) {
+          console.log("abc", state);
+          this.score = state.averagePoint;
+        }
+      });
+  }
+
   navigateToDetail(): void {
     if (this.tokenStorageService.getUserRole() == "User") {
       this.router.navigate(["user/tour/" + this.id + "/detail"]);
@@ -108,10 +111,10 @@ export class TourishPlanCardComponent implements OnInit {
   }
 
   getTourName(inputString: string) {
-    if (inputString.length <= 32) {
+    if (inputString.length <= 100) {
       return inputString;
     } else {
-      return inputString.substring(0, 32) + "...";
+      return inputString.substring(0, 100) + "...";
     }
   }
 }

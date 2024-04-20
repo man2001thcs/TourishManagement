@@ -1,9 +1,11 @@
 <mat-card class="example-card" (click)="navigateToDetail()">
+  <div class="image-container">
   <img
     mat-card-image
-    src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+    src={{this.firstImageUrl}}
     alt="Photo of a Shiba Inu"
   />
+</div>
   <mat-card-content>
     <p class="tour-name">{{getTourName(tourName)}}</p>
 

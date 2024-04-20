@@ -348,3 +348,8 @@ export interface GuestMessageConHistory {
   guestMessages?: GuestMessage[];
   status: number;
 }
+
+export interface PriceRange {
+  startPrice: number;
+  endPrice: number;
+}

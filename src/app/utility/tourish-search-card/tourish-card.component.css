@@ -1,8 +1,8 @@
 .example-card {
-    width: 360px;
     height: fit-content;
-    min-height: 420px;    
     white-space: nowrap;
+    max-height: 150px;
+    width: 100%;
 }
 
 .example-card:hover {
@@ -33,14 +33,14 @@
     font-weight: bold;
     color: #F79321;
     right: 0 !important;
-    margin-left: 10px;
-    
+    margin-right: 10px; 
+}
+
+img {
+    max-height: 120px;
 }
 
 .image-container {
-    height: 270px;
-}
-
-.image-container img {
-    max-width: 360px;
+    max-width: 220px;
+    margin-right: 20px;
 }

@@ -13,6 +13,7 @@ import { TourishPlanCardComponent } from "src/app/utility/tourish-card/tourish-c
 import { TourishDetailComponent } from "../tourish-detail/tourish-detail.component";
 import { TourishMainComponent } from "../tourish-main/tourish-main.component";
 import { ReclaimUserComponent } from "../log/reclaim/reclaim.component";
+import { TourishSearchComponent } from "../tourish-search/tourish-search.component";
 
 const routes: Routes = [
   {
@@ -46,6 +47,10 @@ const routes: Routes = [
       {
         path: "main-page",
         component: TourishMainComponent,
+      },
+      {
+        path: "search-page",
+        component: TourishSearchComponent,
       },
     ],
   },

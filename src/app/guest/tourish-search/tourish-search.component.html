@@ -1,0 +1,116 @@
+<div class="search-container">
+  <div class="side-container">
+    <div class="price-tag">
+      <mat-card class="example-card">
+        <mat-card-header>
+          <mat-card-title>Lọc theo</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <h4>Giá</h4>
+          <mat-selection-list [multiple]="false">
+            <mat-list-option *ngFor="let price of priceRange"
+              >Từ {{ price.startPrice }} - {{ price.endPrice }}</mat-list-option
+            >
+          </mat-selection-list>
+          <mat-divider></mat-divider>
+          <h4>Thể loại</h4>
+          <mat-selection-list>
+            <mat-list-option *ngFor="let category of this.categoryList">{{
+              category.name
+            }}</mat-list-option>
+          </mat-selection-list>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  <div class="product-container">
+    <div class="tour-search">
+      <div
+        class="row"
+        [formGroup]="setTourForm"
+        style="height: fit-content !important"
+      >
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-4 create-form">
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Bạn muốn đi đâu</mat-label>
+            <input
+              matInput
+              fullwidth
+              placeholder="Vd: Bồ Công Anh"
+              formControlName="name"
+            />
+          </mat-form-field>
+          <app-validation
+            *ngIf="isSubmit"
+            [formGroup]="setTourForm"
+            [formGroupControlName]="'name'"
+          ></app-validation>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-4 create-form">
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Nơi bắt đầu</mat-label>
+            <input
+              matInput
+              fullwidth
+              placeholder="Vd: Bồ Công Anh"
+              formControlName="startingPlace"
+            />
+          </mat-form-field>
+          <app-validation
+            *ngIf="isSubmit"
+            [formGroup]="setTourForm"
+            [formGroupControlName]="'startingPlace'"
+          ></app-validation>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 create-form">
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Ngày bắt đầu</mat-label>
+            <input
+              matInput
+              [ngxMatDatetimePicker]="picker"
+              placeholder="Choose a date"
+              formControlName="startDate"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="$any(picker)"
+            ></mat-datepicker-toggle>
+            <ngx-mat-datetime-picker
+              #picker
+              [showSpinners]="true"
+              [showSeconds]="true"
+              [touchUi]="touchUi"
+              [color]="color"
+              [enableMeridian]="enableMeridian"
+            >
+            </ngx-mat-datetime-picker>
+          </mat-form-field>
+          <app-validation
+            *ngIf="isSubmit"
+            [formGroup]="setTourForm"
+            [formGroupControlName]="'startDate'"
+          ></app-validation>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-1 col-lg-1 create-form">
+          <button
+            mat-raised-button
+            color="primary"
+            style="height: 56px; font-size: 14px"
+          >
+            Tìm
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <app-tourish-search-pack
+    *ngIf="categoryList.length > 0"
+      [category]="categoryList[0].name"
+      [description]="categoryList[0].description"
+      style="width: 100%;"
+    ></app-tourish-search-pack>
+  </div>
+</div>

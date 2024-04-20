@@ -3,13 +3,12 @@
   min-height: 400px;
   height: fit-content;
   width: 100%;
-  background-image: url("https://bookstore1storage.blob.core.windows.net/start-container/painting-mountain-lake-with-mountain-background%20(1).jpg");
-  background-size: cover; /* This property ensures that the background image covers the entire element */
-  background-repeat: no-repeat;
+  background-color: #ECF0F5;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  padding: 50px 10% 50px;
 }
 
 .page-info-container {
@@ -67,11 +66,12 @@
 }
 
 .tour-search {
-  width: 50%;
+  width: 100%;
   background-color: white;
-  padding: 20px 30px 20px;
+  padding: 35px 30px 10px;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
 }
 
 .tour-search .mat-mdc-form-field-infix ng-tns-c23-2 {
@@ -132,4 +132,25 @@ app-tourish-pack:nth-child(odd) {
 h4.tour-name {
   font-weight: bold;
   font-size: 20px;
+}
+
+.side-container {
+  width: 20% !important;
+  margin-right: 10px;
+}
+
+.product-container {
+  width: 80% !important;
+  margin-left: 10px;
+}
+
+.price-tag {
+  background-color: white;
+}
+
+mat-card-content h4 {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 0;
+  margin-top: 20px;
 }

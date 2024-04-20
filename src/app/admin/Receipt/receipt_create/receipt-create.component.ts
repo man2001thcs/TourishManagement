@@ -83,12 +83,11 @@ export class ReceiptCreateComponent implements OnInit, OnDestroy {
     );
 
     this.subscriptions.push(
-      this.errorMessageState.subscribe((state) => {
+      this.errorMessageState.subscribe((state: any) => {
         if (state) {
-          if (state !== "" && state !== null) {
-            this.messageService.closeAllDialog();
-            this.messageService.openMessageNotifyDialog(state);
-          }
+          this.messageService.closeLoadingDialog();
+          this.messageService.closeAllDialog();
+          this.messageService.openMessageNotifyDialog(state.code);
         }
       })
     );
@@ -182,5 +181,9 @@ export class ReceiptCreateComponent implements OnInit, OnDestroy {
       $event.data[0]
     );
     console.log(this.createformGroup_info.value);
+  }
+
+  closeDialog(){
+    this.dialog.closeAll();
   }
 }

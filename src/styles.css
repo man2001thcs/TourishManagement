@@ -6,3 +6,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .container {
     min-height: 600px;
 }
+
+.full-width-input {
+    height: fit-content !important;
+  }

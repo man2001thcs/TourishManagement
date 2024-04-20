@@ -22,8 +22,7 @@ export class TinyMceEditorComponent implements OnInit {
 
   tinyMceSetting: any;
   tinyMceSettingShow: any;
-  editorContent =
-    "";
+  editorContent = "";
 
   color: ThemePalette = "primary";
 
@@ -140,7 +139,7 @@ export class TinyMceEditorComponent implements OnInit {
       toolbar: false,
       menubar: false,
       statusbar: false,
-      resize: 'both',
+      resize: "both",
       autoresize_bottom_margin: 0,
       readonly: 1,
 

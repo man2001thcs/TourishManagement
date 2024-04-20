@@ -32,12 +32,12 @@ export const reducer = createReducer(
 
   on(AccountAction.getAccountFailed, (state, { response }) => ({
     ...state,
-    messageCode: response.messageCode,
+    messageCode: {code: response.messageCode},
   })),
 
   on(AccountAction.getAccountSystemFailed, (state, { error }) => ({
     ...state,
-    error: error,
+    error: {message: error},
   })),
 
   on(AccountAction.editAccount, (state, { payload }) => ({
@@ -51,12 +51,12 @@ export const reducer = createReducer(
 
   on(AccountAction.editAccountFailed, (state, { response }) => ({
     ...state,
-    messageCode: response.messageCode,
+    messageCode: {code: response.messageCode},
   })),
 
   on(AccountAction.editAccountSystemFailed, (state, { error }) => ({
     ...state,
-    error: error,
+    error: {message: error},
   })), 
 
   on(AccountAction.resetAccount, (state) => ({

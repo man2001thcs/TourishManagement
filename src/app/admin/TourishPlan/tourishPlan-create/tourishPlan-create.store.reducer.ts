@@ -30,12 +30,12 @@ export const reducer = createReducer(
 
   on(AuthorAction.createTourishPlanFailed, (state, { response }) => ({
     ...state,
-    messageCode: response.messageCode,
+    messageCode: {code: response.messageCode},
   })),
 
   on(AuthorAction.createTourishPlanSystemFailed, (state, { error }) => ({
     ...state,
-    error: error,
+    error: {message: error},
   })),
 
   on(AuthorAction.resetTourishPlan, (state) => ({

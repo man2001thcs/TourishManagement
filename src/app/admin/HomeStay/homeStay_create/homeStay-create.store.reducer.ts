@@ -32,12 +32,12 @@ export const reducer = createReducer(
 
   on(HomeStayAction.createHomeStayFailed, (state, { response }) => ({
     ...state,
-    messageCode: response.messageCode,
+    messageCode: {code: response.messageCode},
   })),
 
   on(HomeStayAction.createHomeStaySystemFailed, (state, { error }) => ({
     ...state,
-    error: error,
+    error: {message: error},
   })),
 
   on(HomeStayAction.resetHomeStay, (state) => ({

@@ -32,12 +32,12 @@ export const reducer = createReducer(
 
   on(AuthorAction.reclaimUserFailed, (state, { response }) => ({
     ...state,
-    messageCode: response.messageCode,
+    messageCode: {code: response.messageCode},
   })),
 
   on(AuthorAction.reclaimUserSystemFailed, (state, { error }) => ({
     ...state,
-    error: error,
+    error: {message: error},
   })),
 
   on(AuthorAction.assignPassword, (state, { payload }) => ({
@@ -46,17 +46,17 @@ export const reducer = createReducer(
 
   on(AuthorAction.assignPasswordSuccess, (state, { response }) => ({
     ...state,
-    userReturn: response,
+    assignPasswordReturn: response,
   })),
 
   on(AuthorAction.assignPasswordFailed, (state, { response }) => ({
     ...state,
-    messageCode: response.messageCode,
+    messageCode: {code: response.messageCode},
   })),
 
   on(AuthorAction.assignPasswordSystemFailed, (state, { error }) => ({
     ...state,
-    error: error,
+    error: {message: error},
   })),
 
   on(AuthorAction.resetUser, (state) => ({

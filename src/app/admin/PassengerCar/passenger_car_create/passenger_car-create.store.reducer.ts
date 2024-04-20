@@ -32,12 +32,12 @@ export const reducer = createReducer(
 
   on(PassengerCarAction.createPassengerCarFailed, (state, { response }) => ({
     ...state,
-    messageCode: response.messageCode,
+    messageCode: {code: response.messageCode},
   })),
 
   on(PassengerCarAction.createPassengerCarSystemFailed, (state, { error }) => ({
     ...state,
-    error: error,
+    error: {message: error},
   })),
 
   on(PassengerCarAction.resetPassengerCar, (state) => ({

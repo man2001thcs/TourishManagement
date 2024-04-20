@@ -36,12 +36,12 @@ export const reducer = createReducer(
 
   on(TourishCategoryListAction.getTourishCategoryListFailed, (state, { response }) => ({
     ...state,
-    messageCode: response.messageCode,
+    messageCode: {code: response.messageCode},
   })),
 
   on(TourishCategoryListAction.getTourishCategoryListSystemFailed, (state, { error }) => ({
     ...state,
-    error: error,
+    error: {message: error},
   })),
 
   on(TourishCategoryListAction.deleteTourishCategory, (state, { payload }) => ({
@@ -55,12 +55,12 @@ export const reducer = createReducer(
 
   on(TourishCategoryListAction.deleteTourishCategoryFailed, (state, { response }) => ({
     ...state,
-    messageCode: response.messageCode,
+    messageCode: {code: response.messageCode},
   })),
 
   on(TourishCategoryListAction.deleteTourishCategorySystemFailed, (state, { error }) => ({
     ...state,
-    error: error,
+    error: {message: error},
   })),
 
   on(TourishCategoryListAction.resetTourishCategoryList, (state) => ({

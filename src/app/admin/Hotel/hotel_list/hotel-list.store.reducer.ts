@@ -36,12 +36,12 @@ export const reducer = createReducer(
 
   on(HotelListAction.getHotelListFailed, (state, { response }) => ({
     ...state,
-    messageCode: response.messageCode,
+    messageCode: {code: response.messageCode},
   })),
 
   on(HotelListAction.getHotelListSystemFailed, (state, { error }) => ({
     ...state,
-    error: error,
+    error: {message: error},
   })),
 
   on(HotelListAction.deleteHotel, (state, { payload }) => ({
@@ -55,12 +55,12 @@ export const reducer = createReducer(
 
   on(HotelListAction.deleteHotelFailed, (state, { response }) => ({
     ...state,
-    messageCode: response.messageCode,
+    messageCode: {code: response.messageCode},
   })),
 
   on(HotelListAction.deleteHotelSystemFailed, (state, { error }) => ({
     ...state,
-    error: error,
+    error: {message: error},
   })),
 
   on(HotelListAction.resetHotelList, (state) => ({

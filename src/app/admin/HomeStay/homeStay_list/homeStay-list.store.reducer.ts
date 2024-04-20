@@ -36,12 +36,12 @@ export const reducer = createReducer(
 
   on(HomeStayListAction.getHomeStayListFailed, (state, { response }) => ({
     ...state,
-    messageCode: response.messageCode,
+    messageCode: {code: response.messageCode},
   })),
 
   on(HomeStayListAction.getHomeStayListSystemFailed, (state, { error }) => ({
     ...state,
-    error: error,
+    error: {message: error},
   })),
 
   on(HomeStayListAction.deleteHomeStay, (state, { payload }) => ({
@@ -55,12 +55,12 @@ export const reducer = createReducer(
 
   on(HomeStayListAction.deleteHomeStayFailed, (state, { response }) => ({
     ...state,
-    messageCode: response.messageCode,
+    messageCode: {code: response.messageCode},
   })),
 
   on(HomeStayListAction.deleteHomeStaySystemFailed, (state, { error }) => ({
     ...state,
-    error: error,
+    error: {message: error},
   })),
 
   on(HomeStayListAction.resetHomeStayList, (state) => ({

@@ -36,12 +36,12 @@ export const reducer = createReducer(
 
   on(ImageListAction.getImageListFailed, (state, { response }) => ({
     ...state,
-    messageCode: response.messageCode,
+    messageCode: {code: response.messageCode},
   })),
 
   on(ImageListAction.getImageListSystemFailed, (state, { error }) => ({
     ...state,
-    error: error,
+    error: {message: error},
   })),
 
   on(ImageListAction.deleteImage, (state, { payload }) => ({
@@ -55,12 +55,12 @@ export const reducer = createReducer(
 
   on(ImageListAction.deleteImageFailed, (state, { response }) => ({
     ...state,
-    messageCode: response.messageCode,
+    messageCode: {code: response.messageCode},
   })),
 
   on(ImageListAction.deleteImageSystemFailed, (state, { error }) => ({
     ...state,
-    error: error,
+    error: {message: error},
   })),
 
   on(ImageListAction.resetImageList, (state) => ({

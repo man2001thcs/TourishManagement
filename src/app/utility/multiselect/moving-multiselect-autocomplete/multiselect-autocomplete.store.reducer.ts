@@ -36,12 +36,12 @@ export const reducer = createReducer(
 
   on(MovingListAction.getMovingListFailed, (state, { response }) => ({
     ...state,
-    messageCode: response.messageCode,
+    messageCode: {code: response.messageCode},
   })),
 
   on(MovingListAction.getMovingListSystemFailed, (state, { error }) => ({
     ...state,
-    error: error,
+    error: {message: error},
   })),
 
   on(MovingListAction.resetMovingList, (state) => ({

@@ -12,6 +12,7 @@ import { ChatComponent } from "src/app/utility/chat/chat.component";
 import { TourishPlanCardComponent } from "src/app/utility/tourish-card/tourish-card.component";
 import { TourishDetailComponent } from "../tourish-detail/tourish-detail.component";
 import { TourishMainComponent } from "../tourish-main/tourish-main.component";
+import { ReclaimUserComponent } from "../log/reclaim/reclaim.component";
 
 const routes: Routes = [
   {
@@ -25,6 +26,10 @@ const routes: Routes = [
       {
         path: "signIn",
         component: UserCreateComponent,
+      },
+      {
+        path: "reclaim",
+        component: ReclaimUserComponent,
       },
       {
         path: "home",

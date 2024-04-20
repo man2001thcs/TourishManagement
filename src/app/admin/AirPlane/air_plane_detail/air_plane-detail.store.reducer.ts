@@ -32,12 +32,12 @@ export const reducer = createReducer(
 
   on(AirPlaneAction.getAirPlaneFailed, (state, { response }) => ({
     ...state,
-    messageCode: response.messageCode,
+    messageCode: {code: response.messageCode},
   })),
 
   on(AirPlaneAction.getAirPlaneSystemFailed, (state, { error }) => ({
     ...state,
-    error: error,
+    error: {message: error},
   })),
 
   on(AirPlaneAction.editAirPlane, (state, { payload }) => ({
@@ -51,12 +51,12 @@ export const reducer = createReducer(
 
   on(AirPlaneAction.editAirPlaneFailed, (state, { response }) => ({
     ...state,
-    messageCode: response.messageCode,
+    messageCode: {code: response.messageCode},
   })),
 
   on(AirPlaneAction.editAirPlaneSystemFailed, (state, { error }) => ({
     ...state,
-    error: error,
+    error: {message: error},
   })), 
 
   on(AirPlaneAction.resetAirPlane, (state) => ({

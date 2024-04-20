@@ -34,12 +34,12 @@ export const reducer = createReducer(
 
   on(GuestMessageConHistoryListAction.getGuestMessageConHistoryListFailed, (state, { response }) => ({
     ...state,
-    messageCode: response.messageCode,
+    messageCode: {code: response.messageCode},
   })),
 
   on(GuestMessageConHistoryListAction.getGuestMessageConHistoryListSystemFailed, (state, { error }) => ({
     ...state,
-    error: error,
+    error: {message: error},
   })),
 
   on(GuestMessageConHistoryListAction.resetGuestMessageConHistoryList, (state) => ({

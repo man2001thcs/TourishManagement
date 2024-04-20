@@ -36,12 +36,12 @@ export const reducer = createReducer(
 
   on(EatingListAction.getEatingListFailed, (state, { response }) => ({
     ...state,
-    messageCode: response.messageCode,
+    messageCode: {code: response.messageCode},
   })),
 
   on(EatingListAction.getEatingListSystemFailed, (state, { error }) => ({
     ...state,
-    error: error,
+    error: {message: error},
   })),
 
   on(EatingListAction.resetEatingList, (state) => ({

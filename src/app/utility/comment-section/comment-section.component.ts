@@ -141,11 +141,8 @@ export class CommentSectionComponent implements OnInit {
 
     // Calculate the time difference between local timezone and GMT+0 in milliseconds
     const offset = now.getTimezoneOffset() * 60000; // getTimezoneOffset returns minutes, so convert to milliseconds
-
     // Adjust to GMT+0
     now.setTime(now.getTime() + offset);
-
-    let isoDate = new Date(now.toISOString());
 
     let timeChanges = (now.valueOf() - sendTime.valueOf()) / 1000;
 

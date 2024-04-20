@@ -32,12 +32,12 @@ export const reducer = createReducer(
 
   on(TourishPlanAction.getTourishPlanFailed, (state, { response }) => ({
     ...state,
-    messageCode: response.messageCode,
+    messageCode: {code: response.messageCode},
   })),
 
   on(TourishPlanAction.getTourishPlanSystemFailed, (state, { error }) => ({
     ...state,
-    error: error,
+    error: {message: error},
   })),
 
   on(TourishPlanAction.editTourishPlan, (state, { payload }) => ({
@@ -51,12 +51,12 @@ export const reducer = createReducer(
 
   on(TourishPlanAction.editTourishPlanFailed, (state, { response }) => ({
     ...state,
-    messageCode: response.messageCode,
+    messageCode: {code: response.messageCode},
   })),
 
   on(TourishPlanAction.editTourishPlanSystemFailed, (state, { error }) => ({
     ...state,
-    error: error,
+    error: {message: error},
   })), 
 
   on(TourishPlanAction.resetTourishPlan, (state) => ({

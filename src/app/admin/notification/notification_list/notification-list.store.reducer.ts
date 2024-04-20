@@ -36,12 +36,12 @@ export const reducer = createReducer(
 
   on(NotificationListAction.getNotificationListFailed, (state, { response }) => ({
     ...state,
-    messageCode: response.messageCode,
+    messageCode: {code: response.messageCode},
   })),
 
   on(NotificationListAction.getNotificationListSystemFailed, (state, { error }) => ({
     ...state,
-    error: error,
+    error: {message: error},
   })),
 
   on(NotificationListAction.deleteNotification, (state, { payload }) => ({
@@ -55,12 +55,12 @@ export const reducer = createReducer(
 
   on(NotificationListAction.deleteNotificationFailed, (state, { response }) => ({
     ...state,
-    messageCode: response.messageCode,
+    messageCode: {code: response.messageCode},
   })),
 
   on(NotificationListAction.deleteNotificationSystemFailed, (state, { error }) => ({
     ...state,
-    error: error,
+    error: {message: error},
   })),
 
   on(NotificationListAction.resetNotificationList, (state) => ({

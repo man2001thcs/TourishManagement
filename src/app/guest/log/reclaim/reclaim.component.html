@@ -23,13 +23,13 @@
         <h2 mat-form-label style="font-weight: heavy">Khôi phục tài khoản</h2>
       </div>
 
-      <mat-stepper [linear]="true" #stepper>
+      <mat-stepper [linear]="true" #stepper1 *ngIf="reclaimToken.length <= 0">
         <mat-step label="Điền tên tài khoản">
-          <form [formGroup]="createformGroup">
+          <form [formGroup]="reclaimFormGroup">
             <div class="row" *ngIf="accountMessage.length > 0">
               <mat-card style="background-color: #f8d7da">
                 <mat-card-content style="color: #b55529"
-                  >Tài khoản đã tồn tại</mat-card-content
+                  >Tài khoản không tồn tại</mat-card-content
                 >
               </mat-card>
             </div>
@@ -47,12 +47,16 @@
               </mat-form-field>
               <app-validation
                 *ngIf="submited"
-                [formGroup]="createformGroup"
+                [formGroup]="reclaimFormGroup"
                 [formGroupControlName]="'userName'"
               ></app-validation>
-            </div>         
+            </div>
             <div>
-              <button mat-button (click)="formSubmit_reclaim_info()" [disabled]="!isContinueStep1">
+              <button
+                mat-button
+                (click)="formSubmit_reclaim_info()"
+                [disabled]="!isContinueStep1"
+              >
                 Tiếp tục
               </button>
             </div>
@@ -60,20 +64,22 @@
         </mat-step>
 
         <mat-step label="Xác nhận  qua mail">
-          <div class="row" *ngIf="accountMessage.length > 0">
-              <mat-card style="background-color: #f8d7da">
-                <mat-card-content style="color: #b55529"
-                  >Vui lòng truy cập mail để xác nhận tài khoản</mat-card-content
-                >
-              </mat-card>
-            </div>
+          <div class="row">
+            <mat-card style="background-color: #59b259">
+              <mat-card-content style="color: white"
+                >Vui lòng truy cập mail để xác nhận tài khoản</mat-card-content
+              >
+            </mat-card>
+          </div>
         </mat-step>
+      </mat-stepper>
 
+      <mat-stepper [linear]="true" #stepper2 *ngIf="reclaimToken.length > 0">
         <mat-step label="Điền mật khẩu mới">
-          <form [formGroup]="createformGroup">
+          <form [formGroup]="assignPasswordFormGroup">
             <div
               class="row"
-              *ngIf="createformGroup.errors?.['matchPassword'] &&  !this.createformGroup.get('rePassword')?.invalid"
+              *ngIf="assignPasswordFormGroup.errors?.['matchPassword'] &&  !this.assignPasswordFormGroup.get('rePassword')?.invalid"
             >
               <mat-card style="background-color: #f8d7da">
                 <mat-card-content style="color: #b55529"
@@ -92,8 +98,8 @@
                 />
               </mat-form-field>
               <app-validation
-                *ngIf="this.createformGroup.get('password')?.touched"
-                [formGroup]="createformGroup"
+                *ngIf="this.assignPasswordFormGroup.get('password')?.touched"
+                [formGroup]="assignPasswordFormGroup"
                 [formGroupControlName]="'password'"
               ></app-validation>
             </div>
@@ -108,8 +114,8 @@
                 />
               </mat-form-field>
               <app-validation
-                *ngIf="this.createformGroup.get('rePassword')?.touched"
-                [formGroup]="createformGroup"
+                *ngIf="this.assignPasswordFormGroup.get('rePassword')?.touched"
+                [formGroup]="assignPasswordFormGroup"
                 [formGroupControlName]="'rePassword'"
               ></app-validation>
             </div>
@@ -119,8 +125,8 @@
                 mat-button
                 (click)="formSubmit_assign_info()"
                 [disabled]="
-                  this.createformGroup.get('password')?.invalid ||
-                  this.createformGroup.get('rePassword')?.invalid || createformGroup.errors?.['matchPassword']
+                  this.assignPasswordFormGroup.get('password')?.invalid ||
+                  this.assignPasswordFormGroup.get('rePassword')?.invalid || assignPasswordFormGroup.errors?.['matchPassword']
                 "
               >
                 Tiếp tục

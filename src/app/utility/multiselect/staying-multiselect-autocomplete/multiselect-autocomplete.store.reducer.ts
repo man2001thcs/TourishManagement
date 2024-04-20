@@ -36,12 +36,12 @@ export const reducer = createReducer(
 
   on(StayingListAction.getStayingListFailed, (state, { response }) => ({
     ...state,
-    messageCode: response.messageCode,
+    messageCode: {code: response.messageCode},
   })),
 
   on(StayingListAction.getStayingListSystemFailed, (state, { error }) => ({
     ...state,
-    error: error,
+    error: {message: error},
   })),
 
   on(StayingListAction.resetStayingList, (state) => ({

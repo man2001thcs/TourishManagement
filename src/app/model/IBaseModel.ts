@@ -1,7 +1,7 @@
 export interface IBaseState {
   resultCd: number,
-  messageCode?: string,
-  error?: string,
+  messageCode?: any,
+  error?: any,
   data?: any,
 }
 

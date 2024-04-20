@@ -205,18 +205,21 @@ export class EatingMultiselectAutocompleteComponent implements OnInit {
       })
     );
 
-    this.subscriptions.push(
-      this.errorMessageState.subscribe((state) => {
+        this.subscriptions.push(
+      this.errorMessageState.subscribe((state: any) => {
         if (state) {
-          this.messageService.openMessageNotifyDialog(state);
+          this.messageService.closeLoadingDialog();
+          this.messageService.closeAllDialog();
+          this.messageService.openMessageNotifyDialog(state.code);
         }
       })
     );
 
     this.subscriptions.push(
-      this.errorSystemState.subscribe((state) => {
+      this.errorSystemState.subscribe((state: any) => {
         if (state) {
-          this.messageService.openSystemFailNotifyDialog(state);
+          this.messageService.closeLoadingDialog();
+          this.messageService.openFailNotifyDialog(state.message);
         }
       })
     );

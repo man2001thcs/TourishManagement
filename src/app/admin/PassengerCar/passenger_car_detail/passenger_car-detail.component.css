@@ -5,7 +5,7 @@
   
   .create-form {
     padding-top: 20px;
-    padding-bottom: 60px;
+    padding-bottom: 30px !important; 
   }
   .input-group {
     width: 100% !important;
@@ -13,6 +13,7 @@
   
   .full-width-input {
     width: 80% !important;
+    height: fit-content !important;
   }
   
   ::ng-deep .mat-form-field-outline-start {

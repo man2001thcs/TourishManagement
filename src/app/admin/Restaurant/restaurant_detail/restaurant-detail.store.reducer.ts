@@ -32,12 +32,12 @@ export const reducer = createReducer(
 
   on(RestaurantAction.getRestaurantFailed, (state, { response }) => ({
     ...state,
-    messageCode: response.messageCode,
+    messageCode: {code: response.messageCode},
   })),
 
   on(RestaurantAction.getRestaurantSystemFailed, (state, { error }) => ({
     ...state,
-    error: error,
+    error: {message: error},
   })),
 
   on(RestaurantAction.editRestaurant, (state, { payload }) => ({
@@ -51,12 +51,12 @@ export const reducer = createReducer(
 
   on(RestaurantAction.editRestaurantFailed, (state, { response }) => ({
     ...state,
-    messageCode: response.messageCode,
+    messageCode: {code: response.messageCode},
   })),
 
   on(RestaurantAction.editRestaurantSystemFailed, (state, { error }) => ({
     ...state,
-    error: error,
+    error: {message: error},
   })), 
 
   on(RestaurantAction.resetRestaurant, (state) => ({

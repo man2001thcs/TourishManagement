@@ -32,12 +32,12 @@ export const reducer = createReducer(
 
   on(ReceiptAction.getReceiptFailed, (state, { response }) => ({
     ...state,
-    messageCode: response.messageCode,
+    messageCode: {code: response.messageCode},
   })),
 
   on(ReceiptAction.getReceiptSystemFailed, (state, { error }) => ({
     ...state,
-    error: error,
+    error: {message: error},
   })),
 
   on(ReceiptAction.editReceipt, (state, { payload }) => ({
@@ -51,12 +51,12 @@ export const reducer = createReducer(
 
   on(ReceiptAction.editReceiptFailed, (state, { response }) => ({
     ...state,
-    messageCode: response.messageCode,
+    messageCode: {code: response.messageCode},
   })),
 
   on(ReceiptAction.editReceiptSystemFailed, (state, { error }) => ({
     ...state,
-    error: error,
+    error: {message: error},
   })), 
 
   on(ReceiptAction.resetReceipt, (state) => ({

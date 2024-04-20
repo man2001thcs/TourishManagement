@@ -30,12 +30,12 @@ export const reducer = createReducer(
 
   on(AuthorAction.createUserFailed, (state, { response }) => ({
     ...state,
-    messageCode: response.messageCode,
+    messageCode: {code: response.messageCode},
   })),
 
   on(AuthorAction.createUserSystemFailed, (state, { error }) => ({
     ...state,
-    error: error,
+    error: {message: error},
   })),
 
   on(AuthorAction.resetUser, (state) => ({

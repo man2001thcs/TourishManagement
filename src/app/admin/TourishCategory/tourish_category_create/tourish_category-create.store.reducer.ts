@@ -32,12 +32,12 @@ export const reducer = createReducer(
 
   on(TourishCategoryAction.createTourishCategoryFailed, (state, { response }) => ({
     ...state,
-    messageCode: response.messageCode,
+    messageCode: {code: response.messageCode},
   })),
 
   on(TourishCategoryAction.createTourishCategorySystemFailed, (state, { error }) => ({
     ...state,
-    error: error,
+    error: {message: error},
   })),
 
   on(TourishCategoryAction.resetTourishCategory, (state) => ({

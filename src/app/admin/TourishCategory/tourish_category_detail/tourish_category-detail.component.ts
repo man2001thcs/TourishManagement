@@ -112,21 +112,20 @@ export class TourishCategoryDetailComponent implements OnInit, OnDestroy {
     );
 
     this.subscriptions.push(
-      this.errorMessageState.subscribe((state) => {
+      this.errorMessageState.subscribe((state: any) => {
         if (state) {
-          if (state !== "" && state !== null) {
-            this.messageService.closeAllDialog();
-            this.messageService.openMessageNotifyDialog(state);
-          }
+          this.messageService.closeLoadingDialog();
+          this.messageService.closeAllDialog();
+          this.messageService.openMessageNotifyDialog(state.code);
         }
       })
     );
 
     this.subscriptions.push(
-      this.errorSystemState.subscribe((state) => {
+      this.errorSystemState.subscribe((state: any) => {
         if (state) {
           this.messageService.closeLoadingDialog();
-          this.messageService.openFailNotifyDialog(state);
+          this.messageService.openFailNotifyDialog(state.message);
         }
       })
     );
@@ -181,5 +180,9 @@ export class TourishCategoryDetailComponent implements OnInit, OnDestroy {
 
       this.messageService.openLoadingDialog();
     } else console.log(this.editformGroup_info.invalid);
+  }
+
+  closeDialog(){
+    this.dialog.closeAll();
   }
 }

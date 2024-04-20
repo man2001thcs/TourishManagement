@@ -1,21 +1,11 @@
-import { Response } from "../../../model/response";
+
 import { Component, Inject, OnDestroy, OnInit } from "@angular/core";
-import {
-  ActivatedRouteSnapshot,
-  CanDeactivate,
-  RouterStateSnapshot,
-  UrlTree,
-} from "@angular/router";
+
 import { Observable, Subscription, map } from "rxjs";
-import {
-  ConfirmDialogComponent,
-  DialogData,
-} from "src/app/utility/confirm-dialog/confirm-dialog.component";
-import { NotifyDialogComponent } from "src/app/utility/notification_admin/notify-dialog.component";
+
 import { MAT_DIALOG_DATA, MatDialog } from "@angular/material/dialog";
 import {
   FormBuilder,
-  FormControl,
   FormGroup,
   Validators,
 } from "@angular/forms";
@@ -161,10 +151,12 @@ export class PassengerCarDetailComponent implements OnInit, OnDestroy {
       })
     );
 
-    this.subscriptions.push(
-      this.errorMessageState.subscribe((state) => {
+        this.subscriptions.push(
+      this.errorMessageState.subscribe((state: any) => {
         if (state) {
-          this.messageService.openMessageNotifyDialog(state);
+          this.messageService.closeLoadingDialog();
+          this.messageService.closeAllDialog();
+          this.messageService.openMessageNotifyDialog(state.code);
         }
       })
     );
@@ -237,5 +229,9 @@ export class PassengerCarDetailComponent implements OnInit, OnDestroy {
       );
     } else console.log(this.editformGroup_info.invalid)
    
+  }
+
+  closeDialog(){
+    this.dialog.closeAll();
   }
 }

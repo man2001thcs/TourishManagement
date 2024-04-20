@@ -205,12 +205,11 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
     );
 
     this.subscriptions.push(
-      this.errorMessageState.subscribe((state) => {
+      this.errorMessageState.subscribe((state: any) => {
         if (state) {
-          if (state !== "" && state !== null) {
-            this.messageService.closeAllDialog();
-            this.messageService.openMessageNotifyDialog(state);
-          }
+          this.messageService.closeLoadingDialog();
+          this.messageService.closeAllDialog();
+          this.messageService.openMessageNotifyDialog(state.code);
         }
       })
     );

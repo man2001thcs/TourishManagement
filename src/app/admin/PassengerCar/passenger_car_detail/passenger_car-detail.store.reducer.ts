@@ -32,12 +32,12 @@ export const reducer = createReducer(
 
   on(PassengerCarAction.getPassengerCarFailed, (state, { response }) => ({
     ...state,
-    messageCode: response.messageCode,
+    messageCode: {code: response.messageCode},
   })),
 
   on(PassengerCarAction.getPassengerCarSystemFailed, (state, { error }) => ({
     ...state,
-    error: error,
+    error: {message: error},
   })),
 
   on(PassengerCarAction.editPassengerCar, (state, { payload }) => ({
@@ -51,12 +51,12 @@ export const reducer = createReducer(
 
   on(PassengerCarAction.editPassengerCarFailed, (state, { response }) => ({
     ...state,
-    messageCode: response.messageCode,
+    messageCode: {code: response.messageCode},
   })),
 
   on(PassengerCarAction.editPassengerCarSystemFailed, (state, { error }) => ({
     ...state,
-    error: error,
+    error: {message: error},
   })), 
 
   on(PassengerCarAction.resetPassengerCar, (state) => ({

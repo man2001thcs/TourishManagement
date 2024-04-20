@@ -36,12 +36,12 @@ export const reducer = createReducer(
 
   on(UserListAction.getUserListFailed, (state, { response }) => ({
     ...state,
-    messageCode: response.messageCode,
+    messageCode: {code: response.messageCode},
   })),
 
   on(UserListAction.getUserListSystemFailed, (state, { error }) => ({
     ...state,
-    error: error,
+    error: {message: error},
   })),
 
   on(UserListAction.resetUserList, (state) => ({

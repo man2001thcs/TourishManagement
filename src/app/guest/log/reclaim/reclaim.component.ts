@@ -1,5 +1,7 @@
 import { Response } from "../../../model/response";
 import {
+  AfterContentInit,
+  AfterViewInit,
   Component,
   ElementRef,
   OnDestroy,
@@ -13,7 +15,13 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from "@angular/router";
-import { Observable, Subscription, debounceTime, map } from "rxjs";
+import {
+  Observable,
+  Subscription,
+  debounceTime,
+  distinctUntilChanged,
+  map,
+} from "rxjs";
 import { ConfirmDialogComponent } from "src/app/utility/confirm-dialog/confirm-dialog.component";
 import { NotifyDialogComponent } from "src/app/utility/notification_admin/notify-dialog.component";
 import { MatDialog } from "@angular/material/dialog";
@@ -34,7 +42,12 @@ import * as UserActions from "./reclaim.store.action";
 import { State as UserState } from "./reclaim.store.reducer";
 import { Store } from "@ngrx/store";
 import { MessageService } from "src/app/utility/user_service/message.service";
-import { reclaimUser, getMessage, getSysError, assignPassword } from "./reclaim.store.selector";
+import {
+  reclaimUser,
+  getMessage,
+  getSysError,
+  assignPassword,
+} from "./reclaim.store.selector";
 import { HttpClient, HttpParams, HttpRequest } from "@angular/common/http";
 import {
   getViErrMessagePhase,
@@ -67,13 +80,17 @@ export class ReclaimUserComponent implements OnInit, OnDestroy {
   isEditing: boolean = true;
   isSubmitting: boolean = false;
 
-  @ViewChild("accountInput") accountInput!: ElementRef<HTMLInputElement>;
-  @ViewChild("stepper") myStepper!: MatStepper;
+  index = 0;
 
+  @ViewChild("accountInput") accountInput!: ElementRef<HTMLInputElement>;
+
+  @ViewChild("stepper1") myStepper1!: MatStepper;
+  @ViewChild("stepper2") myStepper2!: MatStepper;
   coverMaterial = 0;
   this_announce = "";
 
-  createformGroup!: FormGroup;
+  reclaimFormGroup!: FormGroup;
+  assignPasswordFormGroup!: FormGroup;
   submited = false;
 
   stayingSchedule: any;
@@ -116,14 +133,18 @@ export class ReclaimUserComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.reclaimToken = this._route.snapshot.queryParamMap.get("reclaimToken") ?? "";
+    this.reclaimToken =
+      this._route.snapshot.queryParamMap.get("reclaim-token") ?? "";
 
-    this.createformGroup = this.fb.group(
+    this.reclaimFormGroup = this.fb.group({
+      userName: [
+        "",
+        Validators.compose([Validators.required, Validators.minLength(3)]),
+      ],
+    });
+
+    this.assignPasswordFormGroup = this.fb.group(
       {
-        userName: [
-          "",
-          Validators.compose([Validators.required, Validators.minLength(3)]),
-        ],
         password: [
           "",
           Validators.compose([Validators.required, Validators.minLength(6)]),
@@ -137,57 +158,65 @@ export class ReclaimUserComponent implements OnInit, OnDestroy {
     );
 
     this.subscriptions.push(
-      this.createformGroup?.controls["userName"].valueChanges
-        .pipe(debounceTime(400))
-        .subscribe((state) => {
+      this.reclaimFormGroup?.controls["userName"].valueChanges
+        .pipe(debounceTime(2000))
+        .subscribe((state: string) => {
           var payload = {
             reclaimInfo: state,
           };
 
-          this.http
-            .post("/api/User/CheckExist/reclaim", null, { params: payload })
-            .subscribe((returnValue: any) => {
-              const messageCode: string = returnValue?.messageCode;
-              if (messageCode.charAt(0) === "C") {
-                this.accountMessage = getViErrMessagePhase(messageCode);
-                this.isContinueStep2 = false;
-              } else {
-                if (messageCode.charAt(0) === "I") {
-                  this.accountMessage = "";
+          if (state.length >= 3) {
+            this.http
+              .post("/api/User/CheckExist/reclaim", null, { params: payload })
+              .subscribe((returnValue: any) => {
+                const messageCode: string = returnValue?.messageCode;
+                if (messageCode.charAt(0) === "C") {
+                  this.accountMessage = getViErrMessagePhase(messageCode);
+                  this.isContinueStep1 = false;
+                } else {
+                  if (messageCode.charAt(0) === "I") {
+                    this.accountMessage = "";
+                  }
+                  this.isContinueStep1 = true;
                 }
-                this.isContinueStep2 = true;
-              }
-            });
+              });
+          }
         })
     );
 
     this.subscriptions.push(
       this.userState.subscribe((state) => {
+        this.messageService.closeLoadingDialog();
         if (state) {
-          this.messageService.closeLoadingDialog();
           this.messageService.openMessageNotifyDialog(state.messageCode);
-          this.myStepper.next();
+          const messageCode: string = state?.messageCode;
+          if (messageCode.charAt(0) === "I") {
+            this.myStepper1.next();
+          }
         }
       })
     );
 
     this.subscriptions.push(
       this.reclaimState.subscribe((state) => {
+        this.messageService.closeLoadingDialog();
         if (state) {
-          this.messageService.closeLoadingDialog();
           this.messageService.openMessageNotifyDialog(state.messageCode);
-          this.myStepper.next();
+          const messageCode: string = state?.messageCode;
+          if (messageCode.charAt(0) === "I") {
+            console.log("abc");
+            this.myStepper2.next();
+          }
         }
       })
     );
 
     this.subscriptions.push(
-      this.errorMessageState.subscribe((state) => {
+      this.errorMessageState.subscribe((state: any) => {
         if (state) {
-          if (state !== "" && state !== null) {
-            this.messageService.closeAllDialog();
-            this.messageService.openMessageNotifyDialog(state);
-          }
+          this.messageService.closeLoadingDialog();
+          this.messageService.closeAllDialog();
+          this.messageService.openMessageNotifyDialog(state.code);
         }
       })
     );
@@ -211,32 +240,27 @@ export class ReclaimUserComponent implements OnInit, OnDestroy {
 
   formSubmit_reclaim_info(): void {
     this.submited = true;
-    if (this.createformGroup.valid) {
+    if (this.reclaimFormGroup.valid) {
       this.messageService.openLoadingDialog();
       this.store.dispatch(
         UserActions.reclaimUser({
           payload: {
-            userName: this.createformGroup.value.userName,
-            password: this.createformGroup.value.password, 
-            email: this.createformGroup.value.email,
-            signInPhase: "SignIn",
+            reclaimInfo: this.reclaimFormGroup.value.userName,
+            signInPhase: "ReclaimReq",
           },
         })
       );
     }
-
-    console.log(this.createformGroup.value);
   }
 
   formSubmit_assign_info(): void {
     this.submited = true;
-    if (this.createformGroup.valid) {
+    if (this.assignPasswordFormGroup.valid) {
       this.messageService.openLoadingDialog();
       this.store.dispatch(
         UserActions.assignPassword({
           payload: {
-            userName: this.createformGroup.value.userName,
-            password: this.createformGroup.value.password, 
+            newPassword: this.assignPasswordFormGroup.value.password,
             reclaimToken: this.reclaimToken,
           },
         })

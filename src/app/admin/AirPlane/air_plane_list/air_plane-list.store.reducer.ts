@@ -36,12 +36,12 @@ export const reducer = createReducer(
 
   on(AirPlaneListAction.getAirPlaneListFailed, (state, { response }) => ({
     ...state,
-    messageCode: response.messageCode,
+    messageCode: {code: response.messageCode},
   })),
 
   on(AirPlaneListAction.getAirPlaneListSystemFailed, (state, { error }) => ({
     ...state,
-    error: error,
+    error: {message: error},
   })),
 
   on(AirPlaneListAction.deleteAirPlane, (state, { payload }) => ({
@@ -55,12 +55,12 @@ export const reducer = createReducer(
 
   on(AirPlaneListAction.deleteAirPlaneFailed, (state, { response }) => ({
     ...state,
-    messageCode: response.messageCode,
+    messageCode: {code: response.messageCode},
   })),
 
   on(AirPlaneListAction.deleteAirPlaneSystemFailed, (state, { error }) => ({
     ...state,
-    error: error,
+    error: {message: error},
   })),
 
   on(AirPlaneListAction.resetAirPlaneList, (state) => ({

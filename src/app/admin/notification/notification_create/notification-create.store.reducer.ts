@@ -32,12 +32,12 @@ export const reducer = createReducer(
 
   on(NotificationAction.createNotificationFailed, (state, { response }) => ({
     ...state,
-    messageCode: response.messageCode,
+    messageCode: {code: response.messageCode},
   })),
 
   on(NotificationAction.createNotificationSystemFailed, (state, { error }) => ({
     ...state,
-    error: error,
+    error: {message: error},
   })),
 
   on(NotificationAction.resetNotification, (state) => ({

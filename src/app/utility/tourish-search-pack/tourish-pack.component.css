@@ -49,6 +49,11 @@
   pointer-events: none; /* prevents clicking */
 }
 
+.active-page {
+  background-color: blue;
+  color: white;
+}
+
 .page-link {
   cursor: pointer;
 }

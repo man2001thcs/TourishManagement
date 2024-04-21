@@ -4,15 +4,20 @@ import {
   Component,
   ElementRef,
   Input,
+  OnChanges,
+  OnDestroy,
   OnInit,
   Renderer2,
+  SimpleChanges,
   ViewChild,
 } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ThemePalette } from "@angular/material/core";
+import { ActivatedRoute } from "@angular/router";
 
 import { NgbCarouselConfig } from "@ng-bootstrap/ng-bootstrap";
 import { Slider } from "angular-carousel-slider/lib/angular-carousel-slider.component";
+import { Subscription } from "rxjs";
 import { TourishPlan } from "src/app/model/baseModel";
 import { messaging } from "src/conf/firebase.conf";
 import { environment } from "src/environments/environment";
@@ -22,11 +27,21 @@ import { environment } from "src/environments/environment";
   templateUrl: "./tourish-pack.component.html",
   styleUrls: ["./tourish-pack.component.css"],
 })
-export class TourishSearchPackComponent implements OnInit {
+export class TourishSearchPackComponent implements OnInit, OnChanges {
   @Input()
-  category: string = "Du lịch hành hương";
+  startingDate = "";
   @Input()
-  description: string = "Tìm Về Chốn Thiêng, Lòng Người An Bình";
+  startingPoint = "";
+  @Input()
+  endPoint = "";
+  @Input()
+  priceFrom = 0;
+  @Input()
+  priceTo = 2000000;
+  @Input()
+  categoryString = "";
+
+  activePage = 1;
 
   @ViewChild("picker") eatingPicker: any;
   @ViewChild("packContainer") packContainer!: ElementRef;
@@ -34,7 +49,7 @@ export class TourishSearchPackComponent implements OnInit {
   active = 1;
 
   pageIndex = 0;
-  pageSize = 10;
+  pageSize = 2;
   totalPage = 1;
   pageArray: number[] = [1];
 
@@ -51,33 +66,33 @@ export class TourishSearchPackComponent implements OnInit {
   color: ThemePalette = "primary";
   ratingAverage: any;
 
+  subscriptions: Subscription[] = [];
+
   constructor(
     private fb: FormBuilder,
     private renderer: Renderer2,
-    private http: HttpClient
+    private http: HttpClient,
+    private _route: ActivatedRoute
   ) {}
 
-  ngOnInit() {
-    this.setTourForm = this.fb.group({
-      name: ["", Validators.compose([Validators.required])],
-      endDate: ["", Validators.compose([Validators.required])],
-      email: ["", Validators.compose([Validators.required])],
-      phoneNumber: ["", Validators.compose([Validators.required])],
-      totalTicket: [0, Validators.compose([Validators.required])],
-      description: [
-        "",
-        Validators.compose([Validators.required, Validators.minLength(3)]),
-      ],
-    });
+  ngOnChanges(changes: SimpleChanges): void {
+    this.pageIndex = 0;
+    this.getTourPack();
+  }
 
+  ngOnInit() {
+    this.pageIndex = 0;
     this.getTourPack();
   }
 
   getTourPack() {
     const params = {
-      page: 1,
-      category: this.category,
-      pageSize: 6,
+      page: this.pageIndex + 1,
+      pageSize: this.pageSize,
+      categoryString: this.categoryString,
+      priceFrom: this.priceFrom,
+      priceTo: this.priceTo,
+      startingDate: this.startingDate,
     };
 
     this.http
@@ -122,6 +137,8 @@ export class TourishSearchPackComponent implements OnInit {
 
   changePage(index: number) {
     this.pageIndex = index;
-    console.log(index);
+    this.activePage = index + 1;
+
+    this.getTourPack();
   }
 }

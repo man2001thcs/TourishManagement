@@ -7,15 +7,15 @@
         </mat-card-header>
         <mat-card-content>
           <h4>Giá</h4>
-          <mat-selection-list [multiple]="false">
-            <mat-list-option *ngFor="let price of priceRange"
-              >Từ {{ price.startPrice }} - {{ price.endPrice }}</mat-list-option
+          <mat-selection-list [multiple]="false" (selectionChange)=" priceRangeChange($event)">
+            <mat-list-option *ngFor="let price of priceRange"  [value]="price"
+              >Từ {{ price.startPrice }} - {{ price.endPrice === 0 ? price.endPrice : "Trở lên" }}</mat-list-option
             >
           </mat-selection-list>
           <mat-divider></mat-divider>
           <h4>Thể loại</h4>
-          <mat-selection-list>
-            <mat-list-option *ngFor="let category of this.categoryList">{{
+          <mat-selection-list (selectionChange)=" categoryChange($event)">
+            <mat-list-option *ngFor="let category of this.categoryList" [value]="category.name">{{
               category.name
             }}</mat-list-option>
           </mat-selection-list>
@@ -36,14 +36,14 @@
             <input
               matInput
               fullwidth
-              placeholder="Vd: Bồ Công Anh"
-              formControlName="name"
+              placeholder="Vd: Đà Nẵng"
+              formControlName="endPoint"
             />
           </mat-form-field>
           <app-validation
             *ngIf="isSubmit"
             [formGroup]="setTourForm"
-            [formGroupControlName]="'name'"
+            [formGroupControlName]="'endPoint'"
           ></app-validation>
         </div>
 
@@ -53,14 +53,14 @@
             <input
               matInput
               fullwidth
-              placeholder="Vd: Bồ Công Anh"
-              formControlName="startingPlace"
+              placeholder="Vd: Hà Nội"
+              formControlName="startingPoint"
             />
           </mat-form-field>
           <app-validation
             *ngIf="isSubmit"
             [formGroup]="setTourForm"
-            [formGroupControlName]="'startingPlace'"
+            [formGroupControlName]="'startingPoint'"
           ></app-validation>
         </div>
 
@@ -71,7 +71,7 @@
               matInput
               [ngxMatDatetimePicker]="picker"
               placeholder="Choose a date"
-              formControlName="startDate"
+              formControlName="startingDate"
             />
             <mat-datepicker-toggle
               matSuffix
@@ -90,7 +90,7 @@
           <app-validation
             *ngIf="isSubmit"
             [formGroup]="setTourForm"
-            [formGroupControlName]="'startDate'"
+            [formGroupControlName]="'startingDate'"
           ></app-validation>
         </div>
 
@@ -99,6 +99,7 @@
             mat-raised-button
             color="primary"
             style="height: 56px; font-size: 14px"
+            (click)="onSearch()"
           >
             Tìm
           </button>
@@ -107,9 +108,12 @@
     </div>
 
     <app-tourish-search-pack
-    *ngIf="categoryList.length > 0"
-      [category]="categoryList[0].name"
-      [description]="categoryList[0].description"
+      [startingDate]="startingDate"
+      [startingPoint]="startingPoint"
+      [endPoint]="endPoint"
+      [priceFrom]="priceFrom"
+      [priceTo]="priceTo"
+      [categoryString]="categoryString"
       style="width: 100%;"
     ></app-tourish-search-pack>
   </div>

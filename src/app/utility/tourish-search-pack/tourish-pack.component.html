@@ -24,6 +24,7 @@
           <a
             class="page-link"
             (click)="changePage(page - 1)"
+            [ngClass]="page === activePage ? 'active-page' : ''"
             >{{ page }}</a
           >
         </li>

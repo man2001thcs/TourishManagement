@@ -33,7 +33,6 @@ export class TourishPackComponent implements OnInit, AfterViewInit {
 
   active = 1;
 
-  setTourForm!: FormGroup;
   isSubmit = false;
   showSpinners = true;
   showSeconds = false;
@@ -52,17 +51,6 @@ export class TourishPackComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit() {
-    this.setTourForm = this.fb.group({
-      name: ["", Validators.compose([Validators.required])],
-      endDate: ["", Validators.compose([Validators.required])],
-      email: ["", Validators.compose([Validators.required])],
-      phoneNumber: ["", Validators.compose([Validators.required])],
-      totalTicket: [0, Validators.compose([Validators.required])],
-      description: [
-        "",
-        Validators.compose([Validators.required, Validators.minLength(3)]),
-      ],
-    });
 
     this.getTourPack();
   }

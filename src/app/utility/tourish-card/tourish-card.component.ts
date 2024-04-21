@@ -16,7 +16,7 @@ export class TourishPlanCardComponent implements OnInit {
   @Input()
   id = "";
   @Input()
-  judgeNumber = 19;
+  judgeNumber = 0;
   @Input()
   tourName = "";
   @Input()
@@ -36,6 +36,7 @@ export class TourishPlanCardComponent implements OnInit {
   }
 
   getRateString(input: number) {
+    if (this.judgeNumber <= 0) return "Chưa có đánh giá"
     if (0 <= input && 2.5 > input) {
       return "Tệ";
     } else if (2.5 <= input && 4 > input) {
@@ -57,6 +58,7 @@ export class TourishPlanCardComponent implements OnInit {
         if (state) {
           console.log("abc", state);
           this.score = state.averagePoint;
+          this.judgeNumber = state.count;
         }
       });
   }

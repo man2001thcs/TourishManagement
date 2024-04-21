@@ -42,6 +42,7 @@ export class TourishSearchPackComponent implements OnInit, OnChanges {
   categoryString = "";
 
   activePage = 1;
+  isLoading = false;
 
   @ViewChild("picker") eatingPicker: any;
   @ViewChild("packContainer") packContainer!: ElementRef;
@@ -93,19 +94,23 @@ export class TourishSearchPackComponent implements OnInit, OnChanges {
       priceFrom: this.priceFrom,
       priceTo: this.priceTo,
       startingDate: this.startingDate,
+      startingPoint: this.startingPoint,
+      endPoint: this.endPoint,
     };
 
     this.http
       .get("/api/GetTourishPlan", { params: params })
       .subscribe((response: any) => {
-        this.tourishPLanList = response.data;
-        this.length = response.count;
+        if (response) {
+          this.tourishPLanList = response.data;
+          this.length = response.count;
+          this.isLoading = false;
+          this.totalPage = Math.ceil(this.length / this.pageSize);
 
-        this.totalPage = Math.ceil(this.length / this.pageSize);
-
-        this.pageArray = [];
-        for (let i = 1; i <= this.totalPage; i++) {
-          this.pageArray.push(i);
+          this.pageArray = [];
+          for (let i = 1; i <= this.totalPage; i++) {
+            this.pageArray.push(i);
+          }
         }
       });
   }
@@ -138,7 +143,8 @@ export class TourishSearchPackComponent implements OnInit, OnChanges {
   changePage(index: number) {
     this.pageIndex = index;
     this.activePage = index + 1;
-
+    this.tourishPLanList = [];
+    this.isLoading = true;
     this.getTourPack();
   }
 }

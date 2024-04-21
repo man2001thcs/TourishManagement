@@ -7,6 +7,10 @@
       [tourPrice]="getTotalPrice(tour)"
       style="width: 100%"
     ></app-tourish-search-card>
+    <div class="loading" *ngIf="isLoading">
+      <mat-spinner [diameter]="10"></mat-spinner>
+      <h3>Đang tải</h3>
+    </div>
   </div>
 
   <div class="pagination">
@@ -32,7 +36,7 @@
           <a
             class="page-link"
             (click)="changePage(this.pageIndex + 1)"
-            [class.disabled]="(this.pageIndex + 2) > this.totalPage"
+            [class.disabled]="this.pageIndex + 2 > this.totalPage"
             >Sau</a
           >
         </li>

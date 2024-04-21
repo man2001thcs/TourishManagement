@@ -12,7 +12,7 @@
       <div class="image-container">
         <img
           mat-card-image
-          src={{this.firstImageUrl}}
+          src="{{ this.firstImageUrl }}"
           alt="Photo of a Shiba Inu"
         />
       </div>
@@ -28,6 +28,7 @@
           "
         >
           <mat-card
+            *ngIf="judgeNumber > 0"
             style="
               width: 30px;
               height: 20px;
@@ -45,8 +46,8 @@
           >
             {{ getRateString(score) }}
           </p>
-          <p class="tour-judge" style="margin-right: 7px">|</p>
-          <p class="tour-judge">{{ judgeNumber }} đánh giá</p>
+          <p class="tour-judge" style="margin-right: 7px" *ngIf="judgeNumber > 0">|</p>
+          <p class="tour-judge" *ngIf="judgeNumber > 0">{{ judgeNumber }} đánh giá</p>
         </div>
 
         <div style="display: flex; flex-direction: row; align-items: center">

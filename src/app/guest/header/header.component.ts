@@ -19,6 +19,8 @@ import { UserService } from "src/app/utility/user_service/user.service";
 import { MessageService } from "src/app/utility/user_service/message.service";
 import { Router } from "@angular/router";
 import { environment } from "src/environments/environment";
+import { TourishPlan } from "src/app/model/baseModel";
+import { HttpClient } from "@angular/common/http";
 
 @Component({
   selector: "app-guest-header",
@@ -38,6 +40,7 @@ export class HeaderComponent implements OnInit {
   @ViewChild("searchInput") searchInput!: ElementRef<HTMLInputElement>;
 
   @Output() checkNavOpen = new EventEmitter<boolean>();
+  tourList: any;
 
   addNewItem(value: boolean) {
     this.checkNavOpen.emit(value);
@@ -62,7 +65,8 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     private _elementRef: ElementRef,
     private _api: UserService,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private http: HttpClient
   ) {
     this.filteredInput = this.searchControl.valueChanges.pipe(
       debounceTime(400)
@@ -73,6 +77,29 @@ export class HeaderComponent implements OnInit {
     this.searchFormGroup = new FormGroup({
       search: new FormControl(),
     });
+
+    this.subscriptions.push(
+      this.filteredInput.subscribe((state) => {
+        if (state) {
+          const params = {
+            page: 1,
+            search: state,
+            pageSize: 6,
+          };
+
+          this.http
+            .get("/api/GetTourishPlan", { params: params })
+            .pipe(debounceTime(400))
+            .subscribe((response: any) => {
+              this.tourList = response.data;
+            });
+
+          this.openAutoCompleteSearch();
+        } else {
+          this.closeAutoCompleteSearch();
+        }
+      })
+    );
   }
 
   // openDialog() {
@@ -199,7 +226,25 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(["guest/" + url]);
   }
 
-  getBlobUrl(){
+  getBlobUrl() {
     return environment.backend.blobURL;
+  }
+
+  getTotalPrice(tourishPlan: TourishPlan): number {
+    let totalPrice = 0;
+
+    tourishPlan.stayingSchedules?.forEach((entity) => {
+      totalPrice += entity.singlePrice ?? 0;
+    });
+
+    tourishPlan.eatSchedules?.forEach((entity) => {
+      totalPrice += entity.singlePrice ?? 0;
+    });
+
+    tourishPlan.movingSchedules?.forEach((entity) => {
+      totalPrice += entity.singlePrice ?? 0;
+    });
+
+    return totalPrice;
   }
 }

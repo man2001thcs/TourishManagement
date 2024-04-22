@@ -14,14 +14,14 @@
           <input
             matInput
             fullwidth
-            placeholder="Vd: Bồ Công Anh"
-            formControlName="name"
+            placeholder="Vd: Đà Nẵng"
+            formControlName="endPoint"
           />
         </mat-form-field>
         <app-validation
           *ngIf="isSubmit"
           [formGroup]="setTourForm"
-          [formGroupControlName]="'name'"
+          [formGroupControlName]="'endPoint'"
         ></app-validation>
       </div>
 
@@ -31,14 +31,14 @@
           <input
             matInput
             fullwidth
-            placeholder="Vd: Bồ Công Anh"
-            formControlName="startingPlace"
+            placeholder="Vd: Hà Nội"
+            formControlName="startingPoint"
           />
         </mat-form-field>
         <app-validation
           *ngIf="isSubmit"
           [formGroup]="setTourForm"
-          [formGroupControlName]="'startingPlace'"
+          [formGroupControlName]="'startingPoint'"
         ></app-validation>
       </div>
 
@@ -49,7 +49,7 @@
             matInput
             [ngxMatDatetimePicker]="picker"
             placeholder="Choose a date"
-            formControlName="startDate"
+            formControlName="startingDate"
           />
           <mat-datepicker-toggle
             matSuffix
@@ -68,7 +68,7 @@
         <app-validation
           *ngIf="isSubmit"
           [formGroup]="setTourForm"
-          [formGroupControlName]="'startDate'"
+          [formGroupControlName]="'startingDate'"
         ></app-validation>
       </div>
 

@@ -21,7 +21,7 @@ const routes: Routes = [
         component: TourishMainComponent,
       },
       {
-        path: "account",
+        path: "account/info",
         component: UserAccountInfoComponent,
       },
     ],

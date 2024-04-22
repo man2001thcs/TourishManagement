@@ -202,7 +202,7 @@ mat-expansion-panel {
 }
 
 .autocomplete-search .searchContent {
-  flex-direction: row;
+  flex-direction: column;
   display: flex;
 }
 

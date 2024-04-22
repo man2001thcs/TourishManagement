@@ -21,11 +21,12 @@ import { Observable, Subscription } from "rxjs";
 import { TokenStorageService } from "src/app/utility/user_service/token.service";
 import { UserService } from "src/app/utility/user_service/user.service";
 
-import { filter } from "rxjs/operators";
+import { debounceTime, filter } from "rxjs/operators";
 import { getHeaderPhase } from "src/app/utility/config/headerCode";
 import { environment } from "src/environments/environment";
 import { HttpClient } from "@angular/common/http";
 import { FileModel } from "src/app/utility/image_avatar_service/imageUpload.component.model";
+import { TourishPlan } from "src/app/model/baseModel";
 
 @Component({
   selector: "app-user-header",
@@ -52,7 +53,7 @@ export class HeaderUserComponent implements OnDestroy {
   activeItem = "1st";
   isNavOpen = false;
   isNotifyOpen = false;
-  isAutoCompleteOpen = false;
+  isAutoCompleteSearchOpen = false;
   avatarUrl = environment.backend.blobURL + "/0-container/0_anonymus.png";
 
   filteredInput!: Observable<string | null>;
@@ -64,6 +65,7 @@ export class HeaderUserComponent implements OnDestroy {
   countNotifyClick = 0;
   countSearchClick = 0;
   subscriptions: Subscription[] = [];
+  tourList: any;
 
   constructor(
     private dialog: MatDialog,
@@ -72,7 +74,11 @@ export class HeaderUserComponent implements OnDestroy {
     private router: Router,
     private renderer: Renderer2,
     private http: HttpClient
-  ) {}
+  ) {
+    this.filteredInput = this.searchControl.valueChanges.pipe(
+      debounceTime(500)
+    );
+  }
 
   id = 0;
 
@@ -104,6 +110,33 @@ export class HeaderUserComponent implements OnDestroy {
       ],
     });
 
+    this.searchFormGroup = new FormGroup({
+      search: new FormControl(),
+    });
+
+    this.subscriptions.push(
+      this.filteredInput.subscribe((state) => {       
+        if (state) {
+          const params = {
+            page: 1,
+            search: state,
+            pageSize: 6,
+          };
+
+          this.http
+            .get("/api/GetTourishPlan", { params: params })
+            .pipe(debounceTime(400))
+            .subscribe((response: any) => {
+              this.tourList = response.data;
+            });
+
+          this.openAutoCompleteSearch();
+        } else {
+          this.closeAutoCompleteSearch();
+        }
+      })
+    );
+
     this.getImageList();
   }
 
@@ -112,7 +145,7 @@ export class HeaderUserComponent implements OnDestroy {
   }
 
   userInfo() {
-    this.router.navigate(["/admin/account/info"]);
+    this.router.navigate(["/user/account/info"]);
   }
 
   async signOut() {
@@ -137,7 +170,7 @@ export class HeaderUserComponent implements OnDestroy {
   }
 
   outsideAutoCompleteSearchClick(hasClickedOutside: any) {
-    if (hasClickedOutside && this.isAutoCompleteOpen) {
+    if (hasClickedOutside && this.isAutoCompleteSearchOpen) {
       this.countSearchClick++;
       if (this.countSearchClick >= 1) this.closeAutoCompleteSearch();
     }
@@ -246,7 +279,7 @@ export class HeaderUserComponent implements OnDestroy {
     this.autocompleteSearch.nativeElement.style["border-right"] =
       "2px solid #EDF1F7";
     document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
-    this.isAutoCompleteOpen = true;
+    this.isAutoCompleteSearchOpen = true;
   }
 
   closeAutoCompleteSearch() {
@@ -261,7 +294,7 @@ export class HeaderUserComponent implements OnDestroy {
     this.autocompleteSearch.nativeElement.style["border-right"] =
       "0px solid #EDF1F7";
     document.body.style.backgroundColor = "white";
-    this.isAutoCompleteOpen = false;
+    this.isAutoCompleteSearchOpen = false;
     this.countSearchClick = 0;
   }
 
@@ -327,5 +360,23 @@ export class HeaderUserComponent implements OnDestroy {
     if (Notification.permission !== "denied") {
       Notification.requestPermission().then((permission) => {});
     }
+  }
+
+  getTotalPrice(tourishPlan: TourishPlan): number {
+    let totalPrice = 0;
+
+    tourishPlan.stayingSchedules?.forEach((entity) => {
+      totalPrice += entity.singlePrice ?? 0;
+    });
+
+    tourishPlan.eatSchedules?.forEach((entity) => {
+      totalPrice += entity.singlePrice ?? 0;
+    });
+
+    tourishPlan.movingSchedules?.forEach((entity) => {
+      totalPrice += entity.singlePrice ?? 0;
+    });
+
+    return totalPrice;
   }
 }

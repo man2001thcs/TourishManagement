@@ -36,7 +36,7 @@ import { MessageService } from "src/app/utility/user_service/message.service";
 import { User } from "src/app/model/baseModel";
 
 @Component({
-  selector: "app-account-info",
+  selector: "app-user-account-info",
   templateUrl: "./account-info.component.html",
   styleUrls: ["./account-info.component.css"],
 })

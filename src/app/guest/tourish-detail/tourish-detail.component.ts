@@ -69,7 +69,10 @@ export class TourishDetailComponent implements OnInit {
       address: ["", Validators.compose([Validators.required])],
       email: ["", Validators.compose([Validators.required])],
       phoneNumber: ["", Validators.compose([Validators.required])],
-      totalTicket: [1, Validators.compose([Validators.required, Validators.min(1)])],
+      totalTicket: [
+        1,
+        Validators.compose([Validators.required, Validators.min(1)]),
+      ],
       description: [
         "",
         Validators.compose([Validators.required, Validators.minLength(3)]),
@@ -85,118 +88,38 @@ export class TourishDetailComponent implements OnInit {
     //   tinymce.get(element.id).getBody().setAttribute("contenteditable", false);
     //   tinymce.get(element.id).getBody().style.backgroundColor = "#ecf0f5";
     // });
-
-    this.tinyMceSetting = {
-      base_url: "/tinymce",
-      suffix: ".min",
-      toolbar: false,
-      menubar: false,
-      statusbar: false,
-
-      readonly: 1,
-
-      setup: (editor: any) => {
-        editor.on("init", () => {
-          // Get content from TinyMCE and append it to the specified div
-          editor.getBody().setAttribute("contenteditable", "false");
-        });
-      },
-
-      plugins: [
-        "autoresize",
-        "advlist",
-        "autolink",
-        "lists",
-        "link",
-        "image",
-        "charmap",
-        "preview",
-        "anchor",
-        "image",
-        "searchreplace",
-        "visualblocks",
-        "code",
-        "fullscreen",
-        "insertdatetime",
-        "media",
-        "table",
-        "code",
-        "help",
-        "wordcount",
-        "table",
-        "codesample",
-      ],
-      // eslint-disable-next-line
-      // eslint-disable-next-line
-      font_formats:
-        "Andale Mono=andale mono,times; Arial=arial,helvetica,sans-serif; \
-        Arial Black=arial black,avant garde; Book Antiqua=book antiqua,palatino; \
-        Comic Sans MS=comic sans ms,sans-serif; Courier New=courier new,courier; \
-        Georgia=georgia,palatino; Helvetica=helvetica; Impact=impact,chicago; \
-        Oswald=oswald; Symbol=symbol; Tahoma=tahoma,arial,helvetica,sans-serif; \
-        Terminal=terminal,monaco; Times New Roman=times new roman,times; \
-        Trebuchet MS=trebuchet ms,geneva; Verdana=verdana,geneva; Webdings=webdings; \
-        Wingdings=wingdings,zapf dingbats",
-
-      // eslint-disable-next-line
-      image_title: true,
-      // eslint-disable-next-line
-      automatic_uploads: true,
-      // eslint-disable-next-line
-      // eslint-disable-next-line
-      file_picker_callback(cb: any, value: any, meta: any): void {
-        // eslint-disable-next-line
-
-        const element: HTMLInputElement | null =
-          document.querySelector('input[type="file"]');
-
-        if (element) {
-          const fileSelectedPromise = new Promise<File | null>((resolve) => {
-            element.onchange = () => {
-              const file = element.files?.[0];
-              resolve(file ?? null);
-            };
-          });
-
-          // Trigger the click event
-          element.click();
-
-          // Wait for the promise to resolve
-          fileSelectedPromise.then((file) => {
-            console.log("No file selected");
-            if (file) {
-              // Handle the selected file, for example, log its details
-              const reader = new FileReader();
-              reader.onload = () => {
-                const id = "blobid" + new Date().getTime();
-                const blobCache = tinymce.activeEditor.editorUpload.blobCache;
-                if (reader.result !== null) {
-                  const base64 = (reader.result as string).split(",")[1];
-                  const blobInfo = blobCache.create(id, file, base64);
-                  blobCache.add(blobInfo);
-
-                  /* call the callback and populate the Title field with the file name */
-                  cb(blobInfo.blobUri(), { title: file.name });
-                }
-              };
-              reader.readAsDataURL(file);
-
-              // You can perform additional logic or trigger further actions with the file here
-            } else {
-              console.log("No file selected");
-            }
-          });
-        }
-      },
-
-      content_style:
-        "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
-    };
-
     // tinymce.activeEditor.getBody().setAttribute('contenteditable', false);
   }
 
   slides: any[] = [];
+
+  getDuration() {
+    if (this.tourishPlan?.startDate && this.tourishPlan?.endDate) {
+      const startDateObj = new Date(this.tourishPlan?.startDate);
+      const endDateObj = new Date(this.tourishPlan?.endDate);
+
+      const timeDiff = endDateObj.getTime() - startDateObj.getTime();
+      const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+      if (daysDiff === 1) {
+        return "1 ngày";
+      } else if (daysDiff > 1) {
+        const nightsDiff = daysDiff - 1;
+
+        // Check if end date is on the next day after start date
+        if (endDateObj.getDate() !== startDateObj.getDate() + 1) {
+          // If not, reduce the nights difference by 1
+          return `${daysDiff} ngày ${nightsDiff} đêm`;
+        } else {
+          return `${daysDiff} ngày ${nightsDiff + 1} đêm`;
+        }
+      } else {
+        return "Trong ngày";
+      }
+    } else {
+      return "Trong ngày";
+    }
+  }
 
   getSanitizedContent(content: string): SafeHtml {
     return this.sanitizer.bypassSecurityTrustHtml(content);
@@ -299,13 +222,25 @@ export class TourishDetailComponent implements OnInit {
     return totalPrice;
   }
 
+  getVehicleFlag() {
+    if(this.tourishPlan){
+      this.tourishPlan.movingSchedules?.forEach(entity => {
+        if (entity.vehicleType){
+          
+        }
+      })
+    }
+  }
+
+
+
   register() {
     const payload = {
       guestName: this.setTourForm.value.name,
       email: this.setTourForm.value.email,
       phoneNumber: this.setTourForm.value.phoneNumber,
       totalTicket: this.setTourForm.value.totalTicket,
-      tourishPlanId: this.tourishPlanId
+      tourishPlanId: this.tourishPlanId,
     };
 
     this.messageService.openLoadingDialog();

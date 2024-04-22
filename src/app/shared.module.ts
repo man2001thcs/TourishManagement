@@ -67,6 +67,7 @@ import { AvatarUploadComponent } from "./utility/image_avatar_service/imageUploa
 import { TourishSearchComponent } from "./guest/tourish-search/tourish-search.component";
 import { TourishPlanSearchCardComponent } from "./utility/tourish-search-card/tourish-card.component";
 import { TourishSearchPackComponent } from "./utility/tourish-search-pack/tourish-pack.component";
+import { TourishPlanAutoSearchCardComponent } from "./utility/tourish-auto-search-card/tourish-card.component";
 
 @NgModule({
   declarations: [
@@ -91,6 +92,7 @@ import { TourishSearchPackComponent } from "./utility/tourish-search-pack/touris
     AvatarUploadComponent,
     TourishPlanSearchCardComponent,
     TourishSearchPackComponent,
+    TourishPlanAutoSearchCardComponent
   ],
   imports: [
     MatListModule,
@@ -189,6 +191,7 @@ import { TourishSearchPackComponent } from "./utility/tourish-search-pack/touris
     AvatarUploadComponent,
     TourishPlanSearchCardComponent,
     TourishSearchPackComponent,
+    TourishPlanAutoSearchCardComponent
   ],
   providers: [
     { provide: TINYMCE_SCRIPT_SRC, useValue: "tinymce/tinymce.min.js" },

@@ -2,7 +2,9 @@ import { HttpClient } from "@angular/common/http";
 import { Component, Input, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ThemePalette } from "@angular/material/core";
+import { Router } from "@angular/router";
 import { TourishCategory } from "src/app/model/baseModel";
+import { TokenStorageService } from "src/app/utility/user_service/token.service";
 
 @Component({
   selector: "app-tourish-main",
@@ -27,13 +29,18 @@ export class TourishMainComponent implements OnInit {
 
   color: ThemePalette = "primary";
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {}
+  constructor(
+    private fb: FormBuilder,
+    private http: HttpClient,
+    private router: Router,
+    private tokenStorageService: TokenStorageService
+  ) {}
 
   ngOnInit() {
     this.setTourForm = this.fb.group({
-      name: ["", Validators.compose([Validators.required])],
-      startDate: ["", Validators.compose([Validators.required])],
-      startingPlace: ["", Validators.compose([Validators.required])],
+      endPoint: [""],
+      startingDate: [""],
+      startingPoint: [""],
     });
 
     this.getCategory();
@@ -52,5 +59,17 @@ export class TourishMainComponent implements OnInit {
         console.log(response);
         this.length = response.count;
       });
+  }
+
+  navigateToSearch() {
+    const params = {
+      startingPoint: this.setTourForm.value.startingPoint,
+      endPoint: this.setTourForm.value.endPoint,
+      startingDate: this.setTourForm.value.startingDate,
+    };
+    if (this.tokenStorageService.getUserRole() === "User") {
+      this.router.navigate(["guest/search-page"], { queryParams: params });
+    }
+    this.router.navigate(["user/search-page"], { queryParams: params });
   }
 }

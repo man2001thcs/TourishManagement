@@ -78,14 +78,13 @@
     <button mat-menu-item>Đăng kí</button>
   </mat-menu>
 
-  <div
-    id=".autocomplete-search"
-    #autocompleteSearch
-    class="autocomplete-search"
-    (appOutsideClick)="outsideAutoCompleteSearchClick($event)"
-  >
-    <h6>Sản phẩm tìm kiếm</h6>
-    <div class="searchContent"></div>
+  <div id="autocomplete-search" #autocompleteSearch class="autocomplete-search"
+  (appOutsideClick)="outsideAutoCompleteSearchClick($event)">
+  <h6>Sản phẩm tìm kiếm</h6>
+  <div class="searchContent">
+    <app-tourish-auto-search-card *ngFor="let tour of tourList" [id]="tour.id ?? ''" [tourName]="tour.tourName"
+      [tourPrice]="getTotalPrice(tour)" style="width: 100%"></app-tourish-auto-search-card>
+    <h6 *ngIf="tourList.length <= 0">Không có kết quả phù hợp</h6>
   </div>
 </div>
 

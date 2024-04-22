@@ -38,6 +38,10 @@ export class TourishDetailComponent implements OnInit {
   tourishPlanId = "";
   tourDescription = "";
 
+  isPassengerCarPresent = false;
+  isTrainPresent = false;
+  isPlanePresent = false;
+
   tourishPlan?: TourishPlan;
   tourImage: SaveFile[] = [];
 
@@ -223,16 +227,18 @@ export class TourishDetailComponent implements OnInit {
   }
 
   getVehicleFlag() {
-    if(this.tourishPlan){
-      this.tourishPlan.movingSchedules?.forEach(entity => {
-        if (entity.vehicleType){
-          
+    if (this.tourishPlan) {
+      this.tourishPlan.movingSchedules?.forEach((entity) => {
+        if (entity.vehicleType === 0) {
+          this.isPassengerCarPresent = true;
+        } else if (entity.vehicleType === 1) {
+          this.isPlanePresent = true;
+        } else if (entity.vehicleType === 2) {
+          this.isTrainPresent = true;
         }
-      })
+      });
     }
   }
-
-
 
   register() {
     const payload = {

@@ -12,7 +12,11 @@
       ><i class="fa fa-location-arrow" aria-hidden="true"></i> {{this.tourishPlan?.endPoint}}</span
     >
     <span><i class="fa fa-clock-o" aria-hidden="true"></i> {{getDuration()}}</span>
-    <span><i class="fa fa-bus" aria-hidden="true"></i> Phương tiện</span>
+    <span>
+      <i class="fa fa-bus" aria-hidden="true"  *ngIf="isPassengerCarPresent"></i>
+      <i class="fa fa-plane" aria-hidden="true"  *ngIf="isPlanePresent"></i>
+      <i class="fa fa-train" aria-hidden="true"  *ngIf="isTrainPresent"></i>
+    </span>
 
     <span id="rating">
       <button

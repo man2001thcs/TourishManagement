@@ -1,4 +1,4 @@
 
-export interface PassengerCarParam {
+export interface MovingScheduleParam {
   id: string;
 }

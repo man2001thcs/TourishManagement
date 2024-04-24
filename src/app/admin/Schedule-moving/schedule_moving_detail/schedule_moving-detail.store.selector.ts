@@ -1,25 +1,25 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { storeKey } from './passenger_car-detail.store.action';
-import { State } from './passenger_car-detail.store.reducer';
+import { storeKey } from './schedule_moving-detail.store.action';
+import { State } from './schedule_moving-detail.store.reducer';
 
-export const passengerCarFeatureState = createFeatureSelector<State>(storeKey);
+export const movingScheduleFeatureState = createFeatureSelector<State>(storeKey);
 
-export const getPassengerCar = createSelector(
-  passengerCarFeatureState,
-  (state) => state.passengerCar
+export const getMovingSchedule = createSelector(
+  movingScheduleFeatureState,
+  (state) => state.movingSchedule
 );
 
-export const editPassengerCar = createSelector(
-  passengerCarFeatureState,
-  (state) => state.passengerCarReturn
+export const editMovingSchedule = createSelector(
+  movingScheduleFeatureState,
+  (state) => state.movingScheduleReturn
 );
 
 export const getMessage = createSelector(
-  passengerCarFeatureState,
+  movingScheduleFeatureState,
   (state) => state.messageCode
 );
 
 export const getSysError = createSelector(
-  passengerCarFeatureState,
+  movingScheduleFeatureState,
   (state) => state.error
 );

@@ -1,65 +1,65 @@
 import { Action, createAction, props, union } from '@ngrx/store';
 
-export const storeKey = 'admin/passengerCarInfo';
+export const storeKey = 'admin/movingScheduleInfo';
 
 export const initial = createAction(`[${storeKey}] initial`);
 
-export const getPassengerCar = createAction(
-  `[${storeKey}] getPassengerCar`,
+export const getMovingSchedule = createAction(
+  `[${storeKey}] getMovingSchedule`,
   props<{ payload: any }>()
 );
 
-export const getPassengerCarSuccess = createAction(
-  `[${storeKey}] getPassengerCarSuccess`,
+export const getMovingScheduleSuccess = createAction(
+  `[${storeKey}] getMovingScheduleSuccess`,
   props<{ response: any }>()
 );
 
-export const getPassengerCarFailed = createAction(
-  `[${storeKey}] getPassengerCarFailed`,
+export const getMovingScheduleFailed = createAction(
+  `[${storeKey}] getMovingScheduleFailed`,
   props<{ response: any }>()
 );
 
-export const getPassengerCarSystemFailed = createAction(
-  `[${storeKey}] getPassengerCarSystemFailed`,
+export const getMovingScheduleSystemFailed = createAction(
+  `[${storeKey}] getMovingScheduleSystemFailed`,
   props<{ error: any }>()
 );
 
-export const editPassengerCar = createAction(
-  `[${storeKey}] editPassengerCar`,
+export const editMovingSchedule = createAction(
+  `[${storeKey}] editMovingSchedule`,
   props<{ payload: any }>()
 );
 
-export const editPassengerCarSuccess = createAction(
-  `[${storeKey}] editPassengerCarSuccess`,
+export const editMovingScheduleSuccess = createAction(
+  `[${storeKey}] editMovingScheduleSuccess`,
   props<{ response: any }>()
 );
 
-export const editPassengerCarFailed = createAction(
-  `[${storeKey}] editPassengerCarFailed`,
+export const editMovingScheduleFailed = createAction(
+  `[${storeKey}] editMovingScheduleFailed`,
   props<{ response: any }>()
 );
 
-export const editPassengerCarSystemFailed = createAction(
-  `[${storeKey}] editPassengerCarSystemFailed`,
+export const editMovingScheduleSystemFailed = createAction(
+  `[${storeKey}] editMovingScheduleSystemFailed`,
   props<{ error: any }>()
 );
 
-export const resetPassengerCar = createAction(
-  `[${storeKey}] resetPassengerCarFailed`
+export const resetMovingSchedule = createAction(
+  `[${storeKey}] resetMovingScheduleFailed`
 );
 
 const actions = union({
   initial,
   
-  getPassengerCar,
-  getPassengerCarFailed,
-  getPassengerCarSystemFailed,
+  getMovingSchedule,
+  getMovingScheduleFailed,
+  getMovingScheduleSystemFailed,
 
-  editPassengerCar,
-  editPassengerCarFailed,
-  editPassengerCarSystemFailed,
+  editMovingSchedule,
+  editMovingScheduleFailed,
+  editMovingScheduleSystemFailed,
 
-  resetPassengerCar,
+  resetMovingSchedule,
 });
 
-export type PassengerCarUnionActions = typeof actions;
+export type MovingScheduleUnionActions = typeof actions;

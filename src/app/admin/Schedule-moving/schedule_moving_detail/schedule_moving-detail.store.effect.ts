@@ -2,98 +2,98 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap, switchMap } from 'rxjs/operators';
-import { PassengerCarStoreService } from './passenger_car-detail.store.service';
-import * as PassengerCarAction from './passenger_car-detail.store.action';
-import { PassengerCarUnionActions } from './passenger_car-detail.store.action';
+import { MovingScheduleStoreService } from './schedule_moving-detail.store.service';
+import * as MovingScheduleAction from './schedule_moving-detail.store.action';
+import { MovingScheduleUnionActions } from './schedule_moving-detail.store.action';
 
 @Injectable()
-export class PassengerCarEffects {
+export class MovingScheduleEffects {
   constructor(
-    private action: Actions<PassengerCarAction.PassengerCarUnionActions>,
-    private storeService: PassengerCarStoreService
+    private action: Actions<MovingScheduleAction.MovingScheduleUnionActions>,
+    private storeService: MovingScheduleStoreService
   ) {}
 
-  getPassengerCar: Observable<any> = createEffect(() =>
+  getMovingSchedule: Observable<any> = createEffect(() =>
     this.action.pipe(
-      ofType(PassengerCarAction.getPassengerCar),
+      ofType(MovingScheduleAction.getMovingSchedule),
       map((action) => action.payload),
       switchMap((action) => {
-        return this.storeService.getPassengerCar(action).pipe(
+        return this.storeService.getMovingSchedule(action).pipe(
           map((response) => {
             if (response.resultCd === 0) {
-              return PassengerCarAction.getPassengerCarSuccess({
+              return MovingScheduleAction.getMovingScheduleSuccess({
                 response: response,
               });
             } else {
-              return PassengerCarAction.getPassengerCarFailed({
+              return MovingScheduleAction.getMovingScheduleFailed({
                 response: response,
               });
             }
           }),
           catchError((error) => {
-            return of(PassengerCarAction.getPassengerCarSystemFailed({ error: error }));
+            return of(MovingScheduleAction.getMovingScheduleSystemFailed({ error: error }));
           })
         );
       })
     )
   );
 
-  getPassengerCarSuccess: Observable<any> = createEffect(
-    () => this.action.pipe(ofType(PassengerCarAction.getPassengerCarSuccess)),
+  getMovingScheduleSuccess: Observable<any> = createEffect(
+    () => this.action.pipe(ofType(MovingScheduleAction.getMovingScheduleSuccess)),
     { dispatch: false }
   );
 
-  getPassengerCarFailed: Observable<any> = createEffect(
-    () => this.action.pipe(ofType(PassengerCarAction.getPassengerCarFailed)),
+  getMovingScheduleFailed: Observable<any> = createEffect(
+    () => this.action.pipe(ofType(MovingScheduleAction.getMovingScheduleFailed)),
     { dispatch: false }
   );
 
-  getPassengerCarSystemFailed: Observable<any> = createEffect(
-    () => this.action.pipe(ofType(PassengerCarAction.getPassengerCarSystemFailed)),
+  getMovingScheduleSystemFailed: Observable<any> = createEffect(
+    () => this.action.pipe(ofType(MovingScheduleAction.getMovingScheduleSystemFailed)),
     { dispatch: false }
   );
 
-  editPassengerCar: Observable<any> = createEffect(() =>
+  editMovingSchedule: Observable<any> = createEffect(() =>
     this.action.pipe(
-      ofType(PassengerCarAction.editPassengerCar),
+      ofType(MovingScheduleAction.editMovingSchedule),
       map((action) => action.payload),
       switchMap((action) => {
-        return this.storeService.editPassengerCar(action).pipe(
+        return this.storeService.editMovingSchedule(action).pipe(
           map((response) => {
             console.log("abcd", response);
             if (response.resultCd === 0) {
               console.log(response);
-              return PassengerCarAction.editPassengerCarSuccess({
+              return MovingScheduleAction.editMovingScheduleSuccess({
                 response: response,
               });
             } else {
-              return PassengerCarAction.editPassengerCarFailed({
+              return MovingScheduleAction.editMovingScheduleFailed({
                 response: response,
               });
             }
           }),
           catchError((error) => {
-            return of(PassengerCarAction.editPassengerCarSystemFailed({ error: error }));
+            return of(MovingScheduleAction.editMovingScheduleSystemFailed({ error: error }));
           })
         );
       })
     )
   );
 
-  editPassengerCarSuccess: Observable<any> = createEffect(
-    () => this.action.pipe(ofType(PassengerCarAction.editPassengerCarSuccess)),
+  editMovingScheduleSuccess: Observable<any> = createEffect(
+    () => this.action.pipe(ofType(MovingScheduleAction.editMovingScheduleSuccess)),
     { dispatch: false }
   );
 
-  editPassengerCarFailed: Observable<any> = createEffect(
-    () => this.action.pipe(ofType(PassengerCarAction.editPassengerCarFailed)),
+  editMovingScheduleFailed: Observable<any> = createEffect(
+    () => this.action.pipe(ofType(MovingScheduleAction.editMovingScheduleFailed)),
     { dispatch: false }
   );
 
-  editPassengerCarSystemFailed: Observable<any> = createEffect(
-    () => this.action.pipe(ofType(PassengerCarAction.editPassengerCarSystemFailed)),
+  editMovingScheduleSystemFailed: Observable<any> = createEffect(
+    () => this.action.pipe(ofType(MovingScheduleAction.editMovingScheduleSystemFailed)),
     { dispatch: false }
   );
 
-  //editPassengerCarSuccess
+  //editMovingScheduleSuccess
 }

@@ -5,14 +5,14 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class PassengerCarStoreService {
+export class MovingScheduleStoreService {
   constructor(private http: HttpClient) {}
 
-  getPassengerCar(payload: any): Observable<any> {
+  getMovingSchedule(payload: any): Observable<any> {
     return this.http.get('/api/GetMovingContact/' + payload.id);
   }
 
-  editPassengerCar(payload: any): Observable<any> {
+  editMovingSchedule(payload: any): Observable<any> {
     console.log('ok');
     return this.http.put('/api/UpdateMovingContact/' + payload.id, payload);
   }

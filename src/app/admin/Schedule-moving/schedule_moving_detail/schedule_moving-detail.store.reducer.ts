@@ -1,67 +1,67 @@
 import { createReducer, on } from '@ngrx/store';
-import * as PassengerCarAction from './passenger_car-detail.store.action';
+import * as MovingScheduleAction from './schedule_moving-detail.store.action';
 import { IBaseState } from 'src/app/model/IBaseModel';
 
 export interface State extends IBaseState {
-  passengerCar: any;
-  passengerCarReturn: any;
+  movingSchedule: any;
+  movingScheduleReturn: any;
 }
 
 export const initialState: State = {
-  passengerCar: null,
+  movingSchedule: null,
   resultCd: 0,
-  passengerCarReturn: null
+  movingScheduleReturn: null
 };
 
 export const reducer = createReducer(
   initialState,
 
-  on(PassengerCarAction.initial, (state) => ({
+  on(MovingScheduleAction.initial, (state) => ({
     ...state,
     initialState,
   })),
 
-  on(PassengerCarAction.getPassengerCar, (state, { payload }) => ({
+  on(MovingScheduleAction.getMovingSchedule, (state, { payload }) => ({
     ...state,
   })),
 
-  on(PassengerCarAction.getPassengerCarSuccess, (state, { response }) => ({
+  on(MovingScheduleAction.getMovingScheduleSuccess, (state, { response }) => ({
     ...state,
-    passengerCar: response.data,
+    movingSchedule: response.data,
   })),
 
-  on(PassengerCarAction.getPassengerCarFailed, (state, { response }) => ({
+  on(MovingScheduleAction.getMovingScheduleFailed, (state, { response }) => ({
     ...state,
     messageCode: {code: response.messageCode},
   })),
 
-  on(PassengerCarAction.getPassengerCarSystemFailed, (state, { error }) => ({
+  on(MovingScheduleAction.getMovingScheduleSystemFailed, (state, { error }) => ({
     ...state,
     error: {message: error},
   })),
 
-  on(PassengerCarAction.editPassengerCar, (state, { payload }) => ({
+  on(MovingScheduleAction.editMovingSchedule, (state, { payload }) => ({
     ...state,
   })),
 
-  on(PassengerCarAction.editPassengerCarSuccess, (state, { response }) => ({
+  on(MovingScheduleAction.editMovingScheduleSuccess, (state, { response }) => ({
     ...state,
-    passengerCarReturn: response,
+    movingScheduleReturn: response,
   })),
 
-  on(PassengerCarAction.editPassengerCarFailed, (state, { response }) => ({
+  on(MovingScheduleAction.editMovingScheduleFailed, (state, { response }) => ({
     ...state,
     messageCode: {code: response.messageCode},
   })),
 
-  on(PassengerCarAction.editPassengerCarSystemFailed, (state, { error }) => ({
+  on(MovingScheduleAction.editMovingScheduleSystemFailed, (state, { error }) => ({
     ...state,
     error: {message: error},
   })), 
 
-  on(PassengerCarAction.resetPassengerCar, (state) => ({
+  on(MovingScheduleAction.resetMovingSchedule, (state) => ({
     ...state,
-    passengerCar: null,
-    passengerCarReturn: null
+    movingSchedule: null,
+    movingScheduleReturn: null
   }))
 );

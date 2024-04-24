@@ -8,30 +8,30 @@ import { ActivatedRoute } from "@angular/router";
 import { Book } from "src/app/model/book";
 import { AdminService } from "../../service/admin.service";
 import { CheckDeactivate } from "../../interface/admin.check_edit";
-import { PassengerCarParam } from "./passenger_car-detail.component.model";
+import { MovingScheduleParam } from "./schedule_moving-detail.component.model";
 
-import * as PassengerCarActions from "./passenger_car-detail.store.action";
-import { State as PassengerCarState } from "./passenger_car-detail.store.reducer";
+import * as MovingScheduleActions from "./schedule_moving-detail.store.action";
+import { State as MovingScheduleState } from "./schedule_moving-detail.store.reducer";
 import { Store } from "@ngrx/store";
 import {
-  editPassengerCar,
-  getPassengerCar,
+  editMovingSchedule,
+  getMovingSchedule,
   getMessage,
   getSysError,
-} from "./passenger_car-detail.store.selector";
+} from "./schedule_moving-detail.store.selector";
 import { MessageService } from "src/app/utility/user_service/message.service";
-import { PassengerCar } from "src/app/model/baseModel";
+import { MovingSchedule } from "src/app/model/baseModel";
 
 @Component({
   selector: "app-book-detail",
-  templateUrl: "./passenger_car-detail.component.html",
-  styleUrls: ["./passenger_car-detail.component.css"],
+  templateUrl: "./schedule_moving-detail.component.html",
+  styleUrls: ["./schedule_moving-detail.component.css"],
 })
-export class PassengerCarDetailComponent implements OnInit, OnDestroy {
+export class MovingScheduleDetailComponent implements OnInit, OnDestroy {
   isEditing: boolean = true;
   isSubmitted = false;
 
-  passengerCar: PassengerCar = {
+  movingSchedule: MovingSchedule = {
     id: "",
     branchName: "",
     vehicleType: 0,
@@ -42,7 +42,7 @@ export class PassengerCarDetailComponent implements OnInit, OnDestroy {
     discountAmount: 0,
     description: "",
   };
-  passengerCarParam!: PassengerCarParam;
+  movingScheduleParam!: MovingScheduleParam;
 
   this_announce = "";
   firstTime = false;
@@ -50,21 +50,21 @@ export class PassengerCarDetailComponent implements OnInit, OnDestroy {
 
   errorMessageState!: Observable<any>;
   errorSystemState!: Observable<any>;
-  passengerCarState!: Observable<any>;
-  editPassengerCarState!: Observable<any>;
+  movingScheduleState!: Observable<any>;
+  editMovingScheduleState!: Observable<any>;
   subscriptions: Subscription[] = [];
 
   constructor(
     private adminService: AdminService,
     private dialog: MatDialog,
     private fb: FormBuilder,
-    private store: Store<PassengerCarState>,
+    private store: Store<MovingScheduleState>,
     private messageService: MessageService,
     private _route: ActivatedRoute,
-    @Inject(MAT_DIALOG_DATA) public data: PassengerCarParam
+    @Inject(MAT_DIALOG_DATA) public data: MovingScheduleParam
   ) {
-    this.passengerCarState = this.store.select(getPassengerCar);
-    this.editPassengerCarState = this.store.select(editPassengerCar);
+    this.movingScheduleState = this.store.select(getMovingSchedule);
+    this.editMovingScheduleState = this.store.select(editMovingSchedule);
     this.errorMessageState = this.store.select(getMessage);
     this.errorSystemState = this.store.select(getSysError);
   }
@@ -89,9 +89,9 @@ export class PassengerCarDetailComponent implements OnInit, OnDestroy {
     });
 
     this.subscriptions.push(
-      this.passengerCarState.subscribe((state) => {
+      this.movingScheduleState.subscribe((state) => {
         if (state) {
-          this.passengerCar = state;
+          this.movingSchedule = state;
 
           this.editformGroup_info.controls["branchName"].setValue(
             state.branchName
@@ -122,7 +122,7 @@ export class PassengerCarDetailComponent implements OnInit, OnDestroy {
     );
 
     this.subscriptions.push(
-      this.editPassengerCarState.subscribe((state) => {
+      this.editMovingScheduleState.subscribe((state) => {
         if (state) {
           this.messageService.openMessageNotifyDialog(state.messageCode);
         }
@@ -148,14 +148,14 @@ export class PassengerCarDetailComponent implements OnInit, OnDestroy {
     );
 
     this.store.dispatch(
-      PassengerCarActions.getPassengerCar({
+      MovingScheduleActions.getMovingSchedule({
         payload: {
           id: this.data.id,
         },
       })
     );
 
-    this.store.dispatch(PassengerCarActions.initial());
+    this.store.dispatch(MovingScheduleActions.initial());
 
     //console.log(this.this_book);
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
@@ -164,20 +164,20 @@ export class PassengerCarDetailComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     console.log("Destroy");
-    this.store.dispatch(PassengerCarActions.resetPassengerCar());
+    this.store.dispatch(MovingScheduleActions.resetMovingSchedule());
 
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
   formReset(): void {
     this.editformGroup_info.setValue({
-      branchName: this.passengerCar.branchName ?? "",
-      hotlineNumber: this.passengerCar.hotlineNumber ?? "",
-      supportEmail: this.passengerCar.supportEmail ?? "",
-      headQuarterAddress: this.passengerCar.headQuarterAddress ?? "",
-      discountFloat: this.passengerCar.discountFloat ?? 0,
-      discountAmount: this.passengerCar.discountAmount ?? 0,
-      description: this.passengerCar.description,
+      branchName: this.movingSchedule.branchName ?? "",
+      hotlineNumber: this.movingSchedule.hotlineNumber ?? "",
+      supportEmail: this.movingSchedule.supportEmail ?? "",
+      headQuarterAddress: this.movingSchedule.headQuarterAddress ?? "",
+      discountFloat: this.movingSchedule.discountFloat ?? 0,
+      discountAmount: this.movingSchedule.discountAmount ?? 0,
+      description: this.movingSchedule.description,
     });
   }
 
@@ -188,7 +188,7 @@ export class PassengerCarDetailComponent implements OnInit, OnDestroy {
   formSubmit_edit_info(): void {
     this.isSubmitted = true;
     if (!this.editformGroup_info.invalid) {
-      const payload: PassengerCar = {
+      const payload: MovingSchedule = {
         id: this.data.id,
         branchName: this.editformGroup_info.value.branchName,
         vehicleType: 0,
@@ -201,7 +201,7 @@ export class PassengerCarDetailComponent implements OnInit, OnDestroy {
       };
 
       this.store.dispatch(
-        PassengerCarActions.editPassengerCar({
+        MovingScheduleActions.editMovingSchedule({
           payload: payload,
         })
       );

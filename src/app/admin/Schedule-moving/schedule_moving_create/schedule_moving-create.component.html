@@ -1,0 +1,296 @@
+<div class="container" style="padding: 0px 0 20px">
+  <div
+    style="background-color: #2a3650; padding: 15px 50px 0px; width: 100%; display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+    <h2 mat-form-label style="font-weight: heavy; color: white">
+      Thêm thông tin đối tác xe chở khách
+    </h2>
+
+    <button mat-button style="color: white; margin-bottom: 16px;" (click)="closeDialog()">
+      <i class="fa fa-times" aria-hidden="true"></i>
+    </button>
+  </div>
+
+  <div class="outlet" style="
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      flex-direction: column !important;
+    ">
+    <div class="row" style="
+        display: flex;
+        flex-direction: column !important;
+        flex-wrap: 1;
+        padding-left: 90px !important;
+      ">
+      <form [formGroup]="createformGroup_info">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
+            <div class="row">
+              <mat-form-field appearance="outline" class="full-width-input">
+                <mat-label>Tên dịch vụ</mat-label>
+                <input matInput fullwidth placeholder="Vd: Bồ Công Anh" formControlName="name" />
+              </mat-form-field>
+
+              <div style="margin-top: -20px; margin-bottom: 10px">
+                <app-validation *ngIf="
+                    this.createformGroup_info.get('name')?.errors &&
+                    (createformGroup_info.get('name')?.touched ||
+                      isSubmitted)
+                  " [formGroup]="createformGroup_info" [formGroupControlName]="'name'"></app-validation>
+              </div>
+            </div>
+
+            <div class="row">
+              <mat-form-field appearance="outline" class="full-width-input">
+                <mat-label>Tên đối tác</mat-label>
+                <input matInput fullwidth placeholder="Vd: Bồ Công Anh" formControlName="branchName" />
+              </mat-form-field>
+
+              <div style="margin-top: -20px; margin-bottom: 10px">
+                <app-validation *ngIf="
+                    this.createformGroup_info.get('branchName')?.errors &&
+                    (createformGroup_info.get('branchName')?.touched ||
+                      isSubmitted)
+                  " [formGroup]="createformGroup_info" [formGroupControlName]="'branchName'"></app-validation>
+              </div>
+            </div>
+
+            <div class="row">
+              <mat-form-field appearance="outline" class="full-width-input">
+                <mat-label>Tên người điều khiển phương tiện</mat-label>
+                <input matInput fullwidth placeholder="Vd: Bồ Công Anh" formControlName="driverName" />
+              </mat-form-field>
+
+              <div style="margin-top: -20px; margin-bottom: 10px">
+                <app-validation *ngIf="
+                    this.createformGroup_info.get('driverName')?.errors &&
+                    (createformGroup_info.get('driverName')?.touched ||
+                      isSubmitted)
+                  " [formGroup]="createformGroup_info" [formGroupControlName]="'driverName'"></app-validation>
+              </div>
+            </div>
+
+            <div class="row">
+              <mat-form-field appearance="outline" class="full-width-input">
+                <mat-label>Biển số phương tiện</mat-label>
+                <input matInput placeholder="Vd: 98Y4-12-123" formControlName="vehiclePlate" />
+              </mat-form-field>
+              <div style="margin-top: -20px; margin-bottom: 10px">
+                <app-validation *ngIf="
+                    this.createformGroup_info.get('vehiclePlate')?.errors &&
+                    (createformGroup_info.get('vehiclePlate')?.touched ||
+                      isSubmitted)
+                  " [formGroup]="createformGroup_info" [formGroupControlName]="'vehiclePlate'"></app-validation>
+              </div>
+            </div>
+
+            <div class="row">
+              <mat-form-field appearance="outline" class="full-width-input">
+                <mat-label>Số điện thoại liên lạc</mat-label>
+                <input matInput placeholder="Vd: 0123456789" formControlName="phoneNumber" />
+              </mat-form-field>
+              <div style="margin-top: -20px; margin-bottom: 10px">
+                <app-validation *ngIf="
+                    this.createformGroup_info.get('phoneNumber')?.errors &&
+                    (createformGroup_info.get('phoneNumber')?.touched ||
+                      isSubmitted)
+                  " [formGroup]="createformGroup_info" [formGroupControlName]="'phoneNumber'"></app-validation>
+              </div>
+            </div>
+
+
+            <div class="row">
+              <mat-form-field appearance="outline" class="full-width-input">
+                <mat-label>Đơn giá</mat-label>
+                <input matInput placeholder="Vd: 10000" formControlName="singlePrice" />
+              </mat-form-field>
+              <div style="margin-top: -20px; margin-bottom: 10px">
+                <app-validation *ngIf="
+                  this.createformGroup_info.get('singlePrice')?.errors &&
+                  (createformGroup_info.get('singlePrice')?.touched ||
+                    isSubmitted)
+                " [formGroup]="createformGroup_info" [formGroupControlName]="'singlePrice'"></app-validation>
+              </div>
+            </div>
+
+            <div class="row">
+              <<mat-form-field appearance="outline" class="full-width-input">
+                <mat-label>Loại phương tiện</mat-label>
+                <select matNativeControl required formControlName="vehicleType">
+                  <option value="0">Xe khách</option>
+                  <option value="1">Máy bay</option>
+                </select>
+                </mat-form-field>
+                <div style="margin-top: -20px; margin-bottom: 10px">
+                  <app-validation *ngIf="
+                    this.createformGroup_info.get('vehicleType')?.errors &&
+                    (createformGroup_info.get('vehicleType')?.touched ||
+                      isSubmitted)
+                  " [formGroup]="createformGroup_info" [formGroupControlName]="'vehicleType'"></app-validation>
+                </div>
+            </div>
+
+
+            <div class="row" style="margin-bottom: 1rem; width: 100%">
+              <movingschedule-select-autocomplete style="width: 94.5%" [data_selected]="undefined"
+                (result)="selectSchedule($event.data)">
+              </movingschedule-select-autocomplete>
+            </div>        
+          </div>
+
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
+            <div class="row">
+              <mat-form-field appearance="outline" class="full-width-input">
+                <mat-label>Nơi xuất phát</mat-label>
+                <input
+                  matInput
+                  fullwidth
+                  placeholder="Vd: Hà Nội"
+                  formControlName="startingPlace"
+                />
+              </mat-form-field>
+              <app-validation *ngIf="
+              this.createformGroup_info.get('startingPlace')?.errors &&
+              (createformGroup_info.get('startingPlace')?.touched ||
+                isSubmitted)"
+                [formGroup]="createformGroup_info"
+                [formGroupControlName]="'startingPlace'"
+              ></app-validation>
+            </div>
+    
+            <div class="row">
+              <mat-form-field appearance="outline" class="full-width-input">
+                <mat-label>Nơi đến</mat-label>
+                <input
+                  matInput
+                  fullwidth
+                  placeholder="Vd: Đà Nẵng"
+                  formControlName="headingPlace"
+                />
+              </mat-form-field>
+              <app-validation
+              *ngIf="
+              this.createformGroup_info.get('headingPlace')?.errors &&
+              (createformGroup_info.get('headingPlace')?.touched ||
+                isSubmitted)"
+                [formGroup]="createformGroup_info"
+                [formGroupControlName]="'headingPlace'"
+              ></app-validation>
+            </div>
+
+            <div class="row">
+              <mat-form-field appearance="outline" class="full-width-input">
+                <mat-label>Ngày bắt đầu</mat-label>
+                <input
+                  matInput
+                  [ngxMatDatetimePicker]="movingPicker"
+                  placeholder="Choose a date"
+                  formControlName="startDate"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="$any(movingPicker)"
+                ></mat-datepicker-toggle>
+                <ngx-mat-datetime-picker
+                  #movingPicker
+                  [showSpinners]="true"
+                  [showSeconds]="true"
+                  [touchUi]="touchUi"
+                  [color]="color"
+                  [enableMeridian]="enableMeridian"
+                >
+                </ngx-mat-datetime-picker>
+              </mat-form-field>
+              <app-validation *ngIf="
+              this.createformGroup_info.get('startDate')?.errors &&
+              (createformGroup_info.get('startDate')?.touched ||
+                isSubmitted)"
+                [formGroup]="createformGroup_info"
+                [formGroupControlName]="'startDate'"
+              ></app-validation>
+            </div>
+    
+            <div class="row">
+              <mat-form-field appearance="outline" class="full-width-input">
+                <mat-label>Ngày kết thúc</mat-label>
+                <input
+                  matInput
+                  [ngxMatDatetimePicker]="picker"
+                  placeholder="Choose a date"
+                  formControlName="endDate"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="$any(picker)"
+                ></mat-datepicker-toggle>
+                <ngx-mat-datetime-picker
+                  #picker
+                  [showSpinners]="true"
+                  [showSeconds]="true"
+                  [touchUi]="touchUi"
+                  [color]="color"
+                  [enableMeridian]="enableMeridian"
+                >
+                </ngx-mat-datetime-picker>
+              </mat-form-field>
+              <app-validation
+              *ngIf="
+              this.createformGroup_info.get('endDate')?.errors &&
+              (createformGroup_info.get('endDate')?.touched ||
+                isSubmitted)"
+                [formGroup]="createformGroup_info"
+                [formGroupControlName]="'endDate'"
+              ></app-validation>
+            </div>
+
+            <div class="row">
+              <mat-form-field appearance="outline" class="full-width-input">
+                <mat-label>Tình trạng</mat-label>
+                <select
+                  matNativeControl
+                  required
+                  (change)="changeStatusExist($event)"
+                >
+                  <option value="0">Mới tạo</option>
+                  <option value="1">Đang thực hiện</option>
+                  <option value="2">Hoàn thành</option>
+                  <option value="2">Hủy</option>
+                </select>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" style="display: flex; flex-direction: column !important; flex-wrap: 1">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form">
+            <mat-form-field style="width: 90%">
+              <textarea matInput class="form-control" id="description" placeholder="Thông tin đính kèm"
+                formControlName="description" rows="10"></textarea>
+            </mat-form-field>
+            <div style="margin-top: -20px; margin-bottom: 10px">
+              <app-validation *ngIf="
+                  this.createformGroup_info.get('description')?.errors &&
+                  (createformGroup_info.get('description')?.touched ||
+                    isSubmitted)
+                " [formGroup]="createformGroup_info" [formGroupControlName]="'description'"></app-validation>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" style="display: flex; flex-direction: row !important; flex-wrap: 1">
+          <div style="margin-right: 20px">
+            <button mat-raised-button color="primary" (click)="formSubmit_create_info()">
+              Lưu
+            </button>
+          </div>
+
+          <div>
+            <button mat-raised-button color="warn" type="button" (click)="formReset()">
+              Khôi phục
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

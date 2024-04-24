@@ -95,6 +95,7 @@ export interface MovingSchedule {
   id?: string;
   tourishPlanId?: string;
 
+  name?: string;
   branchName: string;
   driverName: string;
   vehiclePlate: string;
@@ -205,7 +206,6 @@ export interface TourishComment {
   createDate: string;
   updateDate: string;
 }
-
 
 export interface TotalReceipt {
   totalReceiptId?: string;

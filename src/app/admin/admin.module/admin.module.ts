@@ -256,6 +256,8 @@ import { AvatarUploadComponent } from "src/app/utility/image_avatar_service/imag
 import { BigChatComponent } from "src/app/utility/big-chat/big-chat.component";
 import { GuestMessageConHistoryListComponent } from "../ChatConHistory/chat_con_his_list/chat_con_his_list.component";
 import { GuestMessageConHistoryListEffects } from "../ChatConHistory/chat_con_his_list/chat_con_his_list.store.effect";
+import { MovingScheduleSelectAutocompleteComponent } from "src/app/utility/multiselect/moving-schedule-select-autocomplete/select-autocomplete.component";
+import { MovingScheduleCreateComponent } from "../Schedule-moving/schedule_moving_create/schedule_moving-create.component";
 
 
 
@@ -305,6 +307,9 @@ import { GuestMessageConHistoryListEffects } from "../ChatConHistory/chat_con_hi
     AdminMainComponent,
     HeaderAdminComponent,
     GuestMessageConHistoryListComponent,
+
+    MovingScheduleSelectAutocompleteComponent,
+    MovingScheduleCreateComponent,
 
     StayingMultiselectAutocompleteComponent,
     MovingMultiselectAutocompleteComponent,

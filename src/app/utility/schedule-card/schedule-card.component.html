@@ -1,0 +1,60 @@
+<mat-card class="example-card" (click)="navigateToDetail()">
+  <div class="image-container">
+    <img
+      mat-card-image
+      src="{{ this.firstImageUrl }}"
+      alt="Photo of a Shiba Inu"
+    />
+  </div>
+  <mat-card-content>
+    <p class="tour-name">{{ getTourName(scheduleName) }}</p>
+
+    <div
+      class="row"
+      style="
+        margin-left: 5px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: 100%;
+      "
+    >
+      <mat-card
+        *ngIf="judgeNumber > 0"
+        style="
+          width: 30px;
+          height: 20px;
+          text-align: center;
+          color: white;
+          margin-right: 7px;
+          padding-top: 2px;
+        "
+        [ngStyle]="{ 'background-color': getRateColor(score) }"
+        >{{ score }}</mat-card
+      >
+      <p
+        class="tour-judge"
+        style="margin-right: 7px; font-style: italic; font-weight: bold"
+      >
+        {{ getRateString(score) }}
+      </p>
+      <p class="tour-judge" style="margin-right: 7px" *ngIf="judgeNumber > 0">|</p>
+      <p class="tour-judge" *ngIf="judgeNumber > 0">{{ judgeNumber }} đánh giá</p>
+    </div>
+
+    <div
+      class="row"
+      style="
+        margin-left: 5px;
+        display: flex;
+        flex-direction: row-reverse;
+        align-items: center;
+        width: 100%;
+        margin-top: 20px;
+      "
+    >
+      <p class="tour-price">{{ schedulePrice }}đ</p>
+      <p class="tour-history">{{ customerNumber }} khách đã đặt</p>
+    </div>
+  </mat-card-content>
+</mat-card>

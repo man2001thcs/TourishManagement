@@ -26,6 +26,7 @@ import { TourishCategoryListComponent } from "../TourishCategory/tourish_categor
 import { NotificationListComponent } from "../notification/notification_list/notification-list.component";
 import { BigChatComponent } from "src/app/utility/big-chat/big-chat.component";
 import { GuestMessageConHistoryListComponent } from "../ChatConHistory/chat_con_his_list/chat_con_his_list.component";
+import { MovingScheduleListComponent } from "../Schedule-moving/schedule_moving_list/schedule_moving-list.component";
 
 const routes: Routes = [
   {
@@ -85,6 +86,10 @@ const routes: Routes = [
       {
         path: "user/list",
         component: UserListComponent,
+      },
+      {
+        path: "moving-schedule/list",
+        component: MovingScheduleListComponent,
       },
       {
         path: "account/info",

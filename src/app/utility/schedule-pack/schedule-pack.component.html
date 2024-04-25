@@ -1,0 +1,20 @@
+<div class="pack-container" id="pack-container" #packContainer>
+  <div class="tourish-pack-description">
+    <h3>Dịch vụ đưa đón</h3>
+  </div>
+  <div class="tourish-pack">
+    <app-schedule-card
+      *ngFor="let movingSchedule of movingScheduleList"
+      [id]="movingSchedule.id ?? ''"
+      [scheduleName]="movingSchedule.name ?? ''"
+      [schedulePrice]="movingSchedule.singlePrice ?? 0"
+      [type]="type"
+    ></app-schedule-card>
+  </div>
+
+  <div class="tourish-button">
+    <button mat-stroked-button style="color: rgb(4, 201, 201); font-size: 16px">
+      Xem thêm
+    </button>
+  </div>
+</div>

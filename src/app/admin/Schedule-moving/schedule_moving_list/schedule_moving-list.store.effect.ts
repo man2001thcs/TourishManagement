@@ -2,39 +2,39 @@ import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Observable, of } from "rxjs";
 import { catchError, map, mergeMap, switchMap } from "rxjs/operators";
-import { PassengerCarListStoreService } from "./passenger_car-list.store.service";
-import * as PassengerCarListAction from "./passenger_car-list.store.action";
-import { PassengerCarListUnionActions } from "./passenger_car-list.store.action";
+import { MovingScheduleListStoreService } from "./schedule_moving-list.store.service";
+import * as MovingScheduleListAction from "./schedule_moving-list.store.action";
+import { MovingScheduleListUnionActions } from "./schedule_moving-list.store.action";
 
 @Injectable()
-export class PassengerCarListEffects {
+export class MovingScheduleListEffects {
   constructor(
-    private action: Actions<PassengerCarListAction.PassengerCarListUnionActions>,
-    private storeService: PassengerCarListStoreService
+    private action: Actions<MovingScheduleListAction.MovingScheduleListUnionActions>,
+    private storeService: MovingScheduleListStoreService
   ) {}
 
-  getPassengerCarList: Observable<any> = createEffect(() =>
+  getMovingScheduleList: Observable<any> = createEffect(() =>
     this.action.pipe(
-      ofType(PassengerCarListAction.getPassengerCarList),
+      ofType(MovingScheduleListAction.getMovingScheduleList),
       map((action) => action.payload),
       switchMap((action) => {
-        return this.storeService.getPassengerCarList(action).pipe(
+        return this.storeService.getMovingScheduleList(action).pipe(
           map((response) => {
             console.log(response);
             if (response.resultCd === 0) {
               console.log(response);
-              return PassengerCarListAction.getPassengerCarListSuccess({
+              return MovingScheduleListAction.getMovingScheduleListSuccess({
                 response: response,
               });
             } else {
-              return PassengerCarListAction.getPassengerCarListFailed({
+              return MovingScheduleListAction.getMovingScheduleListFailed({
                 response: response,
               });
             }
           }),
           catchError((error) => {
             return of(
-              PassengerCarListAction.getPassengerCarListSystemFailed({ error: error })
+              MovingScheduleListAction.getMovingScheduleListSystemFailed({ error: error })
             );
           })
         );
@@ -42,44 +42,44 @@ export class PassengerCarListEffects {
     )
   );
 
-  getPassengerCarListSuccess: Observable<any> = createEffect(
-    () => this.action.pipe(ofType(PassengerCarListAction.getPassengerCarListSuccess)),
+  getMovingScheduleListSuccess: Observable<any> = createEffect(
+    () => this.action.pipe(ofType(MovingScheduleListAction.getMovingScheduleListSuccess)),
     { dispatch: false }
   );
 
-  getPassengerCarListFailed: Observable<any> = createEffect(
-    () => this.action.pipe(ofType(PassengerCarListAction.getPassengerCarListFailed)),
+  getMovingScheduleListFailed: Observable<any> = createEffect(
+    () => this.action.pipe(ofType(MovingScheduleListAction.getMovingScheduleListFailed)),
     { dispatch: false }
   );
 
-  getPassengerCarListSystemFailed: Observable<any> = createEffect(
+  getMovingScheduleListSystemFailed: Observable<any> = createEffect(
     () =>
-      this.action.pipe(ofType(PassengerCarListAction.getPassengerCarListSystemFailed)),
+      this.action.pipe(ofType(MovingScheduleListAction.getMovingScheduleListSystemFailed)),
     { dispatch: false }
   );
 
-  deletePassengerCar: Observable<any> = createEffect(() =>
+  deleteMovingSchedule: Observable<any> = createEffect(() =>
     this.action.pipe(
-      ofType(PassengerCarListAction.deletePassengerCar),
+      ofType(MovingScheduleListAction.deleteMovingSchedule),
       map((action) => action.payload),
       switchMap((action) => {
-        return this.storeService.deletePassengerCar(action).pipe(
+        return this.storeService.deleteMovingSchedule(action).pipe(
           map((response) => {
             console.log(response);
             if (response.resultCd === 0) {
               console.log(response);
-              return PassengerCarListAction.deletePassengerCarSuccess({
+              return MovingScheduleListAction.deleteMovingScheduleSuccess({
                 response: response,
               });
             } else {
-              return PassengerCarListAction.deletePassengerCarFailed({
+              return MovingScheduleListAction.deleteMovingScheduleFailed({
                 response: response,
               });
             }
           }),
           catchError((error) => {
             return of(
-              PassengerCarListAction.deletePassengerCarSystemFailed({ error: error })
+              MovingScheduleListAction.deleteMovingScheduleSystemFailed({ error: error })
             );
           })
         );
@@ -87,21 +87,21 @@ export class PassengerCarListEffects {
     )
   );
 
-  deletePassengerCarListSuccess: Observable<any> = createEffect(
-    () => this.action.pipe(ofType(PassengerCarListAction.deletePassengerCarSuccess)),
+  deleteMovingScheduleListSuccess: Observable<any> = createEffect(
+    () => this.action.pipe(ofType(MovingScheduleListAction.deleteMovingScheduleSuccess)),
     { dispatch: false }
   );
 
-  deletePassengerCarListFailed: Observable<any> = createEffect(
-    () => this.action.pipe(ofType(PassengerCarListAction.deletePassengerCarFailed)),
+  deleteMovingScheduleListFailed: Observable<any> = createEffect(
+    () => this.action.pipe(ofType(MovingScheduleListAction.deleteMovingScheduleFailed)),
     { dispatch: false }
   );
 
-  deletePassengerCarListSystemFailed: Observable<any> = createEffect(
+  deleteMovingScheduleListSystemFailed: Observable<any> = createEffect(
     () =>
-      this.action.pipe(ofType(PassengerCarListAction.deletePassengerCarSystemFailed)),
+      this.action.pipe(ofType(MovingScheduleListAction.deleteMovingScheduleSystemFailed)),
     { dispatch: false }
   );
 
-  //getPassengerCarListSuccess
+  //getMovingScheduleListSuccess
 }

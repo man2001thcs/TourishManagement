@@ -13,52 +13,52 @@ import { MatPaginator, PageEvent } from "@angular/material/paginator";
 
 import { Store } from "@ngrx/store";
 import { Observable, Subscription } from "rxjs";
-import { State as PassengerCarListState } from "./passenger_car-list.store.reducer";
+import { State as MovingScheduleListState } from "./schedule_moving-list.store.reducer";
 import {
-  getPassengerCarList,
+  getMovingScheduleList,
   getDeleteStatus,
   getMessage,
   getSysError,
-} from "./passenger_car-list.store.selector";
-import * as PassengerCarListActions from "./passenger_car-list.store.action";
+} from "./schedule_moving-list.store.selector";
+import * as MovingScheduleListActions from "./schedule_moving-list.store.action";
 import { MatDialog } from "@angular/material/dialog";
-import { PassengerCarDetailComponent } from "../passenger_car_detail/passenger_car-detail.component";
-import { PassengerCarCreateComponent } from "../passenger_car_create/passenger_car-create.component";
+import { MovingScheduleDetailComponent } from "../schedule_moving_detail/schedule_moving-detail.component";
+import { MovingScheduleCreateComponent } from "../schedule_moving_create/schedule_moving-create.component";
 import { MessageService } from "src/app/utility/user_service/message.service";
 import { ConfirmDialogComponent } from "src/app/utility/confirm-dialog/confirm-dialog.component";
-import { PassengerCar } from "src/app/model/baseModel";
+import { MovingSchedule } from "src/app/model/baseModel";
 
 @Component({
-  selector: "app-passengerCarList",
-  templateUrl: "./passenger_car-list.component.html",
-  styleUrls: ["./passenger_car-list.component.css"],
+  selector: "app-movingScheduleList",
+  templateUrl: "./schedule_moving-list.component.html",
+  styleUrls: ["./schedule_moving-list.component.css"],
 })
-export class PassengerCarListComponent
+export class MovingScheduleListComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
-  passengerCarList!: PassengerCar[];
+  movingScheduleList!: MovingSchedule[];
   subscriptions: Subscription[] = [];
 
-  passengerCarListState!: Observable<any>;
-  passengerCarDeleteState!: Observable<any>;
+  movingScheduleListState!: Observable<any>;
+  movingScheduleDeleteState!: Observable<any>;
   errorMessageState!: Observable<any>;
   errorSystemState!: Observable<any>;
 
   displayedColumns: string[] = [
     "id",
     "branchName",
-    "hotlineNumber",
-    "supportEmail",
-    "headQuarterAddress",
-    "discountFloat",
-    "discountAmount",
-    "description",
-
+    "singlePrice",
+    "vehicleType",
+    "startingPlace",
+    "headingPlace",
+    "status",
+    "startDate",
+    "endDate",
     "createDate",
-
     "edit",
     "delete",
   ];
+
   @ViewChild(MatPaginator) paraginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -75,34 +75,34 @@ export class PassengerCarListComponent
     private adminService: AdminService,
     public dialog: MatDialog,
     private messageService: MessageService,
-    private store: Store<PassengerCarListState>
+    private store: Store<MovingScheduleListState>
   ) {
-    this.passengerCarListState = this.store.select(getPassengerCarList);
-    this.passengerCarDeleteState = this.store.select(getDeleteStatus);
+    this.movingScheduleListState = this.store.select(getMovingScheduleList);
+    this.movingScheduleDeleteState = this.store.select(getDeleteStatus);
     this.errorMessageState = this.store.select(getMessage);
     this.errorSystemState = this.store.select(getSysError);
   }
 
   ngOnInit(): void {
     this.subscriptions.push(
-      this.passengerCarListState.subscribe((state) => {
+      this.movingScheduleListState.subscribe((state) => {
         if (state) {
           this.messageService.closeLoadingDialog();
-          this.passengerCarList = state.data;
+          this.movingScheduleList = state.data;
           this.length = state.count;
         }
       })
     );
 
     this.subscriptions.push(
-      this.passengerCarDeleteState.subscribe((state) => {
+      this.movingScheduleDeleteState.subscribe((state) => {
         if (state) {
           this.messageService.closeLoadingDialog();
           this.messageService.openMessageNotifyDialog(state.messageCode);
 
           if (state.resultCd === 0) {
             this.store.dispatch(
-              PassengerCarListActions.getPassengerCarList({
+              MovingScheduleListActions.getMovingScheduleList({
                 payload: {
                   search: this.searchPhase,
                   page: this.pageIndex + 1,
@@ -115,10 +115,10 @@ export class PassengerCarListComponent
       })
     );
 
-    this.store.dispatch(PassengerCarListActions.initial());
+    this.store.dispatch(MovingScheduleListActions.initial());
 
     this.store.dispatch(
-      PassengerCarListActions.getPassengerCarList({
+      MovingScheduleListActions.getMovingScheduleList({
         payload: {
           page: this.pageIndex + 1,
           type: 0,
@@ -152,14 +152,14 @@ export class PassengerCarListComponent
   ngAfterViewInit(): void {}
 
   ngOnDestroy(): void {
-    this.store.dispatch(PassengerCarListActions.resetPassengerCarList());
+    this.store.dispatch(MovingScheduleListActions.resetMovingScheduleList());
     this.messageService.closeAllDialog();
 
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
   openEditDialog(id: string): void {
-    const dialogRef = this.dialog.open(PassengerCarDetailComponent, {
+    const dialogRef = this.dialog.open(MovingScheduleDetailComponent, {
       data: { id: id },
     });
 
@@ -167,7 +167,7 @@ export class PassengerCarListComponent
       console.log(result);
 
       this.store.dispatch(
-        PassengerCarListActions.getPassengerCarList({
+        MovingScheduleListActions.getMovingScheduleList({
           payload: {
             page: this.pageIndex + 1,
             search: this.searchPhase,
@@ -181,13 +181,13 @@ export class PassengerCarListComponent
   }
 
   openAddDialog(): void {
-    const dialogRef = this.dialog.open(PassengerCarCreateComponent, {});
+    const dialogRef = this.dialog.open(MovingScheduleCreateComponent, {});
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log(result);
 
       this.store.dispatch(
-        PassengerCarListActions.getPassengerCarList({
+        MovingScheduleListActions.getMovingScheduleList({
           payload: {
             page: this.pageIndex + 1,
             search: this.searchPhase,
@@ -222,7 +222,7 @@ export class PassengerCarListComponent
     ref.afterClosed().subscribe((result) => {
       if (result) {
         this.store.dispatch(
-          PassengerCarListActions.deletePassengerCar({
+          MovingScheduleListActions.deleteMovingSchedule({
             payload: {
               id: id,
             },
@@ -243,7 +243,7 @@ export class PassengerCarListComponent
     console.log(this.pageIndex);
 
     this.store.dispatch(
-      PassengerCarListActions.getPassengerCarList({
+      MovingScheduleListActions.getMovingScheduleList({
         payload: {
           page: this.pageIndex + 1,
           pageSize: this.pageSize,
@@ -260,7 +260,7 @@ export class PassengerCarListComponent
 
     this.messageService.openLoadingDialog();
     this.store.dispatch(
-      PassengerCarListActions.getPassengerCarList({
+      MovingScheduleListActions.getMovingScheduleList({
         payload: {
           page: this.pageIndex + 1,
           pageSize: this.pageSize,
@@ -280,7 +280,7 @@ export class PassengerCarListComponent
     if ((sortState.active = "name")) {
       if (sortState.direction === "asc") {
         this.store.dispatch(
-          PassengerCarListActions.getPassengerCarList({
+          MovingScheduleListActions.getMovingScheduleList({
             payload: {
               page: 1,
               pageSize: this.pageSize,
@@ -292,7 +292,7 @@ export class PassengerCarListComponent
         this.messageService.openLoadingDialog();
       } else if (sortState.direction === "desc") {
         this.store.dispatch(
-          PassengerCarListActions.getPassengerCarList({
+          MovingScheduleListActions.getMovingScheduleList({
             payload: {
               sortBy: "name_desc",
               page: 1,
@@ -308,7 +308,7 @@ export class PassengerCarListComponent
     }
   }
 
-  getIndex(element: PassengerCar) {
-    return this.passengerCarList.findIndex((el) => el.id === element.id) + 1;
+  getIndex(element: MovingSchedule) {
+    return this.movingScheduleList.findIndex((el) => el.id === element.id) + 1;
   }
 }

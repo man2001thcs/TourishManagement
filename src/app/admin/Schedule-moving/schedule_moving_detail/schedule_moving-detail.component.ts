@@ -21,6 +21,7 @@ import {
 } from "./schedule_moving-detail.store.selector";
 import { MessageService } from "src/app/utility/user_service/message.service";
 import { MovingSchedule } from "src/app/model/baseModel";
+import { ThemePalette } from "@angular/material/core";
 
 @Component({
   selector: "app-book-detail",
@@ -34,13 +35,16 @@ export class MovingScheduleDetailComponent implements OnInit, OnDestroy {
   movingSchedule: MovingSchedule = {
     id: "",
     branchName: "",
-    vehicleType: 0,
-    hotlineNumber: "",
-    supportEmail: "",
-    headQuarterAddress: "",
-    discountFloat: 0,
-    discountAmount: 0,
+    driverName: "",
+    vehiclePlate: "",
+    transportId: "",
+    status: 0,
     description: "",
+    vehicleType: 0,
+    phoneNumber: "",
+    singlePrice: 0,
+    headingPlace: "",
+    startingPlace: "",
   };
   movingScheduleParam!: MovingScheduleParam;
 
@@ -53,6 +57,12 @@ export class MovingScheduleDetailComponent implements OnInit, OnDestroy {
   movingScheduleState!: Observable<any>;
   editMovingScheduleState!: Observable<any>;
   subscriptions: Subscription[] = [];
+
+  showSpinners = true;
+  showSeconds = false;
+  touchUi = false;
+  enableMeridian = false;
+  color: ThemePalette = "primary";
 
   constructor(
     private adminService: AdminService,
@@ -94,28 +104,40 @@ export class MovingScheduleDetailComponent implements OnInit, OnDestroy {
           this.movingSchedule = state;
 
           this.editformGroup_info.controls["branchName"].setValue(
-            state.branchName
+            state.branchName ?? ""
           );
-          this.editformGroup_info.controls["hotlineNumber"].setValue(
-            state.hotlineNumber
+          this.editformGroup_info.controls["driverName"].setValue(
+            state.driverName ?? ""
           );
-          this.editformGroup_info.controls["supportEmail"].setValue(
-            state.supportEmail
+          this.editformGroup_info.controls["vehiclePlate"].setValue(
+            state.vehiclePlate ?? ""
           );
-          this.editformGroup_info.controls["headQuarterAddress"].setValue(
-            state.headQuarterAddress
+          this.editformGroup_info.controls["phoneNumber"].setValue(
+            state.phoneNumber ?? ""
           );
-
-          this.editformGroup_info.controls["discountFloat"].setValue(
-            state.discountFloat
+          this.editformGroup_info.controls["vehicleType"].setValue(
+            state.vehicleType ?? 0
           );
-
-          this.editformGroup_info.controls["discountAmount"].setValue(
-            state.discountAmount
+          this.editformGroup_info.controls["transportId"].setValue(
+            state.transportId ?? ""
           );
-
+          this.editformGroup_info.controls["startingPlace"].setValue(
+            state.startingPlace ?? ""
+          );
+          this.editformGroup_info.controls["headingPlace"].setValue(
+            state.headingPlace ?? ""
+          );
+          this.editformGroup_info.controls["status"].setValue(
+            state.status ?? 0
+          );
           this.editformGroup_info.controls["description"].setValue(
-            state.description
+            state.description ?? ""
+          );
+          this.editformGroup_info.controls["startDate"].setValue(
+            state.startDate ?? null
+          );
+          this.editformGroup_info.controls["endDate"].setValue(
+            state.endDate ?? null
           );
         }
       })
@@ -171,13 +193,22 @@ export class MovingScheduleDetailComponent implements OnInit, OnDestroy {
 
   formReset(): void {
     this.editformGroup_info.setValue({
+      id: this.movingSchedule.id ?? "",
+      tourishPlanId: this.movingSchedule.tourishPlanId ?? "",
+      name: this.movingSchedule.name ?? "",
       branchName: this.movingSchedule.branchName ?? "",
-      hotlineNumber: this.movingSchedule.hotlineNumber ?? "",
-      supportEmail: this.movingSchedule.supportEmail ?? "",
-      headQuarterAddress: this.movingSchedule.headQuarterAddress ?? "",
-      discountFloat: this.movingSchedule.discountFloat ?? 0,
-      discountAmount: this.movingSchedule.discountAmount ?? 0,
-      description: this.movingSchedule.description,
+      driverName: this.movingSchedule.driverName ?? "",
+      vehiclePlate: this.movingSchedule.vehiclePlate ?? "",
+      phoneNumber: this.movingSchedule.phoneNumber ?? "",
+      singlePrice: this.movingSchedule.singlePrice ?? 0,
+      vehicleType: this.movingSchedule.vehicleType ?? 0,
+      transportId: this.movingSchedule.transportId ?? "",
+      startingPlace: this.movingSchedule.startingPlace ?? "",
+      headingPlace: this.movingSchedule.headingPlace ?? "",
+      status: this.movingSchedule.status ?? 0,
+      description: this.movingSchedule.description ?? "",
+      startDate: this.movingSchedule.startDate ?? null,
+      endDate: this.movingSchedule.endDate ?? null,
     });
   }
 
@@ -189,15 +220,21 @@ export class MovingScheduleDetailComponent implements OnInit, OnDestroy {
     this.isSubmitted = true;
     if (!this.editformGroup_info.invalid) {
       const payload: MovingSchedule = {
-        id: this.data.id,
+        id: this.editformGroup_info.value.id,
+        name: this.editformGroup_info.value.name,
         branchName: this.editformGroup_info.value.branchName,
-        vehicleType: 0,
-        hotlineNumber: this.editformGroup_info.value.hotlineNumber,
-        supportEmail: this.editformGroup_info.value.supportEmail,
-        headQuarterAddress: this.editformGroup_info.value.headQuarterAddress,
-        discountFloat: this.editformGroup_info.value.discountFloat,
-        discountAmount: this.editformGroup_info.value.discountAmount,
+        driverName: this.editformGroup_info.value.driverName,
+        vehiclePlate: this.editformGroup_info.value.vehiclePlate,
+        phoneNumber: this.editformGroup_info.value.phoneNumber,
+        singlePrice: this.editformGroup_info.value.singlePrice,
+        vehicleType: this.editformGroup_info.value.vehicleType,
+        transportId: this.editformGroup_info.value.transportId,
+        startingPlace: this.editformGroup_info.value.startingPlace,
+        headingPlace: this.editformGroup_info.value.headingPlace,
+        status: this.editformGroup_info.value.status,
         description: this.editformGroup_info.value.description,
+        startDate: this.editformGroup_info.value.startDate,
+        endDate: this.editformGroup_info.value.endDate,
       };
 
       this.store.dispatch(
@@ -210,5 +247,17 @@ export class MovingScheduleDetailComponent implements OnInit, OnDestroy {
 
   closeDialog() {
     this.dialog.closeAll();
+  }
+
+  selectSchedule($event: string[]){
+    this.editformGroup_info.controls["transportId"].setValue(
+      $event[0]
+    );
+  }
+
+  changeStatusExist($event: any) {
+    this.editformGroup_info.controls["status"].setValue(
+      parseInt($event.target.value)
+    );
   }
 }

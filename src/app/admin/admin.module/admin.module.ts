@@ -247,6 +247,18 @@ import { reducer as NotificationCreateReducer } from "../notification/notificati
 import { storeKey as NotificationListStoreKey } from "../notification/notification_list/notification-list.store.action";
 import { reducer as NotificationListReducer } from "../notification/notification_list/notification-list.store.reducer";
 
+import { storeKey as MovingScheduleCreateStoreKey } from "../Schedule-moving/schedule_moving_create/schedule_moving-create.store.action";
+import { reducer as MovingScheduleCreateReducer } from "../Schedule-moving/schedule_moving_create/schedule_moving-create.store.reducer";
+
+import { storeKey as MovingScheduleDetailStoreKey } from "../Schedule-moving/schedule_moving_detail/schedule_moving-detail.store.action";
+import { reducer as MovingScheduleDetailReducer } from "../Schedule-moving/schedule_moving_detail/schedule_moving-detail.store.reducer";
+
+import { storeKey as MovingScheduleListStoreKey } from "../Schedule-moving/schedule_moving_list/schedule_moving-list.store.action";
+import { reducer as MovingScheduleListReducer } from "../Schedule-moving/schedule_moving_list/schedule_moving-list.store.reducer";
+
+import { storeKey as MovingScheduleSelectStoreKey } from "../../utility/multiselect/moving-schedule-select-autocomplete/select-autocomplete.store.action";
+import { reducer as MovingScheduleSelectReducer } from "../../utility/multiselect/moving-schedule-select-autocomplete/select-autocomplete.store.reducer";
+
 import { storeKey as NotificationDetailStoreKey } from "../notification/notification_detail/notification-detail.store.action";
 import { reducer as NotificationDetailReducer } from "../notification/notification_detail/notification-detail.store.reducer";
 import { NotificationCreateEffects } from "../notification/notification_create/notification-create.store.effect";
@@ -258,6 +270,12 @@ import { GuestMessageConHistoryListComponent } from "../ChatConHistory/chat_con_
 import { GuestMessageConHistoryListEffects } from "../ChatConHistory/chat_con_his_list/chat_con_his_list.store.effect";
 import { MovingScheduleSelectAutocompleteComponent } from "src/app/utility/multiselect/moving-schedule-select-autocomplete/select-autocomplete.component";
 import { MovingScheduleCreateComponent } from "../Schedule-moving/schedule_moving_create/schedule_moving-create.component";
+import { MovingScheduleDetailComponent } from "../Schedule-moving/schedule_moving_detail/schedule_moving-detail.component";
+import { MovingScheduleListComponent } from "../Schedule-moving/schedule_moving_list/schedule_moving-list.component";
+import { MovingScheduleCreateEffects } from "../Schedule-moving/schedule_moving_create/schedule_moving-create.store.effect";
+import { MovingScheduleEffects } from "../Schedule-moving/schedule_moving_detail/schedule_moving-detail.store.effect";
+import { MovingScheduleListEffects } from "../Schedule-moving/schedule_moving_list/schedule_moving-list.store.effect";
+import { MovingScheduleAutoCompleteListEffects } from "src/app/utility/multiselect/moving-schedule-select-autocomplete/select-autocomplete.store.effect";
 
 
 
@@ -310,6 +328,8 @@ import { MovingScheduleCreateComponent } from "../Schedule-moving/schedule_movin
 
     MovingScheduleSelectAutocompleteComponent,
     MovingScheduleCreateComponent,
+    MovingScheduleDetailComponent,
+    MovingScheduleListComponent,
 
     StayingMultiselectAutocompleteComponent,
     MovingMultiselectAutocompleteComponent,
@@ -432,6 +452,11 @@ import { MovingScheduleCreateComponent } from "../Schedule-moving/schedule_movin
 
     StoreModule.forFeature(ImageListStoreKey, ImageListReducer),
 
+    StoreModule.forFeature(MovingScheduleCreateStoreKey, MovingScheduleCreateReducer),
+    StoreModule.forFeature(MovingScheduleDetailStoreKey, MovingScheduleDetailReducer),
+    StoreModule.forFeature(MovingScheduleListStoreKey, MovingScheduleListReducer),
+    StoreModule.forFeature(MovingScheduleSelectStoreKey, MovingScheduleSelectReducer),
+
     EffectsModule.forFeature([TourishCategoryCreateEffects]),
     EffectsModule.forFeature([TourishCategoryEffects]),
     EffectsModule.forFeature([TourishCategoryListEffects]),
@@ -482,6 +507,12 @@ import { MovingScheduleCreateComponent } from "../Schedule-moving/schedule_movin
     EffectsModule.forFeature([UserListEffects]),
 
     EffectsModule.forFeature([AccountEffects]),
+
+    EffectsModule.forFeature([MovingScheduleCreateEffects]),
+    EffectsModule.forFeature([MovingScheduleEffects]),
+    EffectsModule.forFeature([MovingScheduleListEffects]),
+
+    EffectsModule.forFeature([MovingScheduleAutoCompleteListEffects]),
   ],
   providers: [
     { provide: TINYMCE_SCRIPT_SRC, useValue: "tinymce/tinymce.min.js" },

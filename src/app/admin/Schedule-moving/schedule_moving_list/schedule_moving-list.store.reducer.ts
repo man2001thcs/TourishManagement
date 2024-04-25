@@ -1,9 +1,9 @@
 import { createReducer, on } from "@ngrx/store";
-import * as PassengerCarListAction from "./passenger_car-list.store.action";
+import * as MovingScheduleListAction from "./schedule_moving-list.store.action";
 import { IBaseState } from "src/app/model/IBaseModel";
 
 export interface State extends IBaseState {
-  passengerCarList: any;
+  movingScheduleList: any;
   pageNumber: number;
   pageOffset: number;
   deleteStatus: any;
@@ -12,7 +12,7 @@ export interface State extends IBaseState {
 export const initialState: State = {
   pageNumber: 0,
   pageOffset: 0,
-  passengerCarList: [],
+  movingScheduleList: [],
   deleteStatus: null,
   resultCd: 0,
 };
@@ -20,54 +20,54 @@ export const initialState: State = {
 export const reducer = createReducer(
   initialState,
 
-  on(PassengerCarListAction.initial, (state) => ({
+  on(MovingScheduleListAction.initial, (state) => ({
     ...state,
     initialState,
   })),
 
-  on(PassengerCarListAction.getPassengerCarList, (state, { payload }) => ({
+  on(MovingScheduleListAction.getMovingScheduleList, (state, { payload }) => ({
     ...state,
   })),
 
-  on(PassengerCarListAction.getPassengerCarListSuccess, (state, { response }) => ({
+  on(MovingScheduleListAction.getMovingScheduleListSuccess, (state, { response }) => ({
     ...state,
-    passengerCarList: response,
+    movingScheduleList: response,
   })),
 
-  on(PassengerCarListAction.getPassengerCarListFailed, (state, { response }) => ({
+  on(MovingScheduleListAction.getMovingScheduleListFailed, (state, { response }) => ({
     ...state,
     messageCode: {code: response.messageCode},
   })),
 
-  on(PassengerCarListAction.getPassengerCarListSystemFailed, (state, { error }) => ({
+  on(MovingScheduleListAction.getMovingScheduleListSystemFailed, (state, { error }) => ({
     ...state,
     error: {message: error},
   })),
 
-  on(PassengerCarListAction.deletePassengerCar, (state, { payload }) => ({
+  on(MovingScheduleListAction.deleteMovingSchedule, (state, { payload }) => ({
     ...state,
   })),
 
-  on(PassengerCarListAction.deletePassengerCarSuccess, (state, { response }) => ({
+  on(MovingScheduleListAction.deleteMovingScheduleSuccess, (state, { response }) => ({
     ...state,
     deleteStatus: response,
   })),
 
-  on(PassengerCarListAction.deletePassengerCarFailed, (state, { response }) => ({
+  on(MovingScheduleListAction.deleteMovingScheduleFailed, (state, { response }) => ({
     ...state,
     messageCode: {code: response.messageCode},
   })),
 
-  on(PassengerCarListAction.deletePassengerCarSystemFailed, (state, { error }) => ({
+  on(MovingScheduleListAction.deleteMovingScheduleSystemFailed, (state, { error }) => ({
     ...state,
     error: {message: error},
   })),
 
-  on(PassengerCarListAction.resetPassengerCarList, (state) => ({
+  on(MovingScheduleListAction.resetMovingScheduleList, (state) => ({
     ...state,
     pageNumber: 0,
     pageOffset: 0,
-    passengerCarList: [],
+    movingScheduleList: [],
     deleteStatus: null,
   }))
 );

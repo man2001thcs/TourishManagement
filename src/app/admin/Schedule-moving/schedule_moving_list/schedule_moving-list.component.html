@@ -1,7 +1,7 @@
 <div style="width: 100% !important">
   <mat-card style="margin-bottom: 20px; padding: 10px 10px 10px">
     <mat-card-header>
-      <mat-card-title>Đối tác xe chở khách</mat-card-title>
+      <mat-card-title>Danh sách dịch vụ</mat-card-title>
     </mat-card-header>
     <mat-card-actions>
       <button mat-raised-button (click)="openAddDialog()" class="demo-button">
@@ -42,7 +42,7 @@
   <div class="table-responsive">
     <table
       mat-table
-      [dataSource]="passengerCarList"
+      [dataSource]="movingScheduleList"
       matSort
       matSort
       class="mat-elevation-z8"
@@ -71,94 +71,106 @@
           mat-sort-header
           sortActionDescription="Sort by branchName"
         >
-          Tên đối tác
+          Tên dịch vụ
         </th>
         <td mat-cell *matCellDef="let element">{{ element.branchName }}</td>
       </ng-container>
 
       <!-- SS Column -->
-      <ng-container matColumnDef="supportEmail">
+      <ng-container matColumnDef="singlePrice">
         <th
           mat-header-cell
           *matHeaderCellDef
           mat-sort-header
-          sortActionDescription="Sort by supportEmail"
+          sortActionDescription="Sort by singlePrice"
         >
-          Email
+          Đơn giá
         </th>
-        <td mat-cell *matCellDef="let element">{{ element.supportEmail }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.singlePrice }}</td>
       </ng-container>
 
       <!-- SS Column -->
-      <ng-container matColumnDef="hotlineNumber">
+      <ng-container matColumnDef="vehicleType">
         <th
           mat-header-cell
           *matHeaderCellDef
           mat-sort-header
-          sortActionDescription="Sort by hotlineNumber"
+          sortActionDescription="Sort by vehicleType"
         >
-          Số điện thoại liên lạc
+          Loại phương tiện
         </th>
-        <td mat-cell *matCellDef="let element">{{ element.hotlineNumber }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.vehicleType }}</td>
       </ng-container>
 
       <!-- SS Column -->
-      <ng-container matColumnDef="headQuarterAddress">
+      <ng-container matColumnDef="startingPlace">
         <th
           mat-header-cell
           *matHeaderCellDef
           mat-sort-header
-          sortActionDescription="Sort by headQuarterAddress"
+          sortActionDescription="Sort by startingPlace"
         >
-          Địa chỉ trụ sở
+          Nơi khởi đầu
         </th>
         <td mat-cell *matCellDef="let element">
-          {{ element.headQuarterAddress }}
+          {{ element.startingPlace }}
         </td>
       </ng-container>
 
       <!-- SS Column -->
-      <ng-container matColumnDef="discountAmount">
+      <ng-container matColumnDef="headingPlace">
         <th
           mat-header-cell
           *matHeaderCellDef
           mat-sort-header
-          sortActionDescription="Sort by discountAmount"
+          sortActionDescription="Sort by headingPlace"
         >
-          Khuyến mãi
+          Điểm đến
         </th>
-        <td mat-cell *matCellDef="let element">{{ element.discountAmount }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.headingPlace }}</td>
       </ng-container>
 
       <!-- SS Column -->
-      <ng-container matColumnDef="discountFloat">
+      <ng-container matColumnDef="status">
         <th
           mat-header-cell
           *matHeaderCellDef
           mat-sort-header
-          sortActionDescription="Sort by discountFloat"
+          sortActionDescription="Sort by status"
         >
-          Khuyến mãi (Theo phần trăm)
+          Tình trạng
         </th>
-        <td mat-cell *matCellDef="let element">{{ element.discountFloat }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.status }}</td>
       </ng-container>
 
-      <!-- Symbol Column -->
-      <ng-container matColumnDef="description">
+      <ng-container matColumnDef="startDate">
         <th
           mat-header-cell
           *matHeaderCellDef
           mat-sort-header
-          sortActionDescription="Sort by description"
+          sortActionDescription="Sort by startDate"
         >
-          Description
+          Ngày bắt đầu
         </th>
+        <td mat-cell *matCellDef="let element">{{ element.startDate }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="endDate">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by endDate"
+        >
+          Ngày kết thúc
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.endDate }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="edit">
+        <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let element">
-          {{
-            element.description.length > 50
-              ? element.description.substring(0, 50) + " ..."
-              : element.description
-          }}
+          <button mat-button (click)="openEditDialog(element.id)">Edit</button>
         </td>
       </ng-container>
 

@@ -64,6 +64,7 @@ export class MovingScheduleCreateComponent implements OnInit, OnDestroy {
   touchUi = false;
   enableMeridian = false;
   color: ThemePalette = "primary";
+  editorContent: any;
 
   constructor(
     private dialog: MatDialog,
@@ -160,6 +161,9 @@ export class MovingScheduleCreateComponent implements OnInit, OnDestroy {
 
   formSubmit_create_info(): void {
     this.isSubmitted = true;
+    this.createformGroup_info.controls["description"].setValue(
+      this.editorContent
+    );
     if (this.createformGroup_info.valid) {
       const payload: MovingSchedule = {
         name: this.createformGroup_info.value.name,
@@ -173,7 +177,7 @@ export class MovingScheduleCreateComponent implements OnInit, OnDestroy {
         startingPlace: this.createformGroup_info.value.startingPlace,
         headingPlace: this.createformGroup_info.value.headingPlace,
         status: this.createformGroup_info.value.status,
-        description: this.createformGroup_info.value.description,
+        description: this.editorContent,
         startDate: this.createformGroup_info.value.startDate,
         endDate: this.createformGroup_info.value.endDate,
       };
@@ -192,10 +196,8 @@ export class MovingScheduleCreateComponent implements OnInit, OnDestroy {
     this.dialog.closeAll();
   }
 
-  selectSchedule($event: string[]){
-    this.createformGroup_info.controls["transportId"].setValue(
-      $event[0]
-    );
+  selectSchedule($event: string[]) {
+    this.createformGroup_info.controls["transportId"].setValue($event[0]);
   }
 
   changeStatusExist($event: any) {
@@ -204,4 +206,7 @@ export class MovingScheduleCreateComponent implements OnInit, OnDestroy {
     );
   }
 
+  getTinyMceResult($event: any) {
+    this.editorContent = $event.data;
+  }
 }

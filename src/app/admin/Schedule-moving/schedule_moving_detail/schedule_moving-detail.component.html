@@ -261,19 +261,23 @@
           </div>
         </div>
 
-        <div class="row" style="display: flex; flex-direction: column !important; flex-wrap: 1">
-          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form">
-            <mat-form-field style="width: 90%">
-              <textarea matInput class="form-control" id="description" placeholder="Thông tin đính kèm"
-                formControlName="description" rows="10"></textarea>
-            </mat-form-field>
-            <div style="margin-top: -20px; margin-bottom: 10px">
-              <app-validation *ngIf="
-                  this.editformGroup_info.get('description')?.errors &&
-                  (editformGroup_info.get('description')?.touched ||
-                    isSubmitted)
-                " [formGroup]="editformGroup_info" [formGroupControlName]="'description'"></app-validation>
-            </div>
+        <div class="row">
+          <app-tiny-mce-editor
+            style="width: 90% !important"
+            [blobName]="''"
+            [containerName]="'movingschedule-content-container'"
+            (result)="getTinyMceResult($event)"
+          ></app-tiny-mce-editor>
+          <input type="file" style="visibility: hidden" />
+          <div style="margin-top: -20px; margin-bottom: 10px">
+            <app-validation
+              *ngIf="
+                this.editformGroup_info.get('description')?.errors &&
+                (editformGroup_info.get('description')?.touched || isSubmitted)
+              "
+              [formGroup]="editformGroup_info"
+              [formGroupControlName]="'description'"
+            ></app-validation>
           </div>
         </div>
 

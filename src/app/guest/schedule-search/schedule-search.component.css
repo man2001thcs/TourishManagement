@@ -1,0 +1,156 @@
+.search-container {
+  /* background-image: src("./../../../assets/background-main.jpg"); */
+  min-height: 400px;
+  height: fit-content;
+  width: 100%;
+  background-color: #ECF0F5;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 50px 10% 50px;
+}
+
+.page-info-container {
+  /* background-image: src("./../../../assets/background-main.jpg"); */
+  height: fit-content;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  
+}
+
+.page-info-container .page-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.page-info-container .page-info .page-info-image {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.page-info-container .page-info .page-info-image img{
+
+  width: 50px;
+  height: 50px;
+}
+
+.page-info-container .page-info .page-info-image i {
+  font-size: 40px !important;
+}
+
+.page-info-container .page-info .info-description {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.page-info-container .page-info .info-description h3{
+  font-weight: bold;
+  margin-bottom: 0px !important;
+}
+
+.page-info-container .page-info .info-description h4{
+  margin-bottom: 0px !important;
+}
+
+.tour-search {
+  width: 100%;
+  background-color: white;
+  padding: 35px 30px 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+}
+
+.tour-search .mat-mdc-form-field-infix ng-tns-c23-2 {
+  background-color: white;
+}
+
+.container {
+  width: 100%;
+}
+
+.below-title {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding: 15px 10px 15px;
+  background-color: #e3e7ed;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.below-title span {
+  font-weight: bold;
+  font-size: 22px;
+  margin-right: 20px;
+}
+
+.below-title span#tour-id {
+  font-weight: 300 !important;
+  font-size: 20px;
+  margin-left: auto;
+}
+
+.tour-description {
+  margin-top: 20px;
+  background-color: white;
+  padding: 15px 10px 15px;
+  font-size: 16px;
+}
+
+.tour-description h4.tour-name {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.full-width-input {
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+ul li button {
+  font-size: 20px !important;
+}
+
+app-tourish-pack:nth-child(odd) {
+  background-color: #ECF0F5 !important;
+}
+
+h4.tour-name {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.side-container {
+  width: 20% !important;
+  margin-right: 10px;
+}
+
+.product-container {
+  width: 80% !important;
+  margin-left: 10px;
+}
+
+.price-tag {
+  background-color: white;
+}
+
+mat-card-content h4 {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 0;
+  margin-top: 20px;
+}

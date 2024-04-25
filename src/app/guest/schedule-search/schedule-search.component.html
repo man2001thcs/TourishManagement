@@ -1,0 +1,120 @@
+<div class="search-container">
+  <div class="side-container">
+    <div class="price-tag">
+      <mat-card class="example-card">
+        <mat-card-header>
+          <mat-card-title>Lọc theo</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <h4>Giá</h4>
+          <mat-selection-list [multiple]="false" (selectionChange)=" priceRangeChange($event)">
+            <mat-list-option *ngFor="let price of priceRange"  [value]="price"
+              >Từ {{ price.startPrice }} - {{ price.endPrice != 0 ? price.endPrice : "Trở lên" }} đ</mat-list-option
+            >
+          </mat-selection-list>
+          <mat-divider></mat-divider>
+          <h4>Thể loại</h4>
+          <mat-selection-list (selectionChange)=" categoryChange($event)">
+            <mat-list-option *ngFor="let category of this.categoryList" [value]="category.name">{{
+              category.name
+            }}</mat-list-option>
+          </mat-selection-list>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  <div class="product-container">
+    <div class="tour-search">
+      <div
+        class="row"
+        [formGroup]="setTourForm"
+        style="height: fit-content !important"
+      >
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-4 create-form">
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Bạn muốn đi đâu</mat-label>
+            <input
+              matInput
+              fullwidth
+              placeholder="Vd: Đà Nẵng"
+              formControlName="endPoint"
+            />
+          </mat-form-field>
+          <app-validation
+            *ngIf="isSubmit"
+            [formGroup]="setTourForm"
+            [formGroupControlName]="'endPoint'"
+          ></app-validation>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-4 create-form">
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Nơi bắt đầu</mat-label>
+            <input
+              matInput
+              fullwidth
+              placeholder="Vd: Hà Nội"
+              formControlName="startingPoint"
+            />
+          </mat-form-field>
+          <app-validation
+            *ngIf="isSubmit"
+            [formGroup]="setTourForm"
+            [formGroupControlName]="'startingPoint'"
+          ></app-validation>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 create-form">
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Ngày bắt đầu</mat-label>
+            <input
+              matInput
+              [ngxMatDatetimePicker]="picker"
+              placeholder="Choose a date"
+              formControlName="startingDate"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="$any(picker)"
+            ></mat-datepicker-toggle>
+            <ngx-mat-datetime-picker
+              #picker
+              [showSpinners]="true"
+              [showSeconds]="true"
+              [touchUi]="touchUi"
+              [color]="color"
+              [enableMeridian]="enableMeridian"
+            >
+            </ngx-mat-datetime-picker>
+          </mat-form-field>
+          <app-validation
+            *ngIf="isSubmit"
+            [formGroup]="setTourForm"
+            [formGroupControlName]="'startingDate'"
+          ></app-validation>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-1 col-lg-1 create-form">
+          <button
+            mat-raised-button
+            color="primary"
+            style="height: 56px; font-size: 14px"
+            (click)="onSearch()"
+          >
+            Tìm
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <app-tourish-search-pack
+      [startingDate]="startingDate"
+      [startingPoint]="startingPoint"
+      [endPoint]="endPoint"
+      [priceFrom]="priceFrom"
+      [priceTo]="priceTo"
+      [categoryString]="categoryString"
+      style="width: 100%;"
+    ></app-tourish-search-pack>
+  </div>
+</div>

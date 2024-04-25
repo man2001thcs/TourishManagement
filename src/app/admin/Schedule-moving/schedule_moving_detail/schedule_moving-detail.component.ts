@@ -63,6 +63,7 @@ export class MovingScheduleDetailComponent implements OnInit, OnDestroy {
   touchUi = false;
   enableMeridian = false;
   color: ThemePalette = "primary";
+  editorContent: any;
 
   constructor(
     private adminService: AdminService,
@@ -218,6 +219,7 @@ export class MovingScheduleDetailComponent implements OnInit, OnDestroy {
 
   formSubmit_edit_info(): void {
     this.isSubmitted = true;
+    this.editformGroup_info.controls["description"].setValue(this.editorContent);
     if (!this.editformGroup_info.invalid) {
       const payload: MovingSchedule = {
         id: this.editformGroup_info.value.id,
@@ -259,5 +261,9 @@ export class MovingScheduleDetailComponent implements OnInit, OnDestroy {
     this.editformGroup_info.controls["status"].setValue(
       parseInt($event.target.value)
     );
+  }
+
+  getTinyMceResult($event: any) {
+    this.editorContent = $event.data;
   }
 }

@@ -40,7 +40,7 @@ export class HeaderComponent implements OnInit {
   @ViewChild("searchInput") searchInput!: ElementRef<HTMLInputElement>;
 
   @Output() checkNavOpen = new EventEmitter<boolean>();
-  tourList: any;
+  tourList: TourishPlan[] = [];
 
   addNewItem(value: boolean) {
     this.checkNavOpen.emit(value);
@@ -126,7 +126,7 @@ export class HeaderComponent implements OnInit {
       this.myNameElem.nativeElement.style.width = "340px";
       this.myNameElem.nativeElement.style["margin-right"] = "0px";
       this.myNameElem.nativeElement.style["padding-top"] = "0px";
-      this.myNameElem.nativeElement.style["padding-left"] = "0px";
+      this.myNameElem.nativeElement.style["padding-left"] = "25px";
       this.myNameElem.nativeElement.style["padding-right"] = "0px";
       this.myNameElem.nativeElement.style["border-bottom"] =
         "2px solid #EDF1F7";
@@ -154,7 +154,7 @@ export class HeaderComponent implements OnInit {
     this.myNameElem.nativeElement.style.width = "60px";
     this.myNameElem.nativeElement.style["margin-right"] = "0px";
     this.myNameElem.nativeElement.style["margin-top"] = "0px";
-    this.myNameElem.nativeElement.style["padding-left"] = "0px";
+    this.myNameElem.nativeElement.style["padding-left"] = "20px";
     this.myNameElem.nativeElement.style["padding-right"] = "0px";
     this.myNameElem.nativeElement.style["border-bottom"] = "0px solid #EDF1F7";
     this.myNameElem.nativeElement.style["border-left"] = "0px solid #EDF1F7";

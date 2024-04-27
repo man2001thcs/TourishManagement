@@ -9,11 +9,10 @@ export class MovingScheduleStoreService {
   constructor(private http: HttpClient) {}
 
   getMovingSchedule(payload: any): Observable<any> {
-    return this.http.get('/api/GetMovingContact/' + payload.id);
+    return this.http.get('/api/GetMovingSchedule/' + payload.id);
   }
 
   editMovingSchedule(payload: any): Observable<any> {
-    console.log('ok');
-    return this.http.put('/api/UpdateMovingContact/' + payload.id, payload);
+    return this.http.put('/api/UpdateMovingSchedule/' + payload.id, payload);
   }
 }

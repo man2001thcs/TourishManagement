@@ -49,13 +49,13 @@ export class ScheduleCardComponent implements OnInit {
     return "";
   }
 
-  getRatingForTour() {
+  getRatingForSchedule() {
     const payload = {
       tourishPlanId: this.id,
     };
 
     this.http
-      .get("/api/GetTourRating/tourishplan", { params: payload })
+      .get("/api/GetScheduleRating/tourishplan", { params: payload })
       .subscribe((state: any) => {
         if (state) {
           console.log("abc", state);

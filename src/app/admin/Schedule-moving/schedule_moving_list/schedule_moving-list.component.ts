@@ -46,6 +46,7 @@ export class MovingScheduleListComponent
 
   displayedColumns: string[] = [
     "id",
+    "name",
     "branchName",
     "singlePrice",
     "vehicleType",
@@ -164,7 +165,6 @@ export class MovingScheduleListComponent
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
 
       this.store.dispatch(
         MovingScheduleListActions.getMovingScheduleList({

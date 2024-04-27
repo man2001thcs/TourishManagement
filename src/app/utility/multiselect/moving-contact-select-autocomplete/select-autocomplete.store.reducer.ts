@@ -1,5 +1,5 @@
 import { createReducer, on } from "@ngrx/store";
-import * as MovingScheduleListAction from "./select-autocomplete.store.action";
+import * as MovingContactListAction from "./select-autocomplete.store.action";
 import { IBaseState } from "src/app/model/IBaseModel";
 
 export interface State extends IBaseState {
@@ -20,31 +20,31 @@ export const initialState: State = {
 export const reducer = createReducer(
   initialState,
 
-  on(MovingScheduleListAction.initial, (state) => ({
+  on(MovingContactListAction.initial, (state) => ({
     ...state,
     initialState,
   })),
 
-  on(MovingScheduleListAction.getMovingScheduleList, (state, { payload }) => ({
+  on(MovingContactListAction.getMovingContactList, (state, { payload }) => ({
     ...state,
   })),
 
-  on(MovingScheduleListAction.getMovingScheduleListSuccess, (state, { response }) => ({
+  on(MovingContactListAction.getMovingContactListSuccess, (state, { response }) => ({
     ...state,
     movingscheduleList: response,
   })),
 
-  on(MovingScheduleListAction.getMovingScheduleListFailed, (state, { response }) => ({
+  on(MovingContactListAction.getMovingContactListFailed, (state, { response }) => ({
     ...state,
     messageCode: {code: response.messageCode},
   })),
 
-  on(MovingScheduleListAction.getMovingScheduleListSystemFailed, (state, { error }) => ({
+  on(MovingContactListAction.getMovingContactListSystemFailed, (state, { error }) => ({
     ...state,
     error: {message: error},
   })),
 
-  on(MovingScheduleListAction.resetMovingScheduleList, (state) => ({
+  on(MovingContactListAction.resetMovingContactList, (state) => ({
     ...state,
     pageNumber: 0,
     pageOffset: 0,

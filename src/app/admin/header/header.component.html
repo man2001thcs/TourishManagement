@@ -144,19 +144,19 @@
           class="nav-pills flex-column"
           orientation="vertical"
         >
-          <ng-container ngbNavItem="2nd">
+          <ng-container [ngbNavItem]="'2nd'">
             <button ngbNavLink (click)="navigateUrl('tourish-plan/create')">
               Tạo mới
             </button>
           </ng-container>
 
-          <ng-container ngbNavItem="1st">
+          <ng-container [ngbNavItem]="'1st'">
             <button ngbNavLink (click)="navigateUrl('tourish-plan/list')">
               Danh sách
             </button>
           </ng-container>
 
-          <ng-container ngbNavItem="10th">
+          <ng-container [ngbNavItem]="'3rd'">
             <button ngbNavLink (click)="navigateUrl('tour/category/list')">
               Thể loại
             </button>
@@ -189,12 +189,21 @@
           class="nav-pills flex-column"
           orientation="vertical"
         >
-          <ng-container ngbNavItem="3rd">
+          <ng-container [ngbNavItem]="'4th'">
             <button
               ngbNavLink
               (click)="navigateUrl('transport/moving-contact/list')"
             >
               Danh sách đối tác
+            </button>
+          </ng-container>
+
+          <ng-container [ngbNavItem]="'12th'">
+            <button
+              ngbNavLink
+              (click)="navigateUrl('transport/service/list')"
+            >
+              Dịch vụ ngoài tour
             </button>
           </ng-container>
         </div>
@@ -225,9 +234,9 @@
           class="nav-pills flex-column"
           orientation="vertical"
         >
-          <ng-container ngbNavItem="5th">
+          <ng-container [ngbNavItem]="'5th'">
             <button ngbNavLink (click)="navigateUrl('resthouse/rest-house-contact/list')">
-              Danh sách đối tác
+              Danh sách đối tác 
             </button>
           </ng-container>
         </div>
@@ -258,7 +267,7 @@
           class="nav-pills flex-column"
           orientation="vertical"
         >
-          <ng-container ngbNavItem="7th">
+          <ng-container [ngbNavItem]="'6th'">
             <button ngbNavLink (click)="navigateUrl('restaurant/list')">
               Nhà hàng
             </button>
@@ -291,7 +300,7 @@
           class="nav-pills flex-column"
           orientation="vertical"
         >
-          <ng-container ngbNavItem="8th">
+          <ng-container [ngbNavItem]="'7th'">
             <button ngbNavLink (click)="navigateUrl('receipt/list')">
               Danh sách hóa đơn
             </button>
@@ -324,7 +333,7 @@
           class="nav-pills flex-column"
           orientation="vertical"
         >
-          <ng-container ngbNavItem="9th">
+          <ng-container [ngbNavItem]="'8th'">
             <button ngbNavLink (click)="navigateUrl('user/list')">
               Danh sách nhân viên
             </button>
@@ -357,12 +366,12 @@
           class="nav-pills flex-column"
           orientation="vertical"
         >
-          <ng-container ngbNavItem="12th">
+          <ng-container [ngbNavItem]="'9th'">
             <button ngbNavLink (click)="navigateUrl('chat/list')">
               Danh sách yêu cầu
             </button>
           </ng-container>
-          <ng-container ngbNavItem="11th">
+          <ng-container [ngbNavItem]="'10th'">
             <button ngbNavLink (click)="navigateUrl('notification/list')">
               Tư vấn
             </button>
@@ -395,7 +404,7 @@
           class="nav-pills flex-column"
           orientation="vertical"
         >
-          <ng-container ngbNavItem="11th">
+          <ng-container [ngbNavItem]="'11th'">
             <button ngbNavLink (click)="navigateUrl('notification/list')">
               Danh sách thông báo
             </button>

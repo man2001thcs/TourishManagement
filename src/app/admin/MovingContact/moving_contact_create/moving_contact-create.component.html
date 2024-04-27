@@ -60,6 +60,16 @@
 
             <div class="row">
               <mat-form-field appearance="outline" class="full-width-input">
+                <mat-label>Loại phương tiện</mat-label>
+                <select matNativeControl required formControlName="vehicleType">
+                  <option [value]="0">Xe khách</option>
+                  <option [value]="1">Máy bay</option>
+                </select>
+              </mat-form-field>
+            </div>
+
+            <div class="row">
+              <mat-form-field appearance="outline" class="full-width-input">
                 <mat-label>Email liên lạc</mat-label>
                 <input
                   matInput

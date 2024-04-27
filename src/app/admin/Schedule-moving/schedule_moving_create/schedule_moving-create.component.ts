@@ -65,6 +65,7 @@ export class MovingScheduleCreateComponent implements OnInit, OnDestroy {
   enableMeridian = false;
   color: ThemePalette = "primary";
   editorContent: any;
+  vehicleType = 0;
 
   constructor(
     private dialog: MatDialog,
@@ -84,6 +85,7 @@ export class MovingScheduleCreateComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.createMovingScheduleState.subscribe((state) => {
         if (state) {
+          this.messageService.closeLoadingDialog();
           this.messageService.openMessageNotifyDialog(state.messageCode);
         }
       })
@@ -115,7 +117,7 @@ export class MovingScheduleCreateComponent implements OnInit, OnDestroy {
     //Add 'implements OnInit' to the class.
     this.createformGroup_info = this.fb.group({
       name: ["", Validators.compose([Validators.required])],
-      branchName: ["", Validators.compose([Validators.required])],
+      branchName: [""],
       driverName: ["", Validators.compose([Validators.required])],
       vehiclePlate: ["", Validators.compose([Validators.required])],
       phoneNumber: ["", Validators.compose([Validators.required])],
@@ -124,7 +126,7 @@ export class MovingScheduleCreateComponent implements OnInit, OnDestroy {
       transportId: ["", Validators.compose([Validators.required])],
       startingPlace: ["", Validators.compose([Validators.required])],
       headingPlace: ["", Validators.compose([Validators.required])],
-      status: [null, Validators.compose([Validators.required])],
+      status: [0, Validators.compose([Validators.required])],
       description: ["", Validators.compose([Validators.required])],
       startDate: ["", Validators.compose([Validators.required])],
       endDate: ["", Validators.compose([Validators.required])],
@@ -150,7 +152,7 @@ export class MovingScheduleCreateComponent implements OnInit, OnDestroy {
       transportId: "",
       startingPlace: "",
       headingPlace: "",
-      status: null,
+      status: 0,
       description: "",
       startDate: null,
       endDate: null,
@@ -164,6 +166,7 @@ export class MovingScheduleCreateComponent implements OnInit, OnDestroy {
     this.createformGroup_info.controls["description"].setValue(
       this.editorContent
     );
+
     if (this.createformGroup_info.valid) {
       const payload: MovingSchedule = {
         name: this.createformGroup_info.value.name,
@@ -182,6 +185,7 @@ export class MovingScheduleCreateComponent implements OnInit, OnDestroy {
         endDate: this.createformGroup_info.value.endDate,
       };
 
+      this.messageService.openLoadingDialog();
       this.store.dispatch(
         // Assuming you're using NgRx store, replace MovingContactActions.createMovingSchedule with appropriate action
         // Also, make sure you import MovingSchedule and store accordingly
@@ -196,14 +200,25 @@ export class MovingScheduleCreateComponent implements OnInit, OnDestroy {
     this.dialog.closeAll();
   }
 
-  selectSchedule($event: string[]) {
-    this.createformGroup_info.controls["transportId"].setValue($event[0]);
+  selectSchedule($event: any) {
+    if ($event) {
+      this.createformGroup_info.controls["transportId"].setValue(
+        $event.idList[0]
+      );
+      this.createformGroup_info.controls["branchName"].setValue(
+        $event.nameList[0]
+      );
+    }
   }
 
   changeStatusExist($event: any) {
     this.createformGroup_info.controls["status"].setValue(
       parseInt($event.target.value)
     );
+  }
+
+  changeType($event: any) {
+    this.vehicleType = parseInt($event.target.value);
   }
 
   getTinyMceResult($event: any) {

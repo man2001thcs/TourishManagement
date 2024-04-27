@@ -9,6 +9,6 @@ export class MovingScheduleStoreService {
   constructor(private http: HttpClient) {}
 
   createMovingSchedule(payload: any): Observable<any> {
-    return this.http.post('/api/AddMovingContact', payload);
+    return this.http.post('/api/AddMovingSchedule', payload);
   }
 }

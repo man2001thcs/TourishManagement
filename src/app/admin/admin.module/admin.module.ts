@@ -221,8 +221,8 @@ import { reducer as MovingScheduleDetailReducer } from "../Schedule-moving/sched
 import { storeKey as MovingScheduleListStoreKey } from "../Schedule-moving/schedule_moving_list/schedule_moving-list.store.action";
 import { reducer as MovingScheduleListReducer } from "../Schedule-moving/schedule_moving_list/schedule_moving-list.store.reducer";
 
-import { storeKey as MovingScheduleSelectStoreKey } from "../../utility/multiselect/moving-schedule-select-autocomplete/select-autocomplete.store.action";
-import { reducer as MovingScheduleSelectReducer } from "../../utility/multiselect/moving-schedule-select-autocomplete/select-autocomplete.store.reducer";
+import { storeKey as MovingContactSelectStoreKey } from "../../utility/multiselect/moving-contact-select-autocomplete/select-autocomplete.store.action";
+import { reducer as MovingContactSelectReducer } from "../../utility/multiselect/moving-contact-select-autocomplete/select-autocomplete.store.reducer";
 
 import { storeKey as NotificationDetailStoreKey } from "../notification/notification_detail/notification-detail.store.action";
 import { reducer as NotificationDetailReducer } from "../notification/notification_detail/notification-detail.store.reducer";
@@ -233,14 +233,14 @@ import { AvatarUploadComponent } from "src/app/utility/image_avatar_service/imag
 import { BigChatComponent } from "src/app/utility/big-chat/big-chat.component";
 import { GuestMessageConHistoryListComponent } from "../ChatConHistory/chat_con_his_list/chat_con_his_list.component";
 import { GuestMessageConHistoryListEffects } from "../ChatConHistory/chat_con_his_list/chat_con_his_list.store.effect";
-import { MovingScheduleSelectAutocompleteComponent } from "src/app/utility/multiselect/moving-schedule-select-autocomplete/select-autocomplete.component";
+import { MovingContactSelectAutocompleteComponent } from "src/app/utility/multiselect/moving-contact-select-autocomplete/select-autocomplete.component";
 import { MovingScheduleCreateComponent } from "../Schedule-moving/schedule_moving_create/schedule_moving-create.component";
 import { MovingScheduleDetailComponent } from "../Schedule-moving/schedule_moving_detail/schedule_moving-detail.component";
 import { MovingScheduleListComponent } from "../Schedule-moving/schedule_moving_list/schedule_moving-list.component";
 import { MovingScheduleCreateEffects } from "../Schedule-moving/schedule_moving_create/schedule_moving-create.store.effect";
 import { MovingScheduleEffects } from "../Schedule-moving/schedule_moving_detail/schedule_moving-detail.store.effect";
 import { MovingScheduleListEffects } from "../Schedule-moving/schedule_moving_list/schedule_moving-list.store.effect";
-import { MovingScheduleAutoCompleteListEffects } from "src/app/utility/multiselect/moving-schedule-select-autocomplete/select-autocomplete.store.effect";
+import { MovingContactAutoCompleteListEffects } from "src/app/utility/multiselect/moving-contact-select-autocomplete/select-autocomplete.store.effect";
 
 
 
@@ -283,7 +283,7 @@ import { MovingScheduleAutoCompleteListEffects } from "src/app/utility/multisele
     HeaderAdminComponent,
     GuestMessageConHistoryListComponent,
 
-    MovingScheduleSelectAutocompleteComponent,
+    MovingContactSelectAutocompleteComponent,
     MovingScheduleCreateComponent,
     MovingScheduleDetailComponent,
     MovingScheduleListComponent,
@@ -404,7 +404,7 @@ import { MovingScheduleAutoCompleteListEffects } from "src/app/utility/multisele
     StoreModule.forFeature(MovingScheduleCreateStoreKey, MovingScheduleCreateReducer),
     StoreModule.forFeature(MovingScheduleDetailStoreKey, MovingScheduleDetailReducer),
     StoreModule.forFeature(MovingScheduleListStoreKey, MovingScheduleListReducer),
-    StoreModule.forFeature(MovingScheduleSelectStoreKey, MovingScheduleSelectReducer),
+    StoreModule.forFeature(MovingContactSelectStoreKey, MovingContactSelectReducer),
 
     EffectsModule.forFeature([TourishCategoryCreateEffects]),
     EffectsModule.forFeature([TourishCategoryEffects]),
@@ -453,7 +453,7 @@ import { MovingScheduleAutoCompleteListEffects } from "src/app/utility/multisele
     EffectsModule.forFeature([MovingScheduleEffects]),
     EffectsModule.forFeature([MovingScheduleListEffects]),
 
-    EffectsModule.forFeature([MovingScheduleAutoCompleteListEffects]),
+    EffectsModule.forFeature([MovingContactAutoCompleteListEffects]),
   ],
   providers: [
     { provide: TINYMCE_SCRIPT_SRC, useValue: "tinymce/tinymce.min.js" },

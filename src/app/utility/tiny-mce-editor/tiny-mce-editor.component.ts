@@ -254,6 +254,7 @@ export class TinyMceEditorComponent implements OnInit {
       this.http
         .get("/api/GetTourishPlanDescription", { params: payload })
         .subscribe((state: any) => {
+          console.log(state);
           if (state) {
             this.editorContent = state.data;
             this.emitAdjustedData();

@@ -34,6 +34,7 @@ export class MovingScheduleDetailComponent implements OnInit, OnDestroy {
 
   movingSchedule: MovingSchedule = {
     id: "",
+    name: "",
     branchName: "",
     driverName: "",
     vehiclePlate: "",
@@ -64,6 +65,7 @@ export class MovingScheduleDetailComponent implements OnInit, OnDestroy {
   enableMeridian = false;
   color: ThemePalette = "primary";
   editorContent: any;
+  vehicleType = 0;
 
   constructor(
     private adminService: AdminService,
@@ -104,6 +106,7 @@ export class MovingScheduleDetailComponent implements OnInit, OnDestroy {
         if (state) {
           this.movingSchedule = state;
 
+          this.editformGroup_info.controls["name"].setValue(state.name ?? "");
           this.editformGroup_info.controls["branchName"].setValue(
             state.branchName ?? ""
           );
@@ -140,6 +143,8 @@ export class MovingScheduleDetailComponent implements OnInit, OnDestroy {
           this.editformGroup_info.controls["endDate"].setValue(
             state.endDate ?? null
           );
+
+          this.vehicleType = state.vehicleType;
         }
       })
     );
@@ -147,6 +152,7 @@ export class MovingScheduleDetailComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.editMovingScheduleState.subscribe((state) => {
         if (state) {
+          this.messageService.closeLoadingDialog();
           this.messageService.openMessageNotifyDialog(state.messageCode);
         }
       })
@@ -219,7 +225,9 @@ export class MovingScheduleDetailComponent implements OnInit, OnDestroy {
 
   formSubmit_edit_info(): void {
     this.isSubmitted = true;
-    this.editformGroup_info.controls["description"].setValue(this.editorContent);
+    this.editformGroup_info.controls["description"].setValue(
+      this.editorContent
+    );
     if (!this.editformGroup_info.invalid) {
       const payload: MovingSchedule = {
         id: this.editformGroup_info.value.id,
@@ -239,6 +247,7 @@ export class MovingScheduleDetailComponent implements OnInit, OnDestroy {
         endDate: this.editformGroup_info.value.endDate,
       };
 
+      this.messageService.openLoadingDialog();
       this.store.dispatch(
         MovingScheduleActions.editMovingSchedule({
           payload: payload,
@@ -251,10 +260,8 @@ export class MovingScheduleDetailComponent implements OnInit, OnDestroy {
     this.dialog.closeAll();
   }
 
-  selectSchedule($event: string[]){
-    this.editformGroup_info.controls["transportId"].setValue(
-      $event[0]
-    );
+  selectSchedule($event: string[]) {
+    this.editformGroup_info.controls["transportId"].setValue($event[0]);
   }
 
   changeStatusExist($event: any) {
@@ -265,5 +272,9 @@ export class MovingScheduleDetailComponent implements OnInit, OnDestroy {
 
   getTinyMceResult($event: any) {
     this.editorContent = $event.data;
+  }
+
+  changeType($event: any) {
+    this.vehicleType = parseInt($event.target.value);
   }
 }

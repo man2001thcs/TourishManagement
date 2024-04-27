@@ -4,7 +4,7 @@ import { State } from './select-autocomplete.store.reducer';
 
 export const movingscheduleListFeatureState = createFeatureSelector<State>(storeKey);
 
-export const getMovingScheduleList = createSelector(
+export const getMovingContactList = createSelector(
   movingscheduleListFeatureState,
   (state) => state.movingscheduleList
 );

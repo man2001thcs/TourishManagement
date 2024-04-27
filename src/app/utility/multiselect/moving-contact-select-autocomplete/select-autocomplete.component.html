@@ -1,23 +1,23 @@
 <form>
   <mat-form-field appearance="outline" class="full-width-input">
-    <mat-label>Người dùng</mat-label>
+    <mat-label>Lựa chọn đối tác</mat-label>
     <mat-chip-grid #chipGrid aria-label="Fruit selection">
       <mat-chip-row
-        *ngFor="let movingschedule of movingscheduleNameList"
-        (removed)="remove(movingschedule)"
+        *ngFor="let movingContact of movingContactNameList"
+        (removed)="remove(movingContact)"
         style="font-size: 16px"
       >
-        {{ movingschedule }}
-        <button matChipRemove [attr.aria-label]="'remove ' + movingschedule">
+        {{ movingContact }}
+        <button matChipRemove [attr.aria-label]="'remove ' + movingContact">
           <mat-icon>cancel</mat-icon>
         </button>
       </mat-chip-row>
     </mat-chip-grid>
     <input
-      *ngIf="movingscheduleNameList.length < 1"
+      *ngIf="movingContactNameList.length < 1"
       placeholder="Chọn tour"
-      #movingscheduleInput
-      [formControl]="movingscheduleCtrl"
+      #movingContactInput
+      [formControl]="movingContactCtrl"
       [matChipInputFor]="chipGrid"
       [matAutocomplete]="auto"
       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
@@ -30,17 +30,17 @@
       (optionsScroll)="onScroll($event)"
     >
       <mat-option
-        *ngFor="let movingschedule of data"
-        [value]="movingschedule"
-        [disabled]="isChecked(movingschedule)"
+        *ngFor="let movingContact of data"
+        [value]="movingContact"
+        [disabled]="isChecked(movingContact)"
       >
         <div>
           <div style="font-weight: bold">
-            {{ movingschedule.name ?? "" }}
-            <mat-icon>{{ isChecked(movingschedule) && "checked" }}</mat-icon>
+            {{ movingContact.branchName }}
+            <mat-icon>{{ isChecked(movingContact) && "checked" }}</mat-icon>
           </div>
 
-          <small>{{ onDisplayAtr(movingschedule) }}</small>
+          <small>{{ onDisplayAtr(movingContact) }}</small>
         </div>
       </mat-option>
     </mat-autocomplete>

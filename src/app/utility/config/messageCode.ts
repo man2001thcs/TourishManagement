@@ -61,6 +61,12 @@ export const ERR_MESSAGE_CODE_EN: Map<string, string> = new Map([
   ["C423", "Tourish category delete error"],
   ["C424", "Tourish category SQL error"],
 
+  ["C430", "Service not found"],
+  ["C431", "Service add error"],
+  ["C432", "Service update error"],
+  ["C433", "Service delete error"],
+  ["C434", "Service SQL error"],
+
   ["C510", "Receipt branch not found"],
   ["C511", "Receipt branch add error"],
   ["C512", "Receipt branch update error"],
@@ -158,6 +164,12 @@ export const ERR_MESSAGE_CODE_VI: Map<string, string> = new Map([
     ["C423", "Thể loại tour xóa thất bại"],
     ["C424", "Thể loại tour đang gặp lỗi cơ sở dữ liệu"],
 
+    ["C430", "Dịch vụ tour không tồn tại"],
+    ["C431", "Dịch vụ tour thêm vào bị lỗi"],
+    ["C432", "Dịch vụ tour sửa đang gặp lỗi cập nhật"],
+    ["C433", "Dịch vụ tour xóa thất bại"],
+    ["C434", "Dịch vụ tour đang gặp lỗi cơ sở dữ liệu"],
+
     ["C510", "Hóa đơn không tồn tại"],
     ["C511", "Hóa đơn thêm vào bị lỗi"],
     ["C512", "Hóa đơn sửa đang gặp lỗi cập nhật"],
@@ -238,6 +250,10 @@ export const SUCCESS_MESSAGE_CODE_EN: Map<string, string> = new Map([
     ["I422", "Tourish category update ok"],
     ["I423", "Tourish category delete ok"],
 
+    ["I431", "Service add ok"],
+    ["I432", "Service update ok"],
+    ["I433", "Service delete ok"],
+
     ["I511", "Receipt branch add ok"],
     ["I512", "Receipt branch update ok"],
     ["I513", "Receipt branch delete ok"],
@@ -297,6 +313,11 @@ export const SUCCESS_MESSAGE_CODE_EN: Map<string, string> = new Map([
     ["I421", "Thể loại tour thêm thành công"],
     ["I422", "Thể loại tour cập nhật thành công"],
     ["I423", "Thể loại tour xóa thành công"],
+
+    ["I431", "Dịch vụ tour thêm thành công"],
+    ["I432", "Dịch vụ tour cập nhật thành công"],
+    ["I433", "Dịch vụ tour xóa thành công"],
+
 
     ["I511", "Hóa đơn thêm thành công"],
     ["I512", "Hóa đơn cập nhật thành công"],

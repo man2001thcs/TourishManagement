@@ -81,7 +81,7 @@ export class MovingContactCreateComponent implements OnInit, OnDestroy {
       })
     );
 
-        this.subscriptions.push(
+    this.subscriptions.push(
       this.errorMessageState.subscribe((state: any) => {
         if (state) {
           this.messageService.closeLoadingDialog();
@@ -113,6 +113,7 @@ export class MovingContactCreateComponent implements OnInit, OnDestroy {
       discountFloat: [0, Validators.compose([Validators.required])],
       discountAmount: [0, Validators.compose([Validators.required])],
       description: ["", Validators.compose([Validators.required])],
+      vehicleType: [0, Validators.compose([Validators.required])],
     });
   }
 
@@ -140,13 +141,13 @@ export class MovingContactCreateComponent implements OnInit, OnDestroy {
     if (this.createformGroup_info.valid) {
       const payload: MovingContact = {
         branchName: this.createformGroup_info.value.branchName,
-        vehicleType: 0,
         hotlineNumber: this.createformGroup_info.value.hotlineNumber,
         supportEmail: this.createformGroup_info.value.supportEmail,
         headQuarterAddress: this.createformGroup_info.value.headQuarterAddress,
         discountFloat: this.createformGroup_info.value.discountFloat,
         discountAmount: this.createformGroup_info.value.discountAmount,
         description: this.createformGroup_info.value.description,
+        vehicleType: this.createformGroup_info.value.vehicleType ?? 0,
       };
 
       this.store.dispatch(
@@ -157,7 +158,7 @@ export class MovingContactCreateComponent implements OnInit, OnDestroy {
     }
   }
 
-  closeDialog(){
+  closeDialog() {
     this.dialog.closeAll();
   }
 }

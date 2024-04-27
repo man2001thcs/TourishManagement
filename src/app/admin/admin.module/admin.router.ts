@@ -62,6 +62,10 @@ const routes: Routes = [
         component: MovingContactListComponent,
       },
       {
+        path: "transport/service/list",
+        component: MovingScheduleListComponent,
+      },
+      {
         path: "resthouse/rest-house-contact/list",
         component: RestHouseContactListComponent,
       },

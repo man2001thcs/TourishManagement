@@ -54,7 +54,6 @@ export class MovingContactListComponent
     "headQuarterAddress",
     "discountFloat",
     "discountAmount",
-    "description",
 
     "createDate",
 

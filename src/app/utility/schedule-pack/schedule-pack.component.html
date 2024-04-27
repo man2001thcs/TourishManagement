@@ -6,9 +6,21 @@
     <app-schedule-card
       *ngFor="let movingSchedule of movingScheduleList"
       [id]="movingSchedule.id ?? ''"
+      [scheduleType]="1"
+      [contactId]="movingSchedule.transportId"
       [scheduleName]="movingSchedule.name ?? ''"
       [schedulePrice]="movingSchedule.singlePrice ?? 0"
-      [type]="type"
+      [scheduleType]="1"
+    ></app-schedule-card>
+
+    <app-schedule-card
+      *ngFor="let stayingSchedule of stayingScheduleList"
+      [id]="stayingSchedule.id ?? ''"
+      [scheduleType]="1"
+      [contactId]="stayingSchedule.restHouseBranchId"
+      [scheduleName]="stayingSchedule.name ?? ''"
+      [schedulePrice]="stayingSchedule.singlePrice ?? 0"
+      [scheduleType]="1"
     ></app-schedule-card>
   </div>
 

@@ -13,7 +13,7 @@ import { ThemePalette } from "@angular/material/core";
 
 import { NgbCarouselConfig } from "@ng-bootstrap/ng-bootstrap";
 import { Slider } from "angular-carousel-slider/lib/angular-carousel-slider.component";
-import { MovingSchedule } from "src/app/model/baseModel";
+import { MovingSchedule, StayingSchedule } from "src/app/model/baseModel";
 import { messaging } from "src/conf/firebase.conf";
 import { environment } from "src/environments/environment";
 
@@ -24,9 +24,7 @@ import { environment } from "src/environments/environment";
 })
 export class SchedulePackComponent implements OnInit, AfterViewInit {
   @Input()
-  type: string = "MovingSchedule";
-  @Input()
-  description: string = "Tìm Về Chốn Thiêng, Lòng Người An Bình";
+  scheduleType = 1;
 
   @ViewChild("picker") eatingPicker: any;
   @ViewChild("packContainer") packContainer!: ElementRef;
@@ -40,6 +38,7 @@ export class SchedulePackComponent implements OnInit, AfterViewInit {
   enableMeridian = false;
 
   movingScheduleList: MovingSchedule[] = [];
+  stayingScheduleList: StayingSchedule[] = [];
   length = 0;
 
   color: ThemePalette = "primary";
@@ -112,13 +111,24 @@ export class SchedulePackComponent implements OnInit, AfterViewInit {
       pageSize: 6,
     };
 
-    this.http
-      .get("/api/Get" + this.type, { params: params })
+    if (this.scheduleType == 1) {
+      this.http
+      .get("/api/GetMovingSchedule", { params: params })
       .subscribe((response: any) => {
         this.movingScheduleList = response.data;
         console.log(response);
         this.length = response.count;
       });
+    } else if (this.scheduleType == 2) {
+      this.http
+      .get("/api/GetStayingSchedule", { params: params })
+      .subscribe((response: any) => {
+        this.stayingScheduleList = response.data;
+        console.log(response);
+        this.length = response.count;
+      });
+    }
+    
   }
 
   capitalizeFirstLetter(sentence: string): string {

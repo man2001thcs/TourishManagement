@@ -1,0 +1,48 @@
+<div class="container" style="padding: 0px 0 20px">
+  <div
+    style="
+      background-color: #2a3650;
+      padding: 15px 50px 0px;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    "
+  >
+    <h2 mat-form-label style="font-weight: heavy; color: white">
+      Avatar
+    </h2>
+
+    <button
+      mat-button
+      style="color: white; margin-bottom: 16px"
+      (click)="closeDialog()"
+    >
+      <i class="fa fa-times" aria-hidden="true"></i>
+    </button>
+  </div>
+
+  <div
+    class="outlet"
+    style="
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      flex-direction: column !important;
+    "
+  >
+    <div
+      class="row"
+      style="
+        display: flex;
+        flex-direction: column !important;
+        flex-wrap: 1;
+        padding-left: 90px !important;
+      "
+    >
+      <app-avatar-upload [productId]="resourceId" [productType]="resourceType">
+      </app-avatar-upload>
+    </div>
+  </div>
+</div>

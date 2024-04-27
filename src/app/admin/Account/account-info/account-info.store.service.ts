@@ -9,7 +9,7 @@ export class AccountStoreService {
   constructor(private http: HttpClient) {}
 
   getAccount(payload: any): Observable<any> {
-    return this.http.post("/api/User/GetUser", null, {
+    return this.http.post("/api/User/SelfGetUser", null, {
       params: payload,
     });
   }

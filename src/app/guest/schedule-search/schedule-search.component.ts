@@ -7,11 +7,11 @@ import { Subscription } from "rxjs";
 import { PriceRange, TourishCategory } from "src/app/model/baseModel";
 
 @Component({
-  selector: "app-tourish-search",
-  templateUrl: "./tourish-search.component.html",
-  styleUrls: ["./tourish-search.component.css"],
+  selector: "app-schedule-search",
+  templateUrl: "./schedule-search.component.html",
+  styleUrls: ["./schedule-search.component.css"],
 })
-export class TourishSearchComponent implements OnInit {
+export class ScheduleSearchComponent implements OnInit {
   @Input()
   data!: string;
   @ViewChild("picker") eatingPicker: any;
@@ -90,28 +90,12 @@ export class TourishSearchComponent implements OnInit {
         }
       })
     );
-
-    this.getCategory();
   }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
-  getCategory() {
-    const params = {
-      page: 1,
-      pageSize: 6,
-    };
-
-    this.http
-      .get("/api/GetTourCategory", { params: params })
-      .subscribe((response: any) => {
-        this.categoryList = response.data;
-        console.log(response);
-        this.length = response.count;
-      });
-  }
 
   priceRangeChange($event: any) {
     if ($event) {

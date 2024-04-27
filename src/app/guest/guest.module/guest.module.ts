@@ -40,6 +40,7 @@ import {
 } from "@tinymce/tinymce-angular";
 import { ReclaimUserEffects } from "../log/reclaim/reclaim.store.effect";
 import { ReclaimUserComponent } from "../log/reclaim/reclaim.component";
+import { ScheduleSearchComponent } from "../schedule-search/schedule-search.component";
 
 @NgModule({
   declarations: [

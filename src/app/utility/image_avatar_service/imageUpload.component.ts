@@ -29,6 +29,8 @@ import { environment } from "src/environments/environment";
 })
 export class AvatarUploadComponent implements OnInit, OnDestroy {
   @Input()
+  productId = "";
+  @Input()
   productType: number = 0;
 
   @Input()
@@ -63,6 +65,10 @@ export class AvatarUploadComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    if (this.productType === 0){
+      const userId = this.tokenStorage.getUser().Id;
+      this.productId = userId;
+    }
     this.getImageList();
   }
 
@@ -150,9 +156,8 @@ export class AvatarUploadComponent implements OnInit, OnDestroy {
           Array.from(this.filesToUpload).map((file, index) => {
             return formData.append("file" + index, file, file.name);
           });
-          const user = this.tokenStorage.getUser();
 
-          formData.append("productId", user.Id ?? "");
+          formData.append("productId", this.productId ?? "");
           formData.append("productType", this.productType.toString());
 
           this.http
@@ -191,9 +196,8 @@ export class AvatarUploadComponent implements OnInit, OnDestroy {
   }
 
   getImageList() {
-    const user = this.tokenStorage.getUser();
     const payload = {
-      resourceId: user.Id,
+      resourceId: this.productId,
       resourceType: 0,
     };
 

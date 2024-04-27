@@ -6,19 +6,19 @@ import { SaveFile } from "src/app/model/baseModel";
 import { environment } from "src/environments/environment";
 
 @Component({
-  selector: "app-schedule-card",
+  selector: "app-schedule-search-card",
   templateUrl: "./schedule-card.component.html",
   styleUrls: ["./schedule-card.component.css"],
 })
-export class ScheduleCardComponent implements OnInit {
+export class SchedulePlanSearchCardComponent implements OnInit{
+  @Input()
+  scheduleType = 1;
   @Input()
   score = 4;
   @Input()
   id = "";
   @Input()
   contactId = "";
-  @Input()
-  scheduleType = 0;
   @Input()
   judgeNumber = 0;
   @Input()
@@ -27,10 +27,10 @@ export class ScheduleCardComponent implements OnInit {
   schedulePrice = 1400000;
   @Input()
   customerNumber = 19;
-  @Input()
-  type = "";
-  tourImage: SaveFile[] = [];
-  firstImageUrl: string = "";
+
+  firstImageUrl = "";
+  scheduleImage: SaveFile[] = [];
+  ratingAverage: any;
 
   constructor(
     private router: Router,
@@ -39,10 +39,11 @@ export class ScheduleCardComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.getTourImage();
+    this.getRatingForTour();
   }
 
   getRateString(input: number) {
-    if (this.judgeNumber <= 0) return "Chưa có đánh giá"
+    if (this.judgeNumber <= 0) return "Chưa có đánh giá";
     if (0 <= input && 2.5 > input) {
       return "Tệ";
     } else if (2.5 <= input && 4 > input) {
@@ -53,29 +54,13 @@ export class ScheduleCardComponent implements OnInit {
     return "";
   }
 
-  getRatingForSchedule() {
-    const payload = {
-      scheduleId: this.id,
-      scheduleType: this.scheduleType
-    };
-
-    this.http
-      .get("/api/GetScheduleRating/schedule", { params: payload })
-      .subscribe((state: any) => {
-        if (state) {
-          console.log("abc", state);
-          this.score = state.averagePoint;
-          this.judgeNumber = state.count;
-        }
-      });
-  }
-
   getRateColor(input: number) {
-    if (0 <= input && 5 > input) {
+    
+    if (0 <= input && 2.5 > input) {
       return "#d31818";
-    } else if (5 <= input && 8 > input) {
+    } else if (2.5 <= input && 4 > input) {
       return "#F79321";
-    } else if (8 <= input && 10 >= input) {
+    } else if (4 <= input && 5 >= input) {
       return "#9fc43a";
     }
     return "";
@@ -90,10 +75,10 @@ export class ScheduleCardComponent implements OnInit {
     this.http
       .get("/api/GetFile", { params: payload })
       .subscribe((response: any) => {
-        this.tourImage = response.data;
+        this.scheduleImage = response.data;
 
-        if (this.tourImage.length > 0) {
-          this.pushImageToList(this.tourImage[0]);
+        if (this.scheduleImage.length > 0) {
+          this.pushImageToList(this.scheduleImage[0]);
         }
 
         console.log(response);
@@ -110,17 +95,33 @@ export class ScheduleCardComponent implements OnInit {
       saveFile.fileType;
   }
 
+  getRatingForTour() {
+    const payload = {
+      schedulePlanId: this.id,
+    };
+
+    this.http
+      .get("/api/GetTourRating/scheduleplan", { params: payload })
+      .subscribe((state: any) => {
+        if (state) {
+          console.log("abc", state);
+          this.score = state.averagePoint;
+          this.judgeNumber = state.count;
+        }
+      });
+  }
+
   navigateToDetail(): void {
     if (this.tokenStorageService.getUserRole() == "User") {
-      this.router.navigate(["user/tour/" + this.id + "/detail"]);
-    } else this.router.navigate(["guest/tour/" + this.id + "/detail"]);
+      this.router.navigate(["user/schedule/" + this.id + "/detail"]);
+    } else this.router.navigate(["guest/schedule/" + this.id + "/detail"]);
   }
 
   getTourName(inputString: string) {
-    if (inputString.length <= 32) {
+    if (inputString.length <= 100) {
       return inputString;
     } else {
-      return inputString.substring(0, 32) + "...";
+      return inputString.substring(0, 100) + "...";
     }
   }
 }

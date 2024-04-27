@@ -105,6 +105,7 @@ export interface MovingSchedule {
 export interface StayingSchedule {
   id?: string;
   tourishPlanId?: string;
+  name?: string;
   placeName: string;
   address: string;
   supportNumber: string;

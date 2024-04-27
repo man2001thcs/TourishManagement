@@ -70,6 +70,9 @@ import { TourishSearchPackComponent } from "./utility/tourish-search-pack/touris
 import { TourishPlanAutoSearchCardComponent } from "./utility/tourish-auto-search-card/tourish-card.component";
 import { ScheduleCardComponent } from "./utility/schedule-card/schedule-card.component";
 import { SchedulePackComponent } from "./utility/schedule-pack/schedule-pack.component";
+import { ScheduleSearchComponent } from "./guest/schedule-search/schedule-search.component";
+import { ScheduleSearchPackComponent } from "./utility/schedule-search-pack/schedule-pack.component";
+import { SchedulePlanSearchCardComponent } from "./utility/schedule-search-card/schedule-card.component";
 
 @NgModule({
   declarations: [
@@ -97,7 +100,10 @@ import { SchedulePackComponent } from "./utility/schedule-pack/schedule-pack.com
     TourishPlanAutoSearchCardComponent,
 
     ScheduleCardComponent,
-    SchedulePackComponent
+    SchedulePackComponent,
+    ScheduleSearchComponent,
+    ScheduleSearchPackComponent,
+    SchedulePlanSearchCardComponent
   ],
   imports: [
     MatListModule,
@@ -199,7 +205,12 @@ import { SchedulePackComponent } from "./utility/schedule-pack/schedule-pack.com
     TourishPlanAutoSearchCardComponent,
 
     ScheduleCardComponent,
-    SchedulePackComponent
+    SchedulePackComponent,
+    ScheduleSearchComponent,
+
+  
+    ScheduleSearchPackComponent,
+    SchedulePlanSearchCardComponent
   ],
   providers: [
     { provide: TINYMCE_SCRIPT_SRC, useValue: "tinymce/tinymce.min.js" },

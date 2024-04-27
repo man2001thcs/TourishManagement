@@ -13,11 +13,10 @@
             >
           </mat-selection-list>
           <mat-divider></mat-divider>
-          <h4>Thể loại</h4>
+          <h4>Loại dịch vụ</h4>
           <mat-selection-list (selectionChange)=" categoryChange($event)">
-            <mat-list-option *ngFor="let category of this.categoryList" [value]="category.name">{{
-              category.name
-            }}</mat-list-option>
+            <mat-list-option [value]="1">Vé di chuyển</mat-list-option>
+            <mat-list-option [value]="2">Book Homestay/Hotel</mat-list-option>
           </mat-selection-list>
         </mat-card-content>
       </mat-card>
@@ -107,7 +106,7 @@
       </div>
     </div>
 
-    <app-tourish-search-pack
+    <app-schedule-search-pack
       [startingDate]="startingDate"
       [startingPoint]="startingPoint"
       [endPoint]="endPoint"
@@ -115,6 +114,6 @@
       [priceTo]="priceTo"
       [categoryString]="categoryString"
       style="width: 100%;"
-    ></app-tourish-search-pack>
+    ></app-schedule-search-pack>
   </div>
 </div>

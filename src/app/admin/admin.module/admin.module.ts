@@ -241,6 +241,7 @@ import { MovingScheduleCreateEffects } from "../Schedule-moving/schedule_moving_
 import { MovingScheduleEffects } from "../Schedule-moving/schedule_moving_detail/schedule_moving-detail.store.effect";
 import { MovingScheduleListEffects } from "../Schedule-moving/schedule_moving_list/schedule_moving-list.store.effect";
 import { MovingContactAutoCompleteListEffects } from "src/app/utility/multiselect/moving-contact-select-autocomplete/select-autocomplete.store.effect";
+import { AvatarUploadModalComponent } from "src/app/utility/image_avatar_modal/imageUpload.component";
 
 
 
@@ -296,6 +297,7 @@ import { MovingContactAutoCompleteListEffects } from "src/app/utility/multiselec
     UserMultiselectAutocompleteComponent,
     FileUploadComponent,
     BigChatComponent,
+    AvatarUploadModalComponent,
     OptionsScrollDirective,
   ],
   imports: [

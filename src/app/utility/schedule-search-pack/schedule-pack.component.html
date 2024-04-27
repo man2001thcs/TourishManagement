@@ -1,0 +1,53 @@
+<div class="pack-container" id="pack-container" #packContainer>
+  <div class="schedule-pack">
+    <app-schedule-search-card
+      *ngFor="let schedule of movingScheduleList"
+      [id]="schedule.id ?? ''"
+      [scheduleName]="schedule.name ?? ''"
+      [schedulePrice]="schedule.singlePrice ?? 0"
+      style="width: 100%"
+    ></app-schedule-search-card>
+    <app-schedule-search-card
+      *ngFor="let schedule of stayingScheduleList"
+      [id]="schedule.id ?? ''"
+      [scheduleName]="schedule.name ?? ''"
+      [schedulePrice]="schedule.singlePrice ?? 0"
+      style="width: 100%"
+    ></app-schedule-search-card>
+    <div class="loading" *ngIf="isLoading">
+      <mat-spinner [diameter]="10"></mat-spinner>
+      <h3>Đang tải</h3>
+    </div>
+  </div>
+
+  <div class="pagination">
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <li class="page-item">
+          <a
+            class="page-link"
+            (click)="changePage(this.pageIndex - 1)"
+            [class.disabled]="this.pageIndex - 1 < 0"
+            >Trước</a
+          >
+        </li>
+        <li class="page-item" *ngFor="let page of pageArray">
+          <a
+            class="page-link"
+            (click)="changePage(page - 1)"
+            [ngClass]="page === activePage ? 'active-page' : ''"
+            >{{ page }}</a
+          >
+        </li>
+        <li class="page-item">
+          <a
+            class="page-link"
+            (click)="changePage(this.pageIndex + 1)"
+            [class.disabled]="this.pageIndex + 2 > this.totalPage"
+            >Sau</a
+          >
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>

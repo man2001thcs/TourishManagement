@@ -12,7 +12,7 @@ export interface Restaurant {
   updateDate?: Date;
 }
 
-export interface HomeStay {
+export interface RestHouseContact {
   id?: string;
   placeBranch: string;
   restHouseType: number;
@@ -42,22 +42,7 @@ export interface Hotel {
   updateDate?: Date;
 }
 
-export interface PassengerCar {
-  id?: string;
-  branchName: string;
-  vehicleType: number;
-  hotlineNumber: string;
-  supportEmail: string;
-  headQuarterAddress: string;
-  discountFloat: number;
-  discountAmount: number;
-  description: string;
-
-  createDate?: Date;
-  updateDate?: Date;
-}
-
-export interface AirPlane {
+export interface MovingContact {
   id?: string;
   branchName: string;
   vehicleType: number;

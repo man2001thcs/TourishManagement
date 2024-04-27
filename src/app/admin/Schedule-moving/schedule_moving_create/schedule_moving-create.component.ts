@@ -24,7 +24,7 @@ import { Book } from "src/app/model/book";
 import { AdminService } from "../../service/admin.service";
 import { CheckDeactivate } from "../../interface/admin.check_edit";
 import { MovingScheduleParam } from "./schedule_moving-create.component.model";
-import * as passengerCarActions from "./schedule_moving-create.store.action";
+import * as MovingContactActions from "./schedule_moving-create.store.action";
 import { State as schedule_movingState } from "./schedule_moving-create.store.reducer";
 import { Store } from "@ngrx/store";
 import {
@@ -46,7 +46,7 @@ export class MovingScheduleCreateComponent implements OnInit, OnDestroy {
   isEditing: boolean = true;
   isSubmitted = false;
 
-  passengerCarParam!: MovingScheduleParam;
+  MovingContactParam!: MovingScheduleParam;
 
   this_announce = "";
 
@@ -55,7 +55,7 @@ export class MovingScheduleCreateComponent implements OnInit, OnDestroy {
   errorMessageState!: Observable<any>;
   errorSystemState!: Observable<any>;
 
-  passengerCarState!: Observable<any>;
+  MovingContactState!: Observable<any>;
   createMovingScheduleState!: Observable<any>;
   subscriptions: Subscription[] = [];
 
@@ -108,7 +108,7 @@ export class MovingScheduleCreateComponent implements OnInit, OnDestroy {
       })
     );
 
-    this.store.dispatch(passengerCarActions.initial());
+    this.store.dispatch(MovingContactActions.initial());
 
     //console.log(this.this_book);
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
@@ -133,7 +133,7 @@ export class MovingScheduleCreateComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     console.log("Destroy");
-    this.store.dispatch(passengerCarActions.resetMovingSchedule());
+    this.store.dispatch(MovingContactActions.resetMovingSchedule());
 
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
@@ -183,9 +183,9 @@ export class MovingScheduleCreateComponent implements OnInit, OnDestroy {
       };
 
       this.store.dispatch(
-        // Assuming you're using NgRx store, replace passengerCarActions.createMovingSchedule with appropriate action
+        // Assuming you're using NgRx store, replace MovingContactActions.createMovingSchedule with appropriate action
         // Also, make sure you import MovingSchedule and store accordingly
-        passengerCarActions.createMovingSchedule({
+        MovingContactActions.createMovingSchedule({
           payload: payload,
         })
       );

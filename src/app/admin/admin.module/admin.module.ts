@@ -54,38 +54,26 @@ import { NbChatModule, NbThemeModule } from "@nebular/theme";
 import { MatCardModule } from "@angular/material/card";
 import { ImageListEffects } from "src/app/utility/image_service/imageUpload.store.effect";
 
-import { PassengerCarCreateComponent } from "../PassengerCar/passenger_car_create/passenger_car-create.component";
-import { PassengerCarDetailComponent } from "../PassengerCar/passenger_car_detail/passenger_car-detail.component";
-import { PassengerCarListComponent } from "../PassengerCar/passenger_car_list/passenger_car-list.component";
+import { MovingContactCreateComponent } from "../MovingContact/moving_contact_create/moving_contact-create.component";
+import { MovingContactDetailComponent } from "../MovingContact/moving_contact_detail/moving_contact-detail.component";
+import { MovingContactListComponent } from "../MovingContact/moving_contact_list/moving_contact-list.component";
 
-import { HotelCreateComponent } from "../Hotel/hotel_create/hotel-create.component";
-import { HotelDetailComponent } from "../Hotel/hotel_detail/hotel-detail.component";
-import { HotelListComponent } from "../Hotel/hotel_list/hotel-list.component";
+import { RestHouseContactCreateComponent } from "../RestHouseContact/rest-house-contact_create/rest-house-contact-create.component";
+import { RestHouseContactDetailComponent } from "../RestHouseContact/rest-house-contact_detail/rest-house-contact-detail.component";
+import { RestHouseContactListComponent } from "../RestHouseContact/rest-house-contact_list/rest-house-contact-list.component";
 
-import { HomeStayCreateComponent } from "../HomeStay/homeStay_create/homeStay-create.component";
-import { HomeStayDetailComponent } from "../HomeStay/homeStay_detail/homeStay-detail.component";
-import { HomeStayListComponent } from "../HomeStay/homeStay_list/homeStay-list.component";
+import { MovingContactCreateEffects } from "../MovingContact/moving_contact_create/moving_contact-create.store.effect";
+import { MovingContactEffects } from "../MovingContact/moving_contact_detail/moving_contact-detail.store.effect";
+import { MovingContactListEffects } from "../MovingContact/moving_contact_list/moving_contact-list.store.effect";
 
-import { PassengerCarCreateEffects } from "../PassengerCar/passenger_car_create/passenger_car-create.store.effect";
-import { PassengerCarEffects } from "../PassengerCar/passenger_car_detail/passenger_car-detail.store.effect";
-import { PassengerCarListEffects } from "../PassengerCar/passenger_car_list/passenger_car-list.store.effect";
+import { storeKey as MovingContactCreateStoreKey } from "../MovingContact/moving_contact_create/moving_contact-create.store.action";
+import { reducer as MovingContactCreateReducer } from "../MovingContact/moving_contact_create/moving_contact-create.store.reducer";
 
-import { storeKey as PassengerCarCreateStoreKey } from "../PassengerCar/passenger_car_create/passenger_car-create.store.action";
-import { reducer as PassengerCarCreateReducer } from "../PassengerCar/passenger_car_create/passenger_car-create.store.reducer";
+import { storeKey as MovingContactListStoreKey } from "../MovingContact/moving_contact_list/moving_contact-list.store.action";
+import { reducer as MovingContactListReducer } from "../MovingContact/moving_contact_list/moving_contact-list.store.reducer";
 
-import { storeKey as PassengerCarListStoreKey } from "../PassengerCar/passenger_car_list/passenger_car-list.store.action";
-import { reducer as PassengerCarListReducer } from "../PassengerCar/passenger_car_list/passenger_car-list.store.reducer";
-
-import { storeKey as PassengerCarDetailStoreKey } from "../PassengerCar/passenger_car_detail/passenger_car-detail.store.action";
-import { reducer as PassengerCarDetailReducer } from "../PassengerCar/passenger_car_detail/passenger_car-detail.store.reducer";
-
-import { AirPlaneCreateComponent } from "../AirPlane/air_plane_create/air_plane-create.component";
-import { AirPlaneDetailComponent } from "../AirPlane/air_plane_detail/air_plane-detail.component";
-import { AirPlaneListComponent } from "../AirPlane/air_plane_list/air_plane-list.component";
-
-import { AirPlaneCreateEffects } from "../AirPlane/air_plane_create/air_plane-create.store.effect";
-import { AirPlaneEffects } from "../AirPlane/air_plane_detail/air_plane-detail.store.effect";
-import { AirPlaneListEffects } from "../AirPlane/air_plane_list/air_plane-list.store.effect";
+import { storeKey as MovingContactDetailStoreKey } from "../MovingContact/moving_contact_detail/moving_contact-detail.store.action";
+import { reducer as MovingContactDetailReducer } from "../MovingContact/moving_contact_detail/moving_contact-detail.store.reducer";
 
 import { storeKey as TourishPlanCreateStoreKey } from "../TourishPlan/tourishPlan-create/tourishPlan-create.store.action";
 import { reducer as TourishPlanCreateReducer } from "../TourishPlan/tourishPlan-create/tourishPlan-create.store.reducer";
@@ -106,33 +94,14 @@ import { reducer as TourishCategoryListReducer } from "../TourishCategory/touris
 import { storeKey as TourishCategoryDetailStoreKey } from "../TourishCategory/tourish_category_detail/tourish_category-detail.store.action";
 import { reducer as TourishCategoryDetailReducer } from "../TourishCategory/tourish_category_detail/tourish_category-detail.store.reducer";
 
+import { storeKey as RestHouseContactCreateStoreKey } from "../RestHouseContact/rest-house-contact_create/rest-house-contact-create.store.action";
+import { reducer as RestHouseContactCreateReducer } from "../RestHouseContact/rest-house-contact_create/rest-house-contact-create.store.reducer";
 
-import { storeKey as AirPlaneCreateStoreKey } from "../AirPlane/air_plane_create/air_plane-create.store.action";
-import { reducer as AirPlaneCreateReducer } from "../AirPlane/air_plane_create/air_plane-create.store.reducer";
+import { storeKey as RestHouseContactListStoreKey } from "../RestHouseContact/rest-house-contact_list/rest-house-contact-list.store.action";
+import { reducer as RestHouseContactListReducer } from "../RestHouseContact/rest-house-contact_list/rest-house-contact-list.store.reducer";
 
-import { storeKey as AirPlaneListStoreKey } from "../AirPlane/air_plane_list/air_plane-list.store.action";
-import { reducer as AirPlaneListReducer } from "../AirPlane/air_plane_list/air_plane-list.store.reducer";
-
-import { storeKey as AirPlaneDetailStoreKey } from "../AirPlane/air_plane_detail/air_plane-detail.store.action";
-import { reducer as AirPlaneDetailReducer } from "../AirPlane/air_plane_detail/air_plane-detail.store.reducer";
-
-import { storeKey as HotelCreateStoreKey } from "../Hotel/hotel_create/hotel-create.store.action";
-import { reducer as HotelCreateReducer } from "../Hotel/hotel_create/hotel-create.store.reducer";
-
-import { storeKey as HotelListStoreKey } from "../Hotel/hotel_list/hotel-list.store.action";
-import { reducer as HotelListReducer } from "../Hotel/hotel_list/hotel-list.store.reducer";
-
-import { storeKey as HotelDetailStoreKey } from "../Hotel/hotel_detail/hotel-detail.store.action";
-import { reducer as HotelDetailReducer } from "../Hotel/hotel_detail/hotel-detail.store.reducer";
-
-import { storeKey as HomeStayCreateStoreKey } from "../HomeStay/homeStay_create/homeStay-create.store.action";
-import { reducer as HomeStayCreateReducer } from "../HomeStay/homeStay_create/homeStay-create.store.reducer";
-
-import { storeKey as HomeStayListStoreKey } from "../HomeStay/homeStay_list/homeStay-list.store.action";
-import { reducer as HomeStayListReducer } from "../HomeStay/homeStay_list/homeStay-list.store.reducer";
-
-import { storeKey as HomeStayDetailStoreKey } from "../HomeStay/homeStay_detail/homeStay-detail.store.action";
-import { reducer as HomeStayDetailReducer } from "../HomeStay/homeStay_detail/homeStay-detail.store.reducer";
+import { storeKey as RestHouseContactDetailStoreKey } from "../RestHouseContact/rest-house-contact_detail/rest-house-contact-detail.store.action";
+import { reducer as RestHouseContactDetailReducer } from "../RestHouseContact/rest-house-contact_detail/rest-house-contact-detail.store.reducer";
 
 import { storeKey as RestaurantCreateStoreKey } from "../Restaurant/restaurant_create/restaurant-create.store.action";
 import { reducer as RestaurantCreateReducer } from "../Restaurant/restaurant_create/restaurant-create.store.reducer";
@@ -165,13 +134,9 @@ import { SharedModule } from "src/app/shared.module";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
-import { HotelCreateEffects } from "../Hotel/hotel_create/hotel-create.store.effect";
-import { HotelEffects } from "../Hotel/hotel_detail/hotel-detail.store.effect";
-import { HotelListEffects } from "../Hotel/hotel_list/hotel-list.store.effect";
-
-import { HomeStayCreateEffects } from "../HomeStay/homeStay_create/homeStay-create.store.effect";
-import { HomeStayEffects } from "../HomeStay/homeStay_detail/homeStay-detail.store.effect";
-import { HomeStayListEffects } from "../HomeStay/homeStay_list/homeStay-list.store.effect";
+import { RestHouseContactCreateEffects } from "../RestHouseContact/rest-house-contact_create/rest-house-contact-create.store.effect";
+import { RestHouseContactEffects } from "../RestHouseContact/rest-house-contact_detail/rest-house-contact-detail.store.effect";
+import { RestHouseContactListEffects } from "../RestHouseContact/rest-house-contact_list/rest-house-contact-list.store.effect";
 
 import { TourishPlanCreateEffects } from "../TourishPlan/tourishPlan-create/tourishPlan-create.store.effect";
 import { TourishPlanListEffects } from "../TourishPlan/tourishPlan-list/tourishPlanList.store.effect";
@@ -281,21 +246,13 @@ import { MovingScheduleAutoCompleteListEffects } from "src/app/utility/multisele
 
 @NgModule({
   declarations: [
-    PassengerCarCreateComponent,
-    PassengerCarDetailComponent,
-    PassengerCarListComponent,
+    MovingContactCreateComponent,
+    MovingContactDetailComponent,
+    MovingContactListComponent,
 
-    AirPlaneCreateComponent,
-    AirPlaneDetailComponent,
-    AirPlaneListComponent,
-
-    HotelCreateComponent,
-    HotelDetailComponent,
-    HotelListComponent,
-
-    HomeStayCreateComponent,
-    HomeStayDetailComponent,
-    HomeStayListComponent,
+    RestHouseContactCreateComponent,
+    RestHouseContactDetailComponent,
+    RestHouseContactListComponent,
 
     RestaurantCreateComponent,
     RestaurantDetailComponent,
@@ -385,27 +342,19 @@ import { MovingScheduleAutoCompleteListEffects } from "src/app/utility/multisele
     StoreModule.forFeature(NotificationDetailStoreKey,NotificationDetailReducer),
 
     StoreModule.forFeature(
-      PassengerCarCreateStoreKey,
-      PassengerCarCreateReducer
+      MovingContactCreateStoreKey,
+      MovingContactCreateReducer
     ),
-    StoreModule.forFeature(PassengerCarListStoreKey, PassengerCarListReducer),
+    StoreModule.forFeature(MovingContactListStoreKey, MovingContactListReducer),
     StoreModule.forFeature(
-      PassengerCarDetailStoreKey,
-      PassengerCarDetailReducer
+      MovingContactDetailStoreKey,
+      MovingContactDetailReducer
     ),
     StoreModule.forFeature(ChatConHistoryListStoreKey, ChatConHistoryListReducer),
 
-    StoreModule.forFeature(HotelCreateStoreKey, HotelCreateReducer),
-    StoreModule.forFeature(HotelListStoreKey, HotelListReducer),
-    StoreModule.forFeature(HotelDetailStoreKey, HotelDetailReducer),
-
-    StoreModule.forFeature(HomeStayCreateStoreKey, HomeStayCreateReducer),
-    StoreModule.forFeature(HomeStayListStoreKey, HomeStayListReducer),
-    StoreModule.forFeature(HomeStayDetailStoreKey, HomeStayDetailReducer),
-
-    StoreModule.forFeature(AirPlaneCreateStoreKey, AirPlaneCreateReducer),
-    StoreModule.forFeature(AirPlaneListStoreKey, AirPlaneListReducer),
-    StoreModule.forFeature(AirPlaneDetailStoreKey, AirPlaneDetailReducer),
+    StoreModule.forFeature(RestHouseContactCreateStoreKey, RestHouseContactCreateReducer),
+    StoreModule.forFeature(RestHouseContactListStoreKey, RestHouseContactListReducer),
+    StoreModule.forFeature(RestHouseContactDetailStoreKey, RestHouseContactDetailReducer),
 
     StoreModule.forFeature(RestaurantCreateStoreKey, RestaurantCreateReducer),
     StoreModule.forFeature(RestaurantListStoreKey, RestaurantListReducer),
@@ -479,21 +428,13 @@ import { MovingScheduleAutoCompleteListEffects } from "src/app/utility/multisele
     EffectsModule.forFeature([TourishPlanDetailEffects]),
     EffectsModule.forFeature([TourishPlanListEffects]),
 
-    EffectsModule.forFeature([PassengerCarCreateEffects]),
-    EffectsModule.forFeature([PassengerCarEffects]),
-    EffectsModule.forFeature([PassengerCarListEffects]),
+    EffectsModule.forFeature([MovingContactCreateEffects]),
+    EffectsModule.forFeature([MovingContactEffects]),
+    EffectsModule.forFeature([MovingContactListEffects]),
 
-    EffectsModule.forFeature([AirPlaneCreateEffects]),
-    EffectsModule.forFeature([AirPlaneEffects]),
-    EffectsModule.forFeature([AirPlaneListEffects]),
-
-    EffectsModule.forFeature([HotelCreateEffects]),
-    EffectsModule.forFeature([HotelEffects]),
-    EffectsModule.forFeature([HotelListEffects]),
-
-    EffectsModule.forFeature([HomeStayCreateEffects]),
-    EffectsModule.forFeature([HomeStayEffects]),
-    EffectsModule.forFeature([HomeStayListEffects]),
+    EffectsModule.forFeature([RestHouseContactCreateEffects]),
+    EffectsModule.forFeature([RestHouseContactEffects]),
+    EffectsModule.forFeature([RestHouseContactListEffects]),
 
     EffectsModule.forFeature([RestaurantCreateEffects]),
     EffectsModule.forFeature([RestaurantEffects]),

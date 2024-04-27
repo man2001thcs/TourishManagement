@@ -11,11 +11,9 @@ import {
 import { RouterModule } from "@angular/router";
 
 import { EditDetailResolver } from "../resolver/edit-detail.resolver";
-import { PassengerCarListComponent } from "../PassengerCar/passenger_car_list/passenger_car-list.component";
-import { AirPlaneListComponent } from "../AirPlane/air_plane_list/air_plane-list.component";
-import { HotelListComponent } from "../Hotel/hotel_list/hotel-list.component";
+import { MovingContactListComponent } from "../MovingContact/moving_contact_list/moving_contact-list.component";
 import { RestaurantListComponent } from "../Restaurant/restaurant_list/restaurant-list.component";
-import { HomeStayListComponent } from "../HomeStay/homeStay_list/homeStay-list.component";
+import { RestHouseContactListComponent } from "../RestHouseContact/rest-house-contact_list/rest-house-contact-list.component";
 import { TourishPlanCreateAdminComponent } from "../TourishPlan/tourishPlan-create/tourishPlan-create_admin.component";
 import { TourishPlanDetailAdminComponent } from "../TourishPlan/tourishPlan-detail/tourishPlan_admin.component";
 import { TourishPlanListAdminComponent } from "../TourishPlan/tourishPlan-list/tourishPlanList.component";
@@ -60,20 +58,12 @@ const routes: Routes = [
         component: TourishCategoryListComponent,
       },
       {
-        path: "transport/passenger-car/list",
-        component: PassengerCarListComponent,
+        path: "transport/moving-contact/list",
+        component: MovingContactListComponent,
       },
       {
-        path: "transport/air-plane/list",
-        component: AirPlaneListComponent,
-      },
-      {
-        path: "resthouse/hotel/list",
-        component: HotelListComponent,
-      },
-      {
-        path: "resthouse/homeStay/list",
-        component: HomeStayListComponent,
+        path: "resthouse/rest-house-contact/list",
+        component: RestHouseContactListComponent,
       },
       {
         path: "restaurant/list",

@@ -19,11 +19,11 @@ export const ERR_MESSAGE_CODE_EN: Map<string, string> = new Map([
   ["C014", "Get account unsuccessfully"],
   ["C015", "No permission aquired"],
 
-  ["C110", "PassengerCar not found"],
-  ["C111", "PassengerCar add error"],
-  ["C112", "PassengerCar update error"],
-  ["C113", "PassengerCar delete error"],
-  ["C114", "PassengerCar SQL error"],
+  ["C110", "MovingContact not found"],
+  ["C111", "MovingContact add error"],
+  ["C112", "MovingContact update error"],
+  ["C113", "MovingContact delete error"],
+  ["C114", "MovingContact SQL error"],
 
   ["C120", "Air plane branch not found"],
   ["C121", "Air plane branch add error"],
@@ -37,11 +37,11 @@ export const ERR_MESSAGE_CODE_EN: Map<string, string> = new Map([
   ["C213", "Hotel branch delete error"],
   ["C214", "Hotel branch SQL error"],
 
-  ["C220", "HomeStay branch not found"],
-  ["C221", "HomeStay branch add error"],
-  ["C222", "HomeStay branch update error"],
-  ["C223", "HomeStay branch delete error"],
-  ["C224", "HomeStay branch SQL error"],
+  ["C220", "RestHouseContact branch not found"],
+  ["C221", "RestHouseContact branch add error"],
+  ["C222", "RestHouseContact branch update error"],
+  ["C223", "RestHouseContact branch delete error"],
+  ["C224", "RestHouseContact branch SQL error"],
 
   ["C310", "Restaurant branch not found"],
   ["C311", "Restaurant branch add error"],

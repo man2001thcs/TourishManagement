@@ -38,7 +38,7 @@
                   <option *ngFor="let notificationCode of successNotifyCode" value="{{notificationCode.key}}">{{notificationCode.key}}: {{notificationCode.value}}</option>
                 </select>
               </mat-form-field>
-              <div style="margin-top: -20px; margin-bottom: 10px">
+              <div style="margin-top: -25px; margin-bottom: 15px">
                 <app-validation
                   *ngIf="
                     this.createformGroup_info.get('contentCode')?.errors &&
@@ -63,7 +63,7 @@
                   <option value="1">Có</option>
                 </select>
               </mat-form-field>
-              <div style="margin-top: -20px; margin-bottom: 10px">
+              <div style="margin-top: -25px; margin-bottom: 15px">
                 <app-validation
                   *ngIf="
                     this.createformGroup_info.get('isRead')?.errors &&
@@ -90,7 +90,7 @@
                   <option value="1">Có</option>
                 </select>
               </mat-form-field>
-              <div style="margin-top: -20px; margin-bottom: 10px">
+              <div style="margin-top: -25px; margin-bottom: 15px">
                 <app-validation
                   *ngIf="
                     this.createformGroup_info.get('isDeleted')?.errors &&

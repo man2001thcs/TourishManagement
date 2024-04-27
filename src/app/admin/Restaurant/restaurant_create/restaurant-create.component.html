@@ -1,11 +1,21 @@
 <div class="container" style="padding: 0px 0 20px">
-  <div style="background-color: #2a3650; padding: 15px 50px 0px; width: 100%; display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+  <div
+    style="
+      background-color: #2a3650;
+      padding: 15px 50px 0px;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    "
+  >
     <h2 mat-form-label style="font-weight: heavy; color: white">
       Thêm thông tin đối tác nhà hàng
     </h2>
-        <button
+    <button
       mat-button
-      style="color: white; margin-bottom: 16px;"
+      style="color: white; margin-bottom: 16px"
       (click)="closeDialog()"
     >
       <i class="fa fa-times" aria-hidden="true"></i>
@@ -48,11 +58,12 @@
                   formControlName="placeBranch"
                 />
               </mat-form-field>
-              <div style="margin-top: -20px; margin-bottom: 10px">
+              <div style="margin-top: -25px; margin-bottom: 15px">
                 <app-validation
                   *ngIf="
                     this.createformGroup_info.get('placeBranch')?.errors &&
-                    (createformGroup_info.get('placeBranch')?.touched || isSubmitted)
+                    (createformGroup_info.get('placeBranch')?.touched ||
+                      isSubmitted)
                   "
                   [formGroup]="createformGroup_info"
                   [formGroupControlName]="'placeBranch'"
@@ -69,11 +80,12 @@
                   formControlName="supportEmail"
                 />
               </mat-form-field>
-              <div style="margin-top: -20px; margin-bottom: 10px">
+              <div style="margin-top: -25px; margin-bottom: 15px">
                 <app-validation
                   *ngIf="
                     this.createformGroup_info.get('supportEmail')?.errors &&
-                    (createformGroup_info.get('supportEmail')?.touched || isSubmitted)
+                    (createformGroup_info.get('supportEmail')?.touched ||
+                      isSubmitted)
                   "
                   [formGroup]="createformGroup_info"
                   [formGroupControlName]="'supportEmail'"
@@ -90,11 +102,12 @@
                   formControlName="hotlineNumber"
                 />
               </mat-form-field>
-              <div style="margin-top: -20px; margin-bottom: 10px">
+              <div style="margin-top: -25px; margin-bottom: 15px">
                 <app-validation
                   *ngIf="
                     this.createformGroup_info.get('hotlineNumber')?.errors &&
-                    (createformGroup_info.get('hotlineNumber')?.touched || isSubmitted)
+                    (createformGroup_info.get('hotlineNumber')?.touched ||
+                      isSubmitted)
                   "
                   [formGroup]="createformGroup_info"
                   [formGroupControlName]="'hotlineNumber'"
@@ -113,12 +126,13 @@
                   formControlName="headQuarterAddress"
                 />
               </mat-form-field>
-              <div style="margin-top: -20px; margin-bottom: 10px">
+              <div style="margin-top: -25px; margin-bottom: 15px">
                 <app-validation
                   *ngIf="
                     this.createformGroup_info.get('headQuarterAddress')
                       ?.errors &&
-                    (createformGroup_info.get('headQuarterAddress')?.touched || isSubmitted)
+                    (createformGroup_info.get('headQuarterAddress')?.touched ||
+                      isSubmitted)
                   "
                   [formGroup]="createformGroup_info"
                   [formGroupControlName]="'headQuarterAddress'"
@@ -134,11 +148,12 @@
                   formControlName="discountAmount"
                 />
               </mat-form-field>
-              <div style="margin-top: -20px; margin-bottom: 10px">
+              <div style="margin-top: -25px; margin-bottom: 15px">
                 <app-validation
                   *ngIf="
                     this.createformGroup_info.get('discountAmount')?.errors &&
-                    (createformGroup_info.get('discountAmount')?.touched || isSubmitted)
+                    (createformGroup_info.get('discountAmount')?.touched ||
+                      isSubmitted)
                   "
                   [formGroup]="createformGroup_info"
                   [formGroupControlName]="'discountAmount'"
@@ -154,11 +169,12 @@
                   formControlName="discountFloat"
                 />
               </mat-form-field>
-              <div style="margin-top: -20px; margin-bottom: 10px">
+              <div style="margin-top: -25px; margin-bottom: 15px">
                 <app-validation
                   *ngIf="
                     this.createformGroup_info.get('discountFloat')?.errors &&
-                    (createformGroup_info.get('discountFloat')?.touched || isSubmitted)
+                    (createformGroup_info.get('discountFloat')?.touched ||
+                      isSubmitted)
                   "
                   [formGroup]="createformGroup_info"
                   [formGroupControlName]="'discountFloat'"
@@ -185,10 +201,11 @@
             </mat-form-field>
             <div style="margin-top: -20px; margin-bottom: 10px">
               <app-validation
-              *ngIf="
-              this.createformGroup_info.get('description')?.errors &&
-              (createformGroup_info.get('description')?.touched || isSubmitted)
-            "
+                *ngIf="
+                  this.createformGroup_info.get('description')?.errors &&
+                  (createformGroup_info.get('description')?.touched ||
+                    isSubmitted)
+                "
                 [formGroup]="createformGroup_info"
                 [formGroupControlName]="'description'"
               ></app-validation>

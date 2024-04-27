@@ -28,7 +28,7 @@ import {
   getSysError,
 } from "./multiselect-autocomplete.store.selector";
 import { MessageService } from "../../user_service/message.service";
-import { PassengerCar, MovingSchedule } from "src/app/model/baseModel";
+import { MovingContact, MovingSchedule } from "src/app/model/baseModel";
 
 import moment from "moment";
 import { ThemePalette } from "@angular/material/core";
@@ -62,7 +62,7 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
   movingIdList: string[] = [];
   movingNameList: string[] = [];
 
-  data!: PassengerCar[];
+  data!: MovingContact[];
   length: number = 0;
   pageIndex = 0;
   canLoadMore = true;
@@ -503,11 +503,11 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
     }
   }
 
-  onDisplayAtr(moving: PassengerCar): string {
+  onDisplayAtr(moving: MovingContact): string {
     return "";
   }
 
-  isChecked(moving: PassengerCar): boolean {
+  isChecked(moving: MovingContact): boolean {
     let movingExist = this.movingScheduleList.find(
       (movingSchedule) => movingSchedule.transportId === moving.id
     );

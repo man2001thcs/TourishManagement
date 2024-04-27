@@ -38,7 +38,7 @@ export class TourishDetailComponent implements OnInit {
   tourishPlanId = "";
   tourDescription = "";
 
-  isPassengerCarPresent = false;
+  isMovingContactPresent = false;
   isTrainPresent = false;
   isPlanePresent = false;
 
@@ -230,7 +230,7 @@ export class TourishDetailComponent implements OnInit {
     if (this.tourishPlan) {
       this.tourishPlan.movingSchedules?.forEach((entity) => {
         if (entity.vehicleType === 0) {
-          this.isPassengerCarPresent = true;
+          this.isMovingContactPresent = true;
         } else if (entity.vehicleType === 1) {
           this.isPlanePresent = true;
         } else if (entity.vehicleType === 2) {

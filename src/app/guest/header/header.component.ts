@@ -170,7 +170,7 @@ export class HeaderComponent implements OnInit {
 
   openAutoCompleteSearch() {
     this.autocompleteSearch.nativeElement.style.height = "fit-content";
-    this.autocompleteSearch.nativeElement.style["margin-top"] = "30px";
+    this.autocompleteSearch.nativeElement.style["margin-top"] = "40px";
     this.autocompleteSearch.nativeElement.style["padding-top"] = "25px";
     this.autocompleteSearch.nativeElement.style["padding-bottom"] = "25px";
     this.autocompleteSearch.nativeElement.style["border-bottom"] =
@@ -179,14 +179,13 @@ export class HeaderComponent implements OnInit {
       "2px solid #EDF1F7";
     this.autocompleteSearch.nativeElement.style["border-right"] =
       "2px solid #EDF1F7";
-    document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
     this.isAutoCompleteOpen = true;
   }
 
   closeAutoCompleteSearch() {
     this.autocompleteSearch.nativeElement.style.height = "0";
     this.autocompleteSearch.nativeElement.style["padding-top"] = "0";
-    this.autocompleteSearch.nativeElement.style["margin-top"] = "25px";
+    this.autocompleteSearch.nativeElement.style["margin-top"] = "40px";
     this.autocompleteSearch.nativeElement.style["padding-bottom"] = "0px";
     this.autocompleteSearch.nativeElement.style["border-bottom"] =
       "0px solid #EDF1F7";

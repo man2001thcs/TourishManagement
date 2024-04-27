@@ -53,7 +53,7 @@ export class HeaderUserComponent implements OnDestroy {
   activeItem = "1st";
   isNavOpen = false;
   isNotifyOpen = false;
-  isAutoCompleteSearchOpen = false;
+  isAutoCompleteOpen = false;
   avatarUrl = environment.backend.blobURL + "/0-container/0_anonymus.png";
 
   filteredInput!: Observable<string | null>;
@@ -170,7 +170,7 @@ export class HeaderUserComponent implements OnDestroy {
   }
 
   outsideAutoCompleteSearchClick(hasClickedOutside: any) {
-    if (hasClickedOutside && this.isAutoCompleteSearchOpen) {
+    if (hasClickedOutside && this.isAutoCompleteOpen) {
       this.countSearchClick++;
       if (this.countSearchClick >= 1) this.closeAutoCompleteSearch();
     }
@@ -269,7 +269,7 @@ export class HeaderUserComponent implements OnDestroy {
 
   openAutoCompleteSearch() {
     this.autocompleteSearch.nativeElement.style.height = "fit-content";
-    this.autocompleteSearch.nativeElement.style["margin-top"] = "30px";
+    this.autocompleteSearch.nativeElement.style["margin-top"] = "40px";
     this.autocompleteSearch.nativeElement.style["padding-top"] = "25px";
     this.autocompleteSearch.nativeElement.style["padding-bottom"] = "25px";
     this.autocompleteSearch.nativeElement.style["border-bottom"] =
@@ -278,14 +278,13 @@ export class HeaderUserComponent implements OnDestroy {
       "2px solid #EDF1F7";
     this.autocompleteSearch.nativeElement.style["border-right"] =
       "2px solid #EDF1F7";
-    document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
-    this.isAutoCompleteSearchOpen = true;
+    this.isAutoCompleteOpen = true;
   }
 
   closeAutoCompleteSearch() {
     this.autocompleteSearch.nativeElement.style.height = "0";
     this.autocompleteSearch.nativeElement.style["padding-top"] = "0";
-    this.autocompleteSearch.nativeElement.style["margin-top"] = "25px";
+    this.autocompleteSearch.nativeElement.style["margin-top"] = "40px";
     this.autocompleteSearch.nativeElement.style["padding-bottom"] = "0px";
     this.autocompleteSearch.nativeElement.style["border-bottom"] =
       "0px solid #EDF1F7";
@@ -294,7 +293,7 @@ export class HeaderUserComponent implements OnDestroy {
     this.autocompleteSearch.nativeElement.style["border-right"] =
       "0px solid #EDF1F7";
     document.body.style.backgroundColor = "white";
-    this.isAutoCompleteSearchOpen = false;
+    this.isAutoCompleteOpen = false;
     this.countSearchClick = 0;
   }
 

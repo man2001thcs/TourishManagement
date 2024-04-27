@@ -34,9 +34,10 @@
   display: table;
 }
 
-.container-fluid div:not(.sidenav) {
+.container-fluid div:not(.sidenav) div:not(.autocomplete-search) div:not(.searchContent) {
   padding-right: 20px !important;
 }
+
 
 img.img-logo {
   max-width: 50px;
@@ -181,28 +182,31 @@ mat-expansion-panel {
   height: 0%;
   width: 70%;
   position: absolute;
+  padding-right: 0 !important;
   z-index: 1;
   top: 50px;
   background-color: #ffffff;
   overflow-y: hidden;
-  transition: 0.5s;
+  transition: 0.1s;
   flex-direction: column;
-
   display: flex;
-
   opacity: 1;
-
   margin-top: 10px;
-
+  padding-bottom: 0 !important;
   justify-content: center;
   align-items: center;
+  border-end-end-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
 
-  border-end-end-radius: 20px;
-  border-bottom-left-radius: 20px;
+.autocomplete-search h6 {
+  font-size: 16px;
+  font-weight: bold;
 }
 
 .autocomplete-search .searchContent {
   flex-direction: column;
+  width: 100%;
   display: flex;
 }
 

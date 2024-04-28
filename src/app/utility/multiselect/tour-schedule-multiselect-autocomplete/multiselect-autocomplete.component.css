@@ -1,25 +1,27 @@
-.container {
-  overflow-y: auto;
-  height: 100%;
-  background-color: #FAFAFA;
-}
 
-.outlet {
-  background-color: #fafafa;
-  padding: 30px 50px 0px;
-  background-color: #FAFAFA;
-}
-
-.create-form {
-  padding-top: 20px;
-  padding-bottom: 20px;
-}
-.input-group {
-  width: 100% !important;
+.mat-chip.mat-standard-chip {
+  background-color: red;
+  color: white;
 }
 
 .full-width-input {
   width: 80% !important;
+}
+​
+.chip-list-wrapper {
+  min-height: 3em;
+}
+
+mat-expansion-panel p {
+  margin-left: 30px;
+}
+
+mat-expansion-panel button {
+  margin-left: 30px;
+}
+
+:host /deep/ .mat-autocomplete-panel {
+  max-height: 150px !important;
 }
 
 ::ng-deep .mat-form-field-outline-start {

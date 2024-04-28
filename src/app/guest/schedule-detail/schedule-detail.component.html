@@ -1,0 +1,236 @@
+<div class="container">
+  <app-image-slider
+    [indicatorsVisible]="true"
+    [animationSpeed]="400"
+    [slides]="slides"
+    [autoPlay]="true"
+    [autoPlaySpeed]="6000"
+  ></app-image-slider>
+
+  <div class="below-title">
+    <span
+      ><i class="fa fa-location-arrow" aria-hidden="true"></i> {{this.schedule?.headingPlace}}</span
+    >
+    <span><i class="fa fa-clock-o" aria-hidden="true"></i> {{getDuration()}}</span>
+    <span>
+      <i class="fa fa-bus" aria-hidden="true"  *ngIf="isMovingContactPresent"></i>
+      <i class="fa fa-plane" aria-hidden="true"  *ngIf="isPlanePresent"></i>
+      <i class="fa fa-train" aria-hidden="true"  *ngIf="isTrainPresent"></i>
+    </span>
+
+    <span id="rating">
+      <button
+        mat-icon-button
+        #ratingButton
+        *ngFor="let ratingId of ratingArr; index as i"
+        [id]="'star_' + i"
+        [matTooltip]="(ratingId + 1).toString()"
+        matTooltipPosition="above"
+      >
+        <mat-icon [ngStyle]="{ color: '#F5C000' }">
+          {{ showIcon(i) }}
+        </mat-icon>
+      </button>
+    </span>
+  </div>
+
+  <div class="tour-description">
+    <app-tiny-mce-editor
+      style="width: 90% !important"
+      [blobName]="this.scheduleId"
+      [containerName]="'tourish-content-container'"
+      [editable]="false"
+    ></app-tiny-mce-editor>
+  </div>
+
+  <div class="tour-description">
+    <h4 class="tour-name">Hướng dẫn viên</h4>
+    Hướng Dẫn Viên (HDV) sẽ liên lạc với Quý Khách khoảng 1 ngày trước khi khởi
+    hành để sắp xếp giờ đón và cung cấp các thông tin cần thiết cho chuyển đi.
+  </div>
+
+  <div class="tour-description">
+    <div class="title">
+      <h4 class="tour-name">Chi tiết giá</h4>
+    </div>
+    <mat-tab-group>
+      <mat-tab label="Giá bao gồm">
+        <div class="price-container">
+          <p>
+            <span style="font-weight: bold">Tổng giá:</span>
+            {{ getTotalPrice() }}. 
+          </p>
+        </div>
+      </mat-tab>
+      <mat-tab label="Giá không bao gồm">
+        <div class="price-container">
+          <p>
+            - Hộ chiếu phải còn thời hạn sử dụng trên 6 tháng, Tính từ ngày khởi
+            hành đi và về.
+          </p>
+          <p>
+            - Hành lý quá cước qui định. Xe vận chuyển ngoài chương trình + Các
+            show về đêm.
+          </p>
+          <p>
+            - Điện thoại, giặt ủi, nước uống trong phòng khách sạn và các chi
+            phí cá nhân khác.
+          </p>
+          <p>- Phí bồi dưỡng cho hướng dẫn viên 125.000VND/Ngày/Khách.</p>
+        </div></mat-tab
+      >
+      <mat-tab label="Lưu ý">
+        <div class="price-container">
+          <p>- Tour du lịch thuần túy, Quý khách vui lòng không rời đoàn.</p>
+          <p>
+            - Du khách Việt Kiều hoặc nước ngoài phải có visa tái nhập nhiều lần
+            hoặc miễn thị thực 5 năm và mang theo khi tham gia tour.
+          </p>
+          <p>
+            - Trẻ em dưới 16 tuổi phải có bố mẹ đi cùng hoặc người được uỷ quyền
+            có giấy uỷ quyền từ bố mẹ.
+          </p>
+          <p>
+            - Hộ chiếu phải mang theo bản gốc hợp lệ không bị rạn, phai mờ, và
+            còn thời hạn sử dụng trên 6 tháng (tính từ ngày khởi hành).
+          </p>
+          <p>
+            - Không sử dụng thẻ xanh. Nếu sử dụng Sổ Du lịch (yêu cầu visa nước
+            nhập cảnh), vui lòng thông báo cho nhân viên nhận tour nếu Quý khách
+            sử dụng các hồ sơ khác ngoài hộ chiếu.
+          </p>
+          <p>
+            - Công ty du lịch không chịu trách nhiệm nếu Quý khách bị từ chối
+            nhập cảnh với bất kỳ lý do nào từ hải quan nước ngoài.
+          </p>
+          <p>
+            - Công ty được phép thay đổi lịch trình chuyến đi và sử dụng các
+            hãng hàng không thay thế, nhưng vẫn đảm bảo tham quan đầy đủ các
+            điểm theo chương trình.
+          </p>
+          <p>
+            - Thứ tự điểm tham quan và lộ trình có thể thay đổi tùy theo tình
+            hình thực tế, nhưng vẫn đảm bảo đầy đủ các điểm tham quan như ban
+            đầu.
+          </p>
+          <p>
+            - Trong trường hợp bất khả kháng như khủng bố, thiên tai hoặc thay
+            đổi lịch trình của phương tiện công cộng (máy bay, tàu hỏa...), Công
+            ty du lịch giữ quyền điều chỉnh lộ trình tour cho phù hợp và an toàn
+            cho khách hàng, mà không phải chịu trách nhiệm bồi thường thiệt hại
+            phát sinh.
+          </p>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+
+  <div class="tour-description">
+    <div class="register-container">
+      <div
+        class="row tour-register"
+        [formGroup]="setTourForm"
+        style="height: fit-content !important"
+      >
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form">
+          <h4 class="tour-name">Đặt vé ngay</h4>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 create-form">
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Họ & tên</mat-label>
+            <input
+              matInput
+              fullwidth
+              placeholder="Vd: Bồ Công Anh"
+              formControlName="name"
+            />
+          </mat-form-field>
+          <app-validation
+            *ngIf="this.setTourForm.get('name')?.touched"
+            [formGroup]="setTourForm"
+            [formGroupControlName]="'name'"
+          ></app-validation>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 create-form">
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Địa chỉ</mat-label>
+            <input
+              matInput
+              fullwidth
+              placeholder="Vd: Bồ Công Anh"
+              formControlName="address"
+            />
+          </mat-form-field>
+          <app-validation
+            *ngIf="this.setTourForm.get('address')?.touched"
+            [formGroup]="setTourForm"
+            [formGroupControlName]="'address'"
+          ></app-validation>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 create-form">
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Email</mat-label>
+            <input
+              matInput
+              fullwidth
+              placeholder="Vd: Bồ Công Anh"
+              formControlName="email"
+            />
+          </mat-form-field>
+          <app-validation
+            *ngIf="this.setTourForm.get('email')?.touched"
+            [formGroup]="setTourForm"
+            [formGroupControlName]="'email'"
+          ></app-validation>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 create-form">
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Sđt liên lạc</mat-label>
+            <input
+              matInput
+              fullwidth
+              placeholder="Vd: 123456789"
+              formControlName="phoneNumber"
+            />
+          </mat-form-field>
+          <app-validation
+            *ngIf="this.setTourForm.get('phoneNumber')?.touched"
+            [formGroup]="setTourForm"
+            [formGroupControlName]="'phoneNumber'"
+          ></app-validation>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 create-form">
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Số vé</mat-label>
+            <input
+              matInput
+              fullwidth
+              placeholder="Vd: 2"
+              formControlName="totalTicket"
+            />
+          </mat-form-field>
+          <app-validation
+            *ngIf="this.setTourForm.get('totalTicket')?.touched"
+            [formGroup]="setTourForm"
+            [formGroupControlName]="'totalTicket'"
+          ></app-validation>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form">
+          <button
+            mat-flat-button
+            color="primary"
+            style="width: 100%"
+            (click)="register()"
+          >
+            Gửi
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

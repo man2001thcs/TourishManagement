@@ -28,17 +28,6 @@
       </div>
     </mat-card>
   </div>
-  <div
-    class="row"
-    style="margin-bottom: 15px; margin-right: 12px"
-  >
-    <button *ngIf="!isRemoved(id)" mat-button (click)="removeOldFile(id)">
-      Gỡ
-    </button>
-    <button *ngIf="isRemoved(id)" mat-button (click)="undoRemoveOldFile(id)">
-      Undo
-    </button>
-  </div>
 </ng-template>
 
 <div class="row" style="margin-bottom: 15px; width: 100%">
@@ -60,10 +49,11 @@
         class="btn btn-success"
         (click)="file.click()"
         style="margin-right: 12px"
+        [disabled]="filesToUpload.length > 0" 
       >
         Upload File
       </button>
-      <button type="button" class="btn btn-primary" (click)="uploadFile()">
+      <button type="button" class="btn btn-primary" (click)="uploadFile()" [disabled]="filesToUpload.length <= 0">
         Update image
       </button>
     </div>
@@ -71,7 +61,7 @@
 
   <div class="row" style="width: 100%; padding-left: 30px; padding-right: 30px">
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" *ngIf="filesToUpload">
-      <h3 mat-form-label style="font-weight: bold">New image</h3>
+      <h3 mat-form-label style="font-weight: bold">Ảnh đại diện mới</h3>
       <div *ngFor="let link of urlList; let index = index">
         <ng-container
           [ngTemplateOutlet]="imageContainer"
@@ -85,7 +75,7 @@
     </div>
 
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" *ngIf="imageList">
-      <h3 mat-form-label style="font-weight: bold">Current image</h3>
+      <h3 mat-form-label style="font-weight: bold">Ảnh đại diện hiện tại</h3>
       <div *ngFor="let image of imageList; let index = index">
         <ng-container
           [ngTemplateOutlet]="imageOldContainer"

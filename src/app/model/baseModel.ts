@@ -183,6 +183,16 @@ export interface TourishPlan {
   movingSchedules?: MovingSchedule[];
 }
 
+export interface TourishSchedule {
+  id?: string;
+  tourishPlanId: string;
+  planStatus: number;
+  startDate: Date;
+  endDate: Date;
+  createDate?: Date;
+  updateDate?: Date;
+}
+
 export interface TourishComment {
   id: string;
   userId: string;

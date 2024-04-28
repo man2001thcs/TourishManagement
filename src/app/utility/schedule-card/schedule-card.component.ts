@@ -12,15 +12,11 @@ import { environment } from "src/environments/environment";
 })
 export class ScheduleCardComponent implements OnInit {
   @Input()
-  score = 4;
-  @Input()
   id = "";
   @Input()
   contactId = "";
   @Input()
   scheduleType = 0;
-  @Input()
-  judgeNumber = 0;
   @Input()
   scheduleName = "";
   @Input()
@@ -39,35 +35,6 @@ export class ScheduleCardComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.getTourImage();
-  }
-
-  getRateString(input: number) {
-    if (this.judgeNumber <= 0) return "Chưa có đánh giá"
-    if (0 <= input && 2.5 > input) {
-      return "Tệ";
-    } else if (2.5 <= input && 4 > input) {
-      return "Trung bình";
-    } else if (4 <= input && 5 >= input) {
-      return "Tuyệt vời";
-    }
-    return "";
-  }
-
-  getRatingForSchedule() {
-    const payload = {
-      scheduleId: this.id,
-      scheduleType: this.scheduleType
-    };
-
-    this.http
-      .get("/api/GetScheduleRating/schedule", { params: payload })
-      .subscribe((state: any) => {
-        if (state) {
-          console.log("abc", state);
-          this.score = state.averagePoint;
-          this.judgeNumber = state.count;
-        }
-      });
   }
 
   getRateColor(input: number) {

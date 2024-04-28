@@ -128,6 +128,9 @@ export class MovingScheduleDetailComponent implements OnInit, OnDestroy {
           this.editformGroup_info.controls["startingPlace"].setValue(
             state.startingPlace ?? ""
           );
+          this.editformGroup_info.controls["singlePrice"].setValue(
+            state.singlePrice ?? ""
+          );
           this.editformGroup_info.controls["headingPlace"].setValue(
             state.headingPlace ?? ""
           );
@@ -236,7 +239,7 @@ export class MovingScheduleDetailComponent implements OnInit, OnDestroy {
         driverName: this.editformGroup_info.value.driverName,
         vehiclePlate: this.editformGroup_info.value.vehiclePlate,
         phoneNumber: this.editformGroup_info.value.phoneNumber,
-        singlePrice: this.editformGroup_info.value.singlePrice,
+        singlePrice: parseInt(this.editformGroup_info.value.singlePrice),
         vehicleType: this.editformGroup_info.value.vehicleType,
         transportId: this.editformGroup_info.value.transportId,
         startingPlace: this.editformGroup_info.value.startingPlace,

@@ -14,39 +14,6 @@
       style="
         margin-left: 5px;
         display: flex;
-        flex-direction: row;
-        align-items: center;
-        width: 100%;
-      "
-    >
-      <mat-card
-        *ngIf="judgeNumber > 0"
-        style="
-          width: 30px;
-          height: 20px;
-          text-align: center;
-          color: white;
-          margin-right: 7px;
-          padding-top: 2px;
-        "
-        [ngStyle]="{ 'background-color': getRateColor(score) }"
-        >{{ score }}</mat-card
-      >
-      <p
-        class="tour-judge"
-        style="margin-right: 7px; font-style: italic; font-weight: bold"
-      >
-        {{ getRateString(score) }}
-      </p>
-      <p class="tour-judge" style="margin-right: 7px" *ngIf="judgeNumber > 0">|</p>
-      <p class="tour-judge" *ngIf="judgeNumber > 0">{{ judgeNumber }} đánh giá</p>
-    </div>
-
-    <div
-      class="row"
-      style="
-        margin-left: 5px;
-        display: flex;
         flex-direction: row-reverse;
         align-items: center;
         width: 100%;

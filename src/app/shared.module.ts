@@ -73,6 +73,7 @@ import { SchedulePackComponent } from "./utility/schedule-pack/schedule-pack.com
 import { ScheduleSearchComponent } from "./guest/schedule-search/schedule-search.component";
 import { ScheduleSearchPackComponent } from "./utility/schedule-search-pack/schedule-pack.component";
 import { SchedulePlanSearchCardComponent } from "./utility/schedule-search-card/schedule-card.component";
+import { ScheduleDetailComponent } from "./guest/schedule-detail/schedule-detail.component";
 
 @NgModule({
   declarations: [
@@ -103,7 +104,8 @@ import { SchedulePlanSearchCardComponent } from "./utility/schedule-search-card/
     SchedulePackComponent,
     ScheduleSearchComponent,
     ScheduleSearchPackComponent,
-    SchedulePlanSearchCardComponent
+    SchedulePlanSearchCardComponent,
+    ScheduleDetailComponent
   ],
   imports: [
     MatListModule,
@@ -207,6 +209,7 @@ import { SchedulePlanSearchCardComponent } from "./utility/schedule-search-card/
     ScheduleCardComponent,
     SchedulePackComponent,
     ScheduleSearchComponent,
+    ScheduleDetailComponent,
 
   
     ScheduleSearchPackComponent,

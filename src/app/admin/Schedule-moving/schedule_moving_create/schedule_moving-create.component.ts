@@ -174,7 +174,7 @@ export class MovingScheduleCreateComponent implements OnInit, OnDestroy {
         driverName: this.createformGroup_info.value.driverName,
         vehiclePlate: this.createformGroup_info.value.vehiclePlate,
         phoneNumber: this.createformGroup_info.value.phoneNumber,
-        singlePrice: this.createformGroup_info.value.singlePrice,
+        singlePrice: parseInt(this.createformGroup_info.value.singlePrice),
         vehicleType: this.createformGroup_info.value.vehicleType,
         transportId: this.createformGroup_info.value.transportId,
         startingPlace: this.createformGroup_info.value.startingPlace,

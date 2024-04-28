@@ -152,4 +152,8 @@ export class ScheduleSearchPackComponent implements OnInit, OnChanges {
     this.isLoading = true;
     this.getTourPack();
   }
+
+  getDateString(date: Date | undefined) {
+    return date != null ? date.toString() ?? "" : "";
+  }
 }

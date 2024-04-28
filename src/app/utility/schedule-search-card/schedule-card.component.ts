@@ -10,21 +10,26 @@ import { environment } from "src/environments/environment";
   templateUrl: "./schedule-card.component.html",
   styleUrls: ["./schedule-card.component.css"],
 })
-export class SchedulePlanSearchCardComponent implements OnInit{
+export class SchedulePlanSearchCardComponent implements OnInit {
   @Input()
   scheduleType = 1;
-  @Input()
-  score = 4;
   @Input()
   id = "";
   @Input()
   contactId = "";
   @Input()
-  judgeNumber = 0;
-  @Input()
   scheduleName = "";
   @Input()
   schedulePrice = 1400000;
+  @Input()
+  startingPlace = "Hà Nội";
+  @Input()
+  headingPlace = "Đà Nẵng";
+  @Input()
+  startDate = "";
+  @Input()
+  endDate = "";
+
   @Input()
   customerNumber = 19;
 
@@ -39,23 +44,9 @@ export class SchedulePlanSearchCardComponent implements OnInit{
   ) {}
   ngOnInit(): void {
     this.getTourImage();
-    this.getRatingForTour();
-  }
-
-  getRateString(input: number) {
-    if (this.judgeNumber <= 0) return "Chưa có đánh giá";
-    if (0 <= input && 2.5 > input) {
-      return "Tệ";
-    } else if (2.5 <= input && 4 > input) {
-      return "Trung bình";
-    } else if (4 <= input && 5 >= input) {
-      return "Tuyệt vời";
-    }
-    return "";
   }
 
   getRateColor(input: number) {
-    
     if (0 <= input && 2.5 > input) {
       return "#d31818";
     } else if (2.5 <= input && 4 > input) {
@@ -88,27 +79,13 @@ export class SchedulePlanSearchCardComponent implements OnInit{
   pushImageToList(saveFile: SaveFile) {
     this.firstImageUrl =
       environment.backend.blobURL +
-      "/1-container/" +
-      "1" +
+      "/" +
+      (this.scheduleType + 2) +
+      "-container/" +
+      (this.scheduleType + 2) +
       "_" +
       saveFile.id +
       saveFile.fileType;
-  }
-
-  getRatingForTour() {
-    const payload = {
-      schedulePlanId: this.id,
-    };
-
-    this.http
-      .get("/api/GetTourRating/scheduleplan", { params: payload })
-      .subscribe((state: any) => {
-        if (state) {
-          console.log("abc", state);
-          this.score = state.averagePoint;
-          this.judgeNumber = state.count;
-        }
-      });
   }
 
   navigateToDetail(): void {
@@ -123,5 +100,24 @@ export class SchedulePlanSearchCardComponent implements OnInit{
     } else {
       return inputString.substring(0, 100) + "...";
     }
+  }
+
+  getDateFormat(isoDateString: string) {
+    // Chuyển đổi chuỗi ISO 8601 thành đối tượng Date
+    const ngayThang = new Date(isoDateString);
+
+    // Lấy ngày, tháng, năm, giờ từ đối tượng Date
+    const day = ngayThang.getDate();
+    const month = ngayThang.getMonth() + 1; // Tháng bắt đầu từ 0
+    const year = ngayThang.getFullYear();
+    const hour = ngayThang.getHours();
+    const minute = ngayThang.getHours();
+
+    // Tạo chuỗi kết quả
+    const minuteString = minute !== 0 ? minute + " phút" : "";
+    const chuoiNgayThang =
+      `Ngày ${day} tháng ${month}, ${hour} giờ ` + minuteString;
+
+    return chuoiNgayThang;
   }
 }

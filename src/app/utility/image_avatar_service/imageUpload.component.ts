@@ -43,7 +43,13 @@ export class AvatarUploadComponent implements OnInit, OnDestroy {
   uploadProgress?: number;
   uploadSub!: Subscription;
 
-  anonymousUrl = environment.backend.blobURL + "/0-container/0_anonymus.png";
+  anonymousUrl =
+    environment.backend.blobURL +
+    "/" +
+    this.productType +
+    "-container/" +
+    this.productType +
+    "_anonymus.png";
 
   imageList!: FileModel[];
   subscriptions: Subscription[] = [];
@@ -65,7 +71,7 @@ export class AvatarUploadComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    if (this.productType === 0){
+    if (this.productType === 0) {
       const userId = this.tokenStorage.getUser().Id;
       this.productId = userId;
     }
@@ -89,7 +95,6 @@ export class AvatarUploadComponent implements OnInit, OnDestroy {
 
       if (files) {
         this.filesToUpload.push(files[0]);
-        console.log(this.filesToUpload);
       }
     };
   }
@@ -139,66 +144,108 @@ export class AvatarUploadComponent implements OnInit, OnDestroy {
   uploadFile() {
     if (this.filesToUpload.length > 0) {
       this.imageList.forEach((ele) => {
-        this.imageDeleteList.push(ele.id);
+        if (ele.accessSourceId !== "anonymus")
+          this.imageDeleteList.push(ele.id ?? "");
       });
 
       const deletePayload = {
-        productType: 1,
+        productType: this.productType,
         fileIdListString: this.imageDeleteList.join(";"),
       };
 
       this.messageService.openLoadingDialog();
 
-      this.http.post("/api/FileDelete", deletePayload).subscribe((res: any) => {
-        if (res.messageCode === "I913") {
-          const formData = new FormData();
+      if (this.imageList[0].accessSourceId !== "anonymus") {
+        this.http
+          .post("/api/FileDelete", deletePayload)
+          .subscribe((res: any) => {
+            if (res.messageCode === "I913") {
+              const formData = new FormData();
 
-          Array.from(this.filesToUpload).map((file, index) => {
-            return formData.append("file" + index, file, file.name);
+              Array.from(this.filesToUpload).map((file, index) => {
+                return formData.append("file" + index, file, file.name);
+              });
+
+              formData.append("productId", this.productId ?? "");
+              formData.append("productType", this.productType.toString());
+
+              this.http
+                .post("/api/FileUpload", formData, {
+                  reportProgress: true,
+                  observe: "events",
+                })
+                .pipe(finalize(() => this.reset()))
+                .subscribe({
+                  next: (event) => {
+                    this.messageService.closeLoadingDialog();
+                    if (event.type === HttpEventType.UploadProgress)
+                      this.progress = Math.round(
+                        (100 * event.loaded) / (event.total ?? 100)
+                      );
+                    else if (event.type === HttpEventType.Response) {
+                      this.messageService.openNotifyDialog("Upload thành công");
+                      this.urlList = [];
+                      this.filesToUpload = [];
+                      this.progress = 0;
+                      this.getImageList();
+                      this.onUploadFinished.emit(event.body);
+                    }
+                  },
+                  error: (err: HttpErrorResponse) => {
+                    this.messageService.closeLoadingDialog();
+                    console.log(err);
+                  },
+                });
+            } else {
+              this.messageService.openNotifyDialog("Upload thất bại");
+              this.messageService.closeLoadingDialog();
+            }
           });
+      } else {
+        const formData = new FormData();
 
-          formData.append("productId", this.productId ?? "");
-          formData.append("productType", this.productType.toString());
+        Array.from(this.filesToUpload).map((file, index) => {
+          return formData.append("file" + index, file, file.name);
+        });
 
-          this.http
-            .post("/api/FileUpload", formData, {
-              reportProgress: true,
-              observe: "events",
-            })
-            .pipe(finalize(() => this.reset()))
-            .subscribe({
-              next: (event) => {
-                this.messageService.closeLoadingDialog();
-                if (event.type === HttpEventType.UploadProgress)
-                  this.progress = Math.round(
-                    (100 * event.loaded) / (event.total ?? 100)
-                  );
-                else if (event.type === HttpEventType.Response) {
-                  this.messageService.openNotifyDialog("Upload thành công");
-                  this.urlList = [];
-                  this.filesToUpload = [];
-                  this.progress = 0;
-                  this.getImageList();
-                  this.onUploadFinished.emit(event.body);
-                }
-              },
-              error: (err: HttpErrorResponse) => {
-                this.messageService.closeLoadingDialog();
-                console.log(err);
-              },
-            });
-        } else {
-          this.messageService.openNotifyDialog("Upload thất bại");
-          this.messageService.closeLoadingDialog();
-        }
-      });
+        formData.append("productId", this.productId ?? "");
+        formData.append("productType", this.productType.toString());
+
+        this.http
+          .post("/api/FileUpload", formData, {
+            reportProgress: true,
+            observe: "events",
+          })
+          .pipe(finalize(() => this.reset()))
+          .subscribe({
+            next: (event) => {
+              this.messageService.closeLoadingDialog();
+              if (event.type === HttpEventType.UploadProgress)
+                this.progress = Math.round(
+                  (100 * event.loaded) / (event.total ?? 100)
+                );
+              else if (event.type === HttpEventType.Response) {
+                this.messageService.openNotifyDialog("Upload thành công");
+                this.urlList = [];
+                this.filesToUpload = [];
+                this.progress = 0;
+                this.getImageList();
+                this.onUploadFinished.emit(event.body);
+              }
+            },
+            error: (err: HttpErrorResponse) => {
+              this.messageService.closeLoadingDialog();
+              console.log(err);
+            },
+          });
+      }
     }
   }
 
   getImageList() {
     const payload = {
       resourceId: this.productId,
-      resourceType: 0,
+      resourceType: this.productType,
     };
 
     return this.http
@@ -210,7 +257,9 @@ export class AvatarUploadComponent implements OnInit, OnDestroy {
           this.imageList.forEach((image) => {
             this.urlListOld.push(
               environment.backend.blobURL +
-                "/0-container/" +
+                "/" +
+                this.productType +
+                "-container/" +
                 this.productType.toString() +
                 "_" +
                 image.id +
@@ -227,8 +276,7 @@ export class AvatarUploadComponent implements OnInit, OnDestroy {
             id: "anonymus",
             accessSourceId: "anonymus",
             fileType: ".png",
-            createdDate: "",
-            resourceType: 0,
+            resourceType: this.productType,
           };
           this.imageList.push(anomymousFile);
         }
@@ -240,7 +288,9 @@ export class AvatarUploadComponent implements OnInit, OnDestroy {
   generateUrl(image: FileModel) {
     return (
       environment.backend.blobURL +
-      "/0-container/" +
+      "/" +
+      this.productType +
+      "-container/" +
       this.productType.toString() +
       "_" +
       image.id +

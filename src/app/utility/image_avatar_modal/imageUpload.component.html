@@ -11,7 +11,7 @@
     "
   >
     <h2 mat-form-label style="font-weight: heavy; color: white">
-      Avatar
+      Thiết lập ảnh đại diện
     </h2>
 
     <button
@@ -32,17 +32,7 @@
       flex-direction: column !important;
     "
   >
-    <div
-      class="row"
-      style="
-        display: flex;
-        flex-direction: column !important;
-        flex-wrap: 1;
-        padding-left: 90px !important;
-      "
-    >
-      <app-avatar-upload [productId]="resourceId" [productType]="resourceType">
-      </app-avatar-upload>
-    </div>
+    <app-avatar-upload [productId]="resourceId" [productType]="resourceType">
+    </app-avatar-upload>
   </div>
 </div>

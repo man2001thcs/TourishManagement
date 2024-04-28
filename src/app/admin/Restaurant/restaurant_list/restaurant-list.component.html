@@ -181,6 +181,13 @@
         </td>
       </ng-container>
 
+      <ng-container matColumnDef="avatar">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-button (click)="openAvatarDialog(element.id)"><i class="fa fa-user-circle-o" aria-hidden="true"> Ảnh đại diện</i></button>
+        </td>
+      </ng-container>
+
       <ng-container matColumnDef="delete">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let element">

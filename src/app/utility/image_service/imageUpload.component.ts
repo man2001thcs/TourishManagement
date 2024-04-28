@@ -273,7 +273,9 @@ export class FileUploadComponent implements OnInit, OnDestroy {
   generateUrl(image: FileModel) {
     return (
       environment.backend.blobURL +
-      "1-container/" +
+      "/" +
+      this.productType +
+      "-container/" +
       this.productType.toString() +
       "_" +
       image.id +

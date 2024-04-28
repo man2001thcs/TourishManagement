@@ -1,8 +1,8 @@
 
 export interface FileModel {
-  id: string;
+  id?: string;
   accessSourceId: string;
   fileType: string;
-  createdDate: string;
+  createdDate?: string;
   resourceType: number;
 }

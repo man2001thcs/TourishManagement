@@ -11,12 +11,11 @@
     "
   >
     <div
-      class="row"
       style="
         display: flex;
         flex-direction: column !important;
         flex-wrap: 1;
-        padding-left: 90px !important;
+        width: 100%;
       "
     >
       <div class="row">
@@ -76,349 +75,425 @@
         </div>
       </div>
 
-      <ul
-        ngbNav
-        #nav="ngbNav"
-        [(activeId)]="active"
-        class="nav-tabs"
-        style="margin-bottom: 20px; margin-right: 90px !important"
-      >
-        <li [ngbNavItem]="1">
-          <button ngbNavLink>Thông tin tour</button>
-          <ng-template ngbNavContent> </ng-template>
-        </li>
-        <li [ngbNavItem]="2">
-          <button ngbNavLink>Lịch trình ăn uống</button>
-          <ng-template ngbNavContent> </ng-template>
-        </li>
-        <li [ngbNavItem]="3">
-          <button ngbNavLink>Lịch trình di chuyển</button>
-          <ng-template ngbNavContent> </ng-template>
-        </li>
-        <li [ngbNavItem]="4">
-          <button ngbNavLink>Lịch trình nơi ở</button>
-          <ng-template ngbNavContent> </ng-template>
-        </li>
-        <li [ngbNavItem]="5">
-          <button ngbNavLink>Cập nhật ảnh</button>
-          <ng-template ngbNavContent> </ng-template>
-        </li>
-      </ul>
+      <mat-tab-group mat-stretch-tabs>
+        <mat-tab label="Thông tin tour">
+          <ng-template matTabContent>
+            <form [formGroup]="editformGroup_info">
+              <div class="row" style="margin-top: 20px; margin-left: 50px">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
+                  <mat-form-field appearance="outline" class="full-width-input">
+                    <mat-label>Tên tour</mat-label>
+                    <input
+                      matInput
+                      fullwidth
+                      placeholder="Vd: Bồ Công Anh"
+                      formControlName="tourName"
+                      [readonly]="disabled"
+                    />
+                  </mat-form-field>
 
-      <form [formGroup]="editformGroup_info">
-        <div class="row" *ngIf="active === 1">
-          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
-            <div class="row" style="margin-bottom: 1rem">
-              <mat-form-field appearance="outline" class="full-width-input">
-                <mat-label>Tên tour</mat-label>
-                <input
-                  matInput
-                  fullwidth
-                  placeholder="Vd: Bồ Công Anh"
-                  formControlName="tourName"
-                  [readonly]="disabled"
-                />
-              </mat-form-field>
+                  <div style="margin-top: -25px; margin-bottom: 15px">
+                    <app-validation
+                      *ngIf="
+                        this.editformGroup_info.get('tourName')?.errors &&
+                        (editformGroup_info.get('tourName')?.touched ||
+                          isSubmitted)
+                      "
+                      [formGroup]="editformGroup_info"
+                      [formGroupControlName]="'tourName'"
+                    ></app-validation>
+                  </div>
+                </div>
 
-              <div style="margin-top: -25px; margin-bottom: 15px">
-                <app-validation
-                  *ngIf="
-                    this.editformGroup_info.get('tourName')?.errors &&
-                    (editformGroup_info.get('tourName')?.touched || isSubmitted)
-                  "
-                  [formGroup]="editformGroup_info"
-                  [formGroupControlName]="'tourName'"
-                ></app-validation>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
+                  <mat-form-field appearance="outline" class="full-width-input">
+                    <mat-label>Điểm xuất phát</mat-label>
+                    <input
+                      matInput
+                      placeholder="Vd: Hà Nội"
+                      formControlName="startingPoint"
+                      [readonly]="disabled"
+                    />
+                  </mat-form-field>
+                  <div style="margin-top: -25px; margin-bottom: 15px">
+                    <app-validation
+                      *ngIf="
+                        this.editformGroup_info.get('startingPoint')?.errors &&
+                        (editformGroup_info.get('startingPoint')?.touched ||
+                          isSubmitted)
+                      "
+                      [formGroup]="editformGroup_info"
+                      [formGroupControlName]="'startingPoint'"
+                    ></app-validation>
+                  </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
+                  <mat-form-field appearance="outline" class="full-width-input">
+                    <mat-label>Điểm kết thúc</mat-label>
+                    <input
+                      matInput
+                      placeholder="Đà Nẵng"
+                      formControlName="endingPoint"
+                      [readonly]="disabled"
+                    />
+                  </mat-form-field>
+                  <div style="margin-top: -25px; margin-bottom: 15px">
+                    <app-validation
+                      *ngIf="
+                        this.editformGroup_info.get('endingPoint')?.errors &&
+                        (editformGroup_info.get('endingPoint')?.touched ||
+                          isSubmitted)
+                      "
+                      [formGroup]="editformGroup_info"
+                      [formGroupControlName]="'endingPoint'"
+                    ></app-validation>
+                  </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
+                  <mat-form-field appearance="outline" class="full-width-input">
+                    <mat-label>Số điện thoại hỗ trợ</mat-label>
+                    <input
+                      matInput
+                      placeholder="VD: 0354324599"
+                      formControlName="supportNumber"
+                      [readonly]="disabled"
+                    />
+                  </mat-form-field>
+                  <div style="margin-top: -25px; margin-bottom: 15px">
+                    <app-validation
+                      *ngIf="
+                        this.editformGroup_info.get('supportNumber')?.errors &&
+                        (editformGroup_info.get('supportNumber')?.touched ||
+                          isSubmitted)
+                      "
+                      [formGroup]="editformGroup_info"
+                      [formGroupControlName]="'supportNumber'"
+                    ></app-validation>
+                  </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
+                  <mat-form-field appearance="outline" class="full-width-input">
+                    <mat-label>Tổng số vé</mat-label>
+                    <input
+                      matInput
+                      placeholder="Vd: 10"
+                      formControlName="totalTicket"
+                      [readonly]="disabled"
+                    />
+                  </mat-form-field>
+                  <div style="margin-top: -25px; margin-bottom: 15px">
+                    <app-validation
+                      *ngIf="
+                        this.editformGroup_info.get('totalTicket')?.errors &&
+                        (editformGroup_info.get('totalTicket')?.touched ||
+                          isSubmitted)
+                      "
+                      [formGroup]="editformGroup_info"
+                      [formGroupControlName]="'totalTicket'"
+                    ></app-validation>
+                  </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
+                  <mat-form-field appearance="outline" class="full-width-input">
+                    <mat-label>Số vé còn lại</mat-label>
+                    <input
+                      matInput
+                      placeholder="Vd: 2"
+                      formControlName="remainTicket"
+                      [readonly]="disabled"
+                    />
+                  </mat-form-field>
+                  <div style="margin-top: -25px; margin-bottom: 15px">
+                    <app-validation
+                      *ngIf="
+                        this.editformGroup_info.get('remainTicket')?.errors &&
+                        (editformGroup_info.get('remainTicket')?.touched ||
+                          isSubmitted)
+                      "
+                      [formGroup]="editformGroup_info"
+                      [formGroupControlName]="'remainTicket'"
+                    ></app-validation>
+                  </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
+                  <mat-form-field appearance="outline" class="full-width-input">
+                    <mat-label>Ngày bắt đầu</mat-label>
+                    <input
+                      matInput
+                      [ngxMatDatetimePicker]="picker1"
+                      placeholder="Choose a date"
+                      formControlName="startDate"
+                      [readonly]="disabled"
+                    />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="$any(picker1)"
+                      [disabled]="disabled"
+                    ></mat-datepicker-toggle>
+                    <ngx-mat-datetime-picker #picker1>
+                    </ngx-mat-datetime-picker>
+                  </mat-form-field>
+
+                  <div style="margin-top: -25px; margin-bottom: 15px">
+                    <app-validation
+                      *ngIf="
+                        this.editformGroup_info.get('startDate')?.errors &&
+                        (editformGroup_info.get('startDate')?.touched ||
+                          isSubmitted)
+                      "
+                      [formGroup]="editformGroup_info"
+                      [formGroupControlName]="'startDate'"
+                    ></app-validation>
+                  </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
+                  <mat-form-field appearance="outline" class="full-width-input">
+                    <mat-label>Ngày kết thúc</mat-label>
+                    <input
+                      matInput
+                      [ngxMatDatetimePicker]="picker2"
+                      placeholder="Choose a date"
+                      formControlName="endDate"
+                      [readonly]="disabled"
+                    />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="$any(picker2)"
+                      [disabled]="disabled"
+                    ></mat-datepicker-toggle>
+                    <ngx-mat-datetime-picker #picker2>
+                    </ngx-mat-datetime-picker>
+                  </mat-form-field>
+
+                  <div style="margin-top: -25px; margin-bottom: 15px">
+                    <app-validation
+                      *ngIf="
+                        this.editformGroup_info.get('endDate')?.errors &&
+                        (editformGroup_info.get('endDate')?.touched ||
+                          isSubmitted)
+                      "
+                      [formGroup]="editformGroup_info"
+                      [formGroupControlName]="'endDate'"
+                    ></app-validation>
+                  </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
+                  <mat-form-field appearance="outline" class="full-width-input">
+                    <mat-label>Trạng thái tour</mat-label>
+                    <select
+                      matNativeControl
+                      required
+                      formControlName="planStatus"
+                      [readonly]="disabled"
+                    >
+                      <option value="0">Chờ</option>
+                      <option value="1">Thông tin đã xác định</option>
+                      <option value="2">Đang diễn ra</option>
+                      <option value="3">Hoàn thành</option>
+                      <option value="4">Hủy bỏ</option>
+                    </select>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
+                  <div class="row" style="margin-bottom: 1rem; width: 100%">
+                    <tourishCategory-multiselect-autocomplete
+                      style="width: 94.5%"
+                      [disabled]="disabled"
+                      [data_selected]="
+                        tourishPlan.tourishCategoryRelations ?? []
+                      "
+                      (result)="selectChangeCategory($event)"
+                    >
+                    </tourishCategory-multiselect-autocomplete>
+                  </div>
+                </div>
               </div>
-            </div>
 
-            <div class="row" style="margin-bottom: 1rem">
-              <mat-form-field appearance="outline" class="full-width-input">
-                <mat-label>Điểm xuất phát</mat-label>
-                <input
-                  matInput
-                  placeholder="Vd: Hà Nội"
-                  formControlName="startingPoint"
-                  [readonly]="disabled"
-                />
-              </mat-form-field>
-              <div style="margin-top: -25px; margin-bottom: 15px">
-                <app-validation
-                  *ngIf="
-                    this.editformGroup_info.get('startingPoint')?.errors &&
-                    (editformGroup_info.get('startingPoint')?.touched ||
-                      isSubmitted)
-                  "
-                  [formGroup]="editformGroup_info"
-                  [formGroupControlName]="'startingPoint'"
-                ></app-validation>
-              </div>
-            </div>
-
-            <div class="row" style="margin-bottom: 1rem">
-              <mat-form-field appearance="outline" class="full-width-input">
-                <mat-label>Điểm kết thúc</mat-label>
-                <input
-                  matInput
-                  placeholder="Đà Nẵng"
-                  formControlName="endingPoint"
-                  [readonly]="disabled"
-                />
-              </mat-form-field>
-              <div style="margin-top: -25px; margin-bottom: 15px">
-                <app-validation
-                  *ngIf="
-                    this.editformGroup_info.get('endingPoint')?.errors &&
-                    (editformGroup_info.get('endingPoint')?.touched ||
-                      isSubmitted)
-                  "
-                  [formGroup]="editformGroup_info"
-                  [formGroupControlName]="'endingPoint'"
-                ></app-validation>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
-            <div class="row" style="margin-bottom: 1rem">
-              <mat-form-field appearance="outline" class="full-width-input">
-                <mat-label>Số điện thoại hỗ trợ</mat-label>
-                <input
-                  matInput
-                  placeholder="VD: 0354324599"
-                  formControlName="supportNumber"
-                  [readonly]="disabled"
-                />
-              </mat-form-field>
-              <div style="margin-top: -25px; margin-bottom: 15px">
-                <app-validation
-                  *ngIf="
-                    this.editformGroup_info.get('supportNumber')?.errors &&
-                    (editformGroup_info.get('supportNumber')?.touched ||
-                      isSubmitted)
-                  "
-                  [formGroup]="editformGroup_info"
-                  [formGroupControlName]="'supportNumber'"
-                ></app-validation>
-              </div>
-            </div>
-
-            <div class="row" style="margin-bottom: 1rem">
-              <mat-form-field appearance="outline" class="full-width-input">
-                <mat-label>Tổng số vé</mat-label>
-                <input
-                  matInput
-                  placeholder="Vd: 10"
-                  formControlName="totalTicket"
-                  [readonly]="disabled"
-                />
-              </mat-form-field>
-              <div style="margin-top: -25px; margin-bottom: 15px">
-                <app-validation
-                  *ngIf="
-                    this.editformGroup_info.get('totalTicket')?.errors &&
-                    (editformGroup_info.get('totalTicket')?.touched ||
-                      isSubmitted)
-                  "
-                  [formGroup]="editformGroup_info"
-                  [formGroupControlName]="'totalTicket'"
-                ></app-validation>
-              </div>
-            </div>
-
-            <div class="row" style="margin-bottom: 1rem">
-              <mat-form-field appearance="outline" class="full-width-input">
-                <mat-label>Số vé còn lại</mat-label>
-                <input
-                  matInput
-                  placeholder="Vd: 2"
-                  formControlName="remainTicket"
-                  [readonly]="disabled"
-                />
-              </mat-form-field>
-              <div style="margin-top: -25px; margin-bottom: 15px">
-                <app-validation
-                  *ngIf="
-                    this.editformGroup_info.get('remainTicket')?.errors &&
-                    (editformGroup_info.get('remainTicket')?.touched ||
-                      isSubmitted)
-                  "
-                  [formGroup]="editformGroup_info"
-                  [formGroupControlName]="'remainTicket'"
-                ></app-validation>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="row" *ngIf="active === 1">
-          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
-            <div class="row" style="margin-bottom: 1rem">
-              <mat-form-field appearance="outline" class="full-width-input">
-                <mat-label>Ngày bắt đầu</mat-label>
-                <input
-                  matInput
-                  [ngxMatDatetimePicker]="picker1"
-                  placeholder="Choose a date"
-                  formControlName="startDate"
-                  [readonly]="disabled"
-                />
-                <mat-datepicker-toggle
-                  matSuffix
-                  [for]="$any(picker1)"
-                  [disabled]="disabled"
-                ></mat-datepicker-toggle>
-                <ngx-mat-datetime-picker #picker1> </ngx-mat-datetime-picker>
-              </mat-form-field>
-
-              <div style="margin-top: -25px; margin-bottom: 15px">
-                <app-validation
-                  *ngIf="
-                    this.editformGroup_info.get('startDate')?.errors &&
-                    (editformGroup_info.get('startDate')?.touched ||
-                      isSubmitted)
-                  "
-                  [formGroup]="editformGroup_info"
-                  [formGroupControlName]="'startDate'"
-                ></app-validation>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
-            <div class="row" style="margin-bottom: 1rem">
-              <mat-form-field appearance="outline" class="full-width-input">
-                <mat-label>Ngày kết thúc</mat-label>
-                <input
-                  matInput
-                  [ngxMatDatetimePicker]="picker2"
-                  placeholder="Choose a date"
-                  formControlName="endDate"
-                  [readonly]="disabled"
-                />
-                <mat-datepicker-toggle
-                  matSuffix
-                  [for]="$any(picker2)"
-                  [disabled]="disabled"
-                ></mat-datepicker-toggle>
-                <ngx-mat-datetime-picker #picker2> </ngx-mat-datetime-picker>
-              </mat-form-field>
-
-              <div style="margin-top: -25px; margin-bottom: 15px">
-                <app-validation
-                  *ngIf="
-                    this.editformGroup_info.get('endDate')?.errors &&
-                    (editformGroup_info.get('endDate')?.touched || isSubmitted)
-                  "
-                  [formGroup]="editformGroup_info"
-                  [formGroupControlName]="'endDate'"
-                ></app-validation>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="row" *ngIf="active === 1">
-          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
-            <div class="row" style="margin-bottom: 1rem">
-              <mat-form-field appearance="outline" class="full-width-input">
-                <mat-label>Trạng thái tour</mat-label>
-                <select
-                  matNativeControl
-                  required
-                  formControlName="planStatus"
-                  [readonly]="disabled"
+              <div class="row" style="margin-left: 50px">
+                <div
+                  class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form"
                 >
-                  <option value="0">Chờ</option>
-                  <option value="1">Thông tin đã xác định</option>
-                  <option value="2">Đang diễn ra</option>
-                  <option value="3">Hoàn thành</option>
-                  <option value="4">Hủy bỏ</option>
-                </select>
-              </mat-form-field>
-            </div>
-          </div>
+                  <h4>
+                    Giá đơn vé:
+                    <span style="font-weight: bold">{{ getTotalPrice() }}</span>
+                  </h4>
+                </div>
+              </div>
+            </form>
 
-          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
-            <div class="row" style="margin-bottom: 1rem; width: 100%">
-              <tourishCategory-multiselect-autocomplete
-                style="width: 94.5%"
+            <div class="row" style="margin-left: 50px">
+              <app-tiny-mce-editor
+                style="width: 90% !important"
+                [blobName]="this.tourishPlanId"
+                [containerName]="'tourish-content-container'"
+                (result)="getTinyMceResult($event)"
+              ></app-tiny-mce-editor>
+              <input type="file" style="visibility: hidden" />
+              <div style="margin-top: -20px; margin-bottom: 10px">
+                <app-validation
+                  *ngIf="
+                    this.editformGroup_info.get('description')?.errors &&
+                    (editformGroup_info.get('description')?.touched ||
+                      isSubmitted)
+                  "
+                  [formGroup]="editformGroup_info"
+                  [formGroupControlName]="'description'"
+                ></app-validation>
+              </div>
+            </div>
+          </ng-template>
+        </mat-tab>
+
+        <mat-tab label="Thời gian triển khai">
+          <ng-template matTabContent>
+            <form [formGroup]="editformGroup_info">
+              <div class="row" style="margin-top: 20px; margin-left: 50px">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
+                  <mat-form-field appearance="outline" class="full-width-input">
+                    <mat-label>Ngày bắt đầu</mat-label>
+                    <input
+                      matInput
+                      [ngxMatDatetimePicker]="picker1"
+                      placeholder="Choose a date"
+                      formControlName="startDate"
+                      [readonly]="disabled"
+                    />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="$any(picker1)"
+                      [disabled]="disabled"
+                    ></mat-datepicker-toggle>
+                    <ngx-mat-datetime-picker #picker1>
+                    </ngx-mat-datetime-picker>
+                  </mat-form-field>
+
+                  <div style="margin-top: -25px; margin-bottom: 15px">
+                    <app-validation
+                      *ngIf="
+                        this.editformGroup_info.get('startDate')?.errors &&
+                        (editformGroup_info.get('startDate')?.touched ||
+                          isSubmitted)
+                      "
+                      [formGroup]="editformGroup_info"
+                      [formGroupControlName]="'startDate'"
+                    ></app-validation>
+                  </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
+                  <mat-form-field appearance="outline" class="full-width-input">
+                    <mat-label>Ngày kết thúc</mat-label>
+                    <input
+                      matInput
+                      [ngxMatDatetimePicker]="picker2"
+                      placeholder="Choose a date"
+                      formControlName="endDate"
+                      [readonly]="disabled"
+                    />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="$any(picker2)"
+                      [disabled]="disabled"
+                    ></mat-datepicker-toggle>
+                    <ngx-mat-datetime-picker #picker2>
+                    </ngx-mat-datetime-picker>
+                  </mat-form-field>
+
+                  <div style="margin-top: -25px; margin-bottom: 15px">
+                    <app-validation
+                      *ngIf="
+                        this.editformGroup_info.get('endDate')?.errors &&
+                        (editformGroup_info.get('endDate')?.touched ||
+                          isSubmitted)
+                      "
+                      [formGroup]="editformGroup_info"
+                      [formGroupControlName]="'endDate'"
+                    ></app-validation>
+                  </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
+                  <mat-form-field appearance="outline" class="full-width-input">
+                    <mat-label>Trạng thái tour</mat-label>
+                    <select
+                      matNativeControl
+                      required
+                      formControlName="planStatus"
+                      [readonly]="disabled"
+                    >
+                      <option value="0">Chờ</option>
+                      <option value="1">Thông tin đã xác định</option>
+                      <option value="2">Đang diễn ra</option>
+                      <option value="3">Hoàn thành</option>
+                      <option value="4">Hủy bỏ</option>
+                    </select>
+                  </mat-form-field>
+                </div>
+              </div>
+            </form>
+          </ng-template>
+        </mat-tab>
+
+        <mat-tab label="Lịch trình ăn uống">
+          <ng-template matTabContent>
+            <div class="row" style="margin-left: 50px; width: 100%">
+              <eating-multiselect-autocomplete
                 [disabled]="disabled"
-                [data_selected]="tourishPlan.tourishCategoryRelations ?? []"
-                (result)="selectChangeCategory($event)"
+                [data_selected]="tourishPlan.eatSchedules ?? []"
+                (result)="selectChangeEating($event)"
+                style="width: 100%"
               >
-              </tourishCategory-multiselect-autocomplete>
+              </eating-multiselect-autocomplete>
             </div>
-          </div>
-        </div>
+          </ng-template>
+        </mat-tab>
 
-        <div
-          class="row"
-          style="
-            display: flex;
-            flex-direction: column !important;
-            flex-wrap: 1;
-            margin-bottom: 15px;
-          "
-          *ngIf="active === 1"
-        >
-          <h4>
-            Giá đơn vé:
-            <span style="font-weight: bold">{{ getTotalPrice() }}</span>
-          </h4>
-        </div>
-      </form>
+        <mat-tab label="Lịch trình di chuyển">
+          <ng-template matTabContent>
+            <div class="row" style="margin-left: 50px; width: 100%">
+              <moving-multiselect-autocomplete
+                [disabled]="disabled"
+                [data_selected]="tourishPlan.movingSchedules ?? []"
+                (result)="selectChangeMoving($event)"
+                style="width: 100%"
+              >
+              </moving-multiselect-autocomplete>
+            </div>
+          </ng-template>
+        </mat-tab>
 
-      <div class="row" *ngIf="active === 1">
-        <app-tiny-mce-editor
-          style="width: 90% !important"
-          [blobName]="this.tourishPlanId"
-          [containerName]="'tourish-content-container'"
-          (result)="getTinyMceResult($event)"
-        ></app-tiny-mce-editor>
-        <input type="file" style="visibility: hidden" />
-        <div style="margin-top: -20px; margin-bottom: 10px">
-          <app-validation
-            *ngIf="
-              this.editformGroup_info.get('description')?.errors &&
-              (editformGroup_info.get('description')?.touched || isSubmitted)
-            "
-            [formGroup]="editformGroup_info"
-            [formGroupControlName]="'description'"
-          ></app-validation>
-        </div>
-      </div>
+        <mat-tab label="Lịch trình nơi ở">
+          <ng-template matTabContent>
+            <div class="row" style="margin-left: 50px; width: 100%">
+              <staying-multiselect-autocomplete
+                [disabled]="disabled"
+                [data_selected]="tourishPlan.stayingSchedules ?? []"
+                (result)="selectChangeStaying($event)"
+                style="width: 100%"
+              >
+              </staying-multiselect-autocomplete>
+            </div>
+          </ng-template>
+        </mat-tab>
 
-      <staying-multiselect-autocomplete
-        [disabled]="disabled"
-        [data_selected]="tourishPlan.stayingSchedules ?? []"
-        (result)="selectChangeStaying($event)"
-        *ngIf="active === 4"
-      >
-      </staying-multiselect-autocomplete>
-
-      <moving-multiselect-autocomplete
-        [disabled]="disabled"
-        [data_selected]="tourishPlan.movingSchedules ?? []"
-        (result)="selectChangeMoving($event)"
-        *ngIf="active === 3"
-      >
-      </moving-multiselect-autocomplete>
-
-      <eating-multiselect-autocomplete
-        [disabled]="disabled"
-        [data_selected]="tourishPlan.eatSchedules ?? []"
-        (result)="selectChangeEating($event)"
-        *ngIf="active === 2"
-      >
-      </eating-multiselect-autocomplete>
-
-      <app-file-upload
-        *ngIf="active === 5"
-        [productId]="this.tourishPlan.id"
-        [productType]="1"
-      >
-      </app-file-upload>
+        <mat-tab label="Cập nhật ảnh">
+          <ng-template matTabContent>
+            <app-file-upload
+              [productId]="this.tourishPlan.id"
+              [productType]="1"
+            >
+            </app-file-upload>
+          </ng-template>
+        </mat-tab>
+      </mat-tab-group>
     </div>
   </div>
 </div>

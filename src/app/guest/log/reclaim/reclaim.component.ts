@@ -222,10 +222,10 @@ export class ReclaimUserComponent implements OnInit, OnDestroy {
     );
 
     this.subscriptions.push(
-      this.errorSystemState.subscribe((state) => {
+      this.errorSystemState.subscribe((state: any) => {
         if (state) {
           this.messageService.closeLoadingDialog();
-          this.messageService.openFailNotifyDialog(state);
+          this.messageService.openFailNotifyDialog(state.message);
         }
       })
     );

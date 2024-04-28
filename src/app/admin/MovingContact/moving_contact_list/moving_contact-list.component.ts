@@ -27,6 +27,7 @@ import { MovingContactCreateComponent } from "../moving_contact_create/moving_co
 import { MessageService } from "src/app/utility/user_service/message.service";
 import { ConfirmDialogComponent } from "src/app/utility/confirm-dialog/confirm-dialog.component";
 import { MovingContact } from "src/app/model/baseModel";
+import { AvatarUploadModalComponent } from "src/app/utility/image_avatar_modal/imageUpload.component";
 
 @Component({
   selector: "app-moving_contact-list",
@@ -58,6 +59,7 @@ export class MovingContactListComponent
     "createDate",
 
     "edit",
+    "avatar",
     "delete",
   ];
   @ViewChild(MatPaginator) paraginator!: MatPaginator;
@@ -183,6 +185,28 @@ export class MovingContactListComponent
 
   openAddDialog(): void {
     const dialogRef = this.dialog.open(MovingContactCreateComponent, {});
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(result);
+
+      this.store.dispatch(
+        MovingContactListActions.getMovingContactList({
+          payload: {
+            page: this.pageIndex + 1,
+            search: this.searchPhase,
+            type: this.type,
+          },
+        })
+      );
+
+      this.messageService.openLoadingDialog();
+    });
+  }
+
+  openAvatarDialog(id: string): void {
+    const dialogRef = this.dialog.open(AvatarUploadModalComponent, {
+      data: { resourceId: id, resourceType: 3},
+    });
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log(result);

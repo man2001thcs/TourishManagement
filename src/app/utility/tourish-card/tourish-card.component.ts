@@ -36,7 +36,7 @@ export class TourishPlanCardComponent implements OnInit {
   }
 
   getRateString(input: number) {
-    if (this.judgeNumber <= 0) return "Chưa có đánh giá"
+    if (this.judgeNumber <= 0) return "Chưa có đánh giá";
     if (0 <= input && 2.5 > input) {
       return "Tệ";
     } else if (2.5 <= input && 4 > input) {

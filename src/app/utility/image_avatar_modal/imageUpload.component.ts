@@ -30,21 +30,20 @@ import { MAT_DIALOG_DATA, MatDialog } from "@angular/material/dialog";
   styleUrls: ["imageUpload.component.css"],
 })
 export class AvatarUploadModalComponent implements OnInit {
-  resourceId= '';
+  resourceId = "";
   resourceType = 0;
-
 
   constructor(
     private http: HttpClient,
     private messageService: MessageService,
     private tokenStorage: TokenStorageService,
     private dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: FileModalParam 
+    @Inject(MAT_DIALOG_DATA) public data: FileModalParam
   ) {}
 
   ngOnInit(): void {
     this.resourceId = this.data.resourceId;
-    this,this.resourceType = this.data.resourceType;
+    this.resourceType = this.data.resourceType;
   }
 
   closeDialog() {

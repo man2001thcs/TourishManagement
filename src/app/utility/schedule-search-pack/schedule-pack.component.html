@@ -4,14 +4,33 @@
       *ngFor="let schedule of movingScheduleList"
       [id]="schedule.id ?? ''"
       [scheduleName]="schedule.name ?? ''"
+      [scheduleType]="1"
+      [contactId]="schedule.transportId"
       [schedulePrice]="schedule.singlePrice ?? 0"
+      [startDate]="
+        getDateString(schedule.startDate)
+      "
+      [endDate]="
+        getDateString(schedule.endDate)
+      "
+      [startingPlace]="schedule.startingPlace"
+      [headingPlace]="schedule.headingPlace"
       style="width: 100%"
     ></app-schedule-search-card>
+
     <app-schedule-search-card
       *ngFor="let schedule of stayingScheduleList"
       [id]="schedule.id ?? ''"
       [scheduleName]="schedule.name ?? ''"
+      [scheduleType]="2"
+      [contactId]="schedule.restHouseBranchId"
       [schedulePrice]="schedule.singlePrice ?? 0"
+      [startDate]="
+        getDateString(schedule.startDate)
+      "
+      [endDate]="
+        getDateString(schedule.endDate)
+      "
       style="width: 100%"
     ></app-schedule-search-card>
     <div class="loading" *ngIf="isLoading">

@@ -38,6 +38,7 @@ import {
 import { CarouselSlider } from "angular-carousel-slider";
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { messaging } from "src/conf/firebase.conf";
+import { MatSelectModule } from "@angular/material/select";
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { messaging } from "src/conf/firebase.conf";
     MatProgressSpinnerModule,
     SocialLoginModule,
     MatButtonModule,
+    MatSelectModule,
     GoogleSigninButtonModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),

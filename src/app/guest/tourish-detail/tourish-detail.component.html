@@ -241,8 +241,10 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let schedule of tourishPlan?.tourishScheduleList; index as i">
-          <td scope="row">{{i + 1}}</td>
+        <tr
+          *ngFor="let schedule of tourishPlan?.tourishScheduleList; index as i"
+        >
+          <td scope="row">{{ i + 1 }}</td>
           <td scope="row">{{ getDateFormat(schedule.startDate) }}</td>
           <td>
             {{ getDateFormat(schedule.startDate) }}
@@ -333,8 +335,9 @@
 
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 create-form">
           <mat-form-field appearance="outline" class="full-width-input">
-            <mat-label>Số vé</mat-label>
+            <mat-label>Số vé (Người lớn > 10 tuổi)</mat-label>
             <input
+              type="number"
               matInput
               fullwidth
               placeholder="Vd: 2"
@@ -348,11 +351,46 @@
           ></app-validation>
         </div>
 
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 create-form">
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Số vé (Trẻ em < 10 tuổi)</mat-label>
+            <input
+              type="number"
+              matInput
+              fullwidth
+              placeholder="Vd: 2"
+              formControlName="totalChildTicket"
+            />
+          </mat-form-field>
+          <app-validation
+            *ngIf="this.setTourForm.get('totalChildTicket')?.touched"
+            [formGroup]="setTourForm"
+            [formGroupControlName]="'totalChildTicket'"
+          ></app-validation>
+        </div>
+
+        <div
+          class="col-xs-12 col-sm-12 col-md-4 col-lg-4 create-form"
+          style="margin-bottom: 10px"
+        >
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Lịch trình</mat-label>
+            <mat-select required  formControlName="scheduleId">
+              <mat-option
+                *ngFor="let schedule of tourishPlan?.tourishScheduleList"
+                [value]="schedule.id"
+              >
+                {{ getDateFormat(schedule.startDate) }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 create-form">
           <button
             mat-flat-button
             color="primary"
-            style="width: 100%"
+            style="width: 100%; height: 56px; font-size: 16px;"
             (click)="register()"
           >
             Gửi

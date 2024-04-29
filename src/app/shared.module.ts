@@ -74,6 +74,8 @@ import { ScheduleSearchComponent } from "./guest/schedule-search/schedule-search
 import { ScheduleSearchPackComponent } from "./utility/schedule-search-pack/schedule-pack.component";
 import { SchedulePlanSearchCardComponent } from "./utility/schedule-search-card/schedule-card.component";
 import { ScheduleDetailComponent } from "./guest/schedule-detail/schedule-detail.component";
+import { MatSelectModule } from "@angular/material/select";
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 @NgModule({
   declarations: [
@@ -111,6 +113,8 @@ import { ScheduleDetailComponent } from "./guest/schedule-detail/schedule-detail
     MatListModule,
     MatTabsModule,
     MatListModule,
+    MatButtonToggleModule,
+    MatSelectModule,
     MatInputModule,
     MatTableModule,
     MatMenuModule,
@@ -169,6 +173,8 @@ import { ScheduleDetailComponent } from "./guest/schedule-detail/schedule-detail
     MatFormFieldModule,
     MatIconModule,
     MatButtonModule,
+    MatSelectModule,
+    MatButtonToggleModule,
     MatCardModule,
     MatExpansionModule,
     ImageSliderComponent,

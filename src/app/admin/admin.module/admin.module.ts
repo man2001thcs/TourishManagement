@@ -243,6 +243,7 @@ import { MovingScheduleListEffects } from "../Schedule-moving/schedule_moving_li
 import { MovingContactAutoCompleteListEffects } from "src/app/utility/multiselect/moving-contact-select-autocomplete/select-autocomplete.store.effect";
 import { AvatarUploadModalComponent } from "src/app/utility/image_avatar_modal/imageUpload.component";
 import { TourScheduleMultiselectAutocompleteComponent } from "src/app/utility/multiselect/tour-schedule-multiselect-autocomplete/multiselect-autocomplete.component";
+import {MatSelectModule} from '@angular/material/select';
 
 
 
@@ -326,7 +327,7 @@ import { TourScheduleMultiselectAutocompleteComponent } from "src/app/utility/mu
     NgbNavModule,
     NgbOffcanvasModule,
     NgbAlertModule,
-
+    MatSelectModule,
     MatExpansionModule,
 
     NbChatModule,

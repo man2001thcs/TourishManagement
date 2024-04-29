@@ -86,6 +86,10 @@ export class ScheduleDetailComponent implements OnInit {
         1,
         Validators.compose([Validators.required, Validators.min(1)]),
       ],
+      totalChildTicket: [
+        0,
+        Validators.compose([Validators.required, Validators.min(1)]),
+      ],
       description: [
         "",
         Validators.compose([Validators.required, Validators.minLength(3)]),
@@ -247,7 +251,9 @@ export class ScheduleDetailComponent implements OnInit {
       email: this.setTourForm.value.email,
       phoneNumber: this.setTourForm.value.phoneNumber,
       totalTicket: this.setTourForm.value.totalTicket,
+      totalChildTicket: this.setTourForm.value.totalChildTicket,
       scheduleId: this.scheduleId,
+      scheduleType: this.scheduleType,
     };
 
     this.messageService.openLoadingDialog();

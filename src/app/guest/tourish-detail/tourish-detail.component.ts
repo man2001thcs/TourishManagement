@@ -14,6 +14,7 @@ import { ActivatedRoute } from "@angular/router";
 import { NgbCarouselConfig } from "@ng-bootstrap/ng-bootstrap";
 import { EditorComponent } from "@tinymce/tinymce-angular";
 import { Slider } from "angular-carousel-slider/lib/angular-carousel-slider.component";
+import { scheduled } from "rxjs";
 import { SaveFile, TourishPlan, User } from "src/app/model/baseModel";
 import { MessageService } from "src/app/utility/user_service/message.service";
 import { TokenStorageService } from "src/app/utility/user_service/token.service";
@@ -77,22 +78,21 @@ export class TourishDetailComponent implements OnInit {
         1,
         Validators.compose([Validators.required, Validators.min(1)]),
       ],
+      totalChildTicket: [
+        0,
+        Validators.compose([Validators.required, Validators.min(0)]),
+      ],
       description: [
         "",
         Validators.compose([Validators.required, Validators.minLength(3)]),
       ],
+      scheduleId: ["", Validators.compose([Validators.required])],
     });
 
     this.getRatingForTour();
     this.getTourImage();
     this.getTour();
     this.getAccount();
-    // var result = tinymce.editors;
-    // result.forEach((element: any) => {
-    //   tinymce.get(element.id).getBody().setAttribute("contenteditable", false);
-    //   tinymce.get(element.id).getBody().style.backgroundColor = "#ecf0f5";
-    // });
-    // tinymce.activeEditor.getBody().setAttribute('contenteditable', false);
   }
 
   slides: any[] = [];
@@ -162,7 +162,12 @@ export class TourishDetailComponent implements OnInit {
         this.tourishPlan = response.data;
 
         this.tourDescription = this.tourishPlan?.description ?? "";
-        console.log(response);
+
+        if (this.tourishPlan?.tourishScheduleList) {
+          this.setTourForm.controls["scheduleId"].setValue(
+            this.tourishPlan?.tourishScheduleList[0].id ?? ""
+          );
+        }
       });
   }
 
@@ -246,7 +251,9 @@ export class TourishDetailComponent implements OnInit {
       email: this.setTourForm.value.email,
       phoneNumber: this.setTourForm.value.phoneNumber,
       totalTicket: this.setTourForm.value.totalTicket,
+      totalChildTicket: this.setTourForm.value.totalChildTicket,
       tourishPlanId: this.tourishPlanId,
+      scheduleId: this.setTourForm.value.scheduleId,
     };
 
     this.messageService.openLoadingDialog();
@@ -284,7 +291,6 @@ export class TourishDetailComponent implements OnInit {
   }
 
   getStatusPhase(statusNumber: string): string {
-
     switch (parseInt(statusNumber)) {
       case 0:
         return "Chờ xác nhận";
@@ -313,8 +319,7 @@ export class TourishDetailComponent implements OnInit {
     const hour = ngayThang.getHours();
     const minute = ngayThang.getHours();
 
-    const chuoiNgayThang =
-      `Ngày ${day} tháng ${month}`;
+    const chuoiNgayThang = `Ngày ${day} tháng ${month}`;
 
     return chuoiNgayThang;
   }

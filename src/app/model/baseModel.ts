@@ -181,6 +181,7 @@ export interface TourishPlan {
   stayingSchedules?: StayingSchedule[];
   eatSchedules?: EatSchedule[];
   movingSchedules?: MovingSchedule[];
+  tourishScheduleList?: TourishSchedule[];
 }
 
 export interface TourishSchedule {

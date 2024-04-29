@@ -26,11 +26,12 @@ import { MovingContact, TourishSchedule } from "src/app/model/baseModel";
 
 import moment from "moment";
 import { ThemePalette } from "@angular/material/core";
+import { faL } from "@fortawesome/free-solid-svg-icons";
 /**
  * @title Chips Autocomplete
  */
 @Component({
-  selector: "moving-multiselect-autocomplete",
+  selector: "schedule-multiselect-autocomplete",
   templateUrl: "multiselect-autocomplete.component.html",
   styleUrls: ["multiselect-autocomplete.component.css"],
 })
@@ -45,18 +46,15 @@ export class TourScheduleMultiselectAutocompleteComponent implements OnInit {
   @Input() data_selected: Array<TourishSchedule> = [];
   @Input() key: string = "";
   @Input() createFormOpen = false;
-  editorContent = "";
 
   data_selected_edit: TourishSchedule[] = [];
-
   scheduleList: TourishSchedule[] = [];
+
 
   scheduleEdit: TourishSchedule | null = null;
   indexTourishScheduleEdit: number = -1;
 
   scheduleIdList: string[] = [];
-
-  data!: MovingContact[];
   length: number = 0;
   pageIndex = 0;
   canLoadMore = true;
@@ -71,8 +69,9 @@ export class TourScheduleMultiselectAutocompleteComponent implements OnInit {
   showSeconds = false;
   touchUi = false;
   enableMeridian = false;
-
   vehicleType = 0;
+
+  isNewEdited = false;
 
   color: ThemePalette = "primary";
 
@@ -109,25 +108,12 @@ export class TourScheduleMultiselectAutocompleteComponent implements OnInit {
       planStatus: [0, Validators.compose([Validators.required])],
       startDate: ["", Validators.compose([Validators.required])],
       endDate: ["", Validators.compose([Validators.required])],
+      createDate: ["", Validators.compose([Validators.required])],
     });
   }
 
   ngOnDestroy(): void {
     console.log("Destroy");
-  }
-
-  add(event: MatChipInputEvent): void {
-    const value = (event.value || "").trim();
-
-    // Add our moving
-    if (value) {
-      this.createFormOpen = true;
-    }
-
-    // Clear the input value
-    event.chipInput!.clear();
-
-    this.movingCtrl.setValue(null);
   }
 
   remove(id: string): void {
@@ -153,7 +139,7 @@ export class TourScheduleMultiselectAutocompleteComponent implements OnInit {
         tourishPlanId: this.tourishPlanId,
         startDate: this.scheduleFormGroup.value.startDate,
         endDate: this.scheduleFormGroup.value.endDate,
-        planStatus: this.scheduleFormGroup.value.planStatus,
+        planStatus: parseInt(this.scheduleFormGroup.value.planStatus),
       };
 
       this.scheduleList = [schedule, ...this.scheduleList];
@@ -184,6 +170,9 @@ export class TourScheduleMultiselectAutocompleteComponent implements OnInit {
       this.editScheduleFormGroup.controls["planStatus"].setValue(
         this.scheduleEdit.planStatus
       );
+      this.editScheduleFormGroup.controls["createDate"].setValue(
+        this.scheduleEdit.createDate
+      );
     }
   }
 
@@ -194,7 +183,8 @@ export class TourScheduleMultiselectAutocompleteComponent implements OnInit {
         tourishPlanId: this.scheduleEdit.tourishPlanId,
         startDate: this.editScheduleFormGroup.value.startDate,
         endDate: this.editScheduleFormGroup.value.endDate,
-        planStatus: this.editScheduleFormGroup.value.planStatus,
+        planStatus: parseInt(this.editScheduleFormGroup.value.planStatus),
+        createDate: this.editScheduleFormGroup.value.createDate,
       };
 
       this.messageService
@@ -209,7 +199,6 @@ export class TourScheduleMultiselectAutocompleteComponent implements OnInit {
   cancelEditSchedule(): void {
     this.scheduleEdit = null;
     this.indexTourishScheduleEdit = -1;
-    this.editorContent = "";
   }
 
   removeSchedule(id: string): void {
@@ -248,10 +237,6 @@ export class TourScheduleMultiselectAutocompleteComponent implements OnInit {
     this.isSubmit = false;
   }
 
-  onDisplayAtr(moving: MovingContact): string {
-    return "";
-  }
-
   cancelLoading() {
     this.isLoading = false;
   }
@@ -263,8 +248,9 @@ export class TourScheduleMultiselectAutocompleteComponent implements OnInit {
     return "";
   }
 
-  getStatusPhase(statusNumber: number): string {
-    switch (statusNumber) {
+  getStatusPhase(statusNumber: string): string {
+
+    switch (parseInt(statusNumber)) {
       case 0:
         return "Chờ xác nhận";
       case 1:
@@ -278,5 +264,10 @@ export class TourScheduleMultiselectAutocompleteComponent implements OnInit {
       default:
         return "Không xác định";
     }
+  }
+
+  onClickAddButton(){
+    console.log("here");
+    this.isNewEdited = !this.isNewEdited;
   }
 }

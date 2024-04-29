@@ -9,13 +9,21 @@
 
   <div class="below-title">
     <span
-      ><i class="fa fa-location-arrow" aria-hidden="true"></i> {{this.tourishPlan?.endPoint}}</span
+      ><i class="fa fa-location-arrow" aria-hidden="true"></i>
+      {{ this.tourishPlan?.endPoint }}</span
     >
-    <span><i class="fa fa-clock-o" aria-hidden="true"></i> {{getDuration()}}</span>
+    <span
+      ><i class="fa fa-clock-o" aria-hidden="true"></i>
+      {{ getDuration() }}</span
+    >
     <span>
-      <i class="fa fa-bus" aria-hidden="true"  *ngIf="isMovingContactPresent"></i>
-      <i class="fa fa-plane" aria-hidden="true"  *ngIf="isPlanePresent"></i>
-      <i class="fa fa-train" aria-hidden="true"  *ngIf="isTrainPresent"></i>
+      <i
+        class="fa fa-bus"
+        aria-hidden="true"
+        *ngIf="isMovingContactPresent"
+      ></i>
+      <i class="fa fa-plane" aria-hidden="true" *ngIf="isPlanePresent"></i>
+      <i class="fa fa-train" aria-hidden="true" *ngIf="isTrainPresent"></i>
     </span>
 
     <span id="rating">
@@ -217,6 +225,32 @@
         </div>
       </mat-tab>
     </mat-tab-group>
+  </div>
+
+  <div class="tour-description">
+    <div class="title">
+      <h4 class="tour-name">Danh sách lịch trình hiện có:</h4>
+    </div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">STT</th>
+          <th scope="col">Ngày bắt đầu</th>
+          <th scope="col">Ngày kết thúc</th>
+          <th scope="col">Tình trạng</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let schedule of tourishPlan?.tourishScheduleList; index as i">
+          <td scope="row">{{i + 1}}</td>
+          <td scope="row">{{ getDateFormat(schedule.startDate) }}</td>
+          <td>
+            {{ getDateFormat(schedule.startDate) }}
+          </td>
+          <th>{{ getStatusPhase(schedule.planStatus.toString()) }}</th>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
   <div class="tour-description">

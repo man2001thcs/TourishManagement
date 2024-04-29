@@ -11,7 +11,7 @@
             margin-left: 20px;
           "
         >
-          Danh sách lịch trình di chuyển
+          Danh sách lịch trình
         </h2>
       </div>
 
@@ -166,7 +166,29 @@
 
     <div
       class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form"
-      *ngIf="scheduleList === null && !disabled"
+      *ngIf="!disabled"
+    >
+      <button
+        mat-flat-button
+        color="primary"
+        *ngIf="!isNewEdited"
+        (click)="onClickAddButton()"
+      >
+        Thêm
+      </button>
+      <button
+        mat-flat-button
+        color="warn"
+        *ngIf="isNewEdited"
+        (click)="onClickAddButton()"
+      >
+        Hủy
+      </button>
+    </div>
+
+    <div
+      class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form"
+      *ngIf="isNewEdited && scheduleEdit == null && !disabled"
     >
       <div class="row">
         <h2
@@ -182,7 +204,7 @@
         </h2>
       </div>
 
-      <div [formGroup]="scheduleFormGroup">
+      <div class="row" [formGroup]="scheduleFormGroup">
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
           <mat-form-field appearance="outline" class="full-width-input">
             <mat-label>Ngày bắt đầu</mat-label>
@@ -198,16 +220,14 @@
               [for]="$any(picker1)"
               [disabled]="disabled"
             ></mat-datepicker-toggle>
-            <ngx-mat-datetime-picker #picker1>
-            </ngx-mat-datetime-picker>
+            <ngx-mat-datetime-picker #picker1> </ngx-mat-datetime-picker>
           </mat-form-field>
 
           <div style="margin-top: -25px; margin-bottom: 15px">
             <app-validation
               *ngIf="
                 this.scheduleFormGroup.get('startDate')?.errors &&
-                (scheduleFormGroup.get('startDate')?.touched 
-                  )
+                scheduleFormGroup.get('startDate')?.touched
               "
               [formGroup]="scheduleFormGroup"
               [formGroupControlName]="'startDate'"
@@ -230,15 +250,14 @@
               [for]="$any(picker2)"
               [disabled]="disabled"
             ></mat-datepicker-toggle>
-            <ngx-mat-datetime-picker #picker2>
-            </ngx-mat-datetime-picker>
+            <ngx-mat-datetime-picker #picker2> </ngx-mat-datetime-picker>
           </mat-form-field>
 
           <div style="margin-top: -25px; margin-bottom: 15px">
             <app-validation
               *ngIf="
                 this.scheduleFormGroup.get('endDate')?.errors &&
-                (scheduleFormGroup.get('endDate')?.touched )
+                scheduleFormGroup.get('endDate')?.touched
               "
               [formGroup]="scheduleFormGroup"
               [formGroupControlName]="'endDate'"
@@ -266,9 +285,7 @@
       </div>
 
       <div *ngIf="scheduleEdit == null">
-        <div class="row"
-          style="display: flex; flex-direction: row !important; flex-wrap: 1"
-        >
+        <div class="row" style="margin-left: 20px">
           <div style="margin-right: 20px">
             <button
               mat-raised-button
@@ -322,15 +339,14 @@
               [for]="$any(picker1)"
               [disabled]="disabled"
             ></mat-datepicker-toggle>
-            <ngx-mat-datetime-picker #picker1>
-            </ngx-mat-datetime-picker>
+            <ngx-mat-datetime-picker #picker1> </ngx-mat-datetime-picker>
           </mat-form-field>
 
           <div style="margin-top: -25px; margin-bottom: 15px">
             <app-validation
               *ngIf="
                 this.editScheduleFormGroup.get('startDate')?.errors &&
-                (editScheduleFormGroup.get('startDate')?.touched)
+                editScheduleFormGroup.get('startDate')?.touched
               "
               [formGroup]="editScheduleFormGroup"
               [formGroupControlName]="'startDate'"
@@ -353,15 +369,14 @@
               [for]="$any(picker2)"
               [disabled]="disabled"
             ></mat-datepicker-toggle>
-            <ngx-mat-datetime-picker #picker2>
-            </ngx-mat-datetime-picker>
+            <ngx-mat-datetime-picker #picker2> </ngx-mat-datetime-picker>
           </mat-form-field>
 
           <div style="margin-top: -25px; margin-bottom: 15px">
             <app-validation
               *ngIf="
                 this.editScheduleFormGroup.get('endDate')?.errors &&
-                (editScheduleFormGroup.get('endDate')?.touched)
+                editScheduleFormGroup.get('endDate')?.touched
               "
               [formGroup]="editScheduleFormGroup"
               [formGroupControlName]="'endDate'"
@@ -390,10 +405,7 @@
     </div>
 
     <div *ngIf="scheduleEdit != null">
-      <div
-        class="row"
-        style="display: flex; flex-direction: row !important; flex-wrap: 1"
-      >
+      <div class="row" style="margin-left: 20px">
         <div style="margin-right: 20px">
           <button
             mat-raised-button

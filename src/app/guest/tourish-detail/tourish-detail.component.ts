@@ -282,4 +282,40 @@ export class TourishDetailComponent implements OnInit {
       return "star_border";
     }
   }
+
+  getStatusPhase(statusNumber: string): string {
+
+    switch (parseInt(statusNumber)) {
+      case 0:
+        return "Chờ xác nhận";
+      case 1:
+        return "Xác nhận thông tin";
+      case 2:
+        return "Đang diễn ra";
+      case 3:
+        return "Hoàn thành";
+      case 4:
+        return "Hủy bỏ";
+      default:
+        return "Không xác định";
+    }
+  }
+
+  getDateFormat(date: Date) {
+    const isoDateString = date != null ? date.toString() ?? "" : "";
+    // Chuyển đổi chuỗi ISO 8601 thành đối tượng Date
+    const ngayThang = new Date(isoDateString);
+
+    // Lấy ngày, tháng, năm, giờ từ đối tượng Date
+    const day = ngayThang.getDate();
+    const month = ngayThang.getMonth() + 1; // Tháng bắt đầu từ 0
+    const year = ngayThang.getFullYear();
+    const hour = ngayThang.getHours();
+    const minute = ngayThang.getHours();
+
+    const chuoiNgayThang =
+      `Ngày ${day} tháng ${month}`;
+
+    return chuoiNgayThang;
+  }
 }

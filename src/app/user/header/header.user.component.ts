@@ -65,7 +65,7 @@ export class HeaderUserComponent implements OnDestroy {
   countNotifyClick = 0;
   countSearchClick = 0;
   subscriptions: Subscription[] = [];
-  tourList: any;
+  tourList: TourishPlan[] = [];
 
   constructor(
     private dialog: MatDialog,

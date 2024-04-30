@@ -37,3 +37,9 @@ app-chat {
 app-footer {
   z-index: 0;
 }
+
+
+.validation-container {
+  margin-top: -15px !important;
+  margin-bottom: 15px !important;
+}

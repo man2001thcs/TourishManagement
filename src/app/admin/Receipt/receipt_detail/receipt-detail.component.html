@@ -1,12 +1,22 @@
 <div class="container" style="padding: 0cqi 0 20px; max-height: 600px">
-  <div style="background-color: #2a3650; padding: 15px 50px 0px; width: 100%; display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+  <div
+    style="
+      background-color: #2a3650;
+      padding: 15px 50px 0px;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    "
+  >
     <h2 mat-form-label style="font-weight: heavy; color: white">
       Chỉnh sửa thông tin hóa đơn
     </h2>
 
-        <button
+    <button
       mat-button
-      style="color: white; margin-bottom: 16px;"
+      style="color: white; margin-bottom: 16px"
       (click)="closeDialog()"
     >
       <i class="fa fa-times" aria-hidden="true"></i>
@@ -43,7 +53,7 @@
                   formControlName="guestName"
                 />
               </mat-form-field>
-              <div style="margin-top: -25px; margin-bottom: 15px">
+              <div class="validation-container">
                 <app-validation
                   *ngIf="
                     this.editformGroup_info.get('guestName')?.errors &&
@@ -65,7 +75,7 @@
                   formControlName="email"
                 />
               </mat-form-field>
-              <div style="margin-top: -25px; margin-bottom: 15px">
+              <div class="validation-container">
                 <app-validation
                   *ngIf="
                     this.editformGroup_info.get('email')?.errors &&
@@ -86,7 +96,7 @@
                   formControlName="phoneNumber"
                 />
               </mat-form-field>
-              <div style="margin-top: -25px; margin-bottom: 15px">
+              <div class="validation-container">
                 <app-validation
                   *ngIf="
                     this.editformGroup_info.get('phoneNumber')?.errors &&
@@ -95,6 +105,42 @@
                   "
                   [formGroup]="editformGroup_info"
                   [formGroupControlName]="'phoneNumber'"
+                ></app-validation>
+              </div>
+            </div>
+
+            <div class="row">
+              <mat-form-field appearance="outline" class="full-width-input">
+                <mat-label>Lịch trình</mat-label>
+                <mat-select required formControlName="tourishScheduleId">
+                  <mat-option
+                    *ngFor="let schedule of tourishPlan?.tourishScheduleList"
+                    [value]="schedule.id"
+                  >
+                    {{ getDateFormat(schedule.startDate) }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="row">
+              <mat-form-field appearance="outline" class="full-width-input">
+                <mat-label>Giảm giá dịch vụ (Trừ vào giá trị)</mat-label>
+                <input
+                  matInput
+                  placeholder="Vd: 10000"
+                  formControlName="discountAmount"
+                />
+              </mat-form-field>
+              <div class="validation-container">
+                <app-validation
+                  *ngIf="
+                    this.editformGroup_info.get('discountAmount')?.errors &&
+                    (editformGroup_info.get('discountAmount')?.touched ||
+                      isSubmitted)
+                  "
+                  [formGroup]="editformGroup_info"
+                  [formGroupControlName]="'discountAmount'"
                 ></app-validation>
               </div>
             </div>
@@ -110,7 +156,7 @@
                   formControlName="originalPrice"
                 />
               </mat-form-field>
-              <div style="margin-top: -25px; margin-bottom: 15px">
+              <div class="validation-container">
                 <app-validation
                   *ngIf="
                     this.editformGroup_info.get('originalPrice')?.errors &&
@@ -137,14 +183,15 @@
 
             <div class="row">
               <mat-form-field appearance="outline" class="full-width-input">
-                <mat-label>Số vé</mat-label>
+                <mat-label>Số vé (Người lớn > 10 tuổi)</mat-label>
                 <input
+                  type="number"
                   matInput
                   placeholder="Vd: 0123456789"
                   formControlName="totalTicket"
                 />
               </mat-form-field>
-              <div style="margin-top: -25px; margin-bottom: 15px">
+              <div class="validation-container">
                 <app-validation
                   *ngIf="
                     this.editformGroup_info.get('totalTicket')?.errors &&
@@ -156,29 +203,26 @@
                 ></app-validation>
               </div>
             </div>
-          </div>
-        </div>
 
-        <div class="row">
-          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 edit-form">
             <div class="row">
               <mat-form-field appearance="outline" class="full-width-input">
-                <mat-label>Giảm giá dịch vụ (Trừ vào giá trị)</mat-label>
+                <mat-label>Số vé (Trẻ em)</mat-label>
                 <input
+                  type="number"
                   matInput
-                  placeholder="Vd: 10000"
-                  formControlName="discountAmount"
+                  placeholder="Vd: 0123456789"
+                  formControlName="totalChildTicket"
                 />
               </mat-form-field>
-              <div style="margin-top: -25px; margin-bottom: 15px">
+              <div class="validation-container">
                 <app-validation
                   *ngIf="
-                    this.editformGroup_info.get('discountAmount')?.errors &&
-                    (editformGroup_info.get('discountAmount')?.touched ||
+                    this.editformGroup_info.get('totalChildTicket')?.errors &&
+                    (editformGroup_info.get('totalChildTicket')?.touched ||
                       isSubmitted)
                   "
                   [formGroup]="editformGroup_info"
-                  [formGroupControlName]="'discountAmount'"
+                  [formGroupControlName]="'totalChildTicket'"
                 ></app-validation>
               </div>
             </div>
@@ -192,7 +236,7 @@
                   formControlName="discountFloat"
                 />
               </mat-form-field>
-              <div style="margin-top: -25px; margin-bottom: 15px">
+              <div class="validation-container">
                 <app-validation
                   *ngIf="
                     this.editformGroup_info.get('discountFloat')?.errors &&
@@ -206,6 +250,7 @@
             </div>
           </div>
         </div>
+   
 
         <div
           class="row"

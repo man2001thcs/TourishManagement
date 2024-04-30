@@ -223,7 +223,7 @@
             <ngx-mat-datetime-picker #picker1> </ngx-mat-datetime-picker>
           </mat-form-field>
 
-          <div style="margin-top: -25px; margin-bottom: 15px">
+          <div class="validation-container">
             <app-validation
               *ngIf="
                 this.scheduleFormGroup.get('startDate')?.errors &&
@@ -253,7 +253,7 @@
             <ngx-mat-datetime-picker #picker2> </ngx-mat-datetime-picker>
           </mat-form-field>
 
-          <div style="margin-top: -25px; margin-bottom: 15px">
+          <div class="validation-container">
             <app-validation
               *ngIf="
                 this.scheduleFormGroup.get('endDate')?.errors &&
@@ -342,7 +342,7 @@
             <ngx-mat-datetime-picker #picker1> </ngx-mat-datetime-picker>
           </mat-form-field>
 
-          <div style="margin-top: -25px; margin-bottom: 15px">
+          <div class="validation-container">
             <app-validation
               *ngIf="
                 this.editScheduleFormGroup.get('startDate')?.errors &&
@@ -372,7 +372,7 @@
             <ngx-mat-datetime-picker #picker2> </ngx-mat-datetime-picker>
           </mat-form-field>
 
-          <div style="margin-top: -25px; margin-bottom: 15px">
+          <div class="validation-container">
             <app-validation
               *ngIf="
                 this.editScheduleFormGroup.get('endDate')?.errors &&

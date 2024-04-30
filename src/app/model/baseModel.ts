@@ -230,6 +230,7 @@ export interface FullReceipt {
   guestName: string;
   originalPrice: number;
   totalTicket: number;
+  totalChildTicket: number;
   tourishPlanId: string;
   completeDate?: string;
   phoneNumber: string;
@@ -241,6 +242,8 @@ export interface FullReceipt {
   description: string;
   status: number;
 
+  tourishScheduleId?: string;
+  tourishSchedule?: TourishSchedule;
   totalReceipt?: TotalReceipt;
 }
 

@@ -93,7 +93,7 @@
         [tourPrice]="getTotalPrice(tour)"
         style="width: 100%"
       ></app-tourish-auto-search-card>
-      <h6 *ngIf="tourList.length <= 0">Không có kết quả phù hợp</h6>
+      <h6 *ngIf="tourList?.length ?? 0 <= 0">Không có kết quả phù hợp</h6>
     </div>
   </div>
 

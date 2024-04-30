@@ -45,7 +45,7 @@
                 <input matInput fullwidth placeholder="Vd: Bồ Công Anh" formControlName="userName" [disabled]='true' />
               </mat-form-field>
 
-              <div style="margin-top: -25px; margin-bottom: 15px">
+              <div class="validation-container">
                 <app-validation *ngIf="
                     this.editformGroup_info.get('userName')?.errors &&
                     (editformGroup_info.get('userName')?.touched || isSubmitted)
@@ -59,7 +59,7 @@
                 <input matInput placeholder="Vd: abc@gmail.com" formControlName="email" [disabled]='true' />
               </mat-form-field>
 
-              <div style="margin-top: -25px; margin-bottom: 15px">
+              <div class="validation-container">
                 <app-validation *ngIf="
                     this.editformGroup_info.get('email')?.errors &&
                     (editformGroup_info.get('email')?.touched || isSubmitted)
@@ -72,7 +72,7 @@
                 <mat-label>Số điện thoại liên lạc</mat-label>
                 <input matInput placeholder="Vd: 0123456789" formControlName="phoneNumber" />
               </mat-form-field>
-              <div style="margin-top: -25px; margin-bottom: 15px">
+              <div class="validation-container">
                 <app-validation *ngIf="
                     this.editformGroup_info.get('phoneNumber')?.errors &&
                     (editformGroup_info.get('phoneNumber')?.touched || isSubmitted)
@@ -87,7 +87,7 @@
                 <mat-label>Địa chỉ trụ sở</mat-label>
                 <input matInput placeholder="Vd: 43 Nguyễn Chí Thanh" formControlName="address" />
               </mat-form-field>
-              <div style="margin-top: -25px; margin-bottom: 15px">
+              <div class="validation-container">
                 <app-validation *ngIf="
                     this.editformGroup_info.get('address')?.errors &&
                     (editformGroup_info.get('address')?.touched || isSubmitted)
@@ -111,7 +111,7 @@
                 <mat-label>Tên người dùng</mat-label>
                 <input matInput placeholder="Vd: ABC" formControlName="fullName" />
               </mat-form-field>
-              <div style="margin-top: -25px; margin-bottom: 15px">
+              <div class="validation-container">
                 <app-validation *ngIf="
                     this.editformGroup_info.get('fullName')?.errors &&
                     (editformGroup_info.get('fullName')?.touched || isSubmitted)
@@ -145,7 +145,7 @@
                 <input matInput fullwidth type="password" formControlName="password" [disabled]='true' />
               </mat-form-field>
 
-              <div style="margin-top: -25px; margin-bottom: 15px">
+              <div class="validation-container">
                 <app-validation *ngIf="
                     this.editformGroup_password.get('password')?.errors &&
                     (editformGroup_password.get('password')?.touched || isSubmitted)
@@ -162,7 +162,7 @@
                 <input matInput type="password" formControlName="newPassword" [disabled]='true' />
               </mat-form-field>
 
-              <div style="margin-top: -25px; margin-bottom: 15px">
+              <div class="validation-container">
                 <app-validation *ngIf="
                     this.editformGroup_password.get('newPassword')?.errors &&
                     (editformGroup_password.get('newPassword')?.touched || isSubmitted)
@@ -175,7 +175,7 @@
                 <mat-label>Nhập lại mật khẩu mới</mat-label>
                 <input matInput type="password" formControlName="reNewPassword" />
               </mat-form-field>
-              <div style="margin-top: -25px; margin-bottom: 15px">
+              <div class="validation-container">
                 <app-validation *ngIf="
                     this.editformGroup_password.get('reNewPassword')?.errors &&
                     (editformGroup_password.get('reNewPassword')?.touched || isSubmitted)

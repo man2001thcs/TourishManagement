@@ -34,7 +34,12 @@ import {
 } from "./receipt-create.store.selector";
 import { FailNotifyDialogComponent } from "src/app/utility/notification_admin/fail-notify-dialog.component";
 import { MessageService } from "src/app/utility/user_service/message.service";
-import { FullReceipt } from "src/app/model/baseModel";
+import {
+  FullReceipt,
+  TourishPlan,
+  TourishSchedule,
+} from "src/app/model/baseModel";
+import { HttpClient } from "@angular/common/http";
 
 @Component({
   selector: "app-book-create",
@@ -57,12 +62,15 @@ export class ReceiptCreateComponent implements OnInit, OnDestroy {
   receiptState!: Observable<any>;
   createReceiptState!: Observable<any>;
   subscriptions: Subscription[] = [];
+  tourishPlan!: TourishPlan;
+  tourSchedule: TourishSchedule[] = [];
 
   constructor(
     private dialog: MatDialog,
     private fb: FormBuilder,
     private store: Store<passenger_carState>,
     private messageService: MessageService,
+    private http: HttpClient,
     private _route: ActivatedRoute,
     @Inject(MAT_DIALOG_DATA) public data: ReceiptParam
   ) {
@@ -110,6 +118,7 @@ export class ReceiptCreateComponent implements OnInit, OnDestroy {
     //Add 'implements OnInit' to the class.
     this.createformGroup_info = this.fb.group({
       tourishPlanId: ["", Validators.compose([Validators.required])],
+      tourishScheduleId: ["", Validators.compose([Validators.required])],
       status: [0, Validators.compose([Validators.required])],
       guestName: ["", Validators.compose([Validators.required])],
       phoneNumber: [
@@ -118,6 +127,7 @@ export class ReceiptCreateComponent implements OnInit, OnDestroy {
       ],
       email: ["", Validators.compose([Validators.required])],
       totalTicket: [0, Validators.compose([Validators.required])],
+      totalChildTicket: [0, Validators.compose([Validators.required])],
       originalPrice: [0, Validators.compose([Validators.required])],
       discountFloat: [0, Validators.compose([Validators.required])],
       discountAmount: [0, Validators.compose([Validators.required])],
@@ -136,7 +146,9 @@ export class ReceiptCreateComponent implements OnInit, OnDestroy {
     this.createformGroup_info.setValue({
       guestName: "",
       tourishPlanId: "",
+      tourishScheduleId: "",
       totalTicket: 0,
+      totalChildTicket: 0,
       originalPrice: 0,
       discountFloat: 0,
       discountAmount: 0,
@@ -156,6 +168,7 @@ export class ReceiptCreateComponent implements OnInit, OnDestroy {
         guestName: this.createformGroup_info.value.guestName,
         tourishPlanId: this.createformGroup_info.value.tourishPlanId,
         totalTicket: this.createformGroup_info.value.totalTicket,
+        totalChildTicket: this.createformGroup_info.value.totalChildTicket,
         originalPrice: this.createformGroup_info.value.originalPrice,
         discountFloat: this.createformGroup_info.value.discountFloat,
         discountAmount: this.createformGroup_info.value.discountAmount,
@@ -177,13 +190,43 @@ export class ReceiptCreateComponent implements OnInit, OnDestroy {
 
   selectChangeReceipt($event: any): any {
     console.log($event);
-    this.createformGroup_info.controls["tourishPlanId"].setValue(
-      $event.data[0]
-    );
-    console.log(this.createformGroup_info.value);
+    if ($event.data?.length > 0) {
+      this.createformGroup_info.controls["tourishPlanId"].setValue(
+        $event.data[0]
+      );
+
+      if ($event.data[0] == "") {
+        this.tourSchedule = [];
+      } else this.getTour($event.data[0]);
+      console.log(this.createformGroup_info.value);
+    } else {
+      this.createformGroup_info.controls["tourishPlanId"].setValue("");
+      this.tourSchedule = [];
+    }
   }
 
-  closeDialog(){
+  closeDialog() {
     this.dialog.closeAll();
+  }
+
+  getTour(id: string) {
+    this.http.get("/api/GetTourishPlan/" + id).subscribe((response: any) => {
+      this.tourishPlan = response.data;
+      this.tourSchedule = this.tourishPlan.tourishScheduleList ?? [];
+    });
+  }
+
+  getDateFormat(date: Date) {
+    const isoDateString = date != null ? date.toString() ?? "" : "";
+    // Chuyển đổi chuỗi ISO 8601 thành đối tượng Date
+    const ngayThang = new Date(isoDateString);
+
+    // Lấy ngày, tháng, năm, giờ từ đối tượng Date
+    const day = ngayThang.getDate();
+    const month = ngayThang.getMonth() + 1; // Tháng bắt đầu từ 0
+
+    const chuoiNgayThang = `Ngày ${day} tháng ${month}`;
+
+    return chuoiNgayThang;
   }
 }

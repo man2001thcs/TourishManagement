@@ -1,13 +1,13 @@
 <form>
   <mat-form-field appearance="outline" class="full-width-input">
-    <mat-label>Favorite TourishPlans</mat-label>
+    <mat-label>Chọn tour</mat-label>
     <mat-chip-grid #chipGrid aria-label="Fruit selection">
       <mat-chip-row
         *ngFor="let tourishPlan of tourishPlanNameList"
         (removed)="remove(tourishPlan)"
         style="font-size: 16px"
       >
-        {{ tourishPlan }}
+        {{ onDisplayString(tourishPlan) }}
         <button matChipRemove [attr.aria-label]="'remove ' + tourishPlan">
           <mat-icon>cancel</mat-icon>
         </button>

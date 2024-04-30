@@ -254,9 +254,9 @@ export const SUCCESS_MESSAGE_CODE_EN: Map<string, string> = new Map([
     ["I432", "Service update ok"],
     ["I433", "Service delete ok"],
 
-    ["I511", "Receipt branch add ok"],
-    ["I512", "Receipt branch update ok"],
-    ["I513", "Receipt branch delete ok"],
+    ["I511", "Receipt add ok"],
+    ["I512", "Receipt update ok"],
+    ["I513", "Receipt delete ok"],
 
     ["I601", "Message add ok"],
     ["I602", "Message update ok"],
@@ -317,7 +317,6 @@ export const SUCCESS_MESSAGE_CODE_EN: Map<string, string> = new Map([
     ["I431", "Dịch vụ tour thêm thành công"],
     ["I432", "Dịch vụ tour cập nhật thành công"],
     ["I433", "Dịch vụ tour xóa thành công"],
-
 
     ["I511", "Hóa đơn thêm thành công"],
     ["I512", "Hóa đơn cập nhật thành công"],

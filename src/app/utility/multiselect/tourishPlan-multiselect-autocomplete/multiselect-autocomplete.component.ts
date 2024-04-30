@@ -114,6 +114,7 @@ export class TourishPlanMultiselectAutocompleteComponent implements OnInit {
 
           // New search
           if (this.newSearch || this.currentTotal === state.data.length) {
+            this.data = [];
             if (state.data) this.data = state.data;
             this.newSearch = false;
           } else {
@@ -231,6 +232,11 @@ export class TourishPlanMultiselectAutocompleteComponent implements OnInit {
 
   onDisplayAtr(tourishPlan: TourishPlan): string {
     return "";
+  }
+
+  onDisplayString(input: string): string {
+    if (input.length > 30) return input.substring(0, 30);
+    else return input;
   }
 
   isChecked(tourishPlan: TourishPlan): boolean {

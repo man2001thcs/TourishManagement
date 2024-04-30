@@ -91,7 +91,7 @@ export class HeaderComponent implements OnInit {
             .get("/api/GetTourishPlan", { params: params })
             .pipe(debounceTime(400))
             .subscribe((response: any) => {
-              this.tourList = response.data;
+              if (response) this.tourList = response.data;
             });
 
           this.openAutoCompleteSearch();

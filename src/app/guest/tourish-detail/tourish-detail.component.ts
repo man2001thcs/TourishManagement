@@ -86,7 +86,7 @@ export class TourishDetailComponent implements OnInit {
         "",
         Validators.compose([Validators.required, Validators.minLength(3)]),
       ],
-      scheduleId: ["", Validators.compose([Validators.required])],
+      tourishScheduleId: ["", Validators.compose([Validators.required])],
     });
 
     this.getRatingForTour();
@@ -164,7 +164,7 @@ export class TourishDetailComponent implements OnInit {
         this.tourDescription = this.tourishPlan?.description ?? "";
 
         if (this.tourishPlan?.tourishScheduleList) {
-          this.setTourForm.controls["scheduleId"].setValue(
+          this.setTourForm.controls["tourishScheduleId"].setValue(
             this.tourishPlan?.tourishScheduleList[0].id ?? ""
           );
         }
@@ -253,7 +253,7 @@ export class TourishDetailComponent implements OnInit {
       totalTicket: this.setTourForm.value.totalTicket,
       totalChildTicket: this.setTourForm.value.totalChildTicket,
       tourishPlanId: this.tourishPlanId,
-      scheduleId: this.setTourForm.value.scheduleId,
+      tourishScheduleId: this.setTourForm.value.tourishScheduleId,
     };
 
     this.messageService.openLoadingDialog();

@@ -15,5 +15,9 @@ body {
 
 .full-width-input {
   height: fit-content !important;
-  padding-bottom: 10px !important;
+}
+
+.validation-container {
+  margin-top: -15px !important;
+  margin-bottom: 15px !important;
 }

@@ -148,6 +148,10 @@ export class HeaderUserComponent implements OnDestroy {
     this.router.navigate(["/user/account/info"]);
   }
 
+  tourReceipt() {
+    this.router.navigate(["/user/receipt/list"]);
+  }
+
   async signOut() {
     await this.tokenService.signOut();
     this.router.navigate(["/guest/login"]);

@@ -162,7 +162,7 @@ export class TourishDetailComponent implements OnInit {
         this.tourishPlan = response.data;
 
         this.tourDescription = this.tourishPlan?.description ?? "";
-
+        this.getVehicleFlag();
         if (this.tourishPlan?.tourishScheduleList) {
           this.setTourForm.controls["tourishScheduleId"].setValue(
             this.tourishPlan?.tourishScheduleList[0].id ?? ""

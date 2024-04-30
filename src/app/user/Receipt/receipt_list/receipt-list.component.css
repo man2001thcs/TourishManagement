@@ -1,0 +1,45 @@
+.addContainer {
+  margin-bottom: 15px;
+}
+
+.table-responsive {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.element-row {
+  position: relative;
+}
+
+tr.example-detail-row {
+  height: 0;
+}
+
+.element-row:not(.expanded) {
+  cursor: pointer;
+}
+
+.element-row:not(.expanded):hover {
+  background: #f5f5f5;
+}
+
+.element-row.expanded {
+  border-bottom-color: transparent;
+}
+
+.receipt-info {
+  padding: 20px 20px 0px;
+  min-width: 160px;
+  text-wrap: wrap;
+}
+
+.receipt-button {
+  padding: 20px 20px 0px;
+  width: 70px;
+  text-wrap: wrap;
+}
+
+.receipt-info span {
+  text-wrap: wrap;
+}

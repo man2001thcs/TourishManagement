@@ -53,6 +53,8 @@ export class MessageService {
         this_announce = "Bạn không có thẩm quyền để thực hiện hành động này";
       } else if (httpStatus.status == "504") {
         this_announce = "Mất kết nối với server, vui lòng thử lại sau";
+      }  else if (httpStatus.status == "0") {
+        this_announce = "Lỗi không xác định";
       }
     }
 

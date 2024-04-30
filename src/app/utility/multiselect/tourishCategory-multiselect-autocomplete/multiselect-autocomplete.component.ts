@@ -147,10 +147,12 @@ export class TourishCategoryMultiselectAutocompleteComponent implements OnInit {
     );
 
     this.subscriptions.push(
-      this.errorSystemState.subscribe((state: any) => {
+      this.errorSystemState.subscribe((state) => {
         if (state) {
-          this.messageService.closeLoadingDialog();
-          this.messageService.openFailNotifyDialog(state.message);
+          if (state !== "" && state !== null) {
+            this.messageService.closeAllDialog();
+            this.messageService.openSystemFailNotifyDialog(state);
+          }
         }
       })
     );

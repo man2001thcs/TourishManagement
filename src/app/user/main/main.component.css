@@ -13,7 +13,6 @@
   padding-right: 0px !important;
   padding-left: 0px !important;
   position: relative;
-  min-height: 600px !important;
 }
 
 .outer-chat-container {
@@ -36,3 +35,23 @@ app-chat {
 app-footer {
   z-index: 0;
 }
+
+
+.validation-container {
+  margin-top: -15px !important;
+  margin-bottom: 15px !important;
+}
+
+
+@media only screen and (min-width: 1080px) {
+  .container-fluid {
+    min-height: 700px !important;
+  }
+}
+
+@media only screen and (max-width: 720px) {
+  .container-fluid {
+    min-height: 550px !important;
+  }
+}
+

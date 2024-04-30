@@ -21,8 +21,6 @@ import {
 } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { Book } from "src/app/model/book";
-import { AdminService } from "../../service/admin.service";
-import { CheckDeactivate } from "../../interface/admin.check_edit";
 import { ReceiptParam } from "./receipt-detail.component.model";
 
 import * as ReceiptActions from "./receipt-detail.store.action";
@@ -35,7 +33,11 @@ import {
   getSysError,
 } from "./receipt-detail.store.selector";
 import { MessageService } from "src/app/utility/user_service/message.service";
-import { FullReceipt, TotalReceipt, TourishPlan } from "src/app/model/baseModel";
+import {
+  FullReceipt,
+  TotalReceipt,
+  TourishPlan,
+} from "src/app/model/baseModel";
 import { HttpClient } from "@angular/common/http";
 
 @Component({
@@ -43,7 +45,7 @@ import { HttpClient } from "@angular/common/http";
   templateUrl: "./receipt-detail.component.html",
   styleUrls: ["./receipt-detail.component.css"],
 })
-export class ReceiptDetailComponent implements OnInit, OnDestroy {
+export class ReceiptUserDetailComponent implements OnInit, OnDestroy {
   isEditing: boolean = true;
   isSubmitted = false;
   receipt: FullReceipt = {
@@ -78,7 +80,6 @@ export class ReceiptDetailComponent implements OnInit, OnDestroy {
   tourishPlan!: TourishPlan;
 
   constructor(
-    private adminService: AdminService,
     private dialog: MatDialog,
     private fb: FormBuilder,
     private store: Store<ReceiptState>,
@@ -95,9 +96,7 @@ export class ReceiptDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.editformGroup_info = this.fb.group({
-      fullReceiptId: [
-        this.data.id      
-      ],
+      fullReceiptId: [this.data.id],
       totalReceiptId: ["", Validators.compose([Validators.required])],
       tourishScheduleId: ["", Validators.compose([Validators.required])],
       guestName: ["", Validators.compose([Validators.required])],
@@ -184,12 +183,10 @@ export class ReceiptDetailComponent implements OnInit, OnDestroy {
     );
 
     this.subscriptions.push(
-      this.errorSystemState.subscribe((state) => {
+      this.errorSystemState.subscribe((state: any) => {
         if (state) {
-          if (state !== "" && state !== null) {
-            this.messageService.closeAllDialog();
-            this.messageService.openSystemFailNotifyDialog(state);
-          }
+          this.messageService.closeLoadingDialog();
+          this.messageService.openSystemFailNotifyDialog(state.message);
         }
       })
     );
@@ -218,11 +215,9 @@ export class ReceiptDetailComponent implements OnInit, OnDestroy {
   }
 
   getTour(id: string) {
-    this.http
-      .get("/api/GetTourishPlan/" + id)
-      .subscribe((response: any) => {
-        this.tourishPlan = response.data;
-      });
+    this.http.get("/api/GetTourishPlan/" + id).subscribe((response: any) => {
+      this.tourishPlan = response.data;
+    });
   }
 
   formReset(): void {
@@ -252,7 +247,7 @@ export class ReceiptDetailComponent implements OnInit, OnDestroy {
     this.isSubmitted = true;
 
     console.log(this.editformGroup_info.value);
-    if (this.editformGroup_info.valid){
+    if (this.editformGroup_info.valid) {
       const payload: FullReceipt = {
         totalReceiptId: this.receipt.totalReceiptId,
         fullReceiptId: this.data.id,
@@ -269,7 +264,7 @@ export class ReceiptDetailComponent implements OnInit, OnDestroy {
         description: this.editformGroup_info.value.description,
         status: parseInt(this.editformGroup_info.value.status),
       };
-  
+
       this.store.dispatch(
         ReceiptActions.editReceipt({
           payload: payload,
@@ -277,7 +272,6 @@ export class ReceiptDetailComponent implements OnInit, OnDestroy {
       );
       this.messageService.openLoadingDialog();
     }
-    
   }
 
   saveInfomation(): void {
@@ -294,14 +288,12 @@ export class ReceiptDetailComponent implements OnInit, OnDestroy {
 
   selectChangeReceipt($event: any): any {
     console.log($event);
-    this.editformGroup_info.controls["tourishPlanId"].setValue(
-      $event.data[0]
-    );
+    this.editformGroup_info.controls["tourishPlanId"].setValue($event.data[0]);
 
     console.log(this.editformGroup_info.value);
   }
 
-  closeDialog(){
+  closeDialog() {
     this.dialog.closeAll();
   }
 

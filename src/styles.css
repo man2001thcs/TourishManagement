@@ -22,3 +22,8 @@ body {
   margin-top: -15px !important;
   margin-bottom: 15px !important;
 }
+
+.row {
+  margin-left: 30px !important;
+  margin-right: 0 !important;
+}

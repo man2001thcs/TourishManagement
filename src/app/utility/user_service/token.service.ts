@@ -19,6 +19,14 @@ interface CartItem {
   quantity: number;
 }
 
+export enum UserRole {
+  New = 0,
+  User = 1,
+  AdminTemp = 2,
+  Admin = 3,
+  AdminManager = 4,
+}
+
 @Injectable({
   providedIn: "root",
 })
@@ -147,6 +155,28 @@ export class TokenStorageService {
       },
       httpOptions
     );
+  }
+
+  getUserRoleInNumber(): number {
+    const user = window.sessionStorage.getItem(USER_KEY);
+    var role = "";
+    if (user) {
+      role = JSON.parse(user).Role;
+    }
+    switch (role.toLowerCase()) {
+      case "new":
+        return UserRole.New;
+      case "user":
+        return UserRole.User;
+      case "admintemp":
+        return UserRole.AdminTemp;
+      case "admin":
+        return UserRole.Admin;
+      case "adminmanager":
+        return UserRole.AdminManager;
+      default:
+        throw new Error("Invalid user role");
+    }
   }
 
   // public roleMatch(allowedRoles): boolean {

@@ -213,6 +213,7 @@ export class AccountInfoComponent implements OnInit, OnDestroy {
           email: this.editformGroup_info.value.email,
           address: this.editformGroup_info.value.address,
           fullName: this.editformGroup_info.value.fullName,
+          role: this.tokenStorageService.getUserRoleInNumber(),
           phase: "" 
         };
 
@@ -229,6 +230,7 @@ export class AccountInfoComponent implements OnInit, OnDestroy {
           userName: this.tokenStorageService.getUser().UserName,
           password: this.editformGroup_info.value.password,
           newPassword: this.editformGroup_info.value.newPassword,
+          role: this.tokenStorageService.getUserRoleInNumber(),
           phase: "Password"      
         };
 

@@ -18,7 +18,7 @@ import {
 } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 
-import { TourishCategoryRelation, TourishPlan } from "src/app/model/baseModel";
+import { TourishCategoryRelation, TourishPlan, TourishSchedule } from "src/app/model/baseModel";
 
 import { AdminService } from "../../service/admin.service";
 import { CheckDeactivate } from "../../interface/admin.check_edit";
@@ -72,6 +72,7 @@ export class TourishPlanCreateAdminComponent
   categoryListState!: Observable<any>;
 
   subscriptions: Subscription[] = [];
+  scheduleList: TourishSchedule[] = [];
 
   constructor(
     private adminService: AdminService,
@@ -404,6 +405,11 @@ export class TourishPlanCreateAdminComponent
     this.createformGroup.controls["movingScheduleString"].setValue(
       this.movingScheduleString
     );
+  };
+
+  selectChangeSchedule = (event: any) => {
+    console.log(event.data);
+    this.scheduleList = event.data;
   };
 
   getJsonList(listString: string) {

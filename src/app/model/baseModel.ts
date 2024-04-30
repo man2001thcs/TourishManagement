@@ -186,7 +186,7 @@ export interface TourishPlan {
 
 export interface TourishSchedule {
   id?: string;
-  tourishPlanId: string;
+  tourishPlanId?: string;
   planStatus: number;
   startDate: Date;
   endDate: Date;

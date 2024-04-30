@@ -50,7 +50,6 @@ export class TourScheduleMultiselectAutocompleteComponent implements OnInit {
   data_selected_edit: TourishSchedule[] = [];
   scheduleList: TourishSchedule[] = [];
 
-
   scheduleEdit: TourishSchedule | null = null;
   indexTourishScheduleEdit: number = -1;
 
@@ -136,11 +135,12 @@ export class TourScheduleMultiselectAutocompleteComponent implements OnInit {
 
     if (this.scheduleFormGroup.valid && this.scheduleFormGroup.dirty) {
       const schedule: TourishSchedule = {
-        tourishPlanId: this.tourishPlanId,
         startDate: this.scheduleFormGroup.value.startDate,
         endDate: this.scheduleFormGroup.value.endDate,
         planStatus: parseInt(this.scheduleFormGroup.value.planStatus),
       };
+      if (this.tourishPlanId.length > 0)
+        schedule.tourishPlanId = this.tourishPlanId;
 
       this.scheduleList = [schedule, ...this.scheduleList];
 
@@ -180,12 +180,14 @@ export class TourScheduleMultiselectAutocompleteComponent implements OnInit {
     if (this.indexTourishScheduleEdit > -1 && this.scheduleEdit != null) {
       this.data_selected_edit[this.indexTourishScheduleEdit] = {
         id: this.scheduleEdit.id,
-        tourishPlanId: this.scheduleEdit.tourishPlanId,
         startDate: this.editScheduleFormGroup.value.startDate,
         endDate: this.editScheduleFormGroup.value.endDate,
         planStatus: parseInt(this.editScheduleFormGroup.value.planStatus),
         createDate: this.editScheduleFormGroup.value.createDate,
       };
+      if (this.tourishPlanId.length > 0)
+        this.data_selected_edit[this.indexTourishScheduleEdit].tourishPlanId =
+          this.tourishPlanId;
 
       this.messageService
         .openNotifyDialog("Thay đổi thành công")
@@ -249,7 +251,6 @@ export class TourScheduleMultiselectAutocompleteComponent implements OnInit {
   }
 
   getStatusPhase(statusNumber: string): string {
-
     switch (parseInt(statusNumber)) {
       case 0:
         return "Chờ xác nhận";
@@ -266,7 +267,7 @@ export class TourScheduleMultiselectAutocompleteComponent implements OnInit {
     }
   }
 
-  onClickAddButton(){
+  onClickAddButton() {
     console.log("here");
     this.isNewEdited = !this.isNewEdited;
   }

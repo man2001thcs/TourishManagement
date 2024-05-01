@@ -1,36 +1,34 @@
 <div class="container">
-  <app-image-slider
-    [indicatorsVisible]="true"
-    [animationSpeed]="400"
-    [slides]="slides"
-    [autoPlay]="true"
-    [autoPlaySpeed]="6000"
-  ></app-image-slider>
-
   <div class="below-title">
     <span
-      ><i class="fa fa-location-arrow" aria-hidden="true"></i> {{this.schedule?.headingPlace}}</span
+      ><i class="fa fa-map-marker" aria-hidden="true"></i> Điểm bắt đầu:
+      <span style="font-weight: lighter">{{
+        this.schedule?.startingPlace
+      }}</span></span
     >
-    <span><i class="fa fa-clock-o" aria-hidden="true"></i> {{getDuration()}}</span>
-    <span>
-      <i class="fa fa-bus" aria-hidden="true"  *ngIf="isMovingContactPresent"></i>
-      <i class="fa fa-plane" aria-hidden="true"  *ngIf="isPlanePresent"></i>
-      <i class="fa fa-train" aria-hidden="true"  *ngIf="isTrainPresent"></i>
-    </span>
+    <span
+      ><i class="fa fa-location-arrow" aria-hidden="true"></i> Điểm đến:
+      <span style="font-weight: lighter">{{
+        this.schedule?.headingPlace
+      }}</span></span
+    >
 
-    <span id="rating">
-      <button
-        mat-icon-button
-        #ratingButton
-        *ngFor="let ratingId of ratingArr; index as i"
-        [id]="'star_' + i"
-        [matTooltip]="(ratingId + 1).toString()"
-        matTooltipPosition="above"
-      >
-        <mat-icon [ngStyle]="{ color: '#F5C000' }">
-          {{ showIcon(i) }}
-        </mat-icon>
-      </button>
+    <span
+      ><i class="fa fa-calendar" aria-hidden="true"></i>
+      {{ getDateFormat(schedule?.startDate) }}</span
+    >
+    <span
+      ><i class="fa fa-clock-o" aria-hidden="true"></i>
+      {{ getDuration() }}</span
+    >
+    <span>
+      <i
+        class="fa fa-bus"
+        aria-hidden="true"
+        *ngIf="isMovingContactPresent"
+      ></i>
+      <i class="fa fa-plane" aria-hidden="true" *ngIf="isPlanePresent"></i>
+      <i class="fa fa-train" aria-hidden="true" *ngIf="isTrainPresent"></i>
     </span>
   </div>
 
@@ -38,7 +36,7 @@
     <app-tiny-mce-editor
       style="width: 90% !important"
       [blobName]="this.scheduleId"
-      [containerName]="'tourish-content-container'"
+      [containerName]="getContainerName()"
       [editable]="false"
     ></app-tiny-mce-editor>
   </div>
@@ -58,7 +56,7 @@
         <div class="price-container">
           <p>
             <span style="font-weight: bold">Tổng giá:</span>
-            {{ getTotalPrice() }}. 
+            {{ getTotalPrice() }}.
           </p>
         </div>
       </mat-tab>

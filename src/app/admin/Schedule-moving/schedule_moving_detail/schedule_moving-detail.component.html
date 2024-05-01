@@ -38,7 +38,6 @@
         display: flex;
         flex-direction: column !important;
         flex-wrap: 1;
-        padding-left: 90px !important;
       "
     >
       <form [formGroup]="editformGroup_info">
@@ -79,7 +78,7 @@
 
             <div class="row" style="margin-bottom: 1rem; width: 100%">
               <app-moving-contact-select-autocomplete
-                style="width: 100%"
+                style="width: 88%"
                 [data_selected]="undefined"
                 [type]="vehicleType"
                 (result)="selectSchedule($event.data)"

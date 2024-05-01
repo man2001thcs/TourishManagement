@@ -33,6 +33,7 @@ export class TourishPlanCardComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.getTourImage();
+    this.getRatingForTour();
   }
 
   getRateString(input: number) {
@@ -64,11 +65,11 @@ export class TourishPlanCardComponent implements OnInit {
   }
 
   getRateColor(input: number) {
-    if (0 <= input && 5 > input) {
+    if (0 <= input && 2.5 > input) {
       return "#d31818";
-    } else if (5 <= input && 8 > input) {
+    } else if (2.5 <= input && 4 > input) {
       return "#F79321";
-    } else if (8 <= input && 10 >= input) {
+    } else if (4 <= input && 5 >= input) {
       return "#9fc43a";
     }
     return "";

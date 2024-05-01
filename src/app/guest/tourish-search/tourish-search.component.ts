@@ -29,6 +29,8 @@ export class TourishSearchComponent implements OnInit {
 
   color: ThemePalette = "primary";
 
+  categoryArray: string[] = [];
+
   priceRange: PriceRange[] = [
     { startPrice: 0, endPrice: 20000000 },
     { startPrice: 20000000, endPrice: 50000000 },
@@ -44,6 +46,7 @@ export class TourishSearchComponent implements OnInit {
   priceTo = 20000000;
   priceFrom = 0;
   categoryString = "";
+  search = "";
 
   constructor(
     private fb: FormBuilder,
@@ -60,32 +63,42 @@ export class TourishSearchComponent implements OnInit {
 
     this.subscriptions.push(
       this._route.queryParamMap.subscribe((query) => {
+        if (query.get("search")) {
+          this.search = query.get("search") ?? "";
+        }
+
+        if (query.get("category")) {
+          this.categoryArray = [query.get("category") ?? ""];
+          this.categoryString = JSON.stringify(this.categoryArray);
+        }
+
         if (query.get("startingPoint")) {
           const startingPoint = query.get("startingPoint") ?? "";
+          this.startingPoint = startingPoint;
           this.setTourForm.controls["startingPoint"].setValue(startingPoint);
         }
 
-        if (query.get("endpoint")) {
-          const endpoint = query.get("endpoint") ?? "";
-
-          this.setTourForm.controls["endpoint"].setValue(endpoint);
+        if (query.get("endPoint")) {
+          const endpoint = query.get("endPoint") ?? "";
+          this.endPoint = endpoint;
+          this.setTourForm.controls["endPoint"].setValue(endpoint);
         }
 
         if (query.get("priceFrom")) {
           const priceFrom = query.get("priceFrom") ?? "";
-
+          this.priceFrom = parseInt(priceFrom);
           this.setTourForm.controls["priceFrom"].setValue(priceFrom);
         }
 
         if (query.get("priceTo")) {
           const priceTo = query.get("priceTo") ?? "";
-
+          this.priceTo = parseInt(priceTo);
           this.setTourForm.controls["priceTo"].setValue(priceTo);
         }
 
         if (query.get("startingDate")) {
           const startingDate = query.get("startingDate") ?? "";
-
+          this.startingDate = startingDate;
           this.setTourForm.controls["startingDate"].setValue(startingDate);
         }
       })

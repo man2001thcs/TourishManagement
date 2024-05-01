@@ -6,19 +6,6 @@
 <div class="container-fluid" #header>
   <!-- Nav tabs -->
   <div style="display: flex; flex-direction: row; align-items: center">
-    <button
-      mat-button
-      ghost
-      (click)="navMenuClick()"
-      style="margin-right: 10px"
-    >
-      <i
-        class="fa fa-bars"
-        style="font-size: 22px; color: rgb(105, 104, 104)"
-        aria-hidden="true"
-      ></i>
-    </button>
-
     <img
       src="{{ getBlobUrl() + '/start-container/tour_logo.png' }}"
       class="img-logo"
@@ -66,9 +53,9 @@
 
     <button mat-button [matMenuTriggerFor]="menu">
       <i
-        class="fa fa-user"
+        class="fa fa-sign-in"
         aria-hidden="true"
-        style="font-size: 22px; color: rgb(105, 104, 104)"
+        style="font-size: 30px; color: rgb(105, 104, 104)"
       ></i>
     </button>
   </div>
@@ -114,7 +101,7 @@
           white-space: nowrap;
         "
       >
-        Danh mục quản lý
+        Menu
       </h6>
 
       <button
@@ -144,7 +131,7 @@
                   color: whitesmoke;
                 "
               >
-                Kế hoạch du lịch
+                Thể loại tour
               </h6>
             </mat-panel-title>
           </mat-expansion-panel-header>
@@ -155,206 +142,15 @@
             class="nav-pills flex-column"
             orientation="vertical"
           >
-            <ng-container ngbNavItem="2nd">
-              <button ngbNavLink (click)="navigateUrl('tourish-plan/create')">
-                Tạo mới
-              </button>
-            </ng-container>
-
-            <ng-container ngbNavItem="1st">
-              <button ngbNavLink (click)="navigateUrl('tourish-plan/list')">
-                Danh sách
-              </button>
-            </ng-container>
-            <ng-container ngbNavItem="10th">
-              <button ngbNavLink (click)="navigateUrl('tour/category/list')">
-                Thể loại
-              </button>
-            </ng-container>
-          </div>
-        </mat-expansion-panel>
-      </div>
-
-      <div class="sidenavCategory">
-        <mat-expansion-panel expanded>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <h6
-                style="
-                  font-size: 16px;
-                  padding-bottom: 0 !important;
-                  font-weight: bold;
-                  margin-bottom: 0 !important;
-                  color: whitesmoke;
-                "
-              >
-                Đối tác DV di chuyển
-              </h6>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <div
-            ngbNav
-            #nav="ngbNav"
-            [(activeId)]="activeItem"
-            class="nav-pills flex-column"
-            orientation="vertical"
-          >
-            <ng-container ngbNavItem="3rd">
+            <ng-container
+              ngbNavItem="{{ category.id }}"
+              *ngFor="let category of categoryList"
+            >
               <button
                 ngbNavLink
-                (click)="navigateUrl('transport/passenger-car/list')"
+                (click)="navigateCategoryUrl('search-page', category.name)"
               >
-                Xe khách
-              </button>
-            </ng-container>
-
-            <ng-container ngbNavItem="4th">
-              <button
-                ngbNavLink
-                (click)="navigateUrl('transport/air-plane/list')"
-              >
-                Máy bay
-              </button>
-            </ng-container>
-          </div>
-        </mat-expansion-panel>
-      </div>
-
-      <div class="sidenavCategory">
-        <mat-expansion-panel expanded>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <h6
-                style="
-                  font-size: 16px;
-                  padding-bottom: 0 !important;
-                  font-weight: bold;
-                  margin-bottom: 0 !important;
-                  color: whitesmoke;
-                "
-              >
-                Đối tác DV nơi ở
-              </h6>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <div
-            ngbNav
-            #nav="ngbNav"
-            [(activeId)]="activeItem"
-            class="nav-pills flex-column"
-            orientation="vertical"
-          >
-            <ng-container ngbNavItem="5th">
-              <button ngbNavLink (click)="navigateUrl('resthouse/hotel/list')">
-                Hotel
-              </button>
-            </ng-container>
-
-            <ng-container ngbNavItem="6th">
-              <button
-                ngbNavLink
-                (click)="navigateUrl('resthouse/RestHouseContact/list')"
-              >
-                RestHouseContact
-              </button>
-            </ng-container>
-          </div>
-        </mat-expansion-panel>
-      </div>
-
-      <div class="sidenavCategory">
-        <mat-expansion-panel expanded>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <h6
-                style="
-                  font-size: 16px;
-                  padding-bottom: 0 !important;
-                  font-weight: bold;
-                  margin-bottom: 0 !important;
-                  color: whitesmoke;
-                "
-              >
-                Đối tác DV ăn uống
-              </h6>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <div
-            ngbNav
-            #nav="ngbNav"
-            [(activeId)]="activeItem"
-            class="nav-pills flex-column"
-            orientation="vertical"
-          >
-            <ng-container ngbNavItem="7th">
-              <button ngbNavLink (click)="navigateUrl('restaurant/list')">
-                Nhà hàng
-              </button>
-            </ng-container>
-          </div>
-        </mat-expansion-panel>
-      </div>
-
-      <div class="sidenavCategory">
-        <mat-expansion-panel expanded>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <h6
-                style="
-                  font-size: 16px;
-                  padding-bottom: 0 !important;
-                  font-weight: bold;
-                  margin-bottom: 0 !important;
-                  color: whitesmoke;
-                "
-              >
-                Hóa đơn
-              </h6>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <div
-            ngbNav
-            #nav="ngbNav"
-            [(activeId)]="activeItem"
-            class="nav-pills flex-column"
-            orientation="vertical"
-          >
-            <ng-container ngbNavItem="8th">
-              <button ngbNavLink (click)="navigateUrl('receipt/list')">
-                Danh sách hóa đơn
-              </button>
-            </ng-container>
-          </div>
-        </mat-expansion-panel>
-      </div>
-
-      <div class="sidenavCategory">
-        <mat-expansion-panel expanded>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <h6
-                style="
-                  font-size: 16px;
-                  padding-bottom: 0 !important;
-                  font-weight: bold;
-                  margin-bottom: 0 !important;
-                  color: whitesmoke;
-                "
-              >
-                Nhân viên
-              </h6>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <div
-            ngbNav
-            #nav="ngbNav"
-            [(activeId)]="activeItem"
-            class="nav-pills flex-column"
-            orientation="vertical"
-          >
-            <ng-container ngbNavItem="9th">
-              <button ngbNavLink (click)="navigateUrl('user/list')">
-                Danh sách nhân viên
+                {{ category.name }}
               </button>
             </ng-container>
           </div>

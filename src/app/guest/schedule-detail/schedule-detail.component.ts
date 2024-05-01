@@ -72,7 +72,8 @@ export class ScheduleDetailComponent implements OnInit {
   ngOnInit() {
     this.scheduleId = this._route.snapshot.paramMap.get("id") ?? "";
 
-    this.scheduleType = this._route.snapshot.paramMap.get("scheduleType") ?? "";
+    this.scheduleType =
+      this._route.snapshot.queryParamMap.get("schedule-type") ?? "";
 
     for (let index = 0; index < 5; index++) {
       this.ratingArr.push(index);
@@ -96,7 +97,6 @@ export class ScheduleDetailComponent implements OnInit {
       ],
     });
 
-    this.getRatingForSchedule();
     this.getScheduleImage();
     this.getSchedule();
     this.getAccount();
@@ -267,26 +267,35 @@ export class ScheduleDetailComponent implements OnInit {
       });
   }
 
-  getRatingForSchedule() {
-    const payload = {
-      scheduleId: this.scheduleId,
-    };
-
-    this.http
-      .get("/api/GetScheduleRating/schedule", { params: payload })
-      .subscribe((state: any) => {
-        if (state) {
-          console.log("abc", state);
-          this.ratingAverage = state.averagePoint;
-        }
-      });
-  }
-
   showIcon(index: number) {
     if (this.ratingAverage >= index + 1) {
       return "star";
     } else {
       return "star_border";
     }
+  }
+
+  getDateFormat(date: Date) {
+    const isoDateString = date != null ? date.toString() ?? "" : "";
+    // Chuyển đổi chuỗi ISO 8601 thành đối tượng Date
+    const ngayThang = new Date(isoDateString);
+
+    // Lấy ngày, tháng, năm, giờ từ đối tượng Date
+    const day = ngayThang.getDate();
+    const month = ngayThang.getMonth() + 1; // Tháng bắt đầu từ 0
+    const year = ngayThang.getFullYear();
+    const hour = ngayThang.getHours();
+    const minute = ngayThang.getHours();
+
+    const chuoiNgayThang = `Ngày ${day} tháng ${month}`;
+
+    return chuoiNgayThang;
+  }
+
+  getContainerName() {
+    if (parseInt(this.scheduleType) === 0) return "eatschedule-content-container";
+    else if (parseInt(this.scheduleType) === 1) return "movingschedule-content-container";
+    else if (parseInt(this.scheduleType) === 2) return "stayingschedule-content-container";
+    return "";
   }
 }

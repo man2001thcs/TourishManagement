@@ -12,13 +12,27 @@
     <div
       class="row"
       style="
-        margin-left: 5px;
+        margin-left: 0 !important;
         display: flex;
-        flex-direction: row;
+        flex-direction: row-reverse;
         align-items: center;
         width: 100%;
       "
     >
+      
+
+      <p class="tour-judge" *ngIf="judgeNumber > 0">
+        {{ " " + judgeNumber }} đánh giá
+      </p>
+      <p class="tour-judge" style="margin-right: 7px" *ngIf="judgeNumber > 0">
+        |
+      </p>
+      <p
+        class="tour-judge"
+        style="margin-right: 7px; font-style: italic; font-weight: bold"
+      >
+        {{ getRateString(score) }}
+      </p>
       <mat-card
         *ngIf="judgeNumber > 0"
         style="
@@ -32,20 +46,12 @@
         [ngStyle]="{ 'background-color': getRateColor(score) }"
         >{{ score }}</mat-card
       >
-      <p
-        class="tour-judge"
-        style="margin-right: 7px; font-style: italic; font-weight: bold"
-      >
-        {{ getRateString(score) }}
-      </p>
-      <p class="tour-judge" style="margin-right: 7px" *ngIf="judgeNumber > 0">|</p>
-      <p class="tour-judge" *ngIf="judgeNumber > 0">{{ judgeNumber }} đánh giá</p>
     </div>
 
     <div
       class="row"
       style="
-        margin-left: 5px;
+        margin-left: 0 !important;
         display: flex;
         flex-direction: row-reverse;
         align-items: center;

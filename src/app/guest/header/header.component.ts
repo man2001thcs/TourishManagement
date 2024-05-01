@@ -17,10 +17,11 @@ import { NbDialogService } from "@nebular/theme";
 import { Observable, Subscription, debounceTime } from "rxjs";
 import { UserService } from "src/app/utility/user_service/user.service";
 import { MessageService } from "src/app/utility/user_service/message.service";
-import { Router } from "@angular/router";
+import { NavigationExtras, Router } from "@angular/router";
 import { environment } from "src/environments/environment";
-import { TourishPlan } from "src/app/model/baseModel";
+import { TourishCategory, TourishPlan } from "src/app/model/baseModel";
 import { HttpClient } from "@angular/common/http";
+import { Category } from "src/app/model/book";
 
 @Component({
   selector: "app-guest-header",
@@ -41,6 +42,8 @@ export class HeaderComponent implements OnInit {
 
   @Output() checkNavOpen = new EventEmitter<boolean>();
   tourList: TourishPlan[] = [];
+  categoryList: TourishCategory[] = [];
+  categoryLength = 0;
 
   addNewItem(value: boolean) {
     this.checkNavOpen.emit(value);
@@ -74,6 +77,8 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getCategory();
+    
     this.searchFormGroup = new FormGroup({
       search: new FormControl(),
     });
@@ -151,10 +156,10 @@ export class HeaderComponent implements OnInit {
   }
 
   closeNav() {
-    this.myNameElem.nativeElement.style.width = "60px";
+    this.myNameElem.nativeElement.style.width = "70px";
     this.myNameElem.nativeElement.style["margin-right"] = "0px";
     this.myNameElem.nativeElement.style["margin-top"] = "0px";
-    this.myNameElem.nativeElement.style["padding-left"] = "20px";
+    this.myNameElem.nativeElement.style["padding-left"] = "10px";
     this.myNameElem.nativeElement.style["padding-right"] = "0px";
     this.myNameElem.nativeElement.style["border-bottom"] = "0px solid #EDF1F7";
     this.myNameElem.nativeElement.style["border-left"] = "0px solid #EDF1F7";
@@ -225,6 +230,13 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(["guest/" + url]);
   }
 
+  async navigateCategoryUrl(url: string, category: string) {
+    let navigationExtras: NavigationExtras = {
+      queryParams: { 'category': category } // Replace 'key' and 'value' with your actual query parameters
+    };
+    this.router.navigate(["guest/" + url], navigationExtras);
+  }
+
   getBlobUrl() {
     return environment.backend.blobURL;
   }
@@ -245,5 +257,20 @@ export class HeaderComponent implements OnInit {
     });
 
     return totalPrice;
+  }
+
+  getCategory() {
+    const params = {
+      page: 1,
+      pageSize: 6,
+    };
+
+    this.http
+      .get("/api/GetTourCategory", { params: params })
+      .subscribe((response: any) => {
+        this.categoryList = response.data;
+        console.log(response);
+        this.categoryLength = response.count;
+      });
   }
 }

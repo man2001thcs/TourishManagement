@@ -14,7 +14,7 @@
           </mat-selection-list>
           <mat-divider></mat-divider>
           <h4>Thể loại</h4>
-          <mat-selection-list (selectionChange)=" categoryChange($event)">
+          <mat-selection-list (selectionChange)=" categoryChange($event)" [ngModel]="this.categoryArray">
             <mat-list-option *ngFor="let category of this.categoryList" [value]="category.name">{{
               category.name
             }}</mat-list-option>

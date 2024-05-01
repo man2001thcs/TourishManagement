@@ -68,8 +68,8 @@ export class TourishMainComponent implements OnInit {
       startingDate: this.setTourForm.value.startingDate,
     };
     if (this.tokenStorageService.getUserRole() === "User") {
-      this.router.navigate(["guest/search-page"], { queryParams: params });
+      this.router.navigate(["user/search-page"], { queryParams: params });
     }
-    this.router.navigate(["user/search-page"], { queryParams: params });
+    this.router.navigate(["guest/search-page"], { queryParams: params });
   }
 }

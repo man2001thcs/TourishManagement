@@ -15,6 +15,7 @@ import { TourishMainComponent } from "../tourish-main/tourish-main.component";
 import { ReclaimUserComponent } from "../log/reclaim/reclaim.component";
 import { TourishSearchComponent } from "../tourish-search/tourish-search.component";
 import { ScheduleSearchComponent } from "../schedule-search/schedule-search.component";
+import { ScheduleDetailComponent } from "../schedule-detail/schedule-detail.component";
 
 const routes: Routes = [
   {
@@ -56,6 +57,10 @@ const routes: Routes = [
       {
         path: "service-search-page",
         component: ScheduleSearchComponent,
+      },
+      {
+        path: "service/:id/detail",
+        component: ScheduleDetailComponent,
       },
     ],
   },

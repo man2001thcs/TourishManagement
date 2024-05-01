@@ -16,7 +16,7 @@ import {
   Validators,
 } from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
-import { NavigationEnd, Router } from "@angular/router";
+import { NavigationEnd, NavigationExtras, Router } from "@angular/router";
 import { Observable, Subscription } from "rxjs";
 import { TokenStorageService } from "src/app/utility/user_service/token.service";
 import { UserService } from "src/app/utility/user_service/user.service";
@@ -26,7 +26,7 @@ import { getHeaderPhase } from "src/app/utility/config/headerCode";
 import { environment } from "src/environments/environment";
 import { HttpClient } from "@angular/common/http";
 import { FileModel } from "src/app/utility/image_avatar_service/imageUpload.component.model";
-import { TourishPlan } from "src/app/model/baseModel";
+import { TourishCategory, TourishPlan } from "src/app/model/baseModel";
 
 @Component({
   selector: "app-user-header",
@@ -66,6 +66,8 @@ export class HeaderUserComponent implements OnDestroy {
   countSearchClick = 0;
   subscriptions: Subscription[] = [];
   tourList: TourishPlan[] = [];
+  categoryList: TourishCategory[] = [];
+  categoryLength = 0;
 
   constructor(
     private dialog: MatDialog,
@@ -83,6 +85,8 @@ export class HeaderUserComponent implements OnDestroy {
   id = 0;
 
   ngOnInit(): void {
+    this.getCategory();
+
     this.id = Number(localStorage.getItem("id")) ?? 0;
     console.log(localStorage.getItem("id"));
     this.showNotification();
@@ -115,7 +119,7 @@ export class HeaderUserComponent implements OnDestroy {
     });
 
     this.subscriptions.push(
-      this.filteredInput.subscribe((state) => {       
+      this.filteredInput.subscribe((state) => {
         if (state) {
           const params = {
             page: 1,
@@ -162,7 +166,7 @@ export class HeaderUserComponent implements OnDestroy {
     //   this.countNavClick++;
     //   console.log(this.countNavClick);
     //   if (this.countNavClick >= 2) this.closeNav();
-    // } 
+    // }
   }
 
   outsideNotificationClick(hasClickedOutside: any) {
@@ -213,7 +217,7 @@ export class HeaderUserComponent implements OnDestroy {
   }
 
   closeNav() {
-    this.myNameElem.nativeElement.style.width = "60px";
+    this.myNameElem.nativeElement.style.width = "70px";
     this.myNameElem.nativeElement.style["margin-right"] = "0px";
     this.myNameElem.nativeElement.style["margin-top"] = "0px";
     this.myNameElem.nativeElement.style["padding-left"] = "0px";
@@ -239,9 +243,14 @@ export class HeaderUserComponent implements OnDestroy {
       this.nottifyTabElem.nativeElement.style["padding-right"] = "10px";
       this.nottifyTabElem.nativeElement.style["border-bottom"] =
         "2px solid #EDF1F7";
-      this.nottifyTabElem.nativeElement.style["border-right"] = "2px solid #EDF1F7";
+      this.nottifyTabElem.nativeElement.style["border-right"] =
+        "2px solid #EDF1F7";
     } else {
-      this.renderer.setStyle(this.nottifyTabElem.nativeElement, "width", "100%");
+      this.renderer.setStyle(
+        this.nottifyTabElem.nativeElement,
+        "width",
+        "100%"
+      );
       //this.myNameElem.nativeElement.style.width = "100%";
       this.nottifyTabElem.nativeElement.style["margin-top"] = "0px";
       this.nottifyTabElem.nativeElement.style["margin-right"] = "0px";
@@ -250,9 +259,10 @@ export class HeaderUserComponent implements OnDestroy {
       this.nottifyTabElem.nativeElement.style["padding-right"] = "25px";
       this.nottifyTabElem.nativeElement.style["border-bottom"] =
         "2px solid #EDF1F7";
-      this.nottifyTabElem.nativeElement.style["border-right"] = "2px solid #EDF1F7";      
+      this.nottifyTabElem.nativeElement.style["border-right"] =
+        "2px solid #EDF1F7";
     }
-    
+
     this.isNotifyOpen = true;
   }
 
@@ -262,9 +272,12 @@ export class HeaderUserComponent implements OnDestroy {
     this.nottifyTabElem.nativeElement.style["margin-top"] = "0px";
     this.nottifyTabElem.nativeElement.style["padding-left"] = "0px";
     this.nottifyTabElem.nativeElement.style["padding-right"] = "0px";
-    this.nottifyTabElem.nativeElement.style["border-bottom"] = "0px solid #EDF1F7";
-    this.nottifyTabElem.nativeElement.style["border-left"] = "0px solid #EDF1F7";
-    this.nottifyTabElem.nativeElement.style["border-right"] = "0px solid #EDF1F7";
+    this.nottifyTabElem.nativeElement.style["border-bottom"] =
+      "0px solid #EDF1F7";
+    this.nottifyTabElem.nativeElement.style["border-left"] =
+      "0px solid #EDF1F7";
+    this.nottifyTabElem.nativeElement.style["border-right"] =
+      "0px solid #EDF1F7";
     document.body.style.backgroundColor = "white";
 
     this.countNotifyClick = 0;
@@ -381,5 +394,27 @@ export class HeaderUserComponent implements OnDestroy {
     });
 
     return totalPrice;
+  }
+
+  getCategory() {
+    const params = {
+      page: 1,
+      pageSize: 6,
+    };
+
+    this.http
+      .get("/api/GetTourCategory", { params: params })
+      .subscribe((response: any) => {
+        this.categoryList = response.data;
+        console.log(response);
+        this.categoryLength = response.count;
+      });
+  }
+
+  async navigateCategoryUrl(url: string, category: string) {
+    let navigationExtras: NavigationExtras = {
+      queryParams: { 'category': category } // Replace 'key' and 'value' with your actual query parameters
+    };
+    this.router.navigate(["guest/" + url], navigationExtras);
   }
 }

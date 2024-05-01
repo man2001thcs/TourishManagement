@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
+import { NavigationExtras, Router } from "@angular/router";
 import { TokenStorageService } from "../user_service/token.service";
 import { HttpClient } from "@angular/common/http";
 import { SaveFile } from "src/app/model/baseModel";
@@ -89,9 +89,13 @@ export class SchedulePlanSearchCardComponent implements OnInit {
   }
 
   navigateToDetail(): void {
+    let navigationExtras: NavigationExtras = {
+      queryParams: { 'schedule-type': this.scheduleType } // Replace 'key' and 'value' with your actual query parameters
+    };
+    
     if (this.tokenStorageService.getUserRole() == "User") {
-      this.router.navigate(["user/schedule/" + this.id + "/detail"]);
-    } else this.router.navigate(["guest/schedule/" + this.id + "/detail"]);
+      this.router.navigate(["user/service/" + this.id + "/detail"],navigationExtras);
+    } else this.router.navigate(["guest/service/" + this.id + "/detail"], navigationExtras);
   }
 
   getTourName(inputString: string) {

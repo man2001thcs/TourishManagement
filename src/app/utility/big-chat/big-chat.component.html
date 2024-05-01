@@ -137,9 +137,10 @@
   </div>
   <div class="guest-container">
     <app-chat-guest-selector
-      *ngFor="let conHis of guestConHistoryList"
+      *ngFor="let conHis of guestConHistoryList ?? []"
       [guestMessageConHistory]="conHis"
       [isSelected]="conHis.guestMessageCon.connectionID === connectionId"
+      (click)="onClickHistory(conHis.guestMessageCon.connectionID)"
     ></app-chat-guest-selector>
   </div>
 </div>

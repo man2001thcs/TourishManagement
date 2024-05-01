@@ -74,8 +74,8 @@
 
       <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 create-form">
         <button
-        (click)="navigateToSearch()"
-        (keyup.enter)="navigateToSearch()"
+          (click)="navigateToSearch()"
+          (keyup.enter)="navigateToSearch()"
           mat-raised-button
           color="primary"
           style="height: 56px; font-size: 14px"
@@ -90,7 +90,10 @@
 <div class="page-info-container">
   <div class="page-info">
     <div class="page-info-image">
-      <img src="https://bookstore1storage.blob.core.windows.net/0-container/tour-guide.png" alt=""> 
+      <img
+        src="https://bookstore1storage.blob.core.windows.net/0-container/tour-guide.png"
+        alt=""
+      />
     </div>
     <div class="info-description">
       <h3>Hệ thống tour đa dạng</h3>
@@ -100,7 +103,10 @@
 
   <div class="page-info">
     <div class="page-info-image">
-      <img src="https://bookstore1storage.blob.core.windows.net/0-container/trust.png" alt=""> 
+      <img
+        src="https://bookstore1storage.blob.core.windows.net/0-container/trust.png"
+        alt=""
+      />
     </div>
     <div class="info-description">
       <h3>Độ tin cậy cao</h3>
@@ -110,7 +116,10 @@
 
   <div class="page-info">
     <div class="page-info-image">
-      <img src="https://bookstore1storage.blob.core.windows.net/0-container/live-chat.png" alt=""> 
+      <img
+        src="https://bookstore1storage.blob.core.windows.net/0-container/live-chat.png"
+        alt=""
+      />
     </div>
     <div class="info-description">
       <h3>Tư Vấn Chuyên Nghiệp</h3>
@@ -120,5 +129,9 @@
 </div>
 
 <div>
-  <app-tourish-pack *ngFor="let category of categoryList" [category]="category.name" [description]="category.description"></app-tourish-pack>
+  <app-tourish-pack
+    *ngFor="let category of categoryList"
+    [category]="category.name"
+    [description]="category.description"
+  ></app-tourish-pack>
 </div>

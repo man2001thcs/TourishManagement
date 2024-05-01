@@ -16,6 +16,7 @@ import moment from "moment";
 import { Subscription } from "rxjs";
 import { SignalRService } from "../user_service/signalr.service";
 import { GuestMessage, GuestMessageConHistory } from "src/app/model/baseModel";
+import { TokenStorageService } from "../user_service/token.service";
 
 @Component({
   selector: "app-chat",
@@ -41,7 +42,8 @@ export class ChatComponent {
   constructor(
     private fb: FormBuilder,
     private renderer: Renderer2,
-    private signalRService: SignalRService
+    private signalRService: SignalRService,
+    private tokenStorageService: TokenStorageService
   ) {}
   messFb!: FormGroup;
   messRegister!: FormGroup;
@@ -58,6 +60,18 @@ export class ChatComponent {
       guestEmail: ["", Validators.compose([Validators.required])],
       guestPhoneNumber: ["", Validators.compose([Validators.required])],
     });
+
+    if (this.tokenStorageService.getUserRole()  === "User"){
+      this.messRegister.controls["guestName"].setValue(
+        this.tokenStorageService.getUser().unique_name
+      );
+
+      this.messRegister.controls["guestEmail"].setValue(
+        this.tokenStorageService.getUser().email
+      );
+    }
+
+    
 
     this.subscriptions.push(
       this.signalRService.ConnFeedObservable.subscribe((notify: any) => {
@@ -110,6 +124,10 @@ export class ChatComponent {
         }
       })
     );
+  }
+
+  checkUserRole(){
+    return this.tokenStorageService.getUserRole()  === 'User';
   }
 
   showEmojiPicker = false;

@@ -97,6 +97,10 @@ export class BigChatComponent implements OnInit {
     // this.showEmojiPicker = false;
   }
 
+  checkUserRole(){
+    return this.tokenStorageService.getUserRole()  === 'User';
+  }
+
   getTime(input: string) {
     if (input === "") return "Gần 1 phút trước";
     const sendTime = new Date(input);
@@ -210,6 +214,7 @@ export class BigChatComponent implements OnInit {
         .subscribe((response: any) => {
           this.messageService.closeAllDialog();
           if (response) {
+            console.log(response);
             this.currentGuestConHis = response.data;
 
             var existIndex = this.guestConHistoryList.findIndex(
@@ -238,5 +243,10 @@ export class BigChatComponent implements OnInit {
           }
         });
     }
+  }
+
+  onClickHistory(id: string){
+this.connectionId = id;
+this.getMessageCon();
   }
 }

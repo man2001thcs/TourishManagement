@@ -2,7 +2,6 @@
   transition: 0.5s;
   opacity: 1;
   margin-left: 60px;
-  display: block;
   position: relative;
   height: 100%;
 }
@@ -12,15 +11,23 @@
   background-color: #fafafa;
   padding-right: 0px !important;
   padding-left: 0px !important;
+  padding-bottom: 2%;
   position: relative;
 }
 
 .outer-chat-container {
-  position: sticky;
-  right: 0;
+  z-index: 1;
+  /* background-color: #fafafa !important; */
+  opacity: 1;
+  position: -webkit-sticky; /* For Safari */
+  position: fixed;
+  right: 0 !important;
+  display: flex;
+  align-self: flex-end;
   bottom: 0;
   transform: translate(0, 0);
   height: 56px;
+  width: 350px;
   white-space: nowrap;
   text-align: right;
 }
@@ -36,12 +43,10 @@ app-footer {
   z-index: 0;
 }
 
-
 .validation-container {
   margin-top: -15px !important;
   margin-bottom: 15px !important;
 }
-
 
 @media only screen and (min-width: 1080px) {
   .container-fluid {
@@ -54,4 +59,3 @@ app-footer {
     min-height: 550px !important;
   }
 }
-

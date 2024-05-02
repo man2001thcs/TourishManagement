@@ -8,19 +8,19 @@ import { ActivatedRoute } from "@angular/router";
 import { Book } from "src/app/model/book";
 import { AdminService } from "../../service/admin.service";
 import { CheckDeactivate } from "../../interface/admin.check_edit";
-import { MovingScheduleParam } from "./schedule_staying-detail.component.model";
+import { StayingScheduleParam } from "./schedule_staying-detail.component.model";
 
-import * as MovingScheduleActions from "./schedule_staying-detail.store.action";
-import { State as MovingScheduleState } from "./schedule_staying-detail.store.reducer";
+import * as StayingScheduleActions from "./schedule_staying-detail.store.action";
+import { State as StayingScheduleState } from "./schedule_staying-detail.store.reducer";
 import { Store } from "@ngrx/store";
 import {
-  editMovingSchedule,
-  getMovingSchedule,
+  editStayingSchedule,
+  getStayingSchedule,
   getMessage,
   getSysError,
 } from "./schedule_staying-detail.store.selector";
 import { MessageService } from "src/app/utility/user_service/message.service";
-import { MovingSchedule } from "src/app/model/baseModel";
+import { StayingSchedule } from "src/app/model/baseModel";
 import { ThemePalette } from "@angular/material/core";
 
 @Component({
@@ -28,26 +28,25 @@ import { ThemePalette } from "@angular/material/core";
   templateUrl: "./schedule_staying-detail.component.html",
   styleUrls: ["./schedule_staying-detail.component.css"],
 })
-export class MovingScheduleDetailComponent implements OnInit, OnDestroy {
+export class StayingScheduleDetailComponent implements OnInit, OnDestroy {
   isEditing: boolean = true;
   isSubmitted = false;
 
-  movingSchedule: MovingSchedule = {
+  stayingSchedule: StayingSchedule = {
     id: "",
+    tourishPlanId: "",
     name: "",
-    branchName: "",
-    driverName: "",
-    vehiclePlate: "",
-    transportId: "",
+    placeName: "",
+    address: "",
+    supportNumber: "",
+    restHouseType: 0,
+    restHouseBranchId: "",
+    singlePrice: 0,
     status: 0,
     description: "",
-    vehicleType: 0,
-    phoneNumber: "",
-    singlePrice: 0,
-    headingPlace: "",
-    startingPlace: "",
   };
-  movingScheduleParam!: MovingScheduleParam;
+  
+  stayingScheduleParam!: StayingScheduleParam;
 
   this_announce = "";
   firstTime = false;
@@ -55,8 +54,8 @@ export class MovingScheduleDetailComponent implements OnInit, OnDestroy {
 
   errorMessageState!: Observable<any>;
   errorSystemState!: Observable<any>;
-  movingScheduleState!: Observable<any>;
-  editMovingScheduleState!: Observable<any>;
+  stayingScheduleState!: Observable<any>;
+  editStayingScheduleState!: Observable<any>;
   subscriptions: Subscription[] = [];
 
   showSpinners = true;
@@ -71,13 +70,13 @@ export class MovingScheduleDetailComponent implements OnInit, OnDestroy {
     private adminService: AdminService,
     private dialog: MatDialog,
     private fb: FormBuilder,
-    private store: Store<MovingScheduleState>,
+    private store: Store<StayingScheduleState>,
     private messageService: MessageService,
     private _route: ActivatedRoute,
-    @Inject(MAT_DIALOG_DATA) public data: MovingScheduleParam
+    @Inject(MAT_DIALOG_DATA) public data: StayingScheduleParam
   ) {
-    this.movingScheduleState = this.store.select(getMovingSchedule);
-    this.editMovingScheduleState = this.store.select(editMovingSchedule);
+    this.stayingScheduleState = this.store.select(getStayingSchedule);
+    this.editStayingScheduleState = this.store.select(editStayingSchedule);
     this.errorMessageState = this.store.select(getMessage);
     this.errorSystemState = this.store.select(getSysError);
   }
@@ -102,9 +101,9 @@ export class MovingScheduleDetailComponent implements OnInit, OnDestroy {
     });
 
     this.subscriptions.push(
-      this.movingScheduleState.subscribe((state) => {
+      this.stayingScheduleState.subscribe((state) => {
         if (state) {
-          this.movingSchedule = state;
+          this.stayingSchedule = state;
 
           this.editformGroup_info.controls["name"].setValue(state.name ?? "");
           this.editformGroup_info.controls["branchName"].setValue(
@@ -153,7 +152,7 @@ export class MovingScheduleDetailComponent implements OnInit, OnDestroy {
     );
 
     this.subscriptions.push(
-      this.editMovingScheduleState.subscribe((state) => {
+      this.editStayingScheduleState.subscribe((state) => {
         if (state) {
           this.messageService.closeLoadingDialog();
           this.messageService.openMessageNotifyDialog(state.messageCode);
@@ -180,14 +179,14 @@ export class MovingScheduleDetailComponent implements OnInit, OnDestroy {
     );
 
     this.store.dispatch(
-      MovingScheduleActions.getMovingSchedule({
+      StayingScheduleActions.getStayingSchedule({
         payload: {
           id: this.data.id,
         },
       })
     );
 
-    this.store.dispatch(MovingScheduleActions.initial());
+    this.store.dispatch(StayingScheduleActions.initial());
 
     //console.log(this.this_book);
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
@@ -196,29 +195,29 @@ export class MovingScheduleDetailComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     console.log("Destroy");
-    this.store.dispatch(MovingScheduleActions.resetMovingSchedule());
+    this.store.dispatch(StayingScheduleActions.resetStayingSchedule());
 
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
   formReset(): void {
     this.editformGroup_info.setValue({
-      id: this.movingSchedule.id ?? "",
-      tourishPlanId: this.movingSchedule.tourishPlanId ?? "",
-      name: this.movingSchedule.name ?? "",
-      branchName: this.movingSchedule.branchName ?? "",
-      driverName: this.movingSchedule.driverName ?? "",
-      vehiclePlate: this.movingSchedule.vehiclePlate ?? "",
-      phoneNumber: this.movingSchedule.phoneNumber ?? "",
-      singlePrice: this.movingSchedule.singlePrice ?? 0,
-      vehicleType: this.movingSchedule.vehicleType ?? 0,
-      transportId: this.movingSchedule.transportId ?? "",
-      startingPlace: this.movingSchedule.startingPlace ?? "",
-      headingPlace: this.movingSchedule.headingPlace ?? "",
-      status: this.movingSchedule.status ?? 0,
-      description: this.movingSchedule.description ?? "",
-      startDate: this.movingSchedule.startDate ?? null,
-      endDate: this.movingSchedule.endDate ?? null,
+      id: this.stayingSchedule.id ?? "",
+      tourishPlanId: this.stayingSchedule.tourishPlanId ?? "",
+      name: this.stayingSchedule.name ?? "",
+      branchName: this.stayingSchedule.branchName ?? "",
+      driverName: this.stayingSchedule.driverName ?? "",
+      vehiclePlate: this.stayingSchedule.vehiclePlate ?? "",
+      phoneNumber: this.stayingSchedule.phoneNumber ?? "",
+      singlePrice: this.stayingSchedule.singlePrice ?? 0,
+      vehicleType: this.stayingSchedule.vehicleType ?? 0,
+      transportId: this.stayingSchedule.transportId ?? "",
+      startingPlace: this.stayingSchedule.startingPlace ?? "",
+      headingPlace: this.stayingSchedule.headingPlace ?? "",
+      status: this.stayingSchedule.status ?? 0,
+      description: this.stayingSchedule.description ?? "",
+      startDate: this.stayingSchedule.startDate ?? null,
+      endDate: this.stayingSchedule.endDate ?? null,
     });
   }
 
@@ -232,7 +231,7 @@ export class MovingScheduleDetailComponent implements OnInit, OnDestroy {
       this.editorContent
     );
     if (!this.editformGroup_info.invalid) {
-      const payload: MovingSchedule = {
+      const payload: StayingSchedule = {
         id: this.editformGroup_info.value.id,
         name: this.editformGroup_info.value.name,
         branchName: this.editformGroup_info.value.branchName,
@@ -252,7 +251,7 @@ export class MovingScheduleDetailComponent implements OnInit, OnDestroy {
 
       this.messageService.openLoadingDialog();
       this.store.dispatch(
-        MovingScheduleActions.editMovingSchedule({
+        StayingScheduleActions.editStayingSchedule({
           payload: payload,
         })
       );

@@ -2,98 +2,98 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap, switchMap } from 'rxjs/operators';
-import { MovingScheduleStoreService } from './schedule_staying-detail.store.service';
-import * as MovingScheduleAction from './schedule_staying-detail.store.action';
-import { MovingScheduleUnionActions } from './schedule_staying-detail.store.action';
+import { StayingScheduleStoreService } from './schedule_staying-detail.store.service';
+import * as StayingScheduleAction from './schedule_staying-detail.store.action';
+import { StayingScheduleUnionActions } from './schedule_staying-detail.store.action';
 
 @Injectable()
-export class MovingScheduleEffects {
+export class StayingScheduleEffects {
   constructor(
-    private action: Actions<MovingScheduleAction.MovingScheduleUnionActions>,
-    private storeService: MovingScheduleStoreService
+    private action: Actions<StayingScheduleAction.StayingScheduleUnionActions>,
+    private storeService: StayingScheduleStoreService
   ) {}
 
-  getMovingSchedule: Observable<any> = createEffect(() =>
+  getStayingSchedule: Observable<any> = createEffect(() =>
     this.action.pipe(
-      ofType(MovingScheduleAction.getMovingSchedule),
+      ofType(StayingScheduleAction.getStayingSchedule),
       map((action) => action.payload),
       switchMap((action) => {
-        return this.storeService.getMovingSchedule(action).pipe(
+        return this.storeService.getStayingSchedule(action).pipe(
           map((response) => {
             if (response.resultCd === 0) {
-              return MovingScheduleAction.getMovingScheduleSuccess({
+              return StayingScheduleAction.getStayingScheduleSuccess({
                 response: response,
               });
             } else {
-              return MovingScheduleAction.getMovingScheduleFailed({
+              return StayingScheduleAction.getStayingScheduleFailed({
                 response: response,
               });
             }
           }),
           catchError((error) => {
-            return of(MovingScheduleAction.getMovingScheduleSystemFailed({ error: error }));
+            return of(StayingScheduleAction.getStayingScheduleSystemFailed({ error: error }));
           })
         );
       })
     )
   );
 
-  getMovingScheduleSuccess: Observable<any> = createEffect(
-    () => this.action.pipe(ofType(MovingScheduleAction.getMovingScheduleSuccess)),
+  getStayingScheduleSuccess: Observable<any> = createEffect(
+    () => this.action.pipe(ofType(StayingScheduleAction.getStayingScheduleSuccess)),
     { dispatch: false }
   );
 
-  getMovingScheduleFailed: Observable<any> = createEffect(
-    () => this.action.pipe(ofType(MovingScheduleAction.getMovingScheduleFailed)),
+  getStayingScheduleFailed: Observable<any> = createEffect(
+    () => this.action.pipe(ofType(StayingScheduleAction.getStayingScheduleFailed)),
     { dispatch: false }
   );
 
-  getMovingScheduleSystemFailed: Observable<any> = createEffect(
-    () => this.action.pipe(ofType(MovingScheduleAction.getMovingScheduleSystemFailed)),
+  getStayingScheduleSystemFailed: Observable<any> = createEffect(
+    () => this.action.pipe(ofType(StayingScheduleAction.getStayingScheduleSystemFailed)),
     { dispatch: false }
   );
 
-  editMovingSchedule: Observable<any> = createEffect(() =>
+  editStayingSchedule: Observable<any> = createEffect(() =>
     this.action.pipe(
-      ofType(MovingScheduleAction.editMovingSchedule),
+      ofType(StayingScheduleAction.editStayingSchedule),
       map((action) => action.payload),
       switchMap((action) => {
-        return this.storeService.editMovingSchedule(action).pipe(
+        return this.storeService.editStayingSchedule(action).pipe(
           map((response) => {
             console.log("abcd", response);
             if (response.resultCd === 0) {
               console.log(response);
-              return MovingScheduleAction.editMovingScheduleSuccess({
+              return StayingScheduleAction.editStayingScheduleSuccess({
                 response: response,
               });
             } else {
-              return MovingScheduleAction.editMovingScheduleFailed({
+              return StayingScheduleAction.editStayingScheduleFailed({
                 response: response,
               });
             }
           }),
           catchError((error) => {
-            return of(MovingScheduleAction.editMovingScheduleSystemFailed({ error: error }));
+            return of(StayingScheduleAction.editStayingScheduleSystemFailed({ error: error }));
           })
         );
       })
     )
   );
 
-  editMovingScheduleSuccess: Observable<any> = createEffect(
-    () => this.action.pipe(ofType(MovingScheduleAction.editMovingScheduleSuccess)),
+  editStayingScheduleSuccess: Observable<any> = createEffect(
+    () => this.action.pipe(ofType(StayingScheduleAction.editStayingScheduleSuccess)),
     { dispatch: false }
   );
 
-  editMovingScheduleFailed: Observable<any> = createEffect(
-    () => this.action.pipe(ofType(MovingScheduleAction.editMovingScheduleFailed)),
+  editStayingScheduleFailed: Observable<any> = createEffect(
+    () => this.action.pipe(ofType(StayingScheduleAction.editStayingScheduleFailed)),
     { dispatch: false }
   );
 
-  editMovingScheduleSystemFailed: Observable<any> = createEffect(
-    () => this.action.pipe(ofType(MovingScheduleAction.editMovingScheduleSystemFailed)),
+  editStayingScheduleSystemFailed: Observable<any> = createEffect(
+    () => this.action.pipe(ofType(StayingScheduleAction.editStayingScheduleSystemFailed)),
     { dispatch: false }
   );
 
-  //editMovingScheduleSuccess
+  //editStayingScheduleSuccess
 }

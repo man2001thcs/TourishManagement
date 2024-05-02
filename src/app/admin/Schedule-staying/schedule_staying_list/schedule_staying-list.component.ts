@@ -13,34 +13,34 @@ import { MatPaginator, PageEvent } from "@angular/material/paginator";
 
 import { Store } from "@ngrx/store";
 import { Observable, Subscription } from "rxjs";
-import { State as MovingScheduleListState } from "./schedule_staying-list.store.reducer";
+import { State as StayingScheduleListState } from "./schedule_staying-list.store.reducer";
 import {
-  getMovingScheduleList,
+  getStayingScheduleList,
   getDeleteStatus,
   getMessage,
   getSysError,
 } from "./schedule_staying-list.store.selector";
-import * as MovingScheduleListActions from "./schedule_staying-list.store.action";
+import * as StayingScheduleListActions from "./schedule_staying-list.store.action";
 import { MatDialog } from "@angular/material/dialog";
-import { MovingScheduleDetailComponent } from "../schedule_staying_detail/schedule_staying-detail.component";
-import { MovingScheduleCreateComponent } from "../schedule_staying_create/schedule_staying-create.component";
+import { StayingScheduleDetailComponent } from "../schedule_staying_detail/schedule_staying-detail.component";
+import { StayingScheduleCreateComponent } from "../schedule_staying_create/schedule_staying-create.component";
 import { MessageService } from "src/app/utility/user_service/message.service";
 import { ConfirmDialogComponent } from "src/app/utility/confirm-dialog/confirm-dialog.component";
-import { MovingSchedule } from "src/app/model/baseModel";
+import { StayingSchedule } from "src/app/model/baseModel";
 
 @Component({
-  selector: "app-movingScheduleList",
+  selector: "app-stayingScheduleList",
   templateUrl: "./schedule_staying-list.component.html",
   styleUrls: ["./schedule_staying-list.component.css"],
 })
-export class MovingScheduleListComponent
+export class StayingScheduleListComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
-  movingScheduleList!: MovingSchedule[];
+  stayingScheduleList!: StayingSchedule[];
   subscriptions: Subscription[] = [];
 
-  movingScheduleListState!: Observable<any>;
-  movingScheduleDeleteState!: Observable<any>;
+  stayingScheduleListState!: Observable<any>;
+  stayingScheduleDeleteState!: Observable<any>;
   errorMessageState!: Observable<any>;
   errorSystemState!: Observable<any>;
 
@@ -76,34 +76,34 @@ export class MovingScheduleListComponent
     private adminService: AdminService,
     public dialog: MatDialog,
     private messageService: MessageService,
-    private store: Store<MovingScheduleListState>
+    private store: Store<StayingScheduleListState>
   ) {
-    this.movingScheduleListState = this.store.select(getMovingScheduleList);
-    this.movingScheduleDeleteState = this.store.select(getDeleteStatus);
+    this.stayingScheduleListState = this.store.select(getStayingScheduleList);
+    this.stayingScheduleDeleteState = this.store.select(getDeleteStatus);
     this.errorMessageState = this.store.select(getMessage);
     this.errorSystemState = this.store.select(getSysError);
   }
 
   ngOnInit(): void {
     this.subscriptions.push(
-      this.movingScheduleListState.subscribe((state) => {
+      this.stayingScheduleListState.subscribe((state) => {
         if (state) {
           this.messageService.closeLoadingDialog();
-          this.movingScheduleList = state.data;
+          this.stayingScheduleList = state.data;
           this.length = state.count;
         }
       })
     );
 
     this.subscriptions.push(
-      this.movingScheduleDeleteState.subscribe((state) => {
+      this.stayingScheduleDeleteState.subscribe((state) => {
         if (state) {
           this.messageService.closeLoadingDialog();
           this.messageService.openMessageNotifyDialog(state.messageCode);
 
           if (state.resultCd === 0) {
             this.store.dispatch(
-              MovingScheduleListActions.getMovingScheduleList({
+              StayingScheduleListActions.getStayingScheduleList({
                 payload: {
                   search: this.searchPhase,
                   page: this.pageIndex + 1,
@@ -116,10 +116,10 @@ export class MovingScheduleListComponent
       })
     );
 
-    this.store.dispatch(MovingScheduleListActions.initial());
+    this.store.dispatch(StayingScheduleListActions.initial());
 
     this.store.dispatch(
-      MovingScheduleListActions.getMovingScheduleList({
+      StayingScheduleListActions.getStayingScheduleList({
         payload: {
           page: this.pageIndex + 1,
           type: 0,
@@ -153,21 +153,21 @@ export class MovingScheduleListComponent
   ngAfterViewInit(): void {}
 
   ngOnDestroy(): void {
-    this.store.dispatch(MovingScheduleListActions.resetMovingScheduleList());
+    this.store.dispatch(StayingScheduleListActions.resetStayingScheduleList());
     this.messageService.closeAllDialog();
 
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
   openEditDialog(id: string): void {
-    const dialogRef = this.dialog.open(MovingScheduleDetailComponent, {
+    const dialogRef = this.dialog.open(StayingScheduleDetailComponent, {
       data: { id: id },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
 
       this.store.dispatch(
-        MovingScheduleListActions.getMovingScheduleList({
+        StayingScheduleListActions.getStayingScheduleList({
           payload: {
             page: this.pageIndex + 1,
             search: this.searchPhase,
@@ -181,13 +181,13 @@ export class MovingScheduleListComponent
   }
 
   openAddDialog(): void {
-    const dialogRef = this.dialog.open(MovingScheduleCreateComponent, {});
+    const dialogRef = this.dialog.open(StayingScheduleCreateComponent, {});
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log(result);
 
       this.store.dispatch(
-        MovingScheduleListActions.getMovingScheduleList({
+        StayingScheduleListActions.getStayingScheduleList({
           payload: {
             page: this.pageIndex + 1,
             search: this.searchPhase,
@@ -222,7 +222,7 @@ export class MovingScheduleListComponent
     ref.afterClosed().subscribe((result) => {
       if (result) {
         this.store.dispatch(
-          MovingScheduleListActions.deleteMovingSchedule({
+          StayingScheduleListActions.deleteStayingSchedule({
             payload: {
               id: id,
             },
@@ -243,7 +243,7 @@ export class MovingScheduleListComponent
     console.log(this.pageIndex);
 
     this.store.dispatch(
-      MovingScheduleListActions.getMovingScheduleList({
+      StayingScheduleListActions.getStayingScheduleList({
         payload: {
           page: this.pageIndex + 1,
           pageSize: this.pageSize,
@@ -260,7 +260,7 @@ export class MovingScheduleListComponent
 
     this.messageService.openLoadingDialog();
     this.store.dispatch(
-      MovingScheduleListActions.getMovingScheduleList({
+      StayingScheduleListActions.getStayingScheduleList({
         payload: {
           page: this.pageIndex + 1,
           pageSize: this.pageSize,
@@ -280,7 +280,7 @@ export class MovingScheduleListComponent
     if ((sortState.active = "name")) {
       if (sortState.direction === "asc") {
         this.store.dispatch(
-          MovingScheduleListActions.getMovingScheduleList({
+          StayingScheduleListActions.getStayingScheduleList({
             payload: {
               page: 1,
               pageSize: this.pageSize,
@@ -292,7 +292,7 @@ export class MovingScheduleListComponent
         this.messageService.openLoadingDialog();
       } else if (sortState.direction === "desc") {
         this.store.dispatch(
-          MovingScheduleListActions.getMovingScheduleList({
+          StayingScheduleListActions.getStayingScheduleList({
             payload: {
               sortBy: "name_desc",
               page: 1,
@@ -308,7 +308,7 @@ export class MovingScheduleListComponent
     }
   }
 
-  getIndex(element: MovingSchedule) {
-    return this.movingScheduleList.findIndex((el) => el.id === element.id) + 1;
+  getIndex(element: StayingSchedule) {
+    return this.stayingScheduleList.findIndex((el) => el.id === element.id) + 1;
   }
 }

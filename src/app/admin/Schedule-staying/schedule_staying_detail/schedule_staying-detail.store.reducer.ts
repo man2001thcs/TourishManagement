@@ -1,67 +1,67 @@
 import { createReducer, on } from '@ngrx/store';
-import * as MovingScheduleAction from './schedule_staying-detail.store.action';
+import * as StayingScheduleAction from './schedule_staying-detail.store.action';
 import { IBaseState } from 'src/app/model/IBaseModel';
 
 export interface State extends IBaseState {
-  movingSchedule: any;
-  movingScheduleReturn: any;
+  stayingSchedule: any;
+  stayingScheduleReturn: any;
 }
 
 export const initialState: State = {
-  movingSchedule: null,
+  stayingSchedule: null,
   resultCd: 0,
-  movingScheduleReturn: null
+  stayingScheduleReturn: null
 };
 
 export const reducer = createReducer(
   initialState,
 
-  on(MovingScheduleAction.initial, (state) => ({
+  on(StayingScheduleAction.initial, (state) => ({
     ...state,
     initialState,
   })),
 
-  on(MovingScheduleAction.getMovingSchedule, (state, { payload }) => ({
+  on(StayingScheduleAction.getStayingSchedule, (state, { payload }) => ({
     ...state,
   })),
 
-  on(MovingScheduleAction.getMovingScheduleSuccess, (state, { response }) => ({
+  on(StayingScheduleAction.getStayingScheduleSuccess, (state, { response }) => ({
     ...state,
-    movingSchedule: response.data,
+    stayingSchedule: response.data,
   })),
 
-  on(MovingScheduleAction.getMovingScheduleFailed, (state, { response }) => ({
+  on(StayingScheduleAction.getStayingScheduleFailed, (state, { response }) => ({
     ...state,
     messageCode: {code: response.messageCode},
   })),
 
-  on(MovingScheduleAction.getMovingScheduleSystemFailed, (state, { error }) => ({
+  on(StayingScheduleAction.getStayingScheduleSystemFailed, (state, { error }) => ({
     ...state,
     error: {message: error},
   })),
 
-  on(MovingScheduleAction.editMovingSchedule, (state, { payload }) => ({
+  on(StayingScheduleAction.editStayingSchedule, (state, { payload }) => ({
     ...state,
   })),
 
-  on(MovingScheduleAction.editMovingScheduleSuccess, (state, { response }) => ({
+  on(StayingScheduleAction.editStayingScheduleSuccess, (state, { response }) => ({
     ...state,
-    movingScheduleReturn: response,
+    stayingScheduleReturn: response,
   })),
 
-  on(MovingScheduleAction.editMovingScheduleFailed, (state, { response }) => ({
+  on(StayingScheduleAction.editStayingScheduleFailed, (state, { response }) => ({
     ...state,
     messageCode: {code: response.messageCode},
   })),
 
-  on(MovingScheduleAction.editMovingScheduleSystemFailed, (state, { error }) => ({
+  on(StayingScheduleAction.editStayingScheduleSystemFailed, (state, { error }) => ({
     ...state,
     error: {message: error},
   })), 
 
-  on(MovingScheduleAction.resetMovingSchedule, (state) => ({
+  on(StayingScheduleAction.resetStayingSchedule, (state) => ({
     ...state,
-    movingSchedule: null,
-    movingScheduleReturn: null
+    stayingSchedule: null,
+    stayingScheduleReturn: null
   }))
 );

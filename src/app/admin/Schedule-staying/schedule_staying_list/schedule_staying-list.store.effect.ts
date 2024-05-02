@@ -2,39 +2,39 @@ import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Observable, of } from "rxjs";
 import { catchError, map, mergeMap, switchMap } from "rxjs/operators";
-import { MovingScheduleListStoreService } from "./schedule_staying-list.store.service";
-import * as MovingScheduleListAction from "./schedule_staying-list.store.action";
-import { MovingScheduleListUnionActions } from "./schedule_staying-list.store.action";
+import { StayingScheduleListStoreService } from "./schedule_staying-list.store.service";
+import * as StayingScheduleListAction from "./schedule_staying-list.store.action";
+import { StayingScheduleListUnionActions } from "./schedule_staying-list.store.action";
 
 @Injectable()
-export class MovingScheduleListEffects {
+export class StayingScheduleListEffects {
   constructor(
-    private action: Actions<MovingScheduleListAction.MovingScheduleListUnionActions>,
-    private storeService: MovingScheduleListStoreService
+    private action: Actions<StayingScheduleListAction.StayingScheduleListUnionActions>,
+    private storeService: StayingScheduleListStoreService
   ) {}
 
-  getMovingScheduleList: Observable<any> = createEffect(() =>
+  getStayingScheduleList: Observable<any> = createEffect(() =>
     this.action.pipe(
-      ofType(MovingScheduleListAction.getMovingScheduleList),
+      ofType(StayingScheduleListAction.getStayingScheduleList),
       map((action) => action.payload),
       switchMap((action) => {
-        return this.storeService.getMovingScheduleList(action).pipe(
+        return this.storeService.getStayingScheduleList(action).pipe(
           map((response) => {
             console.log(response);
             if (response.resultCd === 0) {
               console.log(response);
-              return MovingScheduleListAction.getMovingScheduleListSuccess({
+              return StayingScheduleListAction.getStayingScheduleListSuccess({
                 response: response,
               });
             } else {
-              return MovingScheduleListAction.getMovingScheduleListFailed({
+              return StayingScheduleListAction.getStayingScheduleListFailed({
                 response: response,
               });
             }
           }),
           catchError((error) => {
             return of(
-              MovingScheduleListAction.getMovingScheduleListSystemFailed({ error: error })
+              StayingScheduleListAction.getStayingScheduleListSystemFailed({ error: error })
             );
           })
         );
@@ -42,44 +42,44 @@ export class MovingScheduleListEffects {
     )
   );
 
-  getMovingScheduleListSuccess: Observable<any> = createEffect(
-    () => this.action.pipe(ofType(MovingScheduleListAction.getMovingScheduleListSuccess)),
+  getStayingScheduleListSuccess: Observable<any> = createEffect(
+    () => this.action.pipe(ofType(StayingScheduleListAction.getStayingScheduleListSuccess)),
     { dispatch: false }
   );
 
-  getMovingScheduleListFailed: Observable<any> = createEffect(
-    () => this.action.pipe(ofType(MovingScheduleListAction.getMovingScheduleListFailed)),
+  getStayingScheduleListFailed: Observable<any> = createEffect(
+    () => this.action.pipe(ofType(StayingScheduleListAction.getStayingScheduleListFailed)),
     { dispatch: false }
   );
 
-  getMovingScheduleListSystemFailed: Observable<any> = createEffect(
+  getStayingScheduleListSystemFailed: Observable<any> = createEffect(
     () =>
-      this.action.pipe(ofType(MovingScheduleListAction.getMovingScheduleListSystemFailed)),
+      this.action.pipe(ofType(StayingScheduleListAction.getStayingScheduleListSystemFailed)),
     { dispatch: false }
   );
 
-  deleteMovingSchedule: Observable<any> = createEffect(() =>
+  deleteStayingSchedule: Observable<any> = createEffect(() =>
     this.action.pipe(
-      ofType(MovingScheduleListAction.deleteMovingSchedule),
+      ofType(StayingScheduleListAction.deleteStayingSchedule),
       map((action) => action.payload),
       switchMap((action) => {
-        return this.storeService.deleteMovingSchedule(action).pipe(
+        return this.storeService.deleteStayingSchedule(action).pipe(
           map((response) => {
             console.log(response);
             if (response.resultCd === 0) {
               console.log(response);
-              return MovingScheduleListAction.deleteMovingScheduleSuccess({
+              return StayingScheduleListAction.deleteStayingScheduleSuccess({
                 response: response,
               });
             } else {
-              return MovingScheduleListAction.deleteMovingScheduleFailed({
+              return StayingScheduleListAction.deleteStayingScheduleFailed({
                 response: response,
               });
             }
           }),
           catchError((error) => {
             return of(
-              MovingScheduleListAction.deleteMovingScheduleSystemFailed({ error: error })
+              StayingScheduleListAction.deleteStayingScheduleSystemFailed({ error: error })
             );
           })
         );
@@ -87,21 +87,21 @@ export class MovingScheduleListEffects {
     )
   );
 
-  deleteMovingScheduleListSuccess: Observable<any> = createEffect(
-    () => this.action.pipe(ofType(MovingScheduleListAction.deleteMovingScheduleSuccess)),
+  deleteStayingScheduleListSuccess: Observable<any> = createEffect(
+    () => this.action.pipe(ofType(StayingScheduleListAction.deleteStayingScheduleSuccess)),
     { dispatch: false }
   );
 
-  deleteMovingScheduleListFailed: Observable<any> = createEffect(
-    () => this.action.pipe(ofType(MovingScheduleListAction.deleteMovingScheduleFailed)),
+  deleteStayingScheduleListFailed: Observable<any> = createEffect(
+    () => this.action.pipe(ofType(StayingScheduleListAction.deleteStayingScheduleFailed)),
     { dispatch: false }
   );
 
-  deleteMovingScheduleListSystemFailed: Observable<any> = createEffect(
+  deleteStayingScheduleListSystemFailed: Observable<any> = createEffect(
     () =>
-      this.action.pipe(ofType(MovingScheduleListAction.deleteMovingScheduleSystemFailed)),
+      this.action.pipe(ofType(StayingScheduleListAction.deleteStayingScheduleSystemFailed)),
     { dispatch: false }
   );
 
-  //getMovingScheduleListSuccess
+  //getStayingScheduleListSuccess
 }

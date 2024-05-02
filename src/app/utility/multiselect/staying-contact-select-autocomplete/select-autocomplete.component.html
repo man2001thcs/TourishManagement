@@ -1,0 +1,48 @@
+<form>
+  <mat-form-field appearance="outline" class="full-width-input">
+    <mat-label>Lựa chọn đối tác</mat-label>
+    <mat-chip-grid #chipGrid aria-label="Fruit selection">
+      <mat-chip-row
+        *ngFor="let restHouseContact of restHouseContactNameList"
+        (removed)="remove(restHouseContact)"
+        style="font-size: 16px"
+      >
+        {{ restHouseContact }}
+        <button matChipRemove [attr.aria-label]="'remove ' + restHouseContact">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-chip-row>
+    </mat-chip-grid>
+    <input
+      *ngIf="restHouseContactNameList.length < 1"
+      placeholder="Chọn tour"
+      #restHouseContactInput
+      [formControl]="restHouseContactCtrl"
+      [matChipInputFor]="chipGrid"
+      [matAutocomplete]="auto"
+      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+      (matChipInputTokenEnd)="add($event)"
+    />
+
+    <mat-autocomplete
+      #auto="matAutocomplete"
+      (optionSelected)="selected($event)"
+      (optionsScroll)="onScroll($event)"
+    >
+      <mat-option
+        *ngFor="let restHouseContact of data"
+        [value]="restHouseContact"
+        [disabled]="isChecked(restHouseContact)"
+      >
+        <div>
+          <div style="font-weight: bold">
+            {{ restHouseContact.placeBranch }}
+            <mat-icon>{{ isChecked(restHouseContact) && "checked" }}</mat-icon>
+          </div>
+
+          <small>{{ onDisplayAtr(restHouseContact) }}</small>
+        </div>
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>

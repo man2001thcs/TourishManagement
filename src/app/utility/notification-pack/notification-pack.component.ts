@@ -116,7 +116,11 @@ export class NotificationPackComponent implements OnInit {
   }
 
   signalRNotification() {
-    this.signalRService.startConnection("/api/user/notify").then(() => {
+    const queryParameters = {
+      token: this.tokenStorage.getToken()
+    };
+
+    this.signalRService.startConnectionWithParam("/api/user/notify", queryParameters).then(() => {
       // 2 - register for ALL relay
       this.signalRService.listenToNotifyFeeds("SendOffersToUser");
     });

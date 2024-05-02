@@ -25,6 +25,7 @@ import { NotificationListComponent } from "../notification/notification_list/not
 import { BigChatComponent } from "src/app/utility/big-chat/big-chat.component";
 import { GuestMessageConHistoryListComponent } from "../ChatConHistory/chat_con_his_list/chat_con_his_list.component";
 import { MovingScheduleListComponent } from "../Schedule-moving/schedule_moving_list/schedule_moving-list.component";
+import { StayingScheduleListComponent } from "../Schedule-staying/schedule_staying_list/schedule_staying-list.component";
 
 const routes: Routes = [
   {
@@ -70,6 +71,10 @@ const routes: Routes = [
         component: RestHouseContactListComponent,
       },
       {
+        path: "resthouse/service/list",
+        component: StayingScheduleListComponent,
+      },
+      {
         path: "restaurant/list",
         component: RestaurantListComponent,
       },
@@ -80,10 +85,6 @@ const routes: Routes = [
       {
         path: "user/list",
         component: UserListComponent,
-      },
-      {
-        path: "moving-schedule/list",
-        component: MovingScheduleListComponent,
       },
       {
         path: "account/info",

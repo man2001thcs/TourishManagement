@@ -239,6 +239,15 @@
               Danh sách đối tác 
             </button>
           </ng-container>
+
+          <ng-container [ngbNavItem]="'13th'">
+            <button
+              ngbNavLink
+              (click)="navigateUrl('resthouse/service/list')"
+            >
+              Dịch vụ ngoài tour
+            </button>
+          </ng-container>
         </div>
       </mat-expansion-panel>
     </div>

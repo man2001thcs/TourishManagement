@@ -97,8 +97,8 @@ export class BigChatComponent implements OnInit {
     // this.showEmojiPicker = false;
   }
 
-  checkUserRole(){
-    return this.tokenStorageService.getUserRole()  === 'User';
+  checkUserRole() {
+    return this.tokenStorageService.getUserRole() === "User";
   }
 
   getTime(input: string) {
@@ -169,6 +169,7 @@ export class BigChatComponent implements OnInit {
       guestName: this.currentGuestConHis.guestMessageCon.guestName,
       guestPhoneNumber:
         this.currentGuestConHis.guestMessageCon.guestPhoneNumber,
+      token: this.tokenStorageService.getToken(),
     };
 
     this.signalRService
@@ -245,8 +246,8 @@ export class BigChatComponent implements OnInit {
     }
   }
 
-  onClickHistory(id: string){
-this.connectionId = id;
-this.getMessageCon();
+  onClickHistory(id: string) {
+    this.connectionId = id;
+    this.getMessageCon();
   }
 }

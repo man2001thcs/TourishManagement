@@ -79,15 +79,15 @@ export class ChatGuestSelectorComponent implements OnInit {
 
   getContent(notify: Notification): string {
     let contentPhase = "";
-    let tourName = "";
+    let objectName = "";
 
-    if (notify.tourName != null && notify.tourName.length > 0) {
-      tourName = notify.tourName;
-    } else tourName = notify.tourishPlan?.tourName ?? "";
+    if (notify.objectName != null && notify.objectName.length > 0) {
+      objectName = notify.objectName;
+    } 
 
     if (notify.contentCode !== null) {
       contentPhase =
-        getViNotifyMessagePhase(notify.contentCode ?? "") + tourName;
+        getViNotifyMessagePhase(notify.contentCode ?? "") + objectName;
     } else contentPhase = notify.content;
 
     return contentPhase;

@@ -84,7 +84,6 @@ import { reducer as TourishPlanListReducer } from "../TourishPlan/tourishPlan-li
 import { storeKey as TourishPlanDetailStoreKey } from "../TourishPlan/tourishPlan-detail/tourishPlan-detail.store.action";
 import { reducer as TourishPlanDetailReducer } from "../TourishPlan/tourishPlan-detail/tourishPlan-detail.store.reducer";
 
-
 import { storeKey as TourishCategoryCreateStoreKey } from "../TourishCategory/tourish_category_create/tourish_category-create.store.action";
 import { reducer as TourishCategoryCreateReducer } from "../TourishCategory/tourish_category_create/tourish_category-create.store.reducer";
 
@@ -233,6 +232,9 @@ import { reducer as StayingScheduleListReducer } from "../Schedule-staying/sched
 import { storeKey as MovingContactSelectStoreKey } from "../../utility/multiselect/moving-contact-select-autocomplete/select-autocomplete.store.action";
 import { reducer as MovingContactSelectReducer } from "../../utility/multiselect/moving-contact-select-autocomplete/select-autocomplete.store.reducer";
 
+import { storeKey as RestHouseContactSelectStoreKey } from "../../utility/multiselect/staying-contact-select-autocomplete/select-autocomplete.store.action";
+import { reducer as RestHouseContactSelectReducer } from "../../utility/multiselect/staying-contact-select-autocomplete/select-autocomplete.store.reducer";
+
 import { storeKey as NotificationDetailStoreKey } from "../notification/notification_detail/notification-detail.store.action";
 import { reducer as NotificationDetailReducer } from "../notification/notification_detail/notification-detail.store.reducer";
 import { NotificationCreateEffects } from "../notification/notification_create/notification-create.store.effect";
@@ -256,6 +258,11 @@ import {MatSelectModule} from '@angular/material/select';
 import { StayingScheduleCreateComponent } from "../Schedule-staying/schedule_staying_create/schedule_staying-create.component";
 import { StayingScheduleDetailComponent } from "../Schedule-staying/schedule_staying_detail/schedule_staying-detail.component";
 import { StayingScheduleListComponent } from "../Schedule-staying/schedule_staying_list/schedule_staying-list.component";
+import { RestHouseContactSelectAutocompleteComponent } from "src/app/utility/multiselect/staying-contact-select-autocomplete/select-autocomplete.component";
+import { StayingScheduleCreateEffects } from "../Schedule-staying/schedule_staying_create/schedule_staying-create.store.effect";
+import { RestHouseContactAutoCompleteListEffects } from "src/app/utility/multiselect/staying-contact-select-autocomplete/select-autocomplete.store.effect";
+import { StayingScheduleListEffects } from "../Schedule-staying/schedule_staying_list/schedule_staying-list.store.effect";
+import { StayingScheduleEffects } from "../Schedule-staying/schedule_staying_detail/schedule_staying-detail.store.effect";
 
 
 
@@ -306,6 +313,7 @@ import { StayingScheduleListComponent } from "../Schedule-staying/schedule_stayi
     StayingScheduleCreateComponent,
     StayingScheduleDetailComponent,
     StayingScheduleListComponent,
+    RestHouseContactSelectAutocompleteComponent,
 
     StayingMultiselectAutocompleteComponent,
     MovingMultiselectAutocompleteComponent,
@@ -432,6 +440,8 @@ import { StayingScheduleListComponent } from "../Schedule-staying/schedule_stayi
 
     StoreModule.forFeature(MovingContactSelectStoreKey, MovingContactSelectReducer),
 
+    StoreModule.forFeature(RestHouseContactSelectStoreKey, RestHouseContactSelectReducer),
+
     EffectsModule.forFeature([TourishCategoryCreateEffects]),
     EffectsModule.forFeature([TourishCategoryEffects]),
     EffectsModule.forFeature([TourishCategoryListEffects]),
@@ -480,6 +490,12 @@ import { StayingScheduleListComponent } from "../Schedule-staying/schedule_stayi
     EffectsModule.forFeature([MovingScheduleListEffects]),
 
     EffectsModule.forFeature([MovingContactAutoCompleteListEffects]),
+
+    EffectsModule.forFeature([StayingScheduleCreateEffects]),
+    EffectsModule.forFeature([StayingScheduleEffects]),
+    EffectsModule.forFeature([StayingScheduleListEffects]),
+
+    EffectsModule.forFeature([RestHouseContactAutoCompleteListEffects]),
   ],
   providers: [
     { provide: TINYMCE_SCRIPT_SRC, useValue: "tinymce/tinymce.min.js" },

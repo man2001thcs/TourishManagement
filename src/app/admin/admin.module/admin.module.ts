@@ -244,6 +244,9 @@ import { MovingContactAutoCompleteListEffects } from "src/app/utility/multiselec
 import { AvatarUploadModalComponent } from "src/app/utility/image_avatar_modal/imageUpload.component";
 import { TourScheduleMultiselectAutocompleteComponent } from "src/app/utility/multiselect/tour-schedule-multiselect-autocomplete/multiselect-autocomplete.component";
 import {MatSelectModule} from '@angular/material/select';
+import { StayingScheduleCreateComponent } from "../Schedule-staying/schedule_staying_create/schedule_staying-create.component";
+import { StayingScheduleDetailComponent } from "../Schedule-staying/schedule_staying_detail/schedule_staying-detail.component";
+import { StayingScheduleListComponent } from "../Schedule-staying/schedule_staying_list/schedule_staying-list.component";
 
 
 
@@ -290,6 +293,10 @@ import {MatSelectModule} from '@angular/material/select';
     MovingScheduleCreateComponent,
     MovingScheduleDetailComponent,
     MovingScheduleListComponent,
+
+    StayingScheduleCreateComponent,
+    StayingScheduleDetailComponent,
+    StayingScheduleListComponent,
 
     StayingMultiselectAutocompleteComponent,
     MovingMultiselectAutocompleteComponent,

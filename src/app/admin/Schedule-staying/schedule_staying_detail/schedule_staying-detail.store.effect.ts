@@ -4,7 +4,6 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap, switchMap } from 'rxjs/operators';
 import { StayingScheduleStoreService } from './schedule_staying-detail.store.service';
 import * as StayingScheduleAction from './schedule_staying-detail.store.action';
-import { StayingScheduleUnionActions } from './schedule_staying-detail.store.action';
 
 @Injectable()
 export class StayingScheduleEffects {

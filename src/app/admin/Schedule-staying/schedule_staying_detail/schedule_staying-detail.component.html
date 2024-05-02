@@ -68,10 +68,10 @@
 
             <div class="row">
               <mat-form-field appearance="outline" class="full-width-input">
-                <mat-label>Loại phương tiện</mat-label>
+                <mat-label>Loại nơi ở</mat-label>
                 <select matNativeControl required formControlName="restHouseType" (change)="changeType($event)">
-                  <option [value]="0">Xe khách</option>
-                  <option [value]="1">Máy bay</option>
+                  <option [value]="0">Homestay</option>
+                  <option [value]="1">Khách sạn</option>
                 </select>
               </mat-form-field>
             </div>
@@ -205,10 +205,10 @@
 
             <div class="row">
               <mat-form-field appearance="outline" class="full-width-input">
-                <mat-label>Loại phương tiện</mat-label>
+                <mat-label>Loại nơi ở</mat-label>
                 <select matNativeControl required formControlName="restHouseType">
-                  <option value="0">Xe khách</option>
-                  <option value="1">Máy bay</option>
+                  <option value="0">Homestay</option>
+                  <option value="1">Khách sạn</option>
                 </select>
               </mat-form-field>
               <div style="margin-top: -20px; margin-bottom: 10px">
@@ -226,45 +226,24 @@
            
             <div class="row">
               <mat-form-field appearance="outline" class="full-width-input">
-                <mat-label>Nơi xuất phát</mat-label>
+                <mat-label>Địa chỉ</mat-label>
                 <input
                   matInput
                   fullwidth
                   placeholder="Vd: Hà Nội"
-                  formControlName="startingPlace"
+                  formControlName="address"
                 />
               </mat-form-field>
               <app-validation
                 *ngIf="
-                  this.editformGroup_info.get('startingPlace')?.errors &&
-                  (editformGroup_info.get('startingPlace')?.touched ||
+                  this.editformGroup_info.get('address')?.errors &&
+                  (editformGroup_info.get('address')?.touched ||
                     isSubmitted)
                 "
                 [formGroup]="editformGroup_info"
-                [formGroupControlName]="'startingPlace'"
+                [formGroupControlName]="'address'"
               ></app-validation>
-            </div>
-
-            <div class="row">
-              <mat-form-field appearance="outline" class="full-width-input">
-                <mat-label>Nơi đến</mat-label>
-                <input
-                  matInput
-                  fullwidth
-                  placeholder="Vd: Đà Nẵng"
-                  formControlName="headingPlace"
-                />
-              </mat-form-field>
-              <app-validation
-                *ngIf="
-                  this.editformGroup_info.get('headingPlace')?.errors &&
-                  (editformGroup_info.get('headingPlace')?.touched ||
-                    isSubmitted)
-                "
-                [formGroup]="editformGroup_info"
-                [formGroupControlName]="'headingPlace'"
-              ></app-validation>
-            </div>
+            </div>            
 
             <div class="row">
               <mat-form-field appearance="outline" class="full-width-input">

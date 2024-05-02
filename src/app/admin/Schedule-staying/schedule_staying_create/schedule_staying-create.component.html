@@ -109,53 +109,7 @@
                   [formGroupControlName]="'placeName'"
                 ></app-validation>
               </div>
-            </div>
-
-            <div class="row">
-              <mat-form-field appearance="outline" class="full-width-input">
-                <mat-label>Tên người điều khiển phương tiện</mat-label>
-                <input
-                  matInput
-                  fullwidth
-                  placeholder="Vd: Bồ Công Anh"
-                  formControlName="driverName"
-                />
-              </mat-form-field>
-
-              <div class="validation-container">
-                <app-validation
-                  *ngIf="
-                    this.createformGroup_info.get('driverName')?.errors &&
-                    (createformGroup_info.get('driverName')?.touched ||
-                      isSubmitted)
-                  "
-                  [formGroup]="createformGroup_info"
-                  [formGroupControlName]="'driverName'"
-                ></app-validation>
-              </div>
-            </div>
-
-            <div class="row">
-              <mat-form-field appearance="outline" class="full-width-input">
-                <mat-label>Biển số phương tiện</mat-label>
-                <input
-                  matInput
-                  placeholder="Vd: 98Y4-12-123"
-                  formControlName="vehiclePlate"
-                />
-              </mat-form-field>
-              <div class="validation-container">
-                <app-validation
-                  *ngIf="
-                    this.createformGroup_info.get('vehiclePlate')?.errors &&
-                    (createformGroup_info.get('vehiclePlate')?.touched ||
-                      isSubmitted)
-                  "
-                  [formGroup]="createformGroup_info"
-                  [formGroupControlName]="'vehiclePlate'"
-                ></app-validation>
-              </div>
-            </div>
+            </div>         
 
             <div class="row">
               <mat-form-field appearance="outline" class="full-width-input">
@@ -205,10 +159,10 @@
 
             <div class="row">
               <mat-form-field appearance="outline" class="full-width-input">
-                <mat-label>Loại phương tiện</mat-label>
+                <mat-label>Loại nơi ở</mat-label>
                 <select matNativeControl required formControlName="restHouseType">
-                  <option value="0">Xe khách</option>
-                  <option value="1">Máy bay</option>
+                  <option value="0">Homestay</option>
+                  <option value="1">Khách sạn</option>
                 </select>
               </mat-form-field>
               <div style="margin-top: -20px; margin-bottom: 10px">
@@ -226,45 +180,24 @@
            
             <div class="row">
               <mat-form-field appearance="outline" class="full-width-input">
-                <mat-label>Nơi xuất phát</mat-label>
+                <mat-label>Địa chỉ</mat-label>
                 <input
                   matInput
                   fullwidth
                   placeholder="Vd: Hà Nội"
-                  formControlName="startingPlace"
+                  formControlName="address"
                 />
               </mat-form-field>
               <app-validation
                 *ngIf="
-                  this.createformGroup_info.get('startingPlace')?.errors &&
-                  (createformGroup_info.get('startingPlace')?.touched ||
+                  this.createformGroup_info.get('address')?.errors &&
+                  (createformGroup_info.get('address')?.touched ||
                     isSubmitted)
                 "
                 [formGroup]="createformGroup_info"
-                [formGroupControlName]="'startingPlace'"
+                [formGroupControlName]="'address'"
               ></app-validation>
-            </div>
-
-            <div class="row">
-              <mat-form-field appearance="outline" class="full-width-input">
-                <mat-label>Nơi đến</mat-label>
-                <input
-                  matInput
-                  fullwidth
-                  placeholder="Vd: Đà Nẵng"
-                  formControlName="headingPlace"
-                />
-              </mat-form-field>
-              <app-validation
-                *ngIf="
-                  this.createformGroup_info.get('headingPlace')?.errors &&
-                  (createformGroup_info.get('headingPlace')?.touched ||
-                    isSubmitted)
-                "
-                [formGroup]="createformGroup_info"
-                [formGroupControlName]="'headingPlace'"
-              ></app-validation>
-            </div>
+            </div>            
 
             <div class="row">
               <mat-form-field appearance="outline" class="full-width-input">

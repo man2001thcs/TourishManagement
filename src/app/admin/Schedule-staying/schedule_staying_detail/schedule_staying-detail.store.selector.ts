@@ -2,24 +2,24 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { storeKey } from './schedule_staying-detail.store.action';
 import { State } from './schedule_staying-detail.store.reducer';
 
-export const stayingScheduleFeatureState = createFeatureSelector<State>(storeKey);
+export const movingScheduleFeatureState = createFeatureSelector<State>(storeKey);
 
 export const getStayingSchedule = createSelector(
-  stayingScheduleFeatureState,
-  (state) => state.stayingSchedule
+  movingScheduleFeatureState,
+  (state) => state.movingSchedule
 );
 
 export const editStayingSchedule = createSelector(
-  stayingScheduleFeatureState,
-  (state) => state.stayingScheduleReturn
+  movingScheduleFeatureState,
+  (state) => state.movingScheduleReturn
 );
 
 export const getMessage = createSelector(
-  stayingScheduleFeatureState,
+  movingScheduleFeatureState,
   (state) => state.messageCode
 );
 
 export const getSysError = createSelector(
-  stayingScheduleFeatureState,
+  movingScheduleFeatureState,
   (state) => state.error
 );

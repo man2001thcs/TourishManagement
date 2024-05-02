@@ -3,14 +3,14 @@ import * as StayingScheduleAction from './schedule_staying-detail.store.action';
 import { IBaseState } from 'src/app/model/IBaseModel';
 
 export interface State extends IBaseState {
-  stayingSchedule: any;
-  stayingScheduleReturn: any;
+  movingSchedule: any;
+  movingScheduleReturn: any;
 }
 
 export const initialState: State = {
-  stayingSchedule: null,
+  movingSchedule: null,
   resultCd: 0,
-  stayingScheduleReturn: null
+  movingScheduleReturn: null
 };
 
 export const reducer = createReducer(
@@ -27,7 +27,7 @@ export const reducer = createReducer(
 
   on(StayingScheduleAction.getStayingScheduleSuccess, (state, { response }) => ({
     ...state,
-    stayingSchedule: response.data,
+    movingSchedule: response.data,
   })),
 
   on(StayingScheduleAction.getStayingScheduleFailed, (state, { response }) => ({
@@ -46,7 +46,7 @@ export const reducer = createReducer(
 
   on(StayingScheduleAction.editStayingScheduleSuccess, (state, { response }) => ({
     ...state,
-    stayingScheduleReturn: response,
+    movingScheduleReturn: response,
   })),
 
   on(StayingScheduleAction.editStayingScheduleFailed, (state, { response }) => ({
@@ -61,7 +61,7 @@ export const reducer = createReducer(
 
   on(StayingScheduleAction.resetStayingSchedule, (state) => ({
     ...state,
-    stayingSchedule: null,
-    stayingScheduleReturn: null
+    movingSchedule: null,
+    movingScheduleReturn: null
   }))
 );

@@ -1,3 +1,3 @@
-export interface MovingScheduleParam {
+export interface StayingScheduleParam {
   id: string;
 }

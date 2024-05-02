@@ -64,7 +64,7 @@ export class StayingScheduleDetailComponent implements OnInit, OnDestroy {
   enableMeridian = false;
   color: ThemePalette = "primary";
   editorContent: any;
-  vehicleType = 0;
+  restHouseType = 0;
 
   constructor(
     private adminService: AdminService,
@@ -85,15 +85,12 @@ export class StayingScheduleDetailComponent implements OnInit, OnDestroy {
     this.editformGroup_info = this.fb.group({
       id: [this.data.id, Validators.compose([Validators.required])],
       name: ["", Validators.compose([Validators.required])],
-      branchName: ["", Validators.compose([Validators.required])],
-      driverName: ["", Validators.compose([Validators.required])],
-      vehiclePlate: ["", Validators.compose([Validators.required])],
-      phoneNumber: ["", Validators.compose([Validators.required])],
+      placeName: ["", Validators.compose([Validators.required])],
+      address: ["", Validators.compose([Validators.required])],
+      supportNumber: ["", Validators.compose([Validators.required])],
       singlePrice: [0],
-      vehicleType: [0, Validators.compose([Validators.required])],
-      transportId: ["", Validators.compose([Validators.required])],
-      startingPlace: ["", Validators.compose([Validators.required])],
-      headingPlace: ["", Validators.compose([Validators.required])],
+      restHouseType: [0, Validators.compose([Validators.required])],
+      restHouseBranchId: ["", Validators.compose([Validators.required])],
       status: [null, Validators.compose([Validators.required])],
       description: ["", Validators.compose([Validators.required])],
       startDate: ["", Validators.compose([Validators.required])],
@@ -106,32 +103,23 @@ export class StayingScheduleDetailComponent implements OnInit, OnDestroy {
           this.stayingSchedule = state;
 
           this.editformGroup_info.controls["name"].setValue(state.name ?? "");
-          this.editformGroup_info.controls["branchName"].setValue(
-            state.branchName ?? ""
+          this.editformGroup_info.controls["placeName"].setValue(
+            state.placeName ?? ""
           );
-          this.editformGroup_info.controls["driverName"].setValue(
-            state.driverName ?? ""
+          this.editformGroup_info.controls["address"].setValue(
+            state.address ?? ""
           );
-          this.editformGroup_info.controls["vehiclePlate"].setValue(
-            state.vehiclePlate ?? ""
+          this.editformGroup_info.controls["supportNumber"].setValue(
+            state.supportNumber ?? ""
           );
-          this.editformGroup_info.controls["phoneNumber"].setValue(
-            state.phoneNumber ?? ""
+          this.editformGroup_info.controls["restHouseType"].setValue(
+            state.restHouseType ?? 0
           );
-          this.editformGroup_info.controls["vehicleType"].setValue(
-            state.vehicleType ?? 0
-          );
-          this.editformGroup_info.controls["transportId"].setValue(
-            state.transportId ?? ""
-          );
-          this.editformGroup_info.controls["startingPlace"].setValue(
-            state.startingPlace ?? ""
+          this.editformGroup_info.controls["restHouseBranchId"].setValue(
+            state.restHouseBranchId ?? ""
           );
           this.editformGroup_info.controls["singlePrice"].setValue(
             state.singlePrice ?? ""
-          );
-          this.editformGroup_info.controls["headingPlace"].setValue(
-            state.headingPlace ?? ""
           );
           this.editformGroup_info.controls["status"].setValue(
             state.status ?? 0
@@ -146,7 +134,7 @@ export class StayingScheduleDetailComponent implements OnInit, OnDestroy {
             state.endDate ?? null
           );
 
-          this.vehicleType = state.vehicleType;
+          this.restHouseType = state.restHouseType;
         }
       })
     );
@@ -205,15 +193,11 @@ export class StayingScheduleDetailComponent implements OnInit, OnDestroy {
       id: this.stayingSchedule.id ?? "",
       tourishPlanId: this.stayingSchedule.tourishPlanId ?? "",
       name: this.stayingSchedule.name ?? "",
-      branchName: this.stayingSchedule.branchName ?? "",
-      driverName: this.stayingSchedule.driverName ?? "",
-      vehiclePlate: this.stayingSchedule.vehiclePlate ?? "",
-      phoneNumber: this.stayingSchedule.phoneNumber ?? "",
+      placeName: this.stayingSchedule.placeName ?? "",
+      supportNumber: this.stayingSchedule.supportNumber ?? "",
       singlePrice: this.stayingSchedule.singlePrice ?? 0,
-      vehicleType: this.stayingSchedule.vehicleType ?? 0,
-      transportId: this.stayingSchedule.transportId ?? "",
-      startingPlace: this.stayingSchedule.startingPlace ?? "",
-      headingPlace: this.stayingSchedule.headingPlace ?? "",
+      restHouseType: this.stayingSchedule.restHouseType ?? 0,
+      restHouseBranchId: this.stayingSchedule.restHouseBranchId ?? "",
       status: this.stayingSchedule.status ?? 0,
       description: this.stayingSchedule.description ?? "",
       startDate: this.stayingSchedule.startDate ?? null,
@@ -234,15 +218,12 @@ export class StayingScheduleDetailComponent implements OnInit, OnDestroy {
       const payload: StayingSchedule = {
         id: this.editformGroup_info.value.id,
         name: this.editformGroup_info.value.name,
-        branchName: this.editformGroup_info.value.branchName,
-        driverName: this.editformGroup_info.value.driverName,
-        vehiclePlate: this.editformGroup_info.value.vehiclePlate,
-        phoneNumber: this.editformGroup_info.value.phoneNumber,
+        address: this.editformGroup_info.value.address,
+        placeName: this.editformGroup_info.value.placeName,
+        supportNumber: this.editformGroup_info.value.supportNumber,
         singlePrice: parseInt(this.editformGroup_info.value.singlePrice),
-        vehicleType: this.editformGroup_info.value.vehicleType,
-        transportId: this.editformGroup_info.value.transportId,
-        startingPlace: this.editformGroup_info.value.startingPlace,
-        headingPlace: this.editformGroup_info.value.headingPlace,
+        restHouseType: this.editformGroup_info.value.restHouseType,
+        restHouseBranchId: this.editformGroup_info.value.restHouseBranchId,
         status: this.editformGroup_info.value.status,
         description: this.editformGroup_info.value.description,
         startDate: this.editformGroup_info.value.startDate,
@@ -263,7 +244,7 @@ export class StayingScheduleDetailComponent implements OnInit, OnDestroy {
   }
 
   selectSchedule($event: string[]) {
-    this.editformGroup_info.controls["transportId"].setValue($event[0]);
+    this.editformGroup_info.controls["restHouseBranchId"].setValue($event[0]);
   }
 
   changeStatusExist($event: any) {
@@ -277,6 +258,6 @@ export class StayingScheduleDetailComponent implements OnInit, OnDestroy {
   }
 
   changeType($event: any) {
-    this.vehicleType = parseInt($event.target.value);
+    this.restHouseType = parseInt($event.target.value);
   }
 }

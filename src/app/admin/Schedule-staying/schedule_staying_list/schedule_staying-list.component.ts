@@ -47,9 +47,9 @@ export class StayingScheduleListComponent
   displayedColumns: string[] = [
     "id",
     "name",
-    "branchName",
+    "placeName",
     "singlePrice",
-    "vehicleType",
+    "restHouseType",
     "startingPlace",
     "headingPlace",
     "status",

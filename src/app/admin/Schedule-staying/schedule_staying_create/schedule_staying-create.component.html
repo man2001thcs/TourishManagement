@@ -69,7 +69,7 @@
             <div class="row">
               <mat-form-field appearance="outline" class="full-width-input">
                 <mat-label>Loại phương tiện</mat-label>
-                <select matNativeControl required formControlName="vehicleType" (change)="changeType($event)">
+                <select matNativeControl required formControlName="restHouseType" (change)="changeType($event)">
                   <option [value]="0">Xe khách</option>
                   <option [value]="1">Máy bay</option>
                 </select>
@@ -80,7 +80,7 @@
               <app-moving-contact-select-autocomplete
                 style="width: 88%"
                 [data_selected]="undefined"
-                [type]="vehicleType"
+                [type]="restHouseType"
                 (result)="selectSchedule($event.data)"
               >
               </app-moving-contact-select-autocomplete>
@@ -93,7 +93,7 @@
                   matInput
                   fullwidth
                   placeholder="Vd: Bồ Công Anh"
-                  formControlName="branchName"
+                  formControlName="placeName"
                   [readonly]="true"
                 />
               </mat-form-field>
@@ -101,12 +101,12 @@
               <div class="validation-container">
                 <app-validation
                   *ngIf="
-                    this.createformGroup_info.get('branchName')?.errors &&
-                    (createformGroup_info.get('branchName')?.touched ||
+                    this.createformGroup_info.get('placeName')?.errors &&
+                    (createformGroup_info.get('placeName')?.touched ||
                       isSubmitted)
                   "
                   [formGroup]="createformGroup_info"
-                  [formGroupControlName]="'branchName'"
+                  [formGroupControlName]="'placeName'"
                 ></app-validation>
               </div>
             </div>
@@ -163,18 +163,18 @@
                 <input
                   matInput
                   placeholder="Vd: 0123456789"
-                  formControlName="phoneNumber"
+                  formControlName="supportNumber"
                 />
               </mat-form-field>
               <div class="validation-container">
                 <app-validation
                   *ngIf="
-                    this.createformGroup_info.get('phoneNumber')?.errors &&
-                    (createformGroup_info.get('phoneNumber')?.touched ||
+                    this.createformGroup_info.get('supportNumber')?.errors &&
+                    (createformGroup_info.get('supportNumber')?.touched ||
                       isSubmitted)
                   "
                   [formGroup]="createformGroup_info"
-                  [formGroupControlName]="'phoneNumber'"
+                  [formGroupControlName]="'supportNumber'"
                 ></app-validation>
               </div>
             </div>          
@@ -206,7 +206,7 @@
             <div class="row">
               <mat-form-field appearance="outline" class="full-width-input">
                 <mat-label>Loại phương tiện</mat-label>
-                <select matNativeControl required formControlName="vehicleType">
+                <select matNativeControl required formControlName="restHouseType">
                   <option value="0">Xe khách</option>
                   <option value="1">Máy bay</option>
                 </select>
@@ -214,12 +214,12 @@
               <div style="margin-top: -20px; margin-bottom: 10px">
                 <app-validation
                   *ngIf="
-                    this.createformGroup_info.get('vehicleType')?.errors &&
-                    (createformGroup_info.get('vehicleType')?.touched ||
+                    this.createformGroup_info.get('restHouseType')?.errors &&
+                    (createformGroup_info.get('restHouseType')?.touched ||
                       isSubmitted)
                   "
                   [formGroup]="createformGroup_info"
-                  [formGroupControlName]="'vehicleType'"
+                  [formGroupControlName]="'restHouseType'"
                 ></app-validation>
               </div>
             </div>

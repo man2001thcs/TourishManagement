@@ -65,7 +65,7 @@ export class StayingScheduleCreateComponent implements OnInit, OnDestroy {
   enableMeridian = false;
   color: ThemePalette = "primary";
   editorContent: any;
-  vehicleType = 0;
+  restHouseType = 0;
 
   constructor(
     private dialog: MatDialog,
@@ -118,17 +118,15 @@ export class StayingScheduleCreateComponent implements OnInit, OnDestroy {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     this.createformGroup_info = this.fb.group({
+      id: [this.data.id, Validators.compose([Validators.required])],
       name: ["", Validators.compose([Validators.required])],
-      branchName: [""],
-      driverName: ["", Validators.compose([Validators.required])],
-      vehiclePlate: ["", Validators.compose([Validators.required])],
-      phoneNumber: ["", Validators.compose([Validators.required])],
+      placeName: ["", Validators.compose([Validators.required])],
+      address: ["", Validators.compose([Validators.required])],
+      supportNumber: ["", Validators.compose([Validators.required])],
       singlePrice: [0],
-      vehicleType: [0, Validators.compose([Validators.required])],
-      transportId: ["", Validators.compose([Validators.required])],
-      startingPlace: ["", Validators.compose([Validators.required])],
-      headingPlace: ["", Validators.compose([Validators.required])],
-      status: [0, Validators.compose([Validators.required])],
+      restHouseType: [0, Validators.compose([Validators.required])],
+      restHouseBranchId: ["", Validators.compose([Validators.required])],
+      status: [null, Validators.compose([Validators.required])],
       description: ["", Validators.compose([Validators.required])],
       startDate: ["", Validators.compose([Validators.required])],
       endDate: ["", Validators.compose([Validators.required])],
@@ -145,15 +143,12 @@ export class StayingScheduleCreateComponent implements OnInit, OnDestroy {
   formReset(): void {
     this.createformGroup_info.setValue({
       name: "",
-      branchName: "",
-      driverName: "",
-      vehiclePlate: "",
-      phoneNumber: "",
+      placeName: "",
+      supportNumber: "",
       singlePrice: null,
-      vehicleType: null,
-      transportId: "",
-      startingPlace: "",
-      headingPlace: "",
+      restHouseType: null,
+      restHouseBranchId: "",
+      address: "",
       status: 0,
       description: "",
       startDate: null,
@@ -172,15 +167,12 @@ export class StayingScheduleCreateComponent implements OnInit, OnDestroy {
     if (this.createformGroup_info.valid) {
       const payload: StayingSchedule = {
         name: this.createformGroup_info.value.name,
-        branchName: this.createformGroup_info.value.branchName,
-        driverName: this.createformGroup_info.value.driverName,
-        vehiclePlate: this.createformGroup_info.value.vehiclePlate,
-        phoneNumber: this.createformGroup_info.value.phoneNumber,
+        placeName: this.createformGroup_info.value.placeName,
+        address: this.createformGroup_info.value.address,
+        supportNumber: this.createformGroup_info.value.supportNumber,
         singlePrice: parseInt(this.createformGroup_info.value.singlePrice),
-        vehicleType: this.createformGroup_info.value.vehicleType,
-        transportId: this.createformGroup_info.value.transportId,
-        startingPlace: this.createformGroup_info.value.startingPlace,
-        headingPlace: this.createformGroup_info.value.headingPlace,
+        restHouseType: this.createformGroup_info.value.restHouseType,
+        restHouseBranchId: this.createformGroup_info.value.restHouseBranchId,
         status: this.createformGroup_info.value.status,
         description: this.editorContent,
         startDate: this.createformGroup_info.value.startDate,
@@ -204,10 +196,10 @@ export class StayingScheduleCreateComponent implements OnInit, OnDestroy {
 
   selectSchedule($event: any) {
     if ($event) {
-      this.createformGroup_info.controls["transportId"].setValue(
+      this.createformGroup_info.controls["restHouseBranchId"].setValue(
         $event.idList[0]
       );
-      this.createformGroup_info.controls["branchName"].setValue(
+      this.createformGroup_info.controls["placeName"].setValue(
         $event.nameList[0]
       );
     }
@@ -220,7 +212,7 @@ export class StayingScheduleCreateComponent implements OnInit, OnDestroy {
   }
 
   changeType($event: any) {
-    this.vehicleType = parseInt($event.target.value);
+    this.restHouseType = parseInt($event.target.value);
   }
 
   getTinyMceResult($event: any) {

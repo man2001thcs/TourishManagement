@@ -1,0 +1,9 @@
+.addContainer {
+  margin-bottom: 15px;
+}
+
+.table-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+  }

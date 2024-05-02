@@ -1,0 +1,227 @@
+<div style="width: 100% !important">
+  <mat-card style="margin-bottom: 20px; padding: 10px 10px 10px">
+    <mat-card-header>
+      <mat-card-title>Danh sách dịch vụ</mat-card-title>
+    </mat-card-header>
+    <mat-card-actions>
+      <button mat-raised-button (click)="openAddDialog()" class="demo-button">
+        Thêm đối tác
+      </button>
+
+      <div
+        style="
+          flex-direction: row;
+          align-items: center;
+          margin-left: 15px;
+          margin-top: 22px !important;
+        "
+      >
+        <mat-form-field appearance="outline" class="full-width-input">
+          <input
+            #searchInput
+            matInput
+            type="text"
+            fullwidth
+            name="search"
+            id="search"
+            placeholder="Tìm kiếm sản phẩm"
+            [(ngModel)]="searchPhase"
+          />
+        </mat-form-field>
+        <button mat-button status="primary" (click)="search()">
+          <i
+            class="fa fa-search"
+            aria-hidden="true"
+            style="font-size: 15px"
+          ></i>
+        </button>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+
+  <div class="table-responsive">
+    <table
+      mat-table
+      [dataSource]="movingScheduleList"
+      matSort
+      matSort
+      class="mat-elevation-z8"
+      (matSortChange)="announceSortChange($event)"
+    >
+      <!-- Position Column -->
+      <ng-container matColumnDef="id">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by id"
+        >
+          No.
+        </th>
+        <td mat-cell *matCellDef="let element">
+          {{ getIndex(element) }}
+        </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by name"
+        >
+          Tên dịch vụ
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="branchName">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by branchName"
+        >
+          Nhà cung cấp
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.branchName }}</td>
+      </ng-container>
+
+      <!-- SS Column -->
+      <ng-container matColumnDef="singlePrice">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by singlePrice"
+        >
+          Đơn giá
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.singlePrice }}</td>
+      </ng-container>
+
+      <!-- SS Column -->
+      <ng-container matColumnDef="vehicleType">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by vehicleType"
+        >
+          Loại phương tiện
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.vehicleType }}</td>
+      </ng-container>
+
+      <!-- SS Column -->
+      <ng-container matColumnDef="startingPlace">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by startingPlace"
+        >
+          Nơi khởi đầu
+        </th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.startingPlace }}
+        </td>
+      </ng-container>
+
+      <!-- SS Column -->
+      <ng-container matColumnDef="headingPlace">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by headingPlace"
+        >
+          Điểm đến
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.headingPlace }}</td>
+      </ng-container>
+
+      <!-- SS Column -->
+      <ng-container matColumnDef="status">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by status"
+        >
+          Tình trạng
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.status }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="startDate">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by startDate"
+        >
+          Ngày bắt đầu
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.startDate }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="endDate">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by endDate"
+        >
+          Ngày kết thúc
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.endDate }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="createDate">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by createDate"
+        >
+          Ngày tạo
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.createDate }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="edit">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-button (click)="openEditDialog(element.id)">Edit</button>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-button (click)="openDeleteDialog(element.id)">
+            Delete
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: displayedColumns"
+        [class.demo-row-is-clicked]=""
+      ></tr>
+    </table>
+  </div>
+  <mat-paginator
+    [pageSizeOptions]="pageSizeOpstion"
+    [length]="length"
+    (page)="handlePageEvent($event)"
+    showFirstLastButtons
+    aria-label="Select page of periodic elements"
+  >
+  </mat-paginator>
+</div>

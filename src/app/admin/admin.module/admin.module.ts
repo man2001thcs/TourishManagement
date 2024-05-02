@@ -221,6 +221,15 @@ import { reducer as MovingScheduleDetailReducer } from "../Schedule-moving/sched
 import { storeKey as MovingScheduleListStoreKey } from "../Schedule-moving/schedule_moving_list/schedule_moving-list.store.action";
 import { reducer as MovingScheduleListReducer } from "../Schedule-moving/schedule_moving_list/schedule_moving-list.store.reducer";
 
+import { storeKey as StayingScheduleCreateStoreKey } from "../Schedule-staying/schedule_staying_create/schedule_staying-create.store.action";
+import { reducer as StayingScheduleCreateReducer } from "../Schedule-staying/schedule_staying_create/schedule_staying-create.store.reducer";
+
+import { storeKey as StayingScheduleDetailStoreKey } from "../Schedule-staying/schedule_staying_detail/schedule_staying-detail.store.action";
+import { reducer as StayingScheduleDetailReducer } from "../Schedule-staying/schedule_staying_detail/schedule_staying-detail.store.reducer";
+
+import { storeKey as StayingScheduleListStoreKey } from "../Schedule-staying/schedule_staying_list/schedule_staying-list.store.action";
+import { reducer as StayingScheduleListReducer } from "../Schedule-staying/schedule_staying_list/schedule_staying-list.store.reducer";
+
 import { storeKey as MovingContactSelectStoreKey } from "../../utility/multiselect/moving-contact-select-autocomplete/select-autocomplete.store.action";
 import { reducer as MovingContactSelectReducer } from "../../utility/multiselect/moving-contact-select-autocomplete/select-autocomplete.store.reducer";
 
@@ -416,6 +425,11 @@ import { StayingScheduleListComponent } from "../Schedule-staying/schedule_stayi
     StoreModule.forFeature(MovingScheduleCreateStoreKey, MovingScheduleCreateReducer),
     StoreModule.forFeature(MovingScheduleDetailStoreKey, MovingScheduleDetailReducer),
     StoreModule.forFeature(MovingScheduleListStoreKey, MovingScheduleListReducer),
+
+    StoreModule.forFeature(StayingScheduleCreateStoreKey, StayingScheduleCreateReducer),
+    StoreModule.forFeature(StayingScheduleDetailStoreKey, StayingScheduleDetailReducer),
+    StoreModule.forFeature(StayingScheduleListStoreKey, StayingScheduleListReducer),
+
     StoreModule.forFeature(MovingContactSelectStoreKey, MovingContactSelectReducer),
 
     EffectsModule.forFeature([TourishCategoryCreateEffects]),

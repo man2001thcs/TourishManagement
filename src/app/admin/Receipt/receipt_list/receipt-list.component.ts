@@ -302,12 +302,8 @@ export class ReceiptListComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   handlePageEvent(e: PageEvent) {
-    // this.length = e.length;
-
     this.pageSize = e.pageSize;
     this.pageIndex = e.pageIndex;
-
-    console.log(this.pageIndex);
 
     this.store.dispatch(
       ReceiptListActions.getReceiptList({
@@ -337,38 +333,19 @@ export class ReceiptListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   announceSortChange(sortState: Sort) {
-    // This example uses English messages. If your application supports
-    // multiple language, you would internationalize these strings.
-    // Furthermore, you can customize the message to add additional
-    // details about the values being sorted.
-    console.log(sortState);
-    if ((sortState.active = "name")) {
-      if (sortState.direction === "asc") {
-        this.store.dispatch(
-          ReceiptListActions.getReceiptList({
-            payload: {
-              page: 1,
-              pageSize: this.pageSize,
-              status: this.active
-            },
-          })
-        );
-        this.messageService.openLoadingDialog();
-      } else if (sortState.direction === "desc") {
-        this.store.dispatch(
-          ReceiptListActions.getReceiptList({
-            payload: {
-              sortBy: "name_desc",
-              page: 1,
-              pageSize: this.pageSize,
-              status: this.active
-            },
-          })
-        );
-        this.messageService.openLoadingDialog();
-      }
-    } else {
-    }
+    this.pageIndex = 0;
+    this.pageSize = 5;
+    this.messageService.openLoadingDialog();
+    this.store.dispatch(
+      ReceiptListActions.getReceiptList({
+        payload: {
+          page: 1,
+          pageSize: this.pageSize,
+          sortBy: sortState.active,
+          sortDirection: sortState.direction
+        },
+      })
+    );
   }
 
   getIndex(elementId: string) {

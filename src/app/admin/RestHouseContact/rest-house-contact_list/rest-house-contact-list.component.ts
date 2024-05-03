@@ -295,40 +295,21 @@ export class RestHouseContactListComponent implements OnInit, AfterViewInit, OnD
   }
 
   announceSortChange(sortState: Sort) {
-    // This example uses English messages. If your application supports
-    // multiple language, you would internationalize these strings.
-    // Furthermore, you can customize the message to add additional
-    // details about the values being sorted.
-    console.log(sortState);
-    if ((sortState.active = "name")) {
-      if (sortState.direction === "asc") {
-        this.messageService.openLoadingDialog();
-        this.store.dispatch(
-          RestHouseContactListActions.getRestHouseContactList({
-            payload: {
-              page: 1,
-              pageSize: this.pageSize,
-              search: this.searchPhase,
-              type: this.type,
-            },
-          })
-        );
-      } else if (sortState.direction === "desc") {
-        this.messageService.openLoadingDialog();
-        this.store.dispatch(
-          RestHouseContactListActions.getRestHouseContactList({
-            payload: {
-              sortBy: "name_desc",
-              page: 1,
-              pageSize: this.pageSize,
-              search: this.searchPhase,
-              type: this.type,
-            },
-          })
-        );
-      }
-    } else {
-    }
+    this.pageIndex = 0;
+    this.pageSize = 5;
+    this.messageService.openLoadingDialog();
+    this.store.dispatch(
+      RestHouseContactListActions.getRestHouseContactList({
+        payload: {
+          page: 1,
+          pageSize: this.pageSize,
+          search: this.searchPhase,
+          type: this.type,
+          sortBy: sortState.active,
+          sortDirection: sortState.direction
+        },
+      })
+    );
   }
 
   getIndex(elementId: string) {

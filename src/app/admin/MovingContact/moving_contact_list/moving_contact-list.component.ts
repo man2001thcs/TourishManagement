@@ -265,8 +265,6 @@ export class MovingContactListComponent
     this.pageSize = e.pageSize;
     this.pageIndex = e.pageIndex;
 
-    console.log(this.pageIndex);
-
     this.store.dispatch(
       MovingContactListActions.getMovingContactList({
         payload: {
@@ -297,40 +295,21 @@ export class MovingContactListComponent
   }
 
   announceSortChange(sortState: Sort) {
-    // This example uses English messages. If your application supports
-    // multiple language, you would internationalize these strings.
-    // Furthermore, you can customize the message to add additional
-    // details about the values being sorted.
-    console.log(sortState);
-    if ((sortState.active = "name")) {
-      if (sortState.direction === "asc") {
-        this.store.dispatch(
-          MovingContactListActions.getMovingContactList({
-            payload: {
-              page: 1,
-              pageSize: this.pageSize,
-              search: this.searchPhase,
-              type: this.type,
-            },
-          })
-        );
-        this.messageService.openLoadingDialog();
-      } else if (sortState.direction === "desc") {
-        this.store.dispatch(
-          MovingContactListActions.getMovingContactList({
-            payload: {
-              sortBy: "name_desc",
-              page: 1,
-              pageSize: this.pageSize,
-              search: this.searchPhase,
-              type: this.type,
-            },
-          })
-        );
-        this.messageService.openLoadingDialog();
-      }
-    } else {
-    }
+    this.pageIndex = 0;
+    this.pageSize = 5;
+    this.messageService.openLoadingDialog();
+    this.store.dispatch(
+      MovingContactListActions.getMovingContactList({
+        payload: {
+          page: 1,
+          pageSize: this.pageSize,
+          search: this.searchPhase,
+          type: this.type,
+          sortBy: sortState.active,
+          sortDirection: sortState.direction
+        },
+      })
+    );
   }
 
   getIndex(element: MovingContact) {

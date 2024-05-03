@@ -45,7 +45,8 @@ import { User } from "src/app/model/baseModel";
 })
 export class AccountInfoComponent implements OnInit, OnDestroy {
   isEditing: boolean = true;
-  isSubmitted = false;
+  isSubmittedInfo = false;
+  isSubmittedPassword = false;
   id = "";
   active = 1;
 
@@ -203,8 +204,8 @@ export class AccountInfoComponent implements OnInit, OnDestroy {
   }
 
   formSubmit_edit_info(): void {
-    this.isSubmitted = true;
-    if (this.active === 1) {
+    if (this.active === 0) {
+      this.isSubmittedInfo = true;
       if (this.editformGroup_info.valid) {
         const payload = {
           id: this.id,
@@ -224,16 +225,18 @@ export class AccountInfoComponent implements OnInit, OnDestroy {
           })
         );
       }
-    } else  if (this.active === 2) {
+    } else  if (this.active === 1) {
+      this.isSubmittedPassword = true;
       if (this.editformGroup_password.valid) {
         const payload = {
           userName: this.tokenStorageService.getUser().UserName,
-          password: this.editformGroup_info.value.password,
-          newPassword: this.editformGroup_info.value.newPassword,
+          password: this.editformGroup_password.value.password,
+          newPassword: this.editformGroup_password.value.newPassword,
           role: this.tokenStorageService.getUserRoleInNumber(),
           phase: "Password"      
         };
 
+        this.messageService.openLoadingDialog();
         this.store.dispatch(
           AccountActions.editAccount({
             payload: payload,
@@ -241,5 +244,9 @@ export class AccountInfoComponent implements OnInit, OnDestroy {
         );
       }
     }
+  }
+
+  changeIndex($event: number){
+    this.active = $event;
   }
 }

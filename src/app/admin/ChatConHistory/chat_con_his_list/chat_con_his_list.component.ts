@@ -161,8 +161,7 @@ export class GuestMessageConHistoryListComponent
     this.pageSize = e.pageSize;
     this.pageIndex = e.pageIndex;
 
-    console.log(this.pageIndex);
-
+    this.messageService.openLoadingDialog();
     this.store.dispatch(
       GuestMessageConHistoryListActions.getGuestMessageConHistoryList({
         payload: {
@@ -193,34 +192,20 @@ export class GuestMessageConHistoryListComponent
   }
 
   announceSortChange(sortState: Sort) {
-    // This example uses English messages. If your application supports
-    // multiple language, you would internationalize these strings.
-    // Furthermore, you can customize the message to add additional
-    // details about the values being sorted.
-    console.log(sortState);
-    if ((sortState.active = "name")) {
-      if (sortState.direction === "asc") {
-        this.store.dispatch(
-          GuestMessageConHistoryListActions.getGuestMessageConHistoryList({
-            payload: {
-              page: 1,
-              pageSize: this.pageSize,
-            },
-          })
-        );
-      } else if (sortState.direction === "desc") {
-        this.store.dispatch(
-          GuestMessageConHistoryListActions.getGuestMessageConHistoryList({
-            payload: {
-              sortBy: "name_desc",
-              page: 1,
-              pageSize: this.pageSize,
-            },
-          })
-        );
-      }
-    } else {
-    }
+    this.pageIndex = 0;
+    this.pageSize = 5;
+    this.messageService.openLoadingDialog();
+    this.store.dispatch(
+      GuestMessageConHistoryListActions.getGuestMessageConHistoryList({
+        payload: {
+          page: 1,
+          pageSize: this.pageSize,
+          search: this.searchPhase,
+          sortBy: sortState.active,
+          sortDirection: sortState.direction
+        },
+      })
+    );
   }
 
   getIndex(elementId: string) {

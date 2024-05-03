@@ -1,27 +1,43 @@
 <mat-card class="example-card" (click)="navigateToDetail()">
-  <div class="image-container">
-    <img
-      mat-card-image
-      src="{{ this.firstImageUrl }}"
-      alt="Photo of a Shiba Inu"
-    />
-  </div>
   <mat-card-content>
-    <p class="tour-name">{{ getTourName(scheduleName) }}</p>
-
     <div
-      class="row"
       style="
         margin-left: 5px;
         display: flex;
-        flex-direction: row-reverse;
+        flex-direction: row;
         align-items: center;
         width: 100%;
-        margin-top: 20px;
       "
     >
-      <p class="tour-price">{{ schedulePrice }}đ</p>
-      <p class="tour-history">{{ customerNumber }} khách đã đặt</p>
+      <div class="image-container">
+        <img
+          mat-card-image
+          src="{{ this.firstImageUrl }}"
+          alt="Photo of a Shiba Inu"
+        />
+      </div>
+
+      <div class="schedule-content">
+        <p class="tour-name">{{ getTourName(scheduleName) }}</p>
+
+        <div class="schedule-content-info">
+          <div class="destination">
+            <p>{{ startingPlace }}</p>
+            <p>{{ getDateFormat(startDate) }}</p>
+          </div>
+          <i class="fa fa-exchange" aria-hidden="true"></i>
+          <div class="destination">
+            <p>{{ headingPlace }}</p>
+            <p>{{ getDateFormat(endDate) }}</p>
+          </div>
+        </div>
+
+        <div>
+          <div style="display: flex; flex-direction: row-reverse; align-items: center">
+            <p class="tour-price">{{ schedulePrice }}đ</p>
+          </div>
+        </div>
+      </div>
     </div>
   </mat-card-content>
 </mat-card>

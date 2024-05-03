@@ -8,14 +8,9 @@ import {
   Renderer2,
   ViewChild,
 } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder } from "@angular/forms";
 import { ThemePalette } from "@angular/material/core";
-
-import { NgbCarouselConfig } from "@ng-bootstrap/ng-bootstrap";
-import { Slider } from "angular-carousel-slider/lib/angular-carousel-slider.component";
 import { MovingSchedule, StayingSchedule } from "src/app/model/baseModel";
-import { messaging } from "src/conf/firebase.conf";
-import { environment } from "src/environments/environment";
 
 @Component({
   selector: "app-schedule-pack",
@@ -25,6 +20,9 @@ import { environment } from "src/environments/environment";
 export class SchedulePackComponent implements OnInit, AfterViewInit {
   @Input()
   scheduleType = 1;
+
+  @Input()
+  objectType = 0;
 
   @ViewChild("picker") eatingPicker: any;
   @ViewChild("packContainer") packContainer!: ElementRef;
@@ -50,8 +48,7 @@ export class SchedulePackComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit() {
-
-    this.getTourPack();
+    this.getSchedulePack();
   }
 
   ngAfterViewInit() {
@@ -105,30 +102,30 @@ export class SchedulePackComponent implements OnInit, AfterViewInit {
     }
   }
 
-  getTourPack() {
+  getSchedulePack() {
     const params = {
       page: 1,
       pageSize: 6,
+      type: this.objectType
     };
 
     if (this.scheduleType == 1) {
       this.http
-      .get("/api/GetMovingSchedule", { params: params })
-      .subscribe((response: any) => {
-        this.movingScheduleList = response.data;
-        console.log(response);
-        this.length = response.count;
-      });
+        .get("/api/GetMovingSchedule", { params: params })
+        .subscribe((response: any) => {
+          this.movingScheduleList = response.data;
+          console.log(response);
+          this.length = response.count;
+        });
     } else if (this.scheduleType == 2) {
       this.http
-      .get("/api/GetStayingSchedule", { params: params })
-      .subscribe((response: any) => {
-        this.stayingScheduleList = response.data;
-        console.log(response);
-        this.length = response.count;
-      });
+        .get("/api/GetStayingSchedule", { params: params })
+        .subscribe((response: any) => {
+          this.stayingScheduleList = response.data;
+          console.log(response);
+          this.length = response.count;
+        });
     }
-    
   }
 
   capitalizeFirstLetter(sentence: string): string {
@@ -136,5 +133,20 @@ export class SchedulePackComponent implements OnInit, AfterViewInit {
       .split(" ")
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(" ");
+  }
+
+  getDateString(date: Date | undefined) {
+    return date != null ? date.toString() ?? "" : "";
+  }
+
+  getTitle() {
+    if (this.scheduleType == 1) {
+      if (this.objectType == 1) return "Vé máy bay"; 
+      if (this.objectType == 0) return "Vé xe"; 
+    } else if (this.scheduleType == 2) {
+      if (this.objectType == 1) return "Đặt trước khách sạn"; 
+      if (this.objectType == 0) return "Đặt Homestay khách sạn"; 
+    }
+    return "Dịch vụ ";
   }
 }

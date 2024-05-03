@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
+import { NavigationExtras, Router } from "@angular/router";
 import { TokenStorageService } from "../user_service/token.service";
 import { HttpClient } from "@angular/common/http";
 import { SaveFile } from "src/app/model/baseModel";
@@ -12,21 +12,30 @@ import { environment } from "src/environments/environment";
 })
 export class ScheduleCardComponent implements OnInit {
   @Input()
+  scheduleType = 1;
+  @Input()
   id = "";
   @Input()
   contactId = "";
-  @Input()
-  scheduleType = 0;
   @Input()
   scheduleName = "";
   @Input()
   schedulePrice = 1400000;
   @Input()
-  customerNumber = 19;
+  startingPlace = "Hà Nội";
   @Input()
-  type = "";
-  tourImage: SaveFile[] = [];
-  firstImageUrl: string = "";
+  headingPlace = "Đà Nẵng";
+  @Input()
+  startDate = "";
+  @Input()
+  endDate = "";
+
+  @Input()
+  customerNumber = 19;
+
+  firstImageUrl = "";
+  scheduleImage: SaveFile[] = [];
+  ratingAverage: any;
 
   constructor(
     private router: Router,
@@ -38,11 +47,11 @@ export class ScheduleCardComponent implements OnInit {
   }
 
   getRateColor(input: number) {
-    if (0 <= input && 5 > input) {
+    if (0 <= input && 2.5 > input) {
       return "#d31818";
-    } else if (5 <= input && 8 > input) {
+    } else if (2.5 <= input && 4 > input) {
       return "#F79321";
-    } else if (8 <= input && 10 >= input) {
+    } else if (4 <= input && 5 >= input) {
       return "#9fc43a";
     }
     return "";
@@ -57,10 +66,10 @@ export class ScheduleCardComponent implements OnInit {
     this.http
       .get("/api/GetFile", { params: payload })
       .subscribe((response: any) => {
-        this.tourImage = response.data;
+        this.scheduleImage = response.data;
 
-        if (this.tourImage.length > 0) {
-          this.pushImageToList(this.tourImage[0]);
+        if (this.scheduleImage.length > 0) {
+          this.pushImageToList(this.scheduleImage[0]);
         }
 
         console.log(response);
@@ -70,24 +79,49 @@ export class ScheduleCardComponent implements OnInit {
   pushImageToList(saveFile: SaveFile) {
     this.firstImageUrl =
       environment.backend.blobURL +
-      "/1-container/" +
-      "1" +
+      "/" +
+      (this.scheduleType + 2) +
+      "-container/" +
+      (this.scheduleType + 2) +
       "_" +
       saveFile.id +
       saveFile.fileType;
   }
 
   navigateToDetail(): void {
+    let navigationExtras: NavigationExtras = {
+      queryParams: { 'schedule-type': this.scheduleType } // Replace 'key' and 'value' with your actual query parameters
+    };
+    
     if (this.tokenStorageService.getUserRole() == "User") {
-      this.router.navigate(["user/tour/" + this.id + "/detail"]);
-    } else this.router.navigate(["guest/tour/" + this.id + "/detail"]);
+      this.router.navigate(["user/service/" + this.id + "/detail"],navigationExtras);
+    } else this.router.navigate(["guest/service/" + this.id + "/detail"], navigationExtras);
   }
 
   getTourName(inputString: string) {
-    if (inputString.length <= 32) {
+    if (inputString.length <= 100) {
       return inputString;
     } else {
-      return inputString.substring(0, 32) + "...";
+      return inputString.substring(0, 100) + "...";
     }
+  }
+
+  getDateFormat(isoDateString: string) {
+    // Chuyển đổi chuỗi ISO 8601 thành đối tượng Date
+    const ngayThang = new Date(isoDateString);
+
+    // Lấy ngày, tháng, năm, giờ từ đối tượng Date
+    const day = ngayThang.getDate();
+    const month = ngayThang.getMonth() + 1; // Tháng bắt đầu từ 0
+    const year = ngayThang.getFullYear();
+    const hour = ngayThang.getHours();
+    const minute = ngayThang.getHours();
+
+    // Tạo chuỗi kết quả
+    const minuteString = minute !== 0 ? minute + " phút" : "";
+    const chuoiNgayThang =
+      `Ngày ${day} tháng ${month}, ${hour} giờ ` + minuteString;
+
+    return chuoiNgayThang;
   }
 }

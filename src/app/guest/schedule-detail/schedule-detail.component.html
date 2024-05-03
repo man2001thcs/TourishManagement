@@ -1,12 +1,18 @@
 <div class="container">
   <div class="below-title">
-    <span
+    <span *ngIf="this.schedule?.address !== undefined"
+      ><i class="fa fa-map-marker" aria-hidden="true"></i> Địa chỉ:
+      <span style="font-weight: lighter">{{
+        this.schedule?.address
+      }}</span></span
+    >
+    <span *ngIf="this.schedule?.startingPlace !== undefined"
       ><i class="fa fa-map-marker" aria-hidden="true"></i> Điểm bắt đầu:
       <span style="font-weight: lighter">{{
         this.schedule?.startingPlace
       }}</span></span
     >
-    <span
+    <span *ngIf="this.schedule?.headingPlace !== undefined"
       ><i class="fa fa-location-arrow" aria-hidden="true"></i> Điểm đến:
       <span style="font-weight: lighter">{{
         this.schedule?.headingPlace
@@ -21,7 +27,7 @@
       ><i class="fa fa-clock-o" aria-hidden="true"></i>
       {{ getDuration() }}</span
     >
-    <span>
+    <span *ngIf="this.schedule?.vehicleType !== undefined">
       <i
         class="fa fa-bus"
         aria-hidden="true"

@@ -1,27 +1,41 @@
 <div class="pack-container" id="pack-container" #packContainer>
   <div class="tourish-pack-description">
-    <h3>Dịch vụ đưa đón</h3>
+    <h3></h3>
   </div>
-  <div class="tourish-pack">
-    <app-schedule-card
-      *ngFor="let movingSchedule of movingScheduleList"
-      [id]="movingSchedule.id ?? ''"
+  <div class="schedule-pack">
+    <app-schedule-search-card
+      *ngFor="let schedule of movingScheduleList"
+      [id]="schedule.id ?? ''"
+      [scheduleName]="schedule.name ?? ''"
       [scheduleType]="1"
-      [contactId]="movingSchedule.transportId"
-      [scheduleName]="movingSchedule.name ?? ''"
-      [schedulePrice]="movingSchedule.singlePrice ?? 0"
-      [scheduleType]="1"
-    ></app-schedule-card>
+      [contactId]="schedule.transportId"
+      [schedulePrice]="schedule.singlePrice ?? 0"
+      [startDate]="
+        getDateString(schedule.startDate)
+      "
+      [endDate]="
+        getDateString(schedule.endDate)
+      "
+      [startingPlace]="schedule.startingPlace"
+      [headingPlace]="schedule.headingPlace"
+      style="width: 100%"
+    ></app-schedule-search-card>
 
-    <app-schedule-card
-      *ngFor="let stayingSchedule of stayingScheduleList"
-      [id]="stayingSchedule.id ?? ''"
-      [scheduleType]="1"
-      [contactId]="stayingSchedule.restHouseBranchId"
-      [scheduleName]="stayingSchedule.name ?? ''"
-      [schedulePrice]="stayingSchedule.singlePrice ?? 0"
-      [scheduleType]="1"
-    ></app-schedule-card>
+    <app-schedule-search-card
+      *ngFor="let schedule of stayingScheduleList"
+      [id]="schedule.id ?? ''"
+      [scheduleName]="schedule.name ?? ''"
+      [scheduleType]="2"
+      [contactId]="schedule.restHouseBranchId"
+      [schedulePrice]="schedule.singlePrice ?? 0"
+      [startDate]="
+        getDateString(schedule.startDate)
+      "
+      [endDate]="
+        getDateString(schedule.endDate)
+      "
+      style="width: 100%"
+    ></app-schedule-search-card>
   </div>
 
   <div class="tourish-button">

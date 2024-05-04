@@ -1,0 +1,339 @@
+<div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
+      <div class="row">
+        <h2
+          mat-form-label
+          style="
+            font-weight: heavy;
+            font-size: 16px;
+            margin-bottom: 0px;
+            margin-left: 20px;
+          "
+        >
+          Danh sách lịch trình
+        </h2>
+      </div>
+
+      <div
+        class="row"
+        *ngIf="data_selected.length < 1"
+        style="margin-bottom: 20px"
+      >
+        <mat-chip color="warn" style="font-size: 16px; margin-left: 20px"
+          >Chưa có danh sách</mat-chip
+        >
+      </div>
+
+      <ng-template
+        #inputMovingSchedule
+        let-index="index"
+        let-id="id"
+        let-description="description"
+      >
+        <div
+          style="
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-left: 15px;
+          "
+        >
+          <mat-expansion-panel
+            [expanded]="false"
+            style="width: 80%; margin-right: 10px"
+          >
+            <mat-expansion-panel-header>
+              <mat-panel-title> Lưu ý mới {{ index + 1 }}</mat-panel-title>
+            </mat-expansion-panel-header>
+            <p>
+              <span style="font-weight: bold">Nội dung:</span>
+              {{ displayDescription(description) }}
+            </p>
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="removeSchedule(id)"
+              [disabled]="disabled"
+            >
+              Gỡ
+            </button>
+          </mat-expansion-panel>
+        </div>
+      </ng-template>
+
+      <ng-template
+        #existMovingSchedule
+        let-index="index"
+        let-id="id"
+        let-description="description"
+      >
+        <div
+          style="
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-left: 15px;
+          "
+        >
+          <mat-expansion-panel
+            [expanded]="false"
+            style="width: 80%; margin-right: 10px"
+          >
+            <mat-expansion-panel-header>
+              <mat-panel-title style="color: green">
+                Lưu ý {{ index + 1 }}
+                <i
+                  class="fa fa-check"
+                  style="margin-left: 5px"
+                  aria-hidden="true"
+                ></i
+              ></mat-panel-title>
+            </mat-expansion-panel-header>
+            <p>
+              <span style="font-weight: bold">Nội dung:</span>
+              {{ displayDescription(description) }}
+            </p>
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="clickEditSchedule(id)"
+              style="margin-right: 10px"
+              [disabled]="disabled"
+            >
+              Chỉnh sửa
+            </button>
+            <button
+              mat-raised-button
+              color="danger"
+              (click)="removeSchedule(id)"
+              [disabled]="disabled"
+            >
+              Gỡ
+            </button>
+          </mat-expansion-panel>
+        </div>
+      </ng-template>
+
+      <ng-container
+        *ngFor="let schedule of data_selected_edit; index as i"
+        [ngTemplateOutlet]="existMovingSchedule"
+        [ngTemplateOutletContext]="{
+          index: i,
+          id: schedule.id,
+          description: schedule.description
+        }"
+      >
+      </ng-container>
+
+      <ng-container
+        *ngFor="let schedule of instructionList; index as i"
+        [ngTemplateOutlet]="inputMovingSchedule"
+        [ngTemplateOutletContext]="{
+          index: i,
+          id: schedule.id,
+          description: schedule.description
+        }"
+      >
+      </ng-container>
+    </div>
+
+    <div
+      class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form"
+      *ngIf="!disabled"
+    >
+      <button
+        mat-flat-button
+        color="primary"
+        *ngIf="!isNewEdited"
+        (click)="onClickAddButton()"
+      >
+        Thêm
+      </button>
+      <button
+        mat-flat-button
+        color="warn"
+        *ngIf="isNewEdited"
+        (click)="onClickAddButton()"
+      >
+        Hủy
+      </button>
+    </div>
+
+    <div
+      class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form"
+      *ngIf="isNewEdited && scheduleEdit == null && !disabled"
+    >
+      <div class="row">
+        <h2
+          mat-form-label
+          style="
+            font-weight: heavy;
+            font-size: 16px;
+            margin-bottom: 0px;
+            margin-left: 20px;
+          "
+        >
+          Thêm thông tin lịch trình
+        </h2>
+      </div>
+
+      <div class="row" [formGroup]="scheduleFormGroup">      
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Loại lưu ý</mat-label>
+            <select
+              matNativeControl
+              required
+              formControlName="instructionType"
+              [readonly]="disabled"
+            >
+              <option value="0">Chờ</option>
+              <option value="1">Thông tin đã xác định</option>
+              <option value="2">Đang diễn ra</option>
+              <option value="3">Hoàn thành</option>
+              <option value="4">Hủy bỏ</option>
+            </select>
+          </mat-form-field>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form">
+          <mat-form-field style="width: 90%">
+            <textarea
+              matInput
+              class="form-control"
+              id="description"
+              placeholder="Thông tin đính kèm"
+              formControlName="description"
+              rows="10"
+            ></textarea>
+          </mat-form-field>
+          <div style="margin-top: -20px; margin-bottom: 10px">
+            <app-validation
+              *ngIf="
+                this.createformGroup_info.get('description')?.errors &&
+                (createformGroup_info.get('description')?.touched ||
+                  isSubmitted)
+              "
+              [formGroup]="createformGroup_info"
+              [formGroupControlName]="'description'"
+            ></app-validation>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="scheduleEdit == null">
+        <div class="row" style="margin-left: 20px">
+          <div style="margin-right: 20px">
+            <button
+              mat-raised-button
+              color="primary"
+              type="button"
+              (click)="addToSchedule()"
+            >
+              Thêm
+            </button>
+          </div>
+
+          <div>
+            <button
+              mat-raised-button
+              color="warn"
+              type="button"
+              (click)="this.formReset()"
+            >
+              Khôi phục
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      *ngIf="scheduleEdit != null"
+      class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form"
+    >
+      <div class="row">
+        <h4
+          mat-form-label
+          style="font-weight: bold; text-decoration: underline"
+        >
+          Chỉnh sửa thông tin lịch trình
+        </h4>
+      </div>
+      <div class="row" [formGroup]="editScheduleFormGroup">   
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Loại lưu ý</mat-label>
+            <select
+              matNativeControl
+              required
+              formControlName="instructionType"
+              [readonly]="disabled"
+            >
+              <option value="0">Chờ</option>
+              <option value="1">Thông tin đã xác định</option>
+              <option value="2">Đang diễn ra</option>
+              <option value="3">Hoàn thành</option>
+              <option value="4">Hủy bỏ</option>
+            </select>
+          </mat-form-field>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form">
+          <mat-form-field style="width: 90%">
+            <textarea
+              matInput
+              class="form-control"
+              id="description"
+              placeholder="Thông tin đính kèm"
+              formControlName="description"
+              rows="10"
+            ></textarea>
+          </mat-form-field>
+          <div style="margin-top: -20px; margin-bottom: 10px">
+            <app-validation
+              *ngIf="
+                this.createformGroup_info.get('description')?.errors &&
+                (createformGroup_info.get('description')?.touched ||
+                  isSubmitted)
+              "
+              [formGroup]="createformGroup_info"
+              [formGroupControlName]="'description'"
+            ></app-validation>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="scheduleEdit != null">
+      <div class="row" style="margin-left: 20px">
+        <div style="margin-right: 20px">
+          <button
+            mat-raised-button
+            color="primary"
+            type="button"
+            (click)="editToSchedulesList()"
+            [disabled]="disabled"
+          >
+            Lưu
+          </button>
+        </div>
+
+        <div>
+          <button
+            mat-raised-button
+            color="warn"
+            type="button"
+            (click)="cancelEditSchedule()"
+            [disabled]="disabled"
+          >
+            Hủy
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

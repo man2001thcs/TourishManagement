@@ -22,7 +22,7 @@ export class ValidationComponent implements OnInit {
   ngOnInit() {
     if (this.formGroup.get(this.formGroupControlName)?.hasError('email') &&
     !this.formGroup.get(this.formGroupControlName)?.hasError('required')){
-      this.message = "Vui lòng nhập Email.";
+      this.message = "Vui lòng nhập Email";
     }
 
     if (this.formGroup.get(this.formGroupControlName)?.hasError('min')){
@@ -34,7 +34,7 @@ export class ValidationComponent implements OnInit {
       if (
         this.formGroup.get(this.formGroupControlName)?.hasError("minLength")
       ) {
-        this.message = "Vui lòng nhập từ 6 -> 16 kí tự.";
+        this.message = "Vui lòng nhập từ 6 -> 16 kí tự cho mật khẩu";
       } else if (
         this.formGroup.get(this.formGroupControlName)?.hasError("required")
       ) {

@@ -150,10 +150,16 @@ export interface TourishCategory {
   updateDate?: Date;
 }
 
-export interface TourishCategory {
+export interface Instruction {
   id?: string;
-  name: string;
+
+  instructionType: number;
   description: string;
+
+  tourishPlanId?: string;
+  movingScheduleId?: string;
+  stayingdScheduleId?: string;
+  
   createDate?: Date;
   updateDate?: Date;
 }

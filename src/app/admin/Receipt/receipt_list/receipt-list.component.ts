@@ -7,10 +7,8 @@ import {
   AfterViewInit,
   OnDestroy,
 } from "@angular/core";
-import { MatTableDataSource } from "@angular/material/table";
 import { MatSort, Sort } from "@angular/material/sort";
 import { MatPaginator, PageEvent } from "@angular/material/paginator";
-
 import { Store } from "@ngrx/store";
 import { Observable, Subscription } from "rxjs";
 import { State as ReceiptListState } from "./receipt-list.store.reducer";

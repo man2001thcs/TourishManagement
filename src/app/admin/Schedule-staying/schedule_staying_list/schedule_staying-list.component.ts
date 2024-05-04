@@ -27,6 +27,7 @@ import { StayingScheduleCreateComponent } from "../schedule_staying_create/sched
 import { MessageService } from "src/app/utility/user_service/message.service";
 import { ConfirmDialogComponent } from "src/app/utility/confirm-dialog/confirm-dialog.component";
 import { StayingSchedule } from "src/app/model/baseModel";
+import { InterestModalComponent } from "src/app/utility/change-interest-modal/change-interest-modal.component";
 
 @Component({
   selector: "app-stayingScheduleList",
@@ -55,6 +56,7 @@ export class StayingScheduleListComponent
     "startDate",
     "endDate",
     "createDate",
+    "interest",
     "edit",
     "delete",
   ];
@@ -164,7 +166,26 @@ export class StayingScheduleListComponent
     });
 
     dialogRef.afterClosed().subscribe((result) => {
+      this.store.dispatch(
+        StayingScheduleListActions.getStayingScheduleList({
+          payload: {
+            page: this.pageIndex + 1,
+            search: this.searchPhase,
+            type: 0,
+          },
+        })
+      );
 
+      this.messageService.openLoadingDialog();
+    });
+  }
+
+  openInterestDialog(id: string): void {
+    const dialogRef = this.dialog.open(InterestModalComponent, {
+      data: { resourceId: id, resourceType: "TourishPlan" },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
       this.store.dispatch(
         StayingScheduleListActions.getStayingScheduleList({
           payload: {
@@ -282,7 +303,7 @@ export class StayingScheduleListComponent
           search: this.searchPhase,
           type: 0,
           sortBy: sortState.active,
-          sortDirection: sortState.direction
+          sortDirection: sortState.direction,
         },
       })
     );

@@ -263,6 +263,7 @@ import { StayingScheduleCreateEffects } from "../Schedule-staying/schedule_stayi
 import { RestHouseContactAutoCompleteListEffects } from "src/app/utility/multiselect/staying-contact-select-autocomplete/select-autocomplete.store.effect";
 import { StayingScheduleListEffects } from "../Schedule-staying/schedule_staying_list/schedule_staying-list.store.effect";
 import { StayingScheduleEffects } from "../Schedule-staying/schedule_staying_detail/schedule_staying-detail.store.effect";
+import { InstructionMultiselectAutocompleteComponent } from "src/app/utility/multiselect/instruction-multiselect-autocomplete/multiselect-autocomplete.component";
 
 
 
@@ -325,6 +326,7 @@ import { StayingScheduleEffects } from "../Schedule-staying/schedule_staying_det
     BigChatComponent,
     AvatarUploadModalComponent,
     TourScheduleMultiselectAutocompleteComponent,
+    InstructionMultiselectAutocompleteComponent,
     OptionsScrollDirective,
   ],
   imports: [

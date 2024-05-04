@@ -1,0 +1,23 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<mat-card class="example-card">
+  <mat-card-header>
+    <mat-card-title>Thông báo:</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <p>
+      {{ data.title }}
+      <i class="fa fa-trash-o" style="font-size: 20px; color: green"></i>
+    </p>
+
+    <div class="row">
+      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="margin-right: 5%;">
+        <button mat-raised-button (click)="doAction(false)">No</button>
+      </div>
+      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+        <button mat-raised-button color="accent" (click)="doAction(true)">
+          Yes
+        </button>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

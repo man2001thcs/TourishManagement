@@ -18,15 +18,22 @@
 }
 
 .outer-chat-container {
-  position: sticky;
-  background-color: #FAFAFA !important;
-  right: 0;
+  z-index: 1;
+  /* background-color: #fafafa !important; */
+  opacity: 1;
+  position: -webkit-sticky; /* For Safari */
+  position: fixed;
+  right: 0 !important;
+  display: flex;
+  align-self: flex-end;
   bottom: 0;
   transform: translate(0, 0);
   height: 56px;
+  width: 350px;
   white-space: nowrap;
   text-align: right;
 }
+
 app-chat {
   overflow-y: auto;
   z-index: 1000;
@@ -34,6 +41,7 @@ app-chat {
   position: absolute;
   right: 0;
 }
+
 
 app-footer {
   z-index: 0;

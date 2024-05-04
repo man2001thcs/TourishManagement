@@ -16,6 +16,7 @@ import { ReclaimUserComponent } from "../log/reclaim/reclaim.component";
 import { TourishSearchComponent } from "../tourish-search/tourish-search.component";
 import { ScheduleSearchComponent } from "../schedule-search/schedule-search.component";
 import { ScheduleDetailComponent } from "../schedule-detail/schedule-detail.component";
+import { NotFoundComponent } from "src/app/utility/not-found-page/404.component";
 
 const routes: Routes = [
   {
@@ -62,6 +63,7 @@ const routes: Routes = [
         path: "service/:id/detail",
         component: ScheduleDetailComponent,
       },
+      { path: "**", pathMatch: "full", component: NotFoundComponent },
     ],
   },
 ];

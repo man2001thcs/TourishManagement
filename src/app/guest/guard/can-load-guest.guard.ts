@@ -16,11 +16,7 @@ export class CanLoadGuestGuard implements CanLoad {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    let user = this.tokenService.getUser();
-
-    if (user) {
-      return true;
-    } else return true;
+    return true;
   }
 }
 

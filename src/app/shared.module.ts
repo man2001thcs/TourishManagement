@@ -76,6 +76,7 @@ import { SchedulePlanSearchCardComponent } from "./utility/schedule-search-card/
 import { ScheduleDetailComponent } from "./guest/schedule-detail/schedule-detail.component";
 import { MatSelectModule } from "@angular/material/select";
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { NotFoundComponent } from "./utility/not-found-page/404.component";
 
 @NgModule({
   declarations: [
@@ -101,6 +102,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     TourishPlanSearchCardComponent,
     TourishSearchPackComponent,
     TourishPlanAutoSearchCardComponent,
+    NotFoundComponent,
 
     ScheduleCardComponent,
     SchedulePackComponent,
@@ -217,7 +219,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     ScheduleSearchComponent,
     ScheduleDetailComponent,
 
-  
+    NotFoundComponent,
     ScheduleSearchPackComponent,
     SchedulePlanSearchCardComponent
   ],

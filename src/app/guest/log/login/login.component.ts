@@ -15,14 +15,7 @@ import {
 import * as LoginAction from "./login.store.action";
 import { TokenStorageService } from "src/app/utility/user_service/token.service";
 import { MessageService } from "src/app/utility/user_service/message.service";
-
-import {
-  ConfirmDialogComponent,
-  DialogData,
-} from "src/app/utility/confirm-dialog/confirm-dialog.component";
-import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { SocialAuthService, SocialUser } from "@abacritt/angularx-social-login";
-import { getUser } from "../signIn/signIn-create.store.selector";
 import { MatSnackBar } from "@angular/material/snack-bar";
 
 export interface DialogSignInData {
@@ -194,8 +187,6 @@ export class LoginComponent implements OnInit {
   }
 
   formSubmit(): void {
-    //console.log(this.signInformGroup.value);
-
     this.store.dispatch(
       LoginAction.login({
         payload: {

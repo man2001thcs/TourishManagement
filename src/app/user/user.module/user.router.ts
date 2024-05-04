@@ -7,6 +7,7 @@ import { TourishDetailComponent } from "src/app/guest/tourish-detail/tourish-det
 import { TourishMainComponent } from "src/app/guest/tourish-main/tourish-main.component";
 import { UserAccountInfoComponent } from "../account-info/account-info.component";
 import { ReceiptUserListComponent } from "../Receipt/receipt_list/receipt-list.component";
+import { NotFoundComponent } from "src/app/utility/not-found-page/404.component";
 
 const routes: Routes = [
   {
@@ -29,6 +30,7 @@ const routes: Routes = [
         path: "receipt/list",
         component: ReceiptUserListComponent,
       },
+      { path: "**", pathMatch: "full", component: NotFoundComponent },
     ],
   },
 ];

@@ -26,6 +26,7 @@ import { BigChatComponent } from "src/app/utility/big-chat/big-chat.component";
 import { GuestMessageConHistoryListComponent } from "../ChatConHistory/chat_con_his_list/chat_con_his_list.component";
 import { MovingScheduleListComponent } from "../Schedule-moving/schedule_moving_list/schedule_moving-list.component";
 import { StayingScheduleListComponent } from "../Schedule-staying/schedule_staying_list/schedule_staying-list.component";
+import { NotFoundComponent } from "src/app/utility/not-found-page/404.component";
 
 const routes: Routes = [
   {
@@ -98,6 +99,7 @@ const routes: Routes = [
         path: "chat/display/:id",
         component: BigChatComponent,
       },
+      { path: "**", pathMatch: "full", component: NotFoundComponent },
     ],
   },
 ];

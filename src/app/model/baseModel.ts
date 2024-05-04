@@ -190,6 +190,15 @@ export interface TourishPlan {
   tourishScheduleList?: TourishSchedule[];
 }
 
+export interface TourishInterest {
+  id: string;
+  tourishPlanId: string;
+  userId: string;
+  interestStatus: number;
+  createDate?: string;
+  updateDate?: string;
+}
+
 export interface TourishSchedule {
   id?: string;
   tourishPlanId?: string;

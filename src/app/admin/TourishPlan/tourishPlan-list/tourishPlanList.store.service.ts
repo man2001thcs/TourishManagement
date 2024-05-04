@@ -9,7 +9,7 @@ export class TourishPlanListStoreService {
   constructor(private http: HttpClient) {}
 
   getTourishPlanList(payload: any): Observable<any> {
-    return this.http.get("/api/GetTourishPlan", {params: payload});
+    return this.http.get("/api/GetTourishPlan/with-auhthority", {params: payload});
   }
 
   deleteTourishPlan(payload: any): Observable<any> {

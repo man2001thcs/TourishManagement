@@ -10,4 +10,6 @@ export interface FileModel {
 export interface InterestModalParam {
   resourceId: string;
   resourceType: string;
+  title: string;
+  isNotify: boolean;
 }

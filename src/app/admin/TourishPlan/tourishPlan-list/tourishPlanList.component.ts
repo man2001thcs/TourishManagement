@@ -26,6 +26,8 @@ import { MatDialog } from "@angular/material/dialog";
 import { MessageService } from "src/app/utility/user_service/message.service";
 import { ConfirmDialogComponent } from "src/app/utility/confirm-dialog/confirm-dialog.component";
 import { Router } from "@angular/router";
+import { HttpClient } from "@angular/common/http";
+import { InterestModalComponent } from "src/app/utility/change-interest-modal/change-interest-modal.component";
 
 @Component({
   selector: "app-tourishPlanList",
@@ -60,6 +62,7 @@ export class TourishPlanListAdminComponent
     "startDate",
     "endDate",
     "edit",
+    "interest",
     "delete",
   ];
   @ViewChild(MatPaginator) paraginator!: MatPaginator;
@@ -77,7 +80,8 @@ export class TourishPlanListAdminComponent
     private adminService: AdminService,
     public dialog: MatDialog,
     private messageService: MessageService,
-    private store: Store<TourishPlanListState>
+    private store: Store<TourishPlanListState>,
+    private http: HttpClient
   ) {
     this.tourishPlanListState = this.store.select(getTourishPlanList);
     this.tourishPlanDeleteState = this.store.select(getDeleteStatus);
@@ -166,6 +170,26 @@ export class TourishPlanListAdminComponent
     });
   }
 
+  openInterestDialog(tour: TourishPlan): void {
+    const title = this.isTourNotify(tour) ? "Bạn có muốn hủy theo dõi?" : "Bạn có muốn theo dõi tour này?";
+    const dialogRef = this.dialog.open(InterestModalComponent, {
+      data: { resourceId: tour.id, resourceType: "TourishPlan", title: title },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      this.store.dispatch(
+        TourishPlanListActions.getTourishPlanList({
+          payload: {
+            page: this.pageIndex + 1,
+            search: this.searchPhase,
+            type: 0,
+          },
+        })
+      );
+      this.messageService.openLoadingDialog();
+    });
+  }
+
   openDeleteDialog(id: string) {
     const ref = this.dialog.open(ConfirmDialogComponent, {
       data: {
@@ -236,13 +260,33 @@ export class TourishPlanListAdminComponent
           search: this.searchPhase,
           type: 0,
           sortBy: sortState.active,
-          sortDirection: sortState.direction
+          sortDirection: sortState.direction,
         },
       })
     );
   }
 
+  isTourNotify(tour: TourishPlan) {
+    if (
+      tour.tourishInterestList !== null &&
+      tour.tourishInterestList !== undefined
+    ){
+      if (tour.tourishInterestList?.length > 0) {
+        if (tour.tourishInterestList[0].interestStatus < 4) return true;
+      }
+    }
+    
+    return false;
+  }
+
   getIndex(elementId: string) {
     return this.tourishPlanList.findIndex((el) => el.id === elementId) + 1;
+  }
+
+  getInterest(tourId: string) {
+    const payload = {
+      tourishPlanId: tourId,
+    };
+    this.http.get("/api/GetTourishPlan", { params: payload });
   }
 }

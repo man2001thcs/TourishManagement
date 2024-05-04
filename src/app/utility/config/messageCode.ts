@@ -163,6 +163,8 @@ export const ERR_MESSAGE_CODE_VI: Map<string, string> = new Map([
     ["C412", "Tour sửa đang gặp lỗi cập nhật"],
     ["C413", "Tour xóa thất bại"],
     ["C414", "Tour đang gặp lỗi cơ sở dữ liệu"],
+    ["C415", "Không thể cập nhật trạng thái quan tâm"],
+    ["C416", "Không thay đổi trạng thái theo dõi khi bạn đang là người tạo"],
 
     ["C420", "Thể loại tour không tồn tại"],
     ["C421", "Thể loại tour thêm vào bị lỗi"],
@@ -175,6 +177,8 @@ export const ERR_MESSAGE_CODE_VI: Map<string, string> = new Map([
     ["C432", "Dịch vụ tour sửa đang gặp lỗi cập nhật"],
     ["C433", "Dịch vụ tour xóa thất bại"],
     ["C434", "Dịch vụ tour đang gặp lỗi cơ sở dữ liệu"],
+    ["C435", "Gặp lỗi trong lúc xác lập trạng thái theo dõi"],
+    ["C436", "Không thay đổi trạng thái theo dõi khi bạn đang là người tạo"],
 
     ["C510", "Hóa đơn không tồn tại"],
     ["C511", "Hóa đơn thêm vào bị lỗi"],
@@ -256,6 +260,8 @@ export const SUCCESS_MESSAGE_CODE_EN: Map<string, string> = new Map([
     ["I411", "Tourish plan add ok"],
     ["I412", "Tourish plan update ok"],
     ["I413", "Tourish plan delete ok"],
+    ["I415", "Interest has been set"],
+    ["I416", "Interest has been canceled"],
 
     ["I421", "Tourish category add ok"],
     ["I422", "Tourish category update ok"],
@@ -320,6 +326,8 @@ export const SUCCESS_MESSAGE_CODE_EN: Map<string, string> = new Map([
     ["I411", "Tour thêm thành công"],
     ["I412", "Tour cập nhật thành công"],
     ["I413", "Tour xóa thành công"],
+    ["I415", "Trạng thái theo dõi đã được thiết lập"],
+    ["I416", "Trạng thái theo dõi đã được hủy"],
 
     ["I421", "Thể loại tour thêm thành công"],
     ["I422", "Thể loại tour cập nhật thành công"],
@@ -328,6 +336,7 @@ export const SUCCESS_MESSAGE_CODE_EN: Map<string, string> = new Map([
     ["I431", "Dịch vụ tour thêm thành công"],
     ["I432", "Dịch vụ tour cập nhật thành công"],
     ["I433", "Dịch vụ tour xóa thành công"],
+    ["I435", "Trạng thái theo dõi đã được thiết lập"],
 
     ["I511", "Hóa đơn thêm thành công"],
     ["I512", "Hóa đơn cập nhật thành công"],

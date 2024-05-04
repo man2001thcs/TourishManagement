@@ -3,12 +3,16 @@ import { Component, Inject, OnInit } from "@angular/core";
 import { MessageService } from "../user_service/message.service";
 import { InterestModalParam } from "./change-interest-modal.component.model";
 import { TokenStorageService } from "../user_service/token.service";
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from "@angular/material/dialog";
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogRef,
+} from "@angular/material/dialog";
 
 @Component({
   selector: "app-avatar-modal-upload",
-  templateUrl: "imageUpload.component.html",
-  styleUrls: ["imageUpload.component.css"],
+  templateUrl: "change-interest-modal.component.html",
+  styleUrls: ["change-interest-modal.component.css"],
 })
 export class InterestModalComponent implements OnInit {
   resourceId = "";
@@ -31,58 +35,71 @@ export class InterestModalComponent implements OnInit {
   }
 
   doAction(action: boolean) {
-    if (action){
-      this.changeInterest();
+    if (action) {
+      this.changeInterest(); 
     }
-    this.dialogRef.close(action);
   }
 
   changeInterest() {
     let targetUrl = "";
     if (this.resourceType === "TourishPlan") {
       const payload = {
-        tourishPlanId : this.resourceId, 
-        interestType: 3
+        tourishPlanId: this.resourceId,
+        interestType: 3,
       };
 
-      this.http.post("/api/Add" + this.resourceType + "/interest", payload).subscribe((response: any) => {
-        if (response){
-          if (response.resultCd == 0){
-            this.messageService.openMessageNotifyDialog("I433");
+      this.http
+        .put("/api/Update" + this.resourceType + "/interest", payload)
+        .subscribe((response: any) => {
+          if (response) {
+            if (response.resultCd == 0) {
+              this.messageService.openMessageNotifyDialog(response.messageCode)?.subscribe(() => {
+                this.dialogRef.close(true);
+              });
+            }
           }
-        }
-      });
+        });
     }
 
     if (this.resourceType === "MovingSchedule") {
       const payload = {
-        movingScheduleId : this.resourceId,
-        interestType: 0
+        movingScheduleId: this.resourceId,
+        interestType: 0,
       };
 
-      this.http.post("/api/Add" + this.resourceType + "/interest", payload).subscribe((response: any) => {
-        if (response){
-          if (response.resultCd == 0){
-            this.messageService.openMessageNotifyDialog("I433");
+      this.http
+        .post("/api/Update" + this.resourceType + "/interest", payload)
+        .subscribe((response: any) => {
+          if (response) {
+            if (response.resultCd == 0) {
+              this.messageService.openMessageNotifyDialog(response.messageCode)?.subscribe(() => {
+                this.dialogRef.close(true);
+              });
+            }
           }
-        }
-      });
+        });
     }
 
     if (this.resourceType === "StayingSchedule") {
       const payload = {
-        stayingSchedule : this.resourceId,
-        interestType: 0
+        stayingSchedule: this.resourceId,
+        interestType: 0,
       };
 
-      this.http.post("/api/Add" + this.resourceType + "/interest", payload).subscribe((response: any) => {
-        if (response){
-          if (response.resultCd == 0){
-            this.messageService.openMessageNotifyDialog("I433");
+      this.http
+        .post("/api/Update" + this.resourceType + "/interest", payload)
+        .subscribe((response: any) => {
+          if (response) {
+            if (response.resultCd == 0) {
+              this.messageService.openMessageNotifyDialog(response.messageCode)?.subscribe(() => {
+                this.dialogRef.close(true);
+              });
+            }
           }
-        }
-      });
+        });
     }
+
+    return true;
   }
 
   closeDialog() {

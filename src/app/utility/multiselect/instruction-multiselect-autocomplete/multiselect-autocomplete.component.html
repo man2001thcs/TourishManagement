@@ -118,23 +118,23 @@
       </ng-template>
 
       <ng-container
-        *ngFor="let schedule of data_selected_edit; index as i"
+        *ngFor="let instruction of data_selected_edit; index as i"
         [ngTemplateOutlet]="existMovingSchedule"
         [ngTemplateOutletContext]="{
           index: i,
-          id: schedule.id,
-          description: schedule.description
+          id: instruction.id,
+          description: instruction.description
         }"
       >
       </ng-container>
 
       <ng-container
-        *ngFor="let schedule of instructionList; index as i"
+        *ngFor="let instruction of instructionList; index as i"
         [ngTemplateOutlet]="inputMovingSchedule"
         [ngTemplateOutletContext]="{
           index: i,
-          id: schedule.id,
-          description: schedule.description
+          id: instruction.id,
+          description: instruction.description
         }"
       >
       </ng-container>
@@ -164,7 +164,7 @@
 
     <div
       class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form"
-      *ngIf="isNewEdited && scheduleEdit == null && !disabled"
+      *ngIf="isNewEdited && instructionEdit == null && !disabled"
     >
       <div class="row">
         <h2
@@ -180,7 +180,7 @@
         </h2>
       </div>
 
-      <div class="row" [formGroup]="scheduleFormGroup">      
+      <div class="row" [formGroup]="instructionFormGroup">      
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
           <mat-form-field appearance="outline" class="full-width-input">
             <mat-label>Loại lưu ý</mat-label>
@@ -190,11 +190,8 @@
               formControlName="instructionType"
               [readonly]="disabled"
             >
-              <option value="0">Chờ</option>
-              <option value="1">Thông tin đã xác định</option>
-              <option value="2">Đang diễn ra</option>
-              <option value="3">Hoàn thành</option>
-              <option value="4">Hủy bỏ</option>
+              <option value="0">Giá</option>
+              <option value="1">Lưu ý</option>
             </select>
           </mat-form-field>
         </div>
@@ -213,18 +210,17 @@
           <div style="margin-top: -20px; margin-bottom: 10px">
             <app-validation
               *ngIf="
-                this.createformGroup_info.get('description')?.errors &&
-                (createformGroup_info.get('description')?.touched ||
-                  isSubmitted)
+                this.instructionFormGroup.get('description')?.errors &&
+                (instructionFormGroup.get('description')?.touched)
               "
-              [formGroup]="createformGroup_info"
+              [formGroup]="instructionFormGroup"
               [formGroupControlName]="'description'"
             ></app-validation>
           </div>
         </div>
       </div>
 
-      <div *ngIf="scheduleEdit == null">
+      <div *ngIf="instructionEdit == null">
         <div class="row" style="margin-left: 20px">
           <div style="margin-right: 20px">
             <button
@@ -252,7 +248,7 @@
     </div>
 
     <div
-      *ngIf="scheduleEdit != null"
+      *ngIf="instructionEdit != null"
       class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form"
     >
       <div class="row">
@@ -263,7 +259,7 @@
           Chỉnh sửa thông tin lịch trình
         </h4>
       </div>
-      <div class="row" [formGroup]="editScheduleFormGroup">   
+      <div class="row" [formGroup]="editInstructionFormGroup">   
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
           <mat-form-field appearance="outline" class="full-width-input">
             <mat-label>Loại lưu ý</mat-label>
@@ -296,11 +292,10 @@
           <div style="margin-top: -20px; margin-bottom: 10px">
             <app-validation
               *ngIf="
-                this.createformGroup_info.get('description')?.errors &&
-                (createformGroup_info.get('description')?.touched ||
-                  isSubmitted)
+                this.editInstructionFormGroup.get('description')?.errors &&
+                (editInstructionFormGroup.get('description')?.touched)
               "
-              [formGroup]="createformGroup_info"
+              [formGroup]="editInstructionFormGroup"
               [formGroupControlName]="'description'"
             ></app-validation>
           </div>
@@ -308,7 +303,7 @@
       </div>
     </div>
 
-    <div *ngIf="scheduleEdit != null">
+    <div *ngIf="instructionEdit != null">
       <div class="row" style="margin-left: 20px">
         <div style="margin-right: 20px">
           <button

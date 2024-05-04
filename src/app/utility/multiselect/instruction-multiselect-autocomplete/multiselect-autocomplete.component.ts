@@ -78,7 +78,7 @@ export class InstructionMultiselectAutocompleteComponent implements OnInit {
 
   instructionFormGroup!: FormGroup;
 
-  editScheduleFormGroup!: FormGroup;
+  editInstructionFormGroup!: FormGroup;
 
   isSubmit = false;
   disableType = false;
@@ -99,7 +99,7 @@ export class InstructionMultiselectAutocompleteComponent implements OnInit {
       instructionType: ["", Validators.compose([Validators.required])],
     });
 
-    this.editScheduleFormGroup = this.fb.group({
+    this.editInstructionFormGroup = this.fb.group({
       description: ["", Validators.compose([Validators.required])],
       instructionType: ["", Validators.compose([Validators.required])],
     });
@@ -159,10 +159,10 @@ export class InstructionMultiselectAutocompleteComponent implements OnInit {
       this.instructionEdit = this.data_selected_edit[existIndex];
       this.indexInstructionEdit = existIndex;
 
-      this.editScheduleFormGroup.controls["description"].setValue(
+      this.editInstructionFormGroup.controls["description"].setValue(
         this.instructionEdit.description
       );
-      this.editScheduleFormGroup.controls["instructionType"].setValue(
+      this.editInstructionFormGroup.controls["instructionType"].setValue(
         this.instructionEdit.instructionType
       );
     }

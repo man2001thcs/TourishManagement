@@ -264,6 +264,7 @@ import { RestHouseContactAutoCompleteListEffects } from "src/app/utility/multise
 import { StayingScheduleListEffects } from "../Schedule-staying/schedule_staying_list/schedule_staying-list.store.effect";
 import { StayingScheduleEffects } from "../Schedule-staying/schedule_staying_detail/schedule_staying-detail.store.effect";
 import { InstructionMultiselectAutocompleteComponent } from "src/app/utility/multiselect/instruction-multiselect-autocomplete/multiselect-autocomplete.component";
+import { InterestModalComponent } from "src/app/utility/change-interest-modal/change-interest-modal.component";
 
 
 
@@ -315,6 +316,8 @@ import { InstructionMultiselectAutocompleteComponent } from "src/app/utility/mul
     StayingScheduleDetailComponent,
     StayingScheduleListComponent,
     RestHouseContactSelectAutocompleteComponent,
+
+    InterestModalComponent,
 
     StayingMultiselectAutocompleteComponent,
     MovingMultiselectAutocompleteComponent,

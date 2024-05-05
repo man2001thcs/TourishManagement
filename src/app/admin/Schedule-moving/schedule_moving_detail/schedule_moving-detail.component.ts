@@ -104,6 +104,7 @@ export class MovingScheduleDetailComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.movingScheduleState.subscribe((state) => {
         if (state) {
+          this.messageService.closeLoadingDialog();
           this.movingSchedule = state;
 
           this.editformGroup_info.controls["name"].setValue(state.name ?? "");
@@ -186,6 +187,8 @@ export class MovingScheduleDetailComponent implements OnInit, OnDestroy {
         },
       })
     );
+
+    this.messageService.openLoadingDialog();
 
     this.store.dispatch(MovingScheduleActions.initial());
 

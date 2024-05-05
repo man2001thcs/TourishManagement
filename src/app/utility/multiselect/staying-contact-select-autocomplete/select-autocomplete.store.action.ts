@@ -1,6 +1,6 @@
 import { Action, createAction, props, union } from '@ngrx/store';
 
-export const storeKey = 'admin/autocomplete/movingschedule';
+export const storeKey = 'admin/autocomplete/stayingschedule';
 
 export const initial = createAction(`[${storeKey}] initial`);
 

@@ -97,6 +97,8 @@ export class NotificationSingleComponent implements OnInit {
         creatorName = notify.creatorFullName;
       }
     } else creatorName = "Anonymus";
+
+    if (notify.userCreateId == this.tokenStorage.getUser().Id) creatorName= "Bạn";
     return creatorName + "";
   }
 

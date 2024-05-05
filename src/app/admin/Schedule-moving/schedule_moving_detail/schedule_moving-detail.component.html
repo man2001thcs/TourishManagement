@@ -80,6 +80,7 @@
               <app-moving-contact-select-autocomplete
                 style="width: 88%"
                 [data_selected]="undefined"
+                [currentContactId]="movingSchedule.transportId"
                 [type]="vehicleType"
                 (result)="selectSchedule($event.data)"
               >

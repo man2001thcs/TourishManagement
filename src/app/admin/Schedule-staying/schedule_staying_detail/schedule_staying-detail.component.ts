@@ -45,7 +45,7 @@ export class StayingScheduleDetailComponent implements OnInit, OnDestroy {
     status: 0,
     description: "",
   };
-  
+
   stayingScheduleParam!: StayingScheduleParam;
 
   this_announce = "";
@@ -214,6 +214,8 @@ export class StayingScheduleDetailComponent implements OnInit, OnDestroy {
     this.editformGroup_info.controls["description"].setValue(
       this.editorContent
     );
+    console.log(this.editformGroup_info.value);
+
     if (!this.editformGroup_info.invalid) {
       const payload: StayingSchedule = {
         id: this.editformGroup_info.value.id,
@@ -243,8 +245,15 @@ export class StayingScheduleDetailComponent implements OnInit, OnDestroy {
     this.dialog.closeAll();
   }
 
-  selectSchedule($event: string[]) {
-    this.editformGroup_info.controls["restHouseBranchId"].setValue($event[0]);
+  selectSchedule($event: any) {
+    if ($event)
+      this.editformGroup_info.controls["restHouseBranchId"].setValue(
+        $event.idList[0]
+      );
+
+      this.editformGroup_info.controls["placeName"].setValue(
+        $event.nameList[0]
+      );
   }
 
   changeStatusExist($event: any) {

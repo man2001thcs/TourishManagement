@@ -11,7 +11,7 @@
     "
   >
     <h2 mat-form-label style="font-weight: heavy; color: white">
-      Thêm thông tin đối tác xe chở khách
+      Thêm thông tin dịch vụ
     </h2>
 
     <button
@@ -68,10 +68,10 @@
 
             <div class="row">
               <mat-form-field appearance="outline" class="full-width-input">
-                <mat-label>Loại phương tiện</mat-label>
+                <mat-label>Loại nơi ở</mat-label>
                 <select matNativeControl required formControlName="restHouseType" (change)="changeType($event)">
-                  <option [value]="0">Xe khách</option>
-                  <option [value]="1">Máy bay</option>
+                  <option [value]="0">Homestay</option>
+                  <option [value]="1">Khách sạn</option>
                 </select>
               </mat-form-field>
             </div>
@@ -153,27 +153,6 @@
                   "
                   [formGroup]="createformGroup_info"
                   [formGroupControlName]="'singlePrice'"
-                ></app-validation>
-              </div>
-            </div>
-
-            <div class="row">
-              <mat-form-field appearance="outline" class="full-width-input">
-                <mat-label>Loại nơi ở</mat-label>
-                <select matNativeControl required formControlName="restHouseType">
-                  <option value="0">Homestay</option>
-                  <option value="1">Khách sạn</option>
-                </select>
-              </mat-form-field>
-              <div style="margin-top: -20px; margin-bottom: 10px">
-                <app-validation
-                  *ngIf="
-                    this.createformGroup_info.get('restHouseType')?.errors &&
-                    (createformGroup_info.get('restHouseType')?.touched ||
-                      isSubmitted)
-                  "
-                  [formGroup]="createformGroup_info"
-                  [formGroupControlName]="'restHouseType'"
                 ></app-validation>
               </div>
             </div>

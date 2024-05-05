@@ -80,6 +80,7 @@
               <app-staying-contact-select-autocomplete
                 style="width: 88%"
                 [data_selected]="undefined"
+                [currentContactId]="stayingSchedule.restHouseBranchId"
                 [type]="restHouseType"
                 (result)="selectSchedule($event.data)"
               >
@@ -267,7 +268,7 @@
           <app-tiny-mce-editor
             style="width: 90% !important"
             [blobName]="this.data.id"
-            [containerName]="'movingschedule-content-container'"
+            [containerName]="'stayingschedule-content-container'"
             (result)="getTinyMceResult($event)"
           ></app-tiny-mce-editor>
           <input type="file" style="visibility: hidden" />

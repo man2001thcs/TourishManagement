@@ -24,6 +24,7 @@ import {
 } from "./select-autocomplete.store.selector";
 import { MessageService } from "../../user_service/message.service";
 import { RestHouseContact } from "src/app/model/baseModel";
+import { HttpClient } from "@angular/common/http";
 
 /**
  * @title Chips Autocomplete
@@ -40,6 +41,7 @@ export class RestHouseContactSelectAutocompleteComponent implements OnInit {
   @Output() result = new EventEmitter<{ data: any }>();
 
   @Input() data_selected!: RestHouseContact | undefined;
+  @Input() currentContactId = "";
   @Input() key: string = "";
   @Input() type = 0;
 
@@ -70,11 +72,11 @@ export class RestHouseContactSelectAutocompleteComponent implements OnInit {
 
   constructor(
     private store: Store<RestHouseContactListState>,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private http: HttpClient
   ) {
-    this.filteredRestHouseContacts = this.restHouseContactCtrl.valueChanges.pipe(
-      debounceTime(400)
-    );
+    this.filteredRestHouseContacts =
+      this.restHouseContactCtrl.valueChanges.pipe(debounceTime(400));
 
     this.restHouseContactListState = this.store
       .select(getRestHouseContactList)
@@ -111,6 +113,7 @@ export class RestHouseContactSelectAutocompleteComponent implements OnInit {
     this.subscriptions.push(
       this.restHouseContactListState.subscribe((state) => {
         if (state) {
+          this.messageService.closeLoadingDialog(); 
           if (state.data)
             this.currentTotal = this.currentTotal + state.data.length;
           if (this.currentTotal >= state.count) this.canLoadMore = false;
@@ -161,11 +164,15 @@ export class RestHouseContactSelectAutocompleteComponent implements OnInit {
         },
       })
     );
+
+    this.messageService.openLoadingDialog(); 
   }
 
   ngOnDestroy(): void {
     console.log("Destroy");
-    this.store.dispatch(RestHouseContactListActions.resetRestHouseContactList());
+    this.store.dispatch(
+      RestHouseContactListActions.resetRestHouseContactList()
+    );
 
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
@@ -175,6 +182,25 @@ export class RestHouseContactSelectAutocompleteComponent implements OnInit {
     if (this.data_selected !== undefined) {
       this.restHouseContactIdList.push(this.data_selected.id ?? "");
       this.restHouseContactNameList.push(this.data_selected.placeBranch ?? "");
+    }
+
+    this.getCurrentContact();
+  }
+
+  getCurrentContact() {
+    if (this.currentContactId.length > 0) {
+      console.log(this.currentContactId);
+      this.http
+        .get("/api/GetRestHouseContact/" + this.currentContactId)
+        .subscribe((state: any) => {
+          if (state) {
+            console.log("abc: ",state);
+            this.restHouseContactIdList.push(state.data.id ?? "");
+            this.restHouseContactNameList.push(
+              state.data.placeBranch ?? ""
+            );
+          }
+        });
     }
   }
 
@@ -202,7 +228,12 @@ export class RestHouseContactSelectAutocompleteComponent implements OnInit {
   }
 
   emitAdjustedData = (): void => {
-    this.result.emit({ data: {"idList": this.restHouseContactIdList, "nameList": this.restHouseContactNameList }});
+    this.result.emit({
+      data: {
+        idList: this.restHouseContactIdList,
+        nameList: this.restHouseContactNameList,
+      },
+    });
   };
 
   selected(event: MatAutocompleteSelectedEvent): void {

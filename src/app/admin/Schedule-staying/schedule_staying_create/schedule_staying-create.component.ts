@@ -118,7 +118,7 @@ export class StayingScheduleCreateComponent implements OnInit, OnDestroy {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     this.createformGroup_info = this.fb.group({
-      id: [this.data.id, Validators.compose([Validators.required])],
+      id: ["", Validators.compose([Validators.required])],
       name: ["", Validators.compose([Validators.required])],
       placeName: ["", Validators.compose([Validators.required])],
       address: ["", Validators.compose([Validators.required])],

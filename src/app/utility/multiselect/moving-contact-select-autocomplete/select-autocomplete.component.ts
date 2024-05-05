@@ -24,6 +24,7 @@ import {
 } from "./select-autocomplete.store.selector";
 import { MessageService } from "../../user_service/message.service";
 import { MovingContact } from "src/app/model/baseModel";
+import { HttpClient } from "@angular/common/http";
 
 /**
  * @title Chips Autocomplete
@@ -39,6 +40,7 @@ export class MovingContactSelectAutocompleteComponent implements OnInit {
 
   @Output() result = new EventEmitter<{ data: any }>();
 
+  @Input() currentContactId = "";
   @Input() data_selected!: MovingContact | undefined;
   @Input() key: string = "";
   @Input() type = 0;
@@ -70,7 +72,8 @@ export class MovingContactSelectAutocompleteComponent implements OnInit {
 
   constructor(
     private store: Store<MovingContactListState>,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private http: HttpClient
   ) {
     this.filteredMovingContacts = this.movingContactCtrl.valueChanges.pipe(
       debounceTime(400)
@@ -175,6 +178,25 @@ export class MovingContactSelectAutocompleteComponent implements OnInit {
     if (this.data_selected !== undefined) {
       this.movingContactIdList.push(this.data_selected.id ?? "");
       this.movingContactNameList.push(this.data_selected.branchName ?? "");
+    }
+
+    this.getCurrentContact();
+  }
+
+  getCurrentContact() {
+    if (this.currentContactId.length > 0) {
+      console.log(this.currentContactId);
+      this.http
+        .get("/api/GetMovingContact/" + this.currentContactId)
+        .subscribe((state: any) => {
+          if (state) {
+            console.log("abc: ",state);
+            this.movingContactIdList.push(state.data.id ?? "");
+            this.movingContactNameList.push(
+              state.data.branchName ?? ""
+            );
+          }
+        });
     }
   }
 

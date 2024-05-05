@@ -23,6 +23,7 @@ import {
 } from "./tourishPlan-detail.store.selector";
 import { MessageService } from "src/app/utility/user_service/message.service";
 import {
+  Instruction,
   TourishCategoryRelation,
   TourishPlan,
   TourishSchedule,
@@ -83,6 +84,7 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
   editTourishPlanState!: Observable<any>;
   subscriptions: Subscription[] = [];
   currentRouter = "";
+  instructionList: Instruction[] = [];
 
   constructor(
     private adminService: AdminService,
@@ -298,6 +300,8 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
 
             tourishCategoryRelations: tourishCategoryRelationInsert,
             tourishScheduleList: this.scheduleList,
+            instructionList: this.instructionList,
+            
             movingScheduleString:
               this.editformGroup_info.value.movingScheduleString,
             EatingScheduleString:
@@ -339,6 +343,8 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
       this.tourishPlan.tourishCategoryRelations ?? [];
 
     this.scheduleList = this.tourishPlan.tourishScheduleList ?? [];
+
+    this.instructionList = this.tourishPlan.instructionList ?? [];
   }
 
   openDialog() {
@@ -404,6 +410,11 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
   selectChangeSchedule = (event: any) => {
     console.log(event.data);
     this.scheduleList = event.data;
+  };
+
+  selectChangeInstruction = (event: any) => {
+    console.log(event.data);
+    this.instructionList = event.data;
   };
 
   selectChangeStaying = (event: any) => {

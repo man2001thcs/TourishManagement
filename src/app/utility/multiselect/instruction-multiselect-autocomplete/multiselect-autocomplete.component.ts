@@ -130,7 +130,7 @@ export class InstructionMultiselectAutocompleteComponent implements OnInit {
     if (this.instructionFormGroup.valid && this.instructionFormGroup.dirty) {
       const instruction: Instruction = {
         description: this.instructionFormGroup.value.description,
-        instructionType: this.instructionFormGroup.value.instructionType,
+        instructionType: parseInt(this.instructionFormGroup.value.instructionType),
       };
 
       if (this.targetId.length > 0) {
@@ -172,8 +172,8 @@ export class InstructionMultiselectAutocompleteComponent implements OnInit {
     if (this.indexInstructionEdit > -1 && this.instructionEdit != null) {
       this.data_selected_edit[this.indexInstructionEdit] = {
         id: this.instructionEdit.id,
-        description: this.instructionFormGroup.value.description,
-        instructionType: this.instructionFormGroup.value.instructionType,
+        description: this.editInstructionFormGroup.value.description,
+        instructionType: parseInt(this.editInstructionFormGroup.value.instructionType),
       };
       if (this.targetId.length > 0) {
         if (this.targetType === "TourishPlan")
@@ -251,29 +251,12 @@ export class InstructionMultiselectAutocompleteComponent implements OnInit {
     return "";
   }
 
-  getStatusPhase(statusNumber: string): string {
-    switch (parseInt(statusNumber)) {
-      case 0:
-        return "Chờ xác nhận";
-      case 1:
-        return "Xác nhận thông tin";
-      case 2:
-        return "Đang diễn ra";
-      case 3:
-        return "Hoàn thành";
-      case 4:
-        return "Hủy bỏ";
-      default:
-        return "Không xác định";
-    }
-  }
-
   onClickAddButton() {
     console.log("here");
     this.isNewEdited = !this.isNewEdited;
   }
 
   displayDescription(input: string) {
-    input.length > 50 ? input.substring(0, 50) : input;
+    return input.length > 150 ? input.substring(0, 150) : input;
   }
 }

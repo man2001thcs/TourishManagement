@@ -86,12 +86,15 @@ export class NotificationSingleComponent implements OnInit {
   }
 
   checkIfInView() {
-    const element = this.singleNotify.nativeElement;
-    const isVisible = this.isElementInViewport(element);
-    if (isVisible) {    
-      if (!this.notification.isRead && this.isFirstRead) this.isInView.emit(this.notification.id);
-      this.isFirstRead = false;
+    if (this.isFirstRead){
+      const element = this.singleNotify.nativeElement;
+      const isVisible = this.isElementInViewport(element);
+      if (isVisible) {    
+        if (!this.notification.isRead && this.isFirstRead) this.isInView.emit(this.notification.id);
+        this.isFirstRead = false;
+      }
     }
+   
   }
 
   isElementInViewport(el: any) {

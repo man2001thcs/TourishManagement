@@ -231,6 +231,7 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
         payload: {
           search: this.searchWord.toLowerCase(),
           page: this.pageIndex + 1,
+    pageSize: this.pageSize,
           pageSize: 6,
           type: this.vehicleType,
         },
@@ -268,6 +269,7 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
         payload: {
           search: this.searchWord.toLowerCase(),
           page: this.pageIndex + 1,
+    pageSize: this.pageSize,
           pageSize: 6,
           type: this.vehicleType,
         },
@@ -496,6 +498,7 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
             payload: {
               search: this.searchWord.toLowerCase(),
               page: this.pageIndex + 1,
+    pageSize: this.pageSize,
               pageSize: 6,
               type: this.vehicleType
             },

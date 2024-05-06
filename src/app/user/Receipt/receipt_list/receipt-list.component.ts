@@ -91,6 +91,9 @@ export class ReceiptUserListComponent
   pageSize = 5;
   pageSizeOpstion = [5, 10];
   pageIndex = 0;
+  sortColumn: string = "createDate";
+  sortDirection: string = "desc";
+  tourishPlanId = "";
 
   constructor(
     public dialog: MatDialog,
@@ -129,7 +132,11 @@ export class ReceiptUserListComponent
                 payload: {
                   email: email,
                   page: this.pageIndex + 1,
+                  pageSize: this.pageSize,
+                  tourishPlanId: this.tourishPlanId,
                   status: this.active,
+                  sortBy: this.sortColumn,
+                  sortDirection: this.sortDirection,
                 },
               })
             );
@@ -147,7 +154,11 @@ export class ReceiptUserListComponent
         payload: {
           email: email,
           page: this.pageIndex + 1,
+          pageSize: this.pageSize,
+          tourishPlanId: this.tourishPlanId,
           status: this.active,
+          sortBy: this.sortColumn,
+          sortDirection: this.sortDirection,
         },
       })
     );
@@ -197,7 +208,11 @@ export class ReceiptUserListComponent
           payload: {
             email: email,
             page: this.pageIndex + 1,
+            pageSize: this.pageSize,
+            tourishPlanId: this.tourishPlanId,
             status: this.active,
+            sortBy: this.sortColumn,
+            sortDirection: this.sortDirection,
           },
         })
       );
@@ -249,7 +264,11 @@ export class ReceiptUserListComponent
       ReceiptListActions.getReceiptList({
         payload: {
           page: this.pageIndex + 1,
+          pageSize: this.pageSize,
           status: $event,
+          tourishPlanId: this.tourishPlanId,
+          sortBy: this.sortColumn,
+          sortDirection: this.sortDirection,
         },
       })
     );
@@ -311,7 +330,11 @@ export class ReceiptUserListComponent
           email: email,
           page: this.pageIndex + 1,
           pageSize: this.pageSize,
+
+          tourishPlanId: this.tourishPlanId,
           status: this.active,
+          sortBy: this.sortColumn,
+          sortDirection: this.sortDirection,
         },
       })
     );
@@ -320,15 +343,18 @@ export class ReceiptUserListComponent
 
   selectChangeReceipt($event: any) {
     const email = this.tokenStorageService.getUser().email;
-    console.log($event);
+    this.tourishPlanId = $event.data[0];
     this.store.dispatch(
       ReceiptListActions.getReceiptList({
         payload: {
           email: email,
           page: this.pageIndex + 1,
           pageSize: this.pageSize,
+
           tourishPlanId: $event.data[0],
           status: this.active,
+          sortBy: this.sortColumn,
+          sortDirection: this.sortDirection,
         },
       })
     );
@@ -337,16 +363,20 @@ export class ReceiptUserListComponent
 
   announceSortChange(sortState: Sort) {
     this.pageIndex = 0;
-    this.pageSize = 5;
+    this.sortColumn = sortState.active;
+    this.sortDirection = sortState.direction;
+
     this.messageService.openLoadingDialog();
     this.store.dispatch(
       ReceiptListActions.getReceiptList({
         payload: {
           page: 1,
           pageSize: this.pageSize,
+
+          tourishPlanId: this.tourishPlanId,
           sortBy: sortState.active,
           sortDirection: sortState.direction,
-          status: this.active
+          status: this.active,
         },
       })
     );

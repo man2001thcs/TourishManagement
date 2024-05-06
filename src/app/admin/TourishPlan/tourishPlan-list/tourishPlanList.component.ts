@@ -74,6 +74,8 @@ export class TourishPlanListAdminComponent
   pageSize = 5;
   pageSizeOpstion = [5, 10];
   pageIndex = 0;
+  sortColumn: string = "createDate";
+  sortDirection: string = "desc";
 
   constructor(
     private router: Router,
@@ -110,7 +112,10 @@ export class TourishPlanListAdminComponent
               TourishPlanListActions.getTourishPlanList({
                 payload: {
                   page: this.pageIndex + 1,
+                  pageSize: this.pageSize,
                   search: this.searchPhase,
+                  sortBy: this.sortColumn,
+                  sortDirection: this.sortDirection,
                 },
               })
             );
@@ -125,7 +130,10 @@ export class TourishPlanListAdminComponent
       TourishPlanListActions.getTourishPlanList({
         payload: {
           page: this.pageIndex + 1,
+          pageSize: this.pageSize,
           search: this.searchPhase,
+          sortBy: this.sortColumn,
+          sortDirection: this.sortDirection,
         },
       })
     );
@@ -171,7 +179,9 @@ export class TourishPlanListAdminComponent
   }
 
   openInterestDialog(tour: TourishPlan): void {
-    const title = this.isTourNotify(tour) ? "Bạn có muốn hủy theo dõi?" : "Bạn có muốn theo dõi tour này?";
+    const title = this.isTourNotify(tour)
+      ? "Bạn có muốn hủy theo dõi?"
+      : "Bạn có muốn theo dõi tour này?";
     const dialogRef = this.dialog.open(InterestModalComponent, {
       data: { resourceId: tour.id, resourceType: "TourishPlan", title: title },
     });
@@ -181,8 +191,11 @@ export class TourishPlanListAdminComponent
         TourishPlanListActions.getTourishPlanList({
           payload: {
             page: this.pageIndex + 1,
+            pageSize: this.pageSize,
             search: this.searchPhase,
             type: 0,
+            sortBy: this.sortColumn,
+            sortDirection: this.sortDirection,
           },
         })
       );
@@ -222,6 +235,9 @@ export class TourishPlanListAdminComponent
         payload: {
           page: this.pageIndex + 1,
           pageSize: this.pageSize,
+          search: this.searchPhase,
+          sortBy: this.sortColumn,
+          sortDirection: this.sortDirection,
         },
       })
     );
@@ -239,6 +255,8 @@ export class TourishPlanListAdminComponent
           page: this.pageIndex + 1,
           pageSize: this.pageSize,
           search: this.searchPhase,
+          sortBy: this.sortColumn,
+          sortDirection: this.sortDirection,
         },
       })
     );
@@ -250,7 +268,9 @@ export class TourishPlanListAdminComponent
 
   announceSortChange(sortState: Sort) {
     this.pageIndex = 0;
-    this.pageSize = 5;
+    this.sortColumn = sortState.active;
+    this.sortDirection = sortState.direction;
+
     this.messageService.openLoadingDialog();
     this.store.dispatch(
       TourishPlanListActions.getTourishPlanList({
@@ -270,12 +290,12 @@ export class TourishPlanListAdminComponent
     if (
       tour.tourishInterestList !== null &&
       tour.tourishInterestList !== undefined
-    ){
+    ) {
       if (tour.tourishInterestList?.length > 0) {
         if (tour.tourishInterestList[0].interestStatus < 4) return true;
       }
     }
-    
+
     return false;
   }
 

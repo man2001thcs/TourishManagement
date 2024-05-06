@@ -27,6 +27,7 @@ import { MovingScheduleCreateComponent } from "../schedule_moving_create/schedul
 import { MessageService } from "src/app/utility/user_service/message.service";
 import { ConfirmDialogComponent } from "src/app/utility/confirm-dialog/confirm-dialog.component";
 import { MovingSchedule } from "src/app/model/baseModel";
+import { InterestModalComponent } from "src/app/utility/change-interest-modal/change-interest-modal.component";
 
 @Component({
   selector: "app-movingScheduleList",
@@ -69,8 +70,9 @@ export class MovingScheduleListComponent
   pageSize = 5;
   pageSizeOpstion = [5, 10];
   pageIndex = 0;
-
   searchPhase = "";
+  sortColumn: string = "createDate";
+  sortDirection: string = "desc";
 
   constructor(
     private adminService: AdminService,
@@ -107,7 +109,10 @@ export class MovingScheduleListComponent
                 payload: {
                   search: this.searchPhase,
                   page: this.pageIndex + 1,
+                  pageSize: this.pageSize,
                   type: 0,
+                  sortBy: this.sortColumn,
+                  sortDirection: this.sortDirection,
                 },
               })
             );
@@ -122,7 +127,11 @@ export class MovingScheduleListComponent
       MovingScheduleListActions.getMovingScheduleList({
         payload: {
           page: this.pageIndex + 1,
+          pageSize: this.pageSize,
+          search: this.searchPhase,
           type: 0,
+          sortBy: this.sortColumn,
+          sortDirection: this.sortDirection,
         },
       })
     );
@@ -165,13 +174,15 @@ export class MovingScheduleListComponent
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-
       this.store.dispatch(
         MovingScheduleListActions.getMovingScheduleList({
           payload: {
             page: this.pageIndex + 1,
+            pageSize: this.pageSize,
             search: this.searchPhase,
             type: 0,
+            sortBy: this.sortColumn,
+            sortDirection: this.sortDirection,
           },
         })
       );
@@ -190,8 +201,11 @@ export class MovingScheduleListComponent
         MovingScheduleListActions.getMovingScheduleList({
           payload: {
             page: this.pageIndex + 1,
+            pageSize: this.pageSize,
             search: this.searchPhase,
             type: 0,
+            sortBy: this.sortColumn,
+            sortDirection: this.sortDirection,
           },
         })
       );
@@ -243,7 +257,10 @@ export class MovingScheduleListComponent
         payload: {
           page: this.pageIndex + 1,
           pageSize: this.pageSize,
+          search: this.searchPhase,
           type: 0,
+          sortBy: this.sortColumn,
+          sortDirection: this.sortDirection,
         },
       })
     );
@@ -262,6 +279,8 @@ export class MovingScheduleListComponent
           pageSize: this.pageSize,
           search: this.searchPhase,
           type: 0,
+          sortBy: this.sortColumn,
+          sortDirection: this.sortDirection,
         },
       })
     );
@@ -269,7 +288,9 @@ export class MovingScheduleListComponent
 
   announceSortChange(sortState: Sort) {
     this.pageIndex = 0;
-    this.pageSize = 5;
+    this.sortColumn = sortState.active;
+    this.sortDirection = sortState.direction;
+
     this.messageService.openLoadingDialog();
     this.store.dispatch(
       MovingScheduleListActions.getMovingScheduleList({
@@ -279,7 +300,7 @@ export class MovingScheduleListComponent
           search: this.searchPhase,
           type: 0,
           sortBy: sortState.active,
-          sortDirection: sortState.direction
+          sortDirection: sortState.direction,
         },
       })
     );
@@ -287,5 +308,47 @@ export class MovingScheduleListComponent
 
   getIndex(element: MovingSchedule) {
     return this.movingScheduleList.findIndex((el) => el.id === element.id) + 1;
+  }
+
+  isScheduleNotify(schedule: MovingSchedule) {
+    if (
+      schedule.scheduleInterestList !== null &&
+      schedule.scheduleInterestList !== undefined
+    ) {
+      if (schedule.scheduleInterestList?.length > 0) {
+        if (schedule.scheduleInterestList[0].interestStatus < 4) return true;
+      }
+    }
+
+    return false;
+  }
+
+  openInterestDialog(schedule: MovingSchedule): void {
+    const title = this.isScheduleNotify(schedule)
+      ? "Bạn có muốn hủy theo dõi?"
+      : "Bạn có muốn theo dõi tour này?";
+    const dialogRef = this.dialog.open(InterestModalComponent, {
+      data: {
+        resourceId: schedule.id,
+        resourceType: "TourishPlan",
+        title: title,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      this.store.dispatch(
+        MovingScheduleListActions.getMovingScheduleList({
+          payload: {
+            page: this.pageIndex + 1,
+            pageSize: this.pageSize,
+            search: this.searchPhase,
+            type: 0,
+            sortBy: this.sortColumn,
+            sortDirection: this.sortDirection,
+          },
+        })
+      );
+      this.messageService.openLoadingDialog();
+    });
   }
 }

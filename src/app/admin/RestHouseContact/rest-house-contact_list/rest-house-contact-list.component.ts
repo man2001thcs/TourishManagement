@@ -34,7 +34,9 @@ import { AvatarUploadModalComponent } from "src/app/utility/image_avatar_modal/i
   templateUrl: "./rest-house-contact-list.component.html",
   styleUrls: ["./rest-house-contact-list.component.css"],
 })
-export class RestHouseContactListComponent implements OnInit, AfterViewInit, OnDestroy {
+export class RestHouseContactListComponent
+  implements OnInit, AfterViewInit, OnDestroy
+{
   RestHouseContactList!: RestHouseContact[];
   subscriptions: Subscription[] = [];
 
@@ -71,6 +73,8 @@ export class RestHouseContactListComponent implements OnInit, AfterViewInit, OnD
   pageSizeOpstion = [5, 10];
   pageIndex = 0;
   type = 0;
+  sortColumn: string = "createDate";
+  sortDirection: string = "desc";
 
   constructor(
     private adminService: AdminService,
@@ -106,8 +110,11 @@ export class RestHouseContactListComponent implements OnInit, AfterViewInit, OnD
               RestHouseContactListActions.getRestHouseContactList({
                 payload: {
                   page: this.pageIndex + 1,
+                  pageSize: this.pageSize,
                   search: this.searchPhase,
                   type: this.type,
+                  sortBy: this.sortColumn,
+                  sortDirection: this.sortDirection,
                 },
               })
             );
@@ -121,8 +128,11 @@ export class RestHouseContactListComponent implements OnInit, AfterViewInit, OnD
       RestHouseContactListActions.getRestHouseContactList({
         payload: {
           page: this.pageIndex + 1,
+          pageSize: this.pageSize,
           search: this.searchPhase,
           type: this.type,
+          sortBy: this.sortColumn,
+          sortDirection: this.sortDirection,
         },
       })
     );
@@ -152,7 +162,9 @@ export class RestHouseContactListComponent implements OnInit, AfterViewInit, OnD
   ngAfterViewInit(): void {}
 
   ngOnDestroy(): void {
-    this.store.dispatch(RestHouseContactListActions.resetRestHouseContactList());
+    this.store.dispatch(
+      RestHouseContactListActions.resetRestHouseContactList()
+    );
     this.messageService.closeAllDialog();
 
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
@@ -170,8 +182,11 @@ export class RestHouseContactListComponent implements OnInit, AfterViewInit, OnD
         RestHouseContactListActions.getRestHouseContactList({
           payload: {
             page: this.pageIndex + 1,
+            pageSize: this.pageSize,
             type: this.type,
             search: this.searchPhase,
+            sortBy: this.sortColumn,
+            sortDirection: this.sortDirection,
           },
         })
       );
@@ -189,8 +204,11 @@ export class RestHouseContactListComponent implements OnInit, AfterViewInit, OnD
         RestHouseContactListActions.getRestHouseContactList({
           payload: {
             page: this.pageIndex + 1,
+            pageSize: this.pageSize,
             search: this.searchPhase,
             type: this.type,
+            sortBy: this.sortColumn,
+            sortDirection: this.sortDirection,
           },
         })
       );
@@ -213,7 +231,7 @@ export class RestHouseContactListComponent implements OnInit, AfterViewInit, OnD
 
   openAvatarDialog(id: string): void {
     const dialogRef = this.dialog.open(AvatarUploadModalComponent, {
-      data: { resourceId: id, resourceType: 4},
+      data: { resourceId: id, resourceType: 4 },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -223,8 +241,11 @@ export class RestHouseContactListComponent implements OnInit, AfterViewInit, OnD
         RestHouseContactListActions.getRestHouseContactList({
           payload: {
             page: this.pageIndex + 1,
+            pageSize: this.pageSize,
             search: this.searchPhase,
             type: this.type,
+            sortBy: this.sortColumn,
+            sortDirection: this.sortDirection,
           },
         })
       );
@@ -268,6 +289,8 @@ export class RestHouseContactListComponent implements OnInit, AfterViewInit, OnD
           pageSize: this.pageSize,
           search: this.searchPhase,
           type: this.type,
+          sortBy: this.sortColumn,
+          sortDirection: this.sortDirection,
         },
       })
     );
@@ -289,6 +312,8 @@ export class RestHouseContactListComponent implements OnInit, AfterViewInit, OnD
           pageSize: this.pageSize,
           search: this.searchPhase,
           type: this.type,
+          sortBy: this.sortColumn,
+          sortDirection: this.sortDirection,
         },
       })
     );
@@ -296,7 +321,9 @@ export class RestHouseContactListComponent implements OnInit, AfterViewInit, OnD
 
   announceSortChange(sortState: Sort) {
     this.pageIndex = 0;
-    this.pageSize = 5;
+    this.sortColumn = sortState.active;
+    this.sortDirection = sortState.direction;
+
     this.messageService.openLoadingDialog();
     this.store.dispatch(
       RestHouseContactListActions.getRestHouseContactList({
@@ -306,7 +333,7 @@ export class RestHouseContactListComponent implements OnInit, AfterViewInit, OnD
           search: this.searchPhase,
           type: this.type,
           sortBy: sortState.active,
-          sortDirection: sortState.direction
+          sortDirection: sortState.direction,
         },
       })
     );
@@ -316,7 +343,7 @@ export class RestHouseContactListComponent implements OnInit, AfterViewInit, OnD
     return this.RestHouseContactList.findIndex((el) => el.id === elementId) + 1;
   }
 
-  onChangeType($event: number){
+  onChangeType($event: number) {
     this.type = $event;
     this.pageIndex = 0;
 
@@ -328,6 +355,9 @@ export class RestHouseContactListComponent implements OnInit, AfterViewInit, OnD
           type: this.type,
           page: this.pageIndex + 1,
           pageSize: this.pageSize,
+          search: this.searchPhase,
+          sortBy: this.sortColumn,
+          sortDirection: this.sortDirection,
         },
       })
     );

@@ -66,6 +66,9 @@ export class NotificationListComponent
   pageIndex = 0;
   searchPhase = "";
 
+  sortColumn: string = "createDate";
+  sortDirection: string = "desc";
+
   constructor(
     private adminService: AdminService,
     public dialog: MatDialog,
@@ -100,6 +103,10 @@ export class NotificationListComponent
               NotificationListActions.getNotificationList({
                 payload: {
                   page: this.pageIndex + 1,
+                  pageSize: this.pageSize,
+                  search: this.searchPhase,
+                  sortBy: this.sortColumn,
+                  sortDirection: this.sortDirection,
                 },
               })
             );
@@ -114,6 +121,10 @@ export class NotificationListComponent
       NotificationListActions.getNotificationList({
         payload: {
           page: this.pageIndex + 1,
+          pageSize: this.pageSize,
+          search: this.searchPhase,
+          sortBy: this.sortColumn,
+          sortDirection: this.sortDirection,
         },
       })
     );
@@ -162,6 +173,7 @@ export class NotificationListComponent
         NotificationListActions.getNotificationList({
           payload: {
             page: this.pageIndex + 1,
+            pageSize: this.pageSize,
             search: this.searchPhase,
           },
         })
@@ -180,7 +192,10 @@ export class NotificationListComponent
         NotificationListActions.getNotificationList({
           payload: {
             page: this.pageIndex + 1,
+            pageSize: this.pageSize,
             search: this.searchPhase,
+            sortBy: this.sortColumn,
+            sortDirection: this.sortDirection,
           },
         })
       );
@@ -236,6 +251,9 @@ export class NotificationListComponent
         payload: {
           page: this.pageIndex + 1,
           pageSize: this.pageSize,
+          search: this.searchPhase,
+          sortBy: this.sortColumn,
+          sortDirection: this.sortDirection,
         },
       })
     );
@@ -253,6 +271,8 @@ export class NotificationListComponent
           page: this.pageIndex + 1,
           pageSize: this.pageSize,
           search: this.searchPhase,
+          sortBy: this.sortColumn,
+          sortDirection: this.sortDirection,
         },
       })
     );
@@ -260,7 +280,9 @@ export class NotificationListComponent
 
   announceSortChange(sortState: Sort) {
     this.pageIndex = 0;
-    this.pageSize = 5;
+    this.sortColumn = sortState.active;
+    this.sortDirection = sortState.direction;
+
     this.messageService.openLoadingDialog();
     this.store.dispatch(
       NotificationListActions.getNotificationList({
@@ -269,7 +291,7 @@ export class NotificationListComponent
           pageSize: this.pageSize,
           search: this.searchPhase,
           sortBy: sortState.active,
-          sortDirection: sortState.direction
+          sortDirection: sortState.direction,
         },
       })
     );

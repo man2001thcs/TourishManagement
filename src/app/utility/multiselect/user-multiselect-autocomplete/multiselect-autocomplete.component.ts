@@ -156,6 +156,7 @@ userType = 1;
           search: this.searchWord.toLowerCase(),
           type: this.userType,
           page: this.pageIndex + 1,
+    pageSize: this.pageSize,
           pageSize: 6,
         },
       })
@@ -226,6 +227,7 @@ userType = 1;
             payload: {
               search: this.searchWord.toLowerCase(),
               page: this.pageIndex + 1,
+    pageSize: this.pageSize,
               type: this.userType,
               pageSize: 6,
             },
@@ -253,6 +255,7 @@ userType = 1;
         payload: {
           search: this.searchWord.toLowerCase(),
           page: this.pageIndex + 1,
+    pageSize: this.pageSize,
           type: this.userType,
           pageSize: 6,
         }})

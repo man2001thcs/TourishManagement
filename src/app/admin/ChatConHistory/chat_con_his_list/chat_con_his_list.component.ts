@@ -62,6 +62,8 @@ export class GuestMessageConHistoryListComponent
   pageSize = 5;
   pageSizeOpstion = [5, 10];
   pageIndex = 0;
+  sortColumn: string = "createDate";
+  sortDirection: string = "desc";
 
   constructor(
     private adminService: AdminService,
@@ -95,8 +97,11 @@ export class GuestMessageConHistoryListComponent
       GuestMessageConHistoryListActions.getGuestMessageConHistoryList({
         payload: {
           page: this.pageIndex + 1,
-          type: 1,
+          pageSize: this.pageSize,
           search: this.searchPhase,
+          type: 1,
+          sortBy: this.sortColumn,
+          sortDirection: this.sortDirection,
         },
       })
     );
@@ -166,16 +171,17 @@ export class GuestMessageConHistoryListComponent
       GuestMessageConHistoryListActions.getGuestMessageConHistoryList({
         payload: {
           page: this.pageIndex + 1,
-          type: 1,
           pageSize: this.pageSize,
           search: this.searchPhase,
+          type: 1,
+          sortBy: this.sortColumn,
+          sortDirection: this.sortDirection,
         },
       })
     );
   }
 
   search() {
-    this.pageSize = 5;
     this.pageIndex = 0;
 
     this.messageService.openLoadingDialog();
@@ -183,9 +189,11 @@ export class GuestMessageConHistoryListComponent
       GuestMessageConHistoryListActions.getGuestMessageConHistoryList({
         payload: {
           page: this.pageIndex + 1,
-          type: 1,
           pageSize: this.pageSize,
           search: this.searchPhase,
+          type: 1,
+          sortBy: this.sortColumn,
+          sortDirection: this.sortDirection,
         },
       })
     );
@@ -193,7 +201,9 @@ export class GuestMessageConHistoryListComponent
 
   announceSortChange(sortState: Sort) {
     this.pageIndex = 0;
-    this.pageSize = 5;
+    this.sortColumn = sortState.active;
+    this.sortDirection = sortState.direction;
+
     this.messageService.openLoadingDialog();
     this.store.dispatch(
       GuestMessageConHistoryListActions.getGuestMessageConHistoryList({
@@ -202,7 +212,7 @@ export class GuestMessageConHistoryListComponent
           pageSize: this.pageSize,
           search: this.searchPhase,
           sortBy: sortState.active,
-          sortDirection: sortState.direction
+          sortDirection: sortState.direction,
         },
       })
     );
@@ -219,14 +229,14 @@ export class GuestMessageConHistoryListComponent
     else if (input == 0) return "Đã đóng";
     else if (input == 1) return "Đang bận";
     return "";
-  } 
+  }
 
   connectStatus(input: number) {
     if (input == 2) return "Kết nối";
     else if (input == 0) return "Đã đóng";
     else if (input == 1) return "Đang bận";
     return "";
-  } 
+  }
 
   onClickConnect(id: string) {
     this.router.navigate(["admin/chat/display/" + id]);
@@ -238,5 +248,4 @@ export class GuestMessageConHistoryListComponent
       this.signalRService.listenToClientFeeds("NotifyNewCon");
     });
   }
-
 }

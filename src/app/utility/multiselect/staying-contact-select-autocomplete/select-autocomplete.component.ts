@@ -160,6 +160,7 @@ export class RestHouseContactSelectAutocompleteComponent implements OnInit {
           search: this.searchWord.toLowerCase(),
           type: this.restHouseContactType,
           page: this.pageIndex + 1,
+    pageSize: this.pageSize,
           pageSize: 6,
         },
       })
@@ -258,6 +259,7 @@ export class RestHouseContactSelectAutocompleteComponent implements OnInit {
             payload: {
               search: this.searchWord.toLowerCase(),
               page: this.pageIndex + 1,
+    pageSize: this.pageSize,
               type: this.restHouseContactType,
               pageSize: 6,
             },
@@ -285,6 +287,7 @@ export class RestHouseContactSelectAutocompleteComponent implements OnInit {
         payload: {
           search: this.searchWord.toLowerCase(),
           page: this.pageIndex + 1,
+    pageSize: this.pageSize,
           type: this.restHouseContactType,
           pageSize: 6,
         },

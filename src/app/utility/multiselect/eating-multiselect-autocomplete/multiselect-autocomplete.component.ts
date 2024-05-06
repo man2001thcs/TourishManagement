@@ -231,6 +231,7 @@ export class EatingMultiselectAutocompleteComponent implements OnInit {
         payload: {
           search: this.searchWord.toLowerCase(),
           page: this.pageIndex + 1,
+    pageSize: this.pageSize,
           pageSize: 6,
           eatingType: this.eatingType,
         },
@@ -444,6 +445,7 @@ export class EatingMultiselectAutocompleteComponent implements OnInit {
             payload: {
               search: this.searchWord.toLowerCase(),
               page: this.pageIndex + 1,
+    pageSize: this.pageSize,
               pageSize: 6,
             },
           })

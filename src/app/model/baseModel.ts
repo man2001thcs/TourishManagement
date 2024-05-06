@@ -100,6 +100,18 @@ export interface MovingSchedule {
 
   createDate?: Date;
   updateDate?: Date;
+
+  scheduleInterestList?: ScheduleInterest[];
+}
+
+export interface ScheduleInterest {
+  id: string;
+  movingScheduleId?: string;
+  stayingScheduleId?: string;
+  userId: string;
+  interestStatus: number;
+  createDate?: string;
+  updateDate?: string;
 }
 
 export interface StayingSchedule {
@@ -122,6 +134,8 @@ export interface StayingSchedule {
 
   createDate?: Date;
   updateDate?: Date;
+
+  scheduleInterestList?: ScheduleInterest[];
 }
 
 export interface Author {

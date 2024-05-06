@@ -39,7 +39,7 @@ export class TourishCategoryListComponent
   tourishCategoryList!: TourishCategory[];
   subscriptions: Subscription[] = [];
 
-  searchPhase= "";
+  searchPhase = "";
 
   tourishCategoryListState!: Observable<any>;
   tourishCategoryDeleteState!: Observable<any>;
@@ -63,6 +63,8 @@ export class TourishCategoryListComponent
   pageSize = 5;
   pageSizeOpstion = [5, 10];
   pageIndex = 0;
+  sortColumn: string = "createDate";
+  sortDirection: string = "desc";
 
   constructor(
     private adminService: AdminService,
@@ -98,7 +100,10 @@ export class TourishCategoryListComponent
               TourishCategoryListActions.getTourishCategoryList({
                 payload: {
                   page: this.pageIndex + 1,
-                  search: this.searchPhase
+                  pageSize: this.pageSize,
+                  search: this.searchPhase,
+                  sortBy: this.sortColumn,
+                  sortDirection: this.sortDirection,
                 },
               })
             );
@@ -113,7 +118,10 @@ export class TourishCategoryListComponent
       TourishCategoryListActions.getTourishCategoryList({
         payload: {
           page: this.pageIndex + 1,
-          search: this.searchPhase
+          pageSize: this.pageSize,
+          search: this.searchPhase,
+          sortBy: this.sortColumn,
+          sortDirection: this.sortDirection,
         },
       })
     );
@@ -130,7 +138,7 @@ export class TourishCategoryListComponent
     );
 
     this.subscriptions.push(
-      this.errorSystemState.subscribe((state) => {  
+      this.errorSystemState.subscribe((state) => {
         if (state) {
           this.messageService.closeLoadingDialog();
           this.messageService.openSystemFailNotifyDialog(state);
@@ -153,12 +161,14 @@ export class TourishCategoryListComponent
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-
       this.store.dispatch(
         TourishCategoryListActions.getTourishCategoryList({
           payload: {
             page: this.pageIndex + 1,
-            search: this.searchPhase
+            pageSize: this.pageSize,
+            search: this.searchPhase,
+            sortBy: this.sortColumn,
+            sortDirection: this.sortDirection,
           },
         })
       );
@@ -178,7 +188,10 @@ export class TourishCategoryListComponent
         TourishCategoryListActions.getTourishCategoryList({
           payload: {
             page: this.pageIndex + 1,
-            search: this.searchPhase
+            pageSize: this.pageSize,
+            search: this.searchPhase,
+            sortBy: this.sortColumn,
+            sortDirection: this.sortDirection,
           },
         })
       );
@@ -229,7 +242,9 @@ export class TourishCategoryListComponent
         payload: {
           page: this.pageIndex + 1,
           pageSize: this.pageSize,
-          search: this.searchPhase
+          search: this.searchPhase,
+          sortBy: this.sortColumn,
+          sortDirection: this.sortDirection,
         },
       })
     );
@@ -245,7 +260,9 @@ export class TourishCategoryListComponent
         payload: {
           page: this.pageIndex + 1,
           pageSize: this.pageSize,
-          search: this.searchPhase
+          search: this.searchPhase,
+          sortBy: this.sortColumn,
+          sortDirection: this.sortDirection,
         },
       })
     );
@@ -253,7 +270,9 @@ export class TourishCategoryListComponent
 
   announceSortChange(sortState: Sort) {
     this.pageIndex = 0;
-    this.pageSize = 5;
+    this.sortColumn = sortState.active;
+    this.sortDirection = sortState.direction;
+
     this.messageService.openLoadingDialog();
     this.store.dispatch(
       TourishCategoryListActions.getTourishCategoryList({
@@ -263,7 +282,7 @@ export class TourishCategoryListComponent
           search: this.searchPhase,
           type: 0,
           sortBy: sortState.active,
-          sortDirection: sortState.direction
+          sortDirection: sortState.direction,
         },
       })
     );

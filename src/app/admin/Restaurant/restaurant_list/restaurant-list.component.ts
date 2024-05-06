@@ -69,6 +69,8 @@ export class RestaurantListComponent
   pageSizeOpstion = [5, 10];
   pageIndex = 0;
   searchPhase = "";
+  sortColumn: string = "createDate";
+  sortDirection: string = "desc";
 
   constructor(
     private adminService: AdminService,
@@ -104,6 +106,10 @@ export class RestaurantListComponent
               RestaurantListActions.getRestaurantList({
                 payload: {
                   page: this.pageIndex + 1,
+                  pageSize: this.pageSize,
+                  search: this.searchPhase,
+                  sortBy: this.sortColumn,
+                  sortDirection: this.sortDirection,
                 },
               })
             );
@@ -118,6 +124,10 @@ export class RestaurantListComponent
       RestaurantListActions.getRestaurantList({
         payload: {
           page: this.pageIndex + 1,
+          pageSize: this.pageSize,
+          search: this.searchPhase,
+          sortBy: this.sortColumn,
+          sortDirection: this.sortDirection,
         },
       })
     );
@@ -166,7 +176,10 @@ export class RestaurantListComponent
         RestaurantListActions.getRestaurantList({
           payload: {
             page: this.pageIndex + 1,
+            pageSize: this.pageSize,
             search: this.searchPhase,
+            sortBy: this.sortColumn,
+            sortDirection: this.sortDirection,
           },
         })
       );
@@ -184,7 +197,10 @@ export class RestaurantListComponent
         RestaurantListActions.getRestaurantList({
           payload: {
             page: this.pageIndex + 1,
+            pageSize: this.pageSize,
             search: this.searchPhase,
+            sortBy: this.sortColumn,
+            sortDirection: this.sortDirection,
           },
         })
       );
@@ -206,7 +222,7 @@ export class RestaurantListComponent
 
   openAvatarDialog(id: string): void {
     const dialogRef = this.dialog.open(AvatarUploadModalComponent, {
-      data: { resourceId: id, resourceType: 4},
+      data: { resourceId: id, resourceType: 4 },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -216,7 +232,10 @@ export class RestaurantListComponent
         RestaurantListActions.getRestaurantList({
           payload: {
             page: this.pageIndex + 1,
+            pageSize: this.pageSize,
             search: this.searchPhase,
+            sortBy: this.sortColumn,
+            sortDirection: this.sortDirection,
           },
         })
       );
@@ -261,6 +280,8 @@ export class RestaurantListComponent
         payload: {
           page: this.pageIndex + 1,
           pageSize: this.pageSize,
+          sortBy: this.sortColumn,
+          sortDirection: this.sortDirection,
         },
       })
     );
@@ -278,6 +299,8 @@ export class RestaurantListComponent
           page: this.pageIndex + 1,
           pageSize: this.pageSize,
           search: this.searchPhase,
+          sortBy: this.sortColumn,
+          sortDirection: this.sortDirection,
         },
       })
     );
@@ -285,7 +308,9 @@ export class RestaurantListComponent
 
   announceSortChange(sortState: Sort) {
     this.pageIndex = 0;
-    this.pageSize = 5;
+    this.sortColumn = sortState.active;
+    this.sortDirection = sortState.direction;
+
     this.messageService.openLoadingDialog();
     this.store.dispatch(
       RestaurantListActions.getRestaurantList({
@@ -294,7 +319,7 @@ export class RestaurantListComponent
           pageSize: this.pageSize,
           search: this.searchPhase,
           sortBy: sortState.active,
-          sortDirection: sortState.direction
+          sortDirection: sortState.direction,
         },
       })
     );

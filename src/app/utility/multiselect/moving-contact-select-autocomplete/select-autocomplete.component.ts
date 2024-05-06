@@ -160,6 +160,7 @@ export class MovingContactSelectAutocompleteComponent implements OnInit {
           search: this.searchWord.toLowerCase(),
           type: this.movingContactType,
           page: this.pageIndex + 1,
+    pageSize: this.pageSize,
           pageSize: 6,
         },
       })
@@ -249,6 +250,7 @@ export class MovingContactSelectAutocompleteComponent implements OnInit {
             payload: {
               search: this.searchWord.toLowerCase(),
               page: this.pageIndex + 1,
+    pageSize: this.pageSize,
               type: this.movingContactType,
               pageSize: 6,
             },
@@ -276,6 +278,7 @@ export class MovingContactSelectAutocompleteComponent implements OnInit {
         payload: {
           search: this.searchWord.toLowerCase(),
           page: this.pageIndex + 1,
+    pageSize: this.pageSize,
           type: this.movingContactType,
           pageSize: 6,
         },

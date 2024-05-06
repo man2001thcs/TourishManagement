@@ -45,6 +45,9 @@ export class MovingContactListComponent
   errorMessageState!: Observable<any>;
   errorSystemState!: Observable<any>;
 
+  sortColumn: string = "createDate";
+  sortDirection: string = "desc";
+
   type = 0;
 
   displayedColumns: string[] = [
@@ -109,7 +112,11 @@ export class MovingContactListComponent
                 payload: {
                   search: this.searchPhase,
                   page: this.pageIndex + 1,
+                  pageSize: this.pageSize,
                   type: this.type,
+                  size: this.pageSize,
+                  sortBy: this.sortColumn,
+                  sortDirection: this.sortDirection,
                 },
               })
             );
@@ -124,7 +131,11 @@ export class MovingContactListComponent
       MovingContactListActions.getMovingContactList({
         payload: {
           page: this.pageIndex + 1,
+          pageSize: this.pageSize,
+          search: this.searchPhase,
           type: this.type,
+          sortBy: this.sortColumn,
+          sortDirection: this.sortDirection,
         },
       })
     );
@@ -173,8 +184,11 @@ export class MovingContactListComponent
         MovingContactListActions.getMovingContactList({
           payload: {
             page: this.pageIndex + 1,
+            pageSize: this.pageSize,
             search: this.searchPhase,
             type: this.type,
+            sortBy: this.sortColumn,
+            sortDirection: this.sortDirection,
           },
         })
       );
@@ -193,8 +207,11 @@ export class MovingContactListComponent
         MovingContactListActions.getMovingContactList({
           payload: {
             page: this.pageIndex + 1,
+            pageSize: this.pageSize,
             search: this.searchPhase,
             type: this.type,
+            sortBy: this.sortColumn,
+            sortDirection: this.sortDirection,
           },
         })
       );
@@ -205,7 +222,7 @@ export class MovingContactListComponent
 
   openAvatarDialog(id: string): void {
     const dialogRef = this.dialog.open(AvatarUploadModalComponent, {
-      data: { resourceId: id, resourceType: 3},
+      data: { resourceId: id, resourceType: 3 },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -215,8 +232,11 @@ export class MovingContactListComponent
         MovingContactListActions.getMovingContactList({
           payload: {
             page: this.pageIndex + 1,
+            pageSize: this.pageSize,
             search: this.searchPhase,
             type: this.type,
+            sortBy: this.sortColumn,
+            sortDirection: this.sortDirection,
           },
         })
       );
@@ -261,7 +281,6 @@ export class MovingContactListComponent
 
   handlePageEvent(e: PageEvent) {
     // this.length = e.length;
-
     this.pageSize = e.pageSize;
     this.pageIndex = e.pageIndex;
 
@@ -270,7 +289,10 @@ export class MovingContactListComponent
         payload: {
           page: this.pageIndex + 1,
           pageSize: this.pageSize,
+          search: this.searchPhase,
           type: this.type,
+          sortBy: this.sortColumn,
+          sortDirection: this.sortDirection,
         },
       })
     );
@@ -289,6 +311,8 @@ export class MovingContactListComponent
           pageSize: this.pageSize,
           search: this.searchPhase,
           type: this.type,
+          sortBy: this.sortColumn,
+          sortDirection: this.sortDirection,
         },
       })
     );
@@ -296,7 +320,9 @@ export class MovingContactListComponent
 
   announceSortChange(sortState: Sort) {
     this.pageIndex = 0;
-    this.pageSize = 5;
+    this.sortColumn = sortState.active;
+    this.sortDirection = sortState.direction;
+
     this.messageService.openLoadingDialog();
     this.store.dispatch(
       MovingContactListActions.getMovingContactList({
@@ -306,7 +332,7 @@ export class MovingContactListComponent
           search: this.searchPhase,
           type: this.type,
           sortBy: sortState.active,
-          sortDirection: sortState.direction
+          sortDirection: sortState.direction,
         },
       })
     );
@@ -316,7 +342,7 @@ export class MovingContactListComponent
     return this.MovingContactList.findIndex((el) => el.id === element.id) + 1;
   }
 
-  onChangeType($event: number){
+  onChangeType($event: number) {
     this.type = $event;
     this.pageIndex = 0;
 
@@ -328,6 +354,9 @@ export class MovingContactListComponent
           type: this.type,
           page: this.pageIndex + 1,
           pageSize: this.pageSize,
+          search: this.searchPhase,
+          sortBy: this.sortColumn,
+          sortDirection: this.sortDirection,
         },
       })
     );

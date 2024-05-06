@@ -24,7 +24,11 @@ import { ReceiptDetailComponent } from "../receipt_detail/receipt-detail.compone
 import { ReceiptCreateComponent } from "../receipt_create/receipt-create.component";
 import { MessageService } from "src/app/utility/user_service/message.service";
 import { ConfirmDialogComponent } from "src/app/utility/confirm-dialog/confirm-dialog.component";
-import { FullReceipt, TotalReceipt, TourishPlan } from "src/app/model/baseModel";
+import {
+  FullReceipt,
+  TotalReceipt,
+  TourishPlan,
+} from "src/app/model/baseModel";
 import {
   animate,
   state,
@@ -38,10 +42,13 @@ import {
   templateUrl: "./receipt-list.component.html",
   styleUrls: ["./receipt-list.component.css"],
   animations: [
-    trigger('detailExpand', [
-      state('collapsed', style({ height: '0px', minHeight: '0' })),
-      state('expanded', style({ height: '*' })),
-      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    trigger("detailExpand", [
+      state("collapsed", style({ height: "0px", minHeight: "0" })),
+      state("expanded", style({ height: "*" })),
+      transition(
+        "expanded <=> collapsed",
+        animate("225ms cubic-bezier(0.4, 0.0, 0.2, 1)")
+      ),
     ]),
   ],
 })
@@ -71,7 +78,7 @@ export class ReceiptListComponent implements OnInit, AfterViewInit, OnDestroy {
     "completeDate",
   ];
 
-  displayedColumnsWithExpand = [...this.displayedColumns, 'expand'];
+  displayedColumnsWithExpand = [...this.displayedColumns, "expand"];
 
   @ViewChild(MatPaginator) paraginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -82,6 +89,9 @@ export class ReceiptListComponent implements OnInit, AfterViewInit, OnDestroy {
   pageSize = 5;
   pageSizeOpstion = [5, 10];
   pageIndex = 0;
+  sortColumn: string = "createDate";
+  sortDirection: string = "desc";
+  tourishPlanId = "";
 
   constructor(
     private adminService: AdminService,
@@ -118,7 +128,11 @@ export class ReceiptListComponent implements OnInit, AfterViewInit, OnDestroy {
               ReceiptListActions.getReceiptList({
                 payload: {
                   page: this.pageIndex + 1,
-                  status: this.active
+                  pageSize: this.pageSize,
+                  status: this.active,
+                  tourishPlanId: this.tourishPlanId,
+                  sortBy: this.sortColumn,
+                  sortDirection: this.sortDirection,
                 },
               })
             );
@@ -134,7 +148,11 @@ export class ReceiptListComponent implements OnInit, AfterViewInit, OnDestroy {
       ReceiptListActions.getReceiptList({
         payload: {
           page: this.pageIndex + 1,
-          status: this.active
+          pageSize: this.pageSize,
+          status: this.active,
+          tourishPlanId: this.tourishPlanId,
+          sortBy: this.sortColumn,
+          sortDirection: this.sortDirection,
         },
       })
     );
@@ -161,7 +179,7 @@ export class ReceiptListComponent implements OnInit, AfterViewInit, OnDestroy {
       })
     );
   }
-  ngAfterViewInit(): void { }
+  ngAfterViewInit(): void {}
 
   ngOnDestroy(): void {
     this.store.dispatch(ReceiptListActions.resetReceiptList());
@@ -182,7 +200,11 @@ export class ReceiptListComponent implements OnInit, AfterViewInit, OnDestroy {
         ReceiptListActions.getReceiptList({
           payload: {
             page: this.pageIndex + 1,
-            status: this.active
+            pageSize: this.pageSize,
+            status: this.active,
+            tourishPlanId: this.tourishPlanId,
+            sortBy: this.sortColumn,
+            sortDirection: this.sortDirection,
           },
         })
       );
@@ -200,7 +222,11 @@ export class ReceiptListComponent implements OnInit, AfterViewInit, OnDestroy {
         ReceiptListActions.getReceiptList({
           payload: {
             page: this.pageIndex + 1,
-            status: this.active
+            pageSize: this.pageSize,
+            status: this.active,
+            tourishPlanId: this.tourishPlanId,
+            sortBy: this.sortColumn,
+            sortDirection: this.sortDirection,
           },
         })
       );
@@ -252,52 +278,60 @@ export class ReceiptListComponent implements OnInit, AfterViewInit, OnDestroy {
       ReceiptListActions.getReceiptList({
         payload: {
           page: this.pageIndex + 1,
-          status: this.active
+          pageSize: this.pageSize,
+          status: this.active,
+          tourishPlanId: this.tourishPlanId,
+          sortBy: this.sortColumn,
+          sortDirection: this.sortDirection,
         },
       })
     );
     this.messageService.openLoadingDialog();
   }
 
-  getTotalPriceReceipt(tourishPlan: TourishPlan, fullReceipt: FullReceipt): number {
+  getTotalPriceReceipt(
+    tourishPlan: TourishPlan,
+    fullReceipt: FullReceipt
+  ): number {
     let totalPrice = 0;
 
-    tourishPlan.stayingSchedules?.forEach(entity => {
+    tourishPlan.stayingSchedules?.forEach((entity) => {
       totalPrice += entity.singlePrice ?? 0;
     });
 
-    tourishPlan.eatSchedules?.forEach(entity => {
+    tourishPlan.eatSchedules?.forEach((entity) => {
       totalPrice += entity.singlePrice ?? 0;
     });
 
-    tourishPlan.movingSchedules?.forEach(entity => {
+    tourishPlan.movingSchedules?.forEach((entity) => {
       totalPrice += entity.singlePrice ?? 0;
     });
 
-    totalPrice = (totalPrice - fullReceipt.discountAmount) * (fullReceipt.totalTicket) * (1 -
-      fullReceipt.discountFloat);   
-     
-    return  Math.floor(totalPrice);
+    totalPrice =
+      (totalPrice - fullReceipt.discountAmount) *
+      fullReceipt.totalTicket *
+      (1 - fullReceipt.discountFloat);
+
+    return Math.floor(totalPrice);
   }
 
   getTotalPrice(tourishPlan: TourishPlan): number {
-    let totalPrice  = 0;
+    let totalPrice = 0;
 
-    tourishPlan.stayingSchedules?.forEach(entity => {
-      totalPrice  += entity.singlePrice ?? 0;
+    tourishPlan.stayingSchedules?.forEach((entity) => {
+      totalPrice += entity.singlePrice ?? 0;
     });
 
-    tourishPlan.eatSchedules?.forEach(entity => {
-      totalPrice  += entity.singlePrice ?? 0;
+    tourishPlan.eatSchedules?.forEach((entity) => {
+      totalPrice += entity.singlePrice ?? 0;
     });
 
-    tourishPlan.movingSchedules?.forEach(entity => {
-      totalPrice  += entity.singlePrice ?? 0;
+    tourishPlan.movingSchedules?.forEach((entity) => {
+      totalPrice += entity.singlePrice ?? 0;
     });
 
     return totalPrice;
   }
-
 
   handlePageEvent(e: PageEvent) {
     this.pageSize = e.pageSize;
@@ -308,7 +342,10 @@ export class ReceiptListComponent implements OnInit, AfterViewInit, OnDestroy {
         payload: {
           page: this.pageIndex + 1,
           pageSize: this.pageSize,
-          status: this.active
+          status: this.active,
+          tourishPlanId: this.tourishPlanId,
+          sortBy: this.sortColumn,
+          sortDirection: this.sortDirection,
         },
       })
     );
@@ -317,13 +354,16 @@ export class ReceiptListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   selectChangeReceipt($event: any) {
     console.log($event);
+    this.tourishPlanId = $event.data[0];
     this.store.dispatch(
       ReceiptListActions.getReceiptList({
         payload: {
           page: this.pageIndex + 1,
           pageSize: this.pageSize,
           tourishPlanId: $event.data[0],
-          status: this.active
+          status: this.active,
+          sortBy: this.sortColumn,
+          sortDirection: this.sortDirection,
         },
       })
     );
@@ -332,21 +372,26 @@ export class ReceiptListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   announceSortChange(sortState: Sort) {
     this.pageIndex = 0;
-    this.pageSize = 5;
+    this.sortColumn = sortState.active;
+    this.sortDirection = sortState.direction;
+
     this.messageService.openLoadingDialog();
     this.store.dispatch(
       ReceiptListActions.getReceiptList({
         payload: {
           page: 1,
           pageSize: this.pageSize,
+          tourishPlanId: this.tourishPlanId,
           sortBy: sortState.active,
-          sortDirection: sortState.direction
+          sortDirection: sortState.direction,
         },
       })
     );
   }
 
   getIndex(elementId: string) {
-    return this.receiptList.findIndex((el) => el.totalReceiptId === elementId) + 1;
+    return (
+      this.receiptList.findIndex((el) => el.totalReceiptId === elementId) + 1
+    );
   }
 }

@@ -26,7 +26,7 @@ import { StayingScheduleDetailComponent } from "../schedule_staying_detail/sched
 import { StayingScheduleCreateComponent } from "../schedule_staying_create/schedule_staying-create.component";
 import { MessageService } from "src/app/utility/user_service/message.service";
 import { ConfirmDialogComponent } from "src/app/utility/confirm-dialog/confirm-dialog.component";
-import { StayingSchedule } from "src/app/model/baseModel";
+import { MovingSchedule, StayingSchedule } from "src/app/model/baseModel";
 import { InterestModalComponent } from "src/app/utility/change-interest-modal/change-interest-modal.component";
 
 @Component({
@@ -70,8 +70,9 @@ export class StayingScheduleListComponent
   pageSize = 5;
   pageSizeOpstion = [5, 10];
   pageIndex = 0;
-
   searchPhase = "";
+  sortColumn: string = "createDate";
+  sortDirection: string = "desc";
 
   constructor(
     private adminService: AdminService,
@@ -108,7 +109,10 @@ export class StayingScheduleListComponent
                 payload: {
                   search: this.searchPhase,
                   page: this.pageIndex + 1,
+                  pageSize: this.pageSize,
                   type: 0,
+                  sortBy: this.sortColumn,
+                  sortDirection: this.sortDirection,
                 },
               })
             );
@@ -123,7 +127,11 @@ export class StayingScheduleListComponent
       StayingScheduleListActions.getStayingScheduleList({
         payload: {
           page: this.pageIndex + 1,
+          pageSize: this.pageSize,
+          search: this.searchPhase,
           type: 0,
+          sortBy: this.sortColumn,
+          sortDirection: this.sortDirection,
         },
       })
     );
@@ -170,28 +178,11 @@ export class StayingScheduleListComponent
         StayingScheduleListActions.getStayingScheduleList({
           payload: {
             page: this.pageIndex + 1,
+            pageSize: this.pageSize,
             search: this.searchPhase,
             type: 0,
-          },
-        })
-      );
-
-      this.messageService.openLoadingDialog();
-    });
-  }
-
-  openInterestDialog(id: string): void {
-    const dialogRef = this.dialog.open(InterestModalComponent, {
-      data: { resourceId: id, resourceType: "TourishPlan" },
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      this.store.dispatch(
-        StayingScheduleListActions.getStayingScheduleList({
-          payload: {
-            page: this.pageIndex + 1,
-            search: this.searchPhase,
-            type: 0,
+            sortBy: this.sortColumn,
+            sortDirection: this.sortDirection,
           },
         })
       );
@@ -210,8 +201,11 @@ export class StayingScheduleListComponent
         StayingScheduleListActions.getStayingScheduleList({
           payload: {
             page: this.pageIndex + 1,
+            pageSize: this.pageSize,
             search: this.searchPhase,
             type: 0,
+            sortBy: this.sortColumn,
+            sortDirection: this.sortDirection,
           },
         })
       );
@@ -267,7 +261,10 @@ export class StayingScheduleListComponent
         payload: {
           page: this.pageIndex + 1,
           pageSize: this.pageSize,
+          search: this.searchPhase,
           type: 0,
+          sortBy: this.sortColumn,
+          sortDirection: this.sortDirection,
         },
       })
     );
@@ -286,6 +283,8 @@ export class StayingScheduleListComponent
           pageSize: this.pageSize,
           search: this.searchPhase,
           type: 0,
+          sortBy: this.sortColumn,
+          sortDirection: this.sortDirection,
         },
       })
     );
@@ -293,7 +292,9 @@ export class StayingScheduleListComponent
 
   announceSortChange(sortState: Sort) {
     this.pageIndex = 0;
-    this.pageSize = 5;
+    this.sortColumn = sortState.active;
+    this.sortDirection = sortState.direction;
+
     this.messageService.openLoadingDialog();
     this.store.dispatch(
       StayingScheduleListActions.getStayingScheduleList({
@@ -311,5 +312,47 @@ export class StayingScheduleListComponent
 
   getIndex(element: StayingSchedule) {
     return this.stayingScheduleList.findIndex((el) => el.id === element.id) + 1;
+  }
+
+  isScheduleNotify(schedule: StayingSchedule) {
+    if (
+      schedule.scheduleInterestList !== null &&
+      schedule.scheduleInterestList !== undefined
+    ) {
+      if (schedule.scheduleInterestList?.length > 0) {
+        if (schedule.scheduleInterestList[0].interestStatus < 4) return true;
+      }
+    }
+
+    return false;
+  }
+
+  openInterestDialog(schedule: StayingSchedule): void {
+    const title = this.isScheduleNotify(schedule)
+      ? "Bạn có muốn hủy theo dõi?"
+      : "Bạn có muốn theo dõi tour này?";
+    const dialogRef = this.dialog.open(InterestModalComponent, {
+      data: {
+        resourceId: schedule.id,
+        resourceType: "TourishPlan",
+        title: title,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      this.store.dispatch(
+        StayingScheduleListActions.getStayingScheduleList({
+          payload: {
+            page: this.pageIndex + 1,
+            pageSize: this.pageSize,
+            search: this.searchPhase,
+            type: 0,
+            sortBy: this.sortColumn,
+            sortDirection: this.sortDirection,
+          },
+        })
+      );
+      this.messageService.openLoadingDialog();
+    });
   }
 }

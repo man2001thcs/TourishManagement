@@ -233,6 +233,7 @@ export class StayingMultiselectAutocompleteComponent implements OnInit {
         payload: {
           search: this.searchWord.toLowerCase(),
           page: this.pageIndex + 1,
+    pageSize: this.pageSize,
           pageSize: 6,
           type: this.restHouseType,
         },
@@ -272,6 +273,7 @@ export class StayingMultiselectAutocompleteComponent implements OnInit {
         payload: {
           search: this.searchWord.toLowerCase(),
           page: this.pageIndex + 1,
+    pageSize: this.pageSize,
           pageSize: 6,
           type: this.restHouseType,
         },
@@ -484,6 +486,7 @@ export class StayingMultiselectAutocompleteComponent implements OnInit {
             payload: {
               search: this.searchWord.toLowerCase(),
               page: this.pageIndex + 1,
+    pageSize: this.pageSize,
               type: this.restHouseType,
               pageSize: 6,
             },

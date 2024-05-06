@@ -33,9 +33,7 @@ import { User } from "src/app/model/baseModel";
   templateUrl: "./user-list.component.html",
   styleUrls: ["./user-list.component.css"],
 })
-export class UserListComponent
-  implements OnInit, AfterViewInit, OnDestroy
-{
+export class UserListComponent implements OnInit, AfterViewInit, OnDestroy {
   userList!: User[];
   subscriptions: Subscription[] = [];
   userType = 1;
@@ -68,6 +66,8 @@ export class UserListComponent
   pageSize = 5;
   pageSizeOpstion = [5, 10];
   pageIndex = 0;
+  sortColumn: string = "createDate";
+  sortDirection: string = "desc";
 
   constructor(
     private adminService: AdminService,
@@ -103,7 +103,10 @@ export class UserListComponent
               UserListActions.getUserList({
                 payload: {
                   page: this.pageIndex + 1,
+                  pageSize: this.pageSize,
                   type: this.userType,
+                  sortBy: this.sortColumn,
+                  sortDirection: this.sortDirection,
                 },
               })
             );
@@ -118,7 +121,10 @@ export class UserListComponent
       UserListActions.getUserList({
         payload: {
           page: this.pageIndex + 1,
+          pageSize: this.pageSize,
           type: this.userType,
+          sortBy: this.sortColumn,
+          sortDirection: this.sortDirection,
         },
       })
     );
@@ -167,7 +173,10 @@ export class UserListComponent
         UserListActions.getUserList({
           payload: {
             page: this.pageIndex + 1,
+            pageSize: this.pageSize,
             type: this.userType,
+            sortBy: this.sortColumn,
+            sortDirection: this.sortDirection,
           },
         })
       );
@@ -222,6 +231,8 @@ export class UserListComponent
           type: this.userType,
           page: this.pageIndex + 1,
           pageSize: this.pageSize,
+          sortBy: this.sortColumn,
+          sortDirection: this.sortDirection,
         },
       })
     );
@@ -229,7 +240,9 @@ export class UserListComponent
 
   announceSortChange(sortState: Sort) {
     this.pageIndex = 0;
-    this.pageSize = 5;
+    this.sortColumn = sortState.active;
+    this.sortDirection = sortState.direction;
+
     this.messageService.openLoadingDialog();
     this.store.dispatch(
       UserListActions.getUserList({
@@ -237,13 +250,13 @@ export class UserListComponent
           page: 1,
           pageSize: this.pageSize,
           sortBy: sortState.active,
-          sortDirection: sortState.direction
+          sortDirection: sortState.direction,
         },
       })
     );
   }
 
-  onChangeUserType($event: number){
+  onChangeUserType($event: number) {
     this.userType = $event + 1;
     this.pageIndex = 0;
 
@@ -255,6 +268,8 @@ export class UserListComponent
           type: this.userType,
           page: this.pageIndex + 1,
           pageSize: this.pageSize,
+          sortBy: this.sortColumn,
+          sortDirection: this.sortDirection,
         },
       })
     );

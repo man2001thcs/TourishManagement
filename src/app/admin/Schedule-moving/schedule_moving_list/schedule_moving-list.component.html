@@ -199,6 +199,24 @@
         </td>
       </ng-container>
 
+      <ng-container matColumnDef="interest">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-button (click)="openInterestDialog(element)">
+            <i
+              class="fa fa-bell-o"
+              aria-hidden="true"
+              *ngIf="!isScheduleNotify(element)"
+            ></i>
+            <i
+              class="fa fa-bell"
+              aria-hidden="true"
+              *ngIf="isScheduleNotify(element)"
+            ></i>
+          </button>
+        </td>
+      </ng-container>
+
       <ng-container matColumnDef="delete">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let element">

@@ -85,7 +85,6 @@ export class ScheduleSearchPackComponent implements OnInit, OnChanges {
   getTourPack() {
     const params = {
       page: this.pageIndex + 1,
-    pageSize: this.pageSize,
       pageSize: this.pageSize,
       categoryString: this.categoryString,
       priceFrom: this.priceFrom,

@@ -205,7 +205,7 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
       })
     );
 
-        this.subscriptions.push(
+    this.subscriptions.push(
       this.errorMessageState.subscribe((state: any) => {
         if (state) {
           this.messageService.closeLoadingDialog();
@@ -231,8 +231,7 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
         payload: {
           search: this.searchWord.toLowerCase(),
           page: this.pageIndex + 1,
-    pageSize: this.pageSize,
-          pageSize: 6,
+          pageSize: this.pageSize,
           type: this.vehicleType,
         },
       })
@@ -263,14 +262,13 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
 
     this.newSearch = true;
     this.pageIndex = 0;
-    
+
     this.store.dispatch(
       MovingListActions.getMovingList({
         payload: {
           search: this.searchWord.toLowerCase(),
           page: this.pageIndex + 1,
-    pageSize: this.pageSize,
-          pageSize: 6,
+          pageSize: this.pageSize,
           type: this.vehicleType,
         },
       })
@@ -335,7 +333,7 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
     this.movingFormGroup.controls["description"].setValue(this.editorContent);
 
     if (this.movingFormGroup.valid && this.movingFormGroup.dirty) {
-      const schedule: MovingSchedule = {        
+      const schedule: MovingSchedule = {
         driverName: this.movingFormGroup.value.driverName,
         branchName: this.movingFormGroup.value.branchName,
         vehiclePlate: this.movingFormGroup.value.vehiclePlate,
@@ -498,9 +496,8 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
             payload: {
               search: this.searchWord.toLowerCase(),
               page: this.pageIndex + 1,
-    pageSize: this.pageSize,
-              pageSize: 6,
-              type: this.vehicleType
+              pageSize: this.pageSize,
+              type: this.vehicleType,
             },
           })
         );
@@ -537,7 +534,7 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
   }
 
   getScheduleEditId(): string {
-    if (this.movingScheduleEdit !== null){
+    if (this.movingScheduleEdit !== null) {
       return this.movingScheduleEdit.id ?? "";
     }
     return "";

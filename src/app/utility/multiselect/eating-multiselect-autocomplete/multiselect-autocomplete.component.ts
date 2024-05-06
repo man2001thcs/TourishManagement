@@ -205,7 +205,7 @@ export class EatingMultiselectAutocompleteComponent implements OnInit {
       })
     );
 
-        this.subscriptions.push(
+    this.subscriptions.push(
       this.errorMessageState.subscribe((state: any) => {
         if (state) {
           this.messageService.closeLoadingDialog();
@@ -231,8 +231,7 @@ export class EatingMultiselectAutocompleteComponent implements OnInit {
         payload: {
           search: this.searchWord.toLowerCase(),
           page: this.pageIndex + 1,
-    pageSize: this.pageSize,
-          pageSize: 6,
+          pageSize: this.pageSize,
           eatingType: this.eatingType,
         },
       })
@@ -300,9 +299,7 @@ export class EatingMultiselectAutocompleteComponent implements OnInit {
   addToSchedule(): void {
     this.isSubmit = true;
 
-    this.eatingFormGroup.controls["description"].setValue(
-      this.editorContent
-    );
+    this.eatingFormGroup.controls["description"].setValue(this.editorContent);
 
     if (this.eatingFormGroup.valid && this.eatingFormGroup.dirty) {
       const schedule: EatSchedule = {
@@ -445,8 +442,7 @@ export class EatingMultiselectAutocompleteComponent implements OnInit {
             payload: {
               search: this.searchWord.toLowerCase(),
               page: this.pageIndex + 1,
-    pageSize: this.pageSize,
-              pageSize: 6,
+              pageSize: this.pageSize,
             },
           })
         );
@@ -482,12 +478,12 @@ export class EatingMultiselectAutocompleteComponent implements OnInit {
     this.isLoading = false;
   }
 
-  outTest(input: any){
+  outTest(input: any) {
     console.log(input);
   }
 
   getScheduleEditId(): string {
-    if (this.eatingScheduleEdit !== null){
+    if (this.eatingScheduleEdit !== null) {
       return this.eatingScheduleEdit.id ?? "";
     }
     return "";

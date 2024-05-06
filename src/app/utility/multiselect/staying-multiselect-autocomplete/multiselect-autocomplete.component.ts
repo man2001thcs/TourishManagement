@@ -207,7 +207,7 @@ export class StayingMultiselectAutocompleteComponent implements OnInit {
       })
     );
 
-        this.subscriptions.push(
+    this.subscriptions.push(
       this.errorMessageState.subscribe((state: any) => {
         if (state) {
           this.messageService.closeLoadingDialog();
@@ -233,8 +233,7 @@ export class StayingMultiselectAutocompleteComponent implements OnInit {
         payload: {
           search: this.searchWord.toLowerCase(),
           page: this.pageIndex + 1,
-    pageSize: this.pageSize,
-          pageSize: 6,
+          pageSize: this.pageSize,
           type: this.restHouseType,
         },
       })
@@ -273,8 +272,7 @@ export class StayingMultiselectAutocompleteComponent implements OnInit {
         payload: {
           search: this.searchWord.toLowerCase(),
           page: this.pageIndex + 1,
-    pageSize: this.pageSize,
-          pageSize: 6,
+          pageSize: this.pageSize,
           type: this.restHouseType,
         },
       })
@@ -486,9 +484,8 @@ export class StayingMultiselectAutocompleteComponent implements OnInit {
             payload: {
               search: this.searchWord.toLowerCase(),
               page: this.pageIndex + 1,
-    pageSize: this.pageSize,
+              pageSize: this.pageSize,
               type: this.restHouseType,
-              pageSize: 6,
             },
           })
         );

@@ -157,7 +157,6 @@ userType = 1;
           type: this.userType,
           page: this.pageIndex + 1,
     pageSize: this.pageSize,
-          pageSize: 6,
         },
       })
     );
@@ -229,7 +228,6 @@ userType = 1;
               page: this.pageIndex + 1,
     pageSize: this.pageSize,
               type: this.userType,
-              pageSize: 6,
             },
           })
         );
@@ -257,7 +255,6 @@ userType = 1;
           page: this.pageIndex + 1,
     pageSize: this.pageSize,
           type: this.userType,
-          pageSize: 6,
         }})
     );
   }

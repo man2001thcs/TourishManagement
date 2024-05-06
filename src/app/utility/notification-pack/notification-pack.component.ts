@@ -3,8 +3,10 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  EventEmitter,
   Input,
   OnInit,
+  Output,
   Renderer2,
   ViewChild,
 } from "@angular/core";
@@ -16,7 +18,7 @@ import { Notification } from "src/app/model/baseModel";
 import { TokenStorageService } from "../user_service/token.service";
 import { getViNotifyMessagePhase } from "../config/notificationCode";
 import { SignalRService } from "../user_service/signalr.service";
-import { Subscription } from "rxjs";
+import { Subscription, debounceTime, fromEvent } from "rxjs";
 import { SwPush } from "@angular/service-worker";
 import { environment } from "src/environments/environment";
 import { messaging } from "src/conf/firebase.conf";
@@ -32,6 +34,8 @@ export class NotificationPackComponent implements OnInit {
   category: string = "Du lịch hành hương";
   @Input()
   description: string = "Tìm Về Chốn Thiêng, Lòng Người An Bình";
+
+  @Output() notifyUnreadNumber: EventEmitter<number> = new EventEmitter<number>();
 
   @ViewChild("singleNotify") singleNotifyContainer!: ElementRef;
   @ViewChild("notifyPack") notifyPackContainer!: ElementRef;
@@ -51,8 +55,11 @@ export class NotificationPackComponent implements OnInit {
   notificationList: Notification[] = [];
   subscriptions: Subscription[] = [];
   length = 0;
+  pageSize = 20;
 
   color: ThemePalette = "primary";
+  isNotRead: number = 0;
+  scrollSubscription!: Subscription;
 
   constructor(
     private fb: FormBuilder,
@@ -101,6 +108,22 @@ export class NotificationPackComponent implements OnInit {
         }
       )
     );
+
+    this.subscriptions.push(
+      this.signalRService.IsNotifyReadObservable.subscribe((res: any) => {
+        if (res) {
+          if (res.isRead) {
+            const index = this.notificationList.findIndex(
+              (entity) => entity.id === res.id
+            );
+            if (index > -1) this.notificationList[index].isRead = true;
+
+            this.isNotRead--;
+            this.notifyUnreadNumber.emit(this.isNotRead);
+          }
+        }
+      })
+    );
   }
 
   ngAfterViewInit(): void {
@@ -117,13 +140,16 @@ export class NotificationPackComponent implements OnInit {
 
   signalRNotification() {
     const queryParameters = {
-      token: this.tokenStorage.getToken()
+      token: this.tokenStorage.getToken(),
     };
 
-    this.signalRService.startConnectionWithParam("/api/user/notify", queryParameters).then(() => {
-      // 2 - register for ALL relay
-      this.signalRService.listenToNotifyFeeds("SendOffersToUser");
-    });
+    this.signalRService
+      .startConnectionWithParam("/api/user/notify", queryParameters)
+      .then(() => {
+        // 2 - register for ALL relay
+        this.signalRService.listenToNotifyFeeds("SendOffersToUser");
+        this.signalRService.listenToIsNotifyReadFeeds("ChangeNotifyToRead");
+      });
   }
 
   getTourPack() {
@@ -131,17 +157,26 @@ export class NotificationPackComponent implements OnInit {
 
     const params = {
       page: 1,
-      pageSize: 6,
+      pageSize: this.pageSize,
       receiverId: user.Id,
+      sortBy: "CreateDate",
+      sortDirection: "desc"
     };
 
     this.http
       .get("/api/GetNotification/receiver", { params: params })
       .subscribe((response: any) => {
-        this.notificationList = response.data;
-        console.log("notify: ", response);
-        this.length = response.count;
-        this.firstLoading = false;
+        if (response){
+          this.notificationList = response.data;
+          console.log("notify: ", response);
+          this.length = response.count;
+          this.firstLoading = false;
+
+          this.isNotRead = this.notificationList.filter(entity => !entity.isRead).length;
+
+          this.notifyUnreadNumber.emit(this.isNotRead);
+        }
+       
       });
   }
 
@@ -270,5 +305,18 @@ export class NotificationPackComponent implements OnInit {
     } else {
       this.signleNotifyWidth = "100%";
     }
+  }
+
+  test($event: any, id: string) {
+    console.log(id, $event);
+    this.changeToReadState(id);
+  }
+
+  changeToReadState(notificationId: string) {
+    this.signalRService.invokeOneInfoFeeds(
+      "ChangeNotifyToRead",
+      notificationId,
+      true
+    );
   }
 }

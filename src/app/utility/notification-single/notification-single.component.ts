@@ -3,8 +3,10 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  EventEmitter,
   Input,
   OnInit,
+  Output,
   Renderer2,
   ViewChild,
 } from "@angular/core";
@@ -16,7 +18,7 @@ import { Notification, SaveFile } from "src/app/model/baseModel";
 import { TokenStorageService } from "../user_service/token.service";
 import { getViNotifyMessagePhase } from "../config/notificationCode";
 import { SignalRService } from "../user_service/signalr.service";
-import { Subscription } from "rxjs";
+import { Subscription, debounceTime, fromEvent } from "rxjs";
 import { SwPush } from "@angular/service-worker";
 import { environment } from "src/environments/environment";
 import { messaging } from "src/conf/firebase.conf";
@@ -31,8 +33,14 @@ import { Router } from "@angular/router";
 export class NotificationSingleComponent implements OnInit {
   @Input()
   notification!: Notification;
+  @Input()
+  viewChildPack!: ElementRef;
+
+  @Output()
+  isInView = new EventEmitter();
 
   imageList: SaveFile[] = [];
+  @ViewChild("singleNotify", { static: false }) singleNotify!: ElementRef;
 
   active = 1;
   avatarUrl = environment.backend.blobURL + "/0-container/0_anonymus.png";
@@ -48,8 +56,11 @@ export class NotificationSingleComponent implements OnInit {
   notificationList: Notification[] = [];
   subscriptions: Subscription[] = [];
   length = 0;
+  isFirstRead = true;
 
   color: ThemePalette = "primary";
+  scrollSubscription!: Subscription;
+  private checkTimer: any; // Variable to hold the timer ID
 
   constructor(
     private fb: FormBuilder,
@@ -62,6 +73,37 @@ export class NotificationSingleComponent implements OnInit {
   ) {}
 
   ngOnInit() {}
+
+  ngAfterViewChecked() {
+    this.checkIfInView();
+  }
+
+  ngOnDestroy() {
+    // Hủy đăng ký Subscription khi component bị hủy
+    if (this.scrollSubscription) {
+      this.scrollSubscription.unsubscribe();
+    }
+  }
+
+  checkIfInView() {
+    const element = this.singleNotify.nativeElement;
+    const isVisible = this.isElementInViewport(element);
+    if (isVisible) {    
+      if (!this.notification.isRead && this.isFirstRead) this.isInView.emit(this.notification.id);
+      this.isFirstRead = false;
+    }
+  }
+
+  isElementInViewport(el: any) {
+    const rect = el.getBoundingClientRect();
+    return (
+      rect.top >= 0 &&
+      rect.left >= 0 &&
+      rect.bottom <=
+        (window.innerHeight || document.documentElement.clientHeight) &&
+      rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+    );
+  }
 
   capitalizeFirstLetter(sentence: string): string {
     return sentence
@@ -76,7 +118,7 @@ export class NotificationSingleComponent implements OnInit {
 
     if (notify.objectName != null && notify.objectName.length > 0) {
       objectName = notify.objectName;
-    } 
+    }
 
     if (notify.contentCode !== null) {
       contentPhase =
@@ -98,7 +140,8 @@ export class NotificationSingleComponent implements OnInit {
       }
     } else creatorName = "Anonymus";
 
-    if (notify.userCreateId == this.tokenStorage.getUser().Id) creatorName= "Bạn";
+    if (notify.userCreateId == this.tokenStorage.getUser().Id)
+      creatorName = "Bạn";
     return creatorName + "";
   }
 
@@ -178,6 +221,4 @@ export class NotificationSingleComponent implements OnInit {
         "admin/chat/display/" + this.notification.connectionId,
       ]);
   }
-
-  
 }

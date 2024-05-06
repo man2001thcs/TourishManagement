@@ -3,7 +3,7 @@
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
 />
 
-<div class="container-fluid" #header>
+<div class="container-top" #header>
   <!-- Nav tabs -->
   <div style="display: flex; flex-direction: row; align-items: center">
     <img
@@ -26,27 +26,32 @@
     </h3>
   </div>
 
-  <div class="searchInput" style="margin-top: 20px">
-    <mat-form-field appearance="outline" class="full-width-input">
-      <input
-        #searchInput
-        matInput
-        [formControl]="searchControl"
-        type="text"
-        fullwidth
-        name="search"
-        id="search"
-        placeholder="Tìm kiếm sản phẩm"
-      />
-    </mat-form-field>
-  </div>
-
   <div style="display: flex; flex-direction: row; align-items: center">
-    <button mat-button status="primary">
-      <i class="fa fa-search" aria-hidden="true" style="font-size: 15px"></i>
+    <button
+      mat-mini-fab
+      ghost
+      status="primary"
+      *ngIf="notifyUnreadNumber <= 0"
+      style="background-color: whitesmoke; margin-right: 10px"
+      (click)="openNotificationNav()"
+    >
+      <i
+        class="fa fa-bell"
+        aria-hidden="true"
+        style="font-size: 22px; color: rgb(105, 104, 104)"
+      ></i>
     </button>
 
-    <button mat-button ghost status="primary" (click)="openNotificationNav()">
+    <button
+      mat-mini-fab
+      ghost
+      *ngIf="notifyUnreadNumber > 0"
+      status="primary"
+      matBadge="{{ notifyUnreadNumber }}"
+      matBadgeColor="warn"
+      style="background-color: whitesmoke; margin-right: 10px"
+      (click)="openNotificationNav()"
+    >
       <i
         class="fa fa-bell"
         aria-hidden="true"
@@ -74,16 +79,6 @@
     <button mat-menu-item (click)="userInfo()">Thông tin tài khoán</button>
     <button mat-menu-item (click)="signOut()">Đăng xuất</button>
   </mat-menu>
-
-  <div
-    id=".autocomplete-search"
-    #autocompleteSearch
-    class="autocomplete-search"
-    (appOutsideClick)="outsideAutoCompleteSearchClick($event)"
-  >
-    <h6>Sản phẩm tìm kiếm</h6>
-    <div class="searchContent"></div>
-  </div>
 </div>
 
 <div
@@ -199,10 +194,7 @@
           </ng-container>
 
           <ng-container [ngbNavItem]="'12th'">
-            <button
-              ngbNavLink
-              (click)="navigateUrl('transport/service/list')"
-            >
+            <button ngbNavLink (click)="navigateUrl('transport/service/list')">
               Dịch vụ ngoài tour
             </button>
           </ng-container>
@@ -235,16 +227,16 @@
           orientation="vertical"
         >
           <ng-container [ngbNavItem]="'5th'">
-            <button ngbNavLink (click)="navigateUrl('resthouse/rest-house-contact/list')">
-              Danh sách đối tác 
+            <button
+              ngbNavLink
+              (click)="navigateUrl('resthouse/rest-house-contact/list')"
+            >
+              Danh sách đối tác
             </button>
           </ng-container>
 
           <ng-container [ngbNavItem]="'13th'">
-            <button
-              ngbNavLink
-              (click)="navigateUrl('resthouse/service/list')"
-            >
+            <button ngbNavLink (click)="navigateUrl('resthouse/service/list')">
               Dịch vụ ngoài tour
             </button>
           </ng-container>
@@ -440,5 +432,8 @@
       </button>
     </div>
   </div>
-  <app-notification-pack></app-notification-pack>
+  <app-notification-pack
+  style="height: 90%;"
+    (notifyUnreadNumber)="setNotifyUnread($event)"
+  ></app-notification-pack>
 </div>

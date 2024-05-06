@@ -33,6 +33,7 @@ import { FileModel } from "src/app/utility/image_avatar_service/imageUpload.comp
   styleUrls: ["./header.component.css"],
 })
 export class HeaderAdminComponent implements OnDestroy {
+  
   @ViewChild("mySidenav")
   myNameElem!: ElementRef;
 
@@ -64,6 +65,7 @@ export class HeaderAdminComponent implements OnDestroy {
   countNotifyClick = 0;
   countSearchClick = 0;
   subscriptions: Subscription[] = [];
+  notifyUnreadNumber: number = 0;
 
   constructor(
     private dialog: MatDialog,
@@ -125,7 +127,7 @@ export class HeaderAdminComponent implements OnDestroy {
     //   this.countNavClick++;
     //   console.log(this.countNavClick);
     //   if (this.countNavClick >= 2) this.closeNav();
-    // } 
+    // }
   }
 
   outsideNotificationClick(hasClickedOutside: any) {
@@ -185,7 +187,7 @@ export class HeaderAdminComponent implements OnDestroy {
     this.myNameElem.nativeElement.style["border-left"] = "0px solid #EDF1F7";
     this.myNameElem.nativeElement.style["border-right"] = "0px solid #EDF1F7";
 
-    this.headerElem.nativeElement.style["width"] = "70%";
+    this.headerElem.nativeElement.style["width"] = "100%";
     document.body.style.backgroundColor = "white";
 
     this.isNavOpen = false;
@@ -195,16 +197,21 @@ export class HeaderAdminComponent implements OnDestroy {
 
   openNotificationNav() {
     if (window.innerWidth >= 1000) {
-      this.nottifyTabElem.nativeElement.style.width = "360px";
+      this.nottifyTabElem.nativeElement.style.width = "420px";
       this.nottifyTabElem.nativeElement.style["margin-right"] = "0px";
       this.nottifyTabElem.nativeElement.style["padding-top"] = "0px";
       this.nottifyTabElem.nativeElement.style["padding-left"] = "0px";
       this.nottifyTabElem.nativeElement.style["padding-right"] = "0px";
       this.nottifyTabElem.nativeElement.style["border-bottom"] =
         "2px solid #EDF1F7";
-      this.nottifyTabElem.nativeElement.style["border-right"] = "2px solid #EDF1F7";
+      this.nottifyTabElem.nativeElement.style["border-right"] =
+        "2px solid #EDF1F7";
     } else {
-      this.renderer.setStyle(this.nottifyTabElem.nativeElement, "width", "100%");
+      this.renderer.setStyle(
+        this.nottifyTabElem.nativeElement,
+        "width",
+        "100%"
+      );
       //this.myNameElem.nativeElement.style.width = "100%";
       this.nottifyTabElem.nativeElement.style["margin-top"] = "0px";
       this.nottifyTabElem.nativeElement.style["margin-right"] = "0px";
@@ -213,9 +220,10 @@ export class HeaderAdminComponent implements OnDestroy {
       this.nottifyTabElem.nativeElement.style["padding-right"] = "25px";
       this.nottifyTabElem.nativeElement.style["border-bottom"] =
         "2px solid #EDF1F7";
-      this.nottifyTabElem.nativeElement.style["border-right"] = "2px solid #EDF1F7";      
+      this.nottifyTabElem.nativeElement.style["border-right"] =
+        "2px solid #EDF1F7";
     }
-    
+
     this.isNotifyOpen = true;
   }
 
@@ -225,9 +233,12 @@ export class HeaderAdminComponent implements OnDestroy {
     this.nottifyTabElem.nativeElement.style["margin-top"] = "0px";
     this.nottifyTabElem.nativeElement.style["padding-left"] = "0px";
     this.nottifyTabElem.nativeElement.style["padding-right"] = "0px";
-    this.nottifyTabElem.nativeElement.style["border-bottom"] = "0px solid #EDF1F7";
-    this.nottifyTabElem.nativeElement.style["border-left"] = "0px solid #EDF1F7";
-    this.nottifyTabElem.nativeElement.style["border-right"] = "0px solid #EDF1F7";
+    this.nottifyTabElem.nativeElement.style["border-bottom"] =
+      "0px solid #EDF1F7";
+    this.nottifyTabElem.nativeElement.style["border-left"] =
+      "0px solid #EDF1F7";
+    this.nottifyTabElem.nativeElement.style["border-right"] =
+      "0px solid #EDF1F7";
     document.body.style.backgroundColor = "white";
 
     this.countNotifyClick = 0;
@@ -327,5 +338,9 @@ export class HeaderAdminComponent implements OnDestroy {
     if (Notification.permission !== "denied") {
       Notification.requestPermission().then((permission) => {});
     }
+  }
+
+  setNotifyUnread($event: number) {
+    this.notifyUnreadNumber = $event;
   }
 }

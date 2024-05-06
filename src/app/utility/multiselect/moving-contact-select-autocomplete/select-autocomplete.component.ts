@@ -160,8 +160,7 @@ export class MovingContactSelectAutocompleteComponent implements OnInit {
           search: this.searchWord.toLowerCase(),
           type: this.movingContactType,
           page: this.pageIndex + 1,
-    pageSize: this.pageSize,
-          pageSize: 6,
+          pageSize: this.pageSize,
         },
       })
     );
@@ -191,11 +190,9 @@ export class MovingContactSelectAutocompleteComponent implements OnInit {
         .get("/api/GetMovingContact/" + this.currentContactId)
         .subscribe((state: any) => {
           if (state) {
-            console.log("abc: ",state);
+            console.log("abc: ", state);
             this.movingContactIdList.push(state.data.id ?? "");
-            this.movingContactNameList.push(
-              state.data.branchName ?? ""
-            );
+            this.movingContactNameList.push(state.data.branchName ?? "");
           }
         });
     }
@@ -225,7 +222,12 @@ export class MovingContactSelectAutocompleteComponent implements OnInit {
   }
 
   emitAdjustedData = (): void => {
-    this.result.emit({ data: {"idList": this.movingContactIdList, "nameList": this.movingContactNameList }});
+    this.result.emit({
+      data: {
+        idList: this.movingContactIdList,
+        nameList: this.movingContactNameList,
+      },
+    });
   };
 
   selected(event: MatAutocompleteSelectedEvent): void {
@@ -250,9 +252,8 @@ export class MovingContactSelectAutocompleteComponent implements OnInit {
             payload: {
               search: this.searchWord.toLowerCase(),
               page: this.pageIndex + 1,
-    pageSize: this.pageSize,
+              pageSize: this.pageSize,
               type: this.movingContactType,
-              pageSize: 6,
             },
           })
         );
@@ -278,9 +279,8 @@ export class MovingContactSelectAutocompleteComponent implements OnInit {
         payload: {
           search: this.searchWord.toLowerCase(),
           page: this.pageIndex + 1,
-    pageSize: this.pageSize,
+          pageSize: this.pageSize,
           type: this.movingContactType,
-          pageSize: 6,
         },
       })
     );

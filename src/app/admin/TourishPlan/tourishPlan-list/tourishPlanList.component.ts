@@ -309,4 +309,27 @@ export class TourishPlanListAdminComponent
     };
     this.http.get("/api/GetTourishPlan", { params: payload });
   }
+
+  convertInterestToString(tour: TourishPlan): string {
+    if (
+      tour.tourishInterestList !== null &&
+      tour.tourishInterestList !== undefined
+    ) {
+      switch ( tour.tourishInterestList[0].interestStatus) {
+        case 0:
+          return 'Theo dõi với tư cách người tạo';
+        case 1:
+          return 'Theo dõi với tư cách người chỉnh sửa';
+        case 2:
+          return 'Đã quan tâm';
+        case 3:
+          return 'Người dùng';
+        case 4:
+          return 'Không quan tâm';
+        default:
+          return 'Không quan tâm';
+      }
+    }
+    return 'Không quan tâm';
+  }
 }

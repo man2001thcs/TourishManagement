@@ -113,7 +113,7 @@ export class RestHouseContactSelectAutocompleteComponent implements OnInit {
     this.subscriptions.push(
       this.restHouseContactListState.subscribe((state) => {
         if (state) {
-          this.messageService.closeLoadingDialog(); 
+          this.messageService.closeLoadingDialog();
           if (state.data)
             this.currentTotal = this.currentTotal + state.data.length;
           if (this.currentTotal >= state.count) this.canLoadMore = false;
@@ -160,13 +160,12 @@ export class RestHouseContactSelectAutocompleteComponent implements OnInit {
           search: this.searchWord.toLowerCase(),
           type: this.restHouseContactType,
           page: this.pageIndex + 1,
-    pageSize: this.pageSize,
-          pageSize: 6,
+          pageSize: this.pageSize,
         },
       })
     );
 
-    this.messageService.openLoadingDialog(); 
+    this.messageService.openLoadingDialog();
   }
 
   ngOnDestroy(): void {
@@ -195,11 +194,9 @@ export class RestHouseContactSelectAutocompleteComponent implements OnInit {
         .get("/api/GetRestHouseContact/" + this.currentContactId)
         .subscribe((state: any) => {
           if (state) {
-            console.log("abc: ",state);
+            console.log("abc: ", state);
             this.restHouseContactIdList.push(state.data.id ?? "");
-            this.restHouseContactNameList.push(
-              state.data.placeBranch ?? ""
-            );
+            this.restHouseContactNameList.push(state.data.placeBranch ?? "");
           }
         });
     }
@@ -259,9 +256,8 @@ export class RestHouseContactSelectAutocompleteComponent implements OnInit {
             payload: {
               search: this.searchWord.toLowerCase(),
               page: this.pageIndex + 1,
-    pageSize: this.pageSize,
+              pageSize: this.pageSize,
               type: this.restHouseContactType,
-              pageSize: 6,
             },
           })
         );
@@ -287,9 +283,8 @@ export class RestHouseContactSelectAutocompleteComponent implements OnInit {
         payload: {
           search: this.searchWord.toLowerCase(),
           page: this.pageIndex + 1,
-    pageSize: this.pageSize,
+          pageSize: this.pageSize,
           type: this.restHouseContactType,
-          pageSize: 6,
         },
       })
     );

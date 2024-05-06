@@ -1,17 +1,17 @@
-<div class="single-notification">
+<div class="single-notification" #singleNotify>
   <div class="image">
     <img src="{{ avatarUrl }}" alt="Avatar" class="avatar" style="border-radius: 50%;" />
   </div>
 
   <div class="content">
     <div class="content-description">
-      <span
-        ><span style="font-weight: bold">{{ getCreator(notification) }}</span
+      <span [ngStyle]="{'color': !notification.isRead ? '#212121' : '#6D6F72' }"
+        ><span style="font-weight: bold" [ngStyle]="{'color': !notification.isRead ? '#212121' : '#6D6F72' }">{{ getCreator(notification) }}</span
         >{{ getContent(notification) }}</span
       >
     </div>
     <div class="time">
-      <span>{{ getTime(notification.updateDate ?? "") }}</span>
+      <span [ngStyle]="{'color': !notification.isRead ? '#212121' : '#6D6F72' }">{{ getTime(notification.updateDate ?? "") }}</span>
     </div>
   </div>
 </div>

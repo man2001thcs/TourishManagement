@@ -196,7 +196,7 @@
       <ng-container matColumnDef="interest">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let element">
-          <button mat-button (click)="openInterestDialog(element)">
+          <button mat-button (click)="openInterestDialog(element)"  matTooltip={{convertInterestToString(element)}}>
             <i
               class="fa fa-bell-o"
               aria-hidden="true"

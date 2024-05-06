@@ -30,6 +30,8 @@ export class SignalRService {
   private $notifyFeed = new Subject<any>();
   private $clientFeed = new Subject<any>();
   private $connFeed = new Subject<any>();
+
+  private $isNotifyReadFeed = new Subject<any>();
   private isRefreshing = false;
 
   private err401String =
@@ -133,6 +135,10 @@ export class SignalRService {
     return this.$connFeed.asObservable().pipe(distinctUntilChanged());
   }
 
+  public get IsNotifyReadObservable(): Observable<any> {
+    return this.$isNotifyReadFeed.asObservable().pipe(distinctUntilChanged());
+  }
+
   public listenToAllFeeds(listenPort: string) {
     (<HubConnection>this.hubConnection).on(listenPort, (data: any) => {
       if (data) {
@@ -180,6 +186,17 @@ export class SignalRService {
       (data1: string, data2: any) => {
         if (data1) {
           this.$connFeed.next({ adminId: data1, connHis: data2 });
+        }
+      }
+    );
+  }
+
+  public listenToIsNotifyReadFeeds(listenPort: string) {
+    (<HubConnection>this.hubConnection).on(
+      listenPort,
+      (data1: any, data2: any) => {
+        if (data1) {
+          this.$isNotifyReadFeed.next({ id: data1, isRead: data2 });
         }
       }
     );

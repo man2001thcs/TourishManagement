@@ -1,3 +1,8 @@
+.notify-pack {
+  overflow-y: auto !important;
+  height: 100% !important; 
+}
+
 .single-notification {
   display: flex;
   flex-direction: row;

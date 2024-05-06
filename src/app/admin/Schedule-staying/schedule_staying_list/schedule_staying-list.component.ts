@@ -355,4 +355,27 @@ export class StayingScheduleListComponent
       this.messageService.openLoadingDialog();
     });
   }
+
+  convertInterestToString(schedule: MovingSchedule): string {
+    if (
+      schedule.scheduleInterestList !== null &&
+      schedule.scheduleInterestList !== undefined
+    ) {
+      switch ( schedule.scheduleInterestList[0].interestStatus) {
+        case 0:
+          return 'Theo dõi với tư cách người tạo';
+        case 1:
+          return 'Theo dõi với tư cách người chỉnh sửa';
+        case 2:
+          return 'Đã quan tâm';
+        case 3:
+          return 'Người dùng';
+        case 4:
+          return 'Không quan tâm';
+        default:
+          return 'Không quan tâm';
+      }
+    }
+    return 'Không quan tâm';
+  }
 }

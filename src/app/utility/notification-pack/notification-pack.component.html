@@ -1,9 +1,15 @@
-<div class="notify-pack" #notifyPack>
+<div
+  class="notify-pack"
+  style="overflow-y: auto !important; height: 100% !important"
+  #notifyPack
+>
   <app-notification-single
     #singleNotify
     *ngFor="let notification of notificationList"
     [notification]="notification"
-    [ngStyle]="{width: signleNotifyWidth}"
+    [viewChildPack]="notifyPackContainer"
+    (isInView)="changeToReadState($event)"
+    [ngStyle]="{ width: signleNotifyWidth }"
   >
   </app-notification-single>
 

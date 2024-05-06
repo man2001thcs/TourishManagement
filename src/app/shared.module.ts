@@ -77,11 +77,14 @@ import { ScheduleDetailComponent } from "./guest/schedule-detail/schedule-detail
 import { MatSelectModule } from "@angular/material/select";
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { NotFoundComponent } from "./utility/not-found-page/404.component";
+import { InViewportDirective } from "./utility/checkInsideDirective";
+import {MatBadgeModule} from '@angular/material/badge';
 
 @NgModule({
   declarations: [
     FooterComponent,
     OutsideClickDirective,
+    InViewportDirective,
     ValidationComponent,
     ImageSliderComponent,
     HtmlSanitizerComponent,
@@ -112,6 +115,7 @@ import { NotFoundComponent } from "./utility/not-found-page/404.component";
     ScheduleDetailComponent
   ],
   imports: [
+    MatBadgeModule,
     MatListModule,
     MatTabsModule,
     MatListModule,
@@ -154,6 +158,7 @@ import { NotFoundComponent } from "./utility/not-found-page/404.component";
   ],
 
   exports: [
+    MatBadgeModule,
     PickerModule,
     MatListModule,
     MatTooltipModule,
@@ -188,6 +193,7 @@ import { NotFoundComponent } from "./utility/not-found-page/404.component";
     NgbNavModule,
     FormsModule,
     OutsideClickDirective,
+    InViewportDirective,
     ValidationComponent,
     GoogleSigninButtonModule,
     NgxMatDatetimePickerModule,

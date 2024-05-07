@@ -31,9 +31,7 @@ import { Router } from "@angular/router";
 })
 export class NotificationPackComponent implements OnInit {
   @Input()
-  category: string = "Du lịch hành hương";
-  @Input()
-  description: string = "Tìm Về Chốn Thiêng, Lòng Người An Bình";
+  isNotifyOpen = false;
 
   @Output() notifyUnreadNumber: EventEmitter<number> = new EventEmitter<number>();
 

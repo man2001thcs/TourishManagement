@@ -46,7 +46,31 @@
       <i class="fa fa-search" aria-hidden="true" style="font-size: 15px"></i>
     </button>
 
-    <button mat-button ghost status="primary" (click)="openNotificationNav()">
+    <button
+      mat-mini-fab
+      ghost
+      status="primary"
+      *ngIf="notifyUnreadNumber <= 0"
+      style="background-color: whitesmoke; margin-right: 10px"
+      (click)="openNotificationNav()"
+    >
+      <i
+        class="fa fa-bell"
+        aria-hidden="true"
+        style="font-size: 22px; color: rgb(105, 104, 104)"
+      ></i>
+    </button>
+
+    <button
+      mat-mini-fab
+      ghost
+      *ngIf="notifyUnreadNumber > 0"
+      status="primary"
+      matBadge="{{ notifyUnreadNumber }}"
+      matBadgeColor="warn"
+      style="background-color: whitesmoke; margin-right: 10px"
+      (click)="openNotificationNav()"
+    >
       <i
         class="fa fa-bell"
         aria-hidden="true"
@@ -263,5 +287,9 @@
       </button>
     </div>
   </div>
-  <app-notification-pack></app-notification-pack>
+  <app-notification-pack
+  style="height: 90%;"
+    (notifyUnreadNumber)="setNotifyUnread($event)"
+    [isNotifyOpen]="isNotifyOpen"
+  ></app-notification-pack>
 </div>

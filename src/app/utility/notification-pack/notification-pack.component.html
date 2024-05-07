@@ -7,6 +7,7 @@
     #singleNotify
     *ngFor="let notification of notificationList"
     [notification]="notification"
+    [isNotifyOpen]="isNotifyOpen"
     [viewChildPack]="notifyPackContainer"
     (isInView)="changeToReadState($event)"
     [ngStyle]="{ width: signleNotifyWidth }"

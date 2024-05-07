@@ -35,6 +35,8 @@ export class NotificationSingleComponent implements OnInit {
   notification!: Notification;
   @Input()
   viewChildPack!: ElementRef;
+  @Input()
+  isNotifyOpen = false;
 
   @Output()
   isInView = new EventEmitter();
@@ -86,7 +88,7 @@ export class NotificationSingleComponent implements OnInit {
   }
 
   checkIfInView() {
-    if (this.isFirstRead){
+    if (this.isFirstRead && this.isNotifyOpen){
       const element = this.singleNotify.nativeElement;
       const isVisible = this.isElementInViewport(element);
       if (isVisible) {    

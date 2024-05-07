@@ -91,8 +91,9 @@ img.img-logo {
   top: 0;
   right: 0;
   background-color: #ffffff;
-  overflow-y: auto;
+  /* overflow-y: auto; */
   transition: 0.5s;
+  overflow-y: hidden;
 
   flex-direction: column;
   display: flex;

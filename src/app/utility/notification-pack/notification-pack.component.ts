@@ -1,28 +1,22 @@
-import { HttpClient, HttpParams } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import {
-  AfterViewInit,
   Component,
   ElementRef,
   EventEmitter,
   Input,
   OnInit,
   Output,
-  Renderer2,
   ViewChild,
 } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ThemePalette } from "@angular/material/core";
-
-import { NgbCarouselConfig } from "@ng-bootstrap/ng-bootstrap";
 import { Notification } from "src/app/model/baseModel";
 import { TokenStorageService } from "../user_service/token.service";
 import { getViNotifyMessagePhase } from "../config/notificationCode";
 import { SignalRService } from "../user_service/signalr.service";
-import { Subscription, debounceTime, fromEvent } from "rxjs";
-import { SwPush } from "@angular/service-worker";
+import { Subscription } from "rxjs";
 import { environment } from "src/environments/environment";
 import { messaging } from "src/conf/firebase.conf";
-import { Router } from "@angular/router";
 
 @Component({
   selector: "app-notification-pack",
@@ -33,7 +27,8 @@ export class NotificationPackComponent implements OnInit {
   @Input()
   isNotifyOpen = false;
 
-  @Output() notifyUnreadNumber: EventEmitter<number> = new EventEmitter<number>();
+  @Output() notifyUnreadNumber: EventEmitter<number> =
+    new EventEmitter<number>();
 
   @ViewChild("singleNotify") singleNotifyContainer!: ElementRef;
   @ViewChild("notifyPack") notifyPackContainer!: ElementRef;
@@ -61,11 +56,8 @@ export class NotificationPackComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private renderer: Renderer2,
     private tokenStorage: TokenStorageService,
     private http: HttpClient,
-    private swPush: SwPush,
-    private router: Router,
     private signalRService: SignalRService
   ) {}
 
@@ -86,22 +78,23 @@ export class NotificationPackComponent implements OnInit {
       ],
     });
 
-    this.getTourPack();
+    this.getNotifyPack();
 
     this.subscriptions.push(
       this.signalRService.NotifyFeedObservable.subscribe(
         (notification: Notification) => {
           if (notification) {
-            console.log("Here i am: ", notification);
-
             let index = this.notificationList.findIndex(
               (res) => res.id === notification.id
             );
 
             if (index > -1) {
               this.notificationList[index] = notification;
-            } else
+            } else {
               this.notificationList = [notification, ...this.notificationList];
+              this.isNotRead++;
+              this.notifyUnreadNumber.emit(this.isNotRead);
+            }
           }
         }
       )
@@ -114,10 +107,13 @@ export class NotificationPackComponent implements OnInit {
             const index = this.notificationList.findIndex(
               (entity) => entity.id === res.id
             );
-            if (index > -1) this.notificationList[index].isRead = true;
-
-            this.isNotRead--;
-            this.notifyUnreadNumber.emit(this.isNotRead);
+            if (index > -1) {
+              if (!this.notificationList[index].isRead) {
+                this.notificationList[index].isRead = true;
+                this.isNotRead--;
+                this.notifyUnreadNumber.emit(this.isNotRead);
+              }
+            }
           }
         }
       })
@@ -150,7 +146,7 @@ export class NotificationPackComponent implements OnInit {
       });
   }
 
-  getTourPack() {
+  getNotifyPack() {
     const user = this.tokenStorage.getUser();
 
     const params = {
@@ -158,23 +154,24 @@ export class NotificationPackComponent implements OnInit {
       pageSize: this.pageSize,
       receiverId: user.Id,
       sortBy: "CreateDate",
-      sortDirection: "desc"
+      sortDirection: "desc",
     };
 
     this.http
       .get("/api/GetNotification/receiver", { params: params })
       .subscribe((response: any) => {
-        if (response){
+        if (response) {
           this.notificationList = response.data;
           console.log("notify: ", response);
           this.length = response.count;
           this.firstLoading = false;
 
-          this.isNotRead = this.notificationList.filter(entity => !entity.isRead).length;
+          this.isNotRead = this.notificationList.filter(
+            (entity) => !entity.isRead
+          ).length;
 
           this.notifyUnreadNumber.emit(this.isNotRead);
         }
-       
       });
   }
 
@@ -311,6 +308,17 @@ export class NotificationPackComponent implements OnInit {
   }
 
   changeToReadState(notificationId: string) {
+    const index = this.notificationList.findIndex(
+      (entity) => entity.id === notificationId
+    );
+    if (index > -1) {
+      if (!this.notificationList[index].isRead) {
+        this.notificationList[index].isRead = true;
+        this.isNotRead--;
+        this.notifyUnreadNumber.emit(this.isNotRead);
+      }
+    }
+
     this.signalRService.invokeOneInfoFeeds(
       "ChangeNotifyToRead",
       notificationId,

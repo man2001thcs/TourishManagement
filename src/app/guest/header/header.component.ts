@@ -42,6 +42,7 @@ export class HeaderComponent implements OnInit {
 
   @Output() checkNavOpen = new EventEmitter<boolean>();
   tourList: TourishPlan[] = [];
+  tourLength = 0;
   categoryList: TourishCategory[] = [];
   categoryLength = 0;
 
@@ -96,7 +97,10 @@ export class HeaderComponent implements OnInit {
             .get("/api/GetTourishPlan", { params: params })
             .pipe(debounceTime(400))
             .subscribe((response: any) => {
-              if (response) this.tourList = response.data;
+              if (response) {
+                this.tourList = response.data;
+                this.tourLength = this.tourList.length;
+              }
             });
 
           this.openAutoCompleteSearch();

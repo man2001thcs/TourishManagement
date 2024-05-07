@@ -384,3 +384,48 @@ export interface PriceRange {
   startPrice: number;
   endPrice: number;
 }
+
+export interface ChartConfig {
+  chart: {
+    type?: string;
+    plotBorderWidth?: number;
+    plotShadow?: boolean;
+  };
+  title: {
+    text: string;
+  };
+  subtitle?: {
+    text: string;
+  };
+  xAxis?: {
+    categories: string[];
+    crosshair?: boolean;
+  };
+  yAxis?: {
+    min?: number;
+    title: {
+      text: string;
+    };
+  };
+  tooltip: {
+    headerFormat?: string;
+    pointFormat?: string;
+    footerFormat?: string;
+    valueSuffix?: string;
+    shared?: boolean;
+    useHTML?: boolean;
+  };
+  plotOptions?: {
+    
+    pie?: any;
+    column?: {
+      pointPadding: number;
+      borderWidth: number;
+    };
+  };
+  series: {
+    type?: string;
+    name: string;
+    data: any;
+  }[];
+}

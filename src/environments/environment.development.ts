@@ -1,7 +1,7 @@
 export const environment = {
   production: false,
   backend: {
-    baseURL: "https://localhost:5001",
+    baseURL: "https://localhost:7070",
     blobURL: "https://bookstore1storage.blob.core.windows.net"
   },
   firebaseConfig : {

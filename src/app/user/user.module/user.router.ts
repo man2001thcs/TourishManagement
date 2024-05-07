@@ -8,6 +8,9 @@ import { TourishMainComponent } from "src/app/guest/tourish-main/tourish-main.co
 import { UserAccountInfoComponent } from "../account-info/account-info.component";
 import { ReceiptUserListComponent } from "../Receipt/receipt_list/receipt-list.component";
 import { NotFoundComponent } from "src/app/utility/not-found-page/404.component";
+import { TourishSearchComponent } from "src/app/guest/tourish-search/tourish-search.component";
+import { ScheduleSearchComponent } from "src/app/guest/schedule-search/schedule-search.component";
+import { ScheduleDetailComponent } from "src/app/guest/schedule-detail/schedule-detail.component";
 
 const routes: Routes = [
   {
@@ -29,6 +32,18 @@ const routes: Routes = [
       {
         path: "receipt/list",
         component: ReceiptUserListComponent,
+      },
+      {
+        path: "search-page",
+        component: TourishSearchComponent,
+      },
+      {
+        path: "service-search-page",
+        component: ScheduleSearchComponent,
+      },
+      {
+        path: "service/:id/detail",
+        component: ScheduleDetailComponent,
       },
       { path: "**", pathMatch: "full", component: NotFoundComponent },
     ],

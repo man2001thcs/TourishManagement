@@ -44,7 +44,10 @@ img.img-logo {
 }
 
 .searchInput {
-  width: 700px !important;
+  width: 800px !important;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .container .row img {

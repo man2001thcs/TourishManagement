@@ -20,17 +20,16 @@
   padding: 0.9375rem 0.5rem !important;
 }
 
-.mat .signInForm .signInAction {
+.signInForm .signInAction {
   display: flex;
+  width: 100%;
   flex-direction: row;
   justify-content: center;
   align-items: "center";
-  left: auto;
-  right: auto;
 }
 
 .signInForm .signInAction button#sign_in {
-  margin-right: 10px;
+  width: 100%;
 }
 
 .input-full-width {

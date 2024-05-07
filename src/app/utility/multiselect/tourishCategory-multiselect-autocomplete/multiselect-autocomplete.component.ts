@@ -39,7 +39,6 @@ import {
 export class TourishCategoryMultiselectAutocompleteComponent implements OnInit {
   separatorKeysCodes: number[] = [ENTER, COMMA];
   tourishCategoryCtrl = new FormControl("");
-  
 
   @Output() result = new EventEmitter<{
     data: Array<TourishCategoryRelation>;
@@ -107,7 +106,7 @@ export class TourishCategoryMultiselectAutocompleteComponent implements OnInit {
             payload: {
               search: (state ?? "").toLowerCase(),
               page: 1,
-              pageSize: 6,
+              pageSize: this.pageSize,
             },
           })
         );
@@ -136,7 +135,7 @@ export class TourishCategoryMultiselectAutocompleteComponent implements OnInit {
       })
     );
 
-        this.subscriptions.push(
+    this.subscriptions.push(
       this.errorMessageState.subscribe((state: any) => {
         if (state) {
           this.messageService.closeLoadingDialog();
@@ -162,7 +161,7 @@ export class TourishCategoryMultiselectAutocompleteComponent implements OnInit {
         payload: {
           search: this.searchWord.toLowerCase(),
           page: this.pageIndex + 1,
-    pageSize: this.pageSize,
+          pageSize: this.pageSize,
         },
       })
     );
@@ -178,7 +177,7 @@ export class TourishCategoryMultiselectAutocompleteComponent implements OnInit {
   ngOnChanges(): void {
     this.tourishCategoryRelationReturnList = [];
     this.tourishCategoryNameList = [];
-    
+
     if (this.data_selected.length > 0) {
       this.tourishCategoryRelationReturnList = [...this.data_selected];
 
@@ -259,7 +258,7 @@ export class TourishCategoryMultiselectAutocompleteComponent implements OnInit {
             payload: {
               search: this.searchWord.toLowerCase(),
               page: this.pageIndex + 1,
-    pageSize: this.pageSize,
+              pageSize: this.pageSize,
             },
           })
         );

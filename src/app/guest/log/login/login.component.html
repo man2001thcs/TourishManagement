@@ -23,7 +23,7 @@
           <mat-card-content>
             <div
               class="row"
-              style="display: flex; flex-direction: column; margin-bottom: 20px"
+              style="display: flex; flex-direction: column; margin-bottom: 20px; margin-left: 0 !important; margin-right: 0 !important;"
             >
               <h3 style="font-size: 16px; margin-bottom: 0; font-weight: bold">
                 Tài khoản
@@ -36,12 +36,11 @@
                   id="userName"
                   placeholder="Tài khoản"
                   formControlName="userName"
-                  style=""
               /></mat-form-field>
             </div>
             <div
               class="row"
-              style="display: flex; flex-direction: column; margin-bottom: 20px"
+              style="display: flex; flex-direction: column; margin-bottom: 20px;  margin-left: 0 !important; margin-right: 0 !important;"
             >
               <h3 style="font-size: 16px; margin-bottom: 0; font-weight: bold">
                 Mật khẩu
@@ -59,11 +58,8 @@
             </div>
 
             <div class="signInAction">
-              <button mat-button type="submit" id="sign_in" status="success">
+              <button  mat-flat-button color="primary" type="submit" id="sign_in" status="success">
                 Đăng nhập
-              </button>
-              <button mat-button type="button" style="color: white" id="escape">
-                Thoát
               </button>
             </div>
           </mat-card-content>
@@ -95,7 +91,7 @@
         <h3 style="font-size: 16px; margin-bottom: 0; font-weight: bold">
           Nếu chưa có tài khoản, hãy đăng kí
         </h3>
-        <button mat-button (click)="navigateRegister()">
+        <button mat-stroked-button color="primary" (click)="navigateRegister()" style="margin-bottom: 10px;">
           Vào trang đăng kí
         </button>
         <asl-google-signin-button

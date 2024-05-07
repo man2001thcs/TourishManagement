@@ -66,9 +66,11 @@ export class HeaderUserComponent implements OnDestroy {
   countSearchClick = 0;
   subscriptions: Subscription[] = [];
   tourList: TourishPlan[] = [];
+  tourLength = 0;
   categoryList: TourishCategory[] = [];
   categoryLength = 0;
   notifyUnreadNumber: number = 0;
+
 
   constructor(
     private dialog: MatDialog,
@@ -133,6 +135,7 @@ export class HeaderUserComponent implements OnDestroy {
             .pipe(debounceTime(400))
             .subscribe((response: any) => {
               this.tourList = response.data;
+              this.tourLength = this.tourList.length;
             });
 
           this.openAutoCompleteSearch();
@@ -416,10 +419,17 @@ export class HeaderUserComponent implements OnDestroy {
     let navigationExtras: NavigationExtras = {
       queryParams: { 'category': category } // Replace 'key' and 'value' with your actual query parameters
     };
-    this.router.navigate(["guest/" + url], navigationExtras);
+    this.router.navigate(["user/" + url], navigationExtras);
   }
 
   setNotifyUnread($event: number) {
     this.notifyUnreadNumber = $event;
+  }
+
+  async navigateSearchUrl(url: string) {
+    let navigationExtras: NavigationExtras = {
+      queryParams: { 'search': this.searchControl.value} // Replace 'key' and 'value' with your actual query parameters
+    };
+    this.router.navigate(["user/" + url], navigationExtras);
   }
 }

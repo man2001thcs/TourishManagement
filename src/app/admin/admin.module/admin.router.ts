@@ -27,6 +27,7 @@ import { GuestMessageConHistoryListComponent } from "../ChatConHistory/chat_con_
 import { MovingScheduleListComponent } from "../Schedule-moving/schedule_moving_list/schedule_moving-list.component";
 import { StayingScheduleListComponent } from "../Schedule-staying/schedule_staying_list/schedule_staying-list.component";
 import { NotFoundComponent } from "src/app/utility/not-found-page/404.component";
+import { DashboardComponent } from "src/app/utility/dashboard/dashboard.component";
 
 const routes: Routes = [
   {
@@ -46,6 +47,10 @@ const routes: Routes = [
         component: TourishPlanCreateAdminComponent,
         canActivate: [CanEditAdminGuard], // <== this is an array, we can have multiple guards
         canDeactivate: [canLeaveSiteGuard],
+      },
+      {
+        path: "dash-board",
+        component: DashboardComponent,
       },
       {
         path: "tourish-plan/list",

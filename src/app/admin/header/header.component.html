@@ -116,6 +116,27 @@
 
   <div class="sideNavContent" style="width: 100%" *ngIf="isNavOpen">
     <div class="sidenavCategory">
+      <div
+          ngbNav
+          #nav="ngbNav"
+          [(activeId)]="activeItem"
+          class="nav-pills flex-column"
+          orientation="vertical"
+        >
+          <ng-container [ngbNavItem]="'0th'">
+            <button
+            style="padding-top: 10px; padding-bottom: 10px; font-size: 20px;"
+              ngbNavLink
+              (click)="navigateUrl('dash-board')"
+            >
+            <i class="fa fa-tachometer" aria-hidden="true"></i>
+             Dashboard
+            </button>
+          </ng-container>
+        </div>
+    </div>
+
+    <div class="sidenavCategory">
       <mat-expansion-panel expanded>
         <mat-expansion-panel-header>
           <mat-panel-title>
@@ -433,7 +454,7 @@
     </div>
   </div>
   <app-notification-pack
-  style="height: 90%;"
+    style="height: 90%"
     (notifyUnreadNumber)="setNotifyUnread($event)"
     [isNotifyOpen]="isNotifyOpen"
   ></app-notification-pack>

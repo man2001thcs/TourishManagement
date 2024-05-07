@@ -1,4 +1,5 @@
 const HEADER_CODE: Map<string, string> = new Map([
+  ["/admin/dash-board", "0th"],
   ["/admin/tourish-plan/list", "1st"],
   ["/admin/tourish-plan/create", "2nd"],
   ["/admin/tour/category/list", "3rd"],

@@ -1,7 +1,7 @@
 export const environment = {
   production: false,
   backend: {
-    baseURL: "https://tourishapi20240305102130.azurewebsites.net",
+    baseURL: "https://localhost:5001",
     blobURL: "https://bookstore1storage.blob.core.windows.net"
   },
   firebaseConfig : {

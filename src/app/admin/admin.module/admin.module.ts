@@ -156,18 +156,9 @@ import { StayingMultiselectAutocompleteComponent } from "src/app/utility/multise
 import { MovingMultiselectAutocompleteComponent } from "src/app/utility/multiselect/moving-multiselect-autocomplete/multiselect-autocomplete.component";
 import { EatingMultiselectAutocompleteComponent } from "src/app/utility/multiselect/eating-multiselect-autocomplete/multiselect-autocomplete.component";
 
-import {
-  NgxMatDatetimePickerModule,
-  NgxMatTimepickerModule,
-} from "@angular-material-components/datetime-picker";
-import { MatDatepickerModule } from "@angular/material/datepicker";
-
 import { TourishPlanCreateAdminComponent } from "../TourishPlan/tourishPlan-create/tourishPlan-create_admin.component";
 import { TourishPlanListAdminComponent } from "../TourishPlan/tourishPlan-list/tourishPlanList.component";
 import { TourishPlanDetailAdminComponent } from "../TourishPlan/tourishPlan-detail/tourishPlan_admin.component";
-
-import { ValidationComponent } from "src/app/utility/validation/validation.component";
-import { NgxMatMomentModule } from "@angular-material-components/moment-adapter";
 
 import { TourishPlanDetailEffects } from "../TourishPlan/tourishPlan-detail/tourishPlan-detail.store.effect";
 import { TourishPlanAutoCompleteListEffects } from "src/app/utility/multiselect/tourishPlan-multiselect-autocomplete/multiselect-autocomplete.store.effect";
@@ -240,7 +231,6 @@ import { reducer as NotificationDetailReducer } from "../notification/notificati
 import { NotificationCreateEffects } from "../notification/notification_create/notification-create.store.effect";
 import { NotificationEffects } from "../notification/notification_detail/notification-detail.store.effect";
 import { NotificationListEffects } from "../notification/notification_list/notification-list.store.effect";
-import { AvatarUploadComponent } from "src/app/utility/image_avatar_service/imageUpload.component";
 import { BigChatComponent } from "src/app/utility/big-chat/big-chat.component";
 import { GuestMessageConHistoryListComponent } from "../ChatConHistory/chat_con_his_list/chat_con_his_list.component";
 import { GuestMessageConHistoryListEffects } from "../ChatConHistory/chat_con_his_list/chat_con_his_list.store.effect";
@@ -265,6 +255,7 @@ import { StayingScheduleListEffects } from "../Schedule-staying/schedule_staying
 import { StayingScheduleEffects } from "../Schedule-staying/schedule_staying_detail/schedule_staying-detail.store.effect";
 import { InstructionMultiselectAutocompleteComponent } from "src/app/utility/multiselect/instruction-multiselect-autocomplete/multiselect-autocomplete.component";
 import { InterestModalComponent } from "src/app/utility/change-interest-modal/change-interest-modal.component";
+import { DashboardComponent } from "src/app/utility/dashboard/dashboard.component";
 
 
 
@@ -318,6 +309,7 @@ import { InterestModalComponent } from "src/app/utility/change-interest-modal/ch
     RestHouseContactSelectAutocompleteComponent,
 
     InterestModalComponent,
+    DashboardComponent,
 
     StayingMultiselectAutocompleteComponent,
     MovingMultiselectAutocompleteComponent,

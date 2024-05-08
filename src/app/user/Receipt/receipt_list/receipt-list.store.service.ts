@@ -9,10 +9,10 @@ export class ReceiptListStoreService {
   constructor(private http: HttpClient) {}
 
   getReceiptList(payload: any): Observable<any> {
-    return this.http.get("/api/GetReceipt/user", {params: payload});
+    return this.http.get("/api/GetReceipt/user/tour", {params: payload});
   }
 
   deleteReceipt(payload: any): Observable<any> {
-    return this.http.delete("/api/DeleteReceipt/" + payload.id, payload);
+    return this.http.delete("/api/DeleteReceipt/tour" + payload.id, payload);
   }
 }

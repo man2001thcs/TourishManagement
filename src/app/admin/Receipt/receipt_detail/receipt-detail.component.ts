@@ -257,7 +257,7 @@ export class ReceiptDetailComponent implements OnInit, OnDestroy {
         totalReceiptId: this.receipt.totalReceiptId,
         fullReceiptId: this.data.id,
         guestName: this.editformGroup_info.value.guestName,
-        tourishPlanId: this.editformGroup_info.value.tourishPlanId,
+        tourishPlanId:  this.receipt.totalReceipt?.tourishPlanId,
         tourishScheduleId: this.editformGroup_info.value.tourishScheduleId,
         totalTicket: this.editformGroup_info.value.totalTicket,
         totalChildTicket: this.editformGroup_info.value.totalChildTicket,

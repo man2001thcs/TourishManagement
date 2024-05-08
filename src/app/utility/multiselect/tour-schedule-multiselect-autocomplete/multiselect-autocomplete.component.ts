@@ -14,19 +14,11 @@ import {
   FormGroup,
   Validators,
 } from "@angular/forms";
-import { MatAutocompleteSelectedEvent } from "@angular/material/autocomplete";
-import { MatChipInputEvent } from "@angular/material/chips";
-import { Observable, Subscription, of, timer } from "rxjs";
-import { debounceTime } from "rxjs/operators";
-
-import { Store } from "@ngrx/store";
-
 import { MessageService } from "../../user_service/message.service";
-import { MovingContact, TourishSchedule } from "src/app/model/baseModel";
-
+import { TourishSchedule } from "src/app/model/baseModel";
 import moment from "moment";
 import { ThemePalette } from "@angular/material/core";
-import { faL } from "@fortawesome/free-solid-svg-icons";
+
 /**
  * @title Chips Autocomplete
  */
@@ -43,6 +35,9 @@ export class TourScheduleMultiselectAutocompleteComponent implements OnInit {
   @Output() result = new EventEmitter<{ data: Array<TourishSchedule> }>();
 
   @Input() tourishPlanId: string = "";
+  @Input() movingScheduleId: string = "";
+  @Input() stayingScheduleId: string = "";
+
   @Input() data_selected: Array<TourishSchedule> = [];
   @Input() key: string = "";
   @Input() createFormOpen = false;
@@ -139,8 +134,13 @@ export class TourScheduleMultiselectAutocompleteComponent implements OnInit {
         endDate: this.scheduleFormGroup.value.endDate,
         planStatus: parseInt(this.scheduleFormGroup.value.planStatus),
       };
+
       if (this.tourishPlanId.length > 0)
         schedule.tourishPlanId = this.tourishPlanId;
+      if (this.movingScheduleId.length > 0)
+        schedule.movingScheduleId = this.movingScheduleId;
+      if (this.stayingScheduleId.length > 0)
+        schedule.stayingScheduleId = this.stayingScheduleId;
 
       this.scheduleList = [schedule, ...this.scheduleList];
 
@@ -185,9 +185,16 @@ export class TourScheduleMultiselectAutocompleteComponent implements OnInit {
         planStatus: parseInt(this.editScheduleFormGroup.value.planStatus),
         createDate: this.editScheduleFormGroup.value.createDate,
       };
+
       if (this.tourishPlanId.length > 0)
         this.data_selected_edit[this.indexTourishScheduleEdit].tourishPlanId =
           this.tourishPlanId;
+      if (this.movingScheduleId.length > 0)
+        this.data_selected_edit[this.indexTourishScheduleEdit].movingScheduleId =
+          this.movingScheduleId;
+      if (this.stayingScheduleId.length > 0)
+        this.data_selected_edit[this.indexTourishScheduleEdit].stayingScheduleId =
+          this.stayingScheduleId;
 
       this.messageService
         .openNotifyDialog("Thay đổi thành công")

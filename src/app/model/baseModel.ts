@@ -173,7 +173,7 @@ export interface Instruction {
   tourishPlanId?: string;
   movingScheduleId?: string;
   stayingdScheduleId?: string;
-  
+
   createDate?: Date;
   updateDate?: Date;
 }
@@ -218,6 +218,8 @@ export interface TourishInterest {
 export interface TourishSchedule {
   id?: string;
   tourishPlanId?: string;
+  movingScheduleId?: string;
+  stayingScheduleId?: string;
   planStatus: number;
   startDate: Date;
   endDate: Date;
@@ -418,7 +420,6 @@ export interface ChartConfig {
     useHTML?: boolean;
   };
   plotOptions?: {
-    
     pie?: any;
     column?: {
       pointPadding: number;

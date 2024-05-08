@@ -89,7 +89,7 @@ export class ReceiptListComponent implements OnInit, AfterViewInit, OnDestroy {
   pageSize = 5;
   pageSizeOpstion = [5, 10];
   pageIndex = 0;
-  sortColumn: string = "createDate";
+  sortColumn: string = "createdDate";
   sortDirection: string = "desc";
   tourishPlanId = "";
 

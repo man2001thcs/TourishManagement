@@ -1,0 +1,32 @@
+
+.mat-chip.mat-standard-chip {
+  background-color: red;
+  color: white;
+}
+
+.full-width-input {
+  width: 85% !important;
+}
+​
+.chip-list-wrapper {
+  min-height: 3em;
+}
+
+:host /deep/ .mat-autocomplete-panel {
+  max-height: 150px !important;
+}
+
+::ng-deep .mat-form-field-outline-start {
+  border-radius: 28px 0 0 28px !important;
+  min-width: 28px !important;
+}
+
+::ng-deep .mat-form-field-outline-end {
+  border-radius: 0 28px 28px 0 !important;
+  min-width: 28px !important;
+}
+
+/* Add padding to move the label and input into the center to prevent overlapping the rounded border */
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-flex {
+  padding: 0 32px !important;
+}

@@ -262,7 +262,9 @@ export interface FullReceipt {
   originalPrice: number;
   totalTicket: number;
   totalChildTicket: number;
-  tourishPlanId: string;
+  tourishPlanId?: string;
+  scheduleId?: string;
+  scheduleType?: number;
   completeDate?: string;
   phoneNumber: string;
   email: string;

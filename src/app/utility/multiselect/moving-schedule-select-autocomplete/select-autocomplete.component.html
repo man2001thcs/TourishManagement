@@ -1,0 +1,48 @@
+<form>
+  <mat-form-field appearance="outline" class="full-width-input">
+    <mat-label>Lựa chọn đối tác</mat-label>
+    <mat-chip-grid #chipGrid aria-label="Fruit selection">
+      <mat-chip-row
+        *ngFor="let movingSchedule of movingScheduleNameList"
+        (removed)="remove(movingSchedule)"
+        style="font-size: 16px"
+      >
+        {{ movingSchedule }}
+        <button matChipRemove [attr.aria-label]="'remove ' + movingSchedule">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-chip-row>
+    </mat-chip-grid>
+    <input
+      *ngIf="movingScheduleNameList.length < 1"
+      placeholder="Chọn tour"
+      #movingScheduleInput
+      [formControl]="movingScheduleCtrl"
+      [matChipInputFor]="chipGrid"
+      [matAutocomplete]="auto"
+      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+      (matChipInputTokenEnd)="add($event)"
+    />
+
+    <mat-autocomplete
+      #auto="matAutocomplete"
+      (optionSelected)="selected($event)"
+      (optionsScroll)="onScroll($event)"
+    >
+      <mat-option
+        *ngFor="let movingSchedule of data"
+        [value]="movingSchedule"
+        [disabled]="isChecked(movingSchedule)"
+      >
+        <div>
+          <div style="font-weight: bold">
+            {{ movingSchedule.name}}
+            <mat-icon>{{ isChecked(movingSchedule) && "checked" }}</mat-icon>
+          </div>
+
+          <small>{{ onDisplayAtr(movingSchedule) }}</small>
+        </div>
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>

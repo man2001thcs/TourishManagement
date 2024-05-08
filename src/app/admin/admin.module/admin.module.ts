@@ -226,6 +226,12 @@ import { reducer as MovingContactSelectReducer } from "../../utility/multiselect
 import { storeKey as RestHouseContactSelectStoreKey } from "../../utility/multiselect/staying-contact-select-autocomplete/select-autocomplete.store.action";
 import { reducer as RestHouseContactSelectReducer } from "../../utility/multiselect/staying-contact-select-autocomplete/select-autocomplete.store.reducer";
 
+import { storeKey as MovingScheduleSelectStoreKey } from "../../utility/multiselect/moving-schedule-select-autocomplete/select-autocomplete.store.action";
+import { reducer as MovingScheduleSelectReducer } from "../../utility/multiselect/moving-schedule-select-autocomplete/select-autocomplete.store.reducer";
+
+import { storeKey as StayingScheduleSelectStoreKey } from "../../utility/multiselect/staying-schedule-select-autocomplete/select-autocomplete.store.action";
+import { reducer as StayingScheduleSelectReducer } from "../../utility/multiselect/staying-schedule-select-autocomplete/select-autocomplete.store.reducer";
+
 import { storeKey as NotificationDetailStoreKey } from "../notification/notification_detail/notification-detail.store.action";
 import { reducer as NotificationDetailReducer } from "../notification/notification_detail/notification-detail.store.reducer";
 import { NotificationCreateEffects } from "../notification/notification_create/notification-create.store.effect";
@@ -244,7 +250,7 @@ import { MovingScheduleListEffects } from "../Schedule-moving/schedule_moving_li
 import { MovingContactAutoCompleteListEffects } from "src/app/utility/multiselect/moving-contact-select-autocomplete/select-autocomplete.store.effect";
 import { AvatarUploadModalComponent } from "src/app/utility/image_avatar_modal/imageUpload.component";
 import { TourScheduleMultiselectAutocompleteComponent } from "src/app/utility/multiselect/tour-schedule-multiselect-autocomplete/multiselect-autocomplete.component";
-import {MatSelectModule} from '@angular/material/select';
+import { MatSelectModule } from "@angular/material/select";
 import { StayingScheduleCreateComponent } from "../Schedule-staying/schedule_staying_create/schedule_staying-create.component";
 import { StayingScheduleDetailComponent } from "../Schedule-staying/schedule_staying_detail/schedule_staying-detail.component";
 import { StayingScheduleListComponent } from "../Schedule-staying/schedule_staying_list/schedule_staying-list.component";
@@ -256,8 +262,13 @@ import { StayingScheduleEffects } from "../Schedule-staying/schedule_staying_det
 import { InstructionMultiselectAutocompleteComponent } from "src/app/utility/multiselect/instruction-multiselect-autocomplete/multiselect-autocomplete.component";
 import { InterestModalComponent } from "src/app/utility/change-interest-modal/change-interest-modal.component";
 import { DashboardComponent } from "src/app/utility/dashboard/dashboard.component";
-
-
+import { StayingScheduleSelectAutocompleteComponent } from "src/app/utility/multiselect/staying-schedule-select-autocomplete/select-autocomplete.component";
+import { MovingScheduleSelectAutocompleteComponent } from "src/app/utility/multiselect/moving-schedule-select-autocomplete/select-autocomplete.component";
+import { StayingScheduleAutoCompleteListEffects } from "src/app/utility/multiselect/staying-schedule-select-autocomplete/select-autocomplete.store.effect";
+import { MovingScheduleAutoCompleteListEffects } from "src/app/utility/multiselect/moving-schedule-select-autocomplete/select-autocomplete.store.effect";
+import { MovingScheduleReceiptCreateComponent } from "../MovingScheduleReceipt/receipt_create/receipt-create.component";
+import { MovingScheduleReceiptDetailComponent } from "../MovingScheduleReceipt/receipt_detail/receipt-detail.component";
+import { MovingScheduleReceiptListComponent } from "../MovingScheduleReceipt/receipt_list/receipt-list.component";
 
 @NgModule({
   declarations: [
@@ -314,6 +325,14 @@ import { DashboardComponent } from "src/app/utility/dashboard/dashboard.componen
     StayingMultiselectAutocompleteComponent,
     MovingMultiselectAutocompleteComponent,
     EatingMultiselectAutocompleteComponent,
+
+    StayingScheduleSelectAutocompleteComponent,
+    MovingScheduleSelectAutocompleteComponent,
+
+    MovingScheduleReceiptCreateComponent,
+    MovingScheduleReceiptDetailComponent,
+    MovingScheduleReceiptListComponent,
+
     TourishPlanMultiselectAutocompleteComponent,
     TourishCategoryMultiselectAutocompleteComponent,
     UserMultiselectAutocompleteComponent,
@@ -359,13 +378,28 @@ import { DashboardComponent } from "src/app/utility/dashboard/dashboard.componen
     StoreModule.forFeature(TourishPlanListStoreKey, TourishPlanListReducer),
     StoreModule.forFeature(TourishPlanDetailStoreKey, TourishPlanDetailReducer),
 
-    StoreModule.forFeature(TourishCategoryCreateStoreKey, TourishCategoryCreateReducer),
-    StoreModule.forFeature(TourishCategoryListStoreKey, TourishCategoryListReducer),
-    StoreModule.forFeature(TourishCategoryDetailStoreKey,TourishCategoryDetailReducer),
+    StoreModule.forFeature(
+      TourishCategoryCreateStoreKey,
+      TourishCategoryCreateReducer
+    ),
+    StoreModule.forFeature(
+      TourishCategoryListStoreKey,
+      TourishCategoryListReducer
+    ),
+    StoreModule.forFeature(
+      TourishCategoryDetailStoreKey,
+      TourishCategoryDetailReducer
+    ),
 
-    StoreModule.forFeature(NotificationCreateStoreKey, NotificationCreateReducer),
+    StoreModule.forFeature(
+      NotificationCreateStoreKey,
+      NotificationCreateReducer
+    ),
     StoreModule.forFeature(NotificationListStoreKey, NotificationListReducer),
-    StoreModule.forFeature(NotificationDetailStoreKey,NotificationDetailReducer),
+    StoreModule.forFeature(
+      NotificationDetailStoreKey,
+      NotificationDetailReducer
+    ),
 
     StoreModule.forFeature(
       MovingContactCreateStoreKey,
@@ -376,11 +410,23 @@ import { DashboardComponent } from "src/app/utility/dashboard/dashboard.componen
       MovingContactDetailStoreKey,
       MovingContactDetailReducer
     ),
-    StoreModule.forFeature(ChatConHistoryListStoreKey, ChatConHistoryListReducer),
+    StoreModule.forFeature(
+      ChatConHistoryListStoreKey,
+      ChatConHistoryListReducer
+    ),
 
-    StoreModule.forFeature(RestHouseContactCreateStoreKey, RestHouseContactCreateReducer),
-    StoreModule.forFeature(RestHouseContactListStoreKey, RestHouseContactListReducer),
-    StoreModule.forFeature(RestHouseContactDetailStoreKey, RestHouseContactDetailReducer),
+    StoreModule.forFeature(
+      RestHouseContactCreateStoreKey,
+      RestHouseContactCreateReducer
+    ),
+    StoreModule.forFeature(
+      RestHouseContactListStoreKey,
+      RestHouseContactListReducer
+    ),
+    StoreModule.forFeature(
+      RestHouseContactDetailStoreKey,
+      RestHouseContactDetailReducer
+    ),
 
     StoreModule.forFeature(RestaurantCreateStoreKey, RestaurantCreateReducer),
     StoreModule.forFeature(RestaurantListStoreKey, RestaurantListReducer),
@@ -420,24 +466,53 @@ import { DashboardComponent } from "src/app/utility/dashboard/dashboard.componen
       TourishPlanAutocompleteReducer
     ),
 
-    StoreModule.forFeature(
-      UserAutocompleteStoreKey,
-      UserAutocompleteReducer
-    ),
+    StoreModule.forFeature(UserAutocompleteStoreKey, UserAutocompleteReducer),
 
     StoreModule.forFeature(ImageListStoreKey, ImageListReducer),
 
-    StoreModule.forFeature(MovingScheduleCreateStoreKey, MovingScheduleCreateReducer),
-    StoreModule.forFeature(MovingScheduleDetailStoreKey, MovingScheduleDetailReducer),
-    StoreModule.forFeature(MovingScheduleListStoreKey, MovingScheduleListReducer),
+    StoreModule.forFeature(
+      MovingScheduleCreateStoreKey,
+      MovingScheduleCreateReducer
+    ),
+    StoreModule.forFeature(
+      MovingScheduleDetailStoreKey,
+      MovingScheduleDetailReducer
+    ),
+    StoreModule.forFeature(
+      MovingScheduleListStoreKey,
+      MovingScheduleListReducer
+    ),
 
-    StoreModule.forFeature(StayingScheduleCreateStoreKey, StayingScheduleCreateReducer),
-    StoreModule.forFeature(StayingScheduleDetailStoreKey, StayingScheduleDetailReducer),
-    StoreModule.forFeature(StayingScheduleListStoreKey, StayingScheduleListReducer),
+    StoreModule.forFeature(
+      StayingScheduleCreateStoreKey,
+      StayingScheduleCreateReducer
+    ),
+    StoreModule.forFeature(
+      StayingScheduleDetailStoreKey,
+      StayingScheduleDetailReducer
+    ),
+    StoreModule.forFeature(
+      StayingScheduleListStoreKey,
+      StayingScheduleListReducer
+    ),
 
-    StoreModule.forFeature(MovingContactSelectStoreKey, MovingContactSelectReducer),
+    StoreModule.forFeature(
+      MovingContactSelectStoreKey,
+      MovingContactSelectReducer
+    ),
+    StoreModule.forFeature(
+      RestHouseContactSelectStoreKey,
+      RestHouseContactSelectReducer
+    ),
 
-    StoreModule.forFeature(RestHouseContactSelectStoreKey, RestHouseContactSelectReducer),
+    StoreModule.forFeature(
+      StayingScheduleSelectStoreKey,
+      StayingScheduleSelectReducer
+    ),
+    StoreModule.forFeature(
+      MovingScheduleSelectStoreKey,
+      MovingScheduleSelectReducer
+    ),
 
     EffectsModule.forFeature([TourishCategoryCreateEffects]),
     EffectsModule.forFeature([TourishCategoryEffects]),
@@ -493,6 +568,9 @@ import { DashboardComponent } from "src/app/utility/dashboard/dashboard.componen
     EffectsModule.forFeature([StayingScheduleListEffects]),
 
     EffectsModule.forFeature([RestHouseContactAutoCompleteListEffects]),
+
+    EffectsModule.forFeature([StayingScheduleAutoCompleteListEffects]),
+    EffectsModule.forFeature([MovingScheduleAutoCompleteListEffects]),
   ],
   providers: [
     { provide: TINYMCE_SCRIPT_SRC, useValue: "tinymce/tinymce.min.js" },

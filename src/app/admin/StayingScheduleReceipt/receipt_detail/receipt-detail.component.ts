@@ -35,22 +35,22 @@ import {
   getSysError,
 } from "./receipt-detail.store.selector";
 import { MessageService } from "src/app/utility/user_service/message.service";
-import { FullReceipt, TotalReceipt, MovingSchedule } from "src/app/model/baseModel";
+import { FullReceipt, TotalReceipt, StayingSchedule } from "src/app/model/baseModel";
 import { HttpClient } from "@angular/common/http";
 
 @Component({
-  selector: "app-moving-receipt-detail",
+  selector: "app-staying-receipt-detail",
   templateUrl: "./receipt-detail.component.html",
   styleUrls: ["./receipt-detail.component.css"],
 })
-export class MovingScheduleReceiptDetailComponent implements OnInit, OnDestroy {
+export class StayingScheduleReceiptDetailComponent implements OnInit, OnDestroy {
   isEditing: boolean = true;
   isSubmitted = false;
   receipt: FullReceipt = {
     fullReceiptId: "",
     totalReceiptId: "",
     guestName: "",
-    movingScheduleId: "",
+    stayingScheduleId: "",
     totalTicket: 0,
     totalChildTicket: 0,
     originalPrice: 0,
@@ -75,7 +75,7 @@ export class MovingScheduleReceiptDetailComponent implements OnInit, OnDestroy {
   receiptState!: Observable<any>;
   editReceiptState!: Observable<any>;
   subscriptions: Subscription[] = [];
-  schedule!: MovingSchedule;
+  schedule!: StayingSchedule;
 
   constructor(
     private adminService: AdminService,
@@ -121,9 +121,9 @@ export class MovingScheduleReceiptDetailComponent implements OnInit, OnDestroy {
         if (state) {
           this.receipt = state;
           this.messageService.closeLoadingDialog();
-          this.getTour(state.totalReceipt?.movingScheduleId);
+          this.getTour(state.totalReceipt?.stayingScheduleId);
 
-          console.log(state.totalReceipt?.movingScheduleId);
+          console.log(state.totalReceipt?.stayingScheduleId);
 
           this.editformGroup_info.controls["totalReceiptId"].setValue(
             state.totalReceiptId
@@ -219,7 +219,7 @@ export class MovingScheduleReceiptDetailComponent implements OnInit, OnDestroy {
 
   getTour(id: string) {
     this.http
-      .get("/api/GetMovingSchedule" + id)
+      .get("/api/GetStayingSchedule" + id)
       .subscribe((response: any) => {
         this.schedule = response.data;
       });
@@ -228,7 +228,7 @@ export class MovingScheduleReceiptDetailComponent implements OnInit, OnDestroy {
   formReset(): void {
     this.editformGroup_info.setValue({
       guestName: this.receipt.guestName ?? "",
-      movingScheduleId: this.receipt.movingScheduleId ?? "",
+      stayingScheduleId: this.receipt.stayingScheduleId ?? "",
       serviceScheduleId: this.receipt.serviceScheduleId ?? "",
       totalTicket: this.receipt.totalTicket ?? "",
       originalPrice: this.receipt.originalPrice ?? 0,
@@ -257,7 +257,7 @@ export class MovingScheduleReceiptDetailComponent implements OnInit, OnDestroy {
         totalReceiptId: this.receipt.totalReceiptId,
         fullReceiptId: this.data.id,
         guestName: this.editformGroup_info.value.guestName,
-        movingScheduleId: this.editformGroup_info.value.movingScheduleId,
+        stayingScheduleId: this.editformGroup_info.value.stayingScheduleId,
         serviceScheduleId: this.editformGroup_info.value.serviceScheduleId,
         totalTicket: this.editformGroup_info.value.totalTicket,
         totalChildTicket: this.editformGroup_info.value.totalChildTicket,
@@ -294,7 +294,7 @@ export class MovingScheduleReceiptDetailComponent implements OnInit, OnDestroy {
 
   selectChangeReceipt($event: any): any {
     if ($event.data) {
-      this.editformGroup_info.controls["movingScheduleId"].setValue(
+      this.editformGroup_info.controls["stayingScheduleId"].setValue(
         $event.data.idList[0]
       );
     }

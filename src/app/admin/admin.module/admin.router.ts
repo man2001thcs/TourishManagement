@@ -28,6 +28,8 @@ import { MovingScheduleListComponent } from "../Schedule-moving/schedule_moving_
 import { StayingScheduleListComponent } from "../Schedule-staying/schedule_staying_list/schedule_staying-list.component";
 import { NotFoundComponent } from "src/app/utility/not-found-page/404.component";
 import { DashboardComponent } from "src/app/utility/dashboard/dashboard.component";
+import { MovingScheduleReceiptListComponent } from "../MovingScheduleReceipt/receipt_list/receipt-list.component";
+import { StayingScheduleReceiptListComponent } from "../StayingScheduleReceipt/receipt_list/receipt-list.component";
 
 const routes: Routes = [
   {
@@ -87,6 +89,14 @@ const routes: Routes = [
       {
         path: "receipt/list",
         component: ReceiptListComponent,
+      },
+      {
+        path: "moving-receipt/list",
+        component: MovingScheduleReceiptListComponent,
+      },
+      {
+        path: "staying-receipt/list",
+        component: StayingScheduleReceiptListComponent,
       },
       {
         path: "user/list",

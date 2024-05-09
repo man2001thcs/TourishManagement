@@ -20,8 +20,8 @@ import {
 } from "./receipt-list.store.selector";
 import * as ReceiptListActions from "./receipt-list.store.action";
 import { MatDialog } from "@angular/material/dialog";
-import { MovingScheduleReceiptDetailComponent } from "../receipt_detail/receipt-detail.component";
-import { MovingScheduleReceiptCreateComponent } from "../receipt_create/receipt-create.component";
+import { StayingScheduleReceiptDetailComponent } from "../receipt_detail/receipt-detail.component";
+import { StayingScheduleReceiptCreateComponent } from "../receipt_create/receipt-create.component";
 import { MessageService } from "src/app/utility/user_service/message.service";
 import { ConfirmDialogComponent } from "src/app/utility/confirm-dialog/confirm-dialog.component";
 import {
@@ -38,7 +38,7 @@ import {
 } from "@angular/animations";
 
 @Component({
-  selector: "app-moving-receiptList",
+  selector: "app-staying-receiptList",
   templateUrl: "./receipt-list.component.html",
   styleUrls: ["./receipt-list.component.css"],
   animations: [
@@ -52,7 +52,7 @@ import {
     ]),
   ],
 })
-export class MovingScheduleReceiptListComponent implements OnInit, AfterViewInit, OnDestroy {
+export class StayingScheduleReceiptListComponent implements OnInit, AfterViewInit, OnDestroy {
   receiptList!: TotalReceipt[];
   subscriptions: Subscription[] = [];
 
@@ -191,7 +191,7 @@ export class MovingScheduleReceiptListComponent implements OnInit, AfterViewInit
   }
 
   openEditDialog(id: string): void {
-    const dialogRef = this.dialog.open(MovingScheduleReceiptDetailComponent, {
+    const dialogRef = this.dialog.open(StayingScheduleReceiptDetailComponent, {
       data: { id: id },
     });
 
@@ -216,7 +216,7 @@ export class MovingScheduleReceiptListComponent implements OnInit, AfterViewInit
   }
 
   openAddDialog(): void {
-    const dialogRef = this.dialog.open(MovingScheduleReceiptCreateComponent, {});
+    const dialogRef = this.dialog.open(StayingScheduleReceiptCreateComponent, {});
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log(result);
@@ -308,7 +308,7 @@ export class MovingScheduleReceiptListComponent implements OnInit, AfterViewInit
       totalPrice += entity.singlePrice ?? 0;
     });
 
-    schedule.movingSchedules?.forEach((entity) => {
+    schedule.stayingSchedules?.forEach((entity) => {
       totalPrice += entity.singlePrice ?? 0;
     });
 
@@ -331,7 +331,7 @@ export class MovingScheduleReceiptListComponent implements OnInit, AfterViewInit
       totalPrice += entity.singlePrice ?? 0;
     });
 
-    schedule.movingSchedules?.forEach((entity) => {
+    schedule.stayingSchedules?.forEach((entity) => {
       totalPrice += entity.singlePrice ?? 0;
     });
 

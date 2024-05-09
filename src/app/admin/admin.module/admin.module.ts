@@ -120,6 +120,26 @@ import { reducer as ReceiptListReducer } from "../Receipt/receipt_list/receipt-l
 import { storeKey as ReceiptDetailStoreKey } from "../Receipt/receipt_detail/receipt-detail.store.action";
 import { reducer as ReceiptDetailReducer } from "../Receipt/receipt_detail/receipt-detail.store.reducer";
 
+// Schedule receipt
+
+import { storeKey as MovingReceiptCreateStoreKey } from "../MovingScheduleReceipt/receipt_create/receipt-create.store.action";
+import { reducer as MovingReceiptCreateReducer } from "../MovingScheduleReceipt/receipt_create/receipt-create.store.reducer";
+
+import { storeKey as MovingReceiptListStoreKey } from "../MovingScheduleReceipt/receipt_list/receipt-list.store.action";
+import { reducer as MovingReceiptListReducer } from "../MovingScheduleReceipt/receipt_list/receipt-list.store.reducer";
+
+import { storeKey as MovingReceiptDetailStoreKey } from "../MovingScheduleReceipt/receipt_detail/receipt-detail.store.action";
+import { reducer as MovingReceiptDetailReducer } from "../MovingScheduleReceipt/receipt_detail/receipt-detail.store.reducer";
+
+import { storeKey as StayingReceiptCreateStoreKey } from "../StayingScheduleReceipt/receipt_create/receipt-create.store.action";
+import { reducer as StayingReceiptCreateReducer } from "../StayingScheduleReceipt/receipt_create/receipt-create.store.reducer";
+
+import { storeKey as StayingReceiptListStoreKey } from "../StayingScheduleReceipt/receipt_list/receipt-list.store.action";
+import { reducer as StayingReceiptListReducer } from "../StayingScheduleReceipt/receipt_list/receipt-list.store.reducer";
+
+import { storeKey as StayingReceiptDetailStoreKey } from "../StayingScheduleReceipt/receipt_detail/receipt-detail.store.action";
+import { reducer as StayingReceiptDetailReducer } from "../StayingScheduleReceipt/receipt_detail/receipt-detail.store.reducer";
+
 import { storeKey as UserListStoreKey } from "../User/user_list/user-list.store.action";
 import { reducer as UserListReducer } from "../User/user_list/user-list.store.reducer";
 
@@ -270,6 +290,15 @@ import { MovingScheduleReceiptCreateComponent } from "../MovingScheduleReceipt/r
 import { MovingScheduleReceiptDetailComponent } from "../MovingScheduleReceipt/receipt_detail/receipt-detail.component";
 import { MovingScheduleReceiptListComponent } from "../MovingScheduleReceipt/receipt_list/receipt-list.component";
 import { ScheduleChangeModalComponent } from "src/app/utility/change-schedule-modal/change-schedule-modal.component";
+import { StayingScheduleReceiptCreateComponent } from "../StayingScheduleReceipt/receipt_create/receipt-create.component";
+import { StayingScheduleReceiptDetailComponent } from "../StayingScheduleReceipt/receipt_detail/receipt-detail.component";
+import { StayingScheduleReceiptListComponent } from "../StayingScheduleReceipt/receipt_list/receipt-list.component";
+import { MovingReceiptCreateEffects } from "../MovingScheduleReceipt/receipt_create/receipt-create.store.effect";
+import { MovingReceiptEffects } from "../MovingScheduleReceipt/receipt_detail/receipt-detail.store.effect";
+import { MovingReceiptListEffects } from "../MovingScheduleReceipt/receipt_list/receipt-list.store.effect";
+import { StayingReceiptCreateEffects } from "../StayingScheduleReceipt/receipt_create/receipt-create.store.effect";
+import { StayingReceiptEffects } from "../StayingScheduleReceipt/receipt_detail/receipt-detail.store.effect";
+import { StayingReceiptListEffects } from "../StayingScheduleReceipt/receipt_list/receipt-list.store.effect";
 
 @NgModule({
   declarations: [
@@ -333,6 +362,10 @@ import { ScheduleChangeModalComponent } from "src/app/utility/change-schedule-mo
     MovingScheduleReceiptCreateComponent,
     MovingScheduleReceiptDetailComponent,
     MovingScheduleReceiptListComponent,
+
+    StayingScheduleReceiptCreateComponent,
+    StayingScheduleReceiptDetailComponent,
+    StayingScheduleReceiptListComponent,
 
     TourishPlanMultiselectAutocompleteComponent,
     TourishCategoryMultiselectAutocompleteComponent,
@@ -438,6 +471,15 @@ import { ScheduleChangeModalComponent } from "src/app/utility/change-schedule-mo
     StoreModule.forFeature(ReceiptCreateStoreKey, ReceiptCreateReducer),
     StoreModule.forFeature(ReceiptListStoreKey, ReceiptListReducer),
     StoreModule.forFeature(ReceiptDetailStoreKey, ReceiptDetailReducer),
+
+    //Schedule
+    StoreModule.forFeature(MovingReceiptCreateStoreKey, MovingReceiptCreateReducer),
+    StoreModule.forFeature(MovingReceiptListStoreKey, MovingReceiptListReducer),
+    StoreModule.forFeature(MovingReceiptDetailStoreKey, MovingReceiptDetailReducer),
+
+    StoreModule.forFeature(StayingReceiptCreateStoreKey, StayingReceiptCreateReducer),
+    StoreModule.forFeature(StayingReceiptListStoreKey, StayingReceiptListReducer),
+    StoreModule.forFeature(StayingReceiptDetailStoreKey, StayingReceiptDetailReducer),
 
     StoreModule.forFeature(UserListStoreKey, UserListReducer),
     StoreModule.forFeature(UserDetailStoreKey, UserDetailReducer),
@@ -554,6 +596,14 @@ import { ScheduleChangeModalComponent } from "src/app/utility/change-schedule-mo
     EffectsModule.forFeature([ReceiptCreateEffects]),
     EffectsModule.forFeature([ReceiptEffects]),
     EffectsModule.forFeature([ReceiptListEffects]),
+
+    EffectsModule.forFeature([MovingReceiptCreateEffects]),
+    EffectsModule.forFeature([MovingReceiptEffects]),
+    EffectsModule.forFeature([MovingReceiptListEffects]),
+
+    EffectsModule.forFeature([StayingReceiptCreateEffects]),
+    EffectsModule.forFeature([StayingReceiptEffects]),
+    EffectsModule.forFeature([StayingReceiptListEffects]),
 
     EffectsModule.forFeature([UserEffects]),
     EffectsModule.forFeature([UserListEffects]),

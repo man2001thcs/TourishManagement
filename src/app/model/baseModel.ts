@@ -262,13 +262,16 @@ export interface SaveFile {
 export interface FullReceipt {
   fullReceiptId?: string;
   totalReceiptId?: string;
+
   guestName: string;
   originalPrice: number;
   totalTicket: number;
   totalChildTicket: number;
+
   tourishPlanId?: string;
-  scheduleId?: string;
-  scheduleType?: number;
+  movingScheduleId?: string;
+  stayingScheduleId?: string;
+
   completeDate?: string;
   phoneNumber: string;
   email: string;
@@ -280,7 +283,11 @@ export interface FullReceipt {
   status: number;
 
   tourishScheduleId?: string;
+  serviceScheduleId?: string; 
+
   tourishSchedule?: TourishSchedule;
+  serviceSchedule?: TourishSchedule;
+
   totalReceipt?: TotalReceipt;
 }
 

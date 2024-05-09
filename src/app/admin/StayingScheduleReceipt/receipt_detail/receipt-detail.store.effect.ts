@@ -7,7 +7,7 @@ import * as ReceiptAction from './receipt-detail.store.action';
 import { ReceiptUnionActions } from './receipt-detail.store.action';
 
 @Injectable()
-export class MovingReceiptEffects {
+export class StayingReceiptEffects {
   constructor(
     private action: Actions<ReceiptAction.ReceiptUnionActions>,
     private storeService: ReceiptStoreService

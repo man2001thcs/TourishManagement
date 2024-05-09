@@ -19,18 +19,18 @@ import {
 import { MessageService } from "src/app/utility/user_service/message.service";
 import {
   FullReceipt,
-  MovingSchedule,
+  StayingSchedule,
   TourishPlan,
   TourishSchedule,
 } from "src/app/model/baseModel";
 import { HttpClient } from "@angular/common/http";
 
 @Component({
-  selector: "app-moving-schedule-receipt-create",
+  selector: "app-staying-schedule-receipt-create",
   templateUrl: "./receipt-create.component.html",
   styleUrls: ["./receipt-create.component.css"],
 })
-export class MovingScheduleReceiptCreateComponent implements OnInit, OnDestroy {
+export class StayingScheduleReceiptCreateComponent implements OnInit, OnDestroy {
   isEditing: boolean = true;
 
   receiptParam!: ReceiptParam;
@@ -46,7 +46,7 @@ export class MovingScheduleReceiptCreateComponent implements OnInit, OnDestroy {
   receiptState!: Observable<any>;
   createReceiptState!: Observable<any>;
   subscriptions: Subscription[] = [];
-  schedule!: MovingSchedule;
+  schedule!: StayingSchedule;
   serviceSchedule: TourishSchedule[] = [];
 
   constructor(
@@ -101,7 +101,7 @@ export class MovingScheduleReceiptCreateComponent implements OnInit, OnDestroy {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     this.createformGroup_info = this.fb.group({
-      movingScheduleId: ["", Validators.compose([Validators.required])],
+      stayingScheduleId: ["", Validators.compose([Validators.required])],
       serviceScheduleId: ["", Validators.compose([Validators.required])],
       status: [0, Validators.compose([Validators.required])],
       guestName: ["", Validators.compose([Validators.required])],
@@ -129,7 +129,7 @@ export class MovingScheduleReceiptCreateComponent implements OnInit, OnDestroy {
   formReset(): void {
     this.createformGroup_info.setValue({
       guestName: "",
-      movingScheduleId: "",
+      stayingScheduleId: "",
       serviceScheduleId: "",
       totalTicket: 0,
       totalChildTicket: 0,
@@ -150,7 +150,7 @@ export class MovingScheduleReceiptCreateComponent implements OnInit, OnDestroy {
     if (this.createformGroup_info.valid) {
       const payload: FullReceipt = {
         guestName: this.createformGroup_info.value.guestName,
-        movingScheduleId: this.createformGroup_info.value.movingScheduleId,
+        stayingScheduleId: this.createformGroup_info.value.stayingScheduleId,
         totalTicket: this.createformGroup_info.value.totalTicket,
         totalChildTicket: this.createformGroup_info.value.totalChildTicket,
         originalPrice: this.createformGroup_info.value.originalPrice,
@@ -174,7 +174,7 @@ export class MovingScheduleReceiptCreateComponent implements OnInit, OnDestroy {
 
   selectChangeReceipt($event: any): any {
     if ($event.data) {
-      this.createformGroup_info.controls["movingScheduleId"].setValue(
+      this.createformGroup_info.controls["stayingScheduleId"].setValue(
         $event.data.idList[0]
       );
     }
@@ -185,7 +185,7 @@ export class MovingScheduleReceiptCreateComponent implements OnInit, OnDestroy {
   }
 
   getTour(id: string) {
-    this.http.get("/api/GetMovingSchedule/" + id).subscribe((response: any) => {
+    this.http.get("/api/GetStayingSchedule/" + id).subscribe((response: any) => {
       this.schedule = response.data;
       this.serviceSchedule = this.schedule.serviceScheduleList ?? [];
     });

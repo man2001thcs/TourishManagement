@@ -33,8 +33,6 @@
         let-address="address"
         let-supportNumber="supportNumber"
         let-singlePrice="singlePrice"
-        let-startDate="startDate"
-        let-endDate="endDate"
         let-description="description"
       >
         <div
@@ -65,14 +63,6 @@
               <span style="font-weight: bold">Giá đơn:</span>
               {{ singlePrice }}
             </p>
-            <p>
-              <span style="font-weight: bold">Ngày bắt đầu:</span>
-              {{ startDate }}
-            </p>
-            <p>
-              <span style="font-weight: bold">Ngày kết thúc:</span>
-              {{ endDate }}
-            </p>
             <button
               mat-raised-button
               color="primary"
@@ -93,8 +83,6 @@
         let-address="address"
         let-supportNumber="supportNumber"
         let-singlePrice="singlePrice"
-        let-startDate="startDate"
-        let-endDate="endDate"
         let-description="description"
       >
         <div
@@ -132,14 +120,6 @@
               <span style="font-weight: bold">Giá đơn:</span>
               {{ singlePrice }}
             </p>
-            <p>
-              <span style="font-weight: bold">Ngày bắt đầu:</span>
-              {{ startDate }}
-            </p>
-            <p>
-              <span style="font-weight: bold">Ngày kết thúc:</span>
-              {{ endDate }}
-            </p>
             <button
               mat-raised-button
               color="primary"
@@ -171,8 +151,6 @@
           address: schedule.address,
           singlePrice: schedule.singlePrice,
           supportNumber: schedule.supportNumber,
-          startDate: schedule.startDate,
-          endDate: schedule.endDate,
           description: schedule.description
         }"
       >
@@ -188,8 +166,6 @@
           address: schedule.address,
           singlePrice: schedule.singlePrice,
           supportNumber: schedule.supportNumber,
-          startDate: schedule.startDate,
-          endDate: schedule.endDate,
           description: schedule.description
         }"
       >
@@ -215,22 +191,7 @@
       </div>
       <div class="row" [formGroup]="editEatingFormGroup">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form">
-          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
-            <mat-form-field appearance="outline" class="full-width-input">
-              <mat-label>Tình trạng</mat-label>
-              <select
-                matNativeControl
-                required
-                (change)="changeStatusExist($event)"
-              >
-                <option value="0">Mới tạo</option>
-                <option value="1">Đang thực hiện</option>
-                <option value="2">Hoàn thành</option>
-                <option value="2">Hủy</option>
-              </select>
-            </mat-form-field>
-          </div>
-
+        
           <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
             <mat-form-field appearance="outline" class="full-width-input">
               <mat-label>Địa chỉ nơi ăn uống</mat-label>
@@ -279,68 +240,6 @@
               *ngIf="isSubmit"
               [formGroup]="editEatingFormGroup"
               [formGroupControlName]="'singlePrice'"
-            ></app-validation>
-          </div>
-        </div>
-
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form">
-          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
-            <mat-form-field appearance="outline" class="full-width-input">
-              <mat-label>Ngày bắt đầu</mat-label>
-              <input
-                matInput
-                [ngxMatDatetimePicker]="eatingPicker"
-                placeholder="Choose a date"
-                formControlName="startDate"
-              />
-              <mat-datepicker-toggle
-                matSuffix
-                [for]="$any(eatingPicker)"
-              ></mat-datepicker-toggle>
-              <ngx-mat-datetime-picker
-                #eatingPicker
-                [showSpinners]="true"
-                [showSeconds]="true"
-                [touchUi]="touchUi"
-                [color]="color"
-                [enableMeridian]="enableMeridian"
-              >
-              </ngx-mat-datetime-picker>
-            </mat-form-field>
-            <app-validation
-              *ngIf="isSubmit"
-              [formGroup]="editEatingFormGroup"
-              [formGroupControlName]="'startDate'"
-            ></app-validation>
-          </div>
-
-          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
-            <mat-form-field appearance="outline" class="full-width-input">
-              <mat-label>Ngày kết thúc</mat-label>
-              <input
-                matInput
-                [ngxMatDatetimePicker]="picker"
-                placeholder="Choose a date"
-                formControlName="endDate"
-              />
-              <mat-datepicker-toggle
-                matSuffix
-                [for]="$any(picker)"
-              ></mat-datepicker-toggle>
-              <ngx-mat-datetime-picker
-                #picker
-                [showSpinners]="true"
-                [showSeconds]="true"
-                [touchUi]="touchUi"
-                [color]="color"
-                [enableMeridian]="enableMeridian"
-              >
-              </ngx-mat-datetime-picker>
-            </mat-form-field>
-            <app-validation
-              *ngIf="isSubmit"
-              [formGroup]="editEatingFormGroup"
-              [formGroupControlName]="'endDate'"
             ></app-validation>
           </div>
         </div>
@@ -459,19 +358,7 @@
         </mat-form-field>
       </div>
 
-      <div *ngIf="eatingNameList.length >= 1" [formGroup]="eatingFormGroup">
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
-          <mat-form-field appearance="outline" class="full-width-input">
-            <mat-label>Tình trạng</mat-label>
-            <select matNativeControl required (change)="changeStatus($event)">
-              <option value="0">Mới tạo</option>
-              <option value="1">Đang thực hiện</option>
-              <option value="2">Hoàn thành</option>
-              <option value="2">Hủy</option>
-            </select>
-          </mat-form-field>
-        </div>
-
+      <div *ngIf="eatingNameList.length >= 1" [formGroup]="eatingFormGroup">     
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
           <mat-form-field appearance="outline" class="full-width-input">
             <mat-label>Địa chỉ nơi uống</mat-label>
@@ -521,67 +408,7 @@
             [formGroup]="eatingFormGroup"
             [formGroupControlName]="'singlePrice'"
           ></app-validation>
-        </div>
-
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
-          <mat-form-field appearance="outline" class="full-width-input">
-            <mat-label>Ngày bắt đầu</mat-label>
-            <input
-              matInput
-              [ngxMatDatetimePicker]="eatingPicker"
-              placeholder="Choose a date"
-              formControlName="startDate"
-            />
-            <mat-datepicker-toggle
-              matSuffix
-              [for]="$any(eatingPicker)"
-            ></mat-datepicker-toggle>
-            <ngx-mat-datetime-picker
-              #eatingPicker
-              [showSpinners]="true"
-              [showSeconds]="true"
-              [touchUi]="touchUi"
-              [color]="color"
-              [enableMeridian]="enableMeridian"
-            >
-            </ngx-mat-datetime-picker>
-          </mat-form-field>
-          <app-validation
-            *ngIf="isSubmit"
-            [formGroup]="eatingFormGroup"
-            [formGroupControlName]="'startDate'"
-          ></app-validation>
-        </div>
-
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
-          <mat-form-field appearance="outline" class="full-width-input">
-            <mat-label>Ngày kết thúc</mat-label>
-            <input
-              matInput
-              [ngxMatDatetimePicker]="picker"
-              placeholder="Choose a date"
-              formControlName="endDate"
-            />
-            <mat-datepicker-toggle
-              matSuffix
-              [for]="$any(picker)"
-            ></mat-datepicker-toggle>
-            <ngx-mat-datetime-picker
-              #picker
-              [showSpinners]="true"
-              [showSeconds]="true"
-              [touchUi]="touchUi"
-              [color]="color"
-              [enableMeridian]="enableMeridian"
-            >
-            </ngx-mat-datetime-picker>
-          </mat-form-field>
-          <app-validation
-            *ngIf="isSubmit"
-            [formGroup]="eatingFormGroup"
-            [formGroupControlName]="'endDate'"
-          ></app-validation>
-        </div>
+        </div>      
       </div>
       <div *ngIf="eatingNameList.length >= 1">
         <div

@@ -34,11 +34,7 @@
   >
     <div
       class="row"
-      style="
-        display: flex;
-        flex-direction: column !important;
-        flex-wrap: 1;
-      "
+      style="display: flex; flex-direction: column !important; flex-wrap: 1"
     >
       <form [formGroup]="createformGroup_info">
         <div class="row">
@@ -69,7 +65,12 @@
             <div class="row">
               <mat-form-field appearance="outline" class="full-width-input">
                 <mat-label>Loại phương tiện</mat-label>
-                <select matNativeControl required formControlName="vehicleType" (change)="changeType($event)">
+                <select
+                  matNativeControl
+                  required
+                  formControlName="vehicleType"
+                  (change)="changeType($event)"
+                >
                   <option [value]="0">Xe khách</option>
                   <option [value]="1">Máy bay</option>
                 </select>
@@ -177,7 +178,7 @@
                   [formGroupControlName]="'phoneNumber'"
                 ></app-validation>
               </div>
-            </div>          
+            </div>
           </div>
 
           <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
@@ -223,7 +224,7 @@
                 ></app-validation>
               </div>
             </div>
-           
+
             <div class="row">
               <mat-form-field appearance="outline" class="full-width-input">
                 <mat-label>Nơi xuất phát</mat-label>
@@ -264,89 +265,6 @@
                 [formGroup]="createformGroup_info"
                 [formGroupControlName]="'headingPlace'"
               ></app-validation>
-            </div>
-
-            <div class="row">
-              <mat-form-field appearance="outline" class="full-width-input">
-                <mat-label>Ngày bắt đầu</mat-label>
-                <input
-                  matInput
-                  [ngxMatDatetimePicker]="movingPicker"
-                  placeholder="Choose a date"
-                  formControlName="startDate"
-                />
-                <mat-datepicker-toggle
-                  matSuffix
-                  [for]="$any(movingPicker)"
-                ></mat-datepicker-toggle>
-                <ngx-mat-datetime-picker
-                  #movingPicker
-                  [showSpinners]="true"
-                  [showSeconds]="true"
-                  [touchUi]="touchUi"
-                  [color]="color"
-                  [enableMeridian]="enableMeridian"
-                >
-                </ngx-mat-datetime-picker>
-              </mat-form-field>
-              <app-validation
-                *ngIf="
-                  this.createformGroup_info.get('startDate')?.errors &&
-                  (createformGroup_info.get('startDate')?.touched ||
-                    isSubmitted)
-                "
-                [formGroup]="createformGroup_info"
-                [formGroupControlName]="'startDate'"
-              ></app-validation>
-            </div>
-
-            <div class="row">
-              <mat-form-field appearance="outline" class="full-width-input">
-                <mat-label>Ngày kết thúc</mat-label>
-                <input
-                  matInput
-                  [ngxMatDatetimePicker]="picker"
-                  placeholder="Choose a date"
-                  formControlName="endDate"
-                />
-                <mat-datepicker-toggle
-                  matSuffix
-                  [for]="$any(picker)"
-                ></mat-datepicker-toggle>
-                <ngx-mat-datetime-picker
-                  #picker
-                  [showSpinners]="true"
-                  [showSeconds]="true"
-                  [touchUi]="touchUi"
-                  [color]="color"
-                  [enableMeridian]="enableMeridian"
-                >
-                </ngx-mat-datetime-picker>
-              </mat-form-field>
-              <app-validation
-                *ngIf="
-                  this.createformGroup_info.get('endDate')?.errors &&
-                  (createformGroup_info.get('endDate')?.touched || isSubmitted)
-                "
-                [formGroup]="createformGroup_info"
-                [formGroupControlName]="'endDate'"
-              ></app-validation>
-            </div>
-
-            <div class="row">
-              <mat-form-field appearance="outline" class="full-width-input">
-                <mat-label>Tình trạng</mat-label>
-                <select
-                  matNativeControl
-                  required
-                  (change)="changeStatusExist($event)"
-                >
-                  <option value="0">Mới tạo</option>
-                  <option value="1">Đang thực hiện</option>
-                  <option value="2">Hoàn thành</option>
-                  <option value="2">Hủy</option>
-                </select>
-              </mat-form-field>
             </div>
           </div>
         </div>

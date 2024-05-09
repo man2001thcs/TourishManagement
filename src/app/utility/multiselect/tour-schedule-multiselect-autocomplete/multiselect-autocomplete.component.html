@@ -1,5 +1,5 @@
 <div>
-  <div class="row">
+  <div class="row" style="margin-left: 0 !important">
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
       <div class="row">
         <h2
@@ -40,6 +40,7 @@
             align-items: center;
             margin-bottom: 10px;
             padding-left: 15px;
+            margin-left: 40px;
           "
         >
           <mat-expansion-panel
@@ -88,6 +89,7 @@
             align-items: center;
             margin-bottom: 10px;
             padding-left: 15px;
+            margin-left: 40px;
           "
         >
           <mat-expansion-panel
@@ -166,11 +168,13 @@
 
     <div
       class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form"
+      style="margin-bottom: 20px;"
       *ngIf="!disabled"
     >
       <button
         mat-flat-button
         color="primary"
+        style="margin-left: 50px"
         *ngIf="!isNewEdited"
         (click)="onClickAddButton()"
       >
@@ -179,6 +183,7 @@
       <button
         mat-flat-button
         color="warn"
+        style="margin-left: 50px"
         *ngIf="isNewEdited"
         (click)="onClickAddButton()"
       >
@@ -285,8 +290,8 @@
       </div>
 
       <div *ngIf="scheduleEdit == null">
-        <div class="row" style="margin-left: 20px">
-          <div style="margin-right: 20px">
+        <div class="row">
+          <div style="margin-left: 50px; margin-right: 20px">
             <button
               mat-raised-button
               color="primary"
@@ -318,7 +323,11 @@
       <div class="row">
         <h4
           mat-form-label
-          style="font-weight: bold; text-decoration: underline"
+          style="
+            font-weight: bold;
+            text-decoration: underline;
+            margin-left: 20px;
+          "
         >
           Chỉnh sửa thông tin lịch trình
         </h4>
@@ -405,8 +414,8 @@
     </div>
 
     <div *ngIf="scheduleEdit != null">
-      <div class="row" style="margin-left: 20px">
-        <div style="margin-right: 20px">
+      <div class="row">
+        <div style="margin-left: 50px; margin-right: 20px">
           <button
             mat-raised-button
             color="primary"

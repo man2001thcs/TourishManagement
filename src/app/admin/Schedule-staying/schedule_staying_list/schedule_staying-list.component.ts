@@ -28,6 +28,7 @@ import { MessageService } from "src/app/utility/user_service/message.service";
 import { ConfirmDialogComponent } from "src/app/utility/confirm-dialog/confirm-dialog.component";
 import { MovingSchedule, StayingSchedule } from "src/app/model/baseModel";
 import { InterestModalComponent } from "src/app/utility/change-interest-modal/change-interest-modal.component";
+import { ScheduleChangeModalComponent } from "src/app/utility/change-schedule-modal/change-schedule-modal.component";
 
 @Component({
   selector: "app-stayingScheduleList",
@@ -52,11 +53,9 @@ export class StayingScheduleListComponent
     "singlePrice",
     "restHouseType",
     "address",
-    "status",
-    "startDate",
-    "endDate",
     "createDate",
     "interest",
+    "schedule",
     "edit",
     "delete",
   ];
@@ -226,6 +225,32 @@ export class StayingScheduleListComponent
     });
   }
 
+  async openScheduleDialog(schedule: StayingSchedule) {
+    const ref = this.dialog.open(ScheduleChangeModalComponent, {
+      data: {
+        stayingScheduleId: schedule.id,
+        disabled: false,
+      },
+    });
+
+    await ref.afterClosed().subscribe((result) => {
+      this.store.dispatch(
+        StayingScheduleListActions.getStayingScheduleList({
+          payload: {
+            page: this.pageIndex + 1,
+            pageSize: this.pageSize,
+            search: this.searchPhase,
+            type: 0,
+            sortBy: this.sortColumn,
+            sortDirection: this.sortDirection,
+          },
+        })
+      );
+
+      this.messageService.openLoadingDialog();
+    });
+  }
+
   openDeleteDialog(id: string) {
     const ref = this.dialog.open(ConfirmDialogComponent, {
       data: {
@@ -330,11 +355,11 @@ export class StayingScheduleListComponent
   openInterestDialog(schedule: StayingSchedule): void {
     const title = this.isScheduleNotify(schedule)
       ? "Bạn có muốn hủy theo dõi?"
-      : "Bạn có muốn theo dõi tour này?";
+      : "Bạn có muốn theo dõi dịch vụ này?";
     const dialogRef = this.dialog.open(InterestModalComponent, {
       data: {
         resourceId: schedule.id,
-        resourceType: "TourishPlan",
+        resourceType: "StayingSchedule",
         title: title,
       },
     });
@@ -361,21 +386,21 @@ export class StayingScheduleListComponent
       schedule.scheduleInterestList !== null &&
       schedule.scheduleInterestList !== undefined
     ) {
-      switch ( schedule.scheduleInterestList[0].interestStatus) {
+      switch (schedule.scheduleInterestList[0].interestStatus) {
         case 0:
-          return 'Theo dõi với tư cách người tạo';
+          return "Theo dõi với tư cách người tạo";
         case 1:
-          return 'Theo dõi với tư cách người chỉnh sửa';
+          return "Theo dõi với tư cách người chỉnh sửa";
         case 2:
-          return 'Đã quan tâm';
+          return "Đã quan tâm";
         case 3:
-          return 'Người dùng';
+          return "Người dùng";
         case 4:
-          return 'Không quan tâm';
+          return "Không quan tâm";
         default:
-          return 'Không quan tâm';
+          return "Không quan tâm";
       }
     }
-    return 'Không quan tâm';
+    return "Không quan tâm";
   }
 }

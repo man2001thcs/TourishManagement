@@ -28,6 +28,7 @@ import { MessageService } from "src/app/utility/user_service/message.service";
 import { ConfirmDialogComponent } from "src/app/utility/confirm-dialog/confirm-dialog.component";
 import { MovingSchedule } from "src/app/model/baseModel";
 import { InterestModalComponent } from "src/app/utility/change-interest-modal/change-interest-modal.component";
+import { ScheduleChangeModalComponent } from "src/app/utility/change-schedule-modal/change-schedule-modal.component";
 
 @Component({
   selector: "app-movingScheduleList",
@@ -53,11 +54,10 @@ export class MovingScheduleListComponent
     "vehicleType",
     "startingPlace",
     "headingPlace",
-    "status",
-    "startDate",
-    "endDate",
     "createDate",
     "edit",
+    "interest",
+    "schedule",
     "delete",
   ];
 
@@ -246,6 +246,32 @@ export class MovingScheduleListComponent
     });
   }
 
+  async openScheduleDialog(schedule: MovingSchedule) {
+    const ref = this.dialog.open(ScheduleChangeModalComponent, {
+      data: {
+        stayingScheduleId: schedule.id,
+        disabled: false,
+      },
+    });
+
+    await ref.afterClosed().subscribe((result) => {
+      this.store.dispatch(
+        MovingScheduleListActions.getMovingScheduleList({
+          payload: {
+            page: this.pageIndex + 1,
+            pageSize: this.pageSize,
+            search: this.searchPhase,
+            type: 0,
+            sortBy: this.sortColumn,
+            sortDirection: this.sortDirection,
+          },
+        })
+      );
+
+      this.messageService.openLoadingDialog();
+    });
+  }
+
   addData(): void {}
 
   handlePageEvent(e: PageEvent) {
@@ -326,11 +352,11 @@ export class MovingScheduleListComponent
   openInterestDialog(schedule: MovingSchedule): void {
     const title = this.isScheduleNotify(schedule)
       ? "Bạn có muốn hủy theo dõi?"
-      : "Bạn có muốn theo dõi tour này?";
+      : "Bạn có muốn theo dõi dịch vụ này?";
     const dialogRef = this.dialog.open(InterestModalComponent, {
       data: {
         resourceId: schedule.id,
-        resourceType: "TourishPlan",
+        resourceType: "MovingSchedule",
         title: title,
       },
     });

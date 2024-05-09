@@ -269,6 +269,7 @@ import { MovingScheduleAutoCompleteListEffects } from "src/app/utility/multisele
 import { MovingScheduleReceiptCreateComponent } from "../MovingScheduleReceipt/receipt_create/receipt-create.component";
 import { MovingScheduleReceiptDetailComponent } from "../MovingScheduleReceipt/receipt_detail/receipt-detail.component";
 import { MovingScheduleReceiptListComponent } from "../MovingScheduleReceipt/receipt_list/receipt-list.component";
+import { ScheduleChangeModalComponent } from "src/app/utility/change-schedule-modal/change-schedule-modal.component";
 
 @NgModule({
   declarations: [
@@ -341,6 +342,8 @@ import { MovingScheduleReceiptListComponent } from "../MovingScheduleReceipt/rec
     AvatarUploadModalComponent,
     TourScheduleMultiselectAutocompleteComponent,
     InstructionMultiselectAutocompleteComponent,
+
+    ScheduleChangeModalComponent,
     OptionsScrollDirective,
   ],
   imports: [

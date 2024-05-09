@@ -36,7 +36,7 @@ export class InterestModalComponent implements OnInit {
 
   doAction(action: boolean) {
     if (action) {
-      this.changeInterest(); 
+      this.changeInterest();
     }
   }
 
@@ -48,14 +48,18 @@ export class InterestModalComponent implements OnInit {
         interestType: 3,
       };
 
+      this.messageService.openLoadingDialog();
       this.http
         .put("/api/Update" + this.resourceType + "/interest", payload)
         .subscribe((response: any) => {
           if (response) {
+            this.messageService.closeLoadingDialog();
             if (response.resultCd == 0) {
-              this.messageService.openMessageNotifyDialog(response.messageCode)?.subscribe(() => {
-                this.dialogRef.close(true);
-              });
+              this.messageService
+                .openMessageNotifyDialog(response.messageCode)
+                ?.subscribe(() => {
+                  this.dialogRef.close(true);
+                });
             }
           }
         });
@@ -63,18 +67,22 @@ export class InterestModalComponent implements OnInit {
 
     if (this.resourceType === "MovingSchedule") {
       const payload = {
-        movingScheduleId: this.resourceId,
+        scheduleId: this.resourceId,
         interestType: 0,
       };
 
+      this.messageService.openLoadingDialog();
       this.http
-        .post("/api/Update" + this.resourceType + "/interest", payload)
+        .put("/api/Update" + this.resourceType + "/interest", payload)
         .subscribe((response: any) => {
           if (response) {
+            this.messageService.closeLoadingDialog();
             if (response.resultCd == 0) {
-              this.messageService.openMessageNotifyDialog(response.messageCode)?.subscribe(() => {
-                this.dialogRef.close(true);
-              });
+              this.messageService
+                .openMessageNotifyDialog(response.messageCode)
+                ?.subscribe(() => {
+                  this.dialogRef.close(true);
+                });
             }
           }
         });
@@ -82,18 +90,22 @@ export class InterestModalComponent implements OnInit {
 
     if (this.resourceType === "StayingSchedule") {
       const payload = {
-        stayingSchedule: this.resourceId,
+        scheduleId: this.resourceId,
         interestType: 0,
       };
 
+      this.messageService.openLoadingDialog();
       this.http
-        .post("/api/Update" + this.resourceType + "/interest", payload)
+        .put("/api/Update" + this.resourceType + "/interest", payload)
         .subscribe((response: any) => {
           if (response) {
+            this.messageService.closeLoadingDialog();
             if (response.resultCd == 0) {
-              this.messageService.openMessageNotifyDialog(response.messageCode)?.subscribe(() => {
-                this.dialogRef.close(true);
-              });
+              this.messageService
+                .openMessageNotifyDialog(response.messageCode)
+                ?.subscribe(() => {
+                  this.dialogRef.close(true);
+                });
             }
           }
         });

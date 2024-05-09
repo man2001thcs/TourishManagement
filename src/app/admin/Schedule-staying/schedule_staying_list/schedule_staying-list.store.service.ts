@@ -9,7 +9,7 @@ export class StayingScheduleListStoreService {
   constructor(private http: HttpClient) {}
 
   getStayingScheduleList(payload: any): Observable<any> {
-    return this.http.get("/api/GetStayingSchedule", {params: payload});
+    return this.http.get("/api/GetStayingSchedule/with-authority", {params: payload});
   }
 
   deleteStayingSchedule(payload: any): Observable<any> {

@@ -9,7 +9,7 @@ export class MovingScheduleListStoreService {
   constructor(private http: HttpClient) {}
 
   getMovingScheduleList(payload: any): Observable<any> {
-    return this.http.get("/api/GetMovingSchedule", {params: payload});
+    return this.http.get("/api/GetMovingSchedule/with-authority", {params: payload});
   }
 
   deleteMovingSchedule(payload: any): Observable<any> {

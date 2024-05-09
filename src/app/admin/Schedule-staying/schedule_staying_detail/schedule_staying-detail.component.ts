@@ -42,7 +42,6 @@ export class StayingScheduleDetailComponent implements OnInit, OnDestroy {
     restHouseType: 0,
     restHouseBranchId: "",
     singlePrice: 0,
-    status: 0,
     description: "",
   };
 
@@ -91,10 +90,7 @@ export class StayingScheduleDetailComponent implements OnInit, OnDestroy {
       singlePrice: [0],
       restHouseType: [0, Validators.compose([Validators.required])],
       restHouseBranchId: ["", Validators.compose([Validators.required])],
-      status: [null, Validators.compose([Validators.required])],
       description: ["", Validators.compose([Validators.required])],
-      startDate: ["", Validators.compose([Validators.required])],
-      endDate: ["", Validators.compose([Validators.required])],
     });
 
     this.subscriptions.push(
@@ -121,17 +117,8 @@ export class StayingScheduleDetailComponent implements OnInit, OnDestroy {
           this.editformGroup_info.controls["singlePrice"].setValue(
             state.singlePrice ?? ""
           );
-          this.editformGroup_info.controls["status"].setValue(
-            state.status ?? 0
-          );
           this.editformGroup_info.controls["description"].setValue(
             state.description ?? ""
-          );
-          this.editformGroup_info.controls["startDate"].setValue(
-            state.startDate ?? null
-          );
-          this.editformGroup_info.controls["endDate"].setValue(
-            state.endDate ?? null
           );
 
           this.restHouseType = state.restHouseType;
@@ -198,10 +185,7 @@ export class StayingScheduleDetailComponent implements OnInit, OnDestroy {
       singlePrice: this.stayingSchedule.singlePrice ?? 0,
       restHouseType: this.stayingSchedule.restHouseType ?? 0,
       restHouseBranchId: this.stayingSchedule.restHouseBranchId ?? "",
-      status: this.stayingSchedule.status ?? 0,
       description: this.stayingSchedule.description ?? "",
-      startDate: this.stayingSchedule.startDate ?? null,
-      endDate: this.stayingSchedule.endDate ?? null,
     });
   }
 
@@ -226,10 +210,7 @@ export class StayingScheduleDetailComponent implements OnInit, OnDestroy {
         singlePrice: parseInt(this.editformGroup_info.value.singlePrice),
         restHouseType: this.editformGroup_info.value.restHouseType,
         restHouseBranchId: this.editformGroup_info.value.restHouseBranchId,
-        status: this.editformGroup_info.value.status,
         description: this.editformGroup_info.value.description,
-        startDate: this.editformGroup_info.value.startDate,
-        endDate: this.editformGroup_info.value.endDate,
       };
 
       this.messageService.openLoadingDialog();
@@ -251,9 +232,7 @@ export class StayingScheduleDetailComponent implements OnInit, OnDestroy {
         $event.idList[0]
       );
 
-      this.editformGroup_info.controls["placeName"].setValue(
-        $event.nameList[0]
-      );
+    this.editformGroup_info.controls["placeName"].setValue($event.nameList[0]);
   }
 
   changeStatusExist($event: any) {

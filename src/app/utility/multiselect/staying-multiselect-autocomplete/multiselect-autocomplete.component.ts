@@ -130,12 +130,8 @@ export class StayingMultiselectAutocompleteComponent implements OnInit {
       supportNumber: ["", Validators.compose([Validators.required])],
       singlePrice: [0, Validators.compose([Validators.required])],
 
-      status: [0, Validators.compose([Validators.required])],
       restHouseType: [1, Validators.compose([Validators.required])],
       restHouseBranchId: ["", Validators.compose([Validators.required])],
-
-      startDate: ["", Validators.compose([Validators.required])],
-      endDate: ["", Validators.compose([Validators.required])],
 
       description: [
         "",
@@ -149,12 +145,8 @@ export class StayingMultiselectAutocompleteComponent implements OnInit {
       address: ["", Validators.compose([Validators.required])],
       supportNumber: ["", Validators.compose([Validators.required])],
       singlePrice: [0, Validators.compose([Validators.required])],
-      status: [0, Validators.compose([Validators.required])],
       restHouseType: [1, Validators.compose([Validators.required])],
       restHouseBranchId: ["", Validators.compose([Validators.required])],
-
-      startDate: ["", Validators.compose([Validators.required])],
-      endDate: ["", Validators.compose([Validators.required])],
 
       description: [
         "",
@@ -340,21 +332,13 @@ export class StayingMultiselectAutocompleteComponent implements OnInit {
         address: this.stayingFormGroup.value.address,
         supportNumber: this.stayingFormGroup.value.supportNumber,
         restHouseBranchId: this.stayingFormGroup.value.restHouseBranchId,
-        status: this.stayingFormGroup.value.status,
         restHouseType: this.stayingFormGroup.value.restHouseType,
         singlePrice: this.stayingFormGroup.value.singlePrice,
-        startDate: this.stayingFormGroup.value.startDate,
-        endDate: this.stayingFormGroup.value.endDate,
         description: this.editorContent,
       };
 
       this.stayingScheduleList = [schedule, ...this.stayingScheduleList];
 
-      this.stayingScheduleList.sort(
-        (a: StayingSchedule, b: StayingSchedule) => {
-          return moment(a.startDate).valueOf() - moment(b.startDate).valueOf();
-        }
-      );
 
       this.emitAdjustedData();
       this.formReset();
@@ -388,12 +372,6 @@ export class StayingMultiselectAutocompleteComponent implements OnInit {
       this.editStayingFormGroup.controls["singlePrice"].setValue(
         this.stayingScheduleEdit.singlePrice
       );
-      this.editStayingFormGroup.controls["startDate"].setValue(
-        this.stayingScheduleEdit.startDate
-      );
-      this.editStayingFormGroup.controls["endDate"].setValue(
-        this.stayingScheduleEdit.endDate
-      );
       this.editStayingFormGroup.controls["description"].setValue(
         this.stayingScheduleEdit.description
       );
@@ -414,10 +392,7 @@ export class StayingMultiselectAutocompleteComponent implements OnInit {
         supportNumber: this.editStayingFormGroup.value.supportNumber,
         restHouseBranchId: this.editStayingFormGroup.value.restHouseBranchId,
         restHouseType: this.editStayingFormGroup.value.restHouseType,
-        status: this.editStayingFormGroup.value.status,
         singlePrice: this.editStayingFormGroup.value.singlePrice,
-        startDate: this.editStayingFormGroup.value.startDate,
-        endDate: this.editStayingFormGroup.value.endDate,
         description: this.editorContent,
       };
 
@@ -467,8 +442,6 @@ export class StayingMultiselectAutocompleteComponent implements OnInit {
       restHouseBranchId: "",
       restHouseType: 1,
       singlePrice: 0,
-      startDate: "",
-      endDate: "",
     });
 
     this.isSubmit = false;
@@ -507,18 +480,6 @@ export class StayingMultiselectAutocompleteComponent implements OnInit {
 
   cancelLoading() {
     this.isLoading = false;
-  }
-
-  changeStatus($event: any) {
-    this.stayingFormGroup.controls["status"].setValue(
-      parseInt($event.target.value)
-    );
-  }
-
-  changeStatusExist($event: any) {
-    this.editStayingFormGroup.controls["status"].setValue(
-      parseInt($event.target.value)
-    );
   }
 
   getScheduleEditId(): string {

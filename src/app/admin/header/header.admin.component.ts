@@ -1,4 +1,5 @@
 import {
+  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
@@ -69,7 +70,8 @@ export class HeaderAdminComponent implements OnDestroy {
     private fb: FormBuilder,
     private router: Router,
     private renderer: Renderer2,
-    private http: HttpClient
+    private http: HttpClient,
+    private cdr: ChangeDetectorRef
   ) {}
 
   id = 0;
@@ -338,5 +340,6 @@ export class HeaderAdminComponent implements OnDestroy {
 
   setNotifyUnread($event: number) {
     this.notifyUnreadNumber = $event;
+    this.cdr.detectChanges();
   }
 }

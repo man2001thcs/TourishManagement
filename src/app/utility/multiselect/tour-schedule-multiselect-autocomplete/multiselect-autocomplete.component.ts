@@ -7,6 +7,8 @@ import {
   Input,
   Output,
   EventEmitter,
+  OnChanges,
+  SimpleChanges,
 } from "@angular/core";
 import {
   FormBuilder,
@@ -27,7 +29,7 @@ import { ThemePalette } from "@angular/material/core";
   templateUrl: "multiselect-autocomplete.component.html",
   styleUrls: ["multiselect-autocomplete.component.css"],
 })
-export class TourScheduleMultiselectAutocompleteComponent implements OnInit {
+export class TourScheduleMultiselectAutocompleteComponent implements OnInit, OnChanges {
   separatorKeysCodes: number[] = [ENTER, COMMA];
   movingCtrl = new FormControl("");
   @ViewChild("picker") movingPicker: any;
@@ -88,6 +90,9 @@ export class TourScheduleMultiselectAutocompleteComponent implements OnInit {
     private messageService: MessageService,
     private fb: FormBuilder
   ) {}
+  ngOnChanges(changes: SimpleChanges): void {
+    this.data_selected_edit = [...this.data_selected];
+  }
 
   ngOnInit(): void {
     this.data_selected_edit = [...this.data_selected];
@@ -129,18 +134,25 @@ export class TourScheduleMultiselectAutocompleteComponent implements OnInit {
     this.isSubmit = true;
 
     if (this.scheduleFormGroup.valid && this.scheduleFormGroup.dirty) {
-      const schedule: TourishSchedule = {
+      let schedule: TourishSchedule = {
         startDate: this.scheduleFormGroup.value.startDate,
         endDate: this.scheduleFormGroup.value.endDate,
-        planStatus: parseInt(this.scheduleFormGroup.value.planStatus),
       };
 
-      if (this.tourishPlanId.length > 0)
+      if (this.tourishPlanId.length > 0) {
         schedule.tourishPlanId = this.tourishPlanId;
-      if (this.movingScheduleId.length > 0)
+        schedule.planStatus = parseInt(this.scheduleFormGroup.value.planStatus);
+      }
+
+      if (this.movingScheduleId.length > 0) {
         schedule.movingScheduleId = this.movingScheduleId;
-      if (this.stayingScheduleId.length > 0)
+        schedule.status = parseInt(this.scheduleFormGroup.value.planStatus);
+      }
+
+      if (this.stayingScheduleId.length > 0) {
         schedule.stayingScheduleId = this.stayingScheduleId;
+        schedule.status = parseInt(this.scheduleFormGroup.value.planStatus);
+      }
 
       this.scheduleList = [schedule, ...this.scheduleList];
 
@@ -190,11 +202,13 @@ export class TourScheduleMultiselectAutocompleteComponent implements OnInit {
         this.data_selected_edit[this.indexTourishScheduleEdit].tourishPlanId =
           this.tourishPlanId;
       if (this.movingScheduleId.length > 0)
-        this.data_selected_edit[this.indexTourishScheduleEdit].movingScheduleId =
-          this.movingScheduleId;
+        this.data_selected_edit[
+          this.indexTourishScheduleEdit
+        ].movingScheduleId = this.movingScheduleId;
       if (this.stayingScheduleId.length > 0)
-        this.data_selected_edit[this.indexTourishScheduleEdit].stayingScheduleId =
-          this.stayingScheduleId;
+        this.data_selected_edit[
+          this.indexTourishScheduleEdit
+        ].stayingScheduleId = this.stayingScheduleId;
 
       this.messageService
         .openNotifyDialog("Thay đổi thành công")

@@ -135,9 +135,6 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
       startingPlace: ["", Validators.compose([Validators.required])],
       headingPlace: ["", Validators.compose([Validators.required])],
 
-      startDate: ["", Validators.compose([Validators.required])],
-      endDate: ["", Validators.compose([Validators.required])],
-
       description: ["", Validators.compose([Validators.required])],
     });
 
@@ -153,9 +150,6 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
 
       startingPlace: ["", Validators.compose([Validators.required])],
       headingPlace: ["", Validators.compose([Validators.required])],
-
-      startDate: ["", Validators.compose([Validators.required])],
-      endDate: ["", Validators.compose([Validators.required])],
 
       description: ["", Validators.compose([Validators.required])],
     });
@@ -341,21 +335,14 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
 
         transportId: this.movingFormGroup.value.transportId,
         vehicleType: this.movingFormGroup.value.vehicleType,
-        status: this.movingFormGroup.value.status,
         startingPlace: this.movingFormGroup.value.startingPlace,
         headingPlace: this.movingFormGroup.value.headingPlace,
 
         singlePrice: this.movingFormGroup.value.singlePrice,
-        startDate: this.movingFormGroup.value.startDate,
-        endDate: this.movingFormGroup.value.endDate,
         description: this.editorContent,
       };
 
       this.movingScheduleList = [schedule, ...this.movingScheduleList];
-
-      this.movingScheduleList.sort((a: MovingSchedule, b: MovingSchedule) => {
-        return moment(a.startDate).valueOf() - moment(b.startDate).valueOf();
-      });
 
       this.emitAdjustedData();
       this.formReset();
@@ -401,13 +388,6 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
       this.editMovingFormGroup.controls["headingPlace"].setValue(
         this.movingScheduleEdit.headingPlace
       );
-
-      this.editMovingFormGroup.controls["startDate"].setValue(
-        this.movingScheduleEdit.startDate
-      );
-      this.editMovingFormGroup.controls["endDate"].setValue(
-        this.movingScheduleEdit.endDate
-      );
       this.editMovingFormGroup.controls["description"].setValue(
         this.movingScheduleEdit.description
       );
@@ -426,12 +406,8 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
         transportId: this.editMovingFormGroup.value.transportId,
         vehicleType: this.editMovingFormGroup.value.vehicleType,
         singlePrice: this.editMovingFormGroup.value.singlePrice,
-        status: this.editMovingFormGroup.value.status,
         startingPlace: this.editMovingFormGroup.value.startingPlace,
         headingPlace: this.editMovingFormGroup.value.headingPlace,
-
-        startDate: this.editMovingFormGroup.value.startDate,
-        endDate: this.editMovingFormGroup.value.endDate,
         description: this.editorContent,
       };
 
@@ -479,8 +455,6 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
       restHouseBranchId: "",
       restHouseType: 1,
       singlePrice: 0,
-      startDate: "",
-      endDate: "",
     });
 
     this.isSubmit = false;
@@ -519,18 +493,6 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
 
   cancelLoading() {
     this.isLoading = false;
-  }
-
-  changeStatus($event: any) {
-    this.movingFormGroup.controls["status"].setValue(
-      parseInt($event.target.value)
-    );
-  }
-
-  changeStatusExist($event: any) {
-    this.editMovingFormGroup.controls["status"].setValue(
-      parseInt($event.target.value)
-    );
   }
 
   getScheduleEditId(): string {

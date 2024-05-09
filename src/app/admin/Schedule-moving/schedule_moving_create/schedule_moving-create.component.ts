@@ -130,8 +130,6 @@ export class MovingScheduleCreateComponent implements OnInit, OnDestroy {
       headingPlace: ["", Validators.compose([Validators.required])],
       status: [0, Validators.compose([Validators.required])],
       description: ["", Validators.compose([Validators.required])],
-      startDate: ["", Validators.compose([Validators.required])],
-      endDate: ["", Validators.compose([Validators.required])],
     });
   }
 
@@ -154,10 +152,7 @@ export class MovingScheduleCreateComponent implements OnInit, OnDestroy {
       transportId: "",
       startingPlace: "",
       headingPlace: "",
-      status: 0,
       description: "",
-      startDate: null,
-      endDate: null,
       createDate: null,
       updateDate: null,
     });
@@ -181,10 +176,7 @@ export class MovingScheduleCreateComponent implements OnInit, OnDestroy {
         transportId: this.createformGroup_info.value.transportId,
         startingPlace: this.createformGroup_info.value.startingPlace,
         headingPlace: this.createformGroup_info.value.headingPlace,
-        status: this.createformGroup_info.value.status,
         description: this.editorContent,
-        startDate: this.createformGroup_info.value.startDate,
-        endDate: this.createformGroup_info.value.endDate,
       };
 
       this.messageService.openLoadingDialog();

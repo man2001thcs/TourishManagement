@@ -126,10 +126,7 @@ export class StayingScheduleCreateComponent implements OnInit, OnDestroy {
       singlePrice: [0],
       restHouseType: [0, Validators.compose([Validators.required])],
       restHouseBranchId: ["", Validators.compose([Validators.required])],
-      status: [null, Validators.compose([Validators.required])],
       description: ["", Validators.compose([Validators.required])],
-      startDate: ["", Validators.compose([Validators.required])],
-      endDate: ["", Validators.compose([Validators.required])],
     });
   }
 
@@ -149,12 +146,8 @@ export class StayingScheduleCreateComponent implements OnInit, OnDestroy {
       restHouseType: null,
       restHouseBranchId: "",
       address: "",
-      status: 0,
       description: "",
-      startDate: null,
-      endDate: null,
-      createDate: null,
-      updateDate: null,
+
     });
   }
 
@@ -173,10 +166,7 @@ export class StayingScheduleCreateComponent implements OnInit, OnDestroy {
         singlePrice: parseInt(this.createformGroup_info.value.singlePrice),
         restHouseType: this.createformGroup_info.value.restHouseType,
         restHouseBranchId: this.createformGroup_info.value.restHouseBranchId,
-        status: this.createformGroup_info.value.status,
         description: this.editorContent,
-        startDate: this.createformGroup_info.value.startDate,
-        endDate: this.createformGroup_info.value.endDate,
       };
 
       this.messageService.openLoadingDialog();

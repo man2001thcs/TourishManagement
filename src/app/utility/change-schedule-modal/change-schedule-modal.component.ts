@@ -34,6 +34,7 @@ export class ScheduleChangeModalComponent implements OnInit {
   stayingSchedule!: StayingSchedule;
 
   scheduleList: TourishSchedule[] = [];
+  scheduleEditList: TourishSchedule[] = [];
 
   constructor(
     private http: HttpClient,
@@ -49,6 +50,8 @@ export class ScheduleChangeModalComponent implements OnInit {
     this.tourishPlanId = this.data.tourishPlanId ?? "";
     this.movingScheduleId = this.data.movingSCheduleId ?? "";
     this.stayingScheduleId = this.data.stayingScheduleId ?? "";
+
+    this.getSchedule();
   }
 
   doAction(action: boolean) {
@@ -61,10 +64,6 @@ export class ScheduleChangeModalComponent implements OnInit {
     let targetUrl = "";
 
     if (this.tourishPlanId.length > 0) {
-      const payload = {
-        tourishPlanId: this.resourceId,
-        interestType: 3,
-      };
 
       this.http
         .get("/api/GetTourishPlan/" + this.tourishPlanId)
@@ -79,13 +78,9 @@ export class ScheduleChangeModalComponent implements OnInit {
     }
 
     if (this.movingScheduleId.length > 0) {
-      const payload = {
-        movingScheduleId: this.resourceId,
-        interestType: 0,
-      };
 
       this.http
-        .get("/api/GetMovingScheduleId/" + this.movingScheduleId)
+        .get("/api/GetMovingSchedule/" + this.movingScheduleId)
         .subscribe((response: any) => {
           if (response) {
             if (response.resultCd == 0) {
@@ -97,10 +92,6 @@ export class ScheduleChangeModalComponent implements OnInit {
     }
 
     if (this.stayingScheduleId.length > 0) {
-      const payload = {
-        stayingSchedule: this.resourceId,
-        interestType: 0,
-      };
 
       this.http
         .get("/api/GetStayingSchedule/" + this.stayingScheduleId)
@@ -110,6 +101,8 @@ export class ScheduleChangeModalComponent implements OnInit {
               this.stayingSchedule = response.data;
               this.scheduleList =
                 this.stayingSchedule.serviceScheduleList ?? [];
+
+                console.log(this.scheduleList);
             }
           }
         });
@@ -120,19 +113,23 @@ export class ScheduleChangeModalComponent implements OnInit {
 
   selectChangeSchedule = (event: any) => {
     console.log(event.data);
-    this.scheduleList = event.data;
+    this.scheduleEditList = event.data;
   };
 
   changeSchedule() {
-    let targetUrl = "";
+   
+    console.log(this.stayingScheduleId);
+
     if (this.tourishPlanId.length > 0) {
       let payload = this.tourishPlan;
-      payload.tourishScheduleList = this.scheduleList;
+      payload.tourishScheduleList = this.scheduleEditList;
 
+      this.messageService.openLoadingDialog();
       this.http
         .put("/api/UpdateTourishPlan/" + this.tourishPlanId, payload)
         .subscribe((response: any) => {
           if (response) {
+            this.messageService.closeLoadingDialog();
             if (response.resultCd == 0) {
               this.messageService
                 .openMessageNotifyDialog(response.messageCode)
@@ -146,12 +143,14 @@ export class ScheduleChangeModalComponent implements OnInit {
 
     if (this.movingScheduleId.length > 0) {
       let payload = this.movingSchedule;
-      payload.serviceScheduleList = this.scheduleList;
+      payload.serviceScheduleList = this.scheduleEditList;
 
+      this.messageService.openLoadingDialog();
       this.http
       .put("/api/UpdateMovingSchedule/" + this.movingScheduleId, payload)
         .subscribe((response: any) => {
           if (response) {
+            this.messageService.closeLoadingDialog();
             if (response.resultCd == 0) {
               this.messageService
                 .openMessageNotifyDialog(response.messageCode)
@@ -165,12 +164,14 @@ export class ScheduleChangeModalComponent implements OnInit {
 
     if (this.stayingScheduleId.length > 0) {
       let payload = this.stayingSchedule;
-      payload.serviceScheduleList = this.scheduleList;
+      payload.serviceScheduleList = this.scheduleEditList;
 
+      this.messageService.openLoadingDialog();
       this.http
       .put("/api/UpdateStayingSchedule/" + this.stayingScheduleId, payload)
         .subscribe((response: any) => {
           if (response) {
+            this.messageService.closeLoadingDialog();
             if (response.resultCd == 0) {
               this.messageService
                 .openMessageNotifyDialog(response.messageCode)
@@ -183,6 +184,20 @@ export class ScheduleChangeModalComponent implements OnInit {
     }
 
     return true;
+  }
+
+  reset(){
+    if (this.tourishPlanId.length > 0) {
+      this.scheduleList = this.tourishPlan.tourishScheduleList ?? [];
+    }
+
+    if (this.movingScheduleId.length > 0) {
+      this.scheduleList = this.movingSchedule.serviceScheduleList ?? [];
+    }
+
+    if (this.stayingScheduleId.length > 0) {
+      this.scheduleList = this.stayingSchedule.serviceScheduleList ?? [];
+    }
   }
 
   closeDialog() {

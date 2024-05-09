@@ -32,14 +32,65 @@
       flex-direction: column !important;
     "
   >
+    <div class="container-controller">
+      <div
+        class="row"
+        style="display: flex; flex-direction: row !important; flex-wrap: 1; margin-bottom: 20px;"
+      >
+        <div style="margin-right: 20px">
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="disabled = false"
+            *ngIf="disabled"
+          >
+            Sửa đổi
+          </button>
+        </div>
+        <div style="margin-right: 20px">
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="changeSchedule()"
+            *ngIf="!disabled"
+          >
+            Lưu thay đổi
+          </button>
+        </div>
+
+        <div style="margin-right: 20px">
+          <button
+            mat-raised-button
+            color="danger"
+            (click)="disabled = true"
+            *ngIf="!disabled"
+          >
+            Hủy
+          </button>
+        </div>
+
+        <div>
+          <button
+            mat-raised-button
+            color="warn"
+            type="button"
+            (click)="reset()"
+            *ngIf="!disabled"
+          >
+            Khôi phục ban đầu
+          </button>
+        </div>
+      </div>
+    </div>
+
     <div
       class="row"
-      style="display: flex; flex-direction: column !important; flex-wrap: 1"
+      style="display: flex; flex-direction: column !important; flex-wrap: 1; margin-left: 0 !important;"
     >
       <schedule-multiselect-autocomplete
         [disabled]="disabled"
         [tourishPlanId]="this.tourishPlanId"
-        [data_selected]="scheduleList"
+        [data_selected]="this.scheduleList"
         (result)="selectChangeSchedule($event)"
         style="width: 100%"
       >

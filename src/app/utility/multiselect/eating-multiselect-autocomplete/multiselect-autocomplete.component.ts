@@ -129,12 +129,7 @@ export class EatingMultiselectAutocompleteComponent implements OnInit {
       address: ["", Validators.compose([Validators.required])],
       supportNumber: ["", Validators.compose([Validators.required])],
       singlePrice: [0, Validators.compose([Validators.required])],
-
-      status: [0, Validators.compose([Validators.required])],
       restaurantId: ["", Validators.compose([Validators.required])],
-
-      startDate: ["", Validators.compose([Validators.required])],
-      endDate: ["", Validators.compose([Validators.required])],
 
       description: [
         "",
@@ -149,11 +144,7 @@ export class EatingMultiselectAutocompleteComponent implements OnInit {
       supportNumber: ["", Validators.compose([Validators.required])],
       singlePrice: [0, Validators.compose([Validators.required])],
 
-      status: [0, Validators.compose([Validators.required])],
       restaurantId: ["", Validators.compose([Validators.required])],
-
-      startDate: ["", Validators.compose([Validators.required])],
-      endDate: ["", Validators.compose([Validators.required])],
 
       description: [
         "",
@@ -305,20 +296,13 @@ export class EatingMultiselectAutocompleteComponent implements OnInit {
       const schedule: EatSchedule = {
         placeName: this.eatingFormGroup.value.placeName,
         address: this.eatingFormGroup.value.address,
-        status: this.eatingFormGroup.value.status,
         supportNumber: this.eatingFormGroup.value.supportNumber,
         restaurantId: this.eatingFormGroup.value.restaurantId,
         singlePrice: this.eatingFormGroup.value.singlePrice,
-        startDate: this.eatingFormGroup.value.startDate,
-        endDate: this.eatingFormGroup.value.endDate,
         description: this.editorContent,
       };
 
       this.eatingScheduleList = [schedule, ...this.eatingScheduleList];
-
-      this.eatingScheduleList.sort((a: EatSchedule, b: EatSchedule) => {
-        return moment(a.startDate).valueOf() - moment(b.startDate).valueOf();
-      });
 
       this.editorContent = "";
 
@@ -335,9 +319,6 @@ export class EatingMultiselectAutocompleteComponent implements OnInit {
       this.eatingScheduleEdit = this.data_selected_edit[existIndex];
       this.indexEatScheduleEdit = existIndex;
 
-      this.editEatingFormGroup.controls["status"].setValue(
-        this.eatingScheduleEdit.status
-      );
       this.editEatingFormGroup.controls["placeName"].setValue(
         this.eatingScheduleEdit.placeName
       );
@@ -352,12 +333,6 @@ export class EatingMultiselectAutocompleteComponent implements OnInit {
       );
       this.editEatingFormGroup.controls["singlePrice"].setValue(
         this.eatingScheduleEdit.singlePrice
-      );
-      this.editEatingFormGroup.controls["startDate"].setValue(
-        this.eatingScheduleEdit.startDate
-      );
-      this.editEatingFormGroup.controls["endDate"].setValue(
-        this.eatingScheduleEdit.endDate
       );
       this.editEatingFormGroup.controls["description"].setValue(
         this.eatingScheduleEdit.description
@@ -376,9 +351,6 @@ export class EatingMultiselectAutocompleteComponent implements OnInit {
         supportNumber: this.editEatingFormGroup.value.supportNumber,
         restaurantId: this.editEatingFormGroup.value.restaurantId,
         singlePrice: this.editEatingFormGroup.value.singlePrice,
-        status: this.editEatingFormGroup.value.status,
-        startDate: this.editEatingFormGroup.value.startDate,
-        endDate: this.editEatingFormGroup.value.endDate,
         description: this.editorContent,
       };
 
@@ -425,8 +397,6 @@ export class EatingMultiselectAutocompleteComponent implements OnInit {
       restHouseBranchId: "",
       restHouseType: 1,
       singlePrice: 0,
-      startDate: "",
-      endDate: "",
     });
 
     this.isSubmit = false;
@@ -448,18 +418,6 @@ export class EatingMultiselectAutocompleteComponent implements OnInit {
         );
       }
     }
-  }
-
-  changeStatus($event: any) {
-    this.eatingFormGroup.controls["status"].setValue(
-      parseInt($event.target.value)
-    );
-  }
-
-  changeStatusExist($event: any) {
-    this.editEatingFormGroup.controls["status"].setValue(
-      parseInt($event.target.value)
-    );
   }
 
   onDisplayAtr(eating: Restaurant): string {

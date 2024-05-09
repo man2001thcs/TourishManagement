@@ -248,7 +248,7 @@
           <td>
             {{ getDateFormat(schedule.startDate) }}
           </td>
-          <th>{{ getStatusPhase(schedule.planStatus.toString()) }}</th>
+          <th>{{ getStatusPhase((schedule.planStatus ?? "").toString()) }}</th>
         </tr>
       </tbody>
     </table>

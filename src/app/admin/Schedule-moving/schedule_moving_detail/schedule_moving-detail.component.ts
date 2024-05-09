@@ -39,7 +39,6 @@ export class MovingScheduleDetailComponent implements OnInit, OnDestroy {
     driverName: "",
     vehiclePlate: "",
     transportId: "",
-    status: 0,
     description: "",
     vehicleType: 0,
     phoneNumber: "",
@@ -97,8 +96,6 @@ export class MovingScheduleDetailComponent implements OnInit, OnDestroy {
       headingPlace: ["", Validators.compose([Validators.required])],
       status: [null, Validators.compose([Validators.required])],
       description: ["", Validators.compose([Validators.required])],
-      startDate: ["", Validators.compose([Validators.required])],
-      endDate: ["", Validators.compose([Validators.required])],
     });
 
     this.subscriptions.push(
@@ -140,12 +137,6 @@ export class MovingScheduleDetailComponent implements OnInit, OnDestroy {
           );
           this.editformGroup_info.controls["description"].setValue(
             state.description ?? ""
-          );
-          this.editformGroup_info.controls["startDate"].setValue(
-            state.startDate ?? null
-          );
-          this.editformGroup_info.controls["endDate"].setValue(
-            state.endDate ?? null
           );
 
           this.vehicleType = state.vehicleType;
@@ -218,10 +209,7 @@ export class MovingScheduleDetailComponent implements OnInit, OnDestroy {
       transportId: this.movingSchedule.transportId ?? "",
       startingPlace: this.movingSchedule.startingPlace ?? "",
       headingPlace: this.movingSchedule.headingPlace ?? "",
-      status: this.movingSchedule.status ?? 0,
       description: this.movingSchedule.description ?? "",
-      startDate: this.movingSchedule.startDate ?? null,
-      endDate: this.movingSchedule.endDate ?? null,
     });
   }
 
@@ -247,10 +235,7 @@ export class MovingScheduleDetailComponent implements OnInit, OnDestroy {
         transportId: this.editformGroup_info.value.transportId,
         startingPlace: this.editformGroup_info.value.startingPlace,
         headingPlace: this.editformGroup_info.value.headingPlace,
-        status: this.editformGroup_info.value.status,
         description: this.editformGroup_info.value.description,
-        startDate: this.editformGroup_info.value.startDate,
-        endDate: this.editformGroup_info.value.endDate,
       };
 
       this.messageService.openLoadingDialog();

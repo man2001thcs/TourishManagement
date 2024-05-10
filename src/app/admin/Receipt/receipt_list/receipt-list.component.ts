@@ -271,7 +271,7 @@ export class ReceiptListComponent implements OnInit, AfterViewInit, OnDestroy {
     console.log("abc");
   }
 
-  tourStatusChange(): void {
+  tourStatusChange($event: number): void {
     this.pageIndex = 0;
 
     this.store.dispatch(
@@ -279,7 +279,7 @@ export class ReceiptListComponent implements OnInit, AfterViewInit, OnDestroy {
         payload: {
           page: this.pageIndex + 1,
           pageSize: this.pageSize,
-          status: this.active,
+          status: $event,
           tourishPlanId: this.tourishPlanId,
           sortBy: this.sortColumn,
           sortDirection: this.sortDirection,

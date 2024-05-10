@@ -189,9 +189,8 @@
           Chỉnh sửa thông tin lịch trình
         </h4>
       </div>
-      <div class="row" [formGroup]="editEatingFormGroup">
+      <div [formGroup]="editEatingFormGroup">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form">
-        
           <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
             <mat-form-field appearance="outline" class="full-width-input">
               <mat-label>Địa chỉ nơi ăn uống</mat-label>
@@ -245,13 +244,15 @@
         </div>
       </div>
 
-      <div *ngIf="eatingScheduleEdit != null">
+      <div
+        *ngIf="eatingScheduleEdit != null"
+      >
         <div
           class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form"
           style="display: flex; flex-direction: column !important; flex-wrap: 1"
         >
           <app-tiny-mce-editor
-            style="width: 90% !important"
+            style="width: 95% !important"
             [blobName]="getScheduleEditId()"
             [containerName]="'eatschedule-content-container'"
             (result)="getTinyMceResult($event)"
@@ -259,8 +260,13 @@
         </div>
 
         <div
-          class="row"
-          style="display: flex; flex-direction: row !important; flex-wrap: 1"
+          class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form"
+          style="
+            display: flex;
+            flex-direction: row !important;
+            flex-wrap: 1;
+            margin-left: 50px;
+          "
         >
           <div style="margin-right: 20px">
             <button
@@ -358,7 +364,7 @@
         </mat-form-field>
       </div>
 
-      <div *ngIf="eatingNameList.length >= 1" [formGroup]="eatingFormGroup">     
+      <div *ngIf="eatingNameList.length >= 1" [formGroup]="eatingFormGroup">
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
           <mat-form-field appearance="outline" class="full-width-input">
             <mat-label>Địa chỉ nơi uống</mat-label>
@@ -408,8 +414,9 @@
             [formGroup]="eatingFormGroup"
             [formGroupControlName]="'singlePrice'"
           ></app-validation>
-        </div>      
+        </div>
       </div>
+
       <div *ngIf="eatingNameList.length >= 1">
         <div
           class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form"
@@ -425,7 +432,13 @@
 
         <div
           class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form"
-          style="display: flex; flex-direction: row !important; flex-wrap: 1"
+          style="
+            display: flex;
+            flex-direction: row !important;
+            flex-wrap: 1;
+            margin-left: 50px;
+            align-self: start;
+          "
         >
           <div style="margin-right: 20px">
             <button

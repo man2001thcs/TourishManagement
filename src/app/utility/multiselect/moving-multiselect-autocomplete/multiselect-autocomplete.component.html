@@ -262,7 +262,7 @@
         </mat-form-field>
       </div>
 
-      <div *ngIf="movingNameList.length >= 1" [formGroup]="movingFormGroup">     
+      <div *ngIf="movingNameList.length >= 1" [formGroup]="movingFormGroup">
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
           <mat-form-field appearance="outline" class="full-width-input">
             <mat-label>Tên lái xe</mat-label>
@@ -380,14 +380,11 @@
             [formGroup]="movingFormGroup"
             [formGroupControlName]="'singlePrice'"
           ></app-validation>
-        </div>      
+        </div>
       </div>
 
       <div *ngIf="movingScheduleEdit == null && movingNameList.length >= 1">
-        <div
-          class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form"
-          style="display: flex; flex-direction: column !important; flex-wrap: 1"
-        >
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form" style="display: flex; flex-direction: column !important; flex-wrap: 1">
           <app-tiny-mce-editor
             style="width: 90% !important"
             [blobName]="getScheduleEditId()"
@@ -397,8 +394,14 @@
         </div>
 
         <div
-          class="row"
-          style="display: flex; flex-direction: row !important; flex-wrap: 1"
+          class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form"
+          style="
+            display: flex;
+            flex-direction: row !important;
+            flex-wrap: 1;
+            margin-left: 50px;
+            align-self: start;
+          "
         >
           <div style="margin-right: 20px">
             <button
@@ -437,7 +440,8 @@
           Chỉnh sửa thông tin lịch trình
         </h4>
       </div>
-      <div class="row" [formGroup]="editMovingFormGroup">     
+
+      <div [formGroup]="editMovingFormGroup">
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
           <mat-form-field appearance="outline" class="full-width-input">
             <mat-label>Tên lái xe</mat-label>
@@ -540,47 +544,53 @@
           ></app-validation>
         </div>
       </div>
-    </div>
 
-    <div *ngIf="movingScheduleEdit != null">
-      <div
-        class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form"
-        style="display: flex; flex-direction: column !important; flex-wrap: 1"
-      >
-        <app-tiny-mce-editor
-          style="width: 90% !important"
-          [blobName]="getScheduleEditId()"
-          [containerName]="'movingschedule-content-container'"
-          (result)="getTinyMceResult($event)"
-        ></app-tiny-mce-editor>
-      </div>
-
-      <div
-        class="row"
-        style="display: flex; flex-direction: row !important; flex-wrap: 1"
-      >
-        <div style="margin-right: 20px">
-          <button
-            mat-raised-button
-            color="primary"
-            type="button"
-            (click)="editToSchedulesList()"
-            [disabled]="disabled"
-          >
-            Lưu
-          </button>
+      <div *ngIf="movingScheduleEdit != null">
+        <div
+          class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form"
+          style="display: flex; flex-direction: column !important; flex-wrap: 1"
+        >
+          <app-tiny-mce-editor
+            style="width: 90% !important"
+            [blobName]="getScheduleEditId()"
+            [containerName]="'movingschedule-content-container'"
+            (result)="getTinyMceResult($event)"
+          ></app-tiny-mce-editor>
         </div>
 
-        <div>
-          <button
-            mat-raised-button
-            color="warn"
-            type="button"
-            (click)="cancelEditSchedule()"
-            [disabled]="disabled"
-          >
-            Hủy
-          </button>
+        <div
+          class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form"
+          style="
+            display: flex;
+            flex-direction: row !important;
+            flex-wrap: 1;
+            margin-left: 50px;
+            align-self: start;
+          "
+        >
+          <div style="margin-right: 20px">
+            <button
+              mat-raised-button
+              color="primary"
+              type="button"
+              (click)="editToSchedulesList()"
+              [disabled]="disabled"
+            >
+              Lưu
+            </button>
+          </div>
+
+          <div>
+            <button
+              mat-raised-button
+              color="warn"
+              type="button"
+              (click)="cancelEditSchedule()"
+              [disabled]="disabled"
+            >
+              Hủy
+            </button>
+          </div>
         </div>
       </div>
     </div>

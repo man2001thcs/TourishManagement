@@ -12,6 +12,7 @@ const HEADER_CODE: Map<string, string> = new Map([
   ["/admin/notification/list", "10th"],
   ["/admin/notification/list", "11th"],
   ["/admin/transport/service/list", "12th"],
+  ["/admin/resthouse/service/list", "13th"]
 ]);
 
 export function getHeaderPhase(key: string): string {

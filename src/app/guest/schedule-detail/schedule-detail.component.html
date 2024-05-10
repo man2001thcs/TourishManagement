@@ -18,15 +18,6 @@
         this.schedule?.headingPlace
       }}</span></span
     >
-
-    <span
-      ><i class="fa fa-calendar" aria-hidden="true"></i>
-      {{ getDateFormat(schedule?.startDate) }}</span
-    >
-    <span
-      ><i class="fa fa-clock-o" aria-hidden="true"></i>
-      {{ getDuration() }}</span
-    >
     <span *ngIf="this.schedule?.vehicleType !== undefined">
       <i
         class="fa fa-bus"
@@ -68,64 +59,59 @@
       </mat-tab>
       <mat-tab label="Giá không bao gồm">
         <div class="price-container">
-          <p>
-            - Với du lịch nước ngoài: Yêu cầu hộ chiếu phải còn thời hạn sử dụng trên 6 tháng, Tính từ ngày khởi
-            hành đi và về.
-          </p>
-          <p>
-            - Hành lý quá cước qui định. Xe vận chuyển ngoài chương trình + Các
-            show về đêm.
-          </p>
-          <p>
-            - Điện thoại, giặt ủi, nước uống trong phòng khách sạn và các chi
-            phí cá nhân khác.
-          </p>
+          <div class="price-container">
+            <mat-list>
+              <mat-list-item
+                *ngFor="let instruction of getPriceInstruction(); index as i"
+              >
+                <span  matListItemLine class="list-item">
+                  {{ i + 1 + ". " + instruction.description }}</span
+                >
+              </mat-list-item>
+            </mat-list>
+          </div>
         </div></mat-tab
       >
       <mat-tab label="Lưu ý">
         <div class="price-container">
-          <p>- Tour du lịch thuần túy, Quý khách vui lòng không rời đoàn.</p>
-          <p>
-            - Du khách Việt Kiều hoặc nước ngoài phải có visa tái nhập nhiều lần
-            hoặc miễn thị thực 5 năm và mang theo khi tham gia tour.
-          </p>
-          <p>
-            - Trẻ em dưới 16 tuổi phải có bố mẹ đi cùng hoặc người được uỷ quyền
-            có giấy uỷ quyền từ bố mẹ.
-          </p>
-          <p>
-            - Hộ chiếu phải mang theo bản gốc hợp lệ không bị rạn, phai mờ, và
-            còn thời hạn sử dụng trên 6 tháng (tính từ ngày khởi hành).
-          </p>
-          <p>
-            - Không sử dụng thẻ xanh. Nếu sử dụng Sổ Du lịch (yêu cầu visa nước
-            nhập cảnh), vui lòng thông báo cho nhân viên nhận tour nếu Quý khách
-            sử dụng các hồ sơ khác ngoài hộ chiếu.
-          </p>
-          <p>
-            - Công ty du lịch không chịu trách nhiệm nếu Quý khách bị từ chối
-            nhập cảnh với bất kỳ lý do nào từ hải quan nước ngoài.
-          </p>
-          <p>
-            - Công ty được phép thay đổi lịch trình chuyến đi và sử dụng các
-            hãng hàng không thay thế, nhưng vẫn đảm bảo tham quan đầy đủ các
-            điểm theo chương trình.
-          </p>
-          <p>
-            - Thứ tự điểm tham quan và lộ trình có thể thay đổi tùy theo tình
-            hình thực tế, nhưng vẫn đảm bảo đầy đủ các điểm tham quan như ban
-            đầu.
-          </p>
-          <p>
-            - Trong trường hợp bất khả kháng như khủng bố, thiên tai hoặc thay
-            đổi lịch trình của phương tiện công cộng (máy bay, tàu hỏa...), Công
-            ty du lịch giữ quyền điều chỉnh lộ trình tour cho phù hợp và an toàn
-            cho khách hàng, mà không phải chịu trách nhiệm bồi thường thiệt hại
-            phát sinh.
-          </p>
+          <mat-list>
+            <mat-list-item
+              *ngFor="let instruction of getCautionInstruction(); index as i"
+            >
+              <span matListItemLine class="list-item">
+                {{ i + 1 + ". " + instruction.description }}</span
+              >
+            </mat-list-item>
+          </mat-list>
         </div>
       </mat-tab>
     </mat-tab-group>
+  </div>
+
+  <div class="tour-description">
+    <div class="title">
+      <h4 class="tour-name">Danh sách lịch trình hiện có:</h4>
+    </div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">STT</th>
+          <th scope="col">Ngày bắt đầu</th>
+          <th scope="col">Ngày kết thúc</th>
+          <th scope="col">Tình trạng</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let timeLine of schedule.serviceScheduleList; index as i">
+          <td scope="row">{{ i + 1 }}</td>
+          <td scope="row">{{ getDateFormat(timeLine.startDate) }}</td>
+          <td>
+            {{ getDateFormat(timeLine.endDate) }}
+          </td>
+          <th>{{ getStatusPhase((timeLine.status ?? "").toString()) }}</th>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
   <div class="tour-description">
@@ -221,6 +207,23 @@
             [formGroup]="setTourForm"
             [formGroupControlName]="'totalTicket'"
           ></app-validation>
+        </div>
+
+        <div
+          class="col-xs-12 col-sm-12 col-md-4 col-lg-4 create-form"
+          style="margin-bottom: 10px"
+        >
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Lịch trình</mat-label>
+            <mat-select required formControlName="serviceScheduleId">
+              <mat-option
+                *ngFor="let timeLine of schedule?.serviceScheduleList"
+                [value]="timeLine.id"
+              >
+                {{ getDateFormat(timeLine.startDate) + " - " + getDateFormat(timeLine.endDate)}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form">

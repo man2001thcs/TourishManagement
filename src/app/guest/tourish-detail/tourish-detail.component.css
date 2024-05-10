@@ -97,6 +97,11 @@ ul li button {
   padding-bottom: 0;
 }
 
+.list-item {
+  white-space: normal !important;
+  
+}
+
 ::ng-deep .mat-mdc-tab-body-wrapper {
  z-index: 0 !important;
 }

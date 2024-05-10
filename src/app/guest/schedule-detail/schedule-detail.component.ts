@@ -95,6 +95,11 @@ export class ScheduleDetailComponent implements OnInit {
         "",
         Validators.compose([Validators.required, Validators.minLength(3)]),
       ],
+      serviceScheduleId: [
+        "",
+        Validators.compose([Validators.required]),
+      ],
+      
     });
 
     this.getScheduleImage();
@@ -254,6 +259,7 @@ export class ScheduleDetailComponent implements OnInit {
       totalChildTicket: this.setTourForm.value.totalChildTicket,
       scheduleId: this.scheduleId,
       scheduleType: this.scheduleType,
+      serviceScheduleId: this.setTourForm.value.serviceScheduleId,
     };
 
     this.messageService.openLoadingDialog();
@@ -297,5 +303,36 @@ export class ScheduleDetailComponent implements OnInit {
     else if (parseInt(this.scheduleType) === 1) return "movingschedule-content-container";
     else if (parseInt(this.scheduleType) === 2) return "stayingschedule-content-container";
     return "";
+  }
+
+  getStatusPhase(statusNumber: string): string {
+    switch (parseInt(statusNumber)) {
+      case 0:
+        return "Chờ xác nhận";
+      case 1:
+        return "Xác nhận thông tin";
+      case 2:
+        return "Đang diễn ra";
+      case 3:
+        return "Hoàn thành";
+      case 4:
+        return "Hủy bỏ";
+      default:
+        return "Không xác định";
+    }
+  }
+
+  getCautionInstruction() {
+    if (this.schedule?.serviceScheduleList == undefined) return [];
+    return this.schedule?.serviceScheduleList?.filter(
+      (entity: any) => entity.instructionType == 1
+    );
+  }
+
+  getPriceInstruction() {
+    if (this.schedule?.serviceScheduleList == undefined) return [];
+    return this.schedule?.serviceScheduleList?.filter(
+      (entity: any) => entity.instructionType == 0
+    );
   }
 }

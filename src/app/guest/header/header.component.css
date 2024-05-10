@@ -17,8 +17,19 @@
   padding-bottom: 8px;
 }
 
+.page-title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.page-title:hover {
+  cursor: pointer;
+}
+
 .title-nav {
-  background-color: #2A3650; width: 100%;
+  background-color: #2a3650;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -31,7 +42,10 @@
   display: table;
 }
 
-.container-fluid div:not(.sidenav) div:not(.autocomplete-search) div:not(.searchContent) {
+.container-fluid
+  div:not(.sidenav)
+  div:not(.autocomplete-search)
+  div:not(.searchContent) {
   padding-right: 20px !important;
 }
 
@@ -73,7 +87,7 @@ img.img-logo {
 }
 
 .sidenav {
-  background-color: #2A3650 !important;
+  background-color: #2a3650 !important;
   /* box-shadow: 0 0 21px 0 rgba(89, 102, 122, 0.1);
   word-break: keep-all !important; */
   height: 100% !important;
@@ -107,11 +121,11 @@ img.img-logo {
   height: auto;
   width: 100%;
   padding: 0 0 20px 0;
-  background-color: #2A3650 !important;
+  background-color: #2a3650 !important;
 }
 
 .sidenav .sideNavContent .sidenavCategory {
-  background-color: #2A3650 !important;
+  background-color: #2a3650 !important;
   white-space: nowrap;
   width: 100%;
   flex-direction: column;
@@ -122,7 +136,7 @@ img.img-logo {
 }
 
 mat-expansion-panel {
-  background-color: #2A3650 !important;
+  background-color: #2a3650 !important;
 }
 
 .sidenav .sideNavContent .sidenavCategory:first-child {
@@ -194,9 +208,8 @@ mat-expansion-panel {
 button {
   font-size: 16px;
   font-weight: bolder;
-  color: #6B7383;
+  color: #6b7383;
 }
-
 
 ::ng-deep .mat-expansion-panel-body {
   padding: 0 0px 16px !important;
@@ -241,7 +254,7 @@ button {
     max-width: 300px !important;
   }
 
-  .container-fluid{
+  .container-fluid {
     justify-content: center;
   }
 }
@@ -251,7 +264,7 @@ button {
     max-width: 380px !important;
   }
 
-  .container-fluid{
+  .container-fluid {
     justify-content: space-evenly;
   }
 }

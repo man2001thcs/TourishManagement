@@ -249,7 +249,7 @@ export class MovingScheduleListComponent
   async openScheduleDialog(schedule: MovingSchedule) {
     const ref = this.dialog.open(ScheduleChangeModalComponent, {
       data: {
-        stayingScheduleId: schedule.id,
+        movingScheduleId: schedule.id,
         disabled: false,
       },
     });
@@ -383,21 +383,22 @@ export class MovingScheduleListComponent
       schedule.scheduleInterestList !== null &&
       schedule.scheduleInterestList !== undefined
     ) {
-      switch ( schedule.scheduleInterestList[0].interestStatus) {
+      if (schedule.scheduleInterestList.length <= 0) return "Không quan tâm";
+      switch (schedule.scheduleInterestList[0].interestStatus) {
         case 0:
-          return 'Theo dõi với tư cách người tạo';
+          return "Theo dõi với tư cách người tạo";
         case 1:
-          return 'Theo dõi với tư cách người chỉnh sửa';
+          return "Theo dõi với tư cách người chỉnh sửa";
         case 2:
-          return 'Đã quan tâm';
+          return "Đã quan tâm";
         case 3:
-          return 'Người dùng';
+          return "Người dùng";
         case 4:
-          return 'Không quan tâm';
+          return "Không quan tâm";
         default:
-          return 'Không quan tâm';
+          return "Không quan tâm";
       }
     }
-    return 'Không quan tâm';
+    return "Không quan tâm";
   }
 }

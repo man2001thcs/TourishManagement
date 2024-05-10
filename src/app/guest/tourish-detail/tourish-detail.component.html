@@ -40,7 +40,9 @@
         </mat-icon>
       </button>
     </span>
-    <h4 style="margin: 7px; font-weight: bold; font-size: 24px;">({{this.ratingAverage}})</h4>
+    <h4 style="margin: 7px; font-weight: bold; font-size: 24px">
+      ({{ this.ratingAverage }})
+    </h4>
   </div>
 
   <div class="tour-description">
@@ -165,62 +167,33 @@
           </mat-list>
         </div>
       </mat-tab>
+      
       <mat-tab label="Giá không bao gồm">
         <div class="price-container">
-          <p>
-            - Hộ chiếu phải còn thời hạn sử dụng trên 6 tháng, Tính từ ngày khởi
-            hành đi và về.
-          </p>
-          <p>
-            - Hành lý quá cước qui định. Xe vận chuyển ngoài chương trình + Các
-            show về đêm.
-          </p>
-          <p>
-            - Điện thoại, giặt ủi, nước uống trong phòng khách sạn và các chi
-            phí cá nhân khác.
-          </p>
+          <div class="price-container">
+            <mat-list>
+              <mat-list-item
+                *ngFor="let instruction of getPriceInstruction(); index as i"
+              >
+                <span  matListItemLine class="list-item">
+                  {{ i + 1 + ". " + instruction.description }}</span
+                >
+              </mat-list-item>
+            </mat-list>
+          </div>
         </div></mat-tab
       >
       <mat-tab label="Lưu ý">
         <div class="price-container">
-          <p>
-            - Du khách Việt Kiều hoặc nước ngoài phải có visa tái nhập nhiều lần
-            hoặc miễn thị thực 5 năm và mang theo khi tham gia tour.
-          </p>
-          <p>
-            - Trẻ em dưới 16 tuổi phải có bố mẹ đi cùng hoặc người được uỷ quyền
-            có giấy uỷ quyền từ bố mẹ.
-          </p>
-          <p>
-            - Hộ chiếu phải mang theo bản gốc hợp lệ không bị rạn, phai mờ, và
-            còn thời hạn sử dụng trên 6 tháng (tính từ ngày khởi hành).
-          </p>
-          <p>
-            - Không sử dụng thẻ xanh. Nếu sử dụng Sổ Du lịch (yêu cầu visa nước
-            nhập cảnh), vui lòng thông báo cho nhân viên nhận tour nếu Quý khách
-            sử dụng các hồ sơ khác ngoài hộ chiếu.
-          </p>
-          <p>
-            - Công ty du lịch không chịu trách nhiệm nếu Quý khách bị từ chối
-            nhập cảnh với bất kỳ lý do nào từ hải quan nước ngoài.
-          </p>
-          <p>
-            - Công ty được phép thay đổi lịch trình chuyến đi và sử dụng các
-            hãng hàng không thay thế, nhưng vẫn đảm bảo tham quan đầy đủ các
-            điểm theo chương trình.
-          </p>
-          <p>
-            - Thứ tự điểm tham quan và lộ trình có thể thay đổi tùy theo tình
-            hình thực tế, nhưng vẫn đảm bảo đầy đủ các điểm tham quan như ban
-            đầu.
-          </p>
-          <p>
-            - Trong trường hợp bất khả kháng như khủng bố, thiên tai hoặc thay
-            đổi lịch trình của phương tiện công cộng (máy bay, tàu hỏa...), Công
-            ty du lịch giữ quyền điều chỉnh lộ trình tour cho phù hợp và an toàn
-            cho khách hàng, mà không phải chịu trách nhiệm bồi thường thiệt hại
-            phát sinh.
-          </p>
+          <mat-list>
+            <mat-list-item
+              *ngFor="let instruction of getCautionInstruction(); index as i"
+            >
+              <span matListItemLine class="list-item">
+                {{ i + 1 + ". " + instruction.description }}</span
+              >
+            </mat-list-item>
+          </mat-list>
         </div>
       </mat-tab>
     </mat-tab-group>
@@ -374,7 +347,7 @@
         >
           <mat-form-field appearance="outline" class="full-width-input">
             <mat-label>Lịch trình</mat-label>
-            <mat-select required  formControlName="tourishScheduleId">
+            <mat-select required formControlName="tourishScheduleId">
               <mat-option
                 *ngFor="let schedule of tourishPlan?.tourishScheduleList"
                 [value]="schedule.id"
@@ -389,7 +362,7 @@
           <button
             mat-flat-button
             color="primary"
-            style="width: 100%; height: 56px; font-size: 16px;"
+            style="width: 100%; height: 56px; font-size: 16px"
             (click)="register()"
           >
             Gửi

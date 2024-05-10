@@ -386,6 +386,7 @@ export class StayingScheduleListComponent
       schedule.scheduleInterestList !== null &&
       schedule.scheduleInterestList !== undefined
     ) {
+      if (schedule.scheduleInterestList.length <= 0) return "Không quan tâm";
       switch (schedule.scheduleInterestList[0].interestStatus) {
         case 0:
           return "Theo dõi với tư cách người tạo";

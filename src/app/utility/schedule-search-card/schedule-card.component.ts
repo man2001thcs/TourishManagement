@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from "@angular/core";
 import { NavigationExtras, Router } from "@angular/router";
 import { TokenStorageService } from "../user_service/token.service";
 import { HttpClient } from "@angular/common/http";
-import { SaveFile } from "src/app/model/baseModel";
+import { SaveFile, TourishSchedule } from "src/app/model/baseModel";
 import { environment } from "src/environments/environment";
 
 @Component({
@@ -25,10 +25,9 @@ export class SchedulePlanSearchCardComponent implements OnInit {
   startingPlace = "Hà Nội";
   @Input()
   headingPlace = "Đà Nẵng";
+
   @Input()
-  startDate = "";
-  @Input()
-  endDate = "";
+  serviceScheduleList : TourishSchedule[] = [];
 
   @Input()
   customerNumber = 19;

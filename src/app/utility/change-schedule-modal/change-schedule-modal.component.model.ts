@@ -9,6 +9,6 @@ export interface FileModel {
 export interface InterestModalParam {
   disabled?: boolean;
   tourishPlanId?: string;
-  movingSCheduleId?: string;
+  movingScheduleId?: string;
   stayingScheduleId?: string;
 }

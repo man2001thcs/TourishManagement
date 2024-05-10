@@ -323,4 +323,18 @@ export class TourishDetailComponent implements OnInit {
 
     return chuoiNgayThang;
   }
+
+  getCautionInstruction() {
+    if (this.tourishPlan?.instructionList == undefined) return [];
+    return this.tourishPlan?.instructionList?.filter(
+      (entity) => entity.instructionType == 1
+    );
+  }
+
+  getPriceInstruction() {
+    if (this.tourishPlan?.instructionList == undefined) return [];
+    return this.tourishPlan?.instructionList?.filter(
+      (entity) => entity.instructionType == 0
+    );
+  }
 }

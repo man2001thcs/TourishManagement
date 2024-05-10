@@ -15,4 +15,16 @@
     margin-left: 340px;  
     height: 75%;
   }
+
+  @media only screen and (min-height: 900px) {
+    .container-fluid {
+      min-height: 760px !important;
+    }
+  }
+  
+  @media only screen and (max-height: 680px) {
+    .container-fluid {
+      min-height: 560px !important;
+    }
+  }
   

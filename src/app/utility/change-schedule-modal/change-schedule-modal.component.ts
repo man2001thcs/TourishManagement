@@ -48,7 +48,7 @@ export class ScheduleChangeModalComponent implements OnInit {
   ngOnInit(): void {
     this.disabled = this.data.disabled ?? false;
     this.tourishPlanId = this.data.tourishPlanId ?? "";
-    this.movingScheduleId = this.data.movingSCheduleId ?? "";
+    this.movingScheduleId = this.data.movingScheduleId ?? "";
     this.stayingScheduleId = this.data.stayingScheduleId ?? "";
 
     this.getSchedule();

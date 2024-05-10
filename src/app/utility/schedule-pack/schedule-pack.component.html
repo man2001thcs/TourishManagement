@@ -10,12 +10,7 @@
       [scheduleType]="1"
       [contactId]="schedule.transportId"
       [schedulePrice]="schedule.singlePrice ?? 0"
-      [startDate]="
-        getDateString(schedule.startDate)
-      "
-      [endDate]="
-        getDateString(schedule.endDate)
-      "
+      [serviceScheduleList]="schedule.serviceScheduleList ?? []"
       [startingPlace]="schedule.startingPlace"
       [headingPlace]="schedule.headingPlace"
       style="width: 100%"
@@ -28,12 +23,7 @@
       [scheduleType]="2"
       [contactId]="schedule.restHouseBranchId"
       [schedulePrice]="schedule.singlePrice ?? 0"
-      [startDate]="
-        getDateString(schedule.startDate)
-      "
-      [endDate]="
-        getDateString(schedule.endDate)
-      "
+      [serviceScheduleList]="schedule.serviceScheduleList ?? []"
       style="width: 100%"
     ></app-schedule-search-card>
   </div>

@@ -28,8 +28,8 @@ jobs:
       run: npm run deploy
 
     - name: Deploy to GitHub Pages
-      uses: JamesIves/github-pages-deploy-action@4.1.2
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: gh-pages
-        folder: dist/roxanne
+      run: |
+        git config --global user.name "man2001thcs"
+        git config --global user.email "dochu8@gmail.com"
+        npm install -g angular-cli-ghpages
+        ngh --dir=dist/roxanne --no-silent

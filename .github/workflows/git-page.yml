@@ -31,8 +31,10 @@ jobs:
 
     - name: Pre-build for production
       run: npm run predeploy
-
+      
     - name: Deploy to GitHub Pages
-      id: deployment
-      uses: actions/deploy-pages@v4
-
+      uses: JamesIves/github-pages-deploy-action@4.1.2
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: gh-pages
+        folder: dist/roxanne

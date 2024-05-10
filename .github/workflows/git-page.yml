@@ -38,6 +38,6 @@ jobs:
         git config --global user.name "man2001thcs"
 
     - name: Deploy to GitHub Pages
-      run: npx angular-cli-ghpages --dir=dist/roxanne --no-silent
+      run: npx angular-cli-ghpages --dir=dist/roxanne --no-silent --token ${{ secrets.GH_TOKEN }}
 
         ngh --dir=dist/roxanne --no-silent

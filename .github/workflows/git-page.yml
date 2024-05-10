@@ -23,11 +23,12 @@ jobs:
 
     - name: Pre-build for production
       run: npm run predeploy
-
-    - name: Deploy to GitHub Pages
-      run: |
-        git config --global user.name "man2001thcs"
-        git config --global user.email "dochu8@gmail.com"
-        npm install -g angular-cli-ghpages
-        ngh --dir=dist/roxanne --no-silent
+              
+    
+    - name: GitHub Pages v3
+      uses: peaceiris/actions-github-pages@v3.1.12
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: dist/roxanne  # Adjust if your build output directory is different
+        publish_branch: gh-pages
 

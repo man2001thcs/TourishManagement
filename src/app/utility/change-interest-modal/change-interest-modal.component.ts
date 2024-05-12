@@ -60,7 +60,12 @@ export class InterestModalComponent implements OnInit {
                 ?.subscribe(() => {
                   this.dialogRef.close(true);
                 });
-            }
+            } else
+              this.messageService
+                .openMessageNotifyDialog(response.messageCode)
+                ?.subscribe(() => {
+                  this.dialogRef.close(true);
+                });
           }
         });
     }
@@ -83,7 +88,12 @@ export class InterestModalComponent implements OnInit {
                 ?.subscribe(() => {
                   this.dialogRef.close(true);
                 });
-            }
+            } else
+              this.messageService
+                .openMessageNotifyDialog(response.messageCode)
+                ?.subscribe(() => {
+                  this.dialogRef.close(true);
+                });
           }
         });
     }
@@ -106,7 +116,12 @@ export class InterestModalComponent implements OnInit {
                 ?.subscribe(() => {
                   this.dialogRef.close(true);
                 });
-            }
+            } else
+              this.messageService
+                .openMessageNotifyDialog(response.messageCode)
+                ?.subscribe(() => {
+                  this.dialogRef.close(true);
+                });
           }
         });
     }

@@ -72,6 +72,7 @@ export class ScheduleChangeModalComponent implements OnInit {
             if (response.resultCd == 0) {
               this.tourishPlan = response.data;
               this.scheduleList = this.tourishPlan.tourishScheduleList ?? [];
+              this.scheduleEditList = this.scheduleList;
             }
           }
         });
@@ -86,6 +87,7 @@ export class ScheduleChangeModalComponent implements OnInit {
             if (response.resultCd == 0) {
               this.movingSchedule = response.data;
               this.scheduleList = this.movingSchedule.serviceScheduleList ?? [];
+              this.scheduleEditList = this.scheduleList;
             }
           }
         });
@@ -101,6 +103,7 @@ export class ScheduleChangeModalComponent implements OnInit {
               this.stayingSchedule = response.data;
               this.scheduleList =
                 this.stayingSchedule.serviceScheduleList ?? [];
+                this.scheduleEditList = this.scheduleList;
 
                 console.log(this.scheduleList);
             }

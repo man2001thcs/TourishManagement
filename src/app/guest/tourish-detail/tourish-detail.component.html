@@ -129,9 +129,6 @@
               <span matListItemTitle
                 >Tên nhà hàng: {{ schedule.placeName }}</span
               >
-              <span matListItemLine
-                >Ngày bắt đầu: {{ schedule.startDate }}</span
-              >
               <span matListItemLine>Giá cả: {{ schedule.singlePrice }}</span>
             </mat-list-item>
           </mat-list>
@@ -143,9 +140,7 @@
               *ngFor="let schedule of tourishPlan?.movingSchedules ?? []"
             >
               <span matListItemTitle>Dịch vụ: {{ schedule.branchName }}</span>
-              <span matListItemLine
-                >Ngày bắt đầu: {{ schedule.startDate }}</span
-              >
+
               <span matListItemLine>Giá cả: {{ schedule.singlePrice }}</span>
             </mat-list-item>
           </mat-list>
@@ -158,9 +153,6 @@
             >
               <span matListItemTitle
                 >Tên nhà hàng: {{ schedule.placeName }}</span
-              >
-              <span matListItemLine
-                >Ngày bắt đầu: {{ schedule.startDate }}</span
               >
               <span matListItemLine>Giá cả: {{ schedule.singlePrice }}</span>
             </mat-list-item>

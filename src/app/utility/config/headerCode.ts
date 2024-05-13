@@ -1,4 +1,4 @@
-const HEADER_CODE: Map<string, string> = new Map([
+const ADMIN_HEADER_CODE: Map<string, string> = new Map([
   ["/admin/dash-board", "0th"],
   ["/admin/tourish-plan/list", "1st"],
   ["/admin/tourish-plan/create", "2nd"],
@@ -12,9 +12,23 @@ const HEADER_CODE: Map<string, string> = new Map([
   ["/admin/notification/list", "10th"],
   ["/admin/notification/list", "11th"],
   ["/admin/transport/service/list", "12th"],
-  ["/admin/resthouse/service/list", "13th"]
+  ["/admin/resthouse/service/list", "13th"],
+  ["/moving/receipt/list", "14th"],
+  ["/staying/receipt/list", "15th"]
 ]);
 
-export function getHeaderPhase(key: string): string {
-  return HEADER_CODE.get(key) ?? "";
+const USER_HEADER_CODE: Map<string, string> = new Map([
+  ["/user/service-search-page", "1st"],
+  ["/user/service-search-page", "2nd"],
+  ["/user/receipt/list", "3rd"],
+  ["/user/moving/receipt/list", "4th"],
+  ["/user/staying/receipt/list", "5th"]
+]);
+
+export function getAdminHeaderPhase(key: string): string {
+  return ADMIN_HEADER_CODE.get(key) ?? "";
+}
+
+export function getUserHeaderPhase(key: string): string {
+  return USER_HEADER_CODE.get(key) ?? "";
 }

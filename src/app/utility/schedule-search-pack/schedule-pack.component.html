@@ -21,6 +21,7 @@
       [contactId]="schedule.restHouseBranchId"
       [schedulePrice]="schedule.singlePrice ?? 0"
       [serviceScheduleList]="schedule.serviceScheduleList ?? []"
+      [address]="schedule.address"
       style="width: 100%"
     ></app-schedule-search-card>
     <div class="loading" *ngIf="isLoading">

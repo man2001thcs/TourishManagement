@@ -157,5 +157,43 @@
         </mat-expansion-panel>
       </div>
     </div>
+
+    <div class="sidenavCategory">
+      <mat-expansion-panel expanded>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <h6
+              style="
+                font-size: 16px;
+                padding-bottom: 0 !important;
+                font-weight: bold;
+                margin-bottom: 0 !important;
+                color: whitesmoke;
+              "
+            >
+              Dịch vụ
+            </h6>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div
+          ngbNav
+          #nav="ngbNav"
+          [(activeId)]="activeItem"
+          class="nav-pills flex-column"
+          orientation="vertical"
+        >
+          <ng-container ngbNavItem="14th">
+            <button ngbNavLink (click)="navigateServiceUrl('service-search-page', 'moving')">
+              Vé di chuyển
+            </button>
+          </ng-container>
+          <ng-container ngbNavItem="15th">
+            <button ngbNavLink (click)="navigateServiceUrl('service-search-page', 'staying')">
+              Đặt trước khách sạn/Homestay
+            </button>
+          </ng-container>
+        </div>
+      </mat-expansion-panel>
+    </div>
   </div>
 </div>

@@ -16,11 +16,31 @@ import { ReceiptUserDetailComponent } from "../Receipt/receipt_detail/receipt-de
 
 import { storeKey as ReceiptUserListStoreKey } from "../Receipt/receipt_list/receipt-list.store.action";
 import { reducer as ReceiptUserListReducer } from "../Receipt/receipt_list/receipt-list.store.reducer";
-
 import { storeKey as ReceiptUserDetailStoreKey } from "../Receipt/receipt_detail/receipt-detail.store.action";
 import { reducer as ReceiptUserDetailReducer } from "../Receipt/receipt_detail/receipt-detail.store.reducer";
+
+import { storeKey as MovingReceiptUserListStoreKey } from "../MovingReceipt/receipt_list/receipt-list.store.action";
+import { reducer as MovingReceiptUserListReducer } from "../MovingReceipt/receipt_list/receipt-list.store.reducer";
+import { storeKey as MovingReceiptUserDetailStoreKey } from "../MovingReceipt/receipt_detail/receipt-detail.store.action";
+import { reducer as MovingReceiptUserDetailReducer } from "../MovingReceipt/receipt_detail/receipt-detail.store.reducer";
+
+import { storeKey as StayingReceiptUserListStoreKey } from "../StayingReceipt/receipt_list/receipt-list.store.action";
+import { reducer as StayingReceiptUserListReducer } from "../StayingReceipt/receipt_list/receipt-list.store.reducer";
+import { storeKey as StayingReceiptUserDetailStoreKey } from "../StayingReceipt/receipt_detail/receipt-detail.store.action";
+import { reducer as StayingReceiptUserDetailReducer } from "../StayingReceipt/receipt_detail/receipt-detail.store.reducer";
+
 import { ReceiptEffects } from "../Receipt/receipt_detail/receipt-detail.store.effect";
 import { ReceiptListEffects } from "../Receipt/receipt_list/receipt-list.store.effect";
+
+import { MovingReceiptEffects } from "../MovingReceipt/receipt_detail/receipt-detail.store.effect";
+import { MovingReceiptListEffects } from "../MovingReceipt/receipt_list/receipt-list.store.effect";
+
+import { StayingReceiptEffects } from "../StayingReceipt/receipt_detail/receipt-detail.store.effect";
+import { StayingReceiptListEffects } from "../StayingReceipt/receipt_list/receipt-list.store.effect";
+import { StayingReceiptUserListComponent } from "../StayingReceipt/receipt_list/receipt-list.component";
+import { StayingReceiptUserDetailComponent } from "../StayingReceipt/receipt_detail/receipt-detail.component";
+import { MovingReceiptUserListComponent } from "../MovingReceipt/receipt_list/receipt-list.component";
+import { MovingReceiptUserDetailComponent } from "../MovingReceipt/receipt_detail/receipt-detail.component";
 
 @NgModule({
   declarations: [
@@ -28,7 +48,13 @@ import { ReceiptListEffects } from "../Receipt/receipt_list/receipt-list.store.e
     HeaderUserComponent,
     UserAccountInfoComponent,
     ReceiptUserListComponent,
-    ReceiptUserDetailComponent
+    ReceiptUserDetailComponent,
+
+    MovingReceiptUserListComponent,
+    MovingReceiptUserDetailComponent,
+    
+    StayingReceiptUserListComponent,
+    StayingReceiptUserDetailComponent, 
   ],
   imports: [
     CommonModule,
@@ -39,10 +65,21 @@ import { ReceiptListEffects } from "../Receipt/receipt_list/receipt-list.store.e
     EffectsModule.forFeature([AccountEffects]),
     EffectsModule.forFeature([ReceiptEffects]),
     EffectsModule.forFeature([ReceiptListEffects]),
+    EffectsModule.forFeature([MovingReceiptEffects]),
+    EffectsModule.forFeature([MovingReceiptListEffects]),
+    EffectsModule.forFeature([StayingReceiptEffects]),
+    EffectsModule.forFeature([StayingReceiptListEffects]),
 
     StoreModule.forFeature(AccountInfoStoreKey, AccountInfoReducer),
+    
     StoreModule.forFeature(ReceiptUserDetailStoreKey, ReceiptUserDetailReducer),
     StoreModule.forFeature(ReceiptUserListStoreKey, ReceiptUserListReducer),
+
+    StoreModule.forFeature(MovingReceiptUserDetailStoreKey, MovingReceiptUserDetailReducer),
+    StoreModule.forFeature(MovingReceiptUserListStoreKey, MovingReceiptUserListReducer),
+
+    StoreModule.forFeature(StayingReceiptUserDetailStoreKey, StayingReceiptUserDetailReducer),
+    StoreModule.forFeature(StayingReceiptUserListStoreKey, StayingReceiptUserListReducer),
   ],
   exports: [RouterModule]
 })

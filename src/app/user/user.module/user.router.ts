@@ -11,6 +11,8 @@ import { NotFoundComponent } from "src/app/utility/not-found-page/404.component"
 import { TourishSearchComponent } from "src/app/guest/tourish-search/tourish-search.component";
 import { ScheduleSearchComponent } from "src/app/guest/schedule-search/schedule-search.component";
 import { ScheduleDetailComponent } from "src/app/guest/schedule-detail/schedule-detail.component";
+import { MovingReceiptUserListComponent } from "../MovingReceipt/receipt_list/receipt-list.component";
+import { StayingReceiptUserListComponent } from "../StayingReceipt/receipt_list/receipt-list.component";
 
 const routes: Routes = [
   {
@@ -32,6 +34,14 @@ const routes: Routes = [
       {
         path: "receipt/list",
         component: ReceiptUserListComponent,
+      },
+      {
+        path: "moving/receipt/list",
+        component: MovingReceiptUserListComponent,
+      },
+      {
+        path: "staying/receipt/list",
+        component: StayingReceiptUserListComponent,
       },
       {
         path: "search-page",

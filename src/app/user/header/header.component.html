@@ -5,7 +5,7 @@
 
 <div class="container-fluid" #header>
   <!-- Nav tabs -->
-  <div style="display: flex; flex-direction: row; align-items: center">
+  <div class="page-title" (click)="navigateUrl('/main-page')">
     <img
       src="{{
         getBlobUrl() +
@@ -211,6 +211,50 @@
                 color: whitesmoke;
               "
             >
+              Dịch vụ
+            </h6>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div
+          ngbNav
+          #nav="ngbNav"
+          [(activeId)]="activeItem"
+          class="nav-pills flex-column"
+          orientation="vertical"
+        >
+          <ng-container ngbNavItem="1st">
+            <button
+              ngbNavLink
+              (click)="navigateServiceUrl('service-search-page', 'moving')"
+            >
+              Vé di chuyển
+            </button>
+          </ng-container>
+          <ng-container ngbNavItem="2nd">
+            <button
+              ngbNavLink
+              (click)="navigateServiceUrl('service-search-page', 'staying')"
+            >
+              Đặt trước khách sạn/Homestay
+            </button>
+          </ng-container>
+        </div>
+      </mat-expansion-panel>
+    </div>
+
+    <div class="sidenavCategory">
+      <mat-expansion-panel expanded>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <h6
+              style="
+                font-size: 16px;
+                padding-bottom: 0 !important;
+                font-weight: bold;
+                margin-bottom: 0 !important;
+                color: whitesmoke;
+              "
+            >
               Hóa đơn
             </h6>
           </mat-panel-title>
@@ -222,16 +266,28 @@
           class="nav-pills flex-column"
           orientation="vertical"
         >
-          <ng-container ngbNavItem="8th">
+          <ng-container ngbNavItem="3rd">
             <button ngbNavLink (click)="navigateUrl('receipt/list')">
-              Danh sách hóa đơn
+              Hóa đơn tour
+            </button>
+          </ng-container>
+
+          <ng-container ngbNavItem="4th">
+            <button ngbNavLink (click)="navigateUrl('moving/receipt/list')">
+              Hóa đơn vé di chuyển
+            </button>
+          </ng-container>
+
+          <ng-container ngbNavItem="5th">
+            <button ngbNavLink (click)="navigateUrl('staying/receipt/list')">
+              Hóa đơn đặt khách sạn/Homestay
             </button>
           </ng-container>
         </div>
       </mat-expansion-panel>
     </div>
 
-    <div class="sidenavCategory">
+    <!-- <div class="sidenavCategory">
       <mat-expansion-panel expanded>
         <mat-expansion-panel-header>
           <mat-panel-title>
@@ -255,14 +311,14 @@
           class="nav-pills flex-column"
           orientation="vertical"
         >
-          <ng-container ngbNavItem="11th">
+          <ng-container ngbNavItem="6th">
             <button ngbNavLink (click)="navigateUrl('notification/list')">
               Danh sách thông báo
             </button>
           </ng-container>
         </div>
       </mat-expansion-panel>
-    </div>
+    </div> -->
   </div>
 </div>
 

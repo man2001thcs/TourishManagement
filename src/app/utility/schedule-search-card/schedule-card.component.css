@@ -1,7 +1,7 @@
 .example-card {
   height: fit-content;
   white-space: nowrap;
-  max-height: 200px;
+  min-height: 200px;
   width: 48%;
 }
 

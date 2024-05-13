@@ -17,6 +17,16 @@
   padding-bottom: 8px;
 }
 
+.page-title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.page-title:hover {
+  cursor: pointer;
+}
+
 ::ng-deep .notification.mat-mdc-menu-panel.mat-mdc-menu-panel {
   max-width: 400px !important;
 }
@@ -34,7 +44,10 @@
   display: table;
 }
 
-.container-fluid div:not(.sidenav) div:not(.autocomplete-search) div:not(.searchContent) {
+.container-fluid
+  div:not(.sidenav)
+  div:not(.autocomplete-search)
+  div:not(.searchContent) {
   padding-right: 20px !important;
 }
 

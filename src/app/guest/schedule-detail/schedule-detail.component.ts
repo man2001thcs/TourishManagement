@@ -95,22 +95,12 @@ export class ScheduleDetailComponent implements OnInit {
         "",
         Validators.compose([Validators.required, Validators.minLength(3)]),
       ],
-      serviceScheduleId: [
-        "",
-        Validators.compose([Validators.required]),
-      ],
-      
+      serviceScheduleId: ["", Validators.compose([Validators.required])],
     });
 
     this.getScheduleImage();
     this.getSchedule();
     this.getAccount();
-    // var result = tinymce.editors;
-    // result.forEach((element: any) => {
-    //   tinymce.get(element.id).getBody().setAttribute("contenteditable", false);
-    //   tinymce.get(element.id).getBody().style.backgroundColor = "#ecf0f5";
-    // });
-    // tinymce.activeEditor.getBody().setAttribute('contenteditable', false);
   }
 
   slides: any[] = [];
@@ -187,6 +177,14 @@ export class ScheduleDetailComponent implements OnInit {
         this.schedule = response.data;
 
         this.tourDescription = this.schedule?.description ?? "";
+
+        if (this.schedule){
+          if ((this.schedule.serviceScheduleList ?? []).length > 0)
+          this.setTourForm.controls["serviceScheduleId"].setValue(
+            this.schedule.serviceScheduleList[0].id
+          );
+        }
+          
       });
   }
 
@@ -251,16 +249,17 @@ export class ScheduleDetailComponent implements OnInit {
   }
 
   register() {
-    const payload = {
+    let payload: any = {
       guestName: this.setTourForm.value.name,
       email: this.setTourForm.value.email,
       phoneNumber: this.setTourForm.value.phoneNumber,
       totalTicket: this.setTourForm.value.totalTicket,
       totalChildTicket: this.setTourForm.value.totalChildTicket,
-      scheduleId: this.scheduleId,
-      scheduleType: this.scheduleType,
       serviceScheduleId: this.setTourForm.value.serviceScheduleId,
     };
+
+    if (this.scheduleType === "1") payload.movingScheduleId = this.scheduleId;
+    else if (this.scheduleType === "2") payload.stayingScheduleId = this.scheduleId;
 
     this.messageService.openLoadingDialog();
     this.http
@@ -299,9 +298,12 @@ export class ScheduleDetailComponent implements OnInit {
   }
 
   getContainerName() {
-    if (parseInt(this.scheduleType) === 0) return "eatschedule-content-container";
-    else if (parseInt(this.scheduleType) === 1) return "movingschedule-content-container";
-    else if (parseInt(this.scheduleType) === 2) return "stayingschedule-content-container";
+    if (parseInt(this.scheduleType) === 0)
+      return "eatschedule-content-container";
+    else if (parseInt(this.scheduleType) === 1)
+      return "movingschedule-content-container";
+    else if (parseInt(this.scheduleType) === 2)
+      return "stayingschedule-content-container";
     return "";
   }
 

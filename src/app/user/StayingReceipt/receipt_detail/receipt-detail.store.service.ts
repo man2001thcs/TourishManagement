@@ -9,7 +9,7 @@ export class ReceiptStoreService {
   constructor(private http: HttpClient) {}
 
   getReceipt(payload: any): Observable<any> {
-    return this.http.get('/api/GetFullReceipt/tour/' + payload.id);
+    return this.http.get('/api/GetFullReceipt/schedule/' + payload.id);
   }
 
   editReceipt(payload: any): Observable<any> {

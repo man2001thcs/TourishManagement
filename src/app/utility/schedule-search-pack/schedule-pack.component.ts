@@ -32,8 +32,6 @@ export class ScheduleSearchPackComponent implements OnInit, OnChanges {
   priceFrom = 0;
   @Input()
   priceTo = 2000000;
-  @Input()
-  categoryString = "";
 
   activePage = 1;
   isLoading = false;
@@ -86,7 +84,6 @@ export class ScheduleSearchPackComponent implements OnInit, OnChanges {
     const params = {
       page: this.pageIndex + 1,
       pageSize: this.pageSize,
-      categoryString: this.categoryString,
       priceFrom: this.priceFrom,
       priceTo: this.priceTo,
       startingDate: this.startingDate,
@@ -95,6 +92,9 @@ export class ScheduleSearchPackComponent implements OnInit, OnChanges {
     };
 
     if (this.scheduleType == 1) {
+      this.movingScheduleList = [];
+      this.stayingScheduleList = [];
+
       this.http
         .get("/api/GetMovingSchedule", { params: params })
         .subscribe((response: any) => {
@@ -111,8 +111,11 @@ export class ScheduleSearchPackComponent implements OnInit, OnChanges {
           }
         });
     } else if (this.scheduleType == 2) {
+      this.movingScheduleList = [];
+      this.stayingScheduleList = [];
+
       this.http
-        .get("/api/GetMovingSchedule", { params: params })
+        .get("/api/GetStayingSchedule", { params: params })
         .subscribe((response: any) => {
           if (response) {
             this.stayingScheduleList = response.data;

@@ -22,9 +22,12 @@ export class SchedulePlanSearchCardComponent implements OnInit {
   @Input()
   schedulePrice = 1400000;
   @Input()
-  startingPlace = "Hà Nội";
+  startingPlace = "";
   @Input()
-  headingPlace = "Đà Nẵng";
+  headingPlace = "";
+
+  @Input()
+  address = "";
 
   @Input()
   serviceScheduleList : TourishSchedule[] = [];

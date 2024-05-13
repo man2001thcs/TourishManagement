@@ -16,13 +16,18 @@ import {
   Validators,
 } from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
-import { NavigationEnd, NavigationExtras, Router } from "@angular/router";
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  NavigationExtras,
+  Router,
+} from "@angular/router";
 import { Observable, Subscription } from "rxjs";
 import { TokenStorageService } from "src/app/utility/user_service/token.service";
 import { UserService } from "src/app/utility/user_service/user.service";
 
 import { debounceTime, filter } from "rxjs/operators";
-import { getHeaderPhase } from "src/app/utility/config/headerCode";
+import { getUserHeaderPhase } from "src/app/utility/config/headerCode";
 import { environment } from "src/environments/environment";
 import { HttpClient } from "@angular/common/http";
 import { FileModel } from "src/app/utility/image_avatar_service/imageUpload.component.model";
@@ -71,13 +76,13 @@ export class HeaderUserComponent implements OnDestroy {
   categoryLength = 0;
   notifyUnreadNumber: number = 0;
 
-
   constructor(
     private dialog: MatDialog,
     private tokenService: TokenStorageService,
     private fb: FormBuilder,
     private router: Router,
     private renderer: Renderer2,
+    private _route: ActivatedRoute,
     private http: HttpClient
   ) {
     this.filteredInput = this.searchControl.valueChanges.pipe(
@@ -93,7 +98,7 @@ export class HeaderUserComponent implements OnDestroy {
     this.id = Number(localStorage.getItem("id")) ?? 0;
     console.log(localStorage.getItem("id"));
     this.showNotification();
-    this.activeItem = getHeaderPhase(this.router.url);
+    this.activeItem = getUserHeaderPhase(this.router.url);
 
     this.subscriptions.push(
       this.router.events
@@ -101,9 +106,38 @@ export class HeaderUserComponent implements OnDestroy {
         .subscribe((event) => {
           if (event instanceof NavigationEnd) {
             console.log(event.url);
-            this.activeItem = getHeaderPhase(event.url);
+            this.activeItem =
+              getUserHeaderPhase(event.url).length <= 0
+                ? this.activeItem
+                : getUserHeaderPhase(event.url);
           }
         })
+    );
+
+    this.subscriptions.push(
+      this._route.queryParamMap.subscribe((query) => {
+        if (query.get("serviceType")) {
+          const serviceType = query.get("serviceType") ?? "";
+          if (serviceType.length > 0) {
+            if (serviceType == "moving") {
+              this.activeItem = "1st";
+            } else if (serviceType == "staying") {
+              this.activeItem = "2nd";
+            }
+          }
+        }
+
+        if (query.get("category")) {
+          const category = query.get("category") ?? "";
+          if (category.length > 0) {
+            const existCategory = this.categoryList.findIndex(
+              (entity) => entity.name === category
+            );
+            if (existCategory > -1)
+              this.activeItem = this.categoryList[existCategory].id ?? '';
+          }
+        }
+      })
     );
 
     this.searchFormGroup = this.fb.group({
@@ -221,7 +255,7 @@ export class HeaderUserComponent implements OnDestroy {
   }
 
   closeNav() {
-    this.myNameElem.nativeElement.style.width = "80px";
+    this.myNameElem.nativeElement.style.width = "70px";
     this.myNameElem.nativeElement.style["margin-right"] = "0px";
     this.myNameElem.nativeElement.style["margin-top"] = "0px";
     this.myNameElem.nativeElement.style["padding-left"] = "0px";
@@ -327,7 +361,7 @@ export class HeaderUserComponent implements OnDestroy {
   }
 
   async navigateUrl(url: string) {
-    this.router.navigate(["admin/" + url]);
+    this.router.navigate(["user/" + url]);
   }
 
   getImageList() {
@@ -417,7 +451,14 @@ export class HeaderUserComponent implements OnDestroy {
 
   async navigateCategoryUrl(url: string, category: string) {
     let navigationExtras: NavigationExtras = {
-      queryParams: { 'category': category } // Replace 'key' and 'value' with your actual query parameters
+      queryParams: { category: category }, // Replace 'key' and 'value' with your actual query parameters
+    };
+    this.router.navigate(["user/" + url], navigationExtras);
+  }
+
+  async navigateServiceUrl(url: string, type: string) {
+    let navigationExtras: NavigationExtras = {
+      queryParams: { serviceType: type }, // Replace 'key' and 'value' with your actual query parameters
     };
     this.router.navigate(["user/" + url], navigationExtras);
   }
@@ -428,7 +469,7 @@ export class HeaderUserComponent implements OnDestroy {
 
   async navigateSearchUrl(url: string) {
     let navigationExtras: NavigationExtras = {
-      queryParams: { 'search': this.searchControl.value} // Replace 'key' and 'value' with your actual query parameters
+      queryParams: { search: this.searchControl.value }, // Replace 'key' and 'value' with your actual query parameters
     };
     this.router.navigate(["user/" + url], navigationExtras);
   }

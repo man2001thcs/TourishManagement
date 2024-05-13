@@ -102,7 +102,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let timeLine of schedule.serviceScheduleList; index as i">
+        <tr *ngFor="let timeLine of schedule?.serviceScheduleList ?? []; index as i">
           <td scope="row">{{ i + 1 }}</td>
           <td scope="row">{{ getDateFormat(timeLine.startDate) }}</td>
           <td>
@@ -217,7 +217,7 @@
             <mat-label>Lịch trình</mat-label>
             <mat-select required formControlName="serviceScheduleId">
               <mat-option
-                *ngFor="let timeLine of schedule?.serviceScheduleList"
+                *ngFor="let timeLine of schedule?.serviceScheduleList ?? []"
                 [value]="timeLine.id"
               >
                 {{ getDateFormat(timeLine.startDate) + " - " + getDateFormat(timeLine.endDate)}}

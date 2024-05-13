@@ -44,6 +44,7 @@ export class ScheduleSearchComponent implements OnInit {
   priceTo = 20000000;
   priceFrom = 0;
   categoryString = "";
+  scheduleType = 0;
 
   constructor(
     private fb: FormBuilder,
@@ -60,6 +61,12 @@ export class ScheduleSearchComponent implements OnInit {
 
     this.subscriptions.push(
       this._route.queryParamMap.subscribe((query) => {
+        if (query.get("serviceType")) {
+          const serviceType = query.get("serviceType") ?? "";
+          
+          if (serviceType=="moving") this.scheduleType = 1; else if (serviceType=="staying") this.scheduleType = 2;
+        }
+
         if (query.get("startingPoint")) {
           const startingPoint = query.get("startingPoint") ?? "";
           this.setTourForm.controls["startingPoint"].setValue(startingPoint);
@@ -105,12 +112,12 @@ export class ScheduleSearchComponent implements OnInit {
     }
   }
 
-  categoryChange($event: any) {
+  serviceChange($event: any) {
     if ($event) {
       console.log($event.source._value);
-      if ($event.source._value.length == 0) this.categoryString = "";
+      if ($event.source._value.length == 0) this.scheduleType = 0;
       else {
-        this.categoryString = JSON.stringify($event.source._value);
+        this.scheduleType = parseInt($event.options[0].value);
       }
     }
   }

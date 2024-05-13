@@ -19,7 +19,7 @@ import { NavigationEnd, Router } from "@angular/router";
 import { Observable, Subscription } from "rxjs";
 import { TokenStorageService } from "src/app/utility/user_service/token.service";
 import { filter } from "rxjs/operators";
-import { getHeaderPhase } from "src/app/utility/config/headerCode";
+import { getAdminHeaderPhase } from "src/app/utility/config/headerCode";
 import { environment } from "src/environments/environment";
 import { HttpClient } from "@angular/common/http";
 import { FileModel } from "src/app/utility/image_avatar_service/imageUpload.component.model";
@@ -80,7 +80,7 @@ export class HeaderAdminComponent implements OnDestroy {
     this.id = Number(localStorage.getItem("id")) ?? 0;
     console.log(localStorage.getItem("id"));
     this.showNotification();
-    this.activeItem = getHeaderPhase(this.router.url);
+    this.activeItem = getAdminHeaderPhase(this.router.url);
 
     this.subscriptions.push(
       this.router.events
@@ -88,7 +88,7 @@ export class HeaderAdminComponent implements OnDestroy {
         .subscribe((event) => {
           if (event instanceof NavigationEnd) {
             console.log(event.url);
-            this.activeItem = getHeaderPhase(event.url);
+            this.activeItem = getAdminHeaderPhase(event.url);
           }
         })
     );

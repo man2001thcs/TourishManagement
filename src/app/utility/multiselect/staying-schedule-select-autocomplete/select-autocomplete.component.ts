@@ -164,8 +164,6 @@ export class StayingScheduleSelectAutocompleteComponent implements OnInit {
         },
       })
     );
-
-    this.messageService.openLoadingDialog();
   }
 
   ngOnDestroy(): void {
@@ -239,7 +237,7 @@ export class StayingScheduleSelectAutocompleteComponent implements OnInit {
     this.stayingScheduleNameList = [];
 
     this.stayingScheduleIdList.push(event.option.value.id);
-    this.stayingScheduleNameList.push(event.option.value.placeBranch);
+    this.stayingScheduleNameList.push(event.option.value.name);
 
     this.stayingScheduleInput.nativeElement.value = "";
     this.stayingScheduleCtrl.setValue(null);

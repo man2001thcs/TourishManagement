@@ -4,33 +4,23 @@
       <mat-card-title>Danh sách hóa đơn</mat-card-title>
     </mat-card-header>
     <mat-card-actions>
-      <button mat-raised-button (click)="openAddDialog()" class="demo-button">
-        Thêm đối tác
-      </button>
-    </mat-card-actions>
-  </mat-card>
+      <div style="display: flex; align-items: center">
+        <button mat-raised-button (click)="openAddDialog()" class="add-button">
+          Thêm đối tác
+        </button>
 
-  <div
-    class="outlet"
-    style="
-      width: 100%;
-      flex-direction: column !important;
-      background-color: white;
-      padding-top: 2%;
-      padding-left: 2%;
-    "
-  >
-    <div class="row">
-      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
         <tourishPlan-multiselect-autocomplete
           (result)="selectChangeReceipt($event)"
         >
         </tourishPlan-multiselect-autocomplete>
       </div>
-    </div>
-  </div>
+    </mat-card-actions>
+  </mat-card>
 
-  <mat-tab-group (selectedIndexChange)="tourStatusChange($event)" style="background-color: white;">
+  <mat-tab-group
+    (selectedIndexChange)="tourStatusChange($event)"
+    style="background-color: white"
+  >
     <mat-tab label="Tour mới tạo"> </mat-tab>
     <mat-tab label="Tour đang hoạt động"> </mat-tab>
     <mat-tab label="Tour đã hoàn thành"> </mat-tab>
@@ -182,7 +172,7 @@
             [@detailExpand]="
               element == expandedElement ? 'expanded' : 'collapsed'
             "
-            style="margin-left: auto;"
+            style="margin-left: auto"
           >
             <div
               class="example-element-diagram"
@@ -206,7 +196,9 @@
                 <div>{{ fullReceipt.phoneNumber }}</div>
               </div>
               <div class="receipt-info">
-                <span style="font-weight: bold">Số vé (Người lớn > 10 tuổi)</span>
+                <span style="font-weight: bold"
+                  >Số vé (Người lớn > 10 tuổi)</span
+                >
                 <div>{{ fullReceipt.totalTicket }}</div>
               </div>
               <div class="receipt-info">

@@ -5,12 +5,10 @@ import {
   AfterViewInit,
   OnDestroy,
 } from "@angular/core";
-import { MatTableDataSource } from "@angular/material/table";
 import { MatSort, Sort } from "@angular/material/sort";
 import { MatPaginator, PageEvent } from "@angular/material/paginator";
-
 import { Store } from "@ngrx/store";
-import { Observable, Subscription } from "rxjs";
+import { Observable, Subscription, scheduled } from "rxjs";
 import { State as ReceiptListState } from "./receipt-list.store.reducer";
 import {
   getReceiptList,
@@ -26,7 +24,7 @@ import { ConfirmDialogComponent } from "src/app/utility/confirm-dialog/confirm-d
 import {
   FullReceipt,
   TotalReceipt,
-  TourishPlan,
+  MovingSchedule,
 } from "src/app/model/baseModel";
 import {
   animate,
@@ -38,7 +36,7 @@ import {
 import { TokenStorageService } from "src/app/utility/user_service/token.service";
 
 @Component({
-  selector: "app-receiptList",
+  selector: "app-moving-receiptList",
   templateUrl: "./receipt-list.component.html",
   styleUrls: ["./receipt-list.component.css"],
   animations: [
@@ -52,9 +50,7 @@ import { TokenStorageService } from "src/app/utility/user_service/token.service"
     ]),
   ],
 })
-export class MovingReceiptUserListComponent
-  implements OnInit, AfterViewInit, OnDestroy
-{
+export class MovingReceiptUserListComponent implements OnInit, AfterViewInit, OnDestroy {
   receiptList!: TotalReceipt[];
   subscriptions: Subscription[] = [];
 
@@ -71,13 +67,11 @@ export class MovingReceiptUserListComponent
 
   displayedColumns: string[] = [
     "id",
-    "tourName",
+    "name",
+    "branchName",
     "singlePrice",
-    "totalTicketAll",
-    "remainTicket",
-    //"tourishPlanId",
-    "createDate",
-    "completeDate",
+    //"scheduleId",
+    "createDate"
   ];
 
   displayedColumnsWithExpand = [...this.displayedColumns, "expand"];
@@ -93,7 +87,7 @@ export class MovingReceiptUserListComponent
   pageIndex = 0;
   sortColumn: string = "createdDate";
   sortDirection: string = "desc";
-  tourishPlanId = "";
+  scheduleId = "";
 
   constructor(
     public dialog: MatDialog,
@@ -121,20 +115,20 @@ export class MovingReceiptUserListComponent
     this.subscriptions.push(
       this.receiptDeleteState.subscribe((state) => {
         if (state) {
-          console.log("abc: ", state);
           this.messageService.openMessageNotifyDialog(state.messageCode);
           this.messageService.closeLoadingDialog();
 
           if (state.resultCd === 0) {
             const email = this.tokenStorageService.getUser().email;
-            this.store.dispatch(
+            this.store.dispatch(             
               ReceiptListActions.getReceiptList({
                 payload: {
                   email: email,
                   page: this.pageIndex + 1,
                   pageSize: this.pageSize,
-                  tourishPlanId: this.tourishPlanId,
                   status: this.active,
+                  movingScheduleId: this.scheduleId,
+                  scheduleType: 1,
                   sortBy: this.sortColumn,
                   sortDirection: this.sortDirection,
                 },
@@ -155,8 +149,9 @@ export class MovingReceiptUserListComponent
           email: email,
           page: this.pageIndex + 1,
           pageSize: this.pageSize,
-          tourishPlanId: this.tourishPlanId,
           status: this.active,
+          movingScheduleId: this.scheduleId,
+          scheduleType: 1,
           sortBy: this.sortColumn,
           sortDirection: this.sortDirection,
         },
@@ -201,7 +196,6 @@ export class MovingReceiptUserListComponent
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log(result);
-
       const email = this.tokenStorageService.getUser().email;
       this.store.dispatch(
         ReceiptListActions.getReceiptList({
@@ -209,8 +203,9 @@ export class MovingReceiptUserListComponent
             email: email,
             page: this.pageIndex + 1,
             pageSize: this.pageSize,
-            tourishPlanId: this.tourishPlanId,
             status: this.active,
+            movingScheduleId: this.scheduleId,
+            scheduleType: 1,
             sortBy: this.sortColumn,
             sortDirection: this.sortDirection,
           },
@@ -235,7 +230,7 @@ export class MovingReceiptUserListComponent
   openDeleteDialog(id: string) {
     const ref = this.dialog.open(ConfirmDialogComponent, {
       data: {
-        title: "Bạn có muốn xóa đối tác này không?",
+        title: "Bạn có muốn xóa hóa đơn này không?",
       },
     });
 
@@ -259,14 +254,16 @@ export class MovingReceiptUserListComponent
 
   tourStatusChange($event: number): void {
     this.pageIndex = 0;
-
+    const email = this.tokenStorageService.getUser().email;
     this.store.dispatch(
       ReceiptListActions.getReceiptList({
         payload: {
+          email: email,
           page: this.pageIndex + 1,
           pageSize: this.pageSize,
           status: $event,
-          tourishPlanId: this.tourishPlanId,
+          movingScheduleId: this.scheduleId,
+          scheduleType: 1,
           sortBy: this.sortColumn,
           sortDirection: this.sortDirection,
         },
@@ -276,22 +273,10 @@ export class MovingReceiptUserListComponent
   }
 
   getTotalPriceReceipt(
-    tourishPlan: TourishPlan,
+    schedule: MovingSchedule,
     fullReceipt: FullReceipt
   ): number {
-    let totalPrice = 0;
-
-    tourishPlan.stayingSchedules?.forEach((entity) => {
-      totalPrice += entity.singlePrice ?? 0;
-    });
-
-    tourishPlan.eatSchedules?.forEach((entity) => {
-      totalPrice += entity.singlePrice ?? 0;
-    });
-
-    tourishPlan.movingSchedules?.forEach((entity) => {
-      totalPrice += entity.singlePrice ?? 0;
-    });
+    let totalPrice = schedule.singlePrice ?? 0;
 
     totalPrice =
       (totalPrice - fullReceipt.discountAmount) *
@@ -301,22 +286,8 @@ export class MovingReceiptUserListComponent
     return Math.floor(totalPrice);
   }
 
-  getTotalPrice(tourishPlan: TourishPlan): number {
-    let totalPrice = 0;
-
-    tourishPlan.stayingSchedules?.forEach((entity) => {
-      totalPrice += entity.singlePrice ?? 0;
-    });
-
-    tourishPlan.eatSchedules?.forEach((entity) => {
-      totalPrice += entity.singlePrice ?? 0;
-    });
-
-    tourishPlan.movingSchedules?.forEach((entity) => {
-      totalPrice += entity.singlePrice ?? 0;
-    });
-
-    return totalPrice;
+  getTotalPrice(schedule: MovingSchedule): number {
+    return schedule.singlePrice ?? 0;
   }
 
   handlePageEvent(e: PageEvent) {
@@ -330,9 +301,9 @@ export class MovingReceiptUserListComponent
           email: email,
           page: this.pageIndex + 1,
           pageSize: this.pageSize,
-
-          tourishPlanId: this.tourishPlanId,
           status: this.active,
+          movingScheduleId: this.scheduleId,
+          scheduleType: 1,
           sortBy: this.sortColumn,
           sortDirection: this.sortDirection,
         },
@@ -342,16 +313,18 @@ export class MovingReceiptUserListComponent
   }
 
   selectChangeReceipt($event: any) {
+    console.log($event);
+    this.scheduleId = $event.data.idList[0];
     const email = this.tokenStorageService.getUser().email;
-    this.tourishPlanId = $event.data[0];
+
     this.store.dispatch(
       ReceiptListActions.getReceiptList({
         payload: {
           email: email,
           page: this.pageIndex + 1,
           pageSize: this.pageSize,
-
-          tourishPlanId: $event.data[0],
+          movingScheduleId: this.scheduleId,
+          scheduleType: 1,
           status: this.active,
           sortBy: this.sortColumn,
           sortDirection: this.sortDirection,
@@ -365,18 +338,20 @@ export class MovingReceiptUserListComponent
     this.pageIndex = 0;
     this.sortColumn = sortState.active;
     this.sortDirection = sortState.direction;
+    const email = this.tokenStorageService.getUser().email;
 
     this.messageService.openLoadingDialog();
     this.store.dispatch(
       ReceiptListActions.getReceiptList({
         payload: {
+          email: email,
           page: 1,
           pageSize: this.pageSize,
-
-          tourishPlanId: this.tourishPlanId,
+          movingScheduleId: this.scheduleId,
+          status: this.active,
+          scheduleType: 1,
           sortBy: sortState.active,
           sortDirection: sortState.direction,
-          status: this.active,
         },
       })
     );

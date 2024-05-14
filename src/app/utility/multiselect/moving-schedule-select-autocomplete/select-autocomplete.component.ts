@@ -165,7 +165,6 @@ export class MovingScheduleSelectAutocompleteComponent implements OnInit {
       })
     );
 
-    this.messageService.openLoadingDialog();
   }
 
   ngOnDestroy(): void {

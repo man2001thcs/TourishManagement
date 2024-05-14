@@ -91,11 +91,11 @@ const routes: Routes = [
         component: ReceiptListComponent,
       },
       {
-        path: "moving-receipt/list",
+        path: "moving/receipt/list",
         component: MovingScheduleReceiptListComponent,
       },
       {
-        path: "staying-receipt/list",
+        path: "staying/receipt/list",
         component: StayingScheduleReceiptListComponent,
       },
       {

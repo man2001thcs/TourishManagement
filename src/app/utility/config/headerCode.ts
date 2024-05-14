@@ -13,8 +13,8 @@ const ADMIN_HEADER_CODE: Map<string, string> = new Map([
   ["/admin/notification/list", "11th"],
   ["/admin/transport/service/list", "12th"],
   ["/admin/resthouse/service/list", "13th"],
-  ["/moving/receipt/list", "14th"],
-  ["/staying/receipt/list", "15th"]
+  ["/admin/moving/receipt/list", "14th"],
+  ["/admin/staying/receipt/list", "15th"]
 ]);
 
 const USER_HEADER_CODE: Map<string, string> = new Map([

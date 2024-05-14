@@ -33,15 +33,11 @@ import {
   getSysError,
 } from "./receipt-detail.store.selector";
 import { MessageService } from "src/app/utility/user_service/message.service";
-import {
-  FullReceipt,
-  TotalReceipt,
-  TourishPlan,
-} from "src/app/model/baseModel";
+import { FullReceipt, TotalReceipt, StayingSchedule } from "src/app/model/baseModel";
 import { HttpClient } from "@angular/common/http";
 
 @Component({
-  selector: "app-book-detail",
+  selector: "app-staying-receipt-detail",
   templateUrl: "./receipt-detail.component.html",
   styleUrls: ["./receipt-detail.component.css"],
 })
@@ -52,7 +48,7 @@ export class StayingReceiptUserDetailComponent implements OnInit, OnDestroy {
     fullReceiptId: "",
     totalReceiptId: "",
     guestName: "",
-    tourishPlanId: "",
+    stayingScheduleId: "",
     totalTicket: 0,
     totalChildTicket: 0,
     originalPrice: 0,
@@ -77,7 +73,7 @@ export class StayingReceiptUserDetailComponent implements OnInit, OnDestroy {
   receiptState!: Observable<any>;
   editReceiptState!: Observable<any>;
   subscriptions: Subscription[] = [];
-  tourishPlan!: TourishPlan;
+  schedule!: StayingSchedule;
 
   constructor(
     private dialog: MatDialog,
@@ -96,9 +92,11 @@ export class StayingReceiptUserDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.editformGroup_info = this.fb.group({
-      fullReceiptId: [this.data.id],
+      fullReceiptId: [
+        this.data.id      
+      ],
       totalReceiptId: ["", Validators.compose([Validators.required])],
-      tourishScheduleId: ["", Validators.compose([Validators.required])],
+      serviceScheduleId: ["", Validators.compose([Validators.required])],
       guestName: ["", Validators.compose([Validators.required])],
       phoneNumber: [
         "",
@@ -120,15 +118,15 @@ export class StayingReceiptUserDetailComponent implements OnInit, OnDestroy {
         if (state) {
           this.receipt = state;
           this.messageService.closeLoadingDialog();
-          this.getTour(state.totalReceipt?.tourishPlanId);
+          this.getTour(state.totalReceipt?.stayingScheduleId);
 
-          console.log(state.totalReceipt?.tourishPlanId);
+          console.log(state.totalReceipt?.stayingScheduleId);
 
           this.editformGroup_info.controls["totalReceiptId"].setValue(
             state.totalReceiptId
           );
-          this.editformGroup_info.controls["tourishScheduleId"].setValue(
-            state.tourishScheduleId
+          this.editformGroup_info.controls["serviceScheduleId"].setValue(
+            state.serviceScheduleId
           );
           this.editformGroup_info.controls["guestName"].setValue(
             state.guestName
@@ -183,10 +181,12 @@ export class StayingReceiptUserDetailComponent implements OnInit, OnDestroy {
     );
 
     this.subscriptions.push(
-      this.errorSystemState.subscribe((state: any) => {
+      this.errorSystemState.subscribe((state) => {
         if (state) {
-          this.messageService.closeLoadingDialog();
-          this.messageService.openSystemFailNotifyDialog(state.message);
+          if (state !== "" && state !== null) {
+            this.messageService.closeAllDialog();
+            this.messageService.openSystemFailNotifyDialog(state);
+          }
         }
       })
     );
@@ -215,16 +215,18 @@ export class StayingReceiptUserDetailComponent implements OnInit, OnDestroy {
   }
 
   getTour(id: string) {
-    this.http.get("/api/GetTourishPlan/" + id).subscribe((response: any) => {
-      this.tourishPlan = response.data;
-    });
+    this.http
+      .get("/api/GetStayingSchedule/" + id)
+      .subscribe((response: any) => {
+        this.schedule = response.data;
+      });
   }
 
   formReset(): void {
     this.editformGroup_info.setValue({
       guestName: this.receipt.guestName ?? "",
-      tourishPlanId: this.receipt.tourishPlanId ?? "",
-      tourishScheduleId: this.receipt.tourishScheduleId ?? "",
+      stayingScheduleId: this.receipt.stayingScheduleId ?? "",
+      serviceScheduleId: this.receipt.serviceScheduleId ?? "",
       totalTicket: this.receipt.totalTicket ?? "",
       originalPrice: this.receipt.originalPrice ?? 0,
       discountFloat: this.receipt.discountFloat ?? 0,
@@ -247,13 +249,13 @@ export class StayingReceiptUserDetailComponent implements OnInit, OnDestroy {
     this.isSubmitted = true;
 
     console.log(this.editformGroup_info.value);
-    if (this.editformGroup_info.valid) {
+    if (this.editformGroup_info.valid){
       const payload: FullReceipt = {
         totalReceiptId: this.receipt.totalReceiptId,
         fullReceiptId: this.data.id,
         guestName: this.editformGroup_info.value.guestName,
-        tourishPlanId: this.editformGroup_info.value.tourishPlanId,
-        tourishScheduleId: this.editformGroup_info.value.tourishScheduleId,
+        stayingScheduleId: this.editformGroup_info.value.stayingScheduleId,
+        serviceScheduleId: this.editformGroup_info.value.serviceScheduleId,
         totalTicket: this.editformGroup_info.value.totalTicket,
         totalChildTicket: this.editformGroup_info.value.totalChildTicket,
         originalPrice: this.editformGroup_info.value.originalPrice,
@@ -264,7 +266,7 @@ export class StayingReceiptUserDetailComponent implements OnInit, OnDestroy {
         description: this.editformGroup_info.value.description,
         status: parseInt(this.editformGroup_info.value.status),
       };
-
+  
       this.store.dispatch(
         ReceiptActions.editReceipt({
           payload: payload,
@@ -272,6 +274,7 @@ export class StayingReceiptUserDetailComponent implements OnInit, OnDestroy {
       );
       this.messageService.openLoadingDialog();
     }
+    
   }
 
   saveInfomation(): void {
@@ -287,13 +290,14 @@ export class StayingReceiptUserDetailComponent implements OnInit, OnDestroy {
   }
 
   selectChangeReceipt($event: any): any {
-    console.log($event);
-    this.editformGroup_info.controls["tourishPlanId"].setValue($event.data[0]);
-
-    console.log(this.editformGroup_info.value);
+    if ($event.data) {
+      this.editformGroup_info.controls["stayingScheduleId"].setValue(
+        $event.data.idList[0]
+      );
+    }
   }
 
-  closeDialog() {
+  closeDialog(){
     this.dialog.closeAll();
   }
 

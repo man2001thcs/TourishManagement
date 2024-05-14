@@ -198,6 +198,7 @@
             <input
               matInput
               fullwidth
+              type="number"
               placeholder="Vd: 2"
               formControlName="totalTicket"
             />
@@ -206,6 +207,24 @@
             *ngIf="this.setTourForm.get('totalTicket')?.touched"
             [formGroup]="setTourForm"
             [formGroupControlName]="'totalTicket'"
+          ></app-validation>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 create-form">
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Số vé (Trẻ em)</mat-label>
+            <input
+              matInput
+              fullwidth
+              type="number"
+              placeholder="Vd: 2"
+              formControlName="totalChildTicket"
+            />
+          </mat-form-field>
+          <app-validation
+            *ngIf="this.setTourForm.get('totalChildTicket')?.touched"
+            [formGroup]="setTourForm"
+            [formGroupControlName]="'totalChildTicket'"
           ></app-validation>
         </div>
 
@@ -226,11 +245,11 @@
           </mat-form-field>
         </div>
 
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form">
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 create-form">
           <button
             mat-flat-button
             color="primary"
-            style="width: 100%"
+            style="width: 100%; height: 56px; font-size: 16px"
             (click)="register()"
           >
             Gửi

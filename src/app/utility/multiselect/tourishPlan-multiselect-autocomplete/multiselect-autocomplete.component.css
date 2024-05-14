@@ -6,6 +6,7 @@
 
 .full-width-input {
   width: 80% !important;
+  margin-bottom: 0 !important;
 }
 ​
 .chip-list-wrapper {

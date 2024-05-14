@@ -219,7 +219,7 @@ export class StayingScheduleReceiptDetailComponent implements OnInit, OnDestroy 
 
   getTour(id: string) {
     this.http
-      .get("/api/GetStayingSchedule" + id)
+      .get("/api/GetStayingSchedule/" + id)
       .subscribe((response: any) => {
         this.schedule = response.data;
       });

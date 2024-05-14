@@ -10,7 +10,7 @@ import {
 import { MatSort, Sort } from "@angular/material/sort";
 import { MatPaginator, PageEvent } from "@angular/material/paginator";
 import { Store } from "@ngrx/store";
-import { Observable, Subscription } from "rxjs";
+import { Observable, Subscription, scheduled } from "rxjs";
 import { State as ReceiptListState } from "./receipt-list.store.reducer";
 import {
   getReceiptList,
@@ -27,7 +27,7 @@ import { ConfirmDialogComponent } from "src/app/utility/confirm-dialog/confirm-d
 import {
   FullReceipt,
   TotalReceipt,
-  TourishPlan,
+  MovingSchedule,
 } from "src/app/model/baseModel";
 import {
   animate,
@@ -69,13 +69,11 @@ export class MovingScheduleReceiptListComponent implements OnInit, AfterViewInit
 
   displayedColumns: string[] = [
     "id",
-    "tourName",
+    "name",
+    "branchName",
     "singlePrice",
-    "totalTicketAll",
-    "remainTicket",
     //"scheduleId",
-    "createDate",
-    "completeDate",
+    "createDate"
   ];
 
   displayedColumnsWithExpand = [...this.displayedColumns, "expand"];
@@ -89,7 +87,7 @@ export class MovingScheduleReceiptListComponent implements OnInit, AfterViewInit
   pageSize = 5;
   pageSizeOpstion = [5, 10];
   pageIndex = 0;
-  sortColumn: string = "createDate";
+  sortColumn: string = "createdDate";
   sortDirection: string = "desc";
   scheduleId = "";
 
@@ -119,7 +117,6 @@ export class MovingScheduleReceiptListComponent implements OnInit, AfterViewInit
     this.subscriptions.push(
       this.receiptDeleteState.subscribe((state) => {
         if (state) {
-          console.log("abc: ", state);
           this.messageService.openMessageNotifyDialog(state.messageCode);
           this.messageService.closeLoadingDialog();
 
@@ -130,7 +127,7 @@ export class MovingScheduleReceiptListComponent implements OnInit, AfterViewInit
                   page: this.pageIndex + 1,
                   pageSize: this.pageSize,
                   status: this.active,
-                  scheduleId: this.scheduleId,
+                  movingScheduleId: this.scheduleId,
                   scheduleType: 1,
                   sortBy: this.sortColumn,
                   sortDirection: this.sortDirection,
@@ -151,7 +148,7 @@ export class MovingScheduleReceiptListComponent implements OnInit, AfterViewInit
           page: this.pageIndex + 1,
           pageSize: this.pageSize,
           status: this.active,
-          scheduleId: this.scheduleId,
+          movingScheduleId: this.scheduleId,
           scheduleType: 1,
           sortBy: this.sortColumn,
           sortDirection: this.sortDirection,
@@ -204,7 +201,7 @@ export class MovingScheduleReceiptListComponent implements OnInit, AfterViewInit
             page: this.pageIndex + 1,
             pageSize: this.pageSize,
             status: this.active,
-            scheduleId: this.scheduleId,
+            movingScheduleId: this.scheduleId,
             scheduleType: 1,
             sortBy: this.sortColumn,
             sortDirection: this.sortDirection,
@@ -227,7 +224,7 @@ export class MovingScheduleReceiptListComponent implements OnInit, AfterViewInit
             page: this.pageIndex + 1,
             pageSize: this.pageSize,
             status: this.active,
-            scheduleId: this.scheduleId,
+            movingScheduleId: this.scheduleId,
             scheduleType: 1,
             sortBy: this.sortColumn,
             sortDirection: this.sortDirection,
@@ -253,7 +250,7 @@ export class MovingScheduleReceiptListComponent implements OnInit, AfterViewInit
   openDeleteDialog(id: string) {
     const ref = this.dialog.open(ConfirmDialogComponent, {
       data: {
-        title: "Bạn có muốn xóa đối tác này không?",
+        title: "Bạn có muốn xóa hóa đơn này không?",
       },
     });
 
@@ -275,7 +272,7 @@ export class MovingScheduleReceiptListComponent implements OnInit, AfterViewInit
     console.log("abc");
   }
 
-  tourStatusChange(): void {
+  tourStatusChange($event: number): void {
     this.pageIndex = 0;
 
     this.store.dispatch(
@@ -283,8 +280,8 @@ export class MovingScheduleReceiptListComponent implements OnInit, AfterViewInit
         payload: {
           page: this.pageIndex + 1,
           pageSize: this.pageSize,
-          status: this.active,
-          scheduleId: this.scheduleId,
+          status: $event,
+          movingScheduleId: this.scheduleId,
           scheduleType: 1,
           sortBy: this.sortColumn,
           sortDirection: this.sortDirection,
@@ -295,22 +292,10 @@ export class MovingScheduleReceiptListComponent implements OnInit, AfterViewInit
   }
 
   getTotalPriceReceipt(
-    schedule: TourishPlan,
+    schedule: MovingSchedule,
     fullReceipt: FullReceipt
   ): number {
-    let totalPrice = 0;
-
-    schedule.stayingSchedules?.forEach((entity) => {
-      totalPrice += entity.singlePrice ?? 0;
-    });
-
-    schedule.eatSchedules?.forEach((entity) => {
-      totalPrice += entity.singlePrice ?? 0;
-    });
-
-    schedule.movingSchedules?.forEach((entity) => {
-      totalPrice += entity.singlePrice ?? 0;
-    });
+    let totalPrice = schedule.singlePrice ?? 0;
 
     totalPrice =
       (totalPrice - fullReceipt.discountAmount) *
@@ -320,22 +305,8 @@ export class MovingScheduleReceiptListComponent implements OnInit, AfterViewInit
     return Math.floor(totalPrice);
   }
 
-  getTotalPrice(schedule: TourishPlan): number {
-    let totalPrice = 0;
-
-    schedule.stayingSchedules?.forEach((entity) => {
-      totalPrice += entity.singlePrice ?? 0;
-    });
-
-    schedule.eatSchedules?.forEach((entity) => {
-      totalPrice += entity.singlePrice ?? 0;
-    });
-
-    schedule.movingSchedules?.forEach((entity) => {
-      totalPrice += entity.singlePrice ?? 0;
-    });
-
-    return totalPrice;
+  getTotalPrice(schedule: MovingSchedule): number {
+    return schedule.singlePrice ?? 0;
   }
 
   handlePageEvent(e: PageEvent) {
@@ -348,7 +319,7 @@ export class MovingScheduleReceiptListComponent implements OnInit, AfterViewInit
           page: this.pageIndex + 1,
           pageSize: this.pageSize,
           status: this.active,
-          scheduleId: this.scheduleId,
+          movingScheduleId: this.scheduleId,
           scheduleType: 1,
           sortBy: this.sortColumn,
           sortDirection: this.sortDirection,
@@ -360,13 +331,14 @@ export class MovingScheduleReceiptListComponent implements OnInit, AfterViewInit
 
   selectChangeReceipt($event: any) {
     console.log($event);
-    this.scheduleId = $event.data[0];
+    this.scheduleId = $event.data.idList[0];
     this.store.dispatch(
       ReceiptListActions.getReceiptList({
         payload: {
           page: this.pageIndex + 1,
           pageSize: this.pageSize,
-          scheduleId: $event.data[0],
+          movingScheduleId: this.scheduleId,
+          scheduleType: 1,
           status: this.active,
           sortBy: this.sortColumn,
           sortDirection: this.sortDirection,
@@ -387,7 +359,7 @@ export class MovingScheduleReceiptListComponent implements OnInit, AfterViewInit
         payload: {
           page: 1,
           pageSize: this.pageSize,
-          scheduleId: this.scheduleId,
+          movingScheduleId: this.scheduleId,
           status: this.active,
           scheduleType: 1,
           sortBy: sortState.active,

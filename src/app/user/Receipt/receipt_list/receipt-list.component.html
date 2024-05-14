@@ -17,11 +17,14 @@
       "
     ></div>
 
-    <mat-tab-group (selectedIndexChange)="tourStatusChange($event)" style="background-color: white;">
-      <mat-tab label="Tour mới tạo"> </mat-tab>
-      <mat-tab label="Tour đang hoạt động"> </mat-tab>
-      <mat-tab label="Tour đã hoàn thành"> </mat-tab>
-      <mat-tab label="Tour đã hủy"> </mat-tab>
+    <mat-tab-group
+      (selectedIndexChange)="tourStatusChange($event)"
+      style="background-color: white"
+    >
+      <mat-tab label="Hóa đơn mới tạo"> </mat-tab>
+      <mat-tab label="Hóa đơn chờ thanh toán"> </mat-tab>
+      <mat-tab label="Hóa đơn đã hoàn thành"> </mat-tab>
+      <mat-tab label="Hóa đơn đã hủy"> </mat-tab>
     </mat-tab-group>
 
     <div class="table-responsive">
@@ -205,9 +208,7 @@
                 <div class="receipt-info">
                   <span style="font-weight: bold">Tổng giá</span>
                   <div>
-                    {{
-                      getTotalPriceReceipt(element.tourishPlan, fullReceipt)
-                    }}
+                    {{ getTotalPriceReceipt(element.tourishPlan, fullReceipt) }}
                     đ
                   </div>
                 </div>

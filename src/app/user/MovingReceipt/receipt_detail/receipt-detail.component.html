@@ -112,9 +112,9 @@
             <div class="row">
               <mat-form-field appearance="outline" class="full-width-input">
                 <mat-label>Lịch trình</mat-label>
-                <mat-select required formControlName="tourishScheduleId">
+                <mat-select required formControlName="serviceScheduleId">
                   <mat-option
-                    *ngFor="let schedule of tourishPlan?.tourishScheduleList"
+                    *ngFor="let schedule of schedule?.serviceScheduleList"
                     [value]="schedule.id"
                   >
                     {{ getDateFormat(schedule.startDate) }}
@@ -128,7 +128,6 @@
                 <mat-label>Giảm giá dịch vụ (Trừ vào giá trị)</mat-label>
                 <input
                   matInput
-                  [readonly]="true"
                   placeholder="Vd: 10000"
                   formControlName="discountAmount"
                 />
@@ -154,7 +153,6 @@
                 <input
                   matInput
                   placeholder="Vd: 180.000đ"
-                  [readonly]="true"
                   formControlName="originalPrice"
                 />
               </mat-form-field>
@@ -229,14 +227,13 @@
               </div>
             </div>
 
-           <div class="row">
+            <div class="row">
               <mat-form-field appearance="outline" class="full-width-input">
                 <mat-label>Giảm giá dịch vụ (Trừ theo %)</mat-label>
                 <input
                   matInput
                   placeholder="Vd: 0.1"
                   formControlName="discountFloat"
-                  [readonly]="true"
                 />
               </mat-form-field>
               <div class="validation-container">
@@ -245,7 +242,7 @@
                     this.editformGroup_info.get('discountFloat')?.errors &&
                     (editformGroup_info.get('discountFloat')?.touched ||
                       isSubmitted)
-                  " 
+                  "
                   [formGroup]="editformGroup_info"
                   [formGroupControlName]="'discountFloat'"
                 ></app-validation>
@@ -286,7 +283,7 @@
 
         <div
           class="row"
-          style="display: flex; flex-direction: row !important; flex-wrap: 1; margin-top: 30px;"
+          style="display: flex; flex-direction: row !important; flex-wrap: 1"
         >
           <div style="margin-right: 20px">
             <button

@@ -324,7 +324,19 @@
         >
           <ng-container [ngbNavItem]="'7th'">
             <button ngbNavLink (click)="navigateUrl('receipt/list')">
-              Danh sách hóa đơn
+              Hóa đơn Tour
+            </button>
+          </ng-container>
+
+          <ng-container ngbNavItem="14th">
+            <button ngbNavLink (click)="navigateUrl('moving/receipt/list')">
+              Hóa đơn vé di chuyển
+            </button>
+          </ng-container>
+
+          <ng-container ngbNavItem="15th">
+            <button ngbNavLink (click)="navigateUrl('staying/receipt/list')">
+              Hóa đơn đặt khách sạn/Homestay
             </button>
           </ng-container>
         </div>

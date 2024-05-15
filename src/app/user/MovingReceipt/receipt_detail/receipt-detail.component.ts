@@ -118,7 +118,7 @@ export class MovingReceiptUserDetailComponent implements OnInit, OnDestroy {
         if (state) {
           this.receipt = state;
           this.messageService.closeLoadingDialog();
-          this.getTour(state.totalReceipt?.movingScheduleId);
+          this.getSchedule(state.totalReceipt?.movingScheduleId);
 
           console.log(state.totalReceipt?.movingScheduleId);
 
@@ -214,7 +214,7 @@ export class MovingReceiptUserDetailComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
-  getTour(id: string) {
+  getSchedule(id: string) {
     this.http
       .get("/api/GetMovingSchedule/" + id)
       .subscribe((response: any) => {

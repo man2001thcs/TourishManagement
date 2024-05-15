@@ -20,7 +20,6 @@ import { MessageService } from "src/app/utility/user_service/message.service";
 import {
   FullReceipt,
   StayingSchedule,
-  TourishPlan,
   TourishSchedule,
 } from "src/app/model/baseModel";
 import { HttpClient } from "@angular/common/http";
@@ -177,6 +176,8 @@ export class StayingScheduleReceiptCreateComponent implements OnInit, OnDestroy 
       this.createformGroup_info.controls["stayingScheduleId"].setValue(
         $event.data.idList[0]
       );
+
+      this.getSchedule($event.data.idList[0]);
     }
   }
 
@@ -184,7 +185,7 @@ export class StayingScheduleReceiptCreateComponent implements OnInit, OnDestroy 
     this.dialog.closeAll();
   }
 
-  getTour(id: string) {
+  getSchedule(id: string) {
     this.http.get("/api/GetStayingSchedule/" + id).subscribe((response: any) => {
       this.schedule = response.data;
       this.serviceSchedule = this.schedule.serviceScheduleList ?? [];

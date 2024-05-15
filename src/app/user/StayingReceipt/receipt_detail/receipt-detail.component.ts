@@ -118,7 +118,7 @@ export class StayingReceiptUserDetailComponent implements OnInit, OnDestroy {
         if (state) {
           this.receipt = state;
           this.messageService.closeLoadingDialog();
-          this.getTour(state.totalReceipt?.stayingScheduleId);
+          this.getSchedule(state.totalReceipt?.stayingScheduleId);
 
           console.log(state.totalReceipt?.stayingScheduleId);
 
@@ -214,7 +214,7 @@ export class StayingReceiptUserDetailComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
-  getTour(id: string) {
+  getSchedule(id: string) {
     this.http
       .get("/api/GetStayingSchedule/" + id)
       .subscribe((response: any) => {

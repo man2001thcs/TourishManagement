@@ -6,7 +6,7 @@
     "ng": "ng",
     "install": "npm i --force",
     "start": "ng serve --proxy-config src/app/proxy_config.json",
-    "build": "ng build",
+    "build": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "predeploy": "ng build --configuration production --base-href https://man2001thcs.github.io/TourishManagement/",
     "deploy": "ng build --configuration production --base-href=/TourishManagement/",

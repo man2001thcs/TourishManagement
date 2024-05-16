@@ -1,5 +1,5 @@
 # Stage 1: Build the Angular app
-FROM node:18 AS build
+FROM node:20 AS build
 
 # Set the working directory
 WORKDIR /app
@@ -17,7 +17,7 @@ RUN npm run build
 FROM nginx:alpine
 
 # Copy the built Angular app from the build stage
-COPY --from=build /app/dist/your-angular-app /usr/share/nginx/html
+COPY --from=build /app/dist/roxanne /usr/share/nginx/html
 
 # Copy the Nginx configuration file
 COPY nginx.conf /etc/nginx/nginx.conf

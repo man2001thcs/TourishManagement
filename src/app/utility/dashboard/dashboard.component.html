@@ -3,19 +3,64 @@
     <div class="col-sm-12" style="margin-bottom: 10px">
       <div id="line-chart" style="width: 100%; overflow: hidden"></div>
     </div>
-    <div class="col-sm-6">
-      <div id="col-chart" style="width: 100%; overflow: hidden"></div>
-    </div>
-    <div class="col-sm-6">
-      <div id="pie-chart" style="width: 100%; overflow: hidden"></div>
+    <div class="col-sm-4">
+      <div id="col-tour-chart" style="width: 100%; overflow: hidden"></div>
     </div>
 
-    <div class="col-sm-6">
+    <div class="col-sm-4">
+      <div id="pie-tour-chart" style="width: 100%; overflow: hidden"></div>
+    </div>
+
+    <div class="col-sm-4">
+      <h3>Danh sách khách hàng chưa thanh toán</h3>
+      <mat-list>
+        <mat-list-item *ngFor="let unpaid of tourUnpaidGroup">
+          <span matListItemTitle>{{ unpaid.name }}</span>
+          <span matListItemLine *ngFor="let guest of unpaid.guestList">{{
+            guest.guestName + ". Tổng giá: " + calculatePrice(guest) + " VNĐ."
+          }}</span>
+        </mat-list-item>
+      </mat-list>
+    </div>
+
+    <div class="col-sm-4">
+      <div id="col-moving-chart" style="width: 100%; overflow: hidden"></div>
+    </div>
+
+    <div class="col-sm-4">
+      <div id="pie-moving-chart" style="width: 100%; overflow: hidden"></div>
+    </div>
+
+    <div class="col-sm-4">
+      <h3>Danh sách khách hàng chưa thanh toán</h3>
+      <mat-list>
+        <mat-list-item *ngFor="let unpaid of movingUnpaidGroup">
+          <span matListItemTitle>{{ unpaid.name }}</span>
+          <span matListItemLine *ngFor="let guest of unpaid.guestList">{{
+            guest.guestName + ". Tổng giá: " + calculatePrice(guest) + " VNĐ."
+          }}</span>
+        </mat-list-item>
+      </mat-list>
+    </div>
+
+    <div class="col-sm-4">
       <div id="col-staying-chart" style="width: 100%; overflow: hidden"></div>
     </div>
-    
-    <div class="col-sm-6">
+
+    <div class="col-sm-4">
       <div id="pie-staying-chart" style="width: 100%; overflow: hidden"></div>
+    </div>
+
+    <div class="col-sm-4">
+      <h3>Danh sách khách hàng chưa thanh toán</h3>
+      <mat-list>
+        <mat-list-item *ngFor="let unpaid of stayingUnpaidGroup">
+          <span matListItemTitle>{{ unpaid.name }}</span>
+          <span matListItemLine *ngFor="let guest of unpaid.guestList">{{
+            guest.guestName + ". Tổng giá: " + calculatePrice(guest) + " VNĐ."
+          }}</span>
+        </mat-list-item>
+      </mat-list>
     </div>
   </div>
 </div>

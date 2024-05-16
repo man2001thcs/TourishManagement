@@ -10,9 +10,6 @@ COPY package*.json ./
 # Install the dependencies
 RUN npm install --force
 
-# Copy the rest of the application files
-COPY . .
-
 # Build the Angular application in production mode
 RUN npm run build
 

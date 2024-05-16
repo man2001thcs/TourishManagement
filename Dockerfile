@@ -1,4 +1,4 @@
-FROM nginx:alpine
+FROM nginx:latest
 
 # Copy the built Angular app from the build stage
 COPY --from=build /dist/roxanne /usr/share/nginx/html

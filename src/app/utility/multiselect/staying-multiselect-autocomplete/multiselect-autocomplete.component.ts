@@ -296,6 +296,8 @@ export class StayingMultiselectAutocompleteComponent implements OnInit {
   }
 
   emitAdjustedData = (): void => {
+    this.stayingNameList = [];
+    this.stayingIdList = [];
     var returnList = this.data_selected_edit.concat(this.stayingScheduleList);
     this.result.emit({ data: returnList });
   };

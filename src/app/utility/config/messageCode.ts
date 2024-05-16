@@ -323,7 +323,7 @@ export const SUCCESS_MESSAGE_CODE_EN: Map<string, string> = new Map([
     ["I312", "Restaurant cập nhật thành công"],
     ["I313", "Restaurant xóa thành công"],
 
-    ["I411", "Tour thêm thành công"],
+    ["I411", "Tour thêm thành công, vui lòng bổ sung thêm thông tin ở ngoài danh sách"],
     ["I412", "Tour cập nhật thành công"],
     ["I413", "Tour xóa thành công"],
     ["I415", "Trạng thái theo dõi đã được thiết lập"],

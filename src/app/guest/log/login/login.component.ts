@@ -126,7 +126,7 @@ export class LoginComponent implements OnInit {
                 if (response.Role === "User") {
                   this.router.navigate(["/user/main-page"]);
                 } else if (response.Role === "Admin") {
-                  this.router.navigate(["/admin/tourish-plan/list"]);
+                  this.router.navigate(["/admin/dash-board"]);
                 }
               }
             });

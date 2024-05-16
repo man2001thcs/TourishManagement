@@ -3,6 +3,7 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import {
   ActivatedRouteSnapshot,
   CanDeactivate,
+  Router,
   RouterStateSnapshot,
   UrlTree,
 } from "@angular/router";
@@ -80,7 +81,8 @@ export class TourishPlanCreateAdminComponent
     private fb: FormBuilder,
     private _route: ActivatedRoute,
     private store: Store<TourishPlanState>,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private router: Router
   ) {
     this.tourishPlanState = this.store.select(getTourishPlan);
 
@@ -134,7 +136,7 @@ export class TourishPlanCreateAdminComponent
       this.tourishPlanState.subscribe((state) => {
         if (state) {
           this.messageService.closeLoadingDialog();
-          this.messageService.openMessageNotifyDialog(state.messageCode);
+          this.messageService.openMessageNotifyDialog(state.messageCode)?.subscribe(() => this.router.navigate(['admin/tourish-plan/list']));
         }
       })
     );

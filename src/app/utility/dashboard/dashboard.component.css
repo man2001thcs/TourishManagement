@@ -60,3 +60,19 @@ app-notification-single {
 .notify-pack {
   width: 100%;
 }
+
+.chart-container {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.un-paid-container {
+  background-color: white;
+  padding: 10px 10px 10px;
+  height: 100%;
+}
+
+.un-paid-container h3 {
+  font-weight: bold;
+  font-size: 16px;
+}

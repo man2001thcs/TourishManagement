@@ -262,6 +262,8 @@ export class EatingMultiselectAutocompleteComponent implements OnInit {
 
   emitAdjustedData = (): void => {
     var returnList = this.data_selected_edit.concat(this.eatingScheduleList);
+    this.eatingNameList = [];
+    this.eatingIdList = [];
     this.result.emit({ data: returnList });
   };
 

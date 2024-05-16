@@ -251,7 +251,7 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
   }
 
   reLoad() {
-    this.router.navigate([this.currentRouter]);
+    window.location.reload();
   }
 
   ngOnDestroy(): void {
@@ -277,7 +277,6 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
       ];
     });
 
-
     if (this.editformGroup_info.valid) {
       this.messageService.openLoadingDialog();
       this.store.dispatch(
@@ -301,7 +300,7 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
             tourishCategoryRelations: tourishCategoryRelationInsert,
             tourishScheduleList: this.scheduleList,
             instructionList: this.instructionList,
-            
+
             movingScheduleString:
               this.editformGroup_info.value.movingScheduleString,
             EatingScheduleString:
@@ -441,6 +440,4 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
   getTinyMceResult($event: any) {
     this.editorContent = $event.data;
   }
-
-
 }

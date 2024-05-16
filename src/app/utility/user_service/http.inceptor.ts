@@ -98,7 +98,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
               this.messageService.openFailNotifyDialog("Có lỗi xảy ra, vui lòng thử lại").subscribe(() => {
                 setTimeout(() => {
-                  this.router.navigate(["/guest/list"]);
+                  this.router.navigate(["/guest/main-page"]);
                 }, 1000);
               });
               return throwError(() => err);
@@ -123,7 +123,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
               this.messageService.openFailNotifyDialog("Phiên đăng nhập đã hết hiệu lực").subscribe(() => {
                 setTimeout(() => {
-                  this.router.navigate(["/guest/home"]);
+                  this.router.navigate(["/guest/main-page"]);
                 }, 1000);
               });
 
@@ -139,7 +139,7 @@ export class AuthInterceptor implements HttpInterceptor {
         this.messageService.closeAllDialog();
         this.messageService.openFailNotifyDialog("Phiên đăng nhập đã hết hiệu lực").subscribe(() => {
           setTimeout(() => {
-            this.router.navigate(["/guest/list"]);
+            this.router.navigate(["/guest/login"]);
           }, 1000);
         });
       }

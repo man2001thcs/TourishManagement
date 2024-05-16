@@ -4,6 +4,7 @@
   "homepage": "https://man2001thcs.github.io/TourishManagement/",
   "scripts": {
     "ng": "ng",
+    "install": "npm i --force",
     "start": "ng serve --proxy-config src/app/proxy_config.json",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",

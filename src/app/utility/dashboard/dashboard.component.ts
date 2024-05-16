@@ -98,6 +98,10 @@ export class DashboardComponent implements OnInit {
 
     this.loadStayingColChart();
     this.loadStayingPieChart();
+
+    this.getUpaidClientInTour();
+    this.getUpaidClientInMoving();
+    this.getUpaidClientInStaying();
   }
 
   loadLineChart(): void {

@@ -30,8 +30,8 @@ export interface UnpaidGuest {
   originalPrice: number;
   totalTicket: number;
   totalChildTicket: number;
-  DiscountFloat: number;
-  DiscountAmount: number;
+  discountFloat: number;
+  discountAmount: number;
 }
 
 export interface UnpaidGroup {
@@ -163,7 +163,7 @@ export class DashboardComponent implements OnInit {
           '<span style = "font-size:10px">{point.key}</span><table>',
         pointFormat:
           '<tr><td style = "color:{series.color};padding:0">{series.name}: </td>' +
-          '<td style = "padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+          '<td style = "padding:0"><b>{point.y:.1f} VNĐ</b></td></tr>',
         footerFormat: "</table>",
         shared: true,
         useHTML: true,
@@ -209,7 +209,7 @@ export class DashboardComponent implements OnInit {
           '<span style = "font-size:10px">{point.key}</span><table>',
         pointFormat:
           '<tr><td style = "color:{series.color};padding:0">{series.name}: </td>' +
-          '<td style = "padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+          '<td style = "padding:0"><b>{point.y:.1f} VNĐ</b></td></tr>',
         footerFormat: "</table>",
         shared: true,
         useHTML: true,
@@ -230,7 +230,7 @@ export class DashboardComponent implements OnInit {
   }
 
   loadMovingColChart(): void {
-    this.colStayingChartOptions = {
+    this.colMovingChartOptions = {
       chart: {
         type: "column",
       },
@@ -255,7 +255,7 @@ export class DashboardComponent implements OnInit {
           '<span style = "font-size:10px">{point.key}</span><table>',
         pointFormat:
           '<tr><td style = "color:{series.color};padding:0">{series.name}: </td>' +
-          '<td style = "padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+          '<td style = "padding:0"><b>{point.y:.1f} VNĐ</b></td></tr>',
         footerFormat: "</table>",
         shared: true,
         useHTML: true,
@@ -313,7 +313,7 @@ export class DashboardComponent implements OnInit {
   }
 
   loadMovingPieChart(): void {
-    this.pieTourChartOptions = {
+    this.pieMovingChartOptions = {
       chart: {
         plotShadow: false,
       },
@@ -350,7 +350,7 @@ export class DashboardComponent implements OnInit {
   }
 
   loadStayingPieChart(): void {
-    this.pieTourChartOptions = {
+    this.pieStayingChartOptions = {
       chart: {
         plotShadow: false,
       },
@@ -679,11 +679,11 @@ export class DashboardComponent implements OnInit {
   }
 
   calculatePrice(guest: UnpaidGuest) {
-    return (
+    const price =
       (guest.totalTicket + guest.totalChildTicket) *
         guest.originalPrice *
-        (1 - guest.DiscountFloat) -
-      guest.DiscountAmount
-    );
+        (1 - guest.discountFloat) -
+      guest.discountAmount;
+    return price;
   }
 }

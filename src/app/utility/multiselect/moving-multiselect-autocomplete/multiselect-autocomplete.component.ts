@@ -296,6 +296,8 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
   }
 
   emitAdjustedData = (): void => {
+    this.movingNameList = [];
+    this.movingIdList = [];
     var returnList = this.data_selected_edit.concat(this.movingScheduleList);
     this.result.emit({ data: returnList });
   };
@@ -331,7 +333,7 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
         driverName: this.movingFormGroup.value.driverName,
         branchName: this.movingFormGroup.value.branchName,
         vehiclePlate: this.movingFormGroup.value.vehiclePlate,
-        phoneNumber: this.movingFormGroup.value.sphoneNumber,
+        phoneNumber: this.movingFormGroup.value.phoneNumber,
 
         transportId: this.movingFormGroup.value.transportId,
         vehicleType: this.movingFormGroup.value.vehicleType,

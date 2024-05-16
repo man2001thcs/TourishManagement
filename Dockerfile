@@ -5,11 +5,11 @@ COPY /dist/roxanne /usr/share/nginx/html
 
 COPY /tls /tls
 
-# # Copy the Nginx configuration file
-# COPY nginx.conf /etc/nginx/nginx.conf
+# Copy the Nginx configuration file
+COPY nginx.conf /etc/nginx/nginx.conf
 
-# # Expose port 80
-# EXPOSE 80
+# Expose port 80
+EXPOSE 80
 
-# # Start Nginx server
-# CMD ["nginx", "-g", "daemon off;"]
+# Start Nginx server
+CMD ["nginx", "-g", "daemon off;"]

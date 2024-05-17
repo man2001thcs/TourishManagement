@@ -98,9 +98,9 @@ export class TourishDetailComponent implements OnInit {
   slides: any[] = [];
 
   getDuration() {
-    if (this.tourishPlan?.startDate && this.tourishPlan?.endDate) {
-      const startDateObj = new Date(this.tourishPlan?.startDate);
-      const endDateObj = new Date(this.tourishPlan?.endDate);
+    if (this.tourishPlan?.tourishScheduleList) {
+      const startDateObj = new Date(this.tourishPlan?.tourishScheduleList[0].startDate);
+      const endDateObj = new Date(this.tourishPlan?.tourishScheduleList[0].endDate);
 
       const timeDiff = endDateObj.getTime() - startDateObj.getTime();
       const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));

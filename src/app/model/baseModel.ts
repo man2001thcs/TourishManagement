@@ -188,14 +188,10 @@ export interface TourishPlan {
   supportNumber: string;
   totalTicket: number;
   remainTicket: number;
-  planStatus: number;
   description: string;
 
   createDate?: string;
   updateDate?: string;
-
-  startDate: string;
-  endDate: string;
 
   tourishCategoryRelations?: TourishCategoryRelation[];
   tourishCategories?: TourishCategory[];

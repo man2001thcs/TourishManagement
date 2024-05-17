@@ -119,9 +119,6 @@ export class TourishPlanCreateAdminComponent
       startingPoint: ["", Validators.compose([Validators.required])],
       endingPoint: ["", Validators.compose([Validators.required])],
       supportNumber: ["", Validators.compose([Validators.required])],
-      planStatus: [0, Validators.compose([Validators.required])],
-      startDate: ["", Validators.compose([Validators.required])],
-      endDate: ["", Validators.compose([Validators.required])],
 
       totalTicket: [7, Validators.compose([Validators.required])],
       remainTicket: [2, Validators.compose([Validators.required])],
@@ -291,9 +288,6 @@ export class TourishPlanCreateAdminComponent
             endPoint: this.createformGroup.value.endingPoint,
 
             supportNumber: this.createformGroup.value.supportNumber,
-            planStatus: this.createformGroup.value.planStatus,
-            startDate: this.createformGroup.value.startDate,
-            endDate: this.createformGroup.value.endDate,
 
             totalTicket: this.createformGroup.value.totalTicket,
             remainTicket: this.createformGroup.value.remainTicket,
@@ -325,9 +319,6 @@ export class TourishPlanCreateAdminComponent
       endingPoint: "",
 
       supportNumber: "",
-      planStatus: 0,
-      startDate: "",
-      endDate: "",
 
       totalTicket: 0,
       remainTicket: 0,
@@ -421,5 +412,13 @@ export class TourishPlanCreateAdminComponent
 
   getTinyMceResult($event: any) {
     this.editorContent = $event.data;
+  }
+
+  onAutocompleteSelected($event: any){
+    console.log($event);
+  }
+
+  onLocationSelected($event: any){
+    console.log($event);
   }
 }

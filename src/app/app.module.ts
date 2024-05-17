@@ -39,6 +39,7 @@ import { CarouselSlider } from "angular-carousel-slider";
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { messaging } from "src/conf/firebase.conf";
 import { MatSelectModule } from "@angular/material/select";
+import { MatGoogleMapsAutocompleteModule } from "@angular-material-extensions/google-maps-autocomplete";
 
 @NgModule({
   declarations: [

@@ -299,6 +299,7 @@ import { MovingReceiptListEffects } from "../MovingScheduleReceipt/receipt_list/
 import { StayingReceiptCreateEffects } from "../StayingScheduleReceipt/receipt_create/receipt-create.store.effect";
 import { StayingReceiptEffects } from "../StayingScheduleReceipt/receipt_detail/receipt-detail.store.effect";
 import { StayingReceiptListEffects } from "../StayingScheduleReceipt/receipt_list/receipt-list.store.effect";
+import { MatGoogleMapsAutocompleteModule } from "@angular-material-extensions/google-maps-autocomplete";
 
 @NgModule({
   declarations: [
@@ -405,10 +406,9 @@ import { StayingReceiptListEffects } from "../StayingScheduleReceipt/receipt_lis
     NgbAlertModule,
     MatSelectModule,
     MatExpansionModule,
-
     NbChatModule,
-
     EditorModule,
+    
 
     StoreModule.forFeature(TourishPlanCreateStoreKey, TourishPlanCreateReducer),
     StoreModule.forFeature(TourishPlanListStoreKey, TourishPlanListReducer),

@@ -53,9 +53,6 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
     endPoint: "",
 
     supportNumber: "",
-    planStatus: 0,
-    startDate: "",
-    endDate: "",
 
     totalTicket: 0,
     remainTicket: 0,
@@ -115,9 +112,6 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
       startingPoint: ["", Validators.compose([Validators.required])],
       endingPoint: ["", Validators.compose([Validators.required])],
       supportNumber: ["", Validators.compose([Validators.required])],
-      planStatus: [0, Validators.compose([Validators.required])],
-      startDate: ["", Validators.compose([Validators.required])],
-      endDate: ["", Validators.compose([Validators.required])],
 
       totalTicket: ["", Validators.compose([Validators.required])],
       remainTicket: ["", Validators.compose([Validators.required])],
@@ -154,20 +148,6 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
           );
           this.editformGroup_info.controls["remainTicket"].setValue(
             state.remainTicket
-          );
-
-          this.editformGroup_info.controls["planStatus"].setValue(
-            state.planStatus
-          );
-
-          this.editformGroup_info.controls["startDate"].setValue(
-            state.startDate
-          );
-
-          this.editformGroup_info.controls["endDate"].setValue(state.endDate);
-
-          this.editformGroup_info.controls["planStatus"].setValue(
-            state.planStatus
           );
 
           this.editformGroup_info.controls["eatingScheduleString"].setValue(
@@ -289,9 +269,6 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
             endPoint: this.editformGroup_info.value.endingPoint,
 
             supportNumber: this.editformGroup_info.value.supportNumber,
-            planStatus: this.editformGroup_info.value.planStatus,
-            startDate: this.editformGroup_info.value.startDate,
-            endDate: this.editformGroup_info.value.endDate,
 
             totalTicket: this.editformGroup_info.value.totalTicket,
             remainTicket: this.editformGroup_info.value.remainTicket,
@@ -325,9 +302,6 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
       endingPoint: this.tourishPlan.endPoint,
 
       supportNumber: this.tourishPlan.supportNumber,
-      planStatus: this.tourishPlan.planStatus,
-      startDate: this.tourishPlan.startDate,
-      endDate: this.tourishPlan.endDate,
 
       totalTicket: this.tourishPlan.totalTicket,
       remainTicket: this.tourishPlan.remainTicket,

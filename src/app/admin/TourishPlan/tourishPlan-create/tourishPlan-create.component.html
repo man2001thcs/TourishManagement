@@ -176,85 +176,17 @@
                       [formGroupControlName]="'remainTicket'"
                     ></app-validation>
                   </div>
-                </div>
+                </div>               
 
-                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
-                  <mat-form-field appearance="outline" class="full-width-input">
-                    <mat-label>Ngày bắt đầu</mat-label>
-                    <input
-                      matInput
-                      [ngxMatDatetimePicker]="picker1"
-                      placeholder="Choose a date"
-                      formControlName="startDate"
-                    />
-                    <mat-datepicker-toggle
-                      matSuffix
-                      [for]="$any(picker1)"
-                      
-                    ></mat-datepicker-toggle>
-                    <ngx-mat-datetime-picker #picker1>
-                    </ngx-mat-datetime-picker>
-                  </mat-form-field>
-
-                  <div class="validation-container">
-                    <app-validation
-                      *ngIf="
-                        this.createformGroup.get('startDate')?.errors &&
-                        (createformGroup.get('startDate')?.touched ||
-                          isSubmitted)
-                      "
-                      [formGroup]="createformGroup"
-                      [formGroupControlName]="'startDate'"
-                    ></app-validation>
-                  </div>
-                </div>
-
-                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
-                  <mat-form-field appearance="outline" class="full-width-input">
-                    <mat-label>Ngày kết thúc</mat-label>
-                    <input
-                      matInput
-                      [ngxMatDatetimePicker]="picker2"
-                      placeholder="Choose a date"
-                      formControlName="endDate"
-                    />
-                    <mat-datepicker-toggle
-                      matSuffix
-                      [for]="$any(picker2)"
-                      
-                    ></mat-datepicker-toggle>
-                    <ngx-mat-datetime-picker #picker2>
-                    </ngx-mat-datetime-picker>
-                  </mat-form-field>
-
-                  <div class="validation-container">
-                    <app-validation
-                      *ngIf="
-                        this.createformGroup.get('endDate')?.errors &&
-                        (createformGroup.get('endDate')?.touched || isSubmitted)
-                      "
-                      [formGroup]="createformGroup"
-                      [formGroupControlName]="'endDate'"
-                    ></app-validation>
-                  </div>
-                </div>
-
-                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
-                  <mat-form-field appearance="outline" class="full-width-input">
-                    <mat-label>Trạng thái tour</mat-label>
-                    <select
-                      matNativeControl
-                      required
-                      formControlName="planStatus"
-                    >
-                      <option value="0">Chờ</option>
-                      <option value="1">Thông tin đã xác định</option>
-                      <option value="2">Đang diễn ra</option>
-                      <option value="3">Hoàn thành</option>
-                      <option value="4">Hủy bỏ</option>
-                    </select>
-                  </mat-form-field>
-                </div>
+                <!-- <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
+                  <mat-google-maps-autocomplete
+                    country="vn"
+                    type="address"
+                    (onAutocompleteSelected)="onAutocompleteSelected($event)"
+                    (onLocationSelected)="onLocationSelected($event)"
+                  >
+                  </mat-google-maps-autocomplete>
+                </div> -->
 
                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
                   <div
@@ -267,16 +199,13 @@
                   >
                     <tourishCategory-multiselect-autocomplete
                       style="width: 100%"
-                      
-                      [data_selected]="
-                        []
-                      "
+                      [data_selected]="[]"
                       (result)="selectChangeCategory($event)"
                     >
                     </tourishCategory-multiselect-autocomplete>
                   </div>
                 </div>
-              </div>             
+              </div>
             </form>
 
             <div class="row" style="margin-left: 50px !important">
@@ -300,10 +229,7 @@
             </div>
           </ng-template>
         </mat-tab>
-
-       
       </mat-tab-group>
     </div>
   </div>
 </div>
-

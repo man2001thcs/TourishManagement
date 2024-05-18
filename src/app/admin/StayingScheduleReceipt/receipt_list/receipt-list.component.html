@@ -66,6 +66,20 @@
         </td>
       </ng-container>
 
+      <ng-container matColumnDef="placeName">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by placeName"
+        >
+          Đơn vị cung cấp dịch vụ
+        </th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.stayingSchedule.placeName }}
+        </td>
+      </ng-container>
+
       <ng-container matColumnDef="supportNumber">
         <th
           mat-header-cell

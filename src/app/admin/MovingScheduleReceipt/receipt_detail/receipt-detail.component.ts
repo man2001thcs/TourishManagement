@@ -35,7 +35,11 @@ import {
   getSysError,
 } from "./receipt-detail.store.selector";
 import { MessageService } from "src/app/utility/user_service/message.service";
-import { FullReceipt, TotalReceipt, MovingSchedule } from "src/app/model/baseModel";
+import {
+  FullReceipt,
+  TotalReceipt,
+  MovingSchedule,
+} from "src/app/model/baseModel";
 import { HttpClient } from "@angular/common/http";
 
 @Component({
@@ -46,6 +50,8 @@ import { HttpClient } from "@angular/common/http";
 export class MovingScheduleReceiptDetailComponent implements OnInit, OnDestroy {
   isEditing: boolean = true;
   isSubmitted = false;
+  disabled = true;
+
   receipt: FullReceipt = {
     fullReceiptId: "",
     totalReceiptId: "",
@@ -95,9 +101,7 @@ export class MovingScheduleReceiptDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.editformGroup_info = this.fb.group({
-      fullReceiptId: [
-        this.data.id      
-      ],
+      fullReceiptId: [this.data.id],
       totalReceiptId: ["", Validators.compose([Validators.required])],
       serviceScheduleId: ["", Validators.compose([Validators.required])],
       guestName: ["", Validators.compose([Validators.required])],
@@ -218,11 +222,9 @@ export class MovingScheduleReceiptDetailComponent implements OnInit, OnDestroy {
   }
 
   getSchedule(id: string) {
-    this.http
-      .get("/api/GetMovingSchedule" + id)
-      .subscribe((response: any) => {
-        this.schedule = response.data;
-      });
+    this.http.get("/api/GetMovingSchedule" + id).subscribe((response: any) => {
+      this.schedule = response.data;
+    });
   }
 
   formReset(): void {
@@ -252,7 +254,7 @@ export class MovingScheduleReceiptDetailComponent implements OnInit, OnDestroy {
     this.isSubmitted = true;
 
     console.log(this.editformGroup_info.value);
-    if (this.editformGroup_info.valid){
+    if (this.editformGroup_info.valid) {
       const payload: FullReceipt = {
         totalReceiptId: this.receipt.totalReceiptId,
         fullReceiptId: this.data.id,
@@ -269,7 +271,7 @@ export class MovingScheduleReceiptDetailComponent implements OnInit, OnDestroy {
         description: this.editformGroup_info.value.description,
         status: parseInt(this.editformGroup_info.value.status),
       };
-  
+
       this.store.dispatch(
         ReceiptActions.editReceipt({
           payload: payload,
@@ -277,7 +279,6 @@ export class MovingScheduleReceiptDetailComponent implements OnInit, OnDestroy {
       );
       this.messageService.openLoadingDialog();
     }
-    
   }
 
   saveInfomation(): void {
@@ -300,7 +301,7 @@ export class MovingScheduleReceiptDetailComponent implements OnInit, OnDestroy {
     }
   }
 
-  closeDialog(){
+  closeDialog() {
     this.dialog.closeAll();
   }
 

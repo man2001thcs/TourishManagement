@@ -45,6 +45,7 @@ import { TourishCategory } from "src/app/model/baseModel";
 export class TourishCategoryDetailComponent implements OnInit, OnDestroy {
   isEditing: boolean = true;
   isSubmitted = false;
+  disabled = true;
 
   tourishCategory: TourishCategory = {
     id: "",
@@ -92,9 +93,7 @@ export class TourishCategoryDetailComponent implements OnInit, OnDestroy {
           console.log(state);
           this.messageService.closeLoadingDialog();
 
-          this.editformGroup_info.controls["name"].setValue(
-            state.name
-          );
+          this.editformGroup_info.controls["name"].setValue(state.name);
           this.editformGroup_info.controls["description"].setValue(
             state.description
           );
@@ -184,7 +183,7 @@ export class TourishCategoryDetailComponent implements OnInit, OnDestroy {
     } else console.log(this.editformGroup_info.invalid);
   }
 
-  closeDialog(){
+  closeDialog() {
     this.dialog.closeAll();
   }
 }

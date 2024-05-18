@@ -46,6 +46,8 @@ import { HttpClient } from "@angular/common/http";
 export class StayingScheduleReceiptDetailComponent implements OnInit, OnDestroy {
   isEditing: boolean = true;
   isSubmitted = false;
+  disabled = true;
+  
   receipt: FullReceipt = {
     fullReceiptId: "",
     totalReceiptId: "",

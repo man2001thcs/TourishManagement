@@ -1,14 +1,9 @@
-
 import { Component, Inject, OnDestroy, OnInit } from "@angular/core";
 
 import { Observable, Subscription, map } from "rxjs";
 
 import { MAT_DIALOG_DATA, MatDialog } from "@angular/material/dialog";
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-} from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { Book } from "src/app/model/book";
 import { AdminService } from "../../service/admin.service";
@@ -35,7 +30,8 @@ import { MovingContact } from "src/app/model/baseModel";
 export class MovingContactDetailComponent implements OnInit, OnDestroy {
   isEditing: boolean = true;
   isSubmitted = false;
-
+  disabled = true;
+  
   MovingContact: MovingContact = {
     id: "",
     branchName: "",
@@ -76,40 +72,17 @@ export class MovingContactDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.editformGroup_info = this.fb.group({
-      id: [
-        this.data.id,
-        Validators.compose([
-          Validators.required,
-        ]),
-      ],
-      branchName: [
-        "",
-        Validators.compose([Validators.required]),
-      ],
+      id: [this.data.id, Validators.compose([Validators.required])],
+      branchName: ["", Validators.compose([Validators.required])],
       hotlineNumber: [
         "",
         Validators.compose([Validators.required, Validators.minLength(8)]),
       ],
-      supportEmail: [
-        "",
-        Validators.compose([Validators.required]),
-      ],
-      headQuarterAddress: [
-        "",
-        Validators.compose([Validators.required]),
-      ],
-      discountFloat: [
-        0,
-        Validators.compose([Validators.required]),
-      ],
-      discountAmount: [
-       0,
-        Validators.compose([Validators.required]),
-      ],
-      vehicleType: [
-        0,
-         Validators.compose([Validators.required]),
-       ],
+      supportEmail: ["", Validators.compose([Validators.required])],
+      headQuarterAddress: ["", Validators.compose([Validators.required])],
+      discountFloat: [0, Validators.compose([Validators.required])],
+      discountAmount: [0, Validators.compose([Validators.required])],
+      vehicleType: [0, Validators.compose([Validators.required])],
 
       description: "",
     });
@@ -158,7 +131,7 @@ export class MovingContactDetailComponent implements OnInit, OnDestroy {
       })
     );
 
-        this.subscriptions.push(
+    this.subscriptions.push(
       this.errorMessageState.subscribe((state: any) => {
         if (state) {
           this.messageService.closeLoadingDialog();
@@ -217,7 +190,7 @@ export class MovingContactDetailComponent implements OnInit, OnDestroy {
 
   formSubmit_edit_info(): void {
     this.isSubmitted = true;
-    if (!this.editformGroup_info.invalid){
+    if (!this.editformGroup_info.invalid) {
       const payload: MovingContact = {
         id: this.data.id,
         branchName: this.editformGroup_info.value.branchName,
@@ -229,17 +202,16 @@ export class MovingContactDetailComponent implements OnInit, OnDestroy {
         discountAmount: this.editformGroup_info.value.discountAmount,
         description: this.editformGroup_info.value.description,
       };
-  
+
       this.store.dispatch(
         MovingContactActions.editMovingContact({
           payload: payload,
         })
       );
-    } else console.log(this.editformGroup_info.invalid)
-   
+    } else console.log(this.editformGroup_info.invalid);
   }
 
-  closeDialog(){
+  closeDialog() {
     this.dialog.closeAll();
   }
 }

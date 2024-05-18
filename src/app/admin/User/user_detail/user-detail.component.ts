@@ -45,6 +45,7 @@ import { User } from "src/app/model/baseModel";
 export class UserDetailComponent implements OnInit, OnDestroy {
   isEditing: boolean = true;
   isSubmitted = false;
+  disabled = true;
 
   user: User = {
     id: "",

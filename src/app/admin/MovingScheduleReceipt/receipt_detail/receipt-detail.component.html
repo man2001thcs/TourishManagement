@@ -31,14 +31,66 @@
       flex-direction: column !important;
     "
   >
+    <div class="container-controller">
+      <div
+        class="row"
+        style="
+          display: flex;
+          flex-direction: row !important;
+          flex-wrap: 1;
+          margin-left: 90px !important;
+          margin-bottom: 20px !important;
+        "
+      >
+        <div>
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="disabled = false"
+            *ngIf="disabled"
+          >
+            Sửa đổi
+          </button>
+        </div>
+
+        <div style="margin-right: 20px">
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="formSubmit_edit_info()"
+            *ngIf="!disabled"
+          >
+            Lưu thay đổi
+          </button>
+        </div>
+
+        <div style="margin-right: 20px">
+          <button
+            mat-raised-button
+            color="danger"
+            (click)="disabled = true"
+            *ngIf="!disabled"
+          >
+            Hủy
+          </button>
+        </div>
+
+        <div>
+          <button
+            mat-raised-button
+            color="warn"
+            type="button"
+            (click)="formReset()"
+            *ngIf="!disabled"
+          >
+            Khôi phục ban đầu
+          </button>
+        </div>
+      </div>
+    </div>
     <div
       class="row"
-      style="
-        display: flex;
-        flex-direction: column !important;
-        flex-wrap: 1;
-        padding-left: 90px !important;
-      "
+      style="display: flex; flex-direction: column !important; flex-wrap: 1"
     >
       <form [formGroup]="editformGroup_info">
         <div class="row">
@@ -48,6 +100,7 @@
                 <mat-label>Tên khách hàng</mat-label>
                 <input
                   matInput
+                  [readonly]="disabled"
                   fullwidth
                   placeholder="Vd: Bồ Công Anh"
                   formControlName="guestName"
@@ -71,6 +124,7 @@
                 <mat-label>Email liên lạc</mat-label>
                 <input
                   matInput
+                  [readonly]="disabled"
                   placeholder="Vd: abc@gmail.com"
                   formControlName="email"
                 />
@@ -92,6 +146,7 @@
                 <mat-label>Số điện thoại liên lạc</mat-label>
                 <input
                   matInput
+                  [readonly]="disabled"
                   placeholder="Vd: 0123456789"
                   formControlName="phoneNumber"
                 />
@@ -128,6 +183,7 @@
                 <mat-label>Giảm giá dịch vụ (Trừ vào giá trị)</mat-label>
                 <input
                   matInput
+                  [readonly]="disabled"
                   placeholder="Vd: 10000"
                   formControlName="discountAmount"
                 />
@@ -152,6 +208,7 @@
                 <mat-label>Giá gốc</mat-label>
                 <input
                   matInput
+                  [readonly]="disabled"
                   placeholder="Vd: 180.000đ"
                   formControlName="originalPrice"
                 />
@@ -187,6 +244,7 @@
                 <input
                   type="number"
                   matInput
+                  [readonly]="disabled"
                   placeholder="Vd: 0123456789"
                   formControlName="totalTicket"
                 />
@@ -210,6 +268,7 @@
                 <input
                   type="number"
                   matInput
+                  [readonly]="disabled"
                   placeholder="Vd: 0123456789"
                   formControlName="totalChildTicket"
                 />
@@ -232,6 +291,7 @@
                 <mat-label>Giảm giá dịch vụ (Trừ theo %)</mat-label>
                 <input
                   matInput
+                  [readonly]="disabled"
                   placeholder="Vd: 0.1"
                   formControlName="discountFloat"
                 />
@@ -250,7 +310,6 @@
             </div>
           </div>
         </div>
-   
 
         <div
           class="row"
@@ -260,6 +319,7 @@
             <mat-form-field style="width: 90%">
               <textarea
                 matInput
+                [readonly]="disabled"
                 class="form-control"
                 id="description"
                 placeholder="Thông tin đính kèm"
@@ -278,32 +338,6 @@
                 [formGroupControlName]="'description'"
               ></app-validation>
             </div>
-          </div>
-        </div>
-
-        <div
-          class="row"
-          style="display: flex; flex-direction: row !important; flex-wrap: 1"
-        >
-          <div style="margin-right: 20px">
-            <button
-              mat-raised-button
-              color="primary"
-              (click)="saveInfomation()"
-            >
-              Lưu
-            </button>
-          </div>
-
-          <div>
-            <button
-              mat-raised-button
-              color="warn"
-              type="button"
-              (click)="formReset()"
-            >
-              Khôi phục
-            </button>
           </div>
         </div>
       </form>

@@ -30,13 +30,69 @@
       flex-direction: column !important;
     "
   >
+    <div class="container-controller">
+      <div
+        class="row"
+        style="
+          display: flex;
+          flex-direction: row !important;
+          flex-wrap: 1;
+          margin-left: 90px !important;
+          margin-bottom: 20px !important;
+        "
+      >
+        <div>
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="disabled = false"
+            *ngIf="disabled"
+          >
+            Sửa đổi
+          </button>
+        </div>
+
+        <div style="margin-right: 20px">
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="formSubmit_edit_info()"
+            *ngIf="!disabled"
+          >
+            Lưu thay đổi
+          </button>
+        </div>
+
+        <div style="margin-right: 20px">
+          <button
+            mat-raised-button
+            color="danger"
+            (click)="disabled = true"
+            *ngIf="!disabled"
+          >
+            Hủy
+          </button>
+        </div>
+
+        <div>
+          <button
+            mat-raised-button
+            color="warn"
+            type="button"
+            (click)="formReset()"
+            *ngIf="!disabled"
+          >
+            Khôi phục ban đầu
+          </button>
+        </div>
+      </div>
+    </div>
     <div
       class="row"
       style="
         display: flex;
         flex-direction: column !important;
         flex-wrap: 1;
-        padding-left: 90px !important;
       "
     >
       <div class="row">
@@ -50,6 +106,7 @@
                 <mat-label>Thể loại</mat-label>
                 <input
                   matInput
+                  [readonly]="disabled"
                   fullwidth
                   placeholder="Vd: Du lịch biển"
                   formControlName="name"
@@ -78,6 +135,7 @@
             <mat-form-field style="width: 90%">
               <textarea
                 matInput
+                [readonly]="disabled"
                 class="form-control"
                 id="description"
                 placeholder="Thông tin đính kèm"
@@ -96,31 +154,6 @@
                 [formGroupControlName]="'description'"
               ></app-validation>
             </div>
-          </div>
-        </div>
-
-        <div
-          class="row"
-          style="display: flex; flex-direction: row !important; flex-wrap: 1"
-        >
-          <div style="margin-right: 20px">
-            <button
-              mat-raised-button
-              color="primary"
-              (click)="formSubmit_edit_info()"
-            >
-              Lưu
-            </button>
-          </div>
-          <div>
-            <button
-              mat-raised-button
-              color="warn"
-              type="button"
-              (click)="formReset()"
-            >
-              Khôi phục
-            </button>
           </div>
         </div>
       </form>

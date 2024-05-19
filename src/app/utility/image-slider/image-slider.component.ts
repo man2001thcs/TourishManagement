@@ -37,6 +37,8 @@ export class ImageSliderComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.slides.length <= 1) this.autoPlay = false;
+    
     if (this.autoPlay) {
       setInterval(() => {
         this.next();

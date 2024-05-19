@@ -1,5 +1,15 @@
 <div class="container" style="padding: 0px 0 20px">
-  <div style="background-color: #2a3650; padding: 15px 50px 0px; width: 100%; display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+  <div
+    style="
+      background-color: #2a3650;
+      padding: 15px 50px 0px;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    "
+  >
     <h2 mat-form-label style="font-weight: heavy; color: white">
       Chỉnh sửa thông báo
     </h2>
@@ -13,14 +23,67 @@
       flex-direction: column !important;
     "
   >
+    <div class="container-controller">
+      <div
+        class="row"
+        style="
+          display: flex;
+          flex-direction: row !important;
+          flex-wrap: 1;
+          margin-left: 90px !important;
+          margin-bottom: 20px !important;
+        "
+      >
+        <div>
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="disabled = false"
+            *ngIf="disabled"
+          >
+            Sửa đổi
+          </button>
+        </div>
+
+        <div style="margin-right: 20px">
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="formSubmit_edit_info()"
+            *ngIf="!disabled"
+          >
+            Lưu thay đổi
+          </button>
+        </div>
+
+        <div style="margin-right: 20px">
+          <button
+            mat-raised-button
+            color="danger"
+            (click)="disabled = true"
+            *ngIf="!disabled"
+          >
+            Hủy
+          </button>
+        </div>
+
+        <div>
+          <button
+            mat-raised-button
+            color="warn"
+            type="button"
+            (click)="formReset()"
+            *ngIf="!disabled"
+          >
+            Khôi phục ban đầu
+          </button>
+        </div>
+      </div>
+    </div>
+
     <div
       class="row"
-      style="
-        display: flex;
-        flex-direction: column !important;
-        flex-wrap: 1;
-        padding-left: 90px !important;
-      "
+      style="display: flex; flex-direction: column !important; flex-wrap: 1"
     >
       <form [formGroup]="editformGroup_info">
         <div class="row">
@@ -34,7 +97,12 @@
                   formControlName="contentCode"
                 >
                   <option value="''">Không</option>
-                  <option *ngFor="let notificationCode of successNotifyCode" value="{{notificationCode.key}}">{{notificationCode.key}}: {{notificationCode.value}}</option>
+                  <option
+                    *ngFor="let notificationCode of successNotifyCode"
+                    value="{{ notificationCode.key }}"
+                  >
+                    {{ notificationCode.key }}: {{ notificationCode.value }}
+                  </option>
                 </select>
               </mat-form-field>
               <div class="validation-container">
@@ -114,10 +182,14 @@
           class="row"
           style="display: flex; flex-direction: column !important; flex-wrap: 1"
         >
-          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form" style="padding-left: 0;">
+          <div
+            class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form"
+            style="padding-left: 0"
+          >
             <mat-form-field style="width: 90%">
               <textarea
                 matInput
+                [readonly]="disabled"
                 class="form-control"
                 id="content"
                 placeholder="Nội dung"
@@ -129,39 +201,12 @@
               <app-validation
                 *ngIf="
                   this.editformGroup_info.get('content')?.errors &&
-                  (editformGroup_info.get('content')?.touched ||
-                    isSubmitted)
+                  (editformGroup_info.get('content')?.touched || isSubmitted)
                 "
                 [formGroup]="editformGroup_info"
                 [formGroupControlName]="'content'"
               ></app-validation>
             </div>
-          </div>
-        </div>
-
-        <div
-          class="row"
-          style="display: flex; flex-direction: row !important; flex-wrap: 1"
-        >
-          <div style="margin-right: 20px">
-            <button
-              mat-raised-button
-              color="primary"
-              (click)="formSubmit_edit_info()"
-            >
-              Lưu
-            </button>
-          </div>
-
-          <div>
-            <button
-              mat-raised-button
-              color="warn"
-              type="button"
-              (click)="formReset()"
-            >
-              Khôi phục
-            </button>
           </div>
         </div>
       </form>

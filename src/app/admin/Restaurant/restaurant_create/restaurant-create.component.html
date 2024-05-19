@@ -30,20 +30,43 @@
       flex-direction: column !important;
     "
   >
-    <div class="row">
-      <h2 mat-form-label style="font-weight: heavy">
-        Thêm thông tin đối tác nhà hàng
-      </h2>
+    <div class="container-controller">
+      <div
+        class="row"
+        style="
+          display: flex;
+          flex-direction: row !important;
+          flex-wrap: 1;
+          margin-left: 90px !important;
+          margin-bottom: 20px !important;
+        "
+      >
+        <div style="margin-right: 20px">
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="formSubmit_create_info()"
+          >
+            Lưu thay đổi
+          </button>
+        </div>
+
+        <div>
+          <button
+            mat-raised-button
+            color="warn"
+            type="button"
+            (click)="formReset()"
+          >
+            Khôi phục ban đầu
+          </button>
+        </div>
+      </div>
     </div>
 
     <div
       class="row"
-      style="
-        display: flex;
-        flex-direction: column !important;
-        flex-wrap: 1;
-        padding-left: 90px !important;
-      "
+      style="display: flex; flex-direction: column !important; flex-wrap: 1"
     >
       <form [formGroup]="createformGroup_info">
         <div class="row">
@@ -213,31 +236,7 @@
           </div>
         </div>
 
-        <div
-          class="row"
-          style="display: flex; flex-direction: row !important; flex-wrap: 1"
-        >
-          <div style="margin-right: 20px">
-            <button
-              mat-raised-button
-              color="primary"
-              (click)="formSubmit_create_info()"
-            >
-              Lưu
-            </button>
-          </div>
-
-          <div>
-            <button
-              mat-raised-button
-              color="warn"
-              type="button"
-              (click)="formReset()"
-            >
-              Khôi phục
-            </button>
-          </div>
-        </div>
+        
       </form>
     </div>
   </div>

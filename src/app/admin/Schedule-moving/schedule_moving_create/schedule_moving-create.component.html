@@ -32,6 +32,39 @@
       flex-direction: column !important;
     "
   >
+    <div class="container-controller">
+      <div
+        class="row"
+        style="
+          display: flex;
+          flex-direction: row !important;
+          flex-wrap: 1;
+          margin-left: 90px !important;
+          margin-bottom: 20px !important;
+        "
+      >
+        <div style="margin-right: 20px">
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="formSubmit_create_info()"
+          >
+            Lưu thay đổi
+          </button>
+        </div>
+
+        <div>
+          <button
+            mat-raised-button
+            color="warn"
+            type="button"
+            (click)="formReset()"
+          >
+            Khôi phục ban đầu
+          </button>
+        </div>
+      </div>
+    </div>
     <div
       class="row"
       style="display: flex; flex-direction: column !important; flex-wrap: 1"
@@ -287,32 +320,6 @@
               [formGroup]="createformGroup_info"
               [formGroupControlName]="'description'"
             ></app-validation>
-          </div>
-        </div>
-
-        <div
-          class="row"
-          style="display: flex; flex-direction: row !important; flex-wrap: 1"
-        >
-          <div style="margin-right: 20px">
-            <button
-              mat-raised-button
-              color="primary"
-              (click)="formSubmit_create_info()"
-            >
-              Lưu
-            </button>
-          </div>
-
-          <div>
-            <button
-              mat-raised-button
-              color="warn"
-              type="button"
-              (click)="formReset()"
-            >
-              Khôi phục
-            </button>
           </div>
         </div>
       </form>

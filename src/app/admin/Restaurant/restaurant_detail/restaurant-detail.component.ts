@@ -44,6 +44,7 @@ import { Restaurant } from "src/app/model/baseModel";
 })
 export class RestaurantDetailComponent implements OnInit, OnDestroy {
   isEditing: boolean = true;
+  disabled = true;
   isSubmitted = false;
   restaurant: Restaurant = {
     id: "",

@@ -31,6 +31,7 @@ import { ThemePalette } from "@angular/material/core";
 export class MovingScheduleDetailComponent implements OnInit, OnDestroy {
   isEditing: boolean = true;
   isSubmitted = false;
+  disabled = true;
 
   movingSchedule: MovingSchedule = {
     id: "",

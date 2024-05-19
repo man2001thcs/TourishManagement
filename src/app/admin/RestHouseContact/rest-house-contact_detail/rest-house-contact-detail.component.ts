@@ -45,6 +45,8 @@ import { RestHouseContact } from "src/app/model/baseModel";
 export class RestHouseContactDetailComponent implements OnInit, OnDestroy {
   isEditing: boolean = true;
   isSubmitted = false;
+  disabled = true;
+
   RestHouseContact: RestHouseContact = {
     id: "",
     placeBranch: "",
@@ -98,7 +100,6 @@ export class RestHouseContactDetailComponent implements OnInit, OnDestroy {
 
       description: ["", Validators.compose([Validators.required])],
       restHouseType: [0, Validators.compose([Validators.required])],
-      
     });
 
     this.subscriptions.push(
@@ -107,7 +108,7 @@ export class RestHouseContactDetailComponent implements OnInit, OnDestroy {
           this.RestHouseContact = state;
 
           this.messageService.closeLoadingDialog();
-          
+
           this.editformGroup_info.controls["placeBranch"].setValue(
             state.placeBranch
           );
@@ -200,7 +201,7 @@ export class RestHouseContactDetailComponent implements OnInit, OnDestroy {
       discountFloat: this.RestHouseContact.discountFloat ?? 0,
       discountAmount: this.RestHouseContact.discountAmount ?? 0,
       description: this.RestHouseContact.description,
-      restHouseType: this.RestHouseContact.restHouseType
+      restHouseType: this.RestHouseContact.restHouseType,
     });
   }
 
@@ -232,7 +233,7 @@ export class RestHouseContactDetailComponent implements OnInit, OnDestroy {
     }
   }
 
-  closeDialog(){
+  closeDialog() {
     this.dialog.closeAll();
   }
 }

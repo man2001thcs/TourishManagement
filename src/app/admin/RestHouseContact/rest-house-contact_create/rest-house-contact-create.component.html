@@ -1,12 +1,22 @@
 <div class="container" style="padding: 0px 0 20px">
-  <div style="background-color: #2a3650; padding: 15px 50px 0px; width: 100%; display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+  <div
+    style="
+      background-color: #2a3650;
+      padding: 15px 50px 0px;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    "
+  >
     <h2 mat-form-label style="font-weight: heavy; color: white">
       Thêm thông tin đối tác
     </h2>
-    
-        <button
+
+    <button
       mat-button
-      style="color: white; margin-bottom: 16px;"
+      style="color: white; margin-bottom: 16px"
       (click)="closeDialog()"
     >
       <i class="fa fa-times" aria-hidden="true"></i>
@@ -21,14 +31,42 @@
       flex-direction: column !important;
     "
   >
+    <div class="container-controller">
+      <div
+        class="row"
+        style="
+          display: flex;
+          flex-direction: row !important;
+          flex-wrap: 1;
+          margin-left: 90px !important;
+          margin-bottom: 20px !important;
+        "
+      >
+        <div style="margin-right: 20px">
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="formSubmit_create_info()"
+          >
+            Lưu thay đổi
+          </button>
+        </div>
+
+        <div>
+          <button
+            mat-raised-button
+            color="warn"
+            type="button"
+            (click)="formReset()"
+          >
+            Khôi phục ban đầu
+          </button>
+        </div>
+      </div>
+    </div>
     <div
       class="row"
-      style="
-        display: flex;
-        flex-direction: column !important;
-        flex-wrap: 1;
-        padding-left: 90px !important;
-      "
+      style="display: flex; flex-direction: column !important; flex-wrap: 1"
     >
       <form [formGroup]="createformGroup_info">
         <div class="row">
@@ -47,7 +85,8 @@
                 <app-validation
                   *ngIf="
                     this.createformGroup_info.get('placeBranch')?.errors &&
-                    (createformGroup_info.get('placeBranch')?.touched || isSubmitted)
+                    (createformGroup_info.get('placeBranch')?.touched ||
+                      isSubmitted)
                   "
                   [formGroup]="createformGroup_info"
                   [formGroupControlName]="'placeBranch'"
@@ -58,7 +97,11 @@
             <div class="row">
               <mat-form-field appearance="outline" class="full-width-input">
                 <mat-label>Loại nơi ở</mat-label>
-                <select matNativeControl required formControlName="restHouseType">
+                <select
+                  matNativeControl
+                  required
+                  formControlName="restHouseType"
+                >
                   <option [value]="0">Home stay</option>
                   <option [value]="1">Khách sạn</option>
                 </select>
@@ -78,7 +121,8 @@
                 <app-validation
                   *ngIf="
                     this.createformGroup_info.get('supportEmail')?.errors &&
-                    (createformGroup_info.get('supportEmail')?.touched || isSubmitted)
+                    (createformGroup_info.get('supportEmail')?.touched ||
+                      isSubmitted)
                   "
                   [formGroup]="createformGroup_info"
                   [formGroupControlName]="'supportEmail'"
@@ -99,7 +143,8 @@
                 <app-validation
                   *ngIf="
                     this.createformGroup_info.get('hotlineNumber')?.errors &&
-                    (createformGroup_info.get('hotlineNumber')?.touched || isSubmitted)
+                    (createformGroup_info.get('hotlineNumber')?.touched ||
+                      isSubmitted)
                   "
                   [formGroup]="createformGroup_info"
                   [formGroupControlName]="'hotlineNumber'"
@@ -123,7 +168,8 @@
                   *ngIf="
                     this.createformGroup_info.get('headQuarterAddress')
                       ?.errors &&
-                    (createformGroup_info.get('headQuarterAddress')?.touched || isSubmitted)
+                    (createformGroup_info.get('headQuarterAddress')?.touched ||
+                      isSubmitted)
                   "
                   [formGroup]="createformGroup_info"
                   [formGroupControlName]="'headQuarterAddress'"
@@ -143,7 +189,8 @@
                 <app-validation
                   *ngIf="
                     this.createformGroup_info.get('discountAmount')?.errors &&
-                    (createformGroup_info.get('discountAmount')?.touched || isSubmitted)
+                    (createformGroup_info.get('discountAmount')?.touched ||
+                      isSubmitted)
                   "
                   [formGroup]="createformGroup_info"
                   [formGroupControlName]="'discountAmount'"
@@ -163,7 +210,8 @@
                 <app-validation
                   *ngIf="
                     this.createformGroup_info.get('discountFloat')?.errors &&
-                    (createformGroup_info.get('discountFloat')?.touched || isSubmitted)
+                    (createformGroup_info.get('discountFloat')?.touched ||
+                      isSubmitted)
                   "
                   [formGroup]="createformGroup_info"
                   [formGroupControlName]="'discountFloat'"
@@ -190,10 +238,11 @@
             </mat-form-field>
             <div style="margin-top: -20px; margin-bottom: 10px">
               <app-validation
-              *ngIf="
-              this.createformGroup_info.get('description')?.errors &&
-              (createformGroup_info.get('description')?.touched || isSubmitted)
-            "
+                *ngIf="
+                  this.createformGroup_info.get('description')?.errors &&
+                  (createformGroup_info.get('description')?.touched ||
+                    isSubmitted)
+                "
                 [formGroup]="createformGroup_info"
                 [formGroupControlName]="'description'"
               ></app-validation>
@@ -201,31 +250,7 @@
           </div>
         </div>
 
-        <div
-          class="row"
-          style="display: flex; flex-direction: row !important; flex-wrap: 1"
-        >
-          <div style="margin-right: 20px">
-            <button
-              mat-raised-button
-              color="primary"
-              (click)="formSubmit_create_info()"
-            >
-              Lưu
-            </button>
-          </div>
-
-          <div>
-            <button
-              mat-raised-button
-              color="warn"
-              type="button"
-              (click)="formReset()"
-            >
-              Khôi phục
-            </button>
-          </div>
-        </div>
+       
       </form>
     </div>
   </div>

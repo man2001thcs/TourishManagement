@@ -31,6 +31,7 @@ import { ThemePalette } from "@angular/material/core";
 export class StayingScheduleDetailComponent implements OnInit, OnDestroy {
   isEditing: boolean = true;
   isSubmitted = false;
+  disabled = true;
 
   stayingSchedule: StayingSchedule = {
     id: "",

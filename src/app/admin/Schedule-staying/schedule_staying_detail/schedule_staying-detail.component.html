@@ -32,6 +32,63 @@
       flex-direction: column !important;
     "
   >
+  <div class="container-controller">
+    <div
+      class="row"
+      style="
+        display: flex;
+        flex-direction: row !important;
+        flex-wrap: 1;
+        margin-left: 90px !important;
+        margin-bottom: 20px !important;
+      "
+    >
+      <div>
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="disabled = false"
+          *ngIf="disabled"
+        >
+          Sửa đổi
+        </button>
+      </div>
+
+      <div style="margin-right: 20px">
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="formSubmit_edit_info()"
+          *ngIf="!disabled"
+        >
+          Lưu thay đổi
+        </button>
+      </div>
+
+      <div style="margin-right: 20px">
+        <button
+          mat-raised-button
+          color="danger"
+          (click)="disabled = true"
+          *ngIf="!disabled"
+        >
+          Hủy
+        </button>
+      </div>
+
+      <div>
+        <button
+          mat-raised-button
+          color="warn"
+          type="button"
+          (click)="formReset()"
+          *ngIf="!disabled"
+        >
+          Khôi phục ban đầu
+        </button>
+      </div>
+    </div>
+  </div>
     <div
       class="row"
       style="
@@ -48,6 +105,7 @@
                 <mat-label>Tên dịch vụ</mat-label>
                 <input
                   matInput
+                  [readonly]="disabled"
                   fullwidth
                   placeholder="Vd: Bồ Công Anh"
                   formControlName="name"
@@ -92,6 +150,7 @@
                 <mat-label>Tên đối tác</mat-label>
                 <input
                   matInput
+                  [readonly]="disabled"
                   fullwidth
                   placeholder="Vd: Bồ Công Anh"
                   formControlName="placeName"
@@ -121,6 +180,7 @@
                 <mat-label>Số điện thoại liên lạc</mat-label>
                 <input
                   matInput
+                  [readonly]="disabled"
                   placeholder="Vd: 0123456789"
                   formControlName="supportNumber"
                 />
@@ -143,6 +203,7 @@
                 <mat-label>Đơn giá</mat-label>
                 <input
                   matInput
+                  [readonly]="disabled"
                   placeholder="Vd: 10000"
                   formControlName="singlePrice"
                 />
@@ -165,6 +226,7 @@
                 <mat-label>Địa chỉ</mat-label>
                 <input
                   matInput
+                  [readonly]="disabled"
                   fullwidth
                   placeholder="Vd: Hà Nội"
                   formControlName="address"
@@ -204,31 +266,7 @@
           </div>
         </div>
 
-        <div
-          class="row"
-          style="display: flex; flex-direction: row !important; flex-wrap: 1"
-        >
-          <div style="margin-right: 20px">
-            <button
-              mat-raised-button
-              color="primary"
-              (click)="formSubmit_edit_info()"
-            >
-              Lưu
-            </button>
-          </div>
-
-          <div>
-            <button
-              mat-raised-button
-              color="warn"
-              type="button"
-              (click)="formReset()"
-            >
-              Khôi phục
-            </button>
-          </div>
-        </div>
+  
       </form>
     </div>
   </div>

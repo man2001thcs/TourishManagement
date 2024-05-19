@@ -46,6 +46,8 @@ import { SUCCESS_MESSAGE_CODE_VI } from "src/app/utility/config/notificationCode
 export class NotificationDetailComponent implements OnInit, OnDestroy {
   isEditing: boolean = true;
   isSubmitted = false;
+  disabled = true;
+
   notification: Notification = {
     id: "",
     content: "",
@@ -127,7 +129,7 @@ export class NotificationDetailComponent implements OnInit, OnDestroy {
       })
     );
 
-        this.subscriptions.push(
+    this.subscriptions.push(
       this.errorMessageState.subscribe((state: any) => {
         if (state) {
           this.messageService.closeLoadingDialog();

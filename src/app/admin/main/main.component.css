@@ -9,6 +9,11 @@
     width: 100%;
   }
   
+  .add-button {
+    margin-bottom: 22px !important;
+    margin-right: 20px !important;
+  }
+  
   #admin-main {
     transition: 0.5s;
     opacity: 1;

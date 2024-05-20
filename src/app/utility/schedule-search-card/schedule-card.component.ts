@@ -30,7 +30,7 @@ export class SchedulePlanSearchCardComponent implements OnInit {
   address = "";
 
   @Input()
-  serviceScheduleList : TourishSchedule[] = [];
+  serviceScheduleList: TourishSchedule[] = [];
 
   @Input()
   customerNumber = 19;
@@ -38,6 +38,7 @@ export class SchedulePlanSearchCardComponent implements OnInit {
   firstImageUrl = "";
   scheduleImage: SaveFile[] = [];
   ratingAverage: any;
+  cardWidth = 32;
 
   constructor(
     private router: Router,
@@ -46,6 +47,8 @@ export class SchedulePlanSearchCardComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.getTourImage();
+    if (this.scheduleType == 1) this.cardWidth = 48;
+    else if (this.scheduleType == 2) this.cardWidth = 32;
   }
 
   getRateColor(input: number) {
@@ -72,9 +75,15 @@ export class SchedulePlanSearchCardComponent implements OnInit {
 
         if (this.scheduleImage.length > 0) {
           this.pushImageToList(this.scheduleImage[0]);
+        } else {
+          const blankSaveFile: SaveFile = {
+            id: "anonymus",
+            accessSourceId: "",
+            resourceType: this.scheduleType,
+            fileType: ".png",
+          };
+          this.pushImageToList(blankSaveFile);
         }
-
-        console.log(response);
       });
   }
 
@@ -92,12 +101,19 @@ export class SchedulePlanSearchCardComponent implements OnInit {
 
   navigateToDetail(): void {
     let navigationExtras: NavigationExtras = {
-      queryParams: { 'schedule-type': this.scheduleType } // Replace 'key' and 'value' with your actual query parameters
+      queryParams: { "schedule-type": this.scheduleType }, // Replace 'key' and 'value' with your actual query parameters
     };
-    
+
     if (this.tokenStorageService.getUserRole() == "User") {
-      this.router.navigate(["user/service/" + this.id + "/detail"],navigationExtras);
-    } else this.router.navigate(["guest/service/" + this.id + "/detail"], navigationExtras);
+      this.router.navigate(
+        ["user/service/" + this.id + "/detail"],
+        navigationExtras
+      );
+    } else
+      this.router.navigate(
+        ["guest/service/" + this.id + "/detail"],
+        navigationExtras
+      );
   }
 
   getTourName(inputString: string) {

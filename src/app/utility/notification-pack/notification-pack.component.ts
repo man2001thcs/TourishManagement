@@ -153,7 +153,7 @@ export class NotificationPackComponent implements OnInit {
       page: 1,
       pageSize: this.pageSize,
       receiverId: user.Id,
-      sortBy: "CreateDate",
+      sortBy: "createDate",
       sortDirection: "desc",
     };
 

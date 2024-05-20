@@ -108,7 +108,7 @@ export const ERR_MESSAGE_CODE_EN: Map<string, string> = new Map([
 ]);
 
 export const ERR_MESSAGE_CODE_VI: Map<string, string> = new Map([
-    ["C001", "Sai mật khẩu"],
+    ["C001", "Mật khẩu không đúng, vui lòng thử lại"],
     ["C002", "Token sai định dạng"],
     ["C003", "Token chưa hết hạn"],
     ["C004", "Quá hạn lượt đăng nhập, vui lòng đăng nhập lại"],
@@ -303,25 +303,25 @@ export const SUCCESS_MESSAGE_CODE_EN: Map<string, string> = new Map([
     ["I011", "Thay đổi thông tin tài khoản thành công"],
     ["I012", "Thay đổi mật khẩu tài khoản thành công"],
 
-    ["I111", "Đối tác xe khách thêm thành công"],
-    ["I112", "Đối tác xe khách cập nhật thành công"],
-    ["I113", "Đối tác xe khách xóa thành công"],
+    ["I111", "Đối tác thêm thành công"],
+    ["I112", "Đối tác cập nhật thành công"],
+    ["I113", "Đối tác xóa thành công"],
 
-    ["I121", "Hãng hàng thêm thành công"],
-    ["I122", "Hãng hàng cập nhật thành công"],
-    ["I123", "Hãng hàng xóa thành công"],
+    ["I121", "Đối tác thêm thành công"],
+    ["I122", "Đối tác cập nhật thành công"],
+    ["I123", "Đối tác xóa thành công"],
 
-    ["I211", "Khách sạn thêm thành công"],
-    ["I212", "Khách sạn cập nhật thành công"],
-    ["I213", "Khách sạn xóa thành công"],
+    ["I211", "Đối tác thêm thành công"],
+    ["I212", "Đối tác cập nhật thành công"],
+    ["I213", "Đối tác xóa thành công"],
 
-    ["I221", "Home stay thêm thành công"],
-    ["I222", "Home stay cập nhật thành công"],
-    ["I223", "Home stay xóa thành công"],
+    ["I221", "Đối tác thêm thành công"],
+    ["I222", "Đối tác cập nhật thành công"],
+    ["I223", "Đối tác xóa thành công"],
 
-    ["I311", "Restaurant thêm thành công"],
-    ["I312", "Restaurant cập nhật thành công"],
-    ["I313", "Restaurant xóa thành công"],
+    ["I311", "Đối tác thêm thành công"],
+    ["I312", "Đối tác cập nhật thành công"],
+    ["I313", "Đối tác xóa thành công"],
 
     ["I411", "Tour thêm thành công, vui lòng bổ sung thêm thông tin ở ngoài danh sách"],
     ["I412", "Tour cập nhật thành công"],

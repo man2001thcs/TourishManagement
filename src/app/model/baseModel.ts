@@ -252,7 +252,7 @@ export interface SaveFile {
   accessSourceId: string;
   resourceType: number;
   fileType: string;
-  createDate: string;
+  createDate?: string;
 }
 
 export interface FullReceipt {

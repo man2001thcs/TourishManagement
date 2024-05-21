@@ -35,7 +35,11 @@ import {
   getSysError,
 } from "./receipt-detail.store.selector";
 import { MessageService } from "src/app/utility/user_service/message.service";
-import { FullReceipt, TotalReceipt, StayingSchedule } from "src/app/model/baseModel";
+import {
+  FullReceipt,
+  TotalReceipt,
+  StayingSchedule,
+} from "src/app/model/baseModel";
 import { HttpClient } from "@angular/common/http";
 
 @Component({
@@ -43,11 +47,13 @@ import { HttpClient } from "@angular/common/http";
   templateUrl: "./receipt-detail.component.html",
   styleUrls: ["./receipt-detail.component.css"],
 })
-export class StayingScheduleReceiptDetailComponent implements OnInit, OnDestroy {
+export class StayingScheduleReceiptDetailComponent
+  implements OnInit, OnDestroy
+{
   isEditing: boolean = true;
   isSubmitted = false;
   disabled = true;
-  
+
   receipt: FullReceipt = {
     fullReceiptId: "",
     totalReceiptId: "",
@@ -97,15 +103,13 @@ export class StayingScheduleReceiptDetailComponent implements OnInit, OnDestroy 
 
   ngOnInit(): void {
     this.editformGroup_info = this.fb.group({
-      fullReceiptId: [
-        this.data.id      
-      ],
+      fullReceiptId: [this.data.id],
       totalReceiptId: ["", Validators.compose([Validators.required])],
       serviceScheduleId: ["", Validators.compose([Validators.required])],
       guestName: ["", Validators.compose([Validators.required])],
       phoneNumber: [
         "",
-        Validators.compose([Validators.required, Validators.minLength(8)]),
+        Validators.compose([Validators.required]),
       ],
       email: ["", Validators.compose([Validators.required])],
       status: [0, Validators.compose([Validators.required])],
@@ -189,7 +193,7 @@ export class StayingScheduleReceiptDetailComponent implements OnInit, OnDestroy 
       this.errorSystemState.subscribe((state) => {
         if (state) {
           if (state !== "" && state !== null) {
-            this.messageService.closeAllDialog();
+            this.messageService.closeLoadingDialog();
             this.messageService.openSystemFailNotifyDialog(state);
           }
         }
@@ -254,7 +258,7 @@ export class StayingScheduleReceiptDetailComponent implements OnInit, OnDestroy 
     this.isSubmitted = true;
 
     console.log(this.editformGroup_info.value);
-    if (this.editformGroup_info.valid){
+    if (this.editformGroup_info.valid) {
       const payload: FullReceipt = {
         totalReceiptId: this.receipt.totalReceiptId,
         fullReceiptId: this.data.id,
@@ -271,15 +275,18 @@ export class StayingScheduleReceiptDetailComponent implements OnInit, OnDestroy 
         description: this.editformGroup_info.value.description,
         status: parseInt(this.editformGroup_info.value.status),
       };
-  
+
       this.store.dispatch(
         ReceiptActions.editReceipt({
           payload: payload,
         })
       );
       this.messageService.openLoadingDialog();
+    } else {
+      this.messageService.openFailNotifyDialog(
+        "Lỗi giá trị đầu vào. Vui lòng kiểm tra lại"
+      );
     }
-    
   }
 
   saveInfomation(): void {
@@ -302,7 +309,7 @@ export class StayingScheduleReceiptDetailComponent implements OnInit, OnDestroy 
     }
   }
 
-  closeDialog(){
+  closeDialog() {
     this.dialog.closeAll();
   }
 

@@ -94,11 +94,14 @@ export class AccountInfoComponent implements OnInit, OnDestroy {
       userName: ["", Validators.compose([Validators.required])],
       phoneNumber: [
         "",
-        Validators.compose([Validators.required, Validators.minLength(8)]),
+        Validators.compose([Validators.required]),
       ],
       email: ["", Validators.compose([Validators.required])],
       address: ["", Validators.compose([Validators.required])],
-      role: [{ value: 0, disabled: true }, Validators.compose([Validators.required])],
+      role: [
+        { value: 0, disabled: true },
+        Validators.compose([Validators.required]),
+      ],
       fullName: [0, Validators.compose([Validators.required])],
     });
 
@@ -215,7 +218,7 @@ export class AccountInfoComponent implements OnInit, OnDestroy {
           address: this.editformGroup_info.value.address,
           fullName: this.editformGroup_info.value.fullName,
           role: this.tokenStorageService.getUserRoleInNumber(),
-          phase: "" 
+          phase: "",
         };
 
         this.messageService.openLoadingDialog();
@@ -224,8 +227,12 @@ export class AccountInfoComponent implements OnInit, OnDestroy {
             payload: payload,
           })
         );
+      } else {
+        this.messageService.openFailNotifyDialog(
+          "Lỗi giá trị đầu vào. Vui lòng kiểm tra lại"
+        );
       }
-    } else  if (this.active === 1) {
+    } else if (this.active === 1) {
       this.isSubmittedPassword = true;
       if (this.editformGroup_password.valid) {
         const payload = {
@@ -233,7 +240,7 @@ export class AccountInfoComponent implements OnInit, OnDestroy {
           password: this.editformGroup_password.value.password,
           newPassword: this.editformGroup_password.value.newPassword,
           role: this.tokenStorageService.getUserRoleInNumber(),
-          phase: "Password"      
+          phase: "Password",
         };
 
         this.messageService.openLoadingDialog();
@@ -242,11 +249,15 @@ export class AccountInfoComponent implements OnInit, OnDestroy {
             payload: payload,
           })
         );
+      } else {
+        this.messageService.openFailNotifyDialog(
+          "Lỗi giá trị đầu vào. Vui lòng kiểm tra lại"
+        );
       }
     }
   }
 
-  changeIndex($event: number){
+  changeIndex($event: number) {
     this.active = $event;
   }
 }

@@ -107,7 +107,7 @@ export class MovingScheduleReceiptDetailComponent implements OnInit, OnDestroy {
       guestName: ["", Validators.compose([Validators.required])],
       phoneNumber: [
         "",
-        Validators.compose([Validators.required, Validators.minLength(8)]),
+        Validators.compose([Validators.required]),
       ],
       email: ["", Validators.compose([Validators.required])],
       status: [0, Validators.compose([Validators.required])],
@@ -253,7 +253,6 @@ export class MovingScheduleReceiptDetailComponent implements OnInit, OnDestroy {
   formSubmit_edit_info(): void {
     this.isSubmitted = true;
 
-    console.log(this.editformGroup_info.value);
     if (this.editformGroup_info.valid) {
       const payload: FullReceipt = {
         totalReceiptId: this.receipt.totalReceiptId,
@@ -278,6 +277,10 @@ export class MovingScheduleReceiptDetailComponent implements OnInit, OnDestroy {
         })
       );
       this.messageService.openLoadingDialog();
+    } else {
+      this.messageService.openFailNotifyDialog(
+        "Lỗi giá trị đầu vào. Vui lòng kiểm tra lại"
+      );
     }
   }
 

@@ -91,7 +91,7 @@ export class RestHouseContactDetailComponent implements OnInit, OnDestroy {
       placeBranch: ["", Validators.compose([Validators.required])],
       hotlineNumber: [
         "",
-        Validators.compose([Validators.required, Validators.minLength(8)]),
+        Validators.compose([Validators.required]),
       ],
       supportEmail: ["", Validators.compose([Validators.required])],
       headQuarterAddress: ["", Validators.compose([Validators.required])],
@@ -229,6 +229,10 @@ export class RestHouseContactDetailComponent implements OnInit, OnDestroy {
         RestHouseContactActions.editRestHouseContact({
           payload: payload,
         })
+      );
+    } else {
+      this.messageService.openFailNotifyDialog(
+        "Lỗi giá trị đầu vào. Vui lòng kiểm tra lại"
       );
     }
   }

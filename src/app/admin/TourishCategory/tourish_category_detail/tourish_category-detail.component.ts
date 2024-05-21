@@ -114,7 +114,6 @@ export class TourishCategoryDetailComponent implements OnInit, OnDestroy {
       this.errorMessageState.subscribe((state: any) => {
         if (state) {
           this.messageService.closeLoadingDialog();
-          this.messageService.closeAllDialog();
           this.messageService.openMessageNotifyDialog(state.code);
         }
       })
@@ -124,7 +123,7 @@ export class TourishCategoryDetailComponent implements OnInit, OnDestroy {
       this.errorSystemState.subscribe((state) => {
         if (state) {
           if (state !== "" && state !== null) {
-            this.messageService.closeAllDialog();
+            this.messageService.closeLoadingDialog();
             this.messageService.openSystemFailNotifyDialog(state);
           }
         }
@@ -180,7 +179,11 @@ export class TourishCategoryDetailComponent implements OnInit, OnDestroy {
       );
 
       this.messageService.openLoadingDialog();
-    } else console.log(this.editformGroup_info.invalid);
+    } else {
+      this.messageService.openFailNotifyDialog(
+        "Lỗi giá trị đầu vào. Vui lòng kiểm tra lại"
+      );
+    }
   }
 
   closeDialog() {

@@ -89,7 +89,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
       userName: ["", Validators.compose([Validators.required])],
       phoneNumber: [
         "",
-        Validators.compose([Validators.required, Validators.minLength(8)]),
+        Validators.compose([Validators.required]),
       ],
       email: ["", Validators.compose([Validators.required])],
       address: ["", Validators.compose([Validators.required])],
@@ -138,6 +138,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.errorSystemState.subscribe((state) => {
         if (state) {
+          this.messageService.closeLoadingDialog();
           this.messageService.openFailNotifyDialog(state);
         }
       })
@@ -195,10 +196,15 @@ export class UserDetailComponent implements OnInit, OnDestroy {
         fullName: this.editformGroup_info.value.fullName,
       };
 
+      this.messageService.openLoadingDialog();
       this.store.dispatch(
         UserActions.editUser({
           payload: payload,
         })
+      );
+    }else {
+      this.messageService.openFailNotifyDialog(
+        "Lỗi giá trị đầu vào. Vui lòng kiểm tra lại"
       );
     }
   }

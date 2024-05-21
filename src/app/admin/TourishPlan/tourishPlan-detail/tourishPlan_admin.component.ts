@@ -287,6 +287,10 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
           },
         })
       );
+    } else {
+      this.messageService.openFailNotifyDialog(
+        "Lỗi giá trị đầu vào. Vui lòng kiểm tra lại"
+      );
     }
 
     this.messageService.openLoadingDialog();

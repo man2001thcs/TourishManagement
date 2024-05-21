@@ -167,6 +167,7 @@ export class MovingScheduleDetailComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.errorSystemState.subscribe((state) => {
         if (state) {
+          this.messageService.closeLoadingDialog();
           this.messageService.openFailNotifyDialog(state);
         }
       })
@@ -245,7 +246,11 @@ export class MovingScheduleDetailComponent implements OnInit, OnDestroy {
           payload: payload,
         })
       );
-    } else console.log(this.editformGroup_info.invalid);
+    } else {
+      this.messageService.openFailNotifyDialog(
+        "Lỗi giá trị đầu vào. Vui lòng kiểm tra lại"
+      );
+    }
   }
 
   closeDialog() {

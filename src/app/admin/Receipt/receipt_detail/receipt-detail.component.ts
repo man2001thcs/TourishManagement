@@ -35,7 +35,11 @@ import {
   getSysError,
 } from "./receipt-detail.store.selector";
 import { MessageService } from "src/app/utility/user_service/message.service";
-import { FullReceipt, TotalReceipt, TourishPlan } from "src/app/model/baseModel";
+import {
+  FullReceipt,
+  TotalReceipt,
+  TourishPlan,
+} from "src/app/model/baseModel";
 import { HttpClient } from "@angular/common/http";
 
 @Component({
@@ -96,15 +100,13 @@ export class ReceiptDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.editformGroup_info = this.fb.group({
-      fullReceiptId: [
-        this.data.id      
-      ],
+      fullReceiptId: [this.data.id],
       totalReceiptId: ["", Validators.compose([Validators.required])],
       tourishScheduleId: ["", Validators.compose([Validators.required])],
       guestName: ["", Validators.compose([Validators.required])],
       phoneNumber: [
         "",
-        Validators.compose([Validators.required, Validators.minLength(8)]),
+        Validators.compose([Validators.required]),
       ],
       email: ["", Validators.compose([Validators.required])],
       status: [0, Validators.compose([Validators.required])],
@@ -219,11 +221,9 @@ export class ReceiptDetailComponent implements OnInit, OnDestroy {
   }
 
   getTour(id: string) {
-    this.http
-      .get("/api/GetTourishPlan/" + id)
-      .subscribe((response: any) => {
-        this.tourishPlan = response.data;
-      });
+    this.http.get("/api/GetTourishPlan/" + id).subscribe((response: any) => {
+      this.tourishPlan = response.data;
+    });
   }
 
   formReset(): void {
@@ -253,12 +253,12 @@ export class ReceiptDetailComponent implements OnInit, OnDestroy {
     this.isSubmitted = true;
 
     console.log(this.editformGroup_info.value);
-    if (this.editformGroup_info.valid){
+    if (this.editformGroup_info.valid) {
       const payload: FullReceipt = {
         totalReceiptId: this.receipt.totalReceiptId,
         fullReceiptId: this.data.id,
         guestName: this.editformGroup_info.value.guestName,
-        tourishPlanId:  this.receipt.totalReceipt?.tourishPlanId,
+        tourishPlanId: this.receipt.totalReceipt?.tourishPlanId,
         tourishScheduleId: this.editformGroup_info.value.tourishScheduleId,
         totalTicket: this.editformGroup_info.value.totalTicket,
         totalChildTicket: this.editformGroup_info.value.totalChildTicket,
@@ -270,15 +270,18 @@ export class ReceiptDetailComponent implements OnInit, OnDestroy {
         description: this.editformGroup_info.value.description,
         status: parseInt(this.editformGroup_info.value.status),
       };
-  
+
       this.store.dispatch(
         ReceiptActions.editReceipt({
           payload: payload,
         })
       );
       this.messageService.openLoadingDialog();
+    } else {
+      this.messageService.openFailNotifyDialog(
+        "Lỗi giá trị đầu vào. Vui lòng kiểm tra lại"
+      );
     }
-    
   }
 
   saveInfomation(): void {
@@ -295,14 +298,12 @@ export class ReceiptDetailComponent implements OnInit, OnDestroy {
 
   selectChangeReceipt($event: any): any {
     console.log($event);
-    this.editformGroup_info.controls["tourishPlanId"].setValue(
-      $event.data[0]
-    );
+    this.editformGroup_info.controls["tourishPlanId"].setValue($event.data[0]);
 
     console.log(this.editformGroup_info.value);
   }
 
-  closeDialog(){
+  closeDialog() {
     this.dialog.closeAll();
   }
 

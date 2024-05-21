@@ -105,6 +105,7 @@ export class NotificationDetailComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.notificationState.subscribe((state) => {
         if (state) {
+          this.messageService.closeLoadingDialog();
           this.notification = state;
 
           this.editformGroup_info.controls["content"].setValue(state.content);
@@ -124,6 +125,7 @@ export class NotificationDetailComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.editNotificationState.subscribe((state) => {
         if (state) {
+          this.messageService.closeLoadingDialog();
           this.messageService.openMessageNotifyDialog(state.messageCode);
         }
       })
@@ -155,6 +157,7 @@ export class NotificationDetailComponent implements OnInit, OnDestroy {
       })
     );
 
+    this.messageService.openLoadingDialog();
     this.store.dispatch(NotificationActions.initial());
 
     //console.log(this.this_book);
@@ -199,6 +202,11 @@ export class NotificationDetailComponent implements OnInit, OnDestroy {
         NotificationActions.editNotification({
           payload: payload,
         })
+      );
+      this.messageService.openLoadingDialog();
+    } else {
+      this.messageService.openFailNotifyDialog(
+        "Lỗi giá trị đầu vào. Vui lòng kiểm tra lại"
       );
     }
   }

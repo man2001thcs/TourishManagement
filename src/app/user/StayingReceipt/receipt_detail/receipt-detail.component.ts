@@ -100,7 +100,7 @@ export class StayingReceiptUserDetailComponent implements OnInit, OnDestroy {
       guestName: ["", Validators.compose([Validators.required])],
       phoneNumber: [
         "",
-        Validators.compose([Validators.required, Validators.minLength(8)]),
+        Validators.compose([Validators.required]),
       ],
       email: ["", Validators.compose([Validators.required])],
       status: [0, Validators.compose([Validators.required])],

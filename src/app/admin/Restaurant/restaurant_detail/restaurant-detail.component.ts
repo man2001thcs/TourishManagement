@@ -89,14 +89,14 @@ export class RestaurantDetailComponent implements OnInit, OnDestroy {
       placeBranch: ["", Validators.compose([Validators.required])],
       hotlineNumber: [
         "",
-        Validators.compose([Validators.required, Validators.minLength(8)]),
+        Validators.compose([Validators.required]),
       ],
       supportEmail: ["", Validators.compose([Validators.required])],
       headQuarterAddress: ["", Validators.compose([Validators.required])],
       discountFloat: [0, Validators.compose([Validators.required])],
       discountAmount: [0, Validators.compose([Validators.required])],
 
-      description: ["", Validators.compose([Validators.required])]
+      description: ["", Validators.compose([Validators.required])],
     });
 
     this.subscriptions.push(
@@ -135,12 +135,13 @@ export class RestaurantDetailComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.editRestaurantState.subscribe((state) => {
         if (state) {
+          this.messageService.closeLoadingDialog();
           this.messageService.openMessageNotifyDialog(state.messageCode);
         }
       })
     );
 
-        this.subscriptions.push(
+    this.subscriptions.push(
       this.errorMessageState.subscribe((state: any) => {
         if (state) {
           this.messageService.closeLoadingDialog();
@@ -153,6 +154,7 @@ export class RestaurantDetailComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.errorSystemState.subscribe((state) => {
         if (state) {
+          this.messageService.closeLoadingDialog();
           this.messageService.openFailNotifyDialog(state);
         }
       })
@@ -165,6 +167,7 @@ export class RestaurantDetailComponent implements OnInit, OnDestroy {
         },
       })
     );
+    this.messageService.openLoadingDialog();
 
     this.store.dispatch(RestaurantActions.initial());
 
@@ -198,7 +201,7 @@ export class RestaurantDetailComponent implements OnInit, OnDestroy {
 
   formSubmit_edit_info(): void {
     this.isSubmitted = true;
-    if (this.editformGroup_info.valid){
+    if (this.editformGroup_info.valid) {
       const payload: Restaurant = {
         id: this.data.id,
         placeBranch: this.editformGroup_info.value.placeBranch,
@@ -209,16 +212,21 @@ export class RestaurantDetailComponent implements OnInit, OnDestroy {
         discountAmount: this.editformGroup_info.value.discountAmount,
         description: this.editformGroup_info.value.description,
       };
-  
+
+      this.messageService.openLoadingDialog();
       this.store.dispatch(
         RestaurantActions.editRestaurant({
           payload: payload,
         })
       );
-    } 
+    } else {
+      this.messageService.openFailNotifyDialog(
+        "Lỗi giá trị đầu vào. Vui lòng kiểm tra lại"
+      );
+    }
   }
 
-  closeDialog(){
+  closeDialog() {
     this.dialog.closeAll();
   }
 }

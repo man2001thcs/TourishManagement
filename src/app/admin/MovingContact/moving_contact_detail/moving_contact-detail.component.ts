@@ -31,7 +31,7 @@ export class MovingContactDetailComponent implements OnInit, OnDestroy {
   isEditing: boolean = true;
   isSubmitted = false;
   disabled = true;
-  
+
   MovingContact: MovingContact = {
     id: "",
     branchName: "",
@@ -74,10 +74,7 @@ export class MovingContactDetailComponent implements OnInit, OnDestroy {
     this.editformGroup_info = this.fb.group({
       id: [this.data.id, Validators.compose([Validators.required])],
       branchName: ["", Validators.compose([Validators.required])],
-      hotlineNumber: [
-        "",
-        Validators.compose([Validators.required, Validators.minLength(8)]),
-      ],
+      hotlineNumber: ["", Validators.compose([Validators.required])],
       supportEmail: ["", Validators.compose([Validators.required])],
       headQuarterAddress: ["", Validators.compose([Validators.required])],
       discountFloat: [0, Validators.compose([Validators.required])],
@@ -126,6 +123,7 @@ export class MovingContactDetailComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.editMovingContactState.subscribe((state) => {
         if (state) {
+          this.messageService.closeLoadingDialog();
           this.messageService.openMessageNotifyDialog(state.messageCode);
         }
       })
@@ -190,6 +188,7 @@ export class MovingContactDetailComponent implements OnInit, OnDestroy {
 
   formSubmit_edit_info(): void {
     this.isSubmitted = true;
+ 
     if (!this.editformGroup_info.invalid) {
       const payload: MovingContact = {
         id: this.data.id,
@@ -203,12 +202,17 @@ export class MovingContactDetailComponent implements OnInit, OnDestroy {
         description: this.editformGroup_info.value.description,
       };
 
+      this.messageService.openLoadingDialog();
       this.store.dispatch(
         MovingContactActions.editMovingContact({
           payload: payload,
         })
       );
-    } else console.log(this.editformGroup_info.invalid);
+    } else {
+      this.messageService.openFailNotifyDialog(
+        "Lỗi giá trị đầu vào. Vui lòng kiểm tra lại"
+      );
+    }
   }
 
   closeDialog() {

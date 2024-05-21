@@ -91,7 +91,7 @@ export class UserAccountInfoComponent implements OnInit, OnDestroy {
       userName: ["", Validators.compose([Validators.required])],
       phoneNumber: [
         "",
-        Validators.compose([Validators.required, Validators.minLength(8)]),
+        Validators.compose([Validators.required]),
       ],
       email: ["", Validators.compose([Validators.required])],
       address: ["", Validators.compose([Validators.required])],

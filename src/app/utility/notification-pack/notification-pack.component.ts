@@ -4,6 +4,7 @@ import {
   ElementRef,
   EventEmitter,
   Input,
+  OnDestroy,
   OnInit,
   Output,
   ViewChild,
@@ -23,7 +24,7 @@ import { messaging } from "src/conf/firebase.conf";
   templateUrl: "./notification-pack.component.html",
   styleUrls: ["./notification-pack.component.css"],
 })
-export class NotificationPackComponent implements OnInit {
+export class NotificationPackComponent implements OnInit, OnDestroy {
   @Input()
   isNotifyOpen = false;
 
@@ -60,6 +61,9 @@ export class NotificationPackComponent implements OnInit {
     private http: HttpClient,
     private signalRService: SignalRService
   ) {}
+  ngOnDestroy(): void {
+    this.signalRService.stopConnect();
+  }
 
   ngOnInit() {
     this.requestPermission();

@@ -55,6 +55,7 @@ export class HeaderUserComponent implements OnDestroy {
 
   @Output() checkNavOpen = new EventEmitter<boolean>();
 
+  isSearchLoading =false;
   activeItem = "1st";
   isNavOpen = false;
   isNotifyOpen = false;
@@ -164,10 +165,12 @@ export class HeaderUserComponent implements OnDestroy {
             pageSize: 6,
           };
 
+          this.isSearchLoading =true;
           this.http
             .get("/api/GetTourishPlan", { params: params })
             .pipe(debounceTime(400))
             .subscribe((response: any) => {
+              this.isSearchLoading = false;
               this.tourList = response.data;
               this.tourLength = this.tourList.length;
             });

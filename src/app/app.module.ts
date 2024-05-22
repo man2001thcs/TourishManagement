@@ -40,6 +40,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { messaging } from "src/conf/firebase.conf";
 import { MatSelectModule } from "@angular/material/select";
 import { MatGoogleMapsAutocompleteModule } from "@angular-material-extensions/google-maps-autocomplete";
+import { environment } from "src/environments/environment.development";
 
 @NgModule({
   declarations: [
@@ -73,7 +74,7 @@ import { MatGoogleMapsAutocompleteModule } from "@angular-material-extensions/go
     MatSelectModule,
     GoogleSigninButtonModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: !isDevMode(),
+      enabled: environment.production,
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'

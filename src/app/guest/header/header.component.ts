@@ -45,6 +45,7 @@ export class HeaderComponent implements OnInit {
   tourLength = 0;
   categoryList: TourishCategory[] = [];
   categoryLength = 0;
+  isSearchLoading = false;
 
   addNewItem(value: boolean) {
     this.checkNavOpen.emit(value);
@@ -79,7 +80,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCategory();
-    
+
     this.searchFormGroup = new FormGroup({
       search: new FormControl(),
     });
@@ -93,11 +94,14 @@ export class HeaderComponent implements OnInit {
             pageSize: 6,
           };
 
+          this.isSearchLoading = true;
+
           this.http
             .get("/api/GetTourishPlan", { params: params })
             .pipe(debounceTime(400))
             .subscribe((response: any) => {
               if (response) {
+                this.isSearchLoading = false;
                 this.tourList = response.data;
                 this.tourLength = this.tourList.length;
               }
@@ -236,14 +240,14 @@ export class HeaderComponent implements OnInit {
 
   async navigateCategoryUrl(url: string, category: string) {
     let navigationExtras: NavigationExtras = {
-      queryParams: { 'category': category } // Replace 'key' and 'value' with your actual query parameters
+      queryParams: { category: category }, // Replace 'key' and 'value' with your actual query parameters
     };
     this.router.navigate(["guest/" + url], navigationExtras);
   }
 
   async navigateServiceUrl(url: string, type: string) {
     let navigationExtras: NavigationExtras = {
-      queryParams: { 'serviceType': type } // Replace 'key' and 'value' with your actual query parameters
+      queryParams: { serviceType: type }, // Replace 'key' and 'value' with your actual query parameters
     };
     this.router.navigate(["user/" + url], navigationExtras);
   }

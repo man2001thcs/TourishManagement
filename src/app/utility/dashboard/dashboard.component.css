@@ -75,4 +75,5 @@ app-notification-single {
 .un-paid-container h3 {
   font-weight: bold;
   font-size: 16px;
+  margin-bottom: 0 !important;
 }

@@ -87,12 +87,8 @@ export class LoginComponent implements OnInit {
     });
 
     this.signInformGroup = this.fb.group({
-      userName: [
-        "",
-      ],
-      password: [
-        "",
-      ],
+      userName: [""],
+      password: [""],
     });
 
     this.subscriptions.push(
@@ -164,7 +160,10 @@ export class LoginComponent implements OnInit {
   }
 
   openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action, { verticalPosition: "top",  duration: 5000,  });
+    this._snackBar.open(message, action, {
+      verticalPosition: "top",
+      duration: 5000,
+    });
   }
 
   valueChange(target: string, event: Event) {
@@ -184,6 +183,10 @@ export class LoginComponent implements OnInit {
     this.router.navigate(["guest/signIn"]);
   }
 
+  navigateReclaim() {
+    this.router.navigate(["guest/reclaim"]);
+  }
+
   formSubmit(): void {
     this.store.dispatch(
       LoginAction.login({
@@ -200,5 +203,15 @@ export class LoginComponent implements OnInit {
 
   signInWithGoogle() {
     this.tokenStorage.signInWithGoogle();
+  }
+
+  isLogin() {
+    if (
+      this.tokenStorage.getUserRole() == "User" ||
+      this.tokenStorage.getUserRole() == "Admin" ||
+      this.tokenStorage.getUserRole() == "AdminManager"
+    )
+      return true;
+    else return false;
   }
 }

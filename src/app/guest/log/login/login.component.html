@@ -23,7 +23,13 @@
           <mat-card-content>
             <div
               class="row"
-              style="display: flex; flex-direction: column; margin-bottom: 20px; margin-left: 0 !important; margin-right: 0 !important;"
+              style="
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 20px;
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+              "
             >
               <h3 style="font-size: 16px; margin-bottom: 0; font-weight: bold">
                 Tài khoản
@@ -40,7 +46,13 @@
             </div>
             <div
               class="row"
-              style="display: flex; flex-direction: column; margin-bottom: 20px;  margin-left: 0 !important; margin-right: 0 !important;"
+              style="
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 20px;
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+              "
             >
               <h3 style="font-size: 16px; margin-bottom: 0; font-weight: bold">
                 Mật khẩu
@@ -58,7 +70,13 @@
             </div>
 
             <div class="signInAction">
-              <button  mat-flat-button color="primary" type="submit" id="sign_in" status="success">
+              <button
+                mat-flat-button
+                color="primary"
+                type="submit"
+                id="sign_in"
+                status="success"
+              >
                 Đăng nhập
               </button>
             </div>
@@ -74,7 +92,8 @@
           type="standard"
           size="medium"
           text="signin_with"
-          style="width: 100% !important;"
+          style="width: 100% !important"
+          *ngIf="!isLogin()"
         >
           <span class="buttonText">Google</span></asl-google-signin-button
         >
@@ -92,17 +111,44 @@
         <h3 style="font-size: 16px; margin-bottom: 0; font-weight: bold">
           Nếu chưa có tài khoản, hãy đăng kí
         </h3>
-        <button mat-button color="primary" (click)="navigateRegister()" style="margin-bottom: 10px">
+        <button
+          mat-button
+          color="primary"
+          (click)="navigateRegister()"
+          style="margin-bottom: 10px"
+        >
           Vào trang đăng kí
         </button>
         <asl-google-signin-button
           type="standard"
           size="medium"
           text="signup_with"
-          style="width: 100% !important;"
+          style="width: 100% !important"
+          *ngIf="!isLogin()"
         >
           <span class="buttonText">Google</span></asl-google-signin-button
         >
+
+        <div
+          style="
+            display: flex;
+            border-bottom: 3px solid #696868;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            width: 93%;
+          "
+        ></div>
+        <h3 style="font-size: 16px; margin-bottom: 0; font-weight: bold">
+          Quên mật khẩu? Bắm vào đây dể khôi phục
+        </h3>
+        <button
+          mat-button
+          color="accent"
+          (click)="navigateReclaim()"
+          style="margin-bottom: 10px"
+        >
+          Khôi phục tài khoản
+        </button>
       </div>
     </div>
 

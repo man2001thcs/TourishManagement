@@ -93,6 +93,7 @@
           size="medium"
           text="signin_with"
           style="width: 100% !important"
+          *ngIf="!isLogin()"
         >
           <span class="buttonText">Google</span></asl-google-signin-button
         >
@@ -123,6 +124,7 @@
           size="medium"
           text="signup_with"
           style="width: 100% !important"
+          *ngIf="!isLogin()"
         >
           <span class="buttonText">Google</span></asl-google-signin-button
         >

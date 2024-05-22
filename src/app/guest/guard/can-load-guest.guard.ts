@@ -1,10 +1,10 @@
-import { Injectable, inject } from '@angular/core';
-import { CanLoad, Route, UrlSegment, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
-import { TokenStorageService } from 'src/app/utility/user_service/token.service';
-import { UserService } from 'src/app/utility/user_service/user.service';
+import { Injectable, inject } from "@angular/core";
+import { CanLoad, Route, UrlSegment, UrlTree } from "@angular/router";
+import { Observable } from "rxjs";
+import { TokenStorageService } from "src/app/utility/user_service/token.service";
+import { UserService } from "src/app/utility/user_service/user.service";
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class CanLoadGuestGuard implements CanLoad {
   constructor(private tokenService: TokenStorageService) {}

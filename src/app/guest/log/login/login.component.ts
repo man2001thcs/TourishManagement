@@ -184,6 +184,10 @@ export class LoginComponent implements OnInit {
     this.router.navigate(["guest/signIn"]);
   }
 
+  navigateReclaim() {
+    this.router.navigate(["guest/reclaim"]);
+  }
+
   formSubmit(): void {
     this.store.dispatch(
       LoginAction.login({

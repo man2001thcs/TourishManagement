@@ -111,7 +111,7 @@
     class="autocomplete-search"
     (appOutsideClick)="outsideAutoCompleteSearchClick($event)"
   >
-    <h6>Sản phẩm tìm kiếm</h6>
+    <h6 id="search-title">Kết quả tìm kiếm</h6>
     <div class="searchContent">
       <app-tourish-auto-search-card
         *ngFor="let tour of tourList"
@@ -120,7 +120,10 @@
         [tourPrice]="getTotalPrice(tour)"
         style="width: 100%"
       ></app-tourish-auto-search-card>
-      <h6 *ngIf="tourLength <= 0">Không có kết quả phù hợp</h6>
+      <h6 *ngIf="this.tourLength <= 0 && !this.isSearchLoading">
+        Không có kết quả phù hợp
+      </h6>
+      <h6 *ngIf="this.isSearchLoading">Đang tìm kiếm</h6>
     </div>
   </div>
 </div>

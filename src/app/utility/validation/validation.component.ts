@@ -30,6 +30,13 @@ export class ValidationComponent implements OnInit {
       this.message = "Vui lòng nhập tối thiểu " + min ?? 0;
     }
 
+    if (
+      this.formGroup.get(this.formGroupControlName)?.hasError("minLength")
+    ) {
+      const min = this.formGroup.get(this.formGroupControlName)?.errors?.["minLength"];
+      this.message = "Vui lòng nhập tối thiểu " + min ?? 0;
+    }
+
     if (this.formGroupControlName === "password") {
       if (
         this.formGroup.get(this.formGroupControlName)?.hasError("minLength")

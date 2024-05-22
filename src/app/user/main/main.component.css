@@ -48,13 +48,20 @@ app-footer {
   margin-top: -15px !important;
   margin-bottom: 15px !important;
 }
+
+@media only screen and (min-height: 1000px) {
+  .container-fluid {
+    min-height: 860px !important;
+  }
+}
+
 @media only screen and (min-height: 900px) {
   .container-fluid {
     min-height: 760px !important;
   }
 }
 
-@media only screen and (min-height: 680px) {
+@media only screen and (max-height: 680px) {
   .container-fluid {
     min-height: 560px !important;
   }

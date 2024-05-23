@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config src/app/proxy_config.json",
-    "build": "ng build --configuration production",
+    "build": "ng build --configuration production && node ugly-code.js",
     "watch": "ng build --watch --configuration development",
     "predeploy": "ng build --configuration production --base-href https://man2001thcs.github.io/TourishManagement/",
     "deploy": "ng build --configuration production --base-href=/TourishManagement/",
@@ -52,13 +52,17 @@
     "firebase": "^10.9.0",
     "gsap": "^3.12.5",
     "highcharts": "^9.3.1",
+    "javascript-obfuscator": "^4.1.0",
     "jquery": "^3.7.0",
+    "jscrambler": "^8.4.2",
     "moment": "^2.29.4",
     "ng-image-slider": "^7.0.1",
     "popper.js": "^1.16.1",
     "rxjs": "~7.8.0",
     "tinymce": "^5.5.0",
+    "ts-loader": "^9.5.1",
     "tslib": "^2.3.0",
+    "uglify-js": "^3.17.4",
     "zone.js": "~0.12.0"
   },
   "devDependencies": {
@@ -75,6 +79,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.0.0",
-    "typescript": "~4.9.4"
+    "ngx-build-plus": "^17.0.0",
+    "typescript": "^4.8.2"
   }
 }

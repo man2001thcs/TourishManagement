@@ -5,22 +5,4 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-
-// tslint:disable:no-console
-
-self.addEventListener('install', event => {
-  self.skipWaiting();
-});
-
-self.addEventListener('activate', event => {
-  event.waitUntil(self.clients.claim());
-
-  event.waitUntil(self.registration.unregister().then(() => {
-    console.log('NGSW Safety Worker - unregistered old service worker');
-  }));
-
-  event.waitUntil(caches.keys().then(cacheNames => {
-    const ngswCacheNames = cacheNames.filter(name => /^ngsw:/.test(name));
-    return Promise.all(ngswCacheNames.map(name => caches.delete(name)));
-  }));
-});
+const _0x3c60bd=_0x4e15;function _0x4e15(_0x1d6ff5,_0x5cdc22){const _0x5cb525=_0x5cb5();return _0x4e15=function(_0x4e154d,_0x59d09b){_0x4e154d=_0x4e154d-0x99;let _0x5e3667=_0x5cb525[_0x4e154d];return _0x5e3667;},_0x4e15(_0x1d6ff5,_0x5cdc22);}(function(_0x3d6996,_0x141b1c){const _0x24e135=_0x4e15,_0x19e0c7=_0x3d6996();while(!![]){try{const _0x1f0aad=parseInt(_0x24e135(0xad))/0x1*(parseInt(_0x24e135(0x9c))/0x2)+-parseInt(_0x24e135(0xab))/0x3+-parseInt(_0x24e135(0xa9))/0x4+-parseInt(_0x24e135(0xa2))/0x5+-parseInt(_0x24e135(0xa1))/0x6*(-parseInt(_0x24e135(0xaa))/0x7)+-parseInt(_0x24e135(0x9f))/0x8*(parseInt(_0x24e135(0xae))/0x9)+parseInt(_0x24e135(0x9a))/0xa;if(_0x1f0aad===_0x141b1c)break;else _0x19e0c7['push'](_0x19e0c7['shift']());}catch(_0xcbb4be){_0x19e0c7['push'](_0x19e0c7['shift']());}}}(_0x5cb5,0x3de93),self[_0x3c60bd(0xa5)](_0x3c60bd(0xa3),_0x229b36=>{const _0x53d3d9=_0x3c60bd;self[_0x53d3d9(0x9e)]();}),self[_0x3c60bd(0xa5)](_0x3c60bd(0xac),_0x5d2533=>{const _0x2374dd=_0x3c60bd;_0x5d2533[_0x2374dd(0xa7)](self[_0x2374dd(0xaf)][_0x2374dd(0xa0)]()),_0x5d2533[_0x2374dd(0xa7)](self['registration']['unregister']()[_0x2374dd(0xa8)](()=>{const _0x19eeb8=_0x2374dd;console[_0x19eeb8(0xa6)](_0x19eeb8(0x99));})),_0x5d2533[_0x2374dd(0xa7)](caches[_0x2374dd(0x9b)]()['then'](_0x307e1d=>{const _0x358836=_0x2374dd,_0x1464f1=_0x307e1d['filter'](_0x1207fe=>/^ngsw:/['test'](_0x1207fe));return Promise['all'](_0x1464f1[_0x358836(0x9d)](_0x5832c8=>caches[_0x358836(0xa4)](_0x5832c8)));}));}));function _0x5cb5(){const _0x1a720d=['keys','10gXtNzZ','map','skipWaiting','1481960ztCBeL','claim','6BjuVCG','42595qUIZbB','install','delete','addEventListener','log','waitUntil','then','1322796hCfVBP','2021257npRWLB','672429TjesFN','activate','66854ITmnsA','9hOtZhY','clients','NGSW\x20Safety\x20Worker\x20-\x20unregistered\x20old\x20service\x20worker','3791720sWCNcE'];_0x5cb5=function(){return _0x1a720d;};return _0x5cb5();}

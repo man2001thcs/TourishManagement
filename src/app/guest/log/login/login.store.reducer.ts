@@ -22,6 +22,7 @@ export const reducer = createReducer(
   on(BooklistAction.resetLogin, (state) => ({
     ...state,
     loginProfile: null,
+    messageCode: null
   })),
 
   on(BooklistAction.login, (state, { payload }) => ({

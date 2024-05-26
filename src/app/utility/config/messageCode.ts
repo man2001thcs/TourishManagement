@@ -109,6 +109,9 @@ export const ERR_MESSAGE_CODE_EN: Map<string, string> = new Map([
 
 export const ERR_MESSAGE_CODE_VI: Map<string, string> = new Map([
     ["C001", "Mật khẩu không đúng, vui lòng thử lại"],
+    ["C001ne", "Số lượt đăng nhập đã vượt quá cho phép, vui lòng chờ "],
+    ["C001-m4", "Số lượt đăng nhập thất bại đã vượt quá cho phép, vui lòng chờ 15 phút rồi thử lại"],
+    ["C001-h2", "Số lượt đăng nhập thất bại đã vượt quá cho phép, vui lòng chờ 2 tiếng rồi thử lại"],
     ["C002", "Token sai định dạng"],
     ["C003", "Token chưa hết hạn"],
     ["C004", "Quá hạn lượt đăng nhập, vui lòng đăng nhập lại"],

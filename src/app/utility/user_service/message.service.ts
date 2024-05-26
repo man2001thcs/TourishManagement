@@ -53,7 +53,7 @@ export class MessageService {
         this_announce = "Bạn không có thẩm quyền để thực hiện hành động này";
       } else if (httpStatus.status == "504") {
         this_announce = "Mất kết nối với server, vui lòng thử lại sau";
-      }  else if (httpStatus.status == "0") {
+      } else if (httpStatus.status == "0") {
         this_announce = "Lỗi không xác định";
       }
     }
@@ -74,7 +74,10 @@ export class MessageService {
   openMessageNotifyDialog(this_announce_code: string) {
     let message_announce = "";
     if (this_announce_code.startsWith("C")) {
-      message_announce = ERR_MESSAGE_CODE_VI.get(this_announce_code) ?? "";
+      if (this_announce_code.startsWith("C001-ex"))
+        message_announce = this.parseTimeDifference(this_announce_code);
+      else message_announce = ERR_MESSAGE_CODE_VI.get(this_announce_code) ?? "";
+
       return this.openFailNotifyDialog(message_announce ?? "");
     } else if (this_announce_code.startsWith("I")) {
       message_announce = SUCCESS_MESSAGE_CODE_VI.get(this_announce_code) ?? "";
@@ -82,6 +85,24 @@ export class MessageService {
     }
 
     return null;
+  }
+
+  private parseTimeDifference(timeDiff: string): string {
+    const regex = /C001-ex-(\d+)-(\d+)/;
+    const matches = regex.exec(timeDiff);
+    let errorString =
+      "Số lượt đăng nhập đã vượt quá cho phép, vui lòng chờ 2 tiếng sau rồi thử lại";
+
+    if (matches && matches.length === 3) {
+      const hours = parseInt(matches[1], 10);
+      const minutes = parseInt(matches[2], 10);
+
+      if (hours <= 0)
+        errorString = `Số lượt đăng nhập đã vượt quá cho phép, vui lòng chờ ${minutes} phút sau rồi thử lại`;
+      else
+        errorString = `Số lượt đăng nhập đã vượt quá cho phép, vui lòng chờ ${hours} tiếng ${minutes} sau rồi thử lại`;
+    }
+    return errorString;
   }
 
   openSystemErrNotifyDialog(this_announce_code: string, this_err_mess: string) {

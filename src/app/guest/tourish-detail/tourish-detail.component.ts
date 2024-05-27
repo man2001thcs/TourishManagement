@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   Input,
+  OnDestroy,
   OnInit,
   Renderer2,
   ViewChild,
@@ -10,11 +11,8 @@ import {
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { ActivatedRoute } from "@angular/router";
-
-import { NgbCarouselConfig } from "@ng-bootstrap/ng-bootstrap";
 import { EditorComponent } from "@tinymce/tinymce-angular";
-import { Slider } from "angular-carousel-slider/lib/angular-carousel-slider.component";
-import { scheduled } from "rxjs";
+import { Subscription, scheduled } from "rxjs";
 import { SaveFile, TourishPlan, User } from "src/app/model/baseModel";
 import { MessageService } from "src/app/utility/user_service/message.service";
 import { TokenStorageService } from "src/app/utility/user_service/token.service";
@@ -26,7 +24,7 @@ declare let tinymce: any;
   templateUrl: "./tourish-detail.component.html",
   styleUrls: ["./tourish-detail.component.css"],
 })
-export class TourishDetailComponent implements OnInit {
+export class TourishDetailComponent implements OnInit, OnDestroy {
   @Input()
   data!: string;
 
@@ -52,6 +50,8 @@ export class TourishDetailComponent implements OnInit {
   ratingAverage = 3;
   ratingArr: number[] = [];
 
+  subscriptions: Subscription[] = [];
+
   constructor(
     private fb: FormBuilder,
     private _route: ActivatedRoute,
@@ -62,9 +62,14 @@ export class TourishDetailComponent implements OnInit {
     private elementRef: ElementRef,
     private tokenStorageService: TokenStorageService
   ) {}
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription) => {
+      subscription.unsubscribe();
+    });
+  }
 
   ngOnInit() {
-    this.tourishPlanId = this._route.snapshot.paramMap.get("id") ?? "";
+    // this.tourishPlanId = this._route.snapshot.paramMap.get("id") ?? "";
 
     for (let index = 0; index < 5; index++) {
       this.ratingArr.push(index);
@@ -89,18 +94,33 @@ export class TourishDetailComponent implements OnInit {
       tourishScheduleId: ["", Validators.compose([Validators.required])],
     });
 
-    this.getRatingForTour();
-    this.getTourImage();
-    this.getTour();
-    this.getAccount();
+    this.subscriptions.push(
+      this._route.paramMap.subscribe((params) => {
+        console.log(params.get("id"));
+        this.tourishPlanId = params.get("id") ?? "";
+        this.getRatingForTour();
+        this.getTourImage();
+        this.getTour();
+        this.getAccount();
+      })
+    );
+
+    // this.getRatingForTour();
+    // this.getTourImage();
+    // this.getTour();
+    // this.getAccount();
   }
 
   slides: any[] = [];
 
   getDuration() {
     if (this.tourishPlan?.tourishScheduleList) {
-      const startDateObj = new Date(this.tourishPlan?.tourishScheduleList[0].startDate);
-      const endDateObj = new Date(this.tourishPlan?.tourishScheduleList[0].endDate);
+      const startDateObj = new Date(
+        this.tourishPlan?.tourishScheduleList[0].startDate
+      );
+      const endDateObj = new Date(
+        this.tourishPlan?.tourishScheduleList[0].endDate
+      );
 
       const timeDiff = endDateObj.getTime() - startDateObj.getTime();
       const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
@@ -172,6 +192,7 @@ export class TourishDetailComponent implements OnInit {
   }
 
   getTourImage() {
+    this.slides = [];
     const payload = {
       resourceId: this.tourishPlanId,
       resourceType: 1,

@@ -1,5 +1,13 @@
 import { HttpClient } from "@angular/common/http";
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from "@angular/core";
 import { ThemePalette } from "@angular/material/core";
 declare let tinymce: any;
 
@@ -8,7 +16,7 @@ declare let tinymce: any;
   templateUrl: "./tiny-mce-editor.component.html",
   styleUrls: ["./tiny-mce-editor.component.css"],
 })
-export class TinyMceEditorComponent implements OnInit {
+export class TinyMceEditorComponent implements OnInit, OnChanges {
   @Input()
   containerName = "";
   @Input()
@@ -27,6 +35,9 @@ export class TinyMceEditorComponent implements OnInit {
   color: ThemePalette = "primary";
 
   constructor(private http: HttpClient) {}
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes["blobName"]) this.getDescription();
+  }
 
   ngOnInit() {
     this.tinyMceSetting = {

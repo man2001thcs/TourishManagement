@@ -14,6 +14,7 @@ import { ActivatedRoute } from "@angular/router";
 import { NgbCarouselConfig } from "@ng-bootstrap/ng-bootstrap";
 import { EditorComponent } from "@tinymce/tinymce-angular";
 import { Slider } from "angular-carousel-slider/lib/angular-carousel-slider.component";
+import { Subscription } from "rxjs";
 import {
   MovingSchedule,
   SaveFile,
@@ -57,6 +58,7 @@ export class ScheduleDetailComponent implements OnInit {
   ratingAverage = 3;
   ratingArr: number[] = [];
   scheduleType = "0";
+  subscriptions: Subscription[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -70,7 +72,7 @@ export class ScheduleDetailComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.scheduleId = this._route.snapshot.paramMap.get("id") ?? "";
+    // this.scheduleId = this._route.snapshot.paramMap.get("id") ?? "";
 
     this.scheduleType =
       this._route.snapshot.queryParamMap.get("schedule-type") ?? "";
@@ -98,9 +100,16 @@ export class ScheduleDetailComponent implements OnInit {
       serviceScheduleId: ["", Validators.compose([Validators.required])],
     });
 
-    this.getScheduleImage();
-    this.getSchedule();
-    this.getAccount();
+    this.subscriptions.push(
+      this._route.paramMap.subscribe((params) => {
+        this.scheduleId = params.get("id") ?? "";
+        this.getScheduleImage();
+        this.getSchedule();
+        this.getAccount();
+      })
+    );
+
+    
   }
 
   slides: any[] = [];

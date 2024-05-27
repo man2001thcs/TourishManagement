@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { Router } from "@angular/router";
 import { TokenStorageService } from "../user_service/token.service";
 import { HttpClient } from "@angular/common/http";
@@ -23,6 +23,8 @@ export class TourishPlanAutoSearchCardComponent implements OnInit{
   tourPrice = 1400000;
   @Input()
   customerNumber = 19;
+
+  @Output() closeSearch = new EventEmitter<boolean>();
 
   firstImageUrl = "";
   tourImage: SaveFile[] = [];
@@ -108,6 +110,7 @@ export class TourishPlanAutoSearchCardComponent implements OnInit{
   }
 
   navigateToDetail(): void {
+    this.closeSearch.emit(true);
     if (this.tokenStorageService.getUserRole() == "User") {
       this.router.navigate(["user/tour/" + this.id + "/detail"]);
     } else this.router.navigate(["guest/tour/" + this.id + "/detail"]);

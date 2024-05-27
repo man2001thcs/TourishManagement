@@ -476,4 +476,8 @@ export class HeaderUserComponent implements OnDestroy {
     };
     this.router.navigate(["user/" + url], navigationExtras);
   }
+
+  closeSearch($event: boolean) {
+    if($event) this.closeAutoCompleteSearch();
+  }
 }

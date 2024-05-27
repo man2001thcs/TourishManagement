@@ -58,13 +58,15 @@ export class MessageService {
       }
     }
 
-    const ref = this.dialog.open(FailNotifyDialogComponent, {
-      data: {
-        title: this_announce,
-      },
-    });
+    if (this_announce.length > 0) {
+      const ref = this.dialog.open(FailNotifyDialogComponent, {
+        data: {
+          title: this_announce,
+        },
+      });
 
-    return ref.afterClosed();
+      return ref.afterClosed();
+    } else return null;
   }
 
   closeAllDialog() {

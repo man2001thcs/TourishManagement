@@ -4,8 +4,10 @@ import {
   Component,
   ElementRef,
   Input,
+  OnChanges,
   OnInit,
   Renderer2,
+  SimpleChanges,
   ViewChild,
 } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
@@ -22,7 +24,7 @@ import { StarRatingColor } from "../star-rating/star-rating.component";
   templateUrl: "./comment-section.component.html",
   styleUrls: ["./comment-section.component.css"],
 })
-export class CommentSectionComponent implements OnInit {
+export class CommentSectionComponent implements OnInit, OnChanges {
   @Input()
   tourishPlanId: string = "";
 
@@ -31,8 +33,8 @@ export class CommentSectionComponent implements OnInit {
 
   active = 1;
 
-  rating:number = 3;
-  starCount:number = 5;
+  rating: number = 3;
+  starCount: number = 5;
 
   setTourForm!: FormGroup;
   isSubmit = false;
@@ -59,6 +61,19 @@ export class CommentSectionComponent implements OnInit {
     private http: HttpClient,
     private messageService: MessageService
   ) {}
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes["tourishPlanId"]) {
+      this.editorContent = "";
+
+      this.isLoading = false;
+      this.isSending = false;
+      this.canLoadMore = true;
+      this.isSubmit = false;
+      this.tourishPLanCommentList = [];
+
+      this.getTourComment();
+    }
+  }
 
   ngOnInit() {
     this.setTourForm = this.fb.group({
@@ -72,8 +87,6 @@ export class CommentSectionComponent implements OnInit {
         Validators.compose([Validators.required, Validators.minLength(3)]),
       ],
     });
-
-    this.getTourComment();
   }
 
   getTourComment() {
@@ -118,8 +131,10 @@ export class CommentSectionComponent implements OnInit {
           this.messageService.closeAllDialog();
           this.messageService.openMessageNotifyDialog(response.messageCode);
 
-
-          this.tourishPLanCommentList = [response.data, ...this.tourishPLanCommentList];
+          this.tourishPLanCommentList = [
+            response.data,
+            ...this.tourishPLanCommentList,
+          ];
         }
       });
   }
@@ -195,7 +210,5 @@ export class CommentSectionComponent implements OnInit {
     );
   }
 
-  onRatingChanged($event: any){
-    
-  }
+  onRatingChanged($event: any) {}
 }

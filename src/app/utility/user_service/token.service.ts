@@ -3,6 +3,9 @@ import { Injectable } from "@angular/core";
 import { MessageService } from "./message.service";
 import { SocialAuthService } from "@abacritt/angularx-social-login";
 import { GoogleLoginProvider } from "@abacritt/angularx-social-login";
+import { Store } from "@ngrx/store";
+import { LoginUnionActions } from "src/app/guest/log/login/login.store.action";
+import * as LoginAction from "src/app/guest/log/login/login.store.action";
 
 const TOKEN_KEY = "auth-token";
 const REFRESHTOKEN_KEY = "auth-refreshtoken";
@@ -33,6 +36,7 @@ export enum UserRole {
 export class TokenStorageService {
   constructor(
     private http: HttpClient,
+    private store: Store<LoginUnionActions>,
     private socialAuthService: SocialAuthService
   ) {}
 
@@ -42,6 +46,7 @@ export class TokenStorageService {
 
   signOut(): void {
     window.sessionStorage.clear();
+    this.store.dispatch(LoginAction.resetLogin());
   }
 
   public saveToken(token: string): void {

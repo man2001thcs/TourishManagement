@@ -57,7 +57,7 @@ app-footer {
 
 @media only screen and (min-height: 900px) {
   .container-fluid {
-    min-height: 760px !important;
+    min-height: 800px !important;
   }
 }
 

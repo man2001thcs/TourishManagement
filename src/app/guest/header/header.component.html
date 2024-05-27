@@ -82,6 +82,7 @@
         [id]="tour.id ?? ''"
         [tourName]="tour.tourName"
         [tourPrice]="getTotalPrice(tour)"
+        (closeSearch)="closeSearch($event)"
         style="width: 100%"
       ></app-tourish-auto-search-card>
       <h6 *ngIf="this.tourLength <= 0 && !this.isSearchLoading">

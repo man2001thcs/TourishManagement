@@ -288,4 +288,8 @@ export class HeaderComponent implements OnInit {
         this.categoryLength = response.count;
       });
   }
+
+  closeSearch($event: boolean) {
+    this.closeAutoCompleteSearch();
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { faArrowRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -16,6 +16,10 @@ export class ImageSliderComponent implements OnInit {
   faArrowRight = faArrowRight;
   faArrowLeft = faArrowLeft;
   hidden = false;
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes["slides"]) this.slides = changes["slides"].currentValue;
+  }
 
   next() {
     let currentSlide = (this.currentSlide + 1) % this.slides.length;

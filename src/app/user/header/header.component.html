@@ -338,6 +338,7 @@
       [id]="tour.id ?? ''"
       [tourName]="tour.tourName"
       [tourPrice]="getTotalPrice(tour)"
+      (closeSearch)="closeSearch($event)"
       style="width: 100%"
     ></app-tourish-auto-search-card>
     <h6 *ngIf="tourList.length <= 0">Không có kết quả phù hợp</h6>

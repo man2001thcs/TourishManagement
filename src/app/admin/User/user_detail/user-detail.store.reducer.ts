@@ -62,6 +62,8 @@ export const reducer = createReducer(
   on(UserAction.resetUser, (state) => ({
     ...state,
     user: null,
-    userReturn: null
+    userReturn: null,
+    messageCode: null,
+    error: null
   }))
 );

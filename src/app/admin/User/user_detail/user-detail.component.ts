@@ -129,8 +129,9 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.errorMessageState.subscribe((state) => {
         if (state) {
+          console.log(state);
           this.messageService.closeLoadingDialog();
-          this.messageService.openMessageNotifyDialog(state);
+          this.messageService.openMessageNotifyDialog(state.code);
         }
       })
     );

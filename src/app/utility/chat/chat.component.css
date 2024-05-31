@@ -51,13 +51,8 @@
   justify-self: end !important;
 }
 
-.chat-send {
-  margin: 0px 10px 5px 0;
-  max-width: 150px;
+app-send-chat {
   align-self: flex-end !important;
-  align-items: flex-end;
-  display: flex;
-  flex-direction: column;
 }
 
 .chat-send mat-card {
@@ -74,13 +69,8 @@ mat-card-content {
   font-size: 11px;
 }
 
-.chat-receive {
-  margin: 0px 0px 5px 10px;
-  max-width: 150px;
+app-receive-chat {
   align-self: flex-start !important;
-  align-items: flex-start;
-  display: flex;
-  flex-direction: column;
 }
 
 .chat-receive mat-card {

@@ -56,28 +56,22 @@
       </h3>
 
       <ng-container *ngFor="let message of messageList">
-        <ng-container
-          *ngIf="message.side == 1"
-          [ngTemplateOutlet]="chat_send_template"
-          [ngTemplateOutletContext]="{
-            content: message.content,
-            sendTime: message.createDate,
-            state: message.state,
-            sender: 'Heller'
-          }"
-        ></ng-container>
 
-        <ng-container
-          *ngIf="message.side == 2"
-          [ngTemplateOutlet]="chat_receive_template"
-          [ngTemplateOutletContext]="{
-            content: message.content,
-            sendTime: message.createDate,
-            state: message.state,
-            sender: 'Heller'
-          }"
-        ></ng-container>
+        <app-send-big-chat
+        *ngIf="message.side == 1"
+        [content]="message.content"
+        [sendTime]="message.createDate ?? ''"
+        [state]="message.state ?? 3"
+      ></app-send-big-chat>
+
+      <app-receive-big-chat
+        *ngIf="message.side == 2"
+        [content]="message.content"
+        [sendTime]="message.createDate ?? ''"
+        [state]="message.state ?? 3"
+      ></app-receive-big-chat>
       </ng-container>
+      
     </div>
 
     <div class="chat-input" [formGroup]="messFb">
@@ -147,6 +141,7 @@
       *ngFor="let conHis of guestConHistoryList ?? []"
       [guestMessageConHistory]="conHis"
       [isSelected]="conHis.guestMessageCon.connectionID === connectionId"
+      [lastChatInput]="conHis.guestMessageCon.connectionID === connectionId ? newMessage : null"
       (click)="onClickHistory(conHis.guestMessageCon.connectionID)"
     ></app-chat-guest-selector>
   </div>

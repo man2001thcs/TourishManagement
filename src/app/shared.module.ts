@@ -79,6 +79,10 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { NotFoundComponent } from "./utility/not-found-page/404.component";
 import { InViewportDirective } from "./utility/checkInsideDirective";
 import {MatBadgeModule} from '@angular/material/badge';
+import { ReceiveChatComponent } from "./utility/chat/receive-chat/chat.component";
+import { SendChatComponent } from "./utility/chat/send-chat/chat.component";
+import { ReceiveBigChatComponent } from "./utility/big-chat/receive-chat/chat.component";
+import { SendBigChatComponent } from "./utility/big-chat/send-chat/chat.component";
 
 @NgModule({
   declarations: [
@@ -112,7 +116,13 @@ import {MatBadgeModule} from '@angular/material/badge';
     ScheduleSearchComponent,
     ScheduleSearchPackComponent,
     SchedulePlanSearchCardComponent,
-    ScheduleDetailComponent
+    ScheduleDetailComponent,
+
+    ReceiveChatComponent,
+    SendChatComponent,
+
+    ReceiveBigChatComponent,
+    SendBigChatComponent,
   ],
   imports: [
     MatBadgeModule,
@@ -207,7 +217,14 @@ import {MatBadgeModule} from '@angular/material/badge';
     CommentSectionComponent,
     CommentTourSingleComponent,
     NotificationPackComponent,
+
     ChatComponent,
+    ReceiveChatComponent,
+    SendChatComponent,
+    
+    ReceiveBigChatComponent,
+    SendBigChatComponent,
+
     TourishPlanCardComponent,
     TourishDetailComponent,
     TourishMainComponent,

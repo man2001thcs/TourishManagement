@@ -116,6 +116,10 @@ export class ChatComponent {
               );
               guestMessage.side = 2;
 
+              this.messFb.controls["message"].setValue(
+                ""
+              );
+
               if (index > -1) {
                 this.messageList[index] = guestMessage;
               } else this.messageList = [...this.messageList, guestMessage];

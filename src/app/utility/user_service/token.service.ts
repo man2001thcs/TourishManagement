@@ -45,13 +45,13 @@ export class TokenStorageService {
   }
 
   signOut(): void {
-    window.sessionStorage.clear();
+    window.localStorage.clear();
     this.store.dispatch(LoginAction.resetLogin());
   }
 
   public saveToken(token: string): void {
-    window.sessionStorage.removeItem(TOKEN_KEY);
-    window.sessionStorage.setItem(TOKEN_KEY, token);
+    window.localStorage.removeItem(TOKEN_KEY);
+    window.localStorage.setItem(TOKEN_KEY, token);
 
     const user = this.getUser();
     if (user.id) {
@@ -60,27 +60,27 @@ export class TokenStorageService {
   }
 
   public getToken(): string {
-    return window.sessionStorage.getItem(TOKEN_KEY) ?? "";
+    return window.localStorage.getItem(TOKEN_KEY) ?? "";
   }
 
   public saveRefreshToken(token: string): void {
-    window.sessionStorage.removeItem(REFRESHTOKEN_KEY);
-    window.sessionStorage.setItem(REFRESHTOKEN_KEY, token);
+    window.localStorage.removeItem(REFRESHTOKEN_KEY);
+    window.localStorage.setItem(REFRESHTOKEN_KEY, token);
   }
 
   public getRefreshToken(): string {
-    return window.sessionStorage.getItem(REFRESHTOKEN_KEY) ?? "";
+    return window.localStorage.getItem(REFRESHTOKEN_KEY) ?? "";
   }
 
   public saveUser(user: any): void {
-    window.sessionStorage.removeItem(USER_KEY);
-    window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));
+    window.localStorage.removeItem(USER_KEY);
+    window.localStorage.setItem(USER_KEY, JSON.stringify(user));
 
-    window.sessionStorage.setItem(CART_KEY, JSON.stringify([]));
+    window.localStorage.setItem(CART_KEY, JSON.stringify([]));
   }
 
   public getUser(): any {
-    const user = window.sessionStorage.getItem(USER_KEY);
+    const user = window.localStorage.getItem(USER_KEY);
     if (user) {
       return JSON.parse(user);
     }
@@ -88,8 +88,8 @@ export class TokenStorageService {
   }
 
   public saveCart(singleReceipt: CartItem): void {
-    const cartString = window.sessionStorage.getItem(CART_KEY);
-    window.sessionStorage.removeItem(CART_KEY);
+    const cartString = window.localStorage.getItem(CART_KEY);
+    window.localStorage.removeItem(CART_KEY);
     let cartArray: Array<CartItem> = [];
 
     if (cartString) {
@@ -106,12 +106,12 @@ export class TokenStorageService {
       }
     }
 
-    window.sessionStorage.setItem(CART_KEY, JSON.stringify(cartArray));
+    window.localStorage.setItem(CART_KEY, JSON.stringify(cartArray));
   }
 
   public removeCart(singleReceipt: CartItem): void {
-    const cartString = window.sessionStorage.getItem(CART_KEY);
-    window.sessionStorage.removeItem(CART_KEY);
+    const cartString = window.localStorage.getItem(CART_KEY);
+    window.localStorage.removeItem(CART_KEY);
     let cartArray: Array<CartItem> = [];
 
     if (cartString) {
@@ -126,17 +126,17 @@ export class TokenStorageService {
       }
     }
 
-    window.sessionStorage.setItem(CART_KEY, JSON.stringify(cartArray));
+    window.localStorage.setItem(CART_KEY, JSON.stringify(cartArray));
   }
 
   public removeAllCart(): void {
-    window.sessionStorage.removeItem(CART_KEY);
+    window.localStorage.removeItem(CART_KEY);
 
-    window.sessionStorage.setItem(CART_KEY, JSON.stringify([]));
+    window.localStorage.setItem(CART_KEY, JSON.stringify([]));
   }
 
   public getCart(): any {
-    const cart = window.sessionStorage.getItem(CART_KEY);
+    const cart = window.localStorage.getItem(CART_KEY);
     if (cart) {
       return JSON.parse(cart);
     }
@@ -144,7 +144,7 @@ export class TokenStorageService {
   }
 
   public getUserRole(): string {
-    const user = window.sessionStorage.getItem(USER_KEY);
+    const user = window.localStorage.getItem(USER_KEY);
     if (user) {
       return JSON.parse(user).Role;
     }
@@ -163,7 +163,7 @@ export class TokenStorageService {
   }
 
   getUserRoleInNumber(): number {
-    const user = window.sessionStorage.getItem(USER_KEY);
+    const user = window.localStorage.getItem(USER_KEY);
     var role = "";
     if (user) {
       role = JSON.parse(user).Role;

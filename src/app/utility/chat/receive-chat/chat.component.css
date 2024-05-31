@@ -1,0 +1,79 @@
+
+
+
+
+mat-card-content {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.chat-send mat-label {
+  font-size: 11px;
+}
+
+.chat-receive {
+  margin: 0px 0px 5px 10px;
+  max-width: 150px;
+  align-self: flex-start !important;
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-receive mat-card {
+  background-color: #f0f0f0;
+  color: black;
+}
+
+.chat-receive mat-label {
+  font-size: 11px;
+}
+
+.mat-mdc-card-content {
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+}
+
+.chat-send span.mess-status {
+  font-weight: 700 !important;
+}
+
+.chat-receive span.mess-status {
+  font-weight: 700 !important;
+}
+
+::ng-deep .mat-form-field-outline-start {
+  border-radius: 50% 0 0 50% !important;
+  min-width: 10px !important;
+}
+
+::ng-deep .mat-form-field-outline-end {
+  border-radius: 0 50% 50% 0 !important;
+  min-width: 10px !important;
+}
+
+::ng-deep .chat-input .mat-form-field {
+  font-size: 14px;
+}
+
+::ng-deep .chat-input .mat-mdc-text-field-wrapper {
+  height: 42px !important;
+}
+::ng-deep .chat-input .mat-mdc-form-field-flex {
+  margin-top: -8px !important;
+}
+
+::ng-deep .mat-form-field {
+  padding-top: 5px !important;
+  padding-bottom: 5px !important;
+}
+
+::ng-deep .mat-mdc-form-field-subscript-wrapper {
+  display: none !important;
+}
+
+.mat-mdc-card-content {
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+}
+

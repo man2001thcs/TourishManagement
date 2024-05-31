@@ -4,8 +4,10 @@ import {
   Component,
   ElementRef,
   Input,
+  OnChanges,
   OnInit,
   Renderer2,
+  SimpleChanges,
   ViewChild,
 } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
@@ -32,9 +34,12 @@ import { FileModel } from "../image_avatar_service/imageUpload.component.model";
   templateUrl: "./chat-guest-selector.component.html",
   styleUrls: ["./chat-guest-selector.component.css"],
 })
-export class ChatGuestSelectorComponent implements OnInit {
+export class ChatGuestSelectorComponent implements OnInit, OnChanges {
   @Input()
   guestMessageConHistory!: GuestMessageConHistory;
+
+  @Input()
+  lastChatInput: GuestMessage | null = null;
 
   @Input()
   isSelected = false;
@@ -67,6 +72,11 @@ export class ChatGuestSelectorComponent implements OnInit {
     private swPush: SwPush,
     private signalRService: SignalRService
   ) {}
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes["lastChatInput"]) {
+      if (this.lastChatInput != null) this.lastMessage = this.lastChatInput;
+    }
+  }
 
   ngOnInit() {}
 
@@ -83,7 +93,7 @@ export class ChatGuestSelectorComponent implements OnInit {
 
     if (notify.objectName != null && notify.objectName.length > 0) {
       objectName = notify.objectName;
-    } 
+    }
 
     if (notify.contentCode !== null) {
       contentPhase =
@@ -132,7 +142,7 @@ export class ChatGuestSelectorComponent implements OnInit {
     }
     return (timeChanges / 2592000).toFixed(0) + " tháng trước";
   }
-  
+
   getUserName() {
     if (this.guestMessageConHistory.guestMessageCon != null) {
       return this.guestMessageConHistory.guestMessageCon.guestName;

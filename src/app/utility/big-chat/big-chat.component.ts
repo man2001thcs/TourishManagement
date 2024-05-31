@@ -34,6 +34,8 @@ export class BigChatComponent implements OnInit {
   isOpen = false;
   isSending = false;
 
+  newMessage: GuestMessage| null = null;
+
   ngOnInit(): void {
     this.connectionId = this.route.snapshot.paramMap.get("id") ?? "";
     this.getMessageConList();
@@ -47,6 +49,7 @@ export class BigChatComponent implements OnInit {
         if (res) {
           if (res.data3 !== null && res.data3 !== undefined) {
             var insertMess = res.data3;
+
             const guestMessage: GuestMessage = {
               id: res.data3.id,
               state: res.data3.state,
@@ -72,9 +75,16 @@ export class BigChatComponent implements OnInit {
               );
               guestMessage.side = 2;
 
+              this.newMessage = guestMessage;
+
+              this.messFb.controls["message"].setValue(
+                ""
+              );
+
               if (index > -1) {
                 this.messageList[index] = guestMessage;
               } else this.messageList = [...this.messageList, guestMessage];
+              
             }
           }
         }
@@ -162,6 +172,8 @@ export class BigChatComponent implements OnInit {
   }
 
   signalRNotification() {
+    console.log(this.tokenStorageService.getToken());
+
     const adminId = this.tokenStorageService.getUser().Id;
     const queryParameters = {
       adminId: adminId,

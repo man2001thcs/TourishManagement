@@ -48,27 +48,19 @@
       </ng-template>
 
       <ng-container *ngFor="let message of messageList" style="width: 100%">
-        <ng-container
+        <app-send-chat
           *ngIf="message.side == 1"
-          [ngTemplateOutlet]="chat_send_template"
-          [ngTemplateOutletContext]="{
-            content: message.content,
-            sendTime: message.createDate,
-            state: message.state,
-            sender: 'Heller'
-          }"
-        ></ng-container>
+          [content]="message.content"
+          [sendTime]="message.createDate ?? ''"
+          [state]="message.state ?? 3"
+        ></app-send-chat>
 
-        <ng-container
+        <app-receive-chat
           *ngIf="message.side == 2"
-          [ngTemplateOutlet]="chat_receive_template"
-          [ngTemplateOutletContext]="{
-            content: message.content,
-            sendTime: message.createDate,
-            state: message.state,
-            sender: 'Heller'
-          }"
-        ></ng-container>
+          [content]="message.content"
+          [sendTime]="message.createDate ?? ''"
+          [state]="message.state ?? 3"
+        ></app-receive-chat>
       </ng-container>
     </div>
 

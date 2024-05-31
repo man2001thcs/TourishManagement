@@ -1,0 +1,9 @@
+<div class="chat-receive">
+  <mat-card>
+    <mat-card-content>{{ content }}</mat-card-content>
+  </mat-card>
+  <mat-label
+    ><span class="mess-status">{{ getState(state) }} </span>
+    <span *ngIf="state > 0"> - {{ timeString }}</span></mat-label
+  >
+</div>

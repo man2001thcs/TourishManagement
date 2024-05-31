@@ -12,7 +12,7 @@
           margin-top: 22px !important;
         "
       >
-        <mat-form-field appearance="outline" class="full-width-input">
+        <mat-form-field appearance="outline" class="search-input">
           <input
             #searchInput
             matInput
@@ -186,17 +186,14 @@
         <td mat-cell *matCellDef="let element">{{ element.endDate }}</td>
       </ng-container>
 
-      <ng-container matColumnDef="edit">
-        <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let element">
-          <button mat-button (click)="onClickEdit(element.id)">Edit</button>
-        </td>
-      </ng-container>
-
       <ng-container matColumnDef="interest">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let element">
-          <button mat-button (click)="openInterestDialog(element)"  matTooltip={{convertInterestToString(element)}}>
+          <button
+            mat-button
+            (click)="openInterestDialog(element)"
+            matTooltip="{{ convertInterestToString(element) }}"
+          >
             <i
               class="fa fa-bell-o"
               aria-hidden="true"
@@ -211,11 +208,28 @@
         </td>
       </ng-container>
 
+      <ng-container matColumnDef="edit">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <button
+            mat-flat-button
+            color="primary"
+            (click)="onClickEdit(element.id)"
+          >
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+          </button>
+        </td>
+      </ng-container>
+
       <ng-container matColumnDef="delete">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let element">
-          <button mat-button (click)="openDeleteDialog(element.id)">
-            Delete
+          <button
+            mat-flat-button
+            color="warn"
+            (click)="openDeleteDialog(element.id)"
+          >
+            <i class="fa fa-trash-o" aria-hidden="true"></i>
           </button>
         </td>
       </ng-container>

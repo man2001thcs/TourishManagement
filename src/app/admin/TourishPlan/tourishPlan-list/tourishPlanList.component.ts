@@ -61,8 +61,9 @@ export class TourishPlanListAdminComponent
     "createDate",
     "startDate",
     "endDate",
-    "edit",
     "interest",
+    "edit",
+
     "delete",
   ];
   @ViewChild(MatPaginator) paraginator!: MatPaginator;
@@ -315,21 +316,21 @@ export class TourishPlanListAdminComponent
       tour.tourishInterestList !== null &&
       tour.tourishInterestList !== undefined
     ) {
-      switch ( tour.tourishInterestList[0].interestStatus) {
+      switch (tour.tourishInterestList[0].interestStatus) {
         case 0:
-          return 'Theo dõi với tư cách người tạo';
+          return "Theo dõi với tư cách người tạo";
         case 1:
-          return 'Theo dõi với tư cách người chỉnh sửa';
+          return "Theo dõi với tư cách người chỉnh sửa";
         case 2:
-          return 'Đã quan tâm';
+          return "Đã quan tâm";
         case 3:
-          return 'Người dùng';
+          return "Người dùng";
         case 4:
-          return 'Không quan tâm';
+          return "Không quan tâm";
         default:
-          return 'Không quan tâm';
+          return "Không quan tâm";
       }
     }
-    return 'Không quan tâm';
+    return "Không quan tâm";
   }
 }

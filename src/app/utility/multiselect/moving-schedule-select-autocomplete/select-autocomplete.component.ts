@@ -238,7 +238,7 @@ export class MovingScheduleSelectAutocompleteComponent implements OnInit {
     this.movingScheduleNameList = [];
 
     this.movingScheduleIdList.push(event.option.value.id);
-    this.movingScheduleNameList.push(event.option.value.placeBranch);
+    this.movingScheduleNameList.push(event.option.value.branchName);
 
     this.movingScheduleInput.nativeElement.value = "";
     this.movingScheduleCtrl.setValue(null);

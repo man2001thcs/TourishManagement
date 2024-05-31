@@ -41,6 +41,7 @@
   font-weight: 500;
   font-size: 16px;
   align-self: flex-end;
+  text-align: end;
 }
 
 .single-guest .time {

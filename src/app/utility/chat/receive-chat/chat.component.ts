@@ -2,10 +2,12 @@ import {
   Component,
   ElementRef,
   Input,
+  OnChanges,
   Renderer2,
+  SimpleChanges,
   ViewChild,
 } from "@angular/core";
-import { FormBuilder, FormGroup} from "@angular/forms";
+import { FormBuilder, FormGroup } from "@angular/forms";
 import moment from "moment";
 import { Subscription } from "rxjs";
 import { GuestMessage, GuestMessageConHistory } from "src/app/model/baseModel";
@@ -15,7 +17,7 @@ import { GuestMessage, GuestMessageConHistory } from "src/app/model/baseModel";
   templateUrl: "./chat.component.html",
   styleUrls: ["./chat.component.css"],
 })
-export class ReceiveChatComponent {
+export class ReceiveChatComponent implements OnChanges {
   @ViewChild("myChat")
   myChat!: ElementRef;
 
@@ -36,20 +38,26 @@ export class ReceiveChatComponent {
   timeString = "";
   private intervalId: any;
 
-  constructor(
-    private fb: FormBuilder,
-    private renderer: Renderer2,
-  ) {}
+  constructor(private fb: FormBuilder, private renderer: Renderer2) {}
+
   messFb!: FormGroup;
   messRegister!: FormGroup;
-  
+
   isSubmitted = false;
 
   ngOnInit(): void {
     this.timeString = this.getTime(this.sendTime);
-    this.intervalId = setInterval(() => {
-      this.timeString = this.getTime(this.sendTime);
-    }, 60000);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes["sendTime"]) {
+      clearInterval(this.intervalId);
+
+      this.intervalId = setInterval(() => {      
+        this.timeString = this.getTime(this.sendTime);
+        console.log(this.timeString);
+      }, 60000);
+    }
   }
 
   ngOnDestroy() {
@@ -60,7 +68,8 @@ export class ReceiveChatComponent {
 
   getTime(input: string) {
     if (input === "") return "Gần 1 phút trước";
-    const sendTime = new Date(input);
+
+    const sendTime = new Date(input.replace('Z', ''));
 
     const now = new Date(); // Get current date and time
 

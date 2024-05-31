@@ -63,7 +63,6 @@ export class TourishPlanListAdminComponent
     "endDate",
     "interest",
     "edit",
-
     "delete",
   ];
   @ViewChild(MatPaginator) paraginator!: MatPaginator;

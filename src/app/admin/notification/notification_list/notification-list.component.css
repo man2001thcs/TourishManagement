@@ -3,7 +3,23 @@
 }
 
 .table-responsive {
-    display: block;
-    width: 100%;
-    overflow-x: auto;
-  }
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.add-button {
+  margin-right: 20px !important;
+}
+
+::ng-deep .search-input .mat-mdc-text-field-wrapper {
+  height: 42px !important;
+}
+::ng-deep .search-input .mat-mdc-form-field-flex {
+  margin-top: -8px !important;
+}
+
+::ng-deep .mat-form-field {
+  padding-top: 5px !important;
+  padding-bottom: 5px !important;
+}

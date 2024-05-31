@@ -34,7 +34,7 @@ export class BigChatComponent implements OnInit {
   isOpen = false;
   isSending = false;
 
-  newMessage: GuestMessage| null = null;
+  newMessage: GuestMessage | null = null;
 
   ngOnInit(): void {
     this.connectionId = this.route.snapshot.paramMap.get("id") ?? "";
@@ -68,6 +68,8 @@ export class BigChatComponent implements OnInit {
               if (index > -1) {
                 this.messageList[index] = guestMessage;
                 this.isSending = false;
+
+                this.messFb.controls["message"].setValue("");
               }
             } else if (parseInt(insertMess.state) === 2) {
               let index = this.messageList.findIndex(
@@ -77,14 +79,9 @@ export class BigChatComponent implements OnInit {
 
               this.newMessage = guestMessage;
 
-              this.messFb.controls["message"].setValue(
-                ""
-              );
-
               if (index > -1) {
                 this.messageList[index] = guestMessage;
               } else this.messageList = [...this.messageList, guestMessage];
-              
             }
           }
         }

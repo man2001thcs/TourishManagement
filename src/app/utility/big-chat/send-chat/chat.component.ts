@@ -3,11 +3,12 @@ import {
   ElementRef,
   Input,
   Renderer2,
+  SimpleChanges,
   ViewChild,
 } from "@angular/core";
-import { FormBuilder, FormGroup} from "@angular/forms";
+import { FormBuilder, FormGroup } from "@angular/forms";
 import moment from "moment";
-import { Subscription } from "rxjs";
+import { Subscription, interval } from "rxjs";
 import { GuestMessage, GuestMessageConHistory } from "src/app/model/baseModel";
 
 @Component({
@@ -23,6 +24,8 @@ export class SendBigChatComponent {
   @Input() state = 0;
   @Input() sendTime = "";
 
+  sendTimeVar = "";
+
   isChatSet = false;
   isWaitingForSet = false;
   adminId = "";
@@ -36,10 +39,7 @@ export class SendBigChatComponent {
   timeString = "";
   private intervalId: any;
 
-  constructor(
-    private fb: FormBuilder,
-    private renderer: Renderer2,
-  ) {}
+  constructor(private fb: FormBuilder, private renderer: Renderer2) {}
   messFb!: FormGroup;
   messRegister!: FormGroup;
 
@@ -47,12 +47,33 @@ export class SendBigChatComponent {
 
   ngOnInit(): void {
     this.timeString = this.getTime(this.sendTime);
-    this.intervalId = setInterval(() => {
-      this.timeString = this.getTime(this.sendTime);
-    }, 60000);
+
+    this.subscriptions.push(
+      interval(5000).subscribe(() => {  
+        console.log(this.sendTime);  
+        this.timeString = this.getTime(this.sendTime);
+        console.log(this.timeString);
+      })
+    );
   }
 
+  // ngOnChanges(changes: SimpleChanges): void {
+  //   if (changes["sendTime"]) {
+  //     console.log(changes["sendTime"]);
+
+  //     this.sendTimeVar = changes["sendTime"].currentValue;
+
+  //     clearInterval(this.intervalId);
+
+  //     this.intervalId = setInterval(() => {
+  //       this.timeString = this.getTime(this.sendTimeVar);
+  //     }, 60000);
+  //   }
+  // }
+
   ngOnDestroy() {
+    this.subscriptions.forEach((sub) => sub.unsubscribe());
+
     if (this.intervalId) {
       clearInterval(this.intervalId);
     }
@@ -60,7 +81,7 @@ export class SendBigChatComponent {
 
   getTime(input: string) {
     if (input === "") return "Gần 1 phút trước";
-    const sendTime = new Date(input);
+    const sendTime = new Date(input.replace('Z', ''));
 
     const now = new Date(); // Get current date and time
 

@@ -3,6 +3,7 @@ import {
   ElementRef,
   Input,
   Renderer2,
+  SimpleChanges,
   ViewChild,
 } from "@angular/core";
 import { FormBuilder, FormGroup} from "@angular/forms";
@@ -47,9 +48,16 @@ export class SendChatComponent {
 
   ngOnInit(): void {
     this.timeString = this.getTime(this.sendTime);
-    this.intervalId = setInterval(() => {
-      this.timeString = this.getTime(this.sendTime);
-    }, 60000); 
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes["sendTime"]) {
+      clearInterval(this.intervalId);
+      
+      this.intervalId = setInterval(() => {
+        this.timeString = this.getTime(this.sendTime);
+      }, 60000);
+    }
   }
 
   ngOnDestroy() {
@@ -60,7 +68,7 @@ export class SendChatComponent {
 
   getTime(input: string) {
     if (input === "") return "Gần 1 phút trước";
-    const sendTime = new Date(input);
+    const sendTime = new Date(input.replace('Z', ''));
 
     const now = new Date(); // Get current date and time
 

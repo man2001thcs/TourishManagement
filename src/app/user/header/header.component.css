@@ -289,6 +289,11 @@ button:hover {
   min-width: 28px !important;
 }
 
+::ng-deep .mat-expansion-panel-header-description, 
+::ng-deep .mat-expansion-indicator::after {
+    color: white;
+}
+
 /* Add padding to move the label and input into the center to prevent overlapping the rounded border */
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-flex {
   padding: 0 32px !important;

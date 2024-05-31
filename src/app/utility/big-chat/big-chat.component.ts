@@ -102,7 +102,7 @@ export class BigChatComponent implements OnInit {
   }
 
   getTime(input: string) {
-    if (input === "") return "Gần 1 phút trước";
+    if (input === "") return "";
     const sendTime = new Date(input);
 
     const now = new Date(); // Get current date and time

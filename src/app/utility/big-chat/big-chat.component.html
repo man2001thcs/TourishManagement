@@ -43,7 +43,14 @@
 
       <h3
         style="margin-left: 20px; font-weight: bold"
-        *ngIf="messageList.length <= 0"
+        *ngIf="messageList.length <= 0 && this.connectionId == ''"
+      >
+        Chọn người dùng để xem lịch sử cuộc hội thoại
+      </h3>
+
+      <h3
+        style="margin-left: 20px; font-weight: bold"
+        *ngIf="messageList.length <= 0 && this.connectionId.length > 0"
       >
         Nhập nội dung cần gửi
       </h3>
@@ -118,9 +125,9 @@
         color="danger"
         [disabled]="true"
         *ngIf="!this.isOpen"
-        style="font-size: 12px;"
+        style="font-size: 12px"
       >
-        Đóng
+        Đã đóng
       </button>
 
       <button

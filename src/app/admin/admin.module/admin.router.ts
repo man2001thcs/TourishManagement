@@ -110,10 +110,16 @@ const routes: Routes = [
         path: "chat/list",
         component: GuestMessageConHistoryListComponent,
       },
+
       {
         path: "chat/display/:id",
         component: BigChatComponent,
       },
+      {
+        path: "chat/display",
+        component: BigChatComponent,
+      },
+
       { path: "**", pathMatch: "full", component: NotFoundComponent },
     ],
   },

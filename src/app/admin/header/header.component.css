@@ -273,6 +273,11 @@ button:hover {
   margin-right: 20px;
 }
 
+::ng-deep .mat-expansion-panel-header-description, 
+::ng-deep .mat-expansion-indicator::after {
+    color: white;
+}
+
 @media screen and (max-height: 450px) {
   .sidenav a {
     font-size: 18px;

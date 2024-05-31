@@ -104,7 +104,7 @@ export class ChatGuestSelectorComponent implements OnInit {
   }
 
   getTime(input: string) {
-    if (input === "") return "Gần 1 phút trước";
+    if (input === "") return "";
     const sendTime = new Date(input);
 
     const now = new Date(); // Get current date and time
@@ -140,7 +140,7 @@ export class ChatGuestSelectorComponent implements OnInit {
   }
 
   getLastMessage() {
-    if (this.guestMessageConHistory.guestMessageCon != null) {
+    if (this.guestMessageConHistory.guestMessageCon.guestMessages != null) {
       if (this.guestMessageConHistory.guestMessageCon.guestMessages.length > 0)
         this.lastMessage =
           this.guestMessageConHistory.guestMessageCon.guestMessages[0];
@@ -148,6 +148,7 @@ export class ChatGuestSelectorComponent implements OnInit {
   }
 
   getLastContent() {
+    this.getLastMessage();
     if (this.lastMessage) {
       if (this.lastMessage.content) return this.lastMessage.content;
     }
@@ -155,6 +156,7 @@ export class ChatGuestSelectorComponent implements OnInit {
   }
 
   getLastTime() {
+    this.getLastMessage();
     if (this.lastMessage) {
       if (this.lastMessage.createDate)
         return this.getTime(this.lastMessage.createDate);

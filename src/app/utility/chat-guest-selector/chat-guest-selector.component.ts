@@ -115,7 +115,7 @@ export class ChatGuestSelectorComponent implements OnInit, OnChanges {
 
   getTime(input: string) {
     if (input === "") return "";
-    const sendTime = new Date(input);
+    const sendTime = new Date(input.replace('Z', ''));
 
     const now = new Date(); // Get current date and time
 

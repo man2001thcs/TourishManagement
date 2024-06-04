@@ -102,6 +102,8 @@ export class RestaurantDetailComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.restaurantState.subscribe((state) => {
         if (state) {
+          this.messageService.closeLoadingDialog();
+          
           this.restaurant = state;
 
           this.editformGroup_info.controls["placeBranch"].setValue(

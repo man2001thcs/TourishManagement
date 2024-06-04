@@ -53,7 +53,7 @@ export class MovingScheduleReceiptDetailComponent implements OnInit, OnDestroy {
   disabled = true;
 
   receipt: FullReceipt = {
-    fullReceiptId: "",
+    fullReceiptId: 0,
     totalReceiptId: "",
     guestName: "",
     movingScheduleId: "",

@@ -78,6 +78,7 @@ export const ERR_MESSAGE_CODE_EN: Map<string, string> = new Map([
   ["C518", "Tour has been completed"],
   ["C519", "Tour has been canceled"],
   ["C520", "Receipt status can't be set to complete"],
+  ["C521", "Payment's attemp has been failed"],
 
   ["C600", "Message not found"],
   ["C601", "Message add error"],
@@ -194,6 +195,7 @@ export const ERR_MESSAGE_CODE_VI: Map<string, string> = new Map([
     ["C518", "Tour đã hoàn thành"],
     ["C519", "Tour đã hủy"],
     ["C520", "Không thể tự đổi sang trạng thái hoàn thành"],
+    ["C521", "Thanh toán tự động thất bại"],
 
     ["C600", "Tin nhắn không tồn tại"],
     ["C601", "Tin nhắn thêm vào bị lỗi"],
@@ -277,6 +279,7 @@ export const SUCCESS_MESSAGE_CODE_EN: Map<string, string> = new Map([
     ["I511", "Receipt add ok"],
     ["I512", "Receipt update ok"],
     ["I513", "Receipt delete ok"],
+    ["I514", "Payment has been completed successfully"],
 
     ["I601", "Message add ok"],
     ["I602", "Message update ok"],
@@ -344,6 +347,7 @@ export const SUCCESS_MESSAGE_CODE_EN: Map<string, string> = new Map([
     ["I511", "Hóa đơn thêm thành công"],
     ["I512", "Hóa đơn cập nhật thành công"],
     ["I513", "Hóa đơn xóa thành công"],
+    ["I514", "Thanh toán qua PayOs thành công"],
 
     ["I601", "Tin nhắn thêm thành công"],
     ["I602", "Tin nhắn cập nhật thành công"],

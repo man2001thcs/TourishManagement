@@ -256,7 +256,7 @@ export interface SaveFile {
 }
 
 export interface FullReceipt {
-  fullReceiptId?: string;
+  fullReceiptId?: number;
   totalReceiptId?: string;
 
   guestName: string;

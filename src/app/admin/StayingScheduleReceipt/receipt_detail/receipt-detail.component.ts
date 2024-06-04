@@ -55,7 +55,7 @@ export class StayingScheduleReceiptDetailComponent
   disabled = true;
 
   receipt: FullReceipt = {
-    fullReceiptId: "",
+    fullReceiptId: 0,
     totalReceiptId: "",
     guestName: "",
     stayingScheduleId: "",

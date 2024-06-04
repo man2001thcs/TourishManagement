@@ -45,7 +45,7 @@ export class MovingReceiptUserDetailComponent implements OnInit, OnDestroy {
   isEditing: boolean = true;
   isSubmitted = false;
   receipt: FullReceipt = {
-    fullReceiptId: "",
+    fullReceiptId: 0,
     totalReceiptId: "",
     guestName: "",
     movingScheduleId: "",

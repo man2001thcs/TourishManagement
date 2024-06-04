@@ -52,7 +52,7 @@ export class ReceiptDetailComponent implements OnInit, OnDestroy {
   isSubmitted = false;
   disabled = true;
   receipt: FullReceipt = {
-    fullReceiptId: "",
+    fullReceiptId: 0,
     totalReceiptId: "",
     guestName: "",
     tourishPlanId: "",

@@ -67,7 +67,7 @@ export class ReceiptUserDetailComponent implements OnInit, OnDestroy {
     phoneNumber: "",
   };
   receiptParam!: ReceiptParam;
-
+  isDisable = false;
   this_announce = "";
   firstTime = false;
   editformGroup_info!: FormGroup;
@@ -312,5 +312,11 @@ export class ReceiptUserDetailComponent implements OnInit, OnDestroy {
     const chuoiNgayThang = `Ngày ${day} tháng ${month}`;
 
     return chuoiNgayThang;
+  }
+
+  isPaymentDisable(input: string){
+
+    if  (input == "2" || input == "3") return true;
+    return false;
   }
 }

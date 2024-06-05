@@ -275,6 +275,7 @@ export class MovingScheduleReceiptListComponent implements OnInit, AfterViewInit
   tourStatusChange($event: number): void {
     this.pageIndex = 0;
 
+    this.active = $event;
     this.store.dispatch(
       ReceiptListActions.getReceiptList({
         payload: {
@@ -373,5 +374,21 @@ export class MovingScheduleReceiptListComponent implements OnInit, AfterViewInit
     return (
       this.receiptList.findIndex((el) => el.totalReceiptId === elementId) + 1
     );
+  }
+
+  getPaymentStatus(input: string){
+    if  (input == "0") return "Đang xác nhận thông tin";
+    else if  (input == "1") return "Đang chờ thanh toán";
+    else if  (input == "2") return "Đã thanh toán";
+    else if  (input == "3") return "Đã hủy";
+    return "Thất bại";
+  }
+
+  getPaymentStatusColor(input: string){
+    if  (input == "0") return "#ffea00";
+    else if  (input == "1") return "#ffea00";
+    else if  (input == "2") return "#4caf50";
+    else if  (input == "3") return "#f50057";
+    return "Thất bại";
   }
 }

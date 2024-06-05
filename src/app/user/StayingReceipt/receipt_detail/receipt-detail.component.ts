@@ -62,6 +62,9 @@ export class StayingReceiptUserDetailComponent implements OnInit, OnDestroy {
     email: "",
     phoneNumber: "",
   };
+
+  isDisable = false;
+
   receiptParam!: ReceiptParam;
 
   this_announce = "";
@@ -120,7 +123,7 @@ export class StayingReceiptUserDetailComponent implements OnInit, OnDestroy {
           this.messageService.closeLoadingDialog();
           this.getSchedule(state.totalReceipt?.stayingScheduleId);
 
-          console.log(state.totalReceipt?.stayingScheduleId);
+          this.isDisable = this.isPaymentDisable(this.receipt.status + "");
 
           this.editformGroup_info.controls["totalReceiptId"].setValue(
             state.totalReceiptId
@@ -316,5 +319,11 @@ export class StayingReceiptUserDetailComponent implements OnInit, OnDestroy {
     const chuoiNgayThang = `Ngày ${day} tháng ${month}`;
 
     return chuoiNgayThang;
+  }
+
+  isPaymentDisable(input: string){
+
+    if  (input == "2" || input == "3") return true;
+    return false;
   }
 }

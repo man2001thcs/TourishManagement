@@ -68,6 +68,8 @@ export class MovingReceiptUserDetailComponent implements OnInit, OnDestroy {
   firstTime = false;
   editformGroup_info!: FormGroup;
 
+  isDisable = false;
+
   errorMessageState!: Observable<any>;
   errorSystemState!: Observable<any>;
   receiptState!: Observable<any>;
@@ -316,5 +318,11 @@ export class MovingReceiptUserDetailComponent implements OnInit, OnDestroy {
     const chuoiNgayThang = `Ngày ${day} tháng ${month}`;
 
     return chuoiNgayThang;
+  }
+
+  isPaymentDisable(input: string){
+
+    if  (input == "2" || input == "3") return true;
+    return false;
   }
 }

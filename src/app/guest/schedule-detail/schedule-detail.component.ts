@@ -9,7 +9,7 @@ import {
 } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 
 import { NgbCarouselConfig } from "@ng-bootstrap/ng-bootstrap";
 import { EditorComponent } from "@tinymce/tinymce-angular";
@@ -68,7 +68,8 @@ export class ScheduleDetailComponent implements OnInit {
     private rendered2: Renderer2,
     private messageService: MessageService,
     private elementRef: ElementRef,
-    private tokenStorageService: TokenStorageService
+    private tokenStorageService: TokenStorageService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -108,8 +109,6 @@ export class ScheduleDetailComponent implements OnInit {
         this.getAccount();
       })
     );
-
-    
   }
 
   slides: any[] = [];
@@ -187,13 +186,12 @@ export class ScheduleDetailComponent implements OnInit {
 
         this.tourDescription = this.schedule?.description ?? "";
 
-        if (this.schedule){
+        if (this.schedule) {
           if ((this.schedule.serviceScheduleList ?? []).length > 0)
-          this.setTourForm.controls["serviceScheduleId"].setValue(
-            this.schedule.serviceScheduleList[0].id
-          );
+            this.setTourForm.controls["serviceScheduleId"].setValue(
+              this.schedule.serviceScheduleList[0].id
+            );
         }
-          
       });
   }
 
@@ -258,27 +256,34 @@ export class ScheduleDetailComponent implements OnInit {
   }
 
   register() {
-    let payload: any = {
-      guestName: this.setTourForm.value.name,
-      email: this.setTourForm.value.email,
-      phoneNumber: this.setTourForm.value.phoneNumber,
-      totalTicket: this.setTourForm.value.totalTicket,
-      totalChildTicket: this.setTourForm.value.totalChildTicket,
-      serviceScheduleId: this.setTourForm.value.serviceScheduleId,
-    };
+    if (this.tokenStorageService.getUserRole() != "User") {
+      this.messageService
+        .openFailNotifyDialog("Vui lòng đăng nhập để thanh toán!")
+        .subscribe(() => this.router.navigate(["/guest/login"]));
+    } else {
+      let payload: any = {
+        guestName: this.setTourForm.value.name,
+        email: this.setTourForm.value.email,
+        phoneNumber: this.setTourForm.value.phoneNumber,
+        totalTicket: this.setTourForm.value.totalTicket,
+        totalChildTicket: this.setTourForm.value.totalChildTicket,
+        serviceScheduleId: this.setTourForm.value.serviceScheduleId,
+      };
 
-    if (this.scheduleType === "1") payload.movingScheduleId = this.scheduleId;
-    else if (this.scheduleType === "2") payload.stayingScheduleId = this.scheduleId;
+      if (this.scheduleType === "1") payload.movingScheduleId = this.scheduleId;
+      else if (this.scheduleType === "2")
+        payload.stayingScheduleId = this.scheduleId;
 
-    this.messageService.openLoadingDialog();
-    this.http
-      .post("/api/AddReceipt/client", payload)
-      .subscribe((response: any) => {
-        if (response) {
-          this.messageService.closeAllDialog();
-          this.messageService.openMessageNotifyDialog(response.messageCode);
-        }
-      });
+      this.messageService.openLoadingDialog();
+      this.http
+        .post("/api/AddReceipt/client", payload)
+        .subscribe((response: any) => {
+          if (response) {
+            this.messageService.closeAllDialog();
+            this.messageService.openMessageNotifyDialog(response.messageCode);
+          }
+        });
+    }
   }
 
   showIcon(index: number) {

@@ -171,6 +171,7 @@
                   <mat-option
                     *ngFor="let schedule of schedule?.serviceScheduleList"
                     [value]="schedule.id"
+                    [disabled]="disabled"
                   >
                     {{ getDateFormat(schedule.startDate) }}
                   </mat-option>
@@ -229,12 +230,15 @@
             <div class="row">
               <mat-form-field appearance="outline" class="full-width-input">
                 <mat-label>Trạng thái đơn</mat-label>
-                <select matNativeControl required formControlName="status">
-                  <option value="0">Mới tạo</option>
-                  <option value="1">Chờ thanh toán</option>
-                  <option value="2">Thanh toán thành công</option>
-                  <option value="3">Hủy</option>
-                </select>
+                <mat-select
+                  required
+                  formControlName="status"
+                >
+                  <mat-option [disabled]="disabled" [value]="0">Mới tạo</mat-option>
+                  <mat-option [disabled]="disabled" [value]="1">Chờ thanh toán</mat-option>
+                  <mat-option [disabled]="disabled" [value]="2">Thanh toán thành công</mat-option>
+                  <mat-option [disabled]="disabled" [value]="3">Hủy</mat-option>
+                </mat-select>
               </mat-form-field>
             </div>
 

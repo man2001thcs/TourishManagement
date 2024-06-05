@@ -10,7 +10,7 @@ import {
 } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { EditorComponent } from "@tinymce/tinymce-angular";
 import { Subscription, scheduled } from "rxjs";
 import { SaveFile, TourishPlan, User } from "src/app/model/baseModel";
@@ -60,6 +60,7 @@ export class TourishDetailComponent implements OnInit, OnDestroy {
     private rendered2: Renderer2,
     private messageService: MessageService,
     private elementRef: ElementRef,
+    private router: Router,
     private tokenStorageService: TokenStorageService
   ) {}
   ngOnDestroy(): void {
@@ -267,25 +268,31 @@ export class TourishDetailComponent implements OnInit, OnDestroy {
   }
 
   register() {
-    const payload = {
-      guestName: this.setTourForm.value.name,
-      email: this.setTourForm.value.email,
-      phoneNumber: this.setTourForm.value.phoneNumber,
-      totalTicket: this.setTourForm.value.totalTicket,
-      totalChildTicket: this.setTourForm.value.totalChildTicket,
-      tourishPlanId: this.tourishPlanId,
-      tourishScheduleId: this.setTourForm.value.tourishScheduleId,
-    };
+    if (this.tokenStorageService.getUserRole() != "User") {
+      this.messageService
+        .openFailNotifyDialog("Vui lòng đăng nhập để thanh toán!")
+        .subscribe(() => this.router.navigate(["/guest/login"]));
+    } else {
+      const payload = {
+        guestName: this.setTourForm.value.name,
+        email: this.setTourForm.value.email,
+        phoneNumber: this.setTourForm.value.phoneNumber,
+        totalTicket: this.setTourForm.value.totalTicket,
+        totalChildTicket: this.setTourForm.value.totalChildTicket,
+        tourishPlanId: this.tourishPlanId,
+        tourishScheduleId: this.setTourForm.value.tourishScheduleId,
+      };
 
-    this.messageService.openLoadingDialog();
-    this.http
-      .post("/api/AddReceipt/client", payload)
-      .subscribe((response: any) => {
-        if (response) {
-          this.messageService.closeAllDialog();
-          this.messageService.openMessageNotifyDialog(response.messageCode);
-        }
-      });
+      this.messageService.openLoadingDialog();
+      this.http
+        .post("/api/AddReceipt/client", payload)
+        .subscribe((response: any) => {
+          if (response) {
+            this.messageService.closeAllDialog();
+            this.messageService.openMessageNotifyDialog(response.messageCode);
+          }
+        });
+    }
   }
 
   getRatingForTour() {

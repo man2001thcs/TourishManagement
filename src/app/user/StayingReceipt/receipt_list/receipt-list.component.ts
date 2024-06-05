@@ -372,6 +372,7 @@ export class StayingReceiptUserListComponent implements OnInit, AfterViewInit, O
   callPayment(orderId: string, paymentId: string) {
     if (paymentId !== null && paymentId.length > 0){
       window.open("https://pay.payos.vn/web/" + paymentId);
+      return;
     }
     const payload = {
       orderCode: parseInt(orderId),
@@ -382,6 +383,7 @@ export class StayingReceiptUserListComponent implements OnInit, AfterViewInit, O
       .post("/api/CallPayment/service/request", payload)
       .subscribe((response: any) => {
         if (response) {
+          this.messageService.closeLoadingDialog();
           if (response.code == "00") {
             window.open(response.data.checkoutUrl);
           } else if (response.code == "231") {

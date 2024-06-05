@@ -33,7 +33,11 @@ import {
   getSysError,
 } from "./receipt-detail.store.selector";
 import { MessageService } from "src/app/utility/user_service/message.service";
-import { FullReceipt, TotalReceipt, StayingSchedule } from "src/app/model/baseModel";
+import {
+  FullReceipt,
+  TotalReceipt,
+  StayingSchedule,
+} from "src/app/model/baseModel";
 import { HttpClient } from "@angular/common/http";
 
 @Component({
@@ -95,16 +99,11 @@ export class StayingReceiptUserDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.editformGroup_info = this.fb.group({
-      fullReceiptId: [
-        this.data.id      
-      ],
+      fullReceiptId: [this.data.id],
       totalReceiptId: ["", Validators.compose([Validators.required])],
       serviceScheduleId: ["", Validators.compose([Validators.required])],
       guestName: ["", Validators.compose([Validators.required])],
-      phoneNumber: [
-        "",
-        Validators.compose([Validators.required]),
-      ],
+      phoneNumber: ["", Validators.compose([Validators.required])],
       email: ["", Validators.compose([Validators.required])],
       status: [0, Validators.compose([Validators.required])],
       totalTicket: [0, Validators.compose([Validators.required])],
@@ -252,7 +251,7 @@ export class StayingReceiptUserDetailComponent implements OnInit, OnDestroy {
     this.isSubmitted = true;
 
     console.log(this.editformGroup_info.value);
-    if (this.editformGroup_info.valid){
+    if (this.editformGroup_info.valid) {
       const payload: FullReceipt = {
         totalReceiptId: this.receipt.totalReceiptId,
         fullReceiptId: this.data.id,
@@ -269,7 +268,7 @@ export class StayingReceiptUserDetailComponent implements OnInit, OnDestroy {
         description: this.editformGroup_info.value.description,
         status: parseInt(this.editformGroup_info.value.status),
       };
-  
+
       this.store.dispatch(
         ReceiptActions.editReceipt({
           payload: payload,
@@ -277,7 +276,6 @@ export class StayingReceiptUserDetailComponent implements OnInit, OnDestroy {
       );
       this.messageService.openLoadingDialog();
     }
-    
   }
 
   saveInfomation(): void {
@@ -288,7 +286,7 @@ export class StayingReceiptUserDetailComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      this.formSubmit_edit_info();
+      if (result) this.formSubmit_edit_info();
     });
   }
 
@@ -300,7 +298,7 @@ export class StayingReceiptUserDetailComponent implements OnInit, OnDestroy {
     }
   }
 
-  closeDialog(){
+  closeDialog() {
     this.dialog.closeAll();
   }
 
@@ -321,9 +319,8 @@ export class StayingReceiptUserDetailComponent implements OnInit, OnDestroy {
     return chuoiNgayThang;
   }
 
-  isPaymentDisable(input: string){
-
-    if  (input == "2" || input == "3") return true;
+  isPaymentDisable(input: string) {
+    if (input == "2" || input == "3") return true;
     return false;
   }
 }

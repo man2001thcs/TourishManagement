@@ -100,10 +100,7 @@ export class ReceiptUserDetailComponent implements OnInit, OnDestroy {
       totalReceiptId: ["", Validators.compose([Validators.required])],
       tourishScheduleId: ["", Validators.compose([Validators.required])],
       guestName: ["", Validators.compose([Validators.required])],
-      phoneNumber: [
-        "",
-        Validators.compose([Validators.required]),
-      ],
+      phoneNumber: ["", Validators.compose([Validators.required])],
       email: ["", Validators.compose([Validators.required])],
       status: [0, Validators.compose([Validators.required])],
       totalTicket: [0, Validators.compose([Validators.required])],
@@ -123,6 +120,8 @@ export class ReceiptUserDetailComponent implements OnInit, OnDestroy {
           this.getTour(state.totalReceipt?.tourishPlanId);
 
           console.log(state.totalReceipt?.tourishPlanId);
+
+          this.isDisable = this.isPaymentDisable(this.receipt.status + "");
 
           this.editformGroup_info.controls["totalReceiptId"].setValue(
             state.totalReceiptId
@@ -282,7 +281,7 @@ export class ReceiptUserDetailComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      this.formSubmit_edit_info();
+      if (result) this.formSubmit_edit_info();
     });
   }
 
@@ -314,9 +313,8 @@ export class ReceiptUserDetailComponent implements OnInit, OnDestroy {
     return chuoiNgayThang;
   }
 
-  isPaymentDisable(input: string){
-
-    if  (input == "2" || input == "3") return true;
+  isPaymentDisable(input: string) {
+    if (input == "2" || input == "3") return true;
     return false;
   }
 }

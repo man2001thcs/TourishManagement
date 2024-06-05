@@ -368,6 +368,7 @@ export class MovingReceiptUserListComponent implements OnInit, AfterViewInit, On
   callPayment(orderId: string, paymentId: string) {
     if (paymentId !== null && paymentId.length > 0){
       window.open("https://pay.payos.vn/web/" + paymentId);
+      return;
     }
     const payload = {
       orderCode: parseInt(orderId),
@@ -377,6 +378,7 @@ export class MovingReceiptUserListComponent implements OnInit, AfterViewInit, On
     this.http
       .post("/api/CallPayment/service/request", payload)
       .subscribe((response: any) => {
+        this.messageService.closeLoadingDialog();
         if (response) {
           if (response.code == "00") {
             window.open(response.data.checkoutUrl);

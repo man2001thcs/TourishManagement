@@ -99,12 +99,16 @@ export class TourScheduleMultiselectAutocompleteComponent implements OnInit, OnC
 
     this.scheduleFormGroup = this.fb.group({
       planStatus: [0, Validators.compose([Validators.required])],
+      remainTicket: [0, Validators.compose([Validators.required])],
+      totalTicket: [0, Validators.compose([Validators.required])],
       startDate: ["", Validators.compose([Validators.required])],
       endDate: ["", Validators.compose([Validators.required])],
     });
 
     this.editScheduleFormGroup = this.fb.group({
       planStatus: [0, Validators.compose([Validators.required])],
+      remainTicket: [0, Validators.compose([Validators.required])],
+      totalTicket: [0, Validators.compose([Validators.required])],
       startDate: ["", Validators.compose([Validators.required])],
       endDate: ["", Validators.compose([Validators.required])],
       createDate: ["", Validators.compose([Validators.required])],
@@ -137,6 +141,8 @@ export class TourScheduleMultiselectAutocompleteComponent implements OnInit, OnC
       let schedule: TourishSchedule = {
         startDate: this.scheduleFormGroup.value.startDate,
         endDate: this.scheduleFormGroup.value.endDate,
+        remainTicket: parseInt(this.scheduleFormGroup.value.remainTicket),
+        totalTicket: parseInt(this.scheduleFormGroup.value.totalTicket),
       };
 
       if (this.tourishPlanId.length > 0) {
@@ -185,6 +191,12 @@ export class TourScheduleMultiselectAutocompleteComponent implements OnInit, OnC
       this.editScheduleFormGroup.controls["createDate"].setValue(
         this.scheduleEdit.createDate
       );
+      this.editScheduleFormGroup.controls["totalTicket"].setValue(
+        this.scheduleEdit.totalTicket
+      );
+      this.editScheduleFormGroup.controls["remainTicket"].setValue(
+        this.scheduleEdit.remainTicket
+      );
     }
   }
 
@@ -194,6 +206,8 @@ export class TourScheduleMultiselectAutocompleteComponent implements OnInit, OnC
         id: this.scheduleEdit.id,
         startDate: this.editScheduleFormGroup.value.startDate,
         endDate: this.editScheduleFormGroup.value.endDate,
+        remainTicket: this.editScheduleFormGroup.value.remainTicket,
+        totalTicket: this.editScheduleFormGroup.value.totalTicket,
         planStatus: parseInt(this.editScheduleFormGroup.value.planStatus),
         createDate: this.editScheduleFormGroup.value.createDate,
       };
@@ -246,15 +260,8 @@ export class TourScheduleMultiselectAutocompleteComponent implements OnInit, OnC
 
   formReset(): void {
     this.scheduleFormGroup.reset({
-      driverName: "",
-      description: "",
-      address: "",
-      supportNumber: "",
-      restHouseBranchId: "",
-      restHouseType: 1,
-      singlePrice: 0,
-      startDate: "",
-      endDate: "",
+      totalTicket: 20,
+      remainTicket: 20,
     });
 
     this.isSubmit = false;

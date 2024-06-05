@@ -292,6 +292,7 @@ export class MovingScheduleReceiptDetailComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
+      if (result)
       this.formSubmit_edit_info();
     });
   }

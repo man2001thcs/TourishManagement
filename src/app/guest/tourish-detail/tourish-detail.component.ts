@@ -9,11 +9,13 @@ import {
   ViewChild,
 } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { MatDialog } from "@angular/material/dialog";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
 import { EditorComponent } from "@tinymce/tinymce-angular";
 import { Subscription, scheduled } from "rxjs";
 import { SaveFile, TourishPlan, User } from "src/app/model/baseModel";
+import { ConfirmDialogComponent } from "src/app/utility/confirm-dialog/confirm-dialog.component";
 import { MessageService } from "src/app/utility/user_service/message.service";
 import { TokenStorageService } from "src/app/utility/user_service/token.service";
 import { environment } from "src/environments/environment";
@@ -60,6 +62,7 @@ export class TourishDetailComponent implements OnInit, OnDestroy {
     private rendered2: Renderer2,
     private messageService: MessageService,
     private elementRef: ElementRef,
+    public dialog: MatDialog,
     private router: Router,
     private tokenStorageService: TokenStorageService
   ) {}
@@ -178,13 +181,15 @@ export class TourishDetailComponent implements OnInit, OnDestroy {
 
   getTour() {
     this.http
-      .get("/api/GetTourishPlan/" + this.tourishPlanId)
+      .get("/api/GetTourishPlan/client/" + this.tourishPlanId)
       .subscribe((response: any) => {
         this.tourishPlan = response.data;
 
         this.tourDescription = this.tourishPlan?.description ?? "";
         this.getVehicleFlag();
         if (this.tourishPlan?.tourishScheduleList) {
+          this.tourishPlan.tourishScheduleList = this.tourishPlan?.tourishScheduleList ?? [];
+
           this.setTourForm.controls["tourishScheduleId"].setValue(
             this.tourishPlan?.tourishScheduleList[0].id ?? ""
           );
@@ -289,10 +294,47 @@ export class TourishDetailComponent implements OnInit, OnDestroy {
         .subscribe((response: any) => {
           if (response) {
             this.messageService.closeAllDialog();
-            this.messageService.openMessageNotifyDialog(response.messageCode);
+
+            if (response.messageCode == "I511") {
+              const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+                data: {
+                  title: "Bạn có muốn thực hiện thanh toán ngay bây giờ không?",
+                },
+              });
+
+              dialogRef.afterClosed().subscribe((result) => {
+                console.log(response.data);
+                if (result) {
+                  if (response.curId !== null) this.callPayment(response.curId);
+                }
+              });
+            } else
+              this.messageService.openMessageNotifyDialog(response.messageCode);
           }
         });
     }
+  }
+
+  callPayment(orderId: string) {
+    const payload = {
+      orderCode: parseInt(orderId),
+    };
+
+    this.messageService.openLoadingDialog();
+    this.http
+      .post("/api/CallPayment/tour/request", payload)
+      .subscribe((response: any) => {
+        if (response) {
+          this.messageService.closeLoadingDialog();
+          if (response.code == "00") {
+            window.open(response.data.checkoutUrl);
+          } else if (response.code == "231") {
+            this.messageService.openFailNotifyDialog(
+              "Link thanh toán đã tồn tại"
+            );
+          }
+        }
+      });
   }
 
   getRatingForTour() {

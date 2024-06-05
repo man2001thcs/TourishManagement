@@ -74,8 +74,6 @@ export class ReceiptUserListComponent
     "id",
     "tourName",
     "singlePrice",
-    "totalTicketAll",
-    "remainTicket",
     //"tourishPlanId",
     "createDate",
     "completeDate",
@@ -240,10 +238,13 @@ export class ReceiptUserListComponent
 
   tourStatusChange($event: number): void {
     this.pageIndex = 0;
+    this.active = $event;
+    const email = this.tokenStorageService.getUser().email;
 
     this.store.dispatch(
       ReceiptListActions.getReceiptList({
         payload: {
+          email: email,
           page: this.pageIndex + 1,
           pageSize: this.pageSize,
           status: $event,
@@ -372,6 +373,7 @@ export class ReceiptUserListComponent
   callPayment(orderId: string, paymentId: string) {
     if (paymentId !== null && paymentId.length > 0){
       window.open("https://pay.payos.vn/web/" + paymentId);
+      return;
     }
     const payload = {
       orderCode: parseInt(orderId),
@@ -381,6 +383,7 @@ export class ReceiptUserListComponent
     this.http
       .post("/api/CallPayment/tour/request", payload)
       .subscribe((response: any) => {
+        this.messageService.closeLoadingDialog();
         if (response) {
           if (response.code == "00") {
             window.open(response.data.checkoutUrl);

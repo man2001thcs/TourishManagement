@@ -196,6 +196,7 @@ export const ERR_MESSAGE_CODE_VI: Map<string, string> = new Map([
     ["C519", "Tour đã hủy"],
     ["C520", "Không thể tự đổi sang trạng thái hoàn thành"],
     ["C521", "Thanh toán tự động thất bại"],
+    ["C522", "Yêu cầu đã được tạo, vui lòng vào mục quản lý hóa đơn để thanh toán"],
 
     ["C600", "Tin nhắn không tồn tại"],
     ["C601", "Tin nhắn thêm vào bị lỗi"],

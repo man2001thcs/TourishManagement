@@ -228,74 +228,7 @@
       >
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form">
           <h4 class="tour-name">Đặt vé ngay</h4>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 create-form">
-          <mat-form-field appearance="outline" class="full-width-input">
-            <mat-label>Họ & tên</mat-label>
-            <input
-              matInput
-              fullwidth
-              placeholder="Vd: Bồ Công Anh"
-              formControlName="name"
-            />
-          </mat-form-field>
-          <app-validation
-            *ngIf="this.setTourForm.get('name')?.touched"
-            [formGroup]="setTourForm"
-            [formGroupControlName]="'name'"
-          ></app-validation>
-        </div>
-
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 create-form">
-          <mat-form-field appearance="outline" class="full-width-input">
-            <mat-label>Địa chỉ</mat-label>
-            <input
-              matInput
-              fullwidth
-              placeholder="Vd: Bồ Công Anh"
-              formControlName="address"
-            />
-          </mat-form-field>
-          <app-validation
-            *ngIf="this.setTourForm.get('address')?.touched"
-            [formGroup]="setTourForm"
-            [formGroupControlName]="'address'"
-          ></app-validation>
-        </div>
-
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 create-form">
-          <mat-form-field appearance="outline" class="full-width-input">
-            <mat-label>Email</mat-label>
-            <input
-              matInput
-              fullwidth
-              placeholder="Vd: Bồ Công Anh"
-              formControlName="email"
-            />
-          </mat-form-field>
-          <app-validation
-            *ngIf="this.setTourForm.get('email')?.touched"
-            [formGroup]="setTourForm"
-            [formGroupControlName]="'email'"
-          ></app-validation>
-        </div>
-
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 create-form">
-          <mat-form-field appearance="outline" class="full-width-input">
-            <mat-label>Sđt liên lạc</mat-label>
-            <input
-              matInput
-              fullwidth
-              placeholder="Vd: 123456789"
-              formControlName="phoneNumber"
-            />
-          </mat-form-field>
-          <app-validation
-            *ngIf="this.setTourForm.get('phoneNumber')?.touched"
-            [formGroup]="setTourForm"
-            [formGroupControlName]="'phoneNumber'"
-          ></app-validation>
-        </div>
+        </div>      
 
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 create-form">
           <mat-form-field appearance="outline" class="full-width-input">
@@ -350,7 +283,7 @@
           </mat-form-field>
         </div>
 
-        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 create-form">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form">
           <button
             mat-flat-button
             color="primary"

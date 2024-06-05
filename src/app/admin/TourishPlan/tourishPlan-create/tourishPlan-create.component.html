@@ -134,50 +134,6 @@
                   </div>
                 </div>
 
-                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
-                  <mat-form-field appearance="outline" class="full-width-input">
-                    <mat-label>Tổng số vé</mat-label>
-                    <input
-                      matInput
-                      placeholder="Vd: 10"
-                      formControlName="totalTicket"
-                    />
-                  </mat-form-field>
-                  <div class="validation-container">
-                    <app-validation
-                      *ngIf="
-                        this.createformGroup.get('totalTicket')?.errors &&
-                        (createformGroup.get('totalTicket')?.touched ||
-                          isSubmitted)
-                      "
-                      [formGroup]="createformGroup"
-                      [formGroupControlName]="'totalTicket'"
-                    ></app-validation>
-                  </div>
-                </div>
-
-                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
-                  <mat-form-field appearance="outline" class="full-width-input">
-                    <mat-label>Số vé còn lại</mat-label>
-                    <input
-                      matInput
-                      placeholder="Vd: 2"
-                      formControlName="remainTicket"
-                    />
-                  </mat-form-field>
-                  <div class="validation-container">
-                    <app-validation
-                      *ngIf="
-                        this.createformGroup.get('remainTicket')?.errors &&
-                        (createformGroup.get('remainTicket')?.touched ||
-                          isSubmitted)
-                      "
-                      [formGroup]="createformGroup"
-                      [formGroupControlName]="'remainTicket'"
-                    ></app-validation>
-                  </div>
-                </div>               
-
                 <!-- <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
                   <mat-google-maps-autocomplete
                     country="vn"

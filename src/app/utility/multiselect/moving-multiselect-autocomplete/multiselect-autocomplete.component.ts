@@ -346,6 +346,7 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
 
       this.movingScheduleList = [schedule, ...this.movingScheduleList];
 
+      this.editorContent = "";
       this.emitAdjustedData();
       this.formReset();
     }

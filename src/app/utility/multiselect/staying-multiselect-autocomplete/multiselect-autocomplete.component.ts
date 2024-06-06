@@ -342,6 +342,7 @@ export class StayingMultiselectAutocompleteComponent implements OnInit {
       this.stayingScheduleList = [schedule, ...this.stayingScheduleList];
 
 
+      this.editorContent = "";
       this.emitAdjustedData();
       this.formReset();
     }

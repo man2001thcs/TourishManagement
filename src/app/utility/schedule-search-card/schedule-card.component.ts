@@ -48,7 +48,7 @@ export class SchedulePlanSearchCardComponent implements OnInit {
   ngOnInit(): void {
     this.getTourImage();
     if (this.scheduleType == 1) this.cardWidth = 48;
-    else if (this.scheduleType == 2) this.cardWidth = 32;
+    else if (this.scheduleType == 2) this.cardWidth = 48;
   }
 
   getRateColor(input: number) {

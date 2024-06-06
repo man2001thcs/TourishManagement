@@ -72,7 +72,7 @@ export class MovingReceiptUserListComponent implements OnInit, AfterViewInit, On
     "branchName",
     "singlePrice",
     //"scheduleId",
-    "createDate"
+    "createdDate"
   ];
 
   displayedColumnsWithExpand = [...this.displayedColumns, "expand"];
@@ -366,27 +366,39 @@ export class MovingReceiptUserListComponent implements OnInit, AfterViewInit, On
   }
 
   callPayment(orderId: string, paymentId: string) {
-    if (paymentId !== null && paymentId.length > 0){
-      window.open("https://pay.payos.vn/web/" + paymentId);
-      return;
-    }
-    const payload = {
-      orderCode: parseInt(orderId),
-    };
-
-    this.messageService.openLoadingDialog();
-    this.http
-      .post("/api/CallPayment/service/request", payload)
-      .subscribe((response: any) => {
-        this.messageService.closeLoadingDialog();
-        if (response) {
-          if (response.code == "00") {
-            window.open(response.data.checkoutUrl);
-          } else if (response.code == "231") {
-            this.messageService.openFailNotifyDialog("Link thanh toán đã tồn tại");
+    if (paymentId !== null && paymentId.length > 0) {
+      this.http
+        .get("/api/CallPayment/service/check-request?id=" + orderId)
+        .subscribe((response: any) => {
+          if (response) {
+            if (response.messageCode == "I510") {
+              window.open("https://pay.payos.vn/web/" + paymentId);
+            } else {
+              this.messageService.openMessageNotifyDialog(response.messageCode);
+            }
           }
-        }
-      });
+        });
+    } else {
+      const payload = {
+        orderCode: parseInt(orderId),
+      };
+
+      this.messageService.openLoadingDialog();
+      this.http
+        .post("/api/CallPayment/service/request", payload)
+        .subscribe((response: any) => {
+          if (response) {
+            this.messageService.closeLoadingDialog();
+            if (response.code == "00") {
+              window.open(response.data.checkoutUrl);
+            } else if (response.code == "231") {
+              this.messageService.openFailNotifyDialog(
+                "Link thanh toán đã tồn tại"
+              );
+            }
+          }
+        });
+    }
   }
 
   getPaymentStatus(input: string){

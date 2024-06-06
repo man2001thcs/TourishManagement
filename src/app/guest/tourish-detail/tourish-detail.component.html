@@ -274,7 +274,7 @@
             <mat-label>Lịch trình</mat-label>
             <mat-select required formControlName="tourishScheduleId">
               <mat-option
-                *ngFor="let schedule of tourishPlan?.tourishScheduleList"
+                *ngFor="let schedule of tourishPlan?.tourishScheduleList ?? []"
                 [value]="schedule.id"
               >
                 {{ getDateFormat(schedule.startDate) }}
@@ -289,8 +289,9 @@
             color="primary"
             style="width: 100%; height: 56px; font-size: 16px"
             (click)="register()"
+            [disabled]="!isScheduleAvailable()"
           >
-            Gửi
+            {{isScheduleAvailable() ? "Gửi": "Chưa có lịch trình cụ thể"}}
           </button>
         </div>
       </div>

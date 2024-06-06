@@ -58,20 +58,18 @@ img.img-logo {
   border: 2px solid rgb(90, 87, 119);
 }
 
-.container .row img:hover {
-  margin-top: -10px;
-  margin-right: -5px;
-  position: absolute;
-  width: 50px !important;
-  height: 50px !important;
-  border-radius: 100% !important;
-  border: 3px solid rgb(15, 116, 45);
+img.img-logo:hover {
+  width: 80px !important;
+  height: 80px !important;
+  border: 3px solid #3f51b5 !important;
 }
 
 img.img-logo {
-  max-width: 50px;
-  max-height: 50px;
+  width: 70px !important;
+  height: 70px !important;
+  padding: 5px;
 }
+
 
 .title-nav {
   background-color: #2a3650;

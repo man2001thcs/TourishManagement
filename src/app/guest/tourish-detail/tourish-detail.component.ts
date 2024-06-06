@@ -118,12 +118,12 @@ export class TourishDetailComponent implements OnInit, OnDestroy {
   slides: any[] = [];
 
   getDuration() {
-    if (this.tourishPlan?.tourishScheduleList) {
+    if ((this.tourishPlan?.tourishScheduleList ?? []).length > 0) {
       const startDateObj = new Date(
-        this.tourishPlan?.tourishScheduleList[0].startDate
+        (this.tourishPlan?.tourishScheduleList ?? [])[0].startDate
       );
       const endDateObj = new Date(
-        this.tourishPlan?.tourishScheduleList[0].endDate
+        (this.tourishPlan?.tourishScheduleList ?? [])[0].endDate
       );
 
       const timeDiff = endDateObj.getTime() - startDateObj.getTime();
@@ -188,11 +188,14 @@ export class TourishDetailComponent implements OnInit, OnDestroy {
         this.tourDescription = this.tourishPlan?.description ?? "";
         this.getVehicleFlag();
         if (this.tourishPlan?.tourishScheduleList) {
-          this.tourishPlan.tourishScheduleList = this.tourishPlan?.tourishScheduleList ?? [];
+          this.tourishPlan.tourishScheduleList =
+            this.tourishPlan?.tourishScheduleList ?? [];
 
-          this.setTourForm.controls["tourishScheduleId"].setValue(
-            this.tourishPlan?.tourishScheduleList[0].id ?? ""
-          );
+          if (this.tourishPlan.tourishScheduleList.length > 0) {
+            this.setTourForm.controls["tourishScheduleId"].setValue(
+              this.tourishPlan?.tourishScheduleList[0].id ?? ""
+            );
+          }
         }
       });
   }
@@ -406,5 +409,10 @@ export class TourishDetailComponent implements OnInit, OnDestroy {
     return this.tourishPlan?.instructionList?.filter(
       (entity) => entity.instructionType == 0
     );
+  }
+
+  isScheduleAvailable() {
+    if ((this.tourishPlan?.tourishScheduleList ?? []).length > 0) return true;
+    else return false;
   }
 }

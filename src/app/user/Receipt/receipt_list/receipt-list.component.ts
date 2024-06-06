@@ -75,7 +75,7 @@ export class ReceiptUserListComponent
     "tourName",
     "singlePrice",
     //"tourishPlanId",
-    "createDate",
+    "createdDate",
     "completeDate",
   ];
 
@@ -332,7 +332,6 @@ export class ReceiptUserListComponent
           email: email,
           page: this.pageIndex + 1,
           pageSize: this.pageSize,
-
           tourishPlanId: $event.data[0],
           status: this.active,
           sortBy: this.sortColumn,
@@ -347,6 +346,7 @@ export class ReceiptUserListComponent
     this.pageIndex = 0;
     this.sortColumn = sortState.active;
     this.sortDirection = sortState.direction;
+    const email = this.tokenStorageService.getUser().email;
 
     this.messageService.openLoadingDialog();
     this.store.dispatch(
@@ -354,7 +354,7 @@ export class ReceiptUserListComponent
         payload: {
           page: 1,
           pageSize: this.pageSize,
-
+          email: email,
           tourishPlanId: this.tourishPlanId,
           sortBy: sortState.active,
           sortDirection: sortState.direction,
@@ -371,48 +371,59 @@ export class ReceiptUserListComponent
   }
 
   callPayment(orderId: string, paymentId: string) {
-    if (paymentId !== null && paymentId.length > 0){
-      window.open("https://pay.payos.vn/web/" + paymentId);
-      return;
-    }
-    const payload = {
-      orderCode: parseInt(orderId),
-    };
-
-    this.messageService.openLoadingDialog();
-    this.http
-      .post("/api/CallPayment/tour/request", payload)
-      .subscribe((response: any) => {
-        this.messageService.closeLoadingDialog();
-        if (response) {
-          if (response.code == "00") {
-            window.open(response.data.checkoutUrl);
-          } else if (response.code == "231") {
-            this.messageService.openFailNotifyDialog("Link thanh toán đã tồn tại");
+    if (paymentId !== null && paymentId.length > 0) {
+      this.http
+        .get("/api/CallPayment/tour/check-request?id=" + orderId)
+        .subscribe((response: any) => {
+          if (response) {
+            if (response.messageCode == "I510") {
+              window.open("https://pay.payos.vn/web/" + paymentId);
+            } else {
+              this.messageService.openMessageNotifyDialog(response.messageCode);
+            }
           }
-        }
-      });
+        });
+    } else {
+      const payload = {
+        orderCode: parseInt(orderId),
+      };
+
+      this.messageService.openLoadingDialog();
+      this.http
+        .post("/api/CallPayment/tour/request", payload)
+        .subscribe((response: any) => {
+          this.messageService.closeLoadingDialog();
+          if (response) {
+            if (response.code == "00") {
+              window.open(response.data.checkoutUrl);
+            } else if (response.code == "231") {
+              this.messageService.openFailNotifyDialog(
+                "Link thanh toán đã tồn tại"
+              );
+            }
+          }
+        });
+    }
   }
 
-  getPaymentStatus(input: string){
-    if  (input == "0") return "Đang xác nhận thông tin";
-    else if  (input == "1") return "Đang chờ thanh toán";
-    else if  (input == "2") return "Đã thanh toán";
-    else if  (input == "3") return "Đã hủy";
+  getPaymentStatus(input: string) {
+    if (input == "0") return "Đang xác nhận thông tin";
+    else if (input == "1") return "Đang chờ thanh toán";
+    else if (input == "2") return "Đã thanh toán";
+    else if (input == "3") return "Đã hủy";
     return "Thất bại";
   }
 
-  getPaymentStatusColor(input: string){
-    if  (input == "0") return "#ffea00";
-    else if  (input == "1") return "#ffea00";
-    else if  (input == "2") return "#4caf50";
-    else if  (input == "3") return "#f50057";
+  getPaymentStatusColor(input: string) {
+    if (input == "0") return "#ffea00";
+    else if (input == "1") return "#ffea00";
+    else if (input == "2") return "#4caf50";
+    else if (input == "3") return "#f50057";
     return "Thất bại";
   }
 
-  isPaymentDisable(input: string){
-
-    if  (input == "2" || input == "3") return true;
+  isPaymentDisable(input: string) {
+    if (input == "2" || input == "3") return true;
     return false;
   }
 }

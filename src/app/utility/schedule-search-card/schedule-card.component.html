@@ -29,7 +29,11 @@
             <p class="schedule-place">{{ startingPlace }}</p>
           </div>
 
-          <i class="fa fa-arrow-right" aria-hidden="true" style="font-size: 16px;"></i>
+          <i
+            class="fa fa-arrow-right"
+            aria-hidden="true"
+            style="font-size: 16px"
+          ></i>
 
           <div class="destination">
             <p class="schedule-place">{{ headingPlace }}</p>
@@ -51,7 +55,10 @@
             </p>
           </div>
           <div class="destination">
-            <p *ngFor="let schedule of serviceScheduleList" style="text-align: end !important;">
+            <p
+              *ngFor="let schedule of serviceScheduleList"
+              style="text-align: end !important"
+            >
               {{ getDateFormat(schedule.endDate.toString()) }}
             </p>
           </div>
@@ -60,9 +67,29 @@
         <div class="schedule-content-info" *ngIf="address.length > 0">
           <div class="destination">
             <p class="schedule-place">{{ address }}</p>
+          </div>
+        </div>
+
+        <div class="schedule-content-info" *ngIf="address.length > 0">
+          <div class="destination">
             <p class="schedule-title">Lịch trình gần nhất</p>
-            <p *ngFor="let schedule of serviceScheduleList.slice(0, 2)">
+          </div>
+
+          <div class="destination"></div>
+        </div>
+
+        <div class="schedule-content-info" *ngIf="address.length > 0">
+          <div class="destination">
+            <p *ngFor="let schedule of serviceScheduleList">
               {{ getDateFormat(schedule.startDate.toString()) }}
+            </p>
+          </div>
+          <div class="destination">
+            <p
+              *ngFor="let schedule of serviceScheduleList"
+              style="text-align: end !important"
+            >
+              {{ getDateFormat(schedule.endDate.toString()) }}
             </p>
           </div>
         </div>

@@ -190,6 +190,7 @@ export const ERR_MESSAGE_CODE_VI: Map<string, string> = new Map([
     ["C513", "Hóa đơn xóa thất bại"],
     ["C514", "Hóa đơn đang gặp lỗi cơ sở dữ liệu"],
     ["C515", "Tour không còn đủ số vé"],
+    ["C515-m", "Dịch vụ không còn đủ số vé, hủy yêu cầu đặt"],
     ["C516", "Hóa đơn đã hủy"],
     ["C517", "Tour đang hoạt động"],
     ["C518", "Tour đã hoàn thành"],
@@ -345,6 +346,7 @@ export const SUCCESS_MESSAGE_CODE_EN: Map<string, string> = new Map([
     ["I433", "Dịch vụ tour xóa thành công"],
     ["I435", "Trạng thái theo dõi đã được thiết lập"],
 
+    ["I510", "Có thể thanh toán"],
     ["I511", "Hóa đơn thêm thành công"],
     ["I512", "Hóa đơn cập nhật thành công"],
     ["I513", "Hóa đơn xóa thành công"],

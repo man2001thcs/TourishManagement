@@ -191,7 +191,11 @@ export const ERR_MESSAGE_CODE_VI: Map<string, string> = new Map([
     ["C514", "Hóa đơn đang gặp lỗi cơ sở dữ liệu"],
     ["C515", "Tour không còn đủ số vé"],
     ["C515-m", "Dịch vụ không còn đủ số vé, hủy yêu cầu đặt"],
-    ["C516", "Hóa đơn đã hủy"],
+
+    ["C516-p", "Hóa đơn đang trong tình trạng chờ thanh toán"],
+    ["C516-c", "Hóa đơn đã thanh toán, vui lòng liên hệ nhân viên để hỗ trợ"],
+    ["C516-h", "Hóa đơn đã hủy, vui lòng đặt lại yêu cầu"],
+
     ["C517", "Tour đang hoạt động"],
     ["C518", "Tour đã hoàn thành"],
     ["C519", "Tour đã hủy"],

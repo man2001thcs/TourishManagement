@@ -310,9 +310,9 @@ export class ReceiptListComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     totalPrice =
-      (totalPrice - fullReceipt.discountAmount) *
-      fullReceipt.totalTicket *
-      (1 - fullReceipt.discountFloat);
+    (totalPrice) *
+    (fullReceipt.totalTicket + fullReceipt.totalChildTicket / 2) *
+    (1 - fullReceipt.discountFloat) - fullReceipt.discountAmount;
 
     return Math.floor(totalPrice);
   }

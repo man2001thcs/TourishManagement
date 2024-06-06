@@ -114,7 +114,7 @@
                   <mat-option
                     *ngFor="let schedule of tourishPlan?.tourishScheduleList"
                     [value]="schedule.id"
-                    [disabled]="isDisable" 
+                    [disabled]="isDisable"
                   >
                     {{ getDateFormat(schedule.startDate) }}
                   </mat-option>
@@ -174,10 +174,18 @@
               <mat-form-field appearance="outline" class="full-width-input">
                 <mat-label>Trạng thái đơn</mat-label>
                 <mat-select required formControlName="status">
-                  <mat-option [disabled]="isDisable" [value]="0">Mới tạo</mat-option>
-                  <mat-option [disabled]="isDisable"  [value]="1">Chờ thanh toán</mat-option>
-                  <mat-option [disabled]="isDisable"  [value]="2">Thanh toán thành công</mat-option>
-                  <mat-option [disabled]="isDisable"  [value]="3">Hủy</mat-option>
+                  <mat-option [disabled]="isDisable" [value]="0"
+                    >Mới tạo</mat-option
+                  >
+                  <mat-option [disabled]="isDisable" [value]="1"
+                    >Chờ thanh toán</mat-option
+                  >
+                  <mat-option [disabled]="isDisable" [value]="2"
+                    >Thanh toán thành công</mat-option
+                  >
+                  <mat-option [disabled]="isDisable" [value]="3"
+                    >Hủy</mat-option
+                  >
                 </mat-select>
               </mat-form-field>
             </div>

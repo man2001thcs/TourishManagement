@@ -29,7 +29,9 @@ import { ThemePalette } from "@angular/material/core";
   templateUrl: "multiselect-autocomplete.component.html",
   styleUrls: ["multiselect-autocomplete.component.css"],
 })
-export class TourScheduleMultiselectAutocompleteComponent implements OnInit, OnChanges {
+export class TourScheduleMultiselectAutocompleteComponent
+  implements OnInit, OnChanges
+{
   separatorKeysCodes: number[] = [ENTER, COMMA];
   movingCtrl = new FormControl("");
   @ViewChild("picker") movingPicker: any;
@@ -185,9 +187,20 @@ export class TourScheduleMultiselectAutocompleteComponent implements OnInit, OnC
       this.editScheduleFormGroup.controls["endDate"].setValue(
         this.scheduleEdit.endDate
       );
+
       this.editScheduleFormGroup.controls["planStatus"].setValue(
         this.scheduleEdit.planStatus
       );
+
+      if (this.scheduleEdit.status)
+        this.editScheduleFormGroup.controls["planStatus"].setValue(
+          this.scheduleEdit.status
+        );
+      else
+        this.editScheduleFormGroup.controls["planStatus"].setValue(
+          this.scheduleEdit.planStatus
+        );
+
       this.editScheduleFormGroup.controls["createDate"].setValue(
         this.scheduleEdit.createDate
       );
@@ -209,6 +222,7 @@ export class TourScheduleMultiselectAutocompleteComponent implements OnInit, OnC
         remainTicket: this.editScheduleFormGroup.value.remainTicket,
         totalTicket: this.editScheduleFormGroup.value.totalTicket,
         planStatus: parseInt(this.editScheduleFormGroup.value.planStatus),
+        status: parseInt(this.editScheduleFormGroup.value.planStatus),
         createDate: this.editScheduleFormGroup.value.createDate,
       };
 

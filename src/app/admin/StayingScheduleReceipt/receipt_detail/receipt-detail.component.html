@@ -91,11 +91,7 @@
 
     <div
       class="row"
-      style="
-        display: flex;
-        flex-direction: column !important;
-        flex-wrap: 1;
-      "
+      style="display: flex; flex-direction: column !important; flex-wrap: 1"
     >
       <form [formGroup]="editformGroup_info">
         <div class="row">
@@ -172,10 +168,15 @@
             <div class="row">
               <mat-form-field appearance="outline" class="full-width-input">
                 <mat-label>Lịch trình</mat-label>
-                <mat-select required formControlName="serviceScheduleId">
+                <mat-select
+                  required
+                  formControlName="serviceScheduleId"
+                  [disabled]="disabled"
+                >
                   <mat-option
                     *ngFor="let schedule of schedule?.serviceScheduleList"
                     [value]="schedule.id"
+                    [disabled]="disabled"
                   >
                     {{ getDateFormat(schedule.startDate) }}
                   </mat-option>
@@ -234,12 +235,22 @@
             <div class="row">
               <mat-form-field appearance="outline" class="full-width-input">
                 <mat-label>Trạng thái đơn</mat-label>
-                <select matNativeControl required formControlName="status">
-                  <option value="0">Mới tạo</option>
-                  <option value="1">Chờ thanh toán</option>
-                  <option value="2">Thanh toán thành công</option>
-                  <option value="3">Hủy</option>
-                </select>
+                <mat-select
+                  required
+                  formControlName="status"
+                  [disabled]="disabled"
+                >
+                  <mat-option [disabled]="disabled" [value]="0"
+                    >Mới tạo</mat-option
+                  >
+                  <mat-option [disabled]="disabled" [value]="1"
+                    >Chờ thanh toán</mat-option
+                  >
+                  <mat-option [disabled]="disabled" [value]="2"
+                    >Thanh toán thành công</mat-option
+                  >
+                  <mat-option [disabled]="disabled" [value]="3">Hủy</mat-option>
+                </mat-select>
               </mat-form-field>
             </div>
 
@@ -320,7 +331,7 @@
           class="row"
           style="display: flex; flex-direction: column !important; flex-wrap: 1"
         >
-          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 edit-form">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 edit-form"  style="margin-left: 20px !important;">
             <mat-form-field style="width: 90%">
               <textarea
                 matInput

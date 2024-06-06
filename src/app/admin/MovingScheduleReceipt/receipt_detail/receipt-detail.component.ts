@@ -53,7 +53,7 @@ export class MovingScheduleReceiptDetailComponent implements OnInit, OnDestroy {
   disabled = true;
 
   receipt: FullReceipt = {
-    fullReceiptId: "",
+    fullReceiptId: 0,
     totalReceiptId: "",
     guestName: "",
     movingScheduleId: "",
@@ -292,6 +292,7 @@ export class MovingScheduleReceiptDetailComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
+      if (result)
       this.formSubmit_edit_info();
     });
   }

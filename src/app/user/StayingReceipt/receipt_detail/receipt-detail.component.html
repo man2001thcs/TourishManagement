@@ -50,6 +50,7 @@
                   fullwidth
                   placeholder="Vd: Bồ Công Anh"
                   formControlName="guestName"
+                  [readonly]="true"
                 />
               </mat-form-field>
               <div class="validation-container">
@@ -72,6 +73,7 @@
                   matInput
                   placeholder="Vd: abc@gmail.com"
                   formControlName="email"
+                  [readonly]="true"
                 />
               </mat-form-field>
               <div class="validation-container">
@@ -93,6 +95,7 @@
                   matInput
                   placeholder="Vd: 0123456789"
                   formControlName="phoneNumber"
+                  [readonly]="true"
                 />
               </mat-form-field>
               <div class="validation-container">
@@ -111,7 +114,7 @@
             <div class="row">
               <mat-form-field appearance="outline" class="full-width-input">
                 <mat-label>Lịch trình</mat-label>
-                <mat-select required formControlName="serviceScheduleId">
+                <mat-select required formControlName="serviceScheduleId" [disabled]="isDisable">
                   <mat-option
                     *ngFor="let schedule of schedule?.serviceScheduleList"
                     [value]="schedule.id"
@@ -129,6 +132,7 @@
                   matInput
                   placeholder="Vd: 10000"
                   formControlName="discountAmount"
+                  [readonly]="true"
                 />
               </mat-form-field>
               <div class="validation-container">
@@ -153,6 +157,7 @@
                   matInput
                   placeholder="Vd: 180.000đ"
                   formControlName="originalPrice"
+                  [readonly]="true"
                 />
               </mat-form-field>
               <div class="validation-container">
@@ -171,12 +176,12 @@
             <div class="row">
               <mat-form-field appearance="outline" class="full-width-input">
                 <mat-label>Trạng thái đơn</mat-label>
-                <select matNativeControl required formControlName="status">
-                  <option value="0">Mới tạo</option>
-                  <option value="1">Chờ thanh toán</option>
-                  <option value="2">Thanh toán thành công</option>
-                  <option value="3">Hủy</option>
-                </select>
+                <mat-select required formControlName="status" [disabled]="isDisable">
+                  <mat-option [value]="0">Mới tạo</mat-option>
+                  <mat-option [value]="1">Chờ thanh toán</mat-option>
+                  <mat-option [value]="2">Thanh toán thành công</mat-option>
+                  <mat-option [value]="3">Hủy</mat-option>
+                </mat-select>
               </mat-form-field>
             </div>
 
@@ -188,6 +193,7 @@
                   matInput
                   placeholder="Vd: 0123456789"
                   formControlName="totalTicket"
+                  [readonly]="isDisable"
                 />
               </mat-form-field>
               <div class="validation-container">
@@ -211,6 +217,7 @@
                   matInput
                   placeholder="Vd: 0123456789"
                   formControlName="totalChildTicket"
+                  [readonly]="isDisable"
                 />
               </mat-form-field>
               <div class="validation-container">
@@ -233,6 +240,7 @@
                   matInput
                   placeholder="Vd: 0.1"
                   formControlName="discountFloat"
+                  [readonly]="true"
                 />
               </mat-form-field>
               <div class="validation-container">
@@ -253,7 +261,7 @@
 
         <div
           class="row"
-          style="display: flex; flex-direction: column !important; flex-wrap: 1"
+          style="display: flex; flex-direction: column !important; flex-wrap: 1; padding-left: 30px !important;"
         >
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 edit-form">
             <mat-form-field style="width: 90%">
@@ -263,6 +271,7 @@
                 id="description"
                 placeholder="Thông tin đính kèm"
                 formControlName="description"
+                [readonly]="isDisable"
                 rows="10"
               ></textarea>
             </mat-form-field>
@@ -282,13 +291,14 @@
 
         <div
           class="row"
-          style="display: flex; flex-direction: row !important; flex-wrap: 1"
+          style="display: flex; flex-direction: row !important; flex-wrap: 1; margin-top: 30px; margin-left: 70px !important;"
         >
-          <div style="margin-right: 20px">
+          <div style="margin-right: 20px;">
             <button
               mat-raised-button
               color="primary"
               (click)="saveInfomation()"
+              [disabled]="isDisable"
             >
               Lưu
             </button>

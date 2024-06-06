@@ -116,6 +116,7 @@ export class CommentSectionComponent implements OnInit, OnChanges {
 
   sendComment() {
     const userId = this.tokenStorageService.getUser().Id;
+    const name = this.tokenStorageService.getUser().UserName;
     const payload = {
       tourishPlanId: this.tourishPlanId,
       content: this.editorContent,
@@ -131,8 +132,10 @@ export class CommentSectionComponent implements OnInit, OnChanges {
           this.messageService.closeAllDialog();
           this.messageService.openMessageNotifyDialog(response.messageCode);
 
+          var newData = response.data;
+          newData.userName = name;
           this.tourishPLanCommentList = [
-            response.data,
+            newData,
             ...this.tourishPLanCommentList,
           ];
         }

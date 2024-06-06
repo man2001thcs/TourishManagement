@@ -77,6 +77,7 @@ export class RestaurantCreateComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.createRestaurantState.subscribe((state) => {
         if (state) {
+          this.messageService.closeLoadingDialog();
           this.messageService.openMessageNotifyDialog(state.messageCode);
         }
       })

@@ -55,8 +55,6 @@ export class TourishPlanListAdminComponent
     "endPoint",
 
     "supportNumber",
-    "totalTicket",
-    "remainTicket",
 
     "createDate",
     "startDate",

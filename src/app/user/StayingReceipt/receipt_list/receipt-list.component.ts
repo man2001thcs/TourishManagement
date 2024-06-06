@@ -34,6 +34,7 @@ import {
   trigger,
 } from "@angular/animations";
 import { TokenStorageService } from "src/app/utility/user_service/token.service";
+import { HttpClient } from "@angular/common/http";
 
 @Component({
   selector: "app-staying-receiptList",
@@ -94,7 +95,8 @@ export class StayingReceiptUserListComponent implements OnInit, AfterViewInit, O
     public dialog: MatDialog,
     private messageService: MessageService,
     private store: Store<ReceiptListState>,
-    private tokenStorageService: TokenStorageService
+    private tokenStorageService: TokenStorageService,
+    private http: HttpClient
   ) {
     this.receiptListState = this.store.select(getReceiptList);
     this.receiptDeleteState = this.store.select(getDeleteStatus);
@@ -255,6 +257,8 @@ export class StayingReceiptUserListComponent implements OnInit, AfterViewInit, O
 
   tourStatusChange($event: number): void {
     this.pageIndex = 0;
+    this.active = $event;
+    
     const email = this.tokenStorageService.getUser().email;
     this.store.dispatch(
       ReceiptListActions.getReceiptList({
@@ -362,5 +366,52 @@ export class StayingReceiptUserListComponent implements OnInit, AfterViewInit, O
     return (
       this.receiptList.findIndex((el) => el.totalReceiptId === elementId) + 1
     );
+  }
+
+
+  callPayment(orderId: string, paymentId: string) {
+    if (paymentId !== null && paymentId.length > 0){
+      window.open("https://pay.payos.vn/web/" + paymentId);
+      return;
+    }
+    const payload = {
+      orderCode: parseInt(orderId),
+    };
+
+    this.messageService.openLoadingDialog();
+    this.http
+      .post("/api/CallPayment/service/request", payload)
+      .subscribe((response: any) => {
+        if (response) {
+          this.messageService.closeLoadingDialog();
+          if (response.code == "00") {
+            window.open(response.data.checkoutUrl);
+          } else if (response.code == "231") {
+            this.messageService.openFailNotifyDialog("Link thanh toán đã tồn tại");
+          }
+        }
+      });
+  }
+
+  getPaymentStatus(input: string){
+    if  (input == "0") return "Đang xác nhận thông tin";
+    else if  (input == "1") return "Đang chờ thanh toán";
+    else if  (input == "2") return "Đã thanh toán";
+    else if  (input == "3") return "Đã hủy";
+    return "Thất bại";
+  }
+
+  getPaymentStatusColor(input: string){
+    if  (input == "0") return "#ffea00";
+    else if  (input == "1") return "#ffea00";
+    else if  (input == "2") return "#4caf50";
+    else if  (input == "3") return "#f50057";
+    return "Thất bại";
+  }
+
+  isPaymentDisable(input: string){
+
+    if  (input == "2" || input == "3") return true;
+    return false;
   }
 }

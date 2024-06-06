@@ -35,7 +35,7 @@
           No.
         </th>
         <td mat-cell *matCellDef="let element">
-          {{ getIndex(element.id) }}
+          {{ getIndex(element.totalReceiptId) }}
         </td>
       </ng-container>
 
@@ -188,21 +188,29 @@
                   đ
                 </div>
               </div>
-              <div class="receipt-button">
-                <button
-                  mat-button
-                  (click)="openEditDialog(fullReceipt.fullReceiptId)"
+
+              <div class="receipt-info">
+                <span style="font-weight: bold">Tình trạng</span>
+                <div
+                  [style.color]="getPaymentStatusColor(fullReceipt.status + '')"
                 >
-                  Edit
+                  {{ getPaymentStatus(fullReceipt.status + "") }}
+                </div>
+              </div>
+
+              <div class="receipt-button">
+                <button mat-flat-button [disabled]="isPaymentDisable(fullReceipt.status + '')" (click)="callPayment(fullReceipt.fullReceiptId, fullReceipt.paymnentId ?? '')" color="primary">
+                  <i class="fa fa-credit-card" aria-hidden="true"></i>
                 </button>
               </div>
 
               <div class="receipt-button">
                 <button
-                  mat-button
-                  (click)="openDeleteDialog(fullReceipt.fullReceiptId)"
+                  mat-flat-button
+                  (click)="openEditDialog(fullReceipt.fullReceiptId)"
+                  style="background-color: #ffd740"
                 >
-                  Delete
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
                 </button>
               </div>
             </div>

@@ -186,8 +186,6 @@ export interface TourishPlan {
   endPoint: string;
 
   supportNumber: string;
-  totalTicket: number;
-  remainTicket: number;
   description: string;
 
   createDate?: string;
@@ -219,6 +217,10 @@ export interface TourishSchedule {
   stayingScheduleId?: string;
   planStatus?: number;
   status?: number;
+
+  totalTicket?: number;
+  remainTicket?: number;
+
   startDate: Date;
   endDate: Date;
   createDate?: Date;
@@ -256,7 +258,7 @@ export interface SaveFile {
 }
 
 export interface FullReceipt {
-  fullReceiptId?: string;
+  fullReceiptId?: number;
   totalReceiptId?: string;
 
   guestName: string;

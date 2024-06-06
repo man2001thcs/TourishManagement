@@ -119,9 +119,6 @@ export class TourishPlanCreateAdminComponent
       startingPoint: ["", Validators.compose([Validators.required])],
       endingPoint: ["", Validators.compose([Validators.required])],
       supportNumber: ["", Validators.compose([Validators.required])],
-
-      totalTicket: [7, Validators.compose([Validators.required])],
-      remainTicket: [2, Validators.compose([Validators.required])],
       description: ["Không có", Validators.compose([Validators.required])],
 
       movingScheduleString: [""],
@@ -289,8 +286,6 @@ export class TourishPlanCreateAdminComponent
 
             supportNumber: this.createformGroup.value.supportNumber,
 
-            totalTicket: this.createformGroup.value.totalTicket,
-            remainTicket: this.createformGroup.value.remainTicket,
             description: this.editorContent,
 
             tourishCategoryRelations: this.tourishCategoryRelations,
@@ -320,8 +315,6 @@ export class TourishPlanCreateAdminComponent
 
       supportNumber: "",
 
-      totalTicket: 0,
-      remainTicket: 0,
       description: "",
 
       movingScheduleString: "",

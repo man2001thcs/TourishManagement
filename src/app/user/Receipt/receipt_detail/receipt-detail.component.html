@@ -33,11 +33,7 @@
   >
     <div
       class="row"
-      style="
-        display: flex;
-        flex-direction: column !important;
-        flex-wrap: 1;
-      "
+      style="display: flex; flex-direction: column !important; flex-wrap: 1"
     >
       <form [formGroup]="editformGroup_info">
         <div class="row">
@@ -50,6 +46,7 @@
                   fullwidth
                   placeholder="Vd: Bồ Công Anh"
                   formControlName="guestName"
+                  [readonly]="true"
                 />
               </mat-form-field>
               <div class="validation-container">
@@ -72,6 +69,7 @@
                   matInput
                   placeholder="Vd: abc@gmail.com"
                   formControlName="email"
+                  [readonly]="true"
                 />
               </mat-form-field>
               <div class="validation-container">
@@ -93,6 +91,7 @@
                   matInput
                   placeholder="Vd: 0123456789"
                   formControlName="phoneNumber"
+                  [readonly]="true"
                 />
               </mat-form-field>
               <div class="validation-container">
@@ -115,6 +114,7 @@
                   <mat-option
                     *ngFor="let schedule of tourishPlan?.tourishScheduleList"
                     [value]="schedule.id"
+                    [disabled]="isDisable" 
                   >
                     {{ getDateFormat(schedule.startDate) }}
                   </mat-option>
@@ -173,12 +173,12 @@
             <div class="row">
               <mat-form-field appearance="outline" class="full-width-input">
                 <mat-label>Trạng thái đơn</mat-label>
-                <select matNativeControl required formControlName="status">
-                  <option value="0">Mới tạo</option>
-                  <option value="1">Chờ thanh toán</option>
-                  <option value="2">Thanh toán thành công</option>
-                  <option value="3">Hủy</option>
-                </select>
+                <mat-select required formControlName="status">
+                  <mat-option [disabled]="isDisable" [value]="0">Mới tạo</mat-option>
+                  <mat-option [disabled]="isDisable"  [value]="1">Chờ thanh toán</mat-option>
+                  <mat-option [disabled]="isDisable"  [value]="2">Thanh toán thành công</mat-option>
+                  <mat-option [disabled]="isDisable"  [value]="3">Hủy</mat-option>
+                </mat-select>
               </mat-form-field>
             </div>
 
@@ -228,7 +228,7 @@
               </div>
             </div>
 
-           <div class="row">
+            <div class="row">
               <mat-form-field appearance="outline" class="full-width-input">
                 <mat-label>Giảm giá dịch vụ (Trừ theo %)</mat-label>
                 <input
@@ -244,7 +244,7 @@
                     this.editformGroup_info.get('discountFloat')?.errors &&
                     (editformGroup_info.get('discountFloat')?.touched ||
                       isSubmitted)
-                  " 
+                  "
                   [formGroup]="editformGroup_info"
                   [formGroupControlName]="'discountFloat'"
                 ></app-validation>
@@ -252,11 +252,15 @@
             </div>
           </div>
         </div>
-   
 
         <div
           class="row"
-          style="display: flex; flex-direction: column !important; flex-wrap: 1"
+          style="
+            display: flex;
+            flex-direction: column !important;
+            flex-wrap: 1;
+            margin-left: 20px !important;
+          "
         >
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 edit-form">
             <mat-form-field style="width: 90%">
@@ -283,9 +287,16 @@
           </div>
         </div>
 
+        <
         <div
           class="row"
-          style="display: flex; flex-direction: row !important; flex-wrap: 1; margin-top: 30px;"
+          style="
+            display: flex;
+            flex-direction: row !important;
+            flex-wrap: 1;
+            margin-top: 30px;
+            margin-left: 70px !important;
+          "
         >
           <div style="margin-right: 20px">
             <button

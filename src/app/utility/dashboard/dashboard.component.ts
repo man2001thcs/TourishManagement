@@ -143,7 +143,7 @@ export class DashboardComponent implements OnInit {
         type: "column",
       },
       title: {
-        text: "Thống kê giao dịch theo tháng",
+        text: "Thống kê giao dịch trong tháng",
       },
       subtitle: {
         text: "Tổng doanh thu trong tháng",
@@ -189,7 +189,7 @@ export class DashboardComponent implements OnInit {
         type: "column",
       },
       title: {
-        text: "Thống kê đặt phòng theo tháng",
+        text: "Thống kê đặt phòng trong tháng",
       },
       subtitle: {
         text: "Tổng doanh thu trong tháng",
@@ -235,7 +235,7 @@ export class DashboardComponent implements OnInit {
         type: "column",
       },
       title: {
-        text: "Thống kê vé di chuyển theo tháng",
+        text: "Thống kê vé di chuyển trong tháng",
       },
       subtitle: {
         text: "Tổng doanh thu trong tháng",

@@ -55,7 +55,7 @@ export class StayingScheduleReceiptDetailComponent
   disabled = true;
 
   receipt: FullReceipt = {
-    fullReceiptId: "",
+    fullReceiptId: 0,
     totalReceiptId: "",
     guestName: "",
     stayingScheduleId: "",
@@ -107,10 +107,7 @@ export class StayingScheduleReceiptDetailComponent
       totalReceiptId: ["", Validators.compose([Validators.required])],
       serviceScheduleId: ["", Validators.compose([Validators.required])],
       guestName: ["", Validators.compose([Validators.required])],
-      phoneNumber: [
-        "",
-        Validators.compose([Validators.required]),
-      ],
+      phoneNumber: ["", Validators.compose([Validators.required])],
       email: ["", Validators.compose([Validators.required])],
       status: [0, Validators.compose([Validators.required])],
       totalTicket: [0, Validators.compose([Validators.required])],
@@ -297,7 +294,7 @@ export class StayingScheduleReceiptDetailComponent
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      this.formSubmit_edit_info();
+      if (result) this.formSubmit_edit_info();
     });
   }
 

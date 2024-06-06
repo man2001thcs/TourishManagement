@@ -54,8 +54,6 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
 
     supportNumber: "",
 
-    totalTicket: 0,
-    remainTicket: 0,
     description: "",
 
     stayingSchedules: [],
@@ -113,8 +111,6 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
       endingPoint: ["", Validators.compose([Validators.required])],
       supportNumber: ["", Validators.compose([Validators.required])],
 
-      totalTicket: ["", Validators.compose([Validators.required])],
-      remainTicket: ["", Validators.compose([Validators.required])],
       description: [
         "",
         Validators.compose([Validators.required, Validators.minLength(3)]),
@@ -141,13 +137,6 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
 
           this.editformGroup_info.controls["supportNumber"].setValue(
             state.supportNumber
-          );
-
-          this.editformGroup_info.controls["totalTicket"].setValue(
-            state.totalTicket
-          );
-          this.editformGroup_info.controls["remainTicket"].setValue(
-            state.remainTicket
           );
 
           this.editformGroup_info.controls["eatingScheduleString"].setValue(
@@ -270,8 +259,6 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
 
             supportNumber: this.editformGroup_info.value.supportNumber,
 
-            totalTicket: this.editformGroup_info.value.totalTicket,
-            remainTicket: this.editformGroup_info.value.remainTicket,
             description: this.editorContent,
 
             tourishCategoryRelations: tourishCategoryRelationInsert,
@@ -307,8 +294,6 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
 
       supportNumber: this.tourishPlan.supportNumber,
 
-      totalTicket: this.tourishPlan.totalTicket,
-      remainTicket: this.tourishPlan.remainTicket,
       description: this.tourishPlan.description,
 
       movingScheduleString: JSON.stringify(this.tourishPlan.movingSchedules),
@@ -341,7 +326,7 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      this.formSubmit_create_info();
+      if (result) this.formSubmit_create_info();
     });
   }
 

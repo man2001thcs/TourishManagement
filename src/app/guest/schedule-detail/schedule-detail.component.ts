@@ -8,8 +8,9 @@ import {
   ViewChild,
 } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { MatDialog } from "@angular/material/dialog";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 
 import { NgbCarouselConfig } from "@ng-bootstrap/ng-bootstrap";
 import { EditorComponent } from "@tinymce/tinymce-angular";
@@ -21,6 +22,7 @@ import {
   StayingSchedule,
   User,
 } from "src/app/model/baseModel";
+import { ConfirmDialogComponent } from "src/app/utility/confirm-dialog/confirm-dialog.component";
 import { MessageService } from "src/app/utility/user_service/message.service";
 import { TokenStorageService } from "src/app/utility/user_service/token.service";
 import { environment } from "src/environments/environment";
@@ -68,7 +70,9 @@ export class ScheduleDetailComponent implements OnInit {
     private rendered2: Renderer2,
     private messageService: MessageService,
     private elementRef: ElementRef,
-    private tokenStorageService: TokenStorageService
+    private tokenStorageService: TokenStorageService,
+    private dialog: MatDialog,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -108,16 +112,18 @@ export class ScheduleDetailComponent implements OnInit {
         this.getAccount();
       })
     );
-
-    
   }
 
   slides: any[] = [];
 
   getDuration() {
-    if (this.schedule?.startDate && this.schedule?.endDate) {
-      const startDateObj = new Date(this.schedule?.startDate);
-      const endDateObj = new Date(this.schedule?.endDate);
+    if ((this.schedule?.serviceScheduleList ?? []).length > 0) {
+      const startDateObj = new Date(
+        (this.schedule?.serviceScheduleList ?? [])[0].startDate
+      );
+      const endDateObj = new Date(
+        (this.schedule?.serviceScheduleList ?? [])[0].endDate
+      );
 
       const timeDiff = endDateObj.getTime() - startDateObj.getTime();
       const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
@@ -137,9 +143,9 @@ export class ScheduleDetailComponent implements OnInit {
       } else {
         return "Trong ngày";
       }
-    } else {
-      return "Trong ngày";
     }
+
+    return "Trong ngày";
   }
 
   getSanitizedContent(content: string): SafeHtml {
@@ -187,13 +193,12 @@ export class ScheduleDetailComponent implements OnInit {
 
         this.tourDescription = this.schedule?.description ?? "";
 
-        if (this.schedule){
+        if (this.schedule) {
           if ((this.schedule.serviceScheduleList ?? []).length > 0)
-          this.setTourForm.controls["serviceScheduleId"].setValue(
-            this.schedule.serviceScheduleList[0].id
-          );
+            this.setTourForm.controls["serviceScheduleId"].setValue(
+              this.schedule.serviceScheduleList[0].id
+            );
         }
-          
       });
   }
 
@@ -258,25 +263,69 @@ export class ScheduleDetailComponent implements OnInit {
   }
 
   register() {
-    let payload: any = {
-      guestName: this.setTourForm.value.name,
-      email: this.setTourForm.value.email,
-      phoneNumber: this.setTourForm.value.phoneNumber,
-      totalTicket: this.setTourForm.value.totalTicket,
-      totalChildTicket: this.setTourForm.value.totalChildTicket,
-      serviceScheduleId: this.setTourForm.value.serviceScheduleId,
-    };
+    if (this.tokenStorageService.getUserRole() != "User") {
+      this.messageService
+        .openFailNotifyDialog("Vui lòng đăng nhập để thanh toán!")
+        .subscribe(() => this.router.navigate(["/guest/login"]));
+    } else {
+      let payload: any = {
+        guestName: this.setTourForm.value.name,
+        email: this.setTourForm.value.email,
+        phoneNumber: this.setTourForm.value.phoneNumber,
+        totalTicket: this.setTourForm.value.totalTicket,
+        totalChildTicket: this.setTourForm.value.totalChildTicket,
+        serviceScheduleId: this.setTourForm.value.serviceScheduleId,
+      };
 
-    if (this.scheduleType === "1") payload.movingScheduleId = this.scheduleId;
-    else if (this.scheduleType === "2") payload.stayingScheduleId = this.scheduleId;
+      if (this.scheduleType === "1") payload.movingScheduleId = this.scheduleId;
+      else if (this.scheduleType === "2")
+        payload.stayingScheduleId = this.scheduleId;
+
+      this.messageService.openLoadingDialog();
+      this.http
+        .post("/api/AddReceipt/client", payload)
+        .subscribe((response: any) => {
+          if (response) {
+            this.messageService.closeAllDialog();
+            if (response.messageCode == "I511") {
+              
+              const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+                data: {
+                  title: "Bạn có muốn thực hiện thanh toán ngay bây giờ không?",
+                },
+              });
+
+              dialogRef.afterClosed().subscribe((result) => {
+                console.log(response.data);
+                if (result) {
+                  if (response.curId !== null) this.callPayment(response.curId);
+                }
+              });
+            } else
+              this.messageService.openMessageNotifyDialog(response.messageCode);
+          }
+        });
+    }
+  }
+
+  callPayment(orderId: string) {
+    const payload = {
+      orderCode: parseInt(orderId),
+    };
 
     this.messageService.openLoadingDialog();
     this.http
-      .post("/api/AddReceipt/client", payload)
+      .post("/api/CallPayment/service/request", payload)
       .subscribe((response: any) => {
         if (response) {
-          this.messageService.closeAllDialog();
-          this.messageService.openMessageNotifyDialog(response.messageCode);
+          this.messageService.closeLoadingDialog();
+          if (response.code == "00") {
+            window.open(response.data.checkoutUrl);
+          } else if (response.code == "231") {
+            this.messageService.openFailNotifyDialog(
+              "Link thanh toán đã tồn tại"
+            );
+          }
         }
       });
   }
@@ -345,5 +394,10 @@ export class ScheduleDetailComponent implements OnInit {
     return this.schedule?.serviceScheduleList?.filter(
       (entity: any) => entity.instructionType == 0
     );
+  }
+
+  isScheduleAvailable() {
+    if ((this.schedule?.serviceScheduleList ?? []).length > 0) return true;
+    else return false;
   }
 }

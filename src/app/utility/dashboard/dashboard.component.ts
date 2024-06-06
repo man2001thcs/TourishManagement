@@ -1,3 +1,4 @@
+import { I } from "@angular/cdk/keycodes";
 import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import * as Highcharts from "highcharts";
@@ -174,13 +175,13 @@ export class DashboardComponent implements OnInit {
           borderWidth: 0,
         },
       },
-      series: [{ name: "Máy POS giao dịch tầng 1", data: [45] }],
+      series: [],
     };
 
     this.colChartOptionsTemp = this.colChartOptions;
     Highcharts.chart("col-tour-chart", this.colChartOptionsTemp);
 
-    // this.getTotalMonthGrossInTour();
+     this.getTotalMonthGrossInTour();
   }
 
   loadStayingColChart(): void {
@@ -292,7 +293,7 @@ export class DashboardComponent implements OnInit {
           cursor: "pointer",
           dataLabels: {
             enabled: true,
-            format: "<b>{point.name}%</b>: {point.percentage:.1f} %",
+            format: "<b>{point.name}</b>: {point.percentage:.1f} %",
             style: {},
           },
         },
@@ -329,7 +330,7 @@ export class DashboardComponent implements OnInit {
           cursor: "pointer",
           dataLabels: {
             enabled: true,
-            format: "<b>{point.name}%</b>: {point.percentage:.1f} %",
+            format: "<b>{point.name}</b>: {point.percentage:.1f} %",
             style: {},
           },
         },
@@ -366,7 +367,7 @@ export class DashboardComponent implements OnInit {
           cursor: "pointer",
           dataLabels: {
             enabled: true,
-            format: "<b>{point.name}%</b>: {point.percentage:.1f} %",
+            format: "<b>{point.name}</b>: {point.percentage:.1f} %",
             style: {},
           },
         },
@@ -498,8 +499,8 @@ export class DashboardComponent implements OnInit {
           this.colChartOptions.series.push(tourChartData);
         }
 
-        this.lineChartOptionsTemp = this.lineChartOptions;
-        Highcharts.chart("col-tour-chart", this.lineChartOptionsTemp);
+        this.colChartOptionsTemp = this.colChartOptions;
+        Highcharts.chart("col-tour-chart", this.colChartOptionsTemp);
       }
     });
   }
@@ -570,11 +571,11 @@ export class DashboardComponent implements OnInit {
           );
 
           for (let i = 0; i < ticketArray.length; i++) {
-            const percentage = ticketArray[0].totalTicket / sumTicket;
+            const percentage = ticketArray[i].totalTicket / sumTicket;
             const name =
-              ticketArray[0].name +
-              ", tổng cộng: " +
-              ticketArray[0].totalTicket;
+              ticketArray[i].name +
+              ", tổng cộng " +
+              ticketArray[i].totalTicket + " người đặt";
 
             this.pieTourChartOptions.series[0].data.push([name, percentage]);
           }
@@ -603,8 +604,8 @@ export class DashboardComponent implements OnInit {
             const percentage = ticketArray[0].totalTicket / sumTicket;
             const name =
               ticketArray[0].name +
-              ", tổng cộng: " +
-              ticketArray[0].totalTicket;
+              ", tổng cộng " +
+              ticketArray[0].totalTicket + " người đặt";
 
             this.pieMovingChartOptions.series[0].data.push([name, percentage]);
           }
@@ -633,8 +634,8 @@ export class DashboardComponent implements OnInit {
             const percentage = ticketArray[0].totalTicket / sumTicket;
             const name =
               ticketArray[0].name +
-              ", tổng cộng: " +
-              ticketArray[0].totalTicket;
+              ", tổng cộng " +
+              ticketArray[0].totalTicket + " người đặt";
 
             this.pieStayingChartOptions.series[0].data.push([name, percentage]);
           }

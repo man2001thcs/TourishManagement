@@ -145,22 +145,9 @@ export class TourScheduleMultiselectAutocompleteComponent
         endDate: this.scheduleFormGroup.value.endDate,
         remainTicket: parseInt(this.scheduleFormGroup.value.remainTicket),
         totalTicket: parseInt(this.scheduleFormGroup.value.totalTicket),
+        planStatus : parseInt(this.scheduleFormGroup.value.planStatus),
+        status : parseInt(this.scheduleFormGroup.value.planStatus)
       };
-
-      if (this.tourishPlanId.length > 0) {
-        schedule.tourishPlanId = this.tourishPlanId;
-        schedule.planStatus = parseInt(this.scheduleFormGroup.value.planStatus);
-      }
-
-      if (this.movingScheduleId.length > 0) {
-        schedule.movingScheduleId = this.movingScheduleId;
-        schedule.status = parseInt(this.scheduleFormGroup.value.planStatus);
-      }
-
-      if (this.stayingScheduleId.length > 0) {
-        schedule.stayingScheduleId = this.stayingScheduleId;
-        schedule.status = parseInt(this.scheduleFormGroup.value.planStatus);
-      }
 
       this.scheduleList = [schedule, ...this.scheduleList];
 

@@ -1,4 +1,7 @@
-<mat-card class="example-card" (click)="navigateToDetail()">
+<mat-card
+  class="example-card"
+  (click)="navigateToDetail()"
+>
   <mat-card-content>
     <div
       style="
@@ -20,20 +23,84 @@
       <div class="schedule-content">
         <p class="tour-name">{{ getTourName(scheduleName) }}</p>
 
-        <div class="schedule-content-info">
+        <div class="schedule-content-info" *ngIf="startingPlace.length > 0">
           <div class="destination">
-            <p>{{ startingPlace }}</p>
-            <p>{{ getDateFormat(startDate) }}</p>
+            <p class="schedule-place">{{ startingPlace }}</p>
           </div>
-          <i class="fa fa-exchange" aria-hidden="true"></i>
+
+          <i
+            class="fa fa-arrow-right"
+            aria-hidden="true"
+            style="font-size: 16px"
+          ></i>
+
           <div class="destination">
-            <p>{{ headingPlace }}</p>
-            <p>{{ getDateFormat(endDate) }}</p>
+            <p class="schedule-place">{{ headingPlace }}</p>
+          </div>
+        </div>
+
+        <div class="schedule-content-info" *ngIf="startingPlace.length > 0">
+          <div class="destination">
+            <p class="schedule-title">Lịch trình gần nhất</p>
+          </div>
+
+          <div class="destination"></div>
+        </div>
+
+        <div class="schedule-content-info" *ngIf="startingPlace.length > 0">
+          <div class="destination">
+            <p *ngFor="let schedule of serviceScheduleList">
+              {{ getDateFormat(schedule.startDate.toString()) }}
+            </p>
+          </div>
+          <div class="destination">
+            <p
+              *ngFor="let schedule of serviceScheduleList"
+              style="text-align: end !important"
+            >
+              {{ getDateFormat(schedule.endDate.toString()) }}
+            </p>
+          </div>
+        </div>
+
+        <div class="schedule-content-info" *ngIf="address.length > 0">
+          <div class="destination">
+            <p class="schedule-place">{{ address }}</p>
+          </div>
+        </div>
+
+        <div class="schedule-content-info" *ngIf="address.length > 0">
+          <div class="destination">
+            <p class="schedule-title">Lịch trình gần nhất</p>
+          </div>
+
+          <div class="destination"></div>
+        </div>
+
+        <div class="schedule-content-info" *ngIf="address.length > 0">
+          <div class="destination">
+            <p *ngFor="let schedule of serviceScheduleList">
+              {{ getDateFormat(schedule.startDate.toString()) }}
+            </p>
+          </div>
+          <div class="destination">
+            <p
+              *ngFor="let schedule of serviceScheduleList"
+              style="text-align: end !important"
+            >
+              {{ getDateFormat(schedule.endDate.toString()) }}
+            </p>
           </div>
         </div>
 
         <div>
-          <div style="display: flex; flex-direction: row-reverse; align-items: center">
+          <div
+            style="
+              display: flex;
+              flex-direction: row-reverse;
+              align-items: center;
+            "
+          >
             <p class="tour-price">{{ schedulePrice }}đ</p>
           </div>
         </div>

@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from "@angular/core";
 import { NavigationExtras, Router } from "@angular/router";
 import { TokenStorageService } from "../user_service/token.service";
 import { HttpClient } from "@angular/common/http";
-import { SaveFile } from "src/app/model/baseModel";
+import { SaveFile, TourishSchedule } from "src/app/model/baseModel";
 import { environment } from "src/environments/environment";
 
 @Component({
@@ -22,13 +22,15 @@ export class ScheduleCardComponent implements OnInit {
   @Input()
   schedulePrice = 1400000;
   @Input()
-  startingPlace = "Hà Nội";
+  startingPlace = "";
   @Input()
-  headingPlace = "Đà Nẵng";
+  headingPlace = "";
+
   @Input()
-  startDate = "";
+  address = "";
+
   @Input()
-  endDate = "";
+  serviceScheduleList: TourishSchedule[] = [];
 
   @Input()
   customerNumber = 19;
@@ -36,6 +38,7 @@ export class ScheduleCardComponent implements OnInit {
   firstImageUrl = "";
   scheduleImage: SaveFile[] = [];
   ratingAverage: any;
+  cardWidth = 48;
 
   constructor(
     private router: Router,
@@ -70,9 +73,15 @@ export class ScheduleCardComponent implements OnInit {
 
         if (this.scheduleImage.length > 0) {
           this.pushImageToList(this.scheduleImage[0]);
+        } else {
+          const blankSaveFile: SaveFile = {
+            id: "anonymus",
+            accessSourceId: "",
+            resourceType: this.scheduleType,
+            fileType: ".png",
+          };
+          this.pushImageToList(blankSaveFile);
         }
-
-        console.log(response);
       });
   }
 
@@ -90,12 +99,19 @@ export class ScheduleCardComponent implements OnInit {
 
   navigateToDetail(): void {
     let navigationExtras: NavigationExtras = {
-      queryParams: { 'schedule-type': this.scheduleType } // Replace 'key' and 'value' with your actual query parameters
+      queryParams: { "schedule-type": this.scheduleType }, // Replace 'key' and 'value' with your actual query parameters
     };
-    
+
     if (this.tokenStorageService.getUserRole() == "User") {
-      this.router.navigate(["user/service/" + this.id + "/detail"],navigationExtras);
-    } else this.router.navigate(["guest/service/" + this.id + "/detail"], navigationExtras);
+      this.router.navigate(
+        ["user/service/" + this.id + "/detail"],
+        navigationExtras
+      );
+    } else
+      this.router.navigate(
+        ["guest/service/" + this.id + "/detail"],
+        navigationExtras
+      );
   }
 
   getTourName(inputString: string) {

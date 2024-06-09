@@ -28,6 +28,14 @@
       <mat-spinner [diameter]="10"></mat-spinner>
       <h3>Đang tải</h3>
     </div>
+
+    <div class="empty" *ngIf="scheduleType == 1 && movingScheduleList.length <= 0">
+      <h3>Không tìm được kết quả phù hợp</h3>
+    </div>
+
+    <div class="empty" *ngIf="scheduleType == 2 && stayingScheduleList.length <= 0">
+      <h3>Không tìm được kết quả phù hợp</h3>
+    </div>
   </div>
 
   <div class="pagination">

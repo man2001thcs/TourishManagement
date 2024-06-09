@@ -34,6 +34,7 @@ export class TourishPlanCardComponent implements OnInit {
   ngOnInit(): void {
     this.getTourImage();
     this.getRatingForTour();
+    this.getTotalTicketInMonthTour();
   }
 
   getRateString(input: number) {
@@ -103,6 +104,21 @@ export class TourishPlanCardComponent implements OnInit {
       saveFile.id +
       saveFile.fileType;
   }
+
+  getTotalTicketInMonthTour() {
+    const payload = {
+      tourishPlanId: this.id,
+    };
+
+    this.http
+      .get("/api/GetFullReceipt/total-ticket-of-tour", { params: payload })
+      .subscribe((state: any) => {
+        if (state) {
+          this.customerNumber = state.data.totalTicket;
+        }
+      });
+  }
+
 
   navigateToDetail(): void {
     if (this.tokenStorageService.getUserRole() == "User") {

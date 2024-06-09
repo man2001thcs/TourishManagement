@@ -193,6 +193,7 @@ export class NotificationDetailComponent implements OnInit, OnDestroy {
         userCreateId: this.notification.userCreateId,
         content: this.editformGroup_info.value.content,
         contentCode: this.editformGroup_info.value.contentCode,
+        isGenerate: false,
         isRead: this.editformGroup_info.value.isRead == "1" ? true : false,
         isDeleted:
           this.editformGroup_info.value.isDeleted == "1" ? true : false,

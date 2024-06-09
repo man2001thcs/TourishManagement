@@ -179,6 +179,24 @@ export class RestHouseContactSelectAutocompleteComponent implements OnInit {
 
   ngOnChanges(): void {
     this.restHouseContactType = this.type;
+
+    this.pageIndex = 0;
+    this.newSearch = true;
+    this.isLoading = true;
+    this.canLoadMore = true;
+    this.currentTotal = 0;
+
+    this.store.dispatch(
+      RestHouseContactListActions.getRestHouseContactList({
+        payload: {
+          search: this.searchWord.toLowerCase(),
+          type: this.restHouseContactType,
+          page: this.pageIndex + 1,
+          pageSize: this.pageSize,
+        },
+      })
+    );
+    
     if (this.data_selected !== undefined) {
       this.restHouseContactIdList.push(this.data_selected.id ?? "");
       this.restHouseContactNameList.push(this.data_selected.placeBranch ?? "");

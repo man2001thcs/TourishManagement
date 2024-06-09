@@ -136,6 +136,7 @@ export class NotificationCreateComponent implements OnInit, OnDestroy {
         userReceiveId: this.userReceiveId,
         content: this.createformGroup_info.value.placeBranch,
         contentCode: this.createformGroup_info.value.contentCode,
+        isGenerate: false,
         isRead: this.createformGroup_info.value.isRead === "1" ? true : false,
         isDeleted:
           this.createformGroup_info.value.isDeletedd === "1" ? true : false,

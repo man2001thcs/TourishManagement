@@ -265,6 +265,9 @@ export class MovingScheduleSelectAutocompleteComponent implements OnInit {
   }
 
   changeType($event: any) {
+    if (parseInt($event.target.value) === 0) {
+      this.movingScheduleType = 0;
+    }
     if (parseInt($event.target.value) === 1) {
       this.movingScheduleType = 1;
     } else if (parseInt($event.target.value) === 2) {

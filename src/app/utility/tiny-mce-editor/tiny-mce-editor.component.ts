@@ -262,8 +262,12 @@ export class TinyMceEditorComponent implements OnInit, OnChanges {
         blobName: this.blobName,
       };
 
+      var getUrl = "/api/GetTourishPlanDescription";
+
+      if (!this.editable) getUrl = "/api/GetTourishPlanDescription/client";
+
       this.http
-        .get("/api/GetTourishPlanDescription", { params: payload })
+        .get(getUrl, { params: payload })
         .subscribe((state: any) => {
           console.log(state);
           if (state) {

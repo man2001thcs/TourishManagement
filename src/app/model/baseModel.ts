@@ -316,6 +316,8 @@ export interface Notification {
   createDate?: string;
   updateDate?: string;
 
+  isGenerate?: Boolean,
+
   // Relationships
   userCreator?: User;
   userReceiver?: User;

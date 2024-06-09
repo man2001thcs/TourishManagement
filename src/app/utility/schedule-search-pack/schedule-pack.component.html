@@ -10,7 +10,7 @@
       [serviceScheduleList]="schedule.serviceScheduleList ?? []"
       [startingPlace]="schedule.startingPlace"
       [headingPlace]="schedule.headingPlace"
-      style="width: 100%"
+      style="width: 48%"
     ></app-schedule-search-card>
 
     <app-schedule-search-card
@@ -22,7 +22,7 @@
       [schedulePrice]="schedule.singlePrice ?? 0"
       [serviceScheduleList]="schedule.serviceScheduleList ?? []"
       [address]="schedule.address"
-      style="width: 100%"
+      style="width: 48%"
     ></app-schedule-search-card>
     <div class="loading" *ngIf="isLoading">
       <mat-spinner [diameter]="10"></mat-spinner>

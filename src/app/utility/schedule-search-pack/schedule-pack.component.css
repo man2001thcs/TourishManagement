@@ -7,7 +7,7 @@
   width: 100%;
 }
 
-.tourish-pack {
+.schedule-pack {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -17,22 +17,26 @@
   width: 100%;
 }
 
-.tourish-pack-description {
+app-schedule-search-card {
+  margin: 5px 10px 5px;
+}
+
+.schedule-pack-description {
   background-color: inherit;
 }
 
-.tourish-pack app-tourish-card {
+.schedule-pack app-schedule-card {
   margin-bottom: 20px;
   margin-left: 10px;
   margin-right: 10px;
 }
 
-.tourish-pack-description h3 {
+.schedule-pack-description h3 {
   font-size: 32px;
   font-weight: bold;
 }
 
-.tourish-button {
+.schedule-button {
   display: flex;
   flex-direction: row;
   justify-content: center;

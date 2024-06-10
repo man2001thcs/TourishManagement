@@ -37,6 +37,7 @@ import {
 } from "@angular/animations";
 import { TokenStorageService } from "src/app/utility/user_service/token.service";
 import { HttpClient } from "@angular/common/http";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: "app-receiptList",
@@ -75,8 +76,6 @@ export class ReceiptUserListComponent
     "tourName",
     "singlePrice",
     //"tourishPlanId",
-    "createdDate",
-    "completeDate",
   ];
 
   displayedColumnsWithExpand = [...this.displayedColumns, "expand"];
@@ -99,6 +98,8 @@ export class ReceiptUserListComponent
     private messageService: MessageService,
     private store: Store<ReceiptListState>,
     private tokenStorageService: TokenStorageService,
+    private router: Router,
+    private _route: ActivatedRoute,
     private http: HttpClient
   ) {
     this.receiptListState = this.store.select(getReceiptList);
@@ -108,6 +109,31 @@ export class ReceiptUserListComponent
   }
 
   ngOnInit(): void {
+    this.subscriptions.push(
+      this._route.queryParamMap.subscribe((query) => {
+        if (query.get("active")) {
+          this.active = parseInt(query.get("active") ?? "0");
+          this.pageIndex = 0;
+          this.pageSize = 5;
+
+          const email = this.tokenStorageService.getUser().email;
+          this.store.dispatch(
+            ReceiptListActions.getReceiptList({
+              payload: {
+                email: email,
+                page: this.pageIndex + 1,
+                pageSize: this.pageSize,
+                tourishPlanId: this.tourishPlanId,
+                status: this.active,
+                sortBy: this.sortColumn,
+                sortDirection: this.sortDirection,
+              },
+            })
+          );
+        }
+      })
+    );
+
     this.subscriptions.push(
       this.receiptListState.subscribe((state) => {
         if (state) {
@@ -426,5 +452,26 @@ export class ReceiptUserListComponent
   isPaymentDisable(input: string) {
     if (input == "2" || input == "3") return true;
     return false;
+  }
+
+  getDateFormat(isoDateString: string) {
+    // Chuyển đổi chuỗi ISO 8601 thành đối tượng Date
+
+    if (isoDateString.length <= 0) return "Chưa xác định";
+    const ngayThang = new Date(isoDateString);
+
+    // Lấy ngày, tháng, năm, giờ từ đối tượng Date
+    const day = ngayThang.getDate();
+    const month = ngayThang.getMonth() + 1; // Tháng bắt đầu từ 0
+    const year = ngayThang.getFullYear();
+    const hour = ngayThang.getHours() + 7;
+    const minute = ngayThang.getMinutes();
+
+    // Tạo chuỗi kết quả
+    const minuteString = minute !== 0 ? minute + " phút" : "";
+    const chuoiNgayThang =
+      `Ngày ${day} tháng ${month}, ${hour} giờ ` + minuteString;
+
+    return chuoiNgayThang;
   }
 }

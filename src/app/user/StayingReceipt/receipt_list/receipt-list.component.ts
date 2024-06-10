@@ -35,6 +35,7 @@ import {
 } from "@angular/animations";
 import { TokenStorageService } from "src/app/utility/user_service/token.service";
 import { HttpClient } from "@angular/common/http";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-staying-receiptList",
@@ -75,7 +76,6 @@ export class StayingReceiptUserListComponent
     "supportNumber",
     "singlePrice",
     //"scheduleId",
-    "createdDate",
   ];
 
   displayedColumnsWithExpand = [...this.displayedColumns, "expand"];
@@ -98,7 +98,8 @@ export class StayingReceiptUserListComponent
     private messageService: MessageService,
     private store: Store<ReceiptListState>,
     private tokenStorageService: TokenStorageService,
-    private http: HttpClient
+    private http: HttpClient,
+    private _route: ActivatedRoute
   ) {
     this.receiptListState = this.store.select(getReceiptList);
     this.receiptDeleteState = this.store.select(getDeleteStatus);
@@ -107,6 +108,32 @@ export class StayingReceiptUserListComponent
   }
 
   ngOnInit(): void {
+    this.subscriptions.push(
+      this._route.queryParamMap.subscribe((query) => {
+        if (query.get("active")) {
+          this.active = parseInt(query.get("active") ?? "0");
+          this.pageIndex = 0;
+          this.pageSize = 5;
+
+          const email = this.tokenStorageService.getUser().email;
+          this.store.dispatch(
+            ReceiptListActions.getReceiptList({
+              payload: {
+                email: email,
+                page: this.pageIndex + 1,
+                pageSize: this.pageSize,
+                stayingScheduleId: this.scheduleId,
+                scheduleType: 2,
+                status: this.active,
+                sortBy: this.sortColumn,
+                sortDirection: this.sortDirection,
+              },
+            })
+          );
+        }
+      })
+    );
+
     this.subscriptions.push(
       this.receiptListState.subscribe((state) => {
         if (state) {
@@ -425,5 +452,26 @@ export class StayingReceiptUserListComponent
   isPaymentDisable(input: string) {
     if (input == "2" || input == "3") return true;
     return false;
+  }
+
+  getDateFormat(isoDateString: string) {
+    // Chuyển đổi chuỗi ISO 8601 thành đối tượng Date
+
+    if (isoDateString.length <= 0) return "Chưa xác định";
+    const ngayThang = new Date(isoDateString);
+
+    // Lấy ngày, tháng, năm, giờ từ đối tượng Date
+    const day = ngayThang.getDate();
+    const month = ngayThang.getMonth() + 1; // Tháng bắt đầu từ 0
+    const year = ngayThang.getFullYear();
+    const hour = ngayThang.getHours() + 7;
+    const minute = ngayThang.getMinutes();
+
+    // Tạo chuỗi kết quả
+    const minuteString = minute !== 0 ? minute + " phút" : "";
+    const chuoiNgayThang =
+      `Ngày ${day} tháng ${month}, ${hour} giờ ` + minuteString;
+
+    return chuoiNgayThang;
   }
 }

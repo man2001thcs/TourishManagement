@@ -1,4 +1,4 @@
-<div class="container-fluid" style="width: 100%; padding-top: 0px !important">
+<div class="container-fluid" style="width: 100%; padding-top: 0px !important; padding: 0 3% 0">
   <div style="width: 100% !important">
     <mat-card style="margin-bottom: 20px; padding: 10px 10px 10px">
       <mat-card-header>
@@ -18,6 +18,7 @@
     ></div>
 
     <mat-tab-group
+      [selectedIndex]="active"
       (selectedIndexChange)="tourStatusChange($event)"
       style="background-color: white"
     >
@@ -41,7 +42,6 @@
           <th
             mat-header-cell
             *matHeaderCellDef
-            mat-sort-header
           >
             No.
           </th>
@@ -55,7 +55,6 @@
           <th
             mat-header-cell
             *matHeaderCellDef
-            mat-sort-header
           >
             Tên tour
           </th>
@@ -66,35 +65,12 @@
 
         <!-- SS Column -->
         <ng-container matColumnDef="singlePrice">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Giá đơn vé</th>
+          <th mat-header-cell *matHeaderCellDef>Giá đơn vé</th>
           <td mat-cell *matCellDef="let element">
             {{ getTotalPrice(element.tourishPlan) }}
           </td>
         </ng-container>
 
-        <ng-container matColumnDef="createdDate">
-          <th
-            mat-header-cell
-            *matHeaderCellDef
-            mat-sort-header
-            sortActionDescription="Sort by createdDate"
-          >
-            Ngày tạo
-          </th>
-          <td mat-cell *matCellDef="let element">{{ element.createdDate }}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="completeDate">
-          <th
-            mat-header-cell
-            *matHeaderCellDef
-            mat-sort-header
-            sortActionDescription="Sort by completeDate"
-          >
-            Ngày kêt thúc
-          </th>
-          <td mat-cell *matCellDef="let element">{{ element.completeDate }}</td>
-        </ng-container>
 
         <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
         <ng-container matColumnDef="expand">
@@ -152,11 +128,7 @@
                   <div>{{ i + 1 }}</div>
                 </div>
                 <div class="receipt-info">
-                  <span style="font-weight: bold">Tên khách</span>
-                  <div>{{ fullReceipt.guestName }}</div>
-                </div>
-                <div class="receipt-info">
-                  <span style="font-weight: bold">Email</span>
+                  <span style="font-weight: bold">Email nhận thông tin</span>
                   <div>{{ fullReceipt.email }}</div>
                 </div>
                 <div class="receipt-info">
@@ -182,11 +154,10 @@
                 </div>
 
                 <div class="receipt-info">
-                  <span style="font-weight: bold">Tình trạng</span>
+                  <span style="font-weight: bold">Ngày thanh toán</span>
                   <div
-                    [style.color]="getPaymentStatusColor(fullReceipt.status + '')"
                   >
-                    {{ getPaymentStatus(fullReceipt.status + "") }}
+                    {{ getDateFormat(fullReceipt.completeDate ?? "") }}
                   </div>
                 </div>
 

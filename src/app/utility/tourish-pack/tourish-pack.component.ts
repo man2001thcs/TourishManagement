@@ -10,12 +10,15 @@ import {
 } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ThemePalette } from "@angular/material/core";
+import { NavigationExtras, Router } from "@angular/router";
 
 import { NgbCarouselConfig } from "@ng-bootstrap/ng-bootstrap";
 import { Slider } from "angular-carousel-slider/lib/angular-carousel-slider.component";
 import { TourishPlan } from "src/app/model/baseModel";
 import { messaging } from "src/conf/firebase.conf";
 import { environment } from "src/environments/environment";
+import { TokenStorageService } from "../user_service/token.service";
+import { T } from "@angular/cdk/keycodes";
 
 @Component({
   selector: "app-tourish-pack",
@@ -47,11 +50,12 @@ export class TourishPackComponent implements OnInit, AfterViewInit {
   constructor(
     private fb: FormBuilder,
     private renderer: Renderer2,
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router,
+    private tokenStorageService: TokenStorageService
   ) {}
 
   ngOnInit() {
-
     this.getTourPack();
   }
 
@@ -145,5 +149,14 @@ export class TourishPackComponent implements OnInit, AfterViewInit {
       .split(" ")
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(" ");
+  }
+
+  async navigateCategoryUrl(url: string, category: string) {
+    let navigationExtras: NavigationExtras = {
+      queryParams: { category: category }, // Replace 'key' and 'value' with your actual query parameters
+    };
+    if (this.tokenStorageService.getUserRole() == "User") {
+      this.router.navigate(["user/" + url], navigationExtras);
+    } else this.router.navigate(["guest/" + url], navigationExtras);
   }
 }

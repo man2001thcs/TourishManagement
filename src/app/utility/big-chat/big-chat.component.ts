@@ -50,6 +50,10 @@ export class BigChatComponent implements OnInit {
           if (res.data3 !== null && res.data3 !== undefined) {
             var insertMess = res.data3;
 
+            if (insertMess.isClosed){
+              this.isOpen = false;
+            } 
+
             const guestMessage: GuestMessage = {
               id: res.data3.id,
               state: res.data3.state,

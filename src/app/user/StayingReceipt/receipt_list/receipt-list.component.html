@@ -1,11 +1,12 @@
-<div style="width: 100% !important">
+<div style="width: 100% !important; padding: 0 3% 0">
   <mat-card style="margin-bottom: 20px; padding: 10px 10px 10px">
     <mat-card-header>
-      <mat-card-title>Danh sách hóa đơn</mat-card-title>
+      <mat-card-title>Danh sách hóa đơn đặt khách sạn/Homestay</mat-card-title>
     </mat-card-header>
   </mat-card>
 
   <mat-tab-group
+    [selectedIndex]="active"
     (selectedIndexChange)="tourStatusChange($event)"
     style="background-color: white"
   >
@@ -29,7 +30,6 @@
         <th
           mat-header-cell
           *matHeaderCellDef
-          mat-sort-header
         >
           No.
         </th>
@@ -43,7 +43,6 @@
         <th
           mat-header-cell
           *matHeaderCellDef
-          mat-sort-header
         >
           Tên dịch vụ
         </th>
@@ -56,7 +55,6 @@
         <th
           mat-header-cell
           *matHeaderCellDef
-          mat-sort-header
         >
           Đơn vị cung cấp dịch vụ
         </th>
@@ -69,9 +67,8 @@
         <th
           mat-header-cell
           *matHeaderCellDef
-          mat-sort-header
         >
-          Số điện thoại
+          Số điện thoại liên lạc hỗ trợ
         </th>
         <td mat-cell *matCellDef="let element">
           {{ element.stayingSchedule.supportNumber }}
@@ -84,18 +81,6 @@
         <td mat-cell *matCellDef="let element">
           {{ getTotalPrice(element.stayingSchedule) }}
         </td>
-      </ng-container>
-
-      <ng-container matColumnDef="createdDate">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          mat-sort-header
-          sortActionDescription="Sort by createdDate"
-        >
-          Ngày tạo
-        </th>
-        <td mat-cell *matCellDef="let element">{{ element.createdDate }}</td>
       </ng-container>
 
       <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
@@ -191,6 +176,14 @@
                   [style.color]="getPaymentStatusColor(fullReceipt.status + '')"
                 >
                   {{ getPaymentStatus(fullReceipt.status + "") }}
+                </div>
+              </div>
+
+              <div class="receipt-info">
+                <span style="font-weight: bold">Ngày thanh toán</span>
+                <div
+                >
+                  {{ getDateFormat(fullReceipt.completeDate ?? "") }}
                 </div>
               </div>
 

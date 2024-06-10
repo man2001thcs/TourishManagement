@@ -20,9 +20,24 @@ const ADMIN_HEADER_CODE: Map<string, string> = new Map([
 const USER_HEADER_CODE: Map<string, string> = new Map([
   ["/user/service-search-page", "1st"],
   ["/user/service-search-page", "2nd"],
+
   ["/user/receipt/list", "3rd"],
+  ["/user/receipt/list?active=0", "3rd"],
+  ["/user/receipt/list?active=1", "3rd"],
+  ["/user/receipt/list?active=2", "3rd"],
+  ["/user/receipt/list?active=3", "3rd"],
+
   ["/user/moving/receipt/list", "4th"],
-  ["/user/staying/receipt/list", "5th"]
+  ["/user/moving/receipt/list?active=0", "4th"],
+  ["/user/moving/receipt/list?active=1", "4th"],
+  ["/user/moving/receipt/list?active=2", "4th"],
+  ["/user/moving/receipt/list?active=3", "4th"],
+  
+  ["/user/staying/receipt/list", "5th"],
+  ["/user/staying/receipt/list?active=0", "5th"],
+  ["/user/staying/receipt/list?active=1", "5th"],
+  ["/user/staying/receipt/list?active=2", "5th"],
+  ["/user/staying/receipt/list?active=3", "5th"]
 ]);
 
 export function getAdminHeaderPhase(key: string): string {

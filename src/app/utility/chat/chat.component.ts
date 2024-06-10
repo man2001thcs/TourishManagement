@@ -17,6 +17,8 @@ import { Subscription } from "rxjs";
 import { SignalRService } from "../user_service/signalr.service";
 import { GuestMessage, GuestMessageConHistory } from "src/app/model/baseModel";
 import { TokenStorageService } from "../user_service/token.service";
+import { MatDialog } from "@angular/material/dialog";
+import { ConfirmDialogComponent } from "../confirm-dialog/confirm-dialog.component";
 
 @Component({
   selector: "app-chat",
@@ -43,7 +45,8 @@ export class ChatComponent {
     private fb: FormBuilder,
     private renderer: Renderer2,
     private signalRService: SignalRService,
-    private tokenStorageService: TokenStorageService
+    private tokenStorageService: TokenStorageService,
+    private dialog: MatDialog
   ) {}
   messFb!: FormGroup;
   messRegister!: FormGroup;
@@ -61,7 +64,7 @@ export class ChatComponent {
       guestPhoneNumber: ["", Validators.compose([Validators.required])],
     });
 
-    if (this.tokenStorageService.getUserRole()  === "User"){
+    if (this.tokenStorageService.getUserRole() === "User") {
       this.messRegister.controls["guestName"].setValue(
         this.tokenStorageService.getUser().unique_name
       );
@@ -71,13 +74,11 @@ export class ChatComponent {
       );
     }
 
-    
-
     this.subscriptions.push(
       this.signalRService.ConnFeedObservable.subscribe((notify: any) => {
         console.log(notify);
-        if (notify.adminId !== undefined) {       
-          this.isWaitingForSet = false;  
+        if (notify.adminId !== undefined) {
+          this.isWaitingForSet = false;
           this.adminId = notify.adminId;
           this.conHis = notify.conHis;
           this.isChatSet = true;
@@ -92,6 +93,7 @@ export class ChatComponent {
         if (res) {
           if (res.data3 !== null && res.data3 !== undefined) {
             var insertMess = res.data3;
+
             const guestMessage: GuestMessage = {
               id: res.data3.id,
               state: res.data3.state,
@@ -101,7 +103,10 @@ export class ChatComponent {
             };
             console.log(guestMessage);
 
-            if (parseInt(insertMess.state) === 1 || parseInt(insertMess.state) === 3) {
+            if (
+              parseInt(insertMess.state) === 1 ||
+              parseInt(insertMess.state) === 3
+            ) {
               let index = this.messageList.findIndex(
                 (mess) => mess.state === 0
               );
@@ -111,7 +116,7 @@ export class ChatComponent {
                 this.isSending = false;
                 this.messFb.controls["message"].setValue("");
               }
-            } else  if (parseInt(insertMess.state) === 2) {
+            } else if (parseInt(insertMess.state) === 2) {
               let index = this.messageList.findIndex(
                 (mess) => mess.id === res.data3.id
               );
@@ -127,8 +132,8 @@ export class ChatComponent {
     );
   }
 
-  checkUserRole(){
-    return this.tokenStorageService.getUserRole()  === 'User';
+  checkUserRole() {
+    return this.tokenStorageService.getUserRole() === "User";
   }
 
   showEmojiPicker = false;
@@ -199,6 +204,28 @@ export class ChatComponent {
     this.checkChatOpen.emit(false);
   }
 
+  chatBoxCancel() {
+    const ref = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        title: "Bạn có muốn rời đi?",
+      },
+    });
+    ref.afterClosed().subscribe((result) => {
+      if (result) {
+        this.closeSignalRHub();
+        this.isChatSet = false;
+        this.isWaitingForSet = false;
+        this.adminId = "";
+        this.messageList = [];
+
+        this.isOpen = false;
+        this.isSending = false;
+
+        this.chatBoxInteract();
+      }
+    });
+  }
+
   chatBoxInteract() {
     if (this.isNavOpen) this.closeChat();
     else this.openChat();
@@ -209,7 +236,7 @@ export class ChatComponent {
       state: 0,
       side: 1,
       content: this.messFb.value.message,
-      createDate: (new Date()).toISOString()
+      createDate: new Date().toISOString(),
     };
 
     this.isSending = true;
@@ -240,5 +267,9 @@ export class ChatComponent {
           this.signalRService.listenToConnFeeds("NotifyNewCon");
         });
     }
+  }
+
+  closeSignalRHub() {
+    this.signalRService.stopConnect();
   }
 }

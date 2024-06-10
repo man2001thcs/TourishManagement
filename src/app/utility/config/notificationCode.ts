@@ -28,4 +28,6 @@ export const SUCCESS_MESSAGE_CODE_VI: Map<string, string> = new Map([
   ["I431", " đã thêm dịch vụ: "],
   ["I432", " đã cập nhật dịch vụ: "],
   ["I433", " đã xóa dịch vụ: "],
+
+  ["I511", " đã thanh toán cho sản phẩm dịch vụ: "],
 ]);

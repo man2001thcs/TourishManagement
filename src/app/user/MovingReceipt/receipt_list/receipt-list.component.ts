@@ -35,6 +35,7 @@ import {
 } from "@angular/animations";
 import { TokenStorageService } from "src/app/utility/user_service/token.service";
 import { HttpClient } from "@angular/common/http";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-moving-receiptList",
@@ -51,7 +52,9 @@ import { HttpClient } from "@angular/common/http";
     ]),
   ],
 })
-export class MovingReceiptUserListComponent implements OnInit, AfterViewInit, OnDestroy {
+export class MovingReceiptUserListComponent
+  implements OnInit, AfterViewInit, OnDestroy
+{
   receiptList!: TotalReceipt[];
   subscriptions: Subscription[] = [];
 
@@ -70,9 +73,9 @@ export class MovingReceiptUserListComponent implements OnInit, AfterViewInit, On
     "id",
     "name",
     "branchName",
+    "phoneNumber",
     "singlePrice",
     //"scheduleId",
-    "createdDate"
   ];
 
   displayedColumnsWithExpand = [...this.displayedColumns, "expand"];
@@ -95,7 +98,8 @@ export class MovingReceiptUserListComponent implements OnInit, AfterViewInit, On
     private messageService: MessageService,
     private store: Store<ReceiptListState>,
     private tokenStorageService: TokenStorageService,
-    private http: HttpClient
+    private http: HttpClient,
+    private _route: ActivatedRoute
   ) {
     this.receiptListState = this.store.select(getReceiptList);
     this.receiptDeleteState = this.store.select(getDeleteStatus);
@@ -104,6 +108,32 @@ export class MovingReceiptUserListComponent implements OnInit, AfterViewInit, On
   }
 
   ngOnInit(): void {
+    this.subscriptions.push(
+      this._route.queryParamMap.subscribe((query) => {
+        if (query.get("active")) {
+          this.active = parseInt(query.get("active") ?? "0");
+          this.pageIndex = 0;
+          this.pageSize = 5;
+
+          const email = this.tokenStorageService.getUser().email;
+          this.store.dispatch(
+            ReceiptListActions.getReceiptList({
+              payload: {
+                email: email,
+                page: this.pageIndex + 1,
+                pageSize: this.pageSize,
+                movingScheduleId: this.scheduleId,
+                scheduleType: 1,
+                status: this.active,
+                sortBy: this.sortColumn,
+                sortDirection: this.sortDirection,
+              },
+            })
+          );
+        }
+      })
+    );
+
     this.subscriptions.push(
       this.receiptListState.subscribe((state) => {
         if (state) {
@@ -122,7 +152,7 @@ export class MovingReceiptUserListComponent implements OnInit, AfterViewInit, On
 
           if (state.resultCd === 0) {
             const email = this.tokenStorageService.getUser().email;
-            this.store.dispatch(             
+            this.store.dispatch(
               ReceiptListActions.getReceiptList({
                 payload: {
                   email: email,
@@ -281,9 +311,10 @@ export class MovingReceiptUserListComponent implements OnInit, AfterViewInit, On
     let totalPrice = schedule.singlePrice ?? 0;
 
     totalPrice =
-      (totalPrice) *
-      (fullReceipt.totalTicket + fullReceipt.totalChildTicket / 2) *
-      (1 - fullReceipt.discountFloat) - fullReceipt.discountAmount;
+      totalPrice *
+        (fullReceipt.totalTicket + fullReceipt.totalChildTicket / 2) *
+        (1 - fullReceipt.discountFloat) -
+      fullReceipt.discountAmount;
 
     return Math.floor(totalPrice);
   }
@@ -401,25 +432,45 @@ export class MovingReceiptUserListComponent implements OnInit, AfterViewInit, On
     }
   }
 
-  getPaymentStatus(input: string){
-    if  (input == "0") return "Đang xác nhận thông tin";
-    else if  (input == "1") return "Đang chờ thanh toán";
-    else if  (input == "2") return "Đã thanh toán";
-    else if  (input == "3") return "Đã hủy";
+  getPaymentStatus(input: string) {
+    if (input == "0") return "Đang xác nhận thông tin";
+    else if (input == "1") return "Đang chờ thanh toán";
+    else if (input == "2") return "Đã thanh toán";
+    else if (input == "3") return "Đã hủy";
     return "Thất bại";
   }
 
-  getPaymentStatusColor(input: string){
-    if  (input == "0") return "#ffea00";
-    else if  (input == "1") return "#ffea00";
-    else if  (input == "2") return "#4caf50";
-    else if  (input == "3") return "#f50057";
+  getPaymentStatusColor(input: string) {
+    if (input == "0") return "#ffea00";
+    else if (input == "1") return "#ffea00";
+    else if (input == "2") return "#4caf50";
+    else if (input == "3") return "#f50057";
     return "Thất bại";
   }
 
-  isPaymentDisable(input: string){
-
-    if  (input == "2" || input == "3") return true;
+  isPaymentDisable(input: string) {
+    if (input == "2" || input == "3") return true;
     return false;
+  }
+
+  getDateFormat(isoDateString: string) {
+    // Chuyển đổi chuỗi ISO 8601 thành đối tượng Date
+
+    if (isoDateString.length <= 0) return "Chưa xác định";
+    const ngayThang = new Date(isoDateString);
+
+    // Lấy ngày, tháng, năm, giờ từ đối tượng Date
+    const day = ngayThang.getDate();
+    const month = ngayThang.getMonth() + 1; // Tháng bắt đầu từ 0
+    const year = ngayThang.getFullYear();
+    const hour = ngayThang.getHours() + 7;
+    const minute = ngayThang.getMinutes();
+
+    // Tạo chuỗi kết quả
+    const minuteString = minute !== 0 ? minute + " phút" : "";
+    const chuoiNgayThang =
+      `Ngày ${day} tháng ${month}, ${hour} giờ ` + minuteString;
+
+    return chuoiNgayThang;
   }
 }

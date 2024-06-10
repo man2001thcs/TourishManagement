@@ -53,7 +53,7 @@ export class TourishMainComponent implements OnInit {
     };
 
     this.http
-      .get("/api/GetTourCategory", { params: params })
+      .get("/api/GetTourCategory/client", { params: params })
       .subscribe((response: any) => {
         this.categoryList = response.data;
         console.log(response);

@@ -133,31 +133,7 @@
         >
           Ngày tạo
         </th>
-        <td mat-cell *matCellDef="let element">{{ element.createDate }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="startDate">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          mat-sort-header
-          sortActionDescription="Sort by startDate"
-        >
-          Ngày bắt đầu
-        </th>
-        <td mat-cell *matCellDef="let element">{{ element.startDate }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="endDate">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          mat-sort-header
-          sortActionDescription="Sort by endDate"
-        >
-          Ngày kết thúc
-        </th>
-        <td mat-cell *matCellDef="let element">{{ element.endDate }}</td>
+        <td mat-cell *matCellDef="let element">{{ getDateFormat(element.createDate) }}</td>
       </ng-container>
 
       <ng-container matColumnDef="interest">

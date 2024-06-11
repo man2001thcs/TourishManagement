@@ -49,3 +49,8 @@ tr.example-detail-row {
 .receipt-info span {
   text-wrap: wrap;
 }
+
+.receipt-info div {
+  text-wrap: wrap;
+  overflow-wrap: break-word;
+}

@@ -74,8 +74,6 @@ export class ReceiptListComponent implements OnInit, AfterViewInit, OnDestroy {
     "totalTicketAll",
     "remainTicket",
     //"tourishPlanId",
-    "createDate",
-    "completeDate",
   ];
 
   displayedColumnsWithExpand = [...this.displayedColumns, "expand"];
@@ -281,7 +279,7 @@ export class ReceiptListComponent implements OnInit, AfterViewInit, OnDestroy {
         payload: {
           page: this.pageIndex + 1,
           pageSize: this.pageSize,
-          status: $event,
+          status: this.active,
           tourishPlanId: this.tourishPlanId,
           sortBy: this.sortColumn,
           sortDirection: this.sortDirection,
@@ -356,13 +354,14 @@ export class ReceiptListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   selectChangeReceipt($event: any) {
     console.log($event);
+    this.pageIndex = 0;
     this.tourishPlanId = $event.data[0];
     this.store.dispatch(
       ReceiptListActions.getReceiptList({
         payload: {
           page: this.pageIndex + 1,
           pageSize: this.pageSize,
-          tourishPlanId: $event.data[0],
+          tourishPlanId: $event.data[0] ?? "",
           status: this.active,
           sortBy: this.sortColumn,
           sortDirection: this.sortDirection,
@@ -384,6 +383,7 @@ export class ReceiptListComponent implements OnInit, AfterViewInit, OnDestroy {
           page: 1,
           pageSize: this.pageSize,
           tourishPlanId: this.tourishPlanId,
+          status: this.active,
           sortBy: sortState.active,
           sortDirection: sortState.direction,
         },
@@ -411,5 +411,26 @@ export class ReceiptListComponent implements OnInit, AfterViewInit, OnDestroy {
     else if  (input == "2") return "#4caf50";
     else if  (input == "3") return "#f50057";
     return "Thất bại";
+  }
+
+  getDateFormat(isoDateString: string) {
+    // Chuyển đổi chuỗi ISO 8601 thành đối tượng Date
+
+    if (isoDateString.length <= 0) return "Chưa xác định";
+    const ngayThang = new Date(isoDateString);
+
+    // Lấy ngày, tháng, năm, giờ từ đối tượng Date
+    const day = ngayThang.getDate();
+    const month = ngayThang.getMonth() + 1; // Tháng bắt đầu từ 0
+    const year = ngayThang.getFullYear();
+    const hour = ngayThang.getHours() + 7;
+    const minute = ngayThang.getMinutes();
+
+    // Tạo chuỗi kết quả
+    const minuteString = minute !== 0 ? minute + " phút" : "";
+    const chuoiNgayThang =
+      `Ngày ${day} tháng ${month} năm ${year}, ${hour} giờ ` + minuteString;
+
+    return chuoiNgayThang;
   }
 }

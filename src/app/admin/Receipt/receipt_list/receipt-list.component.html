@@ -3,8 +3,8 @@
     <mat-card-header>
       <mat-card-title>Danh sách hóa đơn</mat-card-title>
     </mat-card-header>
-    <mat-card-actions >
-      <div style="display: flex; align-items: center;width: 100% !important;">
+    <mat-card-actions>
+      <div style="display: flex; align-items: center; width: 100% !important">
         <button mat-raised-button (click)="openAddDialog()" class="add-button">
           Thêm hóa đơn
         </button>
@@ -204,9 +204,7 @@
               </div>
 
               <div class="receipt-info">
-                <span style="font-weight: bold"
-                  >Ngày hoàn thành</span
-                >
+                <span style="font-weight: bold">Ngày hoàn thành</span>
                 <div>
                   {{ getDateFormat(fullReceipt.completeDate ?? "") }}
                 </div>
@@ -237,6 +235,7 @@
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumnsWithExpand"></tr>
+
       <tr
         mat-row
         *matRowDef="let element; columns: displayedColumnsWithExpand"
@@ -252,6 +251,10 @@
     </table>
   </div>
 
+  <div class="empty" *ngIf="receiptList.length <= 0">
+    <h3>Không tìm được kết quả phù hợp</h3>
+  </div>
+  
   <mat-paginator
     [pageSizeOptions]="pageSizeOpstion"
     [length]="length"

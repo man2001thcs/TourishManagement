@@ -237,6 +237,10 @@
     </table>
   </div>
 
+  <div class="empty" *ngIf="receiptList.length <= 0">
+    <h3>Không tìm được kết quả phù hợp</h3>
+  </div>
+
   <mat-paginator
     [pageSizeOptions]="pageSizeOpstion"
     [length]="length"

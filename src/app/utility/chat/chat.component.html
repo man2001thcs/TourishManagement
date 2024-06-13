@@ -1,10 +1,20 @@
 <div class="chat-container">
   <div class="chat-title">
     <h3>Trò chuyện</h3>
-    <button *ngIf="!isChatSet" mat-button style="color: white" (click)="chatBoxInteract()">
+    <button
+      *ngIf="!isChatSet"
+      mat-button
+      style="color: white"
+      (click)="chatBoxInteract()"
+    >
       <i class="fa fa-bars" aria-hidden="true"></i>
     </button>
-    <button *ngIf="isChatSet" mat-button style="color: white" (click)="chatBoxCancel()">
+    <button
+      *ngIf="isChatSet"
+      mat-button
+      style="color: white"
+      (click)="chatBoxCancel()"
+    >
       <i class="fa fa-times" aria-hidden="true"></i>
     </button>
   </div>
@@ -153,6 +163,7 @@
           ></app-validation>
         </div>
       </div>
+
       <div class="chat-form-field">
         <mat-form-field appearance="outline" class="chat-input-mat">
           <mat-label>Số điện thoại</mat-label>
@@ -174,6 +185,16 @@
             [formGroupControlName]="'guestPhoneNumber'"
           ></app-validation>
         </div>
+      </div>
+
+      <div class="chat-form-field">
+        <mat-form-field appearance="outline" class="chat-input-mat">
+          <mat-label>Chat với bot</mat-label>
+          <mat-select formControlName="isChatWithBot">
+            <mat-option [value]="0">Không</mat-option>
+            <mat-option [value]="1">Có</mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
 
       <div style="width: 80%">

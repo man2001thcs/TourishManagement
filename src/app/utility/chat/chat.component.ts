@@ -62,6 +62,7 @@ export class ChatComponent {
       guestName: ["", Validators.compose([Validators.required])],
       guestEmail: ["", Validators.compose([Validators.required])],
       guestPhoneNumber: ["", Validators.compose([Validators.required])],
+      isChatWithBot: ["0", Validators.compose([Validators.required])],
     });
 
     if (this.tokenStorageService.getUserRole() === "User") {
@@ -256,6 +257,7 @@ export class ChatComponent {
       guestEmail: this.messRegister.value.guestEmail,
       guestName: this.messRegister.value.guestName,
       guestPhoneNumber: this.messRegister.value.guestPhoneNumber,
+      isChatWithBot: this.messRegister.value.isChatWithBot,
     };
 
     if (!this.messRegister.invalid) {

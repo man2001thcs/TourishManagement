@@ -57,8 +57,6 @@ export class TourishPlanListAdminComponent
     "supportNumber",
 
     "createDate",
-    "startDate",
-    "endDate",
     "interest",
     "edit",
     "delete",
@@ -329,5 +327,26 @@ export class TourishPlanListAdminComponent
       }
     }
     return "Không quan tâm";
+  }
+
+  getDateFormat(isoDateString: string) {
+    // Chuyển đổi chuỗi ISO 8601 thành đối tượng Date
+
+    if (isoDateString.length <= 0) return "Chưa xác định";
+    const ngayThang = new Date(isoDateString);
+
+    // Lấy ngày, tháng, năm, giờ từ đối tượng Date
+    const day = ngayThang.getDate();
+    const month = ngayThang.getMonth() + 1; // Tháng bắt đầu từ 0
+    const year = ngayThang.getFullYear();
+    const hour = ngayThang.getHours() + 7;
+    const minute = ngayThang.getMinutes();
+
+    // Tạo chuỗi kết quả
+    const minuteString = minute !== 0 ? minute + " phút" : "";
+    const chuoiNgayThang =
+      `Ngày ${day} tháng ${month} năm ${year}, ${hour} giờ ` + minuteString;
+
+    return chuoiNgayThang;
   }
 }

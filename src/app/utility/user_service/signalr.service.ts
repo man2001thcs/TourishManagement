@@ -30,6 +30,7 @@ export class SignalRService {
   private $notifyFeed = new Subject<any>();
   private $clientFeed = new Subject<any>();
   private $connFeed = new Subject<any>();
+  private $botFeed = new Subject<any>();
 
   private $isNotifyReadFeed = new Subject<any>();
   private isRefreshing = false;
@@ -135,6 +136,10 @@ export class SignalRService {
     return this.$connFeed.asObservable().pipe(distinctUntilChanged());
   }
 
+  public get BotFeedObservable(): Observable<any> {
+    return this.$botFeed.asObservable().pipe(distinctUntilChanged());
+  }
+
   public get IsNotifyReadObservable(): Observable<any> {
     return this.$isNotifyReadFeed.asObservable().pipe(distinctUntilChanged());
   }
@@ -168,6 +173,7 @@ export class SignalRService {
       }
     );
   }
+
 
   public listenToClientFeedsThree(listenPort: string) {
     (<HubConnection>this.hubConnection).on(

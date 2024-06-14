@@ -34,7 +34,6 @@ export class ChatComponent {
   adminId = "";
   subscriptions: Subscription[] = [];
   messageList: GuestMessage[] = [];
-  conHis!: GuestMessageConHistory;
 
   isOpen = false;
   isSending = false;
@@ -62,6 +61,7 @@ export class ChatComponent {
       guestName: ["", Validators.compose([Validators.required])],
       guestEmail: ["", Validators.compose([Validators.required])],
       guestPhoneNumber: ["", Validators.compose([Validators.required])],
+      isChatWithBot: ["0", Validators.compose([Validators.required])],
     });
 
     if (this.tokenStorageService.getUserRole() === "User") {
@@ -80,7 +80,6 @@ export class ChatComponent {
         if (notify.adminId !== undefined) {
           this.isWaitingForSet = false;
           this.adminId = notify.adminId;
-          this.conHis = notify.conHis;
           this.isChatSet = true;
           this.isOpen = true;
           this.signalRService.listenToClientFeedsThree("SendMessageToUser");
@@ -91,6 +90,7 @@ export class ChatComponent {
     this.subscriptions.push(
       this.signalRService.ClientFeedObservable.subscribe((res: any) => {
         if (res) {
+          console.log(res);
           if (res.data3 !== null && res.data3 !== undefined) {
             var insertMess = res.data3;
 
@@ -241,12 +241,21 @@ export class ChatComponent {
 
     this.isSending = true;
 
-    this.signalRService.invokeTwoInfoFeed(
-      "SendMessageToAdmin",
-      this.adminId,
-      this.messRegister.value.guestEmail,
-      guestMessage
-    );
+    if (this.messRegister.value.isChatWithBot == "0")
+      this.signalRService.invokeTwoInfoFeed(
+        "SendMessageToAdmin",
+        this.adminId,
+        this.messRegister.value.guestEmail,
+        guestMessage
+      );
+    else {
+      this.signalRService.invokeTwoInfoFeed(
+        "SendMessageToBot",
+        "",
+        this.messRegister.value.guestEmail,
+        guestMessage
+      );
+    }
 
     this.messageList.push(guestMessage);
   }
@@ -256,16 +265,31 @@ export class ChatComponent {
       guestEmail: this.messRegister.value.guestEmail,
       guestName: this.messRegister.value.guestName,
       guestPhoneNumber: this.messRegister.value.guestPhoneNumber,
+      isChatWithBot: this.messRegister.value.isChatWithBot,
     };
 
     if (!this.messRegister.invalid) {
       this.isWaitingForSet = true;
-      this.signalRService
-        .startConnectionWithParam("/api/guest/message", queryParameters)
-        .then(() => {
-          // 2 - register for ALL relay
-          this.signalRService.listenToConnFeeds("NotifyNewCon");
-        });
+
+      if (this.messRegister.value.isChatWithBot == "1") {
+        this.signalRService
+          .startConnectionWithParam("/api/guest/message", queryParameters)
+          .then(() => {
+            // 2 - register for ALL relay
+            this.signalRService.listenToClientFeedsThree("SendMessageToUser");
+            this.isWaitingForSet = false;
+            this.adminId = "";
+            this.isChatSet = true;
+            this.isOpen = true;
+          });
+      } else {
+        this.signalRService
+          .startConnectionWithParam("/api/guest/message", queryParameters)
+          .then(() => {
+            // 2 - register for ALL relay
+            this.signalRService.listenToConnFeeds("NotifyNewCon");
+          });
+      }
     }
   }
 

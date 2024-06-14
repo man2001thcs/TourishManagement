@@ -1,7 +1,7 @@
 <div style="width: 100% !important">
   <mat-card style="margin-bottom: 20px; padding: 10px 10px 10px">
     <mat-card-header>
-      <mat-card-title>Danh sách nhân viên</mat-card-title>
+      <mat-card-title>Danh sách tài khoản</mat-card-title>
     </mat-card-header>
   </mat-card>
 
@@ -109,7 +109,7 @@
         >
           Ngày tạo
         </th>
-        <td mat-cell *matCellDef="let element">{{ element.createDate }}</td>
+        <td mat-cell *matCellDef="let element">{{ getDateFormat(element.createDate) }}</td>
       </ng-container>
 
       <ng-container matColumnDef="edit">
@@ -140,6 +140,9 @@
         [class.demo-row-is-clicked]=""
       ></tr>
     </table>
+  </div>
+  <div class="empty" *ngIf="userList.length <= 0">
+    <h3>Không tìm được kết quả phù hợp</h3>
   </div>
   <mat-paginator
     [pageSizeOptions]="pageSizeOpstion"

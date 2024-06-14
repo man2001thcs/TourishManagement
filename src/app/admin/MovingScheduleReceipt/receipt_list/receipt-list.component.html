@@ -4,12 +4,13 @@
       <mat-card-title>Danh sách hóa đơn</mat-card-title>
     </mat-card-header>
     <mat-card-actions>
-      <div style="display: flex; align-items: center">
+      <div style="display: flex; align-items: center;width: 100% !important;">
         <button mat-raised-button (click)="openAddDialog()" class="add-button">
           Thêm hóa đơn
         </button>
 
         <app-moving-schedule-select-autocomplete
+        style="width: 40% !important"
           (result)="selectChangeReceipt($event)"
         >
         </app-moving-schedule-select-autocomplete>
@@ -97,7 +98,7 @@
         >
           Ngày tạo
         </th>
-        <td mat-cell *matCellDef="let element">{{ element.createdDate }}</td>
+        <td mat-cell *matCellDef="let element">{{ getDateFormat(element.createdDate) }}</td>
       </ng-container>
 
       <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
@@ -151,7 +152,7 @@
               style="display: flex; flex-direction: row"
               *ngFor="let fullReceipt of element.fullReceiptList; index as i"
             >
-              <div class="receipt-info">
+              <div class="receipt-info" style="width: 70px !important; min-width: 70px !important">
                 <span style="font-weight: bold">STT</span>
                 <div>{{ i + 1 }}</div>
               </div>
@@ -194,6 +195,12 @@
                   {{ getPaymentStatus(fullReceipt.status + "") }}
                 </div>
               </div>
+              <div class="receipt-info">
+                <span style="font-weight: bold">Ngày hoàn thành</span>
+                <div>
+                  {{ getDateFormat(fullReceipt.completeDate ?? "") }}
+                </div>
+              </div>
               <div class="receipt-button">
                 <button mat-flat-button (click)="openEditDialog(fullReceipt.fullReceiptId)" style="background-color: #ffd740;">
                   <i class="fa fa-pencil" aria-hidden="true"></i>
@@ -228,6 +235,10 @@
         class="example-detail-row"
       ></tr>
     </table>
+  </div>
+
+  <div class="empty" *ngIf="receiptList.length <= 0">
+    <h3>Không tìm được kết quả phù hợp</h3>
   </div>
 
   <mat-paginator

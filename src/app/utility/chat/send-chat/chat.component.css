@@ -1,6 +1,6 @@
 .chat-send {
   margin: 0px 10px 5px 0;
-  max-width: 150px;
+  max-width: 200px !important;
   align-self: flex-end !important;
   align-items: flex-end;
   display: flex;
@@ -22,8 +22,9 @@
 
 
 mat-card-content {
-  word-wrap: break-word;
-  overflow-wrap: break-word;
+  word-wrap: break-word !important;
+  text-wrap: wrap !important;
+  text-align: right !important;
 }
 
 .mat-mdc-card-content {

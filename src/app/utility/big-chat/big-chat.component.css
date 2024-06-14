@@ -77,8 +77,9 @@ app-receive-big-chat {
 }
 
 mat-card-content {
-  word-wrap: break-word;
-  overflow-wrap: break-word;
+  word-wrap: break-word !important;
+  text-wrap: wrap !important;
+  text-align: right !important;
 }
 
 .chat-receive mat-card {

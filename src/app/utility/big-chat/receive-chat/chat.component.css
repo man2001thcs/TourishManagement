@@ -63,8 +63,9 @@
 }
 
 mat-card-content {
-  word-wrap: break-word;
-  overflow-wrap: break-word;
+  word-wrap: break-word !important;
+  text-wrap: wrap !important;
+  text-align: lèft !important;
 }
 
 .chat-receive mat-card {

@@ -1,10 +1,7 @@
-
-
-
-
 mat-card-content {
-  word-wrap: break-word;
-  overflow-wrap: break-word;
+  word-wrap: break-word !important;
+  text-wrap: wrap !important;
+  text-align: left !important;
 }
 
 .chat-send mat-label {
@@ -13,7 +10,7 @@ mat-card-content {
 
 .chat-receive {
   margin: 0px 0px 5px 10px;
-  max-width: 150px;
+  max-width: 200px !important;
   align-self: flex-start !important;
   align-items: flex-start;
   display: flex;
@@ -76,4 +73,3 @@ mat-card-content {
   padding-top: 8px !important;
   padding-bottom: 8px !important;
 }
-

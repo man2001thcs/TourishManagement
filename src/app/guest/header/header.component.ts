@@ -167,7 +167,7 @@ export class HeaderComponent implements OnInit {
     this.myNameElem.nativeElement.style.width = "70px";
     this.myNameElem.nativeElement.style["margin-right"] = "0px";
     this.myNameElem.nativeElement.style["margin-top"] = "0px";
-    this.myNameElem.nativeElement.style["padding-left"] = "10px";
+    this.myNameElem.nativeElement.style["padding-left"] = "0px";
     this.myNameElem.nativeElement.style["padding-right"] = "0px";
     this.myNameElem.nativeElement.style["border-bottom"] = "0px solid #EDF1F7";
     this.myNameElem.nativeElement.style["border-left"] = "0px solid #EDF1F7";

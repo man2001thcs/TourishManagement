@@ -99,6 +99,18 @@
     (appOutsideClick)="outsideClick($event)"
   >
     <div class="title-nav">
+      <button
+      mat-stroked-button
+      (click)="navMenuClick()"
+      style="margin-right: 10px"
+    >
+      <i
+        class="fa fa-bars"
+        style="font-size: 22px; color: rgb(105, 104, 104)"
+        aria-hidden="true"
+      ></i>
+    </button>
+    
       <h6
         *ngIf="isNavOpen"
         style="
@@ -112,17 +124,7 @@
         Menu
       </h6>
 
-      <button
-        mat-stroked-button
-        (click)="navMenuClick()"
-        style="margin-right: 10px"
-      >
-        <i
-          class="fa fa-bars"
-          style="font-size: 22px; color: rgb(105, 104, 104)"
-          aria-hidden="true"
-        ></i>
-      </button>
+     
     </div>
 
     <div class="sideNavContent" style="width: 100%" *ngIf="isNavOpen">
@@ -155,6 +157,7 @@
               *ngFor="let category of categoryList"
             >
               <button
+                class="nav-button"
                 ngbNavLink
                 (click)="navigateCategoryUrl('search-page', category.name)"
               >
@@ -192,6 +195,7 @@
         >
           <ng-container ngbNavItem="14th">
             <button
+              class="nav-button"
               ngbNavLink
               (click)="navigateServiceUrl('service-search-page', 'moving')"
             >
@@ -200,6 +204,7 @@
           </ng-container>
           <ng-container ngbNavItem="15th">
             <button
+              class="nav-button"
               ngbNavLink
               (click)="navigateServiceUrl('service-search-page', 'staying')"
             >

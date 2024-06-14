@@ -34,7 +34,7 @@
       <mat-card
         *ngIf="judgeNumber > 0"
         style="
-          width: 30px;
+          width: 40px;
           height: 20px;
           text-align: center;
           color: white;
@@ -42,7 +42,7 @@
           padding-top: 2px;
         "
         [ngStyle]="{ 'background-color': getRateColor(score) }"
-        >{{ score }}</mat-card
+        >{{ score + " / 5" }}</mat-card
       >
     </div>
 

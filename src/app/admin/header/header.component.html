@@ -7,10 +7,7 @@
   <!-- Nav tabs -->
   <div style="display: flex; flex-direction: row; align-items: center">
     <img
-      src="{{
-        getBlobUrl() +
-          '/start-container/tour_logo.png'
-      }}"
+      src="{{ getBlobUrl() + '/start-container/tour_logo.png' }}"
       class="img-logo"
       style="border: 2px solid black; border-radius: 10px; margin-right: 20px"
     />
@@ -88,6 +85,18 @@
   (appOutsideClick)="outsideClick($event)"
 >
   <div class="title-nav">
+    <button
+      mat-stroked-button
+      (click)="navMenuClick()"
+      style="margin-right: 10px"
+    >
+      <i
+        class="fa fa-bars"
+        style="font-size: 22px; color: rgb(105, 104, 104)"
+        aria-hidden="true"
+      ></i>
+    </button>
+    
     <h6
       *ngIf="isNavOpen"
       style="
@@ -101,39 +110,30 @@
       Danh mục quản lý
     </h6>
 
-    <button
-      mat-stroked-button
-      (click)="navMenuClick()"
-      style="margin-right: 10px"
-    >
-      <i
-        class="fa fa-bars"
-        style="font-size: 22px; color: rgb(105, 104, 104)"
-        aria-hidden="true"
-      ></i>
-    </button>
+    
   </div>
 
   <div class="sideNavContent" style="width: 100%" *ngIf="isNavOpen">
     <div class="sidenavCategory">
       <div
-          ngbNav
-          #nav="ngbNav"
-          [(activeId)]="activeItem"
-          class="nav-pills flex-column"
-          orientation="vertical"
-        >
-          <ng-container [ngbNavItem]="'0th'">
-            <button
-            style="padding-top: 10px; padding-bottom: 10px; font-size: 20px;"
-              ngbNavLink
-              (click)="navigateUrl('dash-board')"
-            >
+        ngbNav
+        #nav="ngbNav"
+        [(activeId)]="activeItem"
+        class="nav-pills flex-column"
+        orientation="vertical"
+      >
+        <ng-container [ngbNavItem]="'0th'">
+          <button
+            class="nav-button"
+            style="padding-top: 10px; padding-bottom: 10px; font-size: 20px"
+            ngbNavLink
+            (click)="navigateUrl('dash-board')"
+          >
             <i class="fa fa-tachometer" aria-hidden="true"></i>
-             Dashboard
-            </button>
-          </ng-container>
-        </div>
+            Dashboard
+          </button>
+        </ng-container>
+      </div>
     </div>
 
     <div class="sidenavCategory">
@@ -161,19 +161,31 @@
           orientation="vertical"
         >
           <ng-container [ngbNavItem]="'2nd'">
-            <button ngbNavLink (click)="navigateUrl('tourish-plan/create')">
+            <button
+              class="nav-button"
+              ngbNavLink
+              (click)="navigateUrl('tourish-plan/create')"
+            >
               Tạo mới
             </button>
           </ng-container>
 
           <ng-container [ngbNavItem]="'1st'">
-            <button ngbNavLink (click)="navigateUrl('tourish-plan/list')">
+            <button
+              class="nav-button"
+              ngbNavLink
+              (click)="navigateUrl('tourish-plan/list')"
+            >
               Danh sách
             </button>
           </ng-container>
 
           <ng-container [ngbNavItem]="'3rd'">
-            <button ngbNavLink (click)="navigateUrl('tour/category/list')">
+            <button
+              class="nav-button"
+              ngbNavLink
+              (click)="navigateUrl('tour/category/list')"
+            >
               Thể loại
             </button>
           </ng-container>
@@ -207,6 +219,7 @@
         >
           <ng-container [ngbNavItem]="'4th'">
             <button
+              class="nav-button"
               ngbNavLink
               (click)="navigateUrl('transport/moving-contact/list')"
             >
@@ -215,7 +228,11 @@
           </ng-container>
 
           <ng-container [ngbNavItem]="'12th'">
-            <button ngbNavLink (click)="navigateUrl('transport/service/list')">
+            <button
+              class="nav-button"
+              ngbNavLink
+              (click)="navigateUrl('transport/service/list')"
+            >
               Dịch vụ ngoài tour
             </button>
           </ng-container>
@@ -249,6 +266,7 @@
         >
           <ng-container [ngbNavItem]="'5th'">
             <button
+              class="nav-button"
               ngbNavLink
               (click)="navigateUrl('resthouse/rest-house-contact/list')"
             >
@@ -257,7 +275,11 @@
           </ng-container>
 
           <ng-container [ngbNavItem]="'13th'">
-            <button ngbNavLink (click)="navigateUrl('resthouse/service/list')">
+            <button
+              class="nav-button"
+              ngbNavLink
+              (click)="navigateUrl('resthouse/service/list')"
+            >
               Dịch vụ ngoài tour
             </button>
           </ng-container>
@@ -290,7 +312,11 @@
           orientation="vertical"
         >
           <ng-container [ngbNavItem]="'6th'">
-            <button ngbNavLink (click)="navigateUrl('restaurant/list')">
+            <button
+              class="nav-button"
+              ngbNavLink
+              (click)="navigateUrl('restaurant/list')"
+            >
               Nhà hàng
             </button>
           </ng-container>
@@ -323,13 +349,21 @@
           orientation="vertical"
         >
           <ng-container [ngbNavItem]="'7th'">
-            <button ngbNavLink (click)="navigateUrl('receipt/list')">
+            <button
+              class="nav-button"
+              ngbNavLink
+              (click)="navigateUrl('receipt/list')"
+            >
               Hóa đơn Tour
             </button>
           </ng-container>
 
           <ng-container ngbNavItem="14th">
-            <button ngbNavLink (click)="navigateUrl('moving/receipt/list')">
+            <button
+              class="nav-button"
+              ngbNavLink
+              (click)="navigateUrl('moving/receipt/list')"
+            >
               Hóa đơn vé di chuyển
             </button>
           </ng-container>
@@ -368,7 +402,11 @@
           orientation="vertical"
         >
           <ng-container [ngbNavItem]="'8th'">
-            <button ngbNavLink (click)="navigateUrl('user/list')">
+            <button
+              class="nav-button"
+              ngbNavLink
+              (click)="navigateUrl('user/list')"
+            >
               Danh sách nhân viên
             </button>
           </ng-container>
@@ -401,12 +439,20 @@
           orientation="vertical"
         >
           <ng-container [ngbNavItem]="'9th'">
-            <button ngbNavLink (click)="navigateUrl('chat/list')">
+            <button
+              class="nav-button"
+              ngbNavLink
+              (click)="navigateUrl('chat/list')"
+            >
               Danh sách yêu cầu
             </button>
           </ng-container>
           <ng-container [ngbNavItem]="'10th'">
-            <button ngbNavLink (click)="navigateUrl('chat/display')">
+            <button
+              class="nav-button"
+              ngbNavLink
+              (click)="navigateUrl('chat/display')"
+            >
               Tư vấn
             </button>
           </ng-container>
@@ -439,7 +485,11 @@
           orientation="vertical"
         >
           <ng-container [ngbNavItem]="'11th'">
-            <button ngbNavLink (click)="navigateUrl('notification/list')">
+            <button
+              class="nav-button"
+              ngbNavLink
+              (click)="navigateUrl('notification/list')"
+            >
               Danh sách thông báo
             </button>
           </ng-container>

@@ -31,7 +31,7 @@
   background-color: #2a3650;
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   height: 105px;
 }
@@ -99,7 +99,6 @@ img.img-logo {
   /* box-shadow: 0 0 21px 0 rgba(89, 102, 122, 0.1);
   word-break: keep-all !important; */
   height: 100% !important;
-  padding-left: 10px;
   width: 70px;
   position: fixed;
   z-index: 2;
@@ -115,6 +114,15 @@ img.img-logo {
   flex-grow: 0; */
   opacity: 1;
   margin-bottom: 20px;
+}
+
+button.nav-button {
+  font-size: 16px;
+  font-weight: bolder;
+  color: #6b7383;
+  text-align: left;
+
+  padding-left: 35px;
 }
 
 .avatar {

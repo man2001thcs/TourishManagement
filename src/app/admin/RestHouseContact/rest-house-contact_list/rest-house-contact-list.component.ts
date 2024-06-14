@@ -93,7 +93,7 @@ export class RestHouseContactListComponent
       this.RestHouseContactListState.subscribe((state) => {
         if (state) {
           this.messageService.closeLoadingDialog();
-          this.RestHouseContactList = state.data;
+          this.RestHouseContactList = state.data ?? [];
           this.length = state.count;
         }
       })

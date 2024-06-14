@@ -150,52 +150,92 @@
             <div
               class="example-element-diagram"
               style="display: flex; flex-direction: row"
-              *ngFor="let fullReceipt of element.fullReceiptList; index as i"
             >
               <div
                 class="receipt-info"
                 style="width: 70px !important; min-width: 70px !important"
               >
                 <span style="font-weight: bold">STT</span>
-                <div>{{ i + 1 }}</div>
               </div>
               <div class="receipt-info">
                 <span style="font-weight: bold">Tên khách</span>
-                <div>{{ fullReceipt.guestName }}</div>
               </div>
               <div class="receipt-info">
                 <span style="font-weight: bold">Email</span>
-                <div>{{ fullReceipt.email }}</div>
               </div>
               <div class="receipt-info">
                 <span style="font-weight: bold">SĐT</span>
-                <div>{{ fullReceipt.phoneNumber }}</div>
               </div>
               <div class="receipt-info">
                 <span style="font-weight: bold"
                   >Số vé (Người lớn > 10 tuổi)</span
                 >
-                <div>{{ fullReceipt.totalTicket }}</div>
               </div>
               <div
                 class="receipt-info"
                 style="width: 100px !important; min-width: 100px !important"
               >
                 <span style="font-weight: bold">Số vé (Trẻ em)</span>
-                <div>{{ fullReceipt.totalChildTicket }}</div>
               </div>
               <div
                 class="receipt-info"
                 style="width: 100px !important; min-width: 100px !important"
               >
                 <span style="font-weight: bold">Tổng giá</span>
+              </div>
+
+              <div class="receipt-info">
+                <span style="font-weight: bold">Tình trạng</span>
+              </div>
+
+              <div class="receipt-info">
+                <span style="font-weight: bold">Ngày hoàn thành</span>
+              </div>
+
+              <div class="receipt-button"></div>
+
+              <div class="receipt-button"></div>
+            </div>
+
+            <div
+              class="example-element-diagram"
+              style="display: flex; flex-direction: row"
+              *ngFor="let fullReceipt of element.fullReceiptList; index as i"
+            >
+              <div
+                class="receipt-info"
+                style="width: 70px !important; min-width: 70px !important"
+              >
+                <div>{{ i + 1 }}</div>
+              </div>
+              <div class="receipt-info">
+                <div>{{ fullReceipt.guestName }}</div>
+              </div>
+              <div class="receipt-info">
+                <div>{{ fullReceipt.email }}</div>
+              </div>
+              <div class="receipt-info">
+                <div>{{ fullReceipt.phoneNumber }}</div>
+              </div>
+              <div class="receipt-info">
+                <div>{{ fullReceipt.totalTicket }}</div>
+              </div>
+              <div
+                class="receipt-info"
+                style="width: 100px !important; min-width: 100px !important"
+              >
+                <div>{{ fullReceipt.totalChildTicket }}</div>
+              </div>
+              <div
+                class="receipt-info"
+                style="width: 100px !important; min-width: 100px !important"
+              >
                 <div>
                   {{ getTotalPriceReceipt(element.tourishPlan, fullReceipt) }} đ
                 </div>
               </div>
 
               <div class="receipt-info">
-                <span style="font-weight: bold">Tình trạng</span>
                 <div
                   [style.color]="getPaymentStatusColor(fullReceipt.status + '')"
                 >
@@ -204,7 +244,6 @@
               </div>
 
               <div class="receipt-info">
-                <span style="font-weight: bold">Ngày hoàn thành</span>
                 <div>
                   {{ getDateFormat(fullReceipt.completeDate ?? "") }}
                 </div>
@@ -254,7 +293,7 @@
   <div class="empty" *ngIf="receiptList.length <= 0">
     <h3>Không tìm được kết quả phù hợp</h3>
   </div>
-  
+
   <mat-paginator
     [pageSizeOptions]="pageSizeOpstion"
     [length]="length"

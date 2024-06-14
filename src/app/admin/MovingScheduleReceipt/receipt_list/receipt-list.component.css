@@ -36,7 +36,7 @@ tr.example-detail-row {
 
 .receipt-info {
   padding: 20px 20px 0px;
-  min-width: 160px;
+  width: 160px;
   text-wrap: wrap;
 }
 

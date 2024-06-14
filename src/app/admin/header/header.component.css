@@ -178,6 +178,15 @@ mat-expansion-panel {
   border-top: 1px solid #666666;
 }
 
+button.nav-button {
+  font-size: 16px;
+  font-weight: bolder;
+  color: #6b7383;
+  text-align: left;
+
+  padding-left: 35px;
+}
+
 .autocomplete-search {
   height: 0%;
   width: 70%;

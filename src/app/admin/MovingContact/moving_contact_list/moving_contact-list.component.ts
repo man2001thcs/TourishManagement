@@ -94,7 +94,7 @@ export class MovingContactListComponent
       this.MovingContactListState.subscribe((state) => {
         if (state) {
           this.messageService.closeLoadingDialog();
-          this.MovingContactList = state.data;
+          this.MovingContactList = state.data ?? [];
           this.length = state.count;
         }
       })

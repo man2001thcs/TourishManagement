@@ -251,7 +251,7 @@ export class AvatarUploadComponent implements OnInit, OnDestroy {
     return this.http
       .get("/api/GetFile", { params: payload })
       .subscribe((state: any) => {
-        this.imageList = state.data;
+        this.imageList = state.data ?? [];
 
         if (this.imageList?.length > 0) {
           this.imageList.forEach((image) => {
@@ -281,7 +281,7 @@ export class AvatarUploadComponent implements OnInit, OnDestroy {
           this.imageList.push(anomymousFile);
         }
 
-        this.imageList = state.data;
+        this.imageList = state.data ?? [];
       });
   }
 

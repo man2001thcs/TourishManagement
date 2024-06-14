@@ -36,6 +36,7 @@ export class TourishPlanSearchCardComponent implements OnInit{
   ngOnInit(): void {
     this.getTourImage();
     this.getRatingForTour();
+    this.getTotalTicketInMonthTour();
   }
 
   getRateString(input: number) {
@@ -113,11 +114,29 @@ export class TourishPlanSearchCardComponent implements OnInit{
     } else this.router.navigate(["guest/tour/" + this.id + "/detail"]);
   }
 
+  getTotalTicketInMonthTour() {
+    const payload = {
+      tourishPlanId: this.id,
+    };
+
+    this.http
+      .get("/api/GetFullReceipt/total-ticket-of-tour", { params: payload })
+      .subscribe((state: any) => {
+        if (state) {
+          this.customerNumber = state.data.totalTicket;
+        }
+      });
+  }
+
   getTourName(inputString: string) {
     if (inputString.length <= 100) {
       return inputString;
     } else {
       return inputString.substring(0, 100) + "...";
     }
+  }
+
+  formatVNCurrency(num: number): string {
+    return num.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
   }
 }

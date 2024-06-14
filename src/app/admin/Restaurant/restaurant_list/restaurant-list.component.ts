@@ -89,7 +89,7 @@ export class RestaurantListComponent
       this.restaurantListState.subscribe((state) => {
         if (state) {
           this.messageService.closeLoadingDialog();
-          this.restaurantList = state.data;
+          this.restaurantList = state.data ?? [];
           this.length = state.count;
         }
       })

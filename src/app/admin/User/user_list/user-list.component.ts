@@ -86,7 +86,7 @@ export class UserListComponent implements OnInit, AfterViewInit, OnDestroy {
       this.userListState.subscribe((state) => {
         if (state) {
           this.messageService.closeLoadingDialog();
-          this.userList = state.data;
+          this.userList = state.data ?? [];
           this.length = state.count;
         }
       })

@@ -108,7 +108,7 @@ export class MovingScheduleReceiptListComponent implements OnInit, AfterViewInit
       this.receiptListState.subscribe((state) => {
         if (state) {
           this.messageService.closeLoadingDialog();
-          this.receiptList = state.data;
+          this.receiptList = state.data ?? [];
           this.length = state.count;
         }
       })

@@ -176,7 +176,7 @@ export class HeaderAdminComponent implements OnDestroy {
   }
 
   closeNav() {
-    this.myNameElem.nativeElement.style.width = "80px";
+    this.myNameElem.nativeElement.style.width = "70px";
     this.myNameElem.nativeElement.style["margin-right"] = "0px";
     this.myNameElem.nativeElement.style["margin-top"] = "0px";
     this.myNameElem.nativeElement.style["padding-left"] = "0px";

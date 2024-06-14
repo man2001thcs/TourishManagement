@@ -11,7 +11,7 @@ export class ImageSliderComponent implements OnInit {
   @Input() indicatorsVisible = true;
   @Input() animationSpeed = 500;
   @Input() autoPlay = false;
-  @Input() autoPlaySpeed = 3000;
+  @Input() autoPlaySpeed = 1000;
   currentSlide = 0;
   faArrowRight = faArrowRight;
   faArrowLeft = faArrowLeft;
@@ -19,6 +19,13 @@ export class ImageSliderComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes["slides"]) this.slides = changes["slides"].currentValue;
+    if (this.slides.length <= 1) this.autoPlay = false; else this.autoPlay = true;
+
+    if (this.autoPlay) {
+      setInterval(() => {
+        this.next();
+      }, this.autoPlaySpeed);
+    }
   }
 
   next() {
@@ -41,7 +48,7 @@ export class ImageSliderComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.slides.length <= 1) this.autoPlay = false;
+    if (this.slides.length <= 1) this.autoPlay = false; else this.autoPlay = true;
     
     if (this.autoPlay) {
       setInterval(() => {

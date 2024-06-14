@@ -92,7 +92,7 @@ export class TourishPlanListAdminComponent
       this.tourishPlanListState.subscribe((state) => {
         if (state) {
           this.messageService.closeLoadingDialog();
-          this.tourishPlanList = state.data;
+          this.tourishPlanList = state.data ?? [];
           this.length = state.count;
         }
       })

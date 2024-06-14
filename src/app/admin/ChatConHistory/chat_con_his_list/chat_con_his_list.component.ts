@@ -87,7 +87,7 @@ export class GuestMessageConHistoryListComponent
       this.guestMessageConHistoryListState.subscribe((state) => {
         if (state) {
           this.messageService.closeLoadingDialog();
-          this.guestMessageConHistoryList = state.data;
+          this.guestMessageConHistoryList = state.data ?? [];
           this.length = state.count;
         }
       })

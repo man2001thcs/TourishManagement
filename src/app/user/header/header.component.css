@@ -88,7 +88,7 @@ img.img-logo {
   background-color: #2a3650;
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   height: 105px;
 }
@@ -148,7 +148,6 @@ img.img-logo {
   height: 100%;
   display: block;
   width: 70px;
-  padding-left: 10px;
   position: fixed;
   z-index: 2;
   top: 0;
@@ -197,7 +196,7 @@ mat-expansion-panel {
   width: 70%;
   position: absolute;
   padding-right: 0 !important;
-  z-index: 1;
+  z-index: 2;
   top: 50px;
   background-color: #ffffff;
   overflow-y: hidden;
@@ -260,6 +259,17 @@ button {
   font-size: 16px;
   font-weight: bolder;
   color: #6b7383;
+  text-align: left;
+}
+
+
+button.nav-button {
+  font-size: 16px;
+  font-weight: bolder;
+  color: #6b7383;
+  text-align: left;
+
+  padding-left: 35px;
 }
 
 button:hover {

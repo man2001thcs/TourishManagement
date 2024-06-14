@@ -83,7 +83,7 @@ export class TourishCategoryListComponent
       this.tourishCategoryListState.subscribe((state) => {
         if (state) {
           this.messageService.closeLoadingDialog();
-          this.tourishCategoryList = state.data;
+          this.tourishCategoryList = state.data ?? [];
           this.length = state.count;
         }
       })

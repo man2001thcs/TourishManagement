@@ -144,7 +144,7 @@ export class StarRatingComponent implements OnInit, OnDestroy {
       .subscribe((state: any) => {
         if (state) {
           console.log("abc", state);
-          this.ratingList = state.data;
+          this.ratingList = state.data ?? [];
           this.ratingNumber = state.count;
         }
       });

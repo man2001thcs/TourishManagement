@@ -87,7 +87,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.imageUploadState.subscribe((state) => {
         if (state) {
-          this.imageList = state.data;
+          this.imageList = state.data ?? [];
 
           if (this.imageList?.length > 0) {
             this.imageList.forEach((image) => {

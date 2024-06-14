@@ -57,7 +57,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 export class ReceiptUserListComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
-  receiptList!: TotalReceipt[];
+  receiptList: TotalReceipt[] = [];
   subscriptions: Subscription[] = [];
 
   expandedElement!: any;
@@ -138,7 +138,7 @@ export class ReceiptUserListComponent
       this.receiptListState.subscribe((state) => {
         if (state) {
           this.messageService.closeLoadingDialog();
-          this.receiptList = state.data;
+          this.receiptList = state.data ?? [];
           this.length = state.count;
         }
       })

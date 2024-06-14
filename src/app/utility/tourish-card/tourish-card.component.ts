@@ -133,4 +133,8 @@ export class TourishPlanCardComponent implements OnInit {
       return inputString.substring(0, 32) + "...";
     }
   }
+
+  formatVNCurrency(num: number): string {
+    return num.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
+  }
 }

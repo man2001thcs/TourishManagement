@@ -149,4 +149,8 @@ export class TourishSearchComponent implements OnInit {
     this.startingPoint = this.setTourForm.value.startingPoint;
     this.endPoint = this.setTourForm.value.endPoint;
   }
+
+  formatVNCurrency(num: number): string {
+    return num.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
+  }
 }

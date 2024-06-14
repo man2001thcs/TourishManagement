@@ -86,7 +86,7 @@ export class NotificationListComponent
       this.notificationListState.subscribe((state) => {
         if (state) {
           this.messageService.closeLoadingDialog();
-          this.notificationList = state.data;
+          this.notificationList = state.data ?? [];
           this.length = state.count;
         }
       })

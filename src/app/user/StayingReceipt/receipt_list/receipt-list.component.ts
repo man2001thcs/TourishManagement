@@ -55,7 +55,7 @@ import { ActivatedRoute } from "@angular/router";
 export class StayingReceiptUserListComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
-  receiptList!: TotalReceipt[];
+  receiptList: TotalReceipt[] = [];
   subscriptions: Subscription[] = [];
 
   expandedElement!: any;
@@ -138,7 +138,7 @@ export class StayingReceiptUserListComponent
       this.receiptListState.subscribe((state) => {
         if (state) {
           this.messageService.closeLoadingDialog();
-          this.receiptList = state.data;
+          this.receiptList = state.data ?? [];
           this.length = state.count;
         }
       })

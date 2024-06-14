@@ -7,10 +7,7 @@
   <!-- Nav tabs -->
   <div class="page-title" (click)="navigateUrl('/main-page')">
     <img
-      src="{{
-        getBlobUrl() +
-          '/start-container/tour_logo.png'
-      }}"
+      src="{{ getBlobUrl() + '/start-container/tour_logo.png' }}"
       class="img-logo"
       style="border: 2px solid black; border-radius: 10px; margin-right: 20px"
     />
@@ -135,6 +132,17 @@
   (appOutsideClick)="outsideClick($event)"
 >
   <div class="title-nav">
+    <button
+      mat-stroked-button
+      (click)="navMenuClick()"
+      style="margin-left: 0px"
+    >
+      <i
+        class="fa fa-bars"
+        style="font-size: 22px; color: rgb(105, 104, 104)"
+        aria-hidden="true"
+      ></i>
+    </button>
     <h6
       *ngIf="isNavOpen"
       style="
@@ -147,18 +155,6 @@
     >
       Menu
     </h6>
-
-    <button
-      mat-stroked-button
-      (click)="navMenuClick()"
-      style="margin-right: 10px"
-    >
-      <i
-        class="fa fa-bars"
-        style="font-size: 22px; color: rgb(105, 104, 104)"
-        aria-hidden="true"
-      ></i>
-    </button>
   </div>
 
   <div class="sideNavContent" style="width: 100%" *ngIf="isNavOpen">
@@ -191,6 +187,7 @@
             *ngFor="let category of categoryList"
           >
             <button
+              class="nav-button"
               ngbNavLink
               (click)="navigateCategoryUrl('search-page', category.name)"
             >
@@ -227,6 +224,7 @@
         >
           <ng-container ngbNavItem="1st">
             <button
+              class="nav-button"
               ngbNavLink
               (click)="navigateServiceUrl('service-search-page', 'moving')"
             >
@@ -235,6 +233,7 @@
           </ng-container>
           <ng-container ngbNavItem="2nd">
             <button
+              class="nav-button"
               ngbNavLink
               (click)="navigateServiceUrl('service-search-page', 'staying')"
             >
@@ -270,19 +269,31 @@
           orientation="vertical"
         >
           <ng-container ngbNavItem="3rd">
-            <button ngbNavLink (click)="navigateUrl('receipt/list')">
+            <button
+              class="nav-button"
+              ngbNavLink
+              (click)="navigateUrl('receipt/list')"
+            >
               Hóa đơn tour
             </button>
           </ng-container>
 
           <ng-container ngbNavItem="4th">
-            <button ngbNavLink (click)="navigateUrl('moving/receipt/list')">
+            <button
+              class="nav-button"
+              ngbNavLink
+              (click)="navigateUrl('moving/receipt/list')"
+            >
               Hóa đơn vé di chuyển
             </button>
           </ng-container>
 
           <ng-container ngbNavItem="5th">
-            <button ngbNavLink (click)="navigateUrl('staying/receipt/list')">
+            <button
+              class="nav-button"
+              ngbNavLink
+              (click)="navigateUrl('staying/receipt/list')"
+            >
               Hóa đơn đặt khách sạn/Homestay
             </button>
           </ng-container>

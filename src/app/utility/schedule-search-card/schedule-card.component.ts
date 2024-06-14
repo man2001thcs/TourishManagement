@@ -140,4 +140,8 @@ export class SchedulePlanSearchCardComponent implements OnInit {
 
     return chuoiNgayThang;
   }
+
+  formatVNCurrency(num: number): string {
+    return num.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
+  }
 }

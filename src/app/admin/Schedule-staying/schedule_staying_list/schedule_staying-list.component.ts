@@ -90,7 +90,7 @@ export class StayingScheduleListComponent
       this.stayingScheduleListState.subscribe((state) => {
         if (state) {
           this.messageService.closeLoadingDialog();
-          this.stayingScheduleList = state.data;
+          this.stayingScheduleList = state.data ?? [];
           this.length = state.count;
         }
       })

@@ -91,7 +91,7 @@ export class MovingScheduleListComponent
       this.movingScheduleListState.subscribe((state) => {
         if (state) {
           this.messageService.closeLoadingDialog();
-          this.movingScheduleList = state.data;
+          this.movingScheduleList = state.data ?? [];
           this.length = state.count;
         }
       })

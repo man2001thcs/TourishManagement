@@ -100,6 +100,7 @@ export interface MovingSchedule {
   createDate?: Date;
   updateDate?: Date;
 
+  instructionList?: Instruction[];
   serviceScheduleList?: TourishSchedule[];
   scheduleInterestList?: ScheduleInterest[];
 }
@@ -135,6 +136,7 @@ export interface StayingSchedule {
   createDate?: Date;
   updateDate?: Date;
 
+  instructionList?: Instruction[];
   serviceScheduleList?: TourishSchedule[];
   scheduleInterestList?: ScheduleInterest[];
 }

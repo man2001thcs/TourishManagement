@@ -96,7 +96,7 @@
                   placeholder="Vd: 0123456789"
                   formControlName="contentCode"
                 >
-                  <option value="''">Không</option>
+                  <option value="">Không</option>
                   <option
                     *ngFor="let notificationCode of successNotifyCode"
                     value="{{ notificationCode.key }}"
@@ -170,7 +170,7 @@
             </div>
           </div>
 
-          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form" style="margin-left: 30px !important; max-width: 44% !important;">
             <user-multiselect-autocomplete
               [data_selected]="this.notification.userReceiver"
               (result)="selectChangeReceiver($event)"
@@ -180,7 +180,12 @@
 
         <div
           class="row"
-          style="display: flex; flex-direction: column !important; flex-wrap: 1"
+          style="
+            display: flex;
+            flex-direction: column !important;
+            flex-wrap: 1;
+            margin-left: 60px !important;
+          "
         >
           <div
             class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form"

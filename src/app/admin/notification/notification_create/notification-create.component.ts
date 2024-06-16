@@ -1,11 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit } from "@angular/core";
 import { Observable, Subscription, map } from "rxjs";
 import { MAT_DIALOG_DATA, MatDialog } from "@angular/material/dialog";
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-} from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { NotificationParam } from "./notification-create.component.model";
 import * as notificationActions from "./notification-create.store.action";
@@ -32,7 +28,7 @@ export class NotificationCreateComponent implements OnInit, OnDestroy {
   notificationParam!: NotificationParam;
 
   this_announce = "";
-  userReceiveId= "";
+  userReceiveId = "";
 
   createformGroup_info!: FormGroup;
 
@@ -63,18 +59,22 @@ export class NotificationCreateComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     SUCCESS_MESSAGE_CODE_VI.forEach((value, key) => {
-      this.successNotifyCode.push({ key, value: this.getNotifyCodeInfo(value) });
+      this.successNotifyCode.push({
+        key,
+        value: this.getNotifyCodeInfo(value),
+      });
     });
-    
+
     this.subscriptions.push(
       this.createNotificationState.subscribe((state) => {
         if (state) {
+          this.messageService.closeLoadingDialog();
           this.messageService.openMessageNotifyDialog(state.messageCode);
         }
       })
     );
 
-        this.subscriptions.push(
+    this.subscriptions.push(
       this.errorMessageState.subscribe((state: any) => {
         if (state) {
           this.messageService.closeLoadingDialog();
@@ -130,11 +130,19 @@ export class NotificationCreateComponent implements OnInit, OnDestroy {
 
   formSubmit_create_info(): void {
     this.isSubmitted = true;
+
+    if (this.userReceiveId.length <= 0){
+      this.messageService.openFailNotifyDialog("Vui lòng nhập đối tượng để gửi thông báo");
+      return;
+    }
+
     if (this.createformGroup_info.valid) {
+      this.messageService.openLoadingDialog();
+
       const payload: Notification = {
         userCreateId: this.tokenStorage.getUser().Id,
         userReceiveId: this.userReceiveId,
-        content: this.createformGroup_info.value.placeBranch,
+        content: this.createformGroup_info.value.content,
         contentCode: this.createformGroup_info.value.contentCode,
         isGenerate: false,
         isRead: this.createformGroup_info.value.isRead === "1" ? true : false,
@@ -150,7 +158,7 @@ export class NotificationCreateComponent implements OnInit, OnDestroy {
     }
   }
 
-  getNotifyCodeInfo(str: string){
+  getNotifyCodeInfo(str: string) {
     let strCapital = str.charAt(0).toUpperCase() + str.slice(1);
     return strCapital.replaceAll(":", "");
   }

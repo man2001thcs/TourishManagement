@@ -88,15 +88,15 @@ export class NotificationSingleComponent implements OnInit {
   }
 
   checkIfInView() {
-    if (this.isFirstRead && this.isNotifyOpen){
+    if (this.isFirstRead && this.isNotifyOpen) {
       const element = this.singleNotify.nativeElement;
       const isVisible = this.isElementInViewport(element);
-      if (isVisible) {    
-        if (!this.notification.isRead && this.isFirstRead) this.isInView.emit(this.notification.id);
+      if (isVisible) {
+        if (!this.notification.isRead && this.isFirstRead)
+          this.isInView.emit(this.notification.id);
         this.isFirstRead = false;
       }
     }
-   
   }
 
   isElementInViewport(el: any) {
@@ -130,9 +130,9 @@ export class NotificationSingleComponent implements OnInit {
         getViNotifyMessagePhase(notify.contentCode ?? "") + objectName;
 
       if ((notify.contentCode ?? "").length <= 0) {
-        contentPhase = notify.content;
+        contentPhase = " " + notify.content;
       }
-    } else contentPhase = notify.content;
+    } else contentPhase = " " + notify.content;
 
     return contentPhase;
   }
@@ -147,6 +147,10 @@ export class NotificationSingleComponent implements OnInit {
 
     if (notify.userCreateId == this.tokenStorage.getUser().Id)
       creatorName = "Bạn";
+
+    if (this.tokenStorage.getUserRole() == "User")
+      creatorName = "Admin " +  creatorName;
+
     return creatorName + "";
   }
 

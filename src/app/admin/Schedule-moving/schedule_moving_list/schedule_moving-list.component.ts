@@ -29,6 +29,7 @@ import { ConfirmDialogComponent } from "src/app/utility/confirm-dialog/confirm-d
 import { MovingSchedule } from "src/app/model/baseModel";
 import { InterestModalComponent } from "src/app/utility/change-interest-modal/change-interest-modal.component";
 import { ScheduleChangeModalComponent } from "src/app/utility/change-schedule-modal/change-schedule-modal.component";
+import { InstructionChangeModalComponent } from "src/app/utility/change-instruction-modal/change-instruction-modal.component";
 
 @Component({
   selector: "app-movingScheduleList",
@@ -58,6 +59,7 @@ export class MovingScheduleListComponent
     "edit",
     "interest",
     "schedule",
+    "instruction",
     "delete",
   ];
 
@@ -248,6 +250,32 @@ export class MovingScheduleListComponent
 
   async openScheduleDialog(schedule: MovingSchedule) {
     const ref = this.dialog.open(ScheduleChangeModalComponent, {
+      data: {
+        movingScheduleId: schedule.id,
+        disabled: false,
+      },
+    });
+
+    await ref.afterClosed().subscribe((result) => {
+      this.store.dispatch(
+        MovingScheduleListActions.getMovingScheduleList({
+          payload: {
+            page: this.pageIndex + 1,
+            pageSize: this.pageSize,
+            search: this.searchPhase,
+            type: 0,
+            sortBy: this.sortColumn,
+            sortDirection: this.sortDirection,
+          },
+        })
+      );
+
+      this.messageService.openLoadingDialog();
+    });
+  }
+
+  async openInstructionDialog(schedule: MovingSchedule) {
+    const ref = this.dialog.open(InstructionChangeModalComponent, {
       data: {
         movingScheduleId: schedule.id,
         disabled: false,

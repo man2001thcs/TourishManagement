@@ -75,7 +75,7 @@ img.img-logo {
   background-color: #2a3650;
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   height: 105px;
 }

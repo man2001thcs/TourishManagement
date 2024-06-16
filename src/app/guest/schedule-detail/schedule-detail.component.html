@@ -49,29 +49,30 @@
       <h4 class="tour-name">Chi tiết giá</h4>
     </div>
     <mat-tab-group>
-      <mat-tab label="Giá bao gồm">
+      <mat-tab label="Thông tin giá dịch vụ">
         <div class="price-container">
           <p>
-            <span style="font-weight: bold">Tổng giá:</span>
+            <span style="font-weight: bold">Giá dịch vụ:</span>
             {{ getTotalPrice() }}.
           </p>
         </div>
-      </mat-tab>
-      <mat-tab label="Giá không bao gồm">
-        <div class="price-container">
-          <div class="price-container">
-            <mat-list>
-              <mat-list-item
-                *ngFor="let instruction of getPriceInstruction(); index as i"
+
+        <div class="price-container" style="padding-top: 0 !important;">
+          <p  style="margin-bottom: 0;">
+            <span style="font-weight: bold;">Lưu ý về giá:</span>
+          </p>
+          <mat-list>
+            <mat-list-item
+              *ngFor="let instruction of getPriceInstruction(); index as i"
+            >
+              <span matListItemLine class="list-item">
+                {{ i + 1 + ". " + instruction.description }}</span
               >
-                <span  matListItemLine class="list-item">
-                  {{ i + 1 + ". " + instruction.description }}</span
-                >
-              </mat-list-item>
-            </mat-list>
-          </div>
-        </div></mat-tab
-      >
+            </mat-list-item>
+          </mat-list>
+        </div>
+      </mat-tab>
+
       <mat-tab label="Lưu ý">
         <div class="price-container">
           <mat-list>
@@ -102,7 +103,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let timeLine of schedule?.serviceScheduleList ?? []; index as i">
+        <tr
+          *ngFor="
+            let timeLine of schedule?.serviceScheduleList ?? [];
+            index as i
+          "
+        >
           <td scope="row">{{ i + 1 }}</td>
           <td scope="row">{{ getDateFormat(timeLine.startDate) }}</td>
           <td>
@@ -172,7 +178,11 @@
                 *ngFor="let timeLine of schedule?.serviceScheduleList ?? []"
                 [value]="timeLine.id"
               >
-                {{ getDateFormat(timeLine.startDate) + " - " + getDateFormat(timeLine.endDate)}}
+                {{
+                  getDateFormat(timeLine.startDate) +
+                    " - " +
+                    getDateFormat(timeLine.endDate)
+                }}
               </mat-option>
             </mat-select>
           </mat-form-field>

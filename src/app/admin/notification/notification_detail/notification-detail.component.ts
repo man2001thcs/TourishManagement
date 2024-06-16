@@ -48,6 +48,8 @@ export class NotificationDetailComponent implements OnInit, OnDestroy {
   isSubmitted = false;
   disabled = true;
 
+  userReceiveId = "";
+
   notification: Notification = {
     id: "",
     content: "",
@@ -107,6 +109,8 @@ export class NotificationDetailComponent implements OnInit, OnDestroy {
         if (state) {
           this.messageService.closeLoadingDialog();
           this.notification = state;
+
+          this.userReceiveId = this.notification.userReceiveId ?? "";
 
           this.editformGroup_info.controls["content"].setValue(state.content);
           this.editformGroup_info.controls["contentCode"].setValue(
@@ -187,10 +191,18 @@ export class NotificationDetailComponent implements OnInit, OnDestroy {
 
   formSubmit_edit_info(): void {
     this.isSubmitted = true;
+
+    if (this.userReceiveId.length <= 0){
+      this.messageService.openFailNotifyDialog("Vui lòng nhập đối tượng để gửi thông báo");
+      return;
+    }
+
+
     if (this.editformGroup_info.valid) {
+
       const payload: Notification = {
         id: this.data.id,
-        userCreateId: this.notification.userCreateId,
+        userCreateId: this.userReceiveId,
         content: this.editformGroup_info.value.content,
         contentCode: this.editformGroup_info.value.contentCode,
         isGenerate: false,
@@ -214,6 +226,7 @@ export class NotificationDetailComponent implements OnInit, OnDestroy {
 
   selectChangeReceiver($event: any) {
     console.log($event);
+    this.userReceiveId = $event.data[0];
   }
 
   getNotifyCodeInfo(str: string) {

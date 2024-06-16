@@ -300,6 +300,7 @@ import { StayingReceiptCreateEffects } from "../StayingScheduleReceipt/receipt_c
 import { StayingReceiptEffects } from "../StayingScheduleReceipt/receipt_detail/receipt-detail.store.effect";
 import { StayingReceiptListEffects } from "../StayingScheduleReceipt/receipt_list/receipt-list.store.effect";
 import { MatGoogleMapsAutocompleteModule } from "@angular-material-extensions/google-maps-autocomplete";
+import { InstructionChangeModalComponent } from "src/app/utility/change-instruction-modal/change-instruction-modal.component";
 
 @NgModule({
   declarations: [
@@ -377,6 +378,7 @@ import { MatGoogleMapsAutocompleteModule } from "@angular-material-extensions/go
     TourScheduleMultiselectAutocompleteComponent,
     InstructionMultiselectAutocompleteComponent,
 
+    InstructionChangeModalComponent,
     ScheduleChangeModalComponent,
     OptionsScrollDirective,
   ],

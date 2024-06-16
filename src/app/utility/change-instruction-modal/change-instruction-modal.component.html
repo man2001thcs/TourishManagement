@@ -1,0 +1,101 @@
+<div class="container" style="padding: 0px 0 20px; max-height: 650px;">
+  <div
+    style="
+      background-color: #2a3650;
+      padding: 15px 50px 0px;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    "
+  >
+    <h2 mat-form-label style="font-weight: heavy; color: white">
+      Chỉnh sửa danh sách lưu ý
+    </h2>
+
+    <button
+      mat-button
+      style="color: white; margin-bottom: 16px"
+      (click)="closeDialog()"
+    >
+      <i class="fa fa-times" aria-hidden="true"></i>
+    </button>
+  </div>
+
+  <div
+    class="outlet"
+    style="
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      flex-direction: column !important;
+    "
+  >
+    <div class="container-controller">
+      <div
+        class="row"
+        style="display: flex; flex-direction: row !important; flex-wrap: 1; margin-bottom: 20px;"
+      >
+        <div style="margin-right: 20px">
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="disabled = false"
+            *ngIf="disabled"
+          >
+            Sửa đổi
+          </button>
+        </div>
+        <div style="margin-right: 20px">
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="changeInstruction()"
+            *ngIf="!disabled"
+          >
+            Lưu thay đổi
+          </button>
+        </div>
+
+        <div style="margin-right: 20px">
+          <button
+            mat-raised-button
+            color="danger"
+            (click)="disabled = true"
+            *ngIf="!disabled"
+          >
+            Hủy
+          </button>
+        </div>
+
+        <div>
+          <button
+            mat-raised-button
+            color="warn"
+            type="button"
+            (click)="reset()"
+            *ngIf="!disabled"
+          >
+            Khôi phục ban đầu
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="row"
+      style="display: flex; flex-direction: column !important; flex-wrap: 1; margin-left: 0 !important;"
+    >
+      <instruction-multiselect-autocomplete
+        [disabled]="disabled"
+        [targetId]="this.targetId"
+        [targetType]="this.targetType"
+        [data_selected]="this.instructionList"
+        (result)="selectChangeInstruction($event)"
+        style="width: 100%"
+      >
+      </instruction-multiselect-autocomplete>
+    </div>
+  </div>
+</div>

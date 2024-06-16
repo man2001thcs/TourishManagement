@@ -7,6 +7,8 @@ import {
   Input,
   Output,
   EventEmitter,
+  OnChanges,
+  SimpleChanges,
 } from "@angular/core";
 import {
   FormBuilder,
@@ -35,7 +37,7 @@ import { faL } from "@fortawesome/free-solid-svg-icons";
   templateUrl: "multiselect-autocomplete.component.html",
   styleUrls: ["multiselect-autocomplete.component.css"],
 })
-export class InstructionMultiselectAutocompleteComponent implements OnInit {
+export class InstructionMultiselectAutocompleteComponent implements OnInit, OnChanges {
   separatorKeysCodes: number[] = [ENTER, COMMA];
   movingCtrl = new FormControl("");
   @ViewChild("picker") movingPicker: any;
@@ -90,9 +92,14 @@ export class InstructionMultiselectAutocompleteComponent implements OnInit {
     private messageService: MessageService,
     private fb: FormBuilder
   ) {}
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['data_selected']){
+      this. data_selected_edit = [...this.data_selected];
+    }
+  }
 
   ngOnInit(): void {
-    this.data_selected_edit = [...this.data_selected];
+    // this.data_selected_edit = [...this.data_selected];
 
     this.instructionFormGroup = this.fb.group({
       description: ["", Validators.compose([Validators.required])],

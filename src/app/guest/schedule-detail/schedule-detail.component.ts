@@ -383,15 +383,15 @@ export class ScheduleDetailComponent implements OnInit {
   }
 
   getCautionInstruction() {
-    if (this.schedule?.serviceScheduleList == undefined) return [];
-    return this.schedule?.serviceScheduleList?.filter(
+    if (this.schedule?.instructionList == undefined) return [];
+    return this.schedule?.instructionList?.filter(
       (entity: any) => entity.instructionType == 1
     );
   }
 
   getPriceInstruction() {
-    if (this.schedule?.serviceScheduleList == undefined) return [];
-    return this.schedule?.serviceScheduleList?.filter(
+    if (this.schedule?.instructionList == undefined) return [];
+    return this.schedule?.instructionList?.filter(
       (entity: any) => entity.instructionType == 0
     );
   }

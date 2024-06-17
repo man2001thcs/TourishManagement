@@ -20,9 +20,9 @@ export class NotificationCreateEffects {
       switchMap((action) => {
         return this.storeService.createNotification(action).pipe(
           map((response) => {
-            console.log("abcd", response);
+            
             if (response.resultCd === 0) {
-              console.log(response);
+              
               return NotificationAction.createNotificationSuccess({
                 response: response,
               });

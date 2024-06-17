@@ -60,9 +60,9 @@ export class UserEffects {
       switchMap((action) => {
         return this.storeService.editUser(action).pipe(
           map((response) => {
-            console.log("abcd", response);
+            
             if (response.resultCd === 0) {
-              console.log(response);
+              
               return UserAction.editUserSuccess({
                 response: response,
               });

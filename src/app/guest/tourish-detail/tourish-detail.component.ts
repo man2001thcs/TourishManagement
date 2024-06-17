@@ -13,7 +13,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
 import { EditorComponent } from "@tinymce/tinymce-angular";
-import { Subscription, scheduled } from "rxjs";
+import { Subscription, catchError, of, scheduled } from "rxjs";
 import { SaveFile, TourishPlan, User } from "src/app/model/baseModel";
 import { ConfirmDialogComponent } from "src/app/utility/confirm-dialog/confirm-dialog.component";
 import { MessageService } from "src/app/utility/user_service/message.service";
@@ -61,7 +61,6 @@ export class TourishDetailComponent implements OnInit, OnDestroy {
     private sanitizer: DomSanitizer,
     private rendered2: Renderer2,
     private messageService: MessageService,
-    private elementRef: ElementRef,
     public dialog: MatDialog,
     private router: Router,
     private tokenStorageService: TokenStorageService
@@ -100,7 +99,6 @@ export class TourishDetailComponent implements OnInit, OnDestroy {
 
     this.subscriptions.push(
       this._route.paramMap.subscribe((params) => {
-        console.log(params.get("id"));
         this.tourishPlanId = params.get("id") ?? "";
         this.getRatingForTour();
         this.getTourImage();
@@ -164,6 +162,14 @@ export class TourishDetailComponent implements OnInit, OnDestroy {
         .post("/api/User/SelfGetUser", null, {
           params: payload,
         })
+        .pipe(
+          catchError((error) => {
+            this.messageService.openFailNotifyDialog(
+              "Hệ thống đang gặp lỗi, vui lòng thử lại"
+            );
+            return of(null); // Return a null observable in case of error
+          })
+        )
         .subscribe((response: any) => {
           if (response) {
             this.user = response.data;
@@ -182,6 +188,14 @@ export class TourishDetailComponent implements OnInit, OnDestroy {
   getTour() {
     this.http
       .get("/api/GetTourishPlan/client/" + this.tourishPlanId)
+      .pipe(
+        catchError((error) => {
+          this.messageService.openFailNotifyDialog(
+            "Hệ thống đang gặp lỗi, vui lòng thử lại"
+          );
+          return of(null); // Return a null observable in case of error
+        })
+      )
       .subscribe((response: any) => {
         this.tourishPlan = response.data;
 
@@ -209,14 +223,20 @@ export class TourishDetailComponent implements OnInit, OnDestroy {
 
     this.http
       .get("/api/GetFile", { params: payload })
+      .pipe(
+        catchError((error) => {
+          this.messageService.openFailNotifyDialog(
+            "Hệ thống đang gặp lỗi, vui lòng thử lại"
+          );
+          return of(null); // Return a null observable in case of error
+        })
+      )
       .subscribe((response: any) => {
         this.tourImage = response.data;
 
         if (this.tourImage.length > 0) {
           this.pushImageToList();
         }
-
-        console.log(response);
       });
   }
 
@@ -275,6 +295,16 @@ export class TourishDetailComponent implements OnInit, OnDestroy {
     }
   }
 
+  getVehicleList(vehicleType: number) {
+    if (!this.tourishPlan || !this.tourishPlan.movingSchedules) {
+      return [];
+    }
+
+    return this.tourishPlan.movingSchedules.filter(
+      (entity) => entity.vehicleType === vehicleType
+    );
+  }
+
   register() {
     if (this.tokenStorageService.getUserRole() != "User") {
       this.messageService
@@ -294,6 +324,14 @@ export class TourishDetailComponent implements OnInit, OnDestroy {
       this.messageService.openLoadingDialog();
       this.http
         .post("/api/AddReceipt/client", payload)
+        .pipe(
+          catchError((error) => {
+            this.messageService.openFailNotifyDialog(
+              "Hệ thống đang gặp lỗi, vui lòng thử lại"
+            );
+            return of(null); // Return a null observable in case of error
+          })
+        )
         .subscribe((response: any) => {
           if (response) {
             this.messageService.closeAllDialog();
@@ -306,7 +344,6 @@ export class TourishDetailComponent implements OnInit, OnDestroy {
               });
 
               dialogRef.afterClosed().subscribe((result) => {
-                console.log(response.data);
                 if (result) {
                   if (response.curId !== null) this.callPayment(response.curId);
                 }
@@ -318,6 +355,13 @@ export class TourishDetailComponent implements OnInit, OnDestroy {
     }
   }
 
+  scrollToElement(elementId: string): void {
+    const element = document.getElementById(elementId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  }
+
   callPayment(orderId: string) {
     const payload = {
       orderCode: parseInt(orderId),
@@ -326,6 +370,14 @@ export class TourishDetailComponent implements OnInit, OnDestroy {
     this.messageService.openLoadingDialog();
     this.http
       .post("/api/CallPayment/tour/request", payload)
+      .pipe(
+        catchError((error) => {
+          this.messageService.openFailNotifyDialog(
+            "Hệ thống đang gặp lỗi, vui lòng thử lại"
+          );
+          return of(null); // Return a null observable in case of error
+        })
+      )
       .subscribe((response: any) => {
         if (response) {
           this.messageService.closeLoadingDialog();
@@ -347,9 +399,16 @@ export class TourishDetailComponent implements OnInit, OnDestroy {
 
     this.http
       .get("/api/GetTourRating/tourishplan", { params: payload })
+      .pipe(
+        catchError((error) => {
+          this.messageService.openFailNotifyDialog(
+            "Hệ thống đang gặp lỗi, vui lòng thử lại"
+          );
+          return of(null); // Return a null observable in case of error
+        })
+      )
       .subscribe((state: any) => {
         if (state) {
-          console.log("abc", state);
           this.ratingAverage = state.averagePoint;
         }
       });
@@ -414,5 +473,9 @@ export class TourishDetailComponent implements OnInit, OnDestroy {
   isScheduleAvailable() {
     if ((this.tourishPlan?.tourishScheduleList ?? []).length > 0) return true;
     else return false;
+  }
+
+  formatVNCurrency(num: number): string {
+    return num.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
   }
 }

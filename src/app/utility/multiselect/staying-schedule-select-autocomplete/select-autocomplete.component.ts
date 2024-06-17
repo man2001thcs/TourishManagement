@@ -75,8 +75,9 @@ export class StayingScheduleSelectAutocompleteComponent implements OnInit {
     private messageService: MessageService,
     private http: HttpClient
   ) {
-    this.filteredStayingSchedules =
-      this.stayingScheduleCtrl.valueChanges.pipe(debounceTime(400));
+    this.filteredStayingSchedules = this.stayingScheduleCtrl.valueChanges.pipe(
+      debounceTime(400)
+    );
 
     this.stayingScheduleListState = this.store
       .select(getStayingScheduleList)
@@ -167,10 +168,7 @@ export class StayingScheduleSelectAutocompleteComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    console.log("Destroy");
-    this.store.dispatch(
-      StayingScheduleListActions.resetStayingScheduleList()
-    );
+    this.store.dispatch(StayingScheduleListActions.resetStayingScheduleList());
 
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
@@ -187,14 +185,12 @@ export class StayingScheduleSelectAutocompleteComponent implements OnInit {
 
   getCurrentContact() {
     if (this.currentContactId.length > 0) {
-      console.log(this.currentContactId);
       this.http
         .get("/api/GetStayingSchedule/" + this.currentContactId)
         .subscribe((state: any) => {
           if (state) {
-            console.log("abc: ", state);
             this.stayingScheduleIdList.push(state.data.id ?? "");
-            this.stayingScheduleNameList.push(state.data.name?? "");
+            this.stayingScheduleNameList.push(state.data.name ?? "");
           }
         });
     }

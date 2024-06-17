@@ -49,10 +49,8 @@ export class SendBigChatComponent {
     this.timeString = this.getTime(this.sendTime);
 
     this.subscriptions.push(
-      interval(5000).subscribe(() => {  
-        console.log(this.sendTime);  
+      interval(5000).subscribe(() => {
         this.timeString = this.getTime(this.sendTime);
-        console.log(this.timeString);
       })
     );
   }
@@ -81,7 +79,7 @@ export class SendBigChatComponent {
 
   getTime(input: string) {
     if (input === "") return "Gần 1 phút trước";
-    const sendTime = new Date(input.replace('Z', ''));
+    const sendTime = new Date(input.replace("Z", ""));
 
     const now = new Date(); // Get current date and time
 

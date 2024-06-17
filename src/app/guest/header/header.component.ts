@@ -145,7 +145,7 @@ export class HeaderComponent implements OnInit {
         "2px solid #EDF1F7";
       this.myNameElem.nativeElement.style["border-right"] = "2px solid #EDF1F7";
     } else {
-      console.log("abc");
+      
       this.renderer.setStyle(this.myNameElem.nativeElement, "width", "100%");
 
       //this.myNameElem.nativeElement.style.width = "100%";
@@ -284,7 +284,7 @@ export class HeaderComponent implements OnInit {
       .get("/api/GetTourCategory/client", { params: params })
       .subscribe((response: any) => {
         this.categoryList = response.data;
-        console.log(response);
+        
         this.categoryLength = response.count;
       });
   }

@@ -129,7 +129,6 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.errorMessageState.subscribe((state) => {
         if (state) {
-          console.log(state);
           this.messageService.closeLoadingDialog();
           this.messageService.openMessageNotifyDialog(state.code);
         }
@@ -157,13 +156,13 @@ export class UserDetailComponent implements OnInit, OnDestroy {
 
     this.store.dispatch(UserActions.initial());
 
-    //console.log(this.this_book);
+    
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
   }
 
   ngOnDestroy(): void {
-    console.log("Destroy");
+    
     this.store.dispatch(UserActions.resetUser());
 
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
@@ -181,7 +180,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
   }
 
   formSubmit(): void {
-    console.log(this.editformGroup_info.value);
+    
   }
 
   formSubmit_edit_info(): void {

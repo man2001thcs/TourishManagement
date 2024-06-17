@@ -164,13 +164,13 @@ export class NotificationDetailComponent implements OnInit, OnDestroy {
     this.messageService.openLoadingDialog();
     this.store.dispatch(NotificationActions.initial());
 
-    //console.log(this.this_book);
+    
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
   }
 
   ngOnDestroy(): void {
-    console.log("Destroy");
+    
     this.store.dispatch(NotificationActions.resetNotification());
 
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
@@ -186,7 +186,7 @@ export class NotificationDetailComponent implements OnInit, OnDestroy {
   }
 
   formSubmit(): void {
-    console.log(this.editformGroup_info.value);
+    
   }
 
   formSubmit_edit_info(): void {
@@ -225,12 +225,16 @@ export class NotificationDetailComponent implements OnInit, OnDestroy {
   }
 
   selectChangeReceiver($event: any) {
-    console.log($event);
+    
     this.userReceiveId = $event.data[0];
   }
 
   getNotifyCodeInfo(str: string) {
     let strCapital = str.charAt(0).toUpperCase() + str.slice(1);
     return strCapital.replaceAll(":", "");
+  }
+
+  closeDialog() {
+    this.dialog.closeAll();
   }
 }

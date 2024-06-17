@@ -60,9 +60,9 @@ export class MovingScheduleEffects {
       switchMap((action) => {
         return this.storeService.editMovingSchedule(action).pipe(
           map((response) => {
-            console.log("abcd", response);
+            
             if (response.resultCd === 0) {
-              console.log(response);
+              
               return MovingScheduleAction.editMovingScheduleSuccess({
                 response: response,
               });

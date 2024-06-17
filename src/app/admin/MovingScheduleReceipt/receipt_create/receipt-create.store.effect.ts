@@ -20,9 +20,9 @@ export class MovingReceiptCreateEffects {
       switchMap((action) => {
         return this.storeService.createReceipt(action).pipe(
           map((response) => {
-            console.log("abcd", response);
+            
             if (response.resultCd === 0) {
-              console.log(response);
+              
               return ReceiptAction.createReceiptSuccess({
                 response: response,
               });

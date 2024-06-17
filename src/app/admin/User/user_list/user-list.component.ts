@@ -95,7 +95,7 @@ export class UserListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.subscriptions.push(
       this.userDeleteState.subscribe((state) => {
         if (state) {
-          console.log("abc: ", state);
+          
           this.messageService.openMessageNotifyDialog(state.messageCode);
 
           if (state.resultCd === 0) {
@@ -167,7 +167,7 @@ export class UserListComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
+      
 
       this.store.dispatch(
         UserListActions.getUserList({

@@ -196,7 +196,7 @@ export class StayingScheduleListComponent
     const dialogRef = this.dialog.open(StayingScheduleCreateComponent, {});
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
+      
 
       this.store.dispatch(
         StayingScheduleListActions.getStayingScheduleList({
@@ -307,7 +307,7 @@ export class StayingScheduleListComponent
     this.pageSize = e.pageSize;
     this.pageIndex = e.pageIndex;
 
-    console.log(this.pageIndex);
+    
 
     this.store.dispatch(
       StayingScheduleListActions.getStayingScheduleList({
@@ -452,5 +452,9 @@ export class StayingScheduleListComponent
       `Ngày ${day} tháng ${month} năm ${year}, ${hour} giờ ` + minuteString;
 
     return chuoiNgayThang;
+  }
+
+  formatVNCurrency(num: number): string {
+    return num.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
   }
 }

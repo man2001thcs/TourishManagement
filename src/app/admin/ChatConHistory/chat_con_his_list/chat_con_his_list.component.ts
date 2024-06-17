@@ -129,7 +129,7 @@ export class GuestMessageConHistoryListComponent
     this.signalRNotification();
     this.subscriptions.push(
       this.signalRService.ConnFeedObservable.subscribe((notify: any) => {
-        console.log(notify);
+        // console.log(notify);
       })
     );
   }

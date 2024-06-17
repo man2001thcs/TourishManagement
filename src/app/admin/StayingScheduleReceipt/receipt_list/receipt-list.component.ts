@@ -194,7 +194,7 @@ export class StayingScheduleReceiptListComponent implements OnInit, AfterViewIni
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
+      
 
       this.store.dispatch(
         ReceiptListActions.getReceiptList({
@@ -217,7 +217,7 @@ export class StayingScheduleReceiptListComponent implements OnInit, AfterViewIni
     const dialogRef = this.dialog.open(StayingScheduleReceiptCreateComponent, {});
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
+      
 
       this.store.dispatch(
         ReceiptListActions.getReceiptList({
@@ -270,7 +270,7 @@ export class StayingScheduleReceiptListComponent implements OnInit, AfterViewIni
   }
 
   addData(): void {
-    console.log("abc");
+    
   }
 
   tourStatusChange($event: number): void {
@@ -298,10 +298,10 @@ export class StayingScheduleReceiptListComponent implements OnInit, AfterViewIni
     schedule: StayingSchedule,
     fullReceipt: FullReceipt
   ): number {
-    let totalPrice = schedule.singlePrice ?? 0;
+    let totalPrice = 0;
 
     totalPrice =
-    (totalPrice) *
+    (fullReceipt.originalPrice) *
     (fullReceipt.totalTicket + fullReceipt.totalChildTicket / 2) *
     (1 - fullReceipt.discountFloat) - fullReceipt.discountAmount;
 
@@ -333,7 +333,7 @@ export class StayingScheduleReceiptListComponent implements OnInit, AfterViewIni
   }
 
   selectChangeReceipt($event: any) {
-    console.log($event);
+    
     this.scheduleId = $event.data.idList[0];
     this.store.dispatch(
       ReceiptListActions.getReceiptList({
@@ -413,5 +413,9 @@ export class StayingScheduleReceiptListComponent implements OnInit, AfterViewIni
       `Ngày ${day} tháng ${month} năm ${year}, ${hour} giờ ` + minuteString;
 
     return chuoiNgayThang;
+  }
+
+  formatVNCurrency(num: number): string {
+    return num.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
   }
 }

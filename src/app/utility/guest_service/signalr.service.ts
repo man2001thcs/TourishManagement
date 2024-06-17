@@ -88,7 +88,6 @@ export class GuestSignalRService {
   }
 
   public invokeFeed(listenMethod: string, userSendId: string, userReceiveId: string, data: any) {
-    console.log(this.hubConnection.baseUrl);
     (<HubConnection>this.hubConnection).invoke(listenMethod, userReceiveId, data);
   }
 
@@ -136,7 +135,6 @@ export class GuestSignalRService {
                 this.url,
                 ""
               );
-              console.log(urlExtend);
 
               this.hubConnection.stop();
               await this.startConnection(urlExtend);

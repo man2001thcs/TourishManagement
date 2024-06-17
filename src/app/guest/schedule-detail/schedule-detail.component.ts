@@ -15,7 +15,8 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { NgbCarouselConfig } from "@ng-bootstrap/ng-bootstrap";
 import { EditorComponent } from "@tinymce/tinymce-angular";
 import { Slider } from "angular-carousel-slider/lib/angular-carousel-slider.component";
-import { Subscription } from "rxjs";
+import { error } from "highcharts";
+import { Subscription, catchError, of } from "rxjs";
 import {
   MovingSchedule,
   SaveFile,
@@ -181,9 +182,9 @@ export class ScheduleDetailComponent implements OnInit {
   getSchedule() {
     var getScheduleUrl = "";
     if (this.scheduleType == "1") {
-      getScheduleUrl = "/api/GetMovingSchedule/";
+      getScheduleUrl = "/api/GetMovingSchedule/client/";
     } else if (this.scheduleType == "2") {
-      getScheduleUrl = "/api/GetStayingSchedule/";
+      getScheduleUrl = "/api/GetStayingSchedule/client/";
     }
 
     this.http
@@ -198,6 +199,16 @@ export class ScheduleDetailComponent implements OnInit {
             this.setTourForm.controls["serviceScheduleId"].setValue(
               this.schedule.serviceScheduleList[0].id
             );
+
+          if (this.schedule?.vehicleType !== undefined) {
+            if (this.schedule?.vehicleType === 0) {
+              this.isMovingContactPresent = true;
+            } else if (this.schedule?.vehicleType === 1) {
+              this.isPlanePresent = true;
+            } else if (this.schedule?.vehicleType === 2) {
+              this.isTrainPresent = true;
+            }
+          }
         }
       });
   }
@@ -210,14 +221,20 @@ export class ScheduleDetailComponent implements OnInit {
 
     this.http
       .get("/api/GetFile", { params: payload })
+      .pipe(
+        catchError((error) => {
+          this.messageService.openFailNotifyDialog(
+            "Hệ thống đang gặp lỗi, vui lòng thử lại"
+          );
+          return of(null); // Return a null observable in case of error
+        })
+      )
       .subscribe((response: any) => {
         this.tourImage = response.data;
 
         if (this.tourImage.length > 0) {
           this.pushImageToList();
         }
-
-        console.log(response);
       });
   }
 
@@ -284,11 +301,18 @@ export class ScheduleDetailComponent implements OnInit {
       this.messageService.openLoadingDialog();
       this.http
         .post("/api/AddReceipt/client", payload)
+        .pipe(
+          catchError((error) => {
+            this.messageService.openFailNotifyDialog(
+              "Hệ thống đang gặp lỗi, vui lòng thử lại"
+            );
+            return of(null); // Return a null observable in case of error
+          })
+        )
         .subscribe((response: any) => {
           if (response) {
             this.messageService.closeAllDialog();
             if (response.messageCode == "I511") {
-              
               const dialogRef = this.dialog.open(ConfirmDialogComponent, {
                 data: {
                   title: "Bạn có muốn thực hiện thanh toán ngay bây giờ không?",
@@ -296,7 +320,6 @@ export class ScheduleDetailComponent implements OnInit {
               });
 
               dialogRef.afterClosed().subscribe((result) => {
-                console.log(response.data);
                 if (result) {
                   if (response.curId !== null) this.callPayment(response.curId);
                 }
@@ -316,6 +339,14 @@ export class ScheduleDetailComponent implements OnInit {
     this.messageService.openLoadingDialog();
     this.http
       .post("/api/CallPayment/service/request", payload)
+      .pipe(
+        catchError((error) => {
+          this.messageService.openFailNotifyDialog(
+            "Hệ thống đang gặp lỗi, vui lòng thử lại"
+          );
+          return of(null); // Return a null observable in case of error
+        })
+      )
       .subscribe((response: any) => {
         if (response) {
           this.messageService.closeLoadingDialog();
@@ -399,5 +430,16 @@ export class ScheduleDetailComponent implements OnInit {
   isScheduleAvailable() {
     if ((this.schedule?.serviceScheduleList ?? []).length > 0) return true;
     else return false;
+  }
+
+  formatVNCurrency(num: number): string {
+    return num.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
+  }
+
+  scrollToElement(elementId: string): void {
+    const element = document.getElementById(elementId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
   }
 }

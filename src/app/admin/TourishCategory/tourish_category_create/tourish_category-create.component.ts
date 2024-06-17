@@ -94,7 +94,7 @@ export class TourishCategoryCreateComponent implements OnInit, OnDestroy {
 
     this.store.dispatch(TourishCategoryActions.initial());
 
-    //console.log(this.this_book);
+    
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     this.createformGroup_info = this.fb.group({
@@ -104,7 +104,7 @@ export class TourishCategoryCreateComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    console.log("Destroy");
+    
     this.store.dispatch(TourishCategoryActions.resetTourishCategory());
 
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());

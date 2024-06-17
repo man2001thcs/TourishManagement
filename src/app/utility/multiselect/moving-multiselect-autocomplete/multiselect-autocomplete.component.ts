@@ -129,7 +129,7 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
       branchName: ["", Validators.compose([Validators.required])],
       status: [0, Validators.compose([Validators.required])],
       singlePrice: [0, Validators.compose([Validators.required])],
-      vehicleType: [1, Validators.compose([Validators.required])],
+      vehicleType: [0, Validators.compose([Validators.required])],
       transportId: ["", Validators.compose([Validators.required])],
 
       startingPlace: ["", Validators.compose([Validators.required])],
@@ -145,7 +145,7 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
       branchName: ["", Validators.compose([Validators.required])],
       status: [0, Validators.compose([Validators.required])],
       singlePrice: [0, Validators.compose([Validators.required])],
-      vehicleType: [1, Validators.compose([Validators.required])],
+      vehicleType: [0, Validators.compose([Validators.required])],
       transportId: ["", Validators.compose([Validators.required])],
 
       startingPlace: ["", Validators.compose([Validators.required])],
@@ -233,7 +233,7 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    console.log("Destroy");
+    
     this.store.dispatch(MovingListActions.resetMovingList());
 
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
@@ -244,9 +244,15 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
       this.vehicleType = 0;
     } else if (parseInt($event.target.value) === 1) {
       this.vehicleType = 1;
+    } else if (parseInt($event.target.value) === 2) {
+      this.vehicleType = 2;
     }
 
     this.movingFormGroup.controls["vehicleType"].setValue(
+      parseInt($event.target.value)
+    );
+
+    this.editMovingFormGroup.controls["vehicleType"].setValue(
       parseInt($event.target.value)
     );
 
@@ -305,8 +311,6 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
   selected(event: MatAutocompleteSelectedEvent): void {
     this.movingNameList.push(event.option.value.branchName);
 
-    console.log(event);
-
     this.movingFormGroup.controls["transportId"].setValue(
       event.option.value.id
     );
@@ -323,8 +327,6 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
 
   addToSchedule(): void {
     this.isSubmit = true;
-
-    console.log(this.movingFormGroup.valid);
 
     this.movingFormGroup.controls["description"].setValue(this.editorContent);
 
@@ -433,16 +435,14 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
     var index = this.movingScheduleList.findIndex((entity) => entity.id === id);
 
     if (index > -1) {
-      console.log(this.movingScheduleList[index]);
       this.movingScheduleList.splice(index, 1);
     }
 
     var existIndex = this.data_selected_edit.findIndex(
       (entity) => entity.id === id
     );
-    console.log(existIndex);
+
     if (existIndex > -1) {
-      console.log(this.data_selected_edit[existIndex]);
       this.data_selected_edit.splice(existIndex, 1);
     }
 

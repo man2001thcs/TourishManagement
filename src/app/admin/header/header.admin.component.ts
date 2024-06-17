@@ -78,7 +78,6 @@ export class HeaderAdminComponent implements OnDestroy {
 
   ngOnInit(): void {
     this.id = Number(localStorage.getItem("id")) ?? 0;
-    console.log(localStorage.getItem("id"));
     this.showNotification();
     this.activeItem = getAdminHeaderPhase(this.router.url);
 
@@ -131,7 +130,6 @@ export class HeaderAdminComponent implements OnDestroy {
   outsideNotificationClick(hasClickedOutside: any) {
     if (hasClickedOutside && this.isNotifyOpen) {
       this.countNotifyClick++;
-      console.log(this.countNotifyClick);
       if (this.countNotifyClick >= 2) this.closeNotificationNav();
     }
   }
@@ -158,7 +156,7 @@ export class HeaderAdminComponent implements OnDestroy {
         "2px solid #EDF1F7";
       this.myNameElem.nativeElement.style["border-right"] = "2px solid #EDF1F7";
     } else {
-      console.log("abc");
+      
       this.renderer.setStyle(this.myNameElem.nativeElement, "width", "100%");
       //this.myNameElem.nativeElement.style.width = "100%";
       this.myNameElem.nativeElement.style["margin-top"] = "0px";

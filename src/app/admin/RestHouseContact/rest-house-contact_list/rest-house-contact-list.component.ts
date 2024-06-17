@@ -176,7 +176,7 @@ export class RestHouseContactListComponent
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
+      
 
       this.store.dispatch(
         RestHouseContactListActions.getRestHouseContactList({
@@ -198,7 +198,7 @@ export class RestHouseContactListComponent
     const dialogRef = this.dialog.open(RestHouseContactCreateComponent, {});
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
+      
 
       this.store.dispatch(
         RestHouseContactListActions.getRestHouseContactList({
@@ -235,7 +235,7 @@ export class RestHouseContactListComponent
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
+      
 
       this.store.dispatch(
         RestHouseContactListActions.getRestHouseContactList({
@@ -302,7 +302,7 @@ export class RestHouseContactListComponent
     this.pageSize = e.pageSize;
     this.pageIndex = e.pageIndex;
 
-    console.log(this.pageIndex);
+    
 
     this.messageService.openLoadingDialog();
     this.store.dispatch(

@@ -106,7 +106,6 @@ export class ScheduleSearchComponent implements OnInit {
 
   priceRangeChange($event: any) {
     if ($event) {
-      console.log($event.options[0].value);
       this.priceFrom = $event.options[0].value.startPrice;
       this.priceTo = $event.options[0].value.endPrice;
     }
@@ -114,7 +113,6 @@ export class ScheduleSearchComponent implements OnInit {
 
   serviceChange($event: any) {
     if ($event) {
-      console.log($event.source._value);
       if ($event.source._value.length == 0) this.scheduleType = 0;
       else {
         this.scheduleType = parseInt($event.options[0].value);

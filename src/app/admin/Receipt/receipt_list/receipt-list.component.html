@@ -67,37 +67,9 @@
 
       <!-- SS Column -->
       <ng-container matColumnDef="singlePrice">
-        <th mat-header-cell *matHeaderCellDef>Giá đơn vé</th>
+        <th mat-header-cell *matHeaderCellDef>Giá đơn vé hiện tại</th>
         <td mat-cell *matCellDef="let element">
-          {{ getTotalPrice(element.tourishPlan) }}
-        </td>
-      </ng-container>
-
-      <!-- SS Column -->
-      <ng-container matColumnDef="totalTicketAll">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          sortActionDescription="Sort by totalTicketAll"
-        >
-          Tổng số vé
-        </th>
-        <td mat-cell *matCellDef="let element">
-          {{ element.tourishPlan.totalTicket }}
-        </td>
-      </ng-container>
-
-      <!-- SS Column -->
-      <ng-container matColumnDef="remainTicket">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          sortActionDescription="Sort by remainTicket"
-        >
-          Số vé còn lại
-        </th>
-        <td mat-cell *matCellDef="let element">
-          {{ element.tourishPlan.remainTicket }}
+          {{ formatVNCurrency(getTotalPrice(element.tourishPlan)) }}
         </td>
       </ng-container>
 
@@ -231,7 +203,7 @@
                 style="width: 100px !important; min-width: 100px !important"
               >
                 <div>
-                  {{ getTotalPriceReceipt(element.tourishPlan, fullReceipt) }} đ
+                  {{ formatVNCurrency(getTotalPriceReceipt(element.tourishPlan, fullReceipt)) }}
                 </div>
               </div>
 

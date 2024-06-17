@@ -13,7 +13,7 @@ export class NotificationStoreService {
   }
 
   editNotification(payload: any): Observable<any> {
-    console.log('ok');
+    
     return this.http.put('/api/UpdateNotification/' + payload.id, payload);
   }
 }

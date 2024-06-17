@@ -60,9 +60,9 @@ export class TourishPlanDetailEffects {
       switchMap((action) => {
         return this.storeService.editTourishPlan(action).pipe(
           map((response) => {
-            console.log("abcd", response);
+            
             if (response.resultCd === 0) {
-              console.log(response);
+              
               return TourishPlanAction.editTourishPlanSuccess({
                 response: response,
               });
@@ -94,6 +94,10 @@ export class TourishPlanDetailEffects {
     () => this.action.pipe(ofType(TourishPlanAction.editTourishPlanSystemFailed)),
     { dispatch: false }
   );
+
+  formatVNCurrency(num: number): string {
+    return num.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
+  }
 
   //editTourishPlanSuccess
 }

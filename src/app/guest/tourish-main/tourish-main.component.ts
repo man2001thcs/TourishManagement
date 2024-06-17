@@ -3,7 +3,9 @@ import { Component, Input, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ThemePalette } from "@angular/material/core";
 import { Router } from "@angular/router";
+import { catchError, of } from "rxjs";
 import { TourishCategory } from "src/app/model/baseModel";
+import { MessageService } from "src/app/utility/user_service/message.service";
 import { TokenStorageService } from "src/app/utility/user_service/token.service";
 
 @Component({
@@ -33,7 +35,8 @@ export class TourishMainComponent implements OnInit {
     private fb: FormBuilder,
     private http: HttpClient,
     private router: Router,
-    private tokenStorageService: TokenStorageService
+    private tokenStorageService: TokenStorageService,
+    private messageService: MessageService
   ) {}
 
   ngOnInit() {
@@ -53,10 +56,17 @@ export class TourishMainComponent implements OnInit {
     };
 
     this.http
-      .get("/api/GetTourCategory/client", { params: params })
+      .get("/api/GetTourCategory/client", { params: params }).pipe(
+        catchError((error) => {
+          this.messageService.openFailNotifyDialog(
+            "Hệ thống đang gặp lỗi, vui lòng thử lại"
+          );
+          return of(null); // Return a null observable in case of error
+        })
+      )
       .subscribe((response: any) => {
         this.categoryList = response.data;
-        console.log(response);
+        
         this.length = response.count;
       });
   }

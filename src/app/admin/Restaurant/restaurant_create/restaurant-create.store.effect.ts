@@ -20,9 +20,9 @@ export class RestaurantCreateEffects {
       switchMap((action) => {
         return this.storeService.createRestaurant(action).pipe(
           map((response) => {
-            console.log("abcd", response);
+            
             if (response.resultCd === 0) {
-              console.log(response);
+              
               return RestaurantAction.createRestaurantSuccess({
                 response: response,
               });

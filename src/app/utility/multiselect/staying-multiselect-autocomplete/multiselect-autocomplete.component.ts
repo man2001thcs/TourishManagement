@@ -233,14 +233,13 @@ export class StayingMultiselectAutocompleteComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    console.log("Destroy");
+    
     this.store.dispatch(StayingListActions.resetStayingList());
 
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
   changeType($event: any) {
-    console.log($event.target.value);
 
     if (parseInt($event.target.value) === 1) {
       this.restHouseType = 1;
@@ -420,16 +419,14 @@ export class StayingMultiselectAutocompleteComponent implements OnInit {
     );
 
     if (index > -1) {
-      console.log(this.stayingScheduleList[index]);
       this.stayingScheduleList.splice(index, 1);
     }
 
     var existIndex = this.data_selected_edit.findIndex(
       (entity) => entity.id === id
     );
-    console.log(existIndex);
+
     if (existIndex > -1) {
-      console.log(this.data_selected_edit[existIndex]);
       this.data_selected_edit.splice(existIndex, 1);
     }
 

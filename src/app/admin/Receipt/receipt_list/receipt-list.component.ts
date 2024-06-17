@@ -71,8 +71,6 @@ export class ReceiptListComponent implements OnInit, AfterViewInit, OnDestroy {
     "id",
     "tourName",
     "singlePrice",
-    "totalTicketAll",
-    "remainTicket",
     //"tourishPlanId",
   ];
 
@@ -117,7 +115,7 @@ export class ReceiptListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.subscriptions.push(
       this.receiptDeleteState.subscribe((state) => {
         if (state) {
-          console.log("abc: ", state);
+          
           this.messageService.openMessageNotifyDialog(state.messageCode);
           this.messageService.closeLoadingDialog();
 
@@ -192,7 +190,7 @@ export class ReceiptListComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
+      
 
       this.store.dispatch(
         ReceiptListActions.getReceiptList({
@@ -214,7 +212,7 @@ export class ReceiptListComponent implements OnInit, AfterViewInit, OnDestroy {
     const dialogRef = this.dialog.open(ReceiptCreateComponent, {});
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
+      
 
       this.store.dispatch(
         ReceiptListActions.getReceiptList({
@@ -266,7 +264,7 @@ export class ReceiptListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   addData(): void {
-    console.log("abc");
+    
   }
 
   tourStatusChange($event: number): void {
@@ -295,20 +293,8 @@ export class ReceiptListComponent implements OnInit, AfterViewInit, OnDestroy {
   ): number {
     let totalPrice = 0;
 
-    tourishPlan.stayingSchedules?.forEach((entity) => {
-      totalPrice += entity.singlePrice ?? 0;
-    });
-
-    tourishPlan.eatSchedules?.forEach((entity) => {
-      totalPrice += entity.singlePrice ?? 0;
-    });
-
-    tourishPlan.movingSchedules?.forEach((entity) => {
-      totalPrice += entity.singlePrice ?? 0;
-    });
-
     totalPrice =
-    (totalPrice) *
+    (fullReceipt.originalPrice) *
     (fullReceipt.totalTicket + fullReceipt.totalChildTicket / 2) *
     (1 - fullReceipt.discountFloat) - fullReceipt.discountAmount;
 
@@ -353,7 +339,7 @@ export class ReceiptListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   selectChangeReceipt($event: any) {
-    console.log($event);
+    
     this.pageIndex = 0;
     this.tourishPlanId = $event.data[0];
     this.store.dispatch(
@@ -432,5 +418,9 @@ export class ReceiptListComponent implements OnInit, AfterViewInit, OnDestroy {
       `Ngày ${day} tháng ${month} năm ${year}, ${hour} giờ ` + minuteString;
 
     return chuoiNgayThang;
+  }
+
+  formatVNCurrency(num: number): string {
+    return num.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
   }
 }

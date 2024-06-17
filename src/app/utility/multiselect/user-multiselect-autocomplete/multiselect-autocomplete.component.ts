@@ -164,7 +164,7 @@ userType = 1;
   }
 
   ngOnDestroy(): void {
-    console.log("Destroy");
+    
     this.store.dispatch(UserListActions.resetUserList());
 
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());

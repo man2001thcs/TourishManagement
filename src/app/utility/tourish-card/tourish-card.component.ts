@@ -58,7 +58,7 @@ export class TourishPlanCardComponent implements OnInit {
       .get("/api/GetTourRating/tourishplan", { params: payload })
       .subscribe((state: any) => {
         if (state) {
-          console.log("abc", state);
+          
           this.score = state.averagePoint;
           this.judgeNumber = state.count;
         }
@@ -91,7 +91,7 @@ export class TourishPlanCardComponent implements OnInit {
           this.pushImageToList(this.tourImage[0]);
         }
 
-        console.log(response);
+        
       });
   }
 

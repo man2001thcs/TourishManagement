@@ -19,7 +19,11 @@ import {
 } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 
-import { TourishCategoryRelation, TourishPlan, TourishSchedule } from "src/app/model/baseModel";
+import {
+  TourishCategoryRelation,
+  TourishPlan,
+  TourishSchedule,
+} from "src/app/model/baseModel";
 
 import { AdminService } from "../../service/admin.service";
 import { CheckDeactivate } from "../../interface/admin.check_edit";
@@ -130,7 +134,11 @@ export class TourishPlanCreateAdminComponent
       this.tourishPlanState.subscribe((state) => {
         if (state) {
           this.messageService.closeLoadingDialog();
-          this.messageService.openMessageNotifyDialog(state.messageCode)?.subscribe(() => this.router.navigate(['admin/tourish-plan/list']));
+          this.messageService
+            .openMessageNotifyDialog(state.messageCode)
+            ?.subscribe(() =>
+              this.router.navigate(["admin/tourish-plan/list"])
+            );
         }
       })
     );
@@ -230,7 +238,6 @@ export class TourishPlanCreateAdminComponent
 
           // Wait for the promise to resolve
           fileSelectedPromise.then((file) => {
-            console.log("No file selected");
             if (file) {
               // Handle the selected file, for example, log its details
               const reader = new FileReader();
@@ -250,7 +257,6 @@ export class TourishPlanCreateAdminComponent
 
               // You can perform additional logic or trigger further actions with the file here
             } else {
-              console.log("No file selected");
             }
           });
         }
@@ -262,7 +268,6 @@ export class TourishPlanCreateAdminComponent
   }
 
   ngOnDestroy(): void {
-    console.log("Destroy");
     this.store.dispatch(TourishPlanActions.resetTourishPlan());
 
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
@@ -302,7 +307,7 @@ export class TourishPlanCreateAdminComponent
       this.messageService.openLoadingDialog();
     }
 
-    console.log(this.createformGroup.value);
+    
   }
 
   formReset_create_info(): void {
@@ -356,11 +361,10 @@ export class TourishPlanCreateAdminComponent
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    console.log("abc");
     return !this.createformGroup.dirty || this.openDialog();
   }
 
-  selectChangeCategory = (event: any) => { 
+  selectChangeCategory = (event: any) => {
     if (event.data == null) {
       this.tourishCategoryRelations = [];
       return;
@@ -370,7 +374,6 @@ export class TourishPlanCreateAdminComponent
   };
 
   selectChangeStaying = (event: any) => {
-    console.log(event.data);
     this.stayingScheduleString = JSON.stringify(event.data);
     this.createformGroup.controls["stayingScheduleString"].setValue(
       this.stayingScheduleString
@@ -378,7 +381,6 @@ export class TourishPlanCreateAdminComponent
   };
 
   selectChangeEating = (event: any) => {
-    console.log(event.data);
     this.eatingScheduleString = JSON.stringify(event.data);
     this.createformGroup.controls["eatingScheduleString"].setValue(
       this.eatingScheduleString
@@ -386,7 +388,6 @@ export class TourishPlanCreateAdminComponent
   };
 
   selectChangeMoving = (event: any) => {
-    console.log(event.data);
     this.movingScheduleString = JSON.stringify(event.data);
     this.createformGroup.controls["movingScheduleString"].setValue(
       this.movingScheduleString
@@ -394,7 +395,6 @@ export class TourishPlanCreateAdminComponent
   };
 
   selectChangeSchedule = (event: any) => {
-    console.log(event.data);
     this.scheduleList = event.data;
   };
 
@@ -407,11 +407,11 @@ export class TourishPlanCreateAdminComponent
     this.editorContent = $event.data;
   }
 
-  onAutocompleteSelected($event: any){
-    console.log($event);
+  formatVNCurrency(num: number): string {
+    return num.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
   }
 
-  onLocationSelected($event: any){
-    console.log($event);
-  }
+  onAutocompleteSelected($event: any) {}
+
+  onLocationSelected($event: any) {}
 }

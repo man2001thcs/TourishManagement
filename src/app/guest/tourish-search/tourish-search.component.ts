@@ -3,8 +3,9 @@ import { Component, Input, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ThemePalette } from "@angular/material/core";
 import { ActivatedRoute } from "@angular/router";
-import { Subscription } from "rxjs";
+import { Subscription, catchError, of } from "rxjs";
 import { PriceRange, TourishCategory } from "src/app/model/baseModel";
+import { MessageService } from "src/app/utility/user_service/message.service";
 
 @Component({
   selector: "app-tourish-search",
@@ -51,7 +52,8 @@ export class TourishSearchComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private messageService: MessageService
   ) {}
 
   ngOnInit() {
@@ -118,17 +120,23 @@ export class TourishSearchComponent implements OnInit {
     };
 
     this.http
-      .get("/api/GetTourCategory", { params: params })
+      .get("/api/GetTourCategory", { params: params }).pipe(
+        catchError((error) => {
+          this.messageService.openFailNotifyDialog(
+            "Hệ thống đang gặp lỗi, vui lòng thử lại"
+          );
+          return of(null); // Return a null observable in case of error
+        })
+      )
       .subscribe((response: any) => {
         this.categoryList = response.data;
-        console.log(response);
+        
         this.length = response.count;
       });
   }
 
   priceRangeChange($event: any) {
     if ($event) {
-      console.log($event.options[0].value);
       this.priceFrom = $event.options[0].value.startPrice;
       this.priceTo = $event.options[0].value.endPrice;
     }
@@ -136,7 +144,6 @@ export class TourishSearchComponent implements OnInit {
 
   categoryChange($event: any) {
     if ($event) {
-      console.log($event.source._value);
       if ($event.source._value.length == 0) this.categoryString = "";
       else {
         this.categoryString = JSON.stringify($event.source._value);

@@ -76,7 +76,6 @@ export class ChatComponent {
 
     this.subscriptions.push(
       this.signalRService.ConnFeedObservable.subscribe((notify: any) => {
-        console.log(notify);
         if (notify.adminId !== undefined) {
           this.isWaitingForSet = false;
           this.adminId = notify.adminId;
@@ -90,7 +89,7 @@ export class ChatComponent {
     this.subscriptions.push(
       this.signalRService.ClientFeedObservable.subscribe((res: any) => {
         if (res) {
-          console.log(res);
+          
           if (res.data3 !== null && res.data3 !== undefined) {
             var insertMess = res.data3;
 
@@ -101,7 +100,6 @@ export class ChatComponent {
               side: 1,
               createDate: res.data3.createDate,
             };
-            console.log(guestMessage);
 
             if (
               parseInt(insertMess.state) === 1 ||

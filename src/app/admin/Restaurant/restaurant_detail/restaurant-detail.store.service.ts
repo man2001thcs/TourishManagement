@@ -13,7 +13,7 @@ export class RestaurantStoreService {
   }
 
   editRestaurant(payload: any): Observable<any> {
-    console.log('ok');
+    
     return this.http.put('/api/UpdateRestaurant/' + payload.id, payload);
   }
 }

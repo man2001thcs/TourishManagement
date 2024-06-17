@@ -65,7 +65,7 @@ export const matchPasswordValidator: ValidatorFn = (
       match = true;
     }
   }
-  console.log("abc");
+  
 
   if (match) return { matchPassword: true };
   return null;
@@ -204,7 +204,7 @@ export class ReclaimUserComponent implements OnInit, OnDestroy {
           this.messageService.openMessageNotifyDialog(state.messageCode);
           const messageCode: string = state?.messageCode;
           if (messageCode.charAt(0) === "I") {
-            console.log("abc");
+            
             this.myStepper2.next();
           }
         }
@@ -234,7 +234,7 @@ export class ReclaimUserComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    console.log("Destroy");
+    
     this.store.dispatch(UserActions.resetUser());
 
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
@@ -293,7 +293,7 @@ export class ReclaimUserComponent implements OnInit, OnDestroy {
   }
 
   // selectChange_author = (event: any) => {
-  //   console.log(event.data);
+  //   
   //   this.author_submit = [...event.data];
   //   //console.log(this.author_submit);
   //   this.authorSubmitString = this.author_submit.join(";");

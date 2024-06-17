@@ -165,13 +165,13 @@ export class StayingScheduleDetailComponent implements OnInit, OnDestroy {
 
     this.store.dispatch(StayingScheduleActions.initial());
 
-    //console.log(this.this_book);
+    
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
   }
 
   ngOnDestroy(): void {
-    console.log("Destroy");
+    
     this.store.dispatch(StayingScheduleActions.resetStayingSchedule());
 
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
@@ -192,7 +192,7 @@ export class StayingScheduleDetailComponent implements OnInit, OnDestroy {
   }
 
   formSubmit(): void {
-    console.log(this.editformGroup_info.value);
+    
   }
 
   formSubmit_edit_info(): void {
@@ -200,7 +200,7 @@ export class StayingScheduleDetailComponent implements OnInit, OnDestroy {
     this.editformGroup_info.controls["description"].setValue(
       this.editorContent
     );
-    console.log(this.editformGroup_info.value);
+    
 
     if (!this.editformGroup_info.invalid) {
       const payload: StayingSchedule = {

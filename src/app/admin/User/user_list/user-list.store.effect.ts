@@ -20,9 +20,9 @@ export class UserListEffects {
       switchMap((action) => {
         return this.storeService.getUserList(action).pipe(
           map((response) => {
-            console.log(response);
+            
             if (response.resultCd === 0) {
-              console.log(response);
+              
               return UserListAction.getUserListSuccess({
                 response: response,
               });
@@ -65,9 +65,9 @@ export class UserListEffects {
       switchMap((action) => {
         return this.storeService.deleteUser(action).pipe(
           map((response) => {
-            console.log(response);
+            
             if (response.resultCd === 0) {
-              console.log(response);
+              
               return UserListAction.deleteUserSuccess({
                 response: response,
               });

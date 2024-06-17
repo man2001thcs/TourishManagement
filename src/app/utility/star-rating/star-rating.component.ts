@@ -143,7 +143,7 @@ export class StarRatingComponent implements OnInit, OnDestroy {
       .get("/api/GetTourRating/tourishplan", { params: payload })
       .subscribe((state: any) => {
         if (state) {
-          console.log("abc", state);
+          
           this.ratingList = state.data ?? [];
           this.ratingNumber = state.count;
         }

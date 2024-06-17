@@ -20,9 +20,9 @@ export class ImageListEffects {
       switchMap((action) => {
         return this.storeService.getImageList(action).pipe(
           map((response) => {
-            console.log(response);
+            
             if (response.resultCd === 0) {
-              console.log(response);
+              
               return ImageListAction.getImageListSuccess({
                 response: response,
               });
@@ -65,9 +65,9 @@ export class ImageListEffects {
       switchMap((action) => {
         return this.storeService.deleteImage(action).pipe(
           map((response) => {
-            console.log(response);
+            
             if (response.resultCd === 0) {
-              console.log(response);
+              
               return ImageListAction.deleteImageSuccess({
                 response: response,
               });

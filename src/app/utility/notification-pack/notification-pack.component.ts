@@ -15,9 +15,10 @@ import { Notification } from "src/app/model/baseModel";
 import { TokenStorageService } from "../user_service/token.service";
 import { getViNotifyMessagePhase } from "../config/notificationCode";
 import { SignalRService } from "../user_service/signalr.service";
-import { Subscription } from "rxjs";
+import { Subscription, catchError, of } from "rxjs";
 import { environment } from "src/environments/environment";
 import { messaging } from "src/conf/firebase.conf";
+import { MessageService } from "../user_service/message.service";
 
 @Component({
   selector: "app-notification-pack",
@@ -59,6 +60,7 @@ export class NotificationPackComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private tokenStorage: TokenStorageService,
     private http: HttpClient,
+    private messageService: MessageService,
     private signalRService: SignalRService
   ) {}
   ngOnDestroy(): void {
@@ -163,10 +165,17 @@ export class NotificationPackComponent implements OnInit, OnDestroy {
 
     this.http
       .get("/api/GetNotification/receiver", { params: params })
+      .pipe(
+        catchError((error) => {
+          this.messageService.openFailNotifyDialog(
+            "Hệ thống đang gặp lỗi, vui lòng thử lại"
+          );
+          return of(null); // Return a null observable in case of error
+        })
+      )
       .subscribe((response: any) => {
         if (response) {
           this.notificationList = response.data;
-          console.log("notify: ", response);
           this.length = response.count;
           this.firstLoading = false;
 
@@ -263,7 +272,6 @@ export class NotificationPackComponent implements OnInit, OnDestroy {
       .getToken({ vapidKey: environment.firebaseConfig.vapidKey })
       .then((currentToken) => {
         if (currentToken) {
-          console.log("abc", currentToken);
 
           const userId = this.tokenStorage.getUser().Id;
           const payload = {
@@ -274,7 +282,7 @@ export class NotificationPackComponent implements OnInit, OnDestroy {
           this.http
             .post("/api/SaveNotifyFcmToken", payload)
             .subscribe((response: any) => {
-              console.log(response);
+              
             });
         } else {
           console.log(

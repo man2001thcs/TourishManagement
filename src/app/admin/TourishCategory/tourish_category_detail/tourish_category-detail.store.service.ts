@@ -13,7 +13,7 @@ export class TourishCategoryDetailStoreService {
   }
 
   editTourishCategory(payload: any): Observable<any> {
-    console.log('ok');
+    
     return this.http.put('/api/UpdateTourCategory/' + payload.id, payload);
   }
 }

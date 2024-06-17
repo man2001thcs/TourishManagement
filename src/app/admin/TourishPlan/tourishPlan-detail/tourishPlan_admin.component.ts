@@ -155,8 +155,6 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
           this.tourishCategoryRelations = state.tourishCategoryRelations ?? [];
 
           this.messageService.closeLoadingDialog();
-
-          console.log(this.tourishPlan);
         }
       })
     );
@@ -214,7 +212,6 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
 
     this.store.dispatch(TourishPlanActions.initial());
 
-    //console.log(this.this_tourishPlan);
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
   }
@@ -224,7 +221,7 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    console.log("Destroy");
+    
     this.store.dispatch(TourishPlanActions.resetTourishPlan());
 
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
@@ -349,7 +346,6 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
   }
 
   uploadFinished(event: any) {
-    console.log(event);
   }
 
   checkDeactivate(
@@ -366,35 +362,34 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
 
   selectChangeCategory = (event: any) => {
     this.tourishCategoryRelations = event.data;
-    console.log(this.tourishCategoryRelations);
   };
 
   selectChangeSchedule = (event: any) => {
-    console.log(event.data);
+    
     this.scheduleList = event.data;
   };
 
   selectChangeInstruction = (event: any) => {
-    console.log(event.data);
+    
     this.instructionList = event.data;
   };
 
   selectChangeStaying = (event: any) => {
-    console.log(event.data);
+    
     this.editformGroup_info.controls["stayingScheduleString"].setValue(
       JSON.stringify(event.data)
     );
   };
 
   selectChangeEating = (event: any) => {
-    console.log(event.data);
+    
     this.editformGroup_info.controls["eatingScheduleString"].setValue(
       JSON.stringify(event.data)
     );
   };
 
   selectChangeMoving = (event: any) => {
-    console.log(event.data);
+    
     this.editformGroup_info.controls["movingScheduleString"].setValue(
       JSON.stringify(event.data)
     );
@@ -402,5 +397,9 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
 
   getTinyMceResult($event: any) {
     this.editorContent = $event.data;
+  }
+
+  formatVNCurrency(num: number): string {
+    return num.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
   }
 }

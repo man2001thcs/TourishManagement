@@ -13,6 +13,12 @@
   border-bottom-right-radius: 10px;
 }
 
+:host ::ng-deep .tour-description-content .tox-tinymce {
+  border-radius: 0 !important;
+  border: none !important;
+}
+
+
 :host ::ng-deep .tour-description .tox-tinymce {
   border-radius: 0 !important;
   border: none !important;
@@ -36,6 +42,13 @@
 }
 
 .tour-description {
+  margin-top: 20px;
+  background-color: white;
+  padding: 15px 30px 15px;
+  font-size: 16px;
+}
+
+.tour-description-content {
   margin-top: 20px;
   background-color: white;
   padding: 15px 10px 15px;
@@ -95,6 +108,24 @@ ul li button {
   font-weight: bold;
   margin-bottom: 0;
   padding-bottom: 0;
+}
+
+.service-item {
+  display: flex;
+  width: 205px;
+  flex-direction: column;
+  padding-left: 0px;
+  padding-right: 20px;
+}
+
+.service-item i {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+
+.service-item span {
+  text-wrap:wrap;
 }
 
 ::ng-deep .mat-mdc-tab-body-wrapper {

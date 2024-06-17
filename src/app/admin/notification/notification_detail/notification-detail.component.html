@@ -13,6 +13,14 @@
     <h2 mat-form-label style="font-weight: heavy; color: white">
       Chỉnh sửa thông báo
     </h2>
+
+    <button
+      mat-button
+      style="color: white; margin-bottom: 16px"
+      (click)="closeDialog()"
+    >
+      <i class="fa fa-times" aria-hidden="true"></i>
+    </button>
   </div>
   <div
     class="outlet"
@@ -170,7 +178,10 @@
             </div>
           </div>
 
-          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form" style="margin-left: 30px !important; max-width: 44% !important;">
+          <div
+            class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form"
+            style="margin-left: 30px !important; max-width: 44% !important"
+          >
             <user-multiselect-autocomplete
               [data_selected]="this.notification.userReceiver"
               (result)="selectChangeReceiver($event)"

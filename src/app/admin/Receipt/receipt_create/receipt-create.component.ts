@@ -113,7 +113,6 @@ export class ReceiptCreateComponent implements OnInit, OnDestroy {
 
     this.store.dispatch(receiptActions.initial());
 
-    //console.log(this.this_book);
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     this.createformGroup_info = this.fb.group({
@@ -121,10 +120,7 @@ export class ReceiptCreateComponent implements OnInit, OnDestroy {
       tourishScheduleId: ["", Validators.compose([Validators.required])],
       status: [0, Validators.compose([Validators.required])],
       guestName: ["", Validators.compose([Validators.required])],
-      phoneNumber: [
-        "",
-        Validators.compose([Validators.required]),
-      ],
+      phoneNumber: ["", Validators.compose([Validators.required])],
       email: ["", Validators.compose([Validators.required])],
       totalTicket: [0, Validators.compose([Validators.required])],
       totalChildTicket: [0, Validators.compose([Validators.required])],
@@ -136,7 +132,6 @@ export class ReceiptCreateComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    console.log("Destroy");
     this.store.dispatch(receiptActions.resetReceipt());
 
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
@@ -189,7 +184,6 @@ export class ReceiptCreateComponent implements OnInit, OnDestroy {
   }
 
   selectChangeReceipt($event: any): any {
-    console.log($event);
     if ($event.data?.length > 0) {
       this.createformGroup_info.controls["tourishPlanId"].setValue(
         $event.data[0]
@@ -198,7 +192,6 @@ export class ReceiptCreateComponent implements OnInit, OnDestroy {
       if ($event.data[0] == "") {
         this.tourSchedule = [];
       } else this.getTour($event.data[0]);
-      console.log(this.createformGroup_info.value);
     } else {
       this.createformGroup_info.controls["tourishPlanId"].setValue("");
       this.tourSchedule = [];

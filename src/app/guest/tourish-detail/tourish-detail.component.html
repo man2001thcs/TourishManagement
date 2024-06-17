@@ -9,8 +9,16 @@
 
   <div class="below-title">
     <span
-      ><i class="fa fa-location-arrow" aria-hidden="true"></i>
-      {{ this.tourishPlan?.endPoint }}</span
+      ><i class="fa fa-location-arrow" aria-hidden="true"></i> Xuất phát:
+      <span style="font-weight: lighter">{{
+        this.tourishPlan?.startingPoint
+      }}</span></span
+    >
+    <span
+      ><i class="fa fa-map-marker" aria-hidden="true"></i> Điểm đến:
+      <span style="font-weight: lighter">{{
+        this.tourishPlan?.endPoint
+      }}</span></span
     >
     <span
       ><i class="fa fa-clock-o" aria-hidden="true"></i>
@@ -21,9 +29,20 @@
         class="fa fa-bus"
         aria-hidden="true"
         *ngIf="isMovingContactPresent"
+        style="margin-right: 10px"
       ></i>
-      <i class="fa fa-plane" aria-hidden="true" *ngIf="isPlanePresent"></i>
-      <i class="fa fa-train" aria-hidden="true" *ngIf="isTrainPresent"></i>
+      <i
+        class="fa fa-plane"
+        aria-hidden="true"
+        *ngIf="isPlanePresent"
+        style="margin-right: 10px"
+      ></i>
+      <i
+        class="fa fa-train"
+        aria-hidden="true"
+        *ngIf="isTrainPresent"
+        style="margin-right: 10px"
+      ></i>
     </span>
 
     <span id="rating">
@@ -45,7 +64,79 @@
     </h4>
   </div>
 
-  <div class="tour-description">
+  <div
+    class="tour-description"
+    style="
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      align-items: flex-start;
+    "
+  >
+    <div class="service-item" style="align-self: center; width: 170px; margin-right: auto;">
+      <button
+        mat-flat-button
+        color="primary"
+        style="width: 100%; height: 56px; font-size: 16px; align-self: center; "
+        (click)="scrollToElement('register-form')"
+        [disabled]="!isScheduleAvailable()"
+      >
+        {{ isScheduleAvailable() ? "Đặt ngay" : "Chưa có lịch trình cụ thể" }}
+      </button>
+    </div>
+
+    <div class="service-item" *ngIf="isPlanePresent">
+      <i class="fa fa-plane" aria-hidden="true"></i>
+      <span>Máy bay</span>
+      <span *ngFor="let entity of getVehicleList(1)">{{
+        entity.branchName
+      }}</span>
+    </div>
+
+    <div class="service-item" *ngIf="isMovingContactPresent">
+      <i class="fa fa-train" aria-hidden="true"></i>
+      <span>Ô tô</span>
+      <span *ngFor="let entity of getVehicleList(0)">{{
+        entity.branchName
+      }}</span>
+    </div>
+
+    <div
+      class="service-item"
+      *ngIf="(tourishPlan?.eatSchedules ?? []).length > 0"
+    >
+      <i class="fa fa-cutlery" aria-hidden="true"></i>
+      <span>Ăn uống</span>
+      <span *ngFor="let entity of tourishPlan?.eatSchedules ?? []">{{
+        entity.placeName
+      }}</span>
+    </div>
+
+    <div
+      class="service-item"
+      *ngIf="(tourishPlan?.stayingSchedules ?? []).length > 0"
+    >
+      <i class="fa fa-bed" aria-hidden="true"></i>
+      <span>Khách sạn / Homestay</span>
+      <span *ngFor="let entity of tourishPlan?.stayingSchedules ?? []">{{
+        entity.placeName
+      }}</span>
+    </div>
+
+    <div class="service-item">
+      <i class="fa fa-clock-o" aria-hidden="true"></i>
+      <span>Thời gian đặt</span>
+      <span> Quanh năm </span>
+    </div>
+
+    <div class="service-item">
+      <i class="fa fa-gift" aria-hidden="true"></i>
+      <span>Ưu đãi</span>
+      <span> Đã bao gồm ưu đãi trong giá tour </span>
+    </div>
+  </div>
+
+  <div class="tour-description-content">
     <app-tiny-mce-editor
       style="width: 90% !important"
       [blobName]="this.tourishPlanId"
@@ -117,7 +208,7 @@
         <div class="price-container">
           <p>
             <span style="font-weight: bold">Tổng giá:</span>
-            {{ getTotalPrice() }}. Dịch vụ bao gồm:
+            {{ formatVNCurrency(getTotalPrice()) }}. Dịch vụ bao gồm:
           </p>
           <h3 *ngIf="(tourishPlan?.eatSchedules ?? []).length > 0">
             Dịch vụ ăn uống
@@ -129,7 +220,9 @@
               <span matListItemTitle
                 >Tên nhà hàng: {{ schedule.placeName }}</span
               >
-              <span matListItemLine>Giá cả: {{ schedule.singlePrice }}</span>
+              <span matListItemLine
+                >Giá cả: {{ formatVNCurrency(schedule.singlePrice ?? 0) }}</span
+              >
             </mat-list-item>
           </mat-list>
           <h3 *ngIf="(tourishPlan?.movingSchedules ?? []).length > 0">
@@ -141,7 +234,9 @@
             >
               <span matListItemTitle>Dịch vụ: {{ schedule.branchName }}</span>
 
-              <span matListItemLine>Giá cả: {{ schedule.singlePrice }}</span>
+              <span matListItemLine
+                >Giá cả: {{ formatVNCurrency(schedule.singlePrice ?? 0) }}</span
+              >
             </mat-list-item>
           </mat-list>
           <h3 *ngIf="(tourishPlan?.stayingSchedules ?? []).length > 0">
@@ -154,12 +249,14 @@
               <span matListItemTitle
                 >Tên nhà hàng: {{ schedule.placeName }}</span
               >
-              <span matListItemLine>Giá cả: {{ schedule.singlePrice }}</span>
+              <span matListItemLine
+                >Giá cả: {{ formatVNCurrency(schedule.singlePrice ?? 0) }}</span
+              >
             </mat-list-item>
           </mat-list>
         </div>
       </mat-tab>
-      
+
       <mat-tab label="Giá không bao gồm">
         <div class="price-container">
           <div class="price-container">
@@ -167,7 +264,7 @@
               <mat-list-item
                 *ngFor="let instruction of getPriceInstruction(); index as i"
               >
-                <span  matListItemLine class="list-item">
+                <span matListItemLine class="list-item">
                   {{ i + 1 + ". " + instruction.description }}</span
                 >
               </mat-list-item>
@@ -219,7 +316,7 @@
     </table>
   </div>
 
-  <div class="tour-description">
+  <div class="tour-description" id="register-form">
     <div class="register-container">
       <div
         class="row tour-register"
@@ -228,7 +325,7 @@
       >
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form">
           <h4 class="tour-name">Đặt vé ngay</h4>
-        </div>      
+        </div>
 
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 create-form">
           <mat-form-field appearance="outline" class="full-width-input">
@@ -291,7 +388,7 @@
             (click)="register()"
             [disabled]="!isScheduleAvailable()"
           >
-            {{isScheduleAvailable() ? "Gửi": "Chưa có lịch trình cụ thể"}}
+            {{ isScheduleAvailable() ? "Gửi" : "Chưa có lịch trình cụ thể" }}
           </button>
         </div>
       </div>

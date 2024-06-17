@@ -50,9 +50,9 @@
 
       <!-- SS Column -->
       <ng-container matColumnDef="singlePrice">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Giá đơn vé</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Giá đơn vé hiện tại</th>
         <td mat-cell *matCellDef="let element">
-          {{ getTotalPrice(element.movingSchedule) }}
+          {{ formatVNCurrency(getTotalPrice(element.movingSchedule)) }}
         </td>
       </ng-container>
 
@@ -182,9 +182,10 @@
               <div class="receipt-info">
                 <div>
                   {{
-                    getTotalPriceReceipt(element.movingSchedule, fullReceipt)
+                    formatVNCurrency(
+                      getTotalPriceReceipt(element.movingSchedule, fullReceipt)
+                    )
                   }}
-                  đ
                 </div>
               </div>
 

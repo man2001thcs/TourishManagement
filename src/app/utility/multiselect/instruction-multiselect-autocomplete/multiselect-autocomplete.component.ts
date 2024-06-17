@@ -113,7 +113,7 @@ export class InstructionMultiselectAutocompleteComponent implements OnInit, OnCh
   }
 
   ngOnDestroy(): void {
-    console.log("Destroy");
+    
   }
 
   remove(id: string): void {
@@ -215,16 +215,14 @@ export class InstructionMultiselectAutocompleteComponent implements OnInit, OnCh
     var index = this.instructionList.findIndex((entity) => entity.id === id);
 
     if (index > -1) {
-      console.log(this.instructionList[index]);
       this.instructionList.splice(index, 1);
     }
 
     var existIndex = this.data_selected_edit.findIndex(
       (entity) => entity.id === id
     );
-    console.log(existIndex);
+
     if (existIndex > -1) {
-      console.log(this.data_selected_edit[existIndex]);
       this.data_selected_edit.splice(existIndex, 1);
     }
 
@@ -259,7 +257,7 @@ export class InstructionMultiselectAutocompleteComponent implements OnInit, OnCh
   }
 
   onClickAddButton() {
-    console.log("here");
+    
     this.isNewEdited = !this.isNewEdited;
   }
 

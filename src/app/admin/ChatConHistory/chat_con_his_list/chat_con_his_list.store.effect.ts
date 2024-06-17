@@ -20,9 +20,9 @@ export class GuestMessageConHistoryListEffects {
       switchMap((action) => {
         return this.storeService.getGuestMessageConHistoryList(action).pipe(
           map((response) => {
-            console.log(response);
+            
             if (response.resultCd === 0) {
-              console.log(response);
+
               return GuestMessageConHistoryListAction.getGuestMessageConHistoryListSuccess({
                 response: response,
               });

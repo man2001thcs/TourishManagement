@@ -19,6 +19,8 @@ import { messaging } from "src/conf/firebase.conf";
 import { environment } from "src/environments/environment";
 import { TokenStorageService } from "../user_service/token.service";
 import { T } from "@angular/cdk/keycodes";
+import { catchError, of } from "rxjs";
+import { MessageService } from "../user_service/message.service";
 
 @Component({
   selector: "app-tourish-pack",
@@ -52,6 +54,7 @@ export class TourishPackComponent implements OnInit, AfterViewInit {
     private renderer: Renderer2,
     private http: HttpClient,
     private router: Router,
+    private messageService: MessageService,
     private tokenStorageService: TokenStorageService
   ) {}
 
@@ -76,7 +79,7 @@ export class TourishPackComponent implements OnInit, AfterViewInit {
     let childWidth = parseInt(this.packContainer.nativeElement.offsetWidth, 0);
     // Example logic, you can adjust this according to your needs
     if (childWidth >= 1700) {
-      console.log("here");
+      
       // this.packContainer.nativeElement.style["border-right"] = "30px 18% 30px";
       this.renderer.setStyle(
         this.packContainer.nativeElement,
@@ -119,9 +122,17 @@ export class TourishPackComponent implements OnInit, AfterViewInit {
 
     this.http
       .get("/api/GetTourishPlan", { params: params })
+      .pipe(
+        catchError((error) => {
+          this.messageService.openFailNotifyDialog(
+            "Hệ thống đang gặp lỗi, vui lòng thử lại"
+          );
+          return of(null); // Return a null observable in case of error
+        })
+      )
       .subscribe((response: any) => {
         this.tourishPLanList = response.data;
-        console.log(response);
+        
         this.length = response.count;
       });
   }

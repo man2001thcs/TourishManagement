@@ -20,9 +20,9 @@ export class MovingContactListEffects {
       switchMap((action) => {
         return this.storeService.getMovingContactList(action).pipe(
           map((response) => {
-            console.log(response);
+            
             if (response.resultCd === 0) {
-              console.log(response);
+              
               return MovingContactListAction.getMovingContactListSuccess({
                 response: response,
               });
@@ -65,9 +65,9 @@ export class MovingContactListEffects {
       switchMap((action) => {
         return this.storeService.deleteMovingContact(action).pipe(
           map((response) => {
-            console.log(response);
+            
             if (response.resultCd === 0) {
-              console.log(response);
+              
               return MovingContactListAction.deleteMovingContactSuccess({
                 response: response,
               });

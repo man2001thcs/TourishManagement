@@ -20,9 +20,9 @@ export class TourishCategoryListEffects {
       switchMap((action) => {
         return this.storeService.getTourishCategoryList(action).pipe(
           map((response) => {
-            console.log(response);
+            
             if (response.resultCd === 0) {
-              console.log(response);
+              
               return TourishCategoryListAction.getTourishCategoryListSuccess({
                 response: response,
               });
@@ -65,9 +65,9 @@ export class TourishCategoryListEffects {
       switchMap((action) => {
         return this.storeService.deleteTourishCategory(action).pipe(
           map((response) => {
-            console.log(response);
+            
             if (response.resultCd === 0) {
-              console.log(response);
+              
               return TourishCategoryListAction.deleteTourishCategorySuccess({
                 response: response,
               });

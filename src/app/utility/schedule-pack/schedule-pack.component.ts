@@ -10,7 +10,9 @@ import {
 } from "@angular/core";
 import { FormBuilder } from "@angular/forms";
 import { ThemePalette } from "@angular/material/core";
+import { catchError, of } from "rxjs";
 import { MovingSchedule, StayingSchedule } from "src/app/model/baseModel";
+import { MessageService } from "../user_service/message.service";
 
 @Component({
   selector: "app-schedule-pack",
@@ -44,6 +46,7 @@ export class SchedulePackComponent implements OnInit, AfterViewInit {
   constructor(
     private fb: FormBuilder,
     private renderer: Renderer2,
+    private messageService: MessageService,
     private http: HttpClient
   ) {}
 
@@ -111,7 +114,14 @@ export class SchedulePackComponent implements OnInit, AfterViewInit {
 
     if (this.scheduleType == 1) {
       this.http
-        .get("/api/GetMovingSchedule", { params: params })
+        .get("/api/GetMovingSchedule", { params: params }).pipe(
+          catchError((error) => {
+            this.messageService.openFailNotifyDialog(
+              "Hệ thống đang gặp lỗi, vui lòng thử lại"
+            );
+            return of(null); // Return a null observable in case of error
+          })
+        )
         .subscribe((response: any) => {
           this.movingScheduleList = response.data;
           
@@ -119,7 +129,14 @@ export class SchedulePackComponent implements OnInit, AfterViewInit {
         });
     } else if (this.scheduleType == 2) {
       this.http
-        .get("/api/GetStayingSchedule", { params: params })
+        .get("/api/GetStayingSchedule", { params: params }).pipe(
+          catchError((error) => {
+            this.messageService.openFailNotifyDialog(
+              "Hệ thống đang gặp lỗi, vui lòng thử lại"
+            );
+            return of(null); // Return a null observable in case of error
+          })
+        )
         .subscribe((response: any) => {
           this.stayingScheduleList = response.data;
           

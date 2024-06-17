@@ -12,8 +12,9 @@ import {
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { ThemePalette } from "@angular/material/core";
 import { ActivatedRoute } from "@angular/router";
-import { Subscription } from "rxjs";
+import { Subscription, catchError, of } from "rxjs";
 import { MovingSchedule, StayingSchedule } from "src/app/model/baseModel";
+import { MessageService } from "../user_service/message.service";
 @Component({
   selector: "app-schedule-search-pack",
   templateUrl: "./schedule-pack.component.html",
@@ -68,6 +69,7 @@ export class ScheduleSearchPackComponent implements OnInit, OnChanges {
     private fb: FormBuilder,
     private renderer: Renderer2,
     private http: HttpClient,
+    private messageService: MessageService,
     private _route: ActivatedRoute
   ) {}
 
@@ -100,7 +102,14 @@ export class ScheduleSearchPackComponent implements OnInit, OnChanges {
       this.stayingScheduleList = [];
 
       this.http
-        .get("/api/GetMovingSchedule", { params: params })
+        .get("/api/GetMovingSchedule", { params: params }).pipe(
+          catchError((error) => {
+            this.messageService.openFailNotifyDialog(
+              "Hệ thống đang gặp lỗi, vui lòng thử lại"
+            );
+            return of(null); // Return a null observable in case of error
+          })
+        )
         .subscribe((response: any) => {
           if (response) {
             this.isFirstSearch = false; 
@@ -120,7 +129,14 @@ export class ScheduleSearchPackComponent implements OnInit, OnChanges {
       this.stayingScheduleList = [];
 
       this.http
-        .get("/api/GetStayingSchedule", { params: params })
+        .get("/api/GetStayingSchedule", { params: params }).pipe(
+          catchError((error) => {
+            this.messageService.openFailNotifyDialog(
+              "Hệ thống đang gặp lỗi, vui lòng thử lại"
+            );
+            return of(null); // Return a null observable in case of error
+          })
+        )
         .subscribe((response: any) => {
           if (response) {
             this.isFirstSearch = false; 

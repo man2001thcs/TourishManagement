@@ -2,7 +2,9 @@ import { I } from "@angular/cdk/keycodes";
 import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import * as Highcharts from "highcharts";
+import { catchError, of } from "rxjs";
 import { ChartConfig } from "src/app/model/baseModel";
+import { MessageService } from "../user_service/message.service";
 
 export interface InMonthGross {
   name: string;
@@ -86,7 +88,10 @@ export class DashboardComponent implements OnInit {
   movingUnpaidGroup: UnpaidGroup[] = [];
   stayingUnpaidGroup: UnpaidGroup[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private messageService: MessageService
+  ) {}
 
   ngOnInit(): void {
     this.loadLineChart();
@@ -390,6 +395,14 @@ export class DashboardComponent implements OnInit {
   getTotalYearGrossInTour() {
     this.http
       .get("/api/GetFullReceipt/tourish-plan/total-month-gross")
+      .pipe(
+        catchError((error) => {
+          this.messageService.openFailNotifyDialog(
+            "Hệ thống đang gặp lỗi, vui lòng thử lại"
+          );
+          return of(null); // Return a null observable in case of error
+        })
+      )
       .subscribe((res: any) => {
         if (res) {
           let tourChartData: ChartData = {
@@ -422,6 +435,14 @@ export class DashboardComponent implements OnInit {
   getTotalYearGrossInStayingService() {
     this.http
       .get("/api/GetFullReceipt/staying-schedule/total-month-gross")
+      .pipe(
+        catchError((error) => {
+          this.messageService.openFailNotifyDialog(
+            "Hệ thống đang gặp lỗi, vui lòng thử lại"
+          );
+          return of(null); // Return a null observable in case of error
+        })
+      )
       .subscribe((res: any) => {
         if (res) {
           let tourChartData: ChartData = {
@@ -454,6 +475,14 @@ export class DashboardComponent implements OnInit {
   getTotalYearGrossInMovingService() {
     this.http
       .get("/api/GetFullReceipt/moving-schedule/total-month-gross")
+      .pipe(
+        catchError((error) => {
+          this.messageService.openFailNotifyDialog(
+            "Hệ thống đang gặp lỗi, vui lòng thử lại"
+          );
+          return of(null); // Return a null observable in case of error
+        })
+      )
       .subscribe((res: any) => {
         if (res) {
           let tourChartData: ChartData = {
@@ -484,23 +513,33 @@ export class DashboardComponent implements OnInit {
   }
 
   getTotalMonthGrossInTour() {
-    this.http.get("/api/GetFullReceipt/gross-tour").subscribe((res: any) => {
-      if (res) {
-        const grossArray = res.data as InMonthGross[];
+    this.http
+      .get("/api/GetFullReceipt/gross-tour")
+      .pipe(
+        catchError((error) => {
+          this.messageService.openFailNotifyDialog(
+            "Hệ thống đang gặp lỗi, vui lòng thử lại"
+          );
+          return of(null); // Return a null observable in case of error
+        })
+      )
+      .subscribe((res: any) => {
+        if (res) {
+          const grossArray = res.data as InMonthGross[];
 
-        for (let i = 0; i < grossArray.length; i++) {
-          let tourChartData: ChartData = {
-            name: grossArray[i].name,
-            data: [grossArray[i].gross],
-          };
+          for (let i = 0; i < grossArray.length; i++) {
+            let tourChartData: ChartData = {
+              name: grossArray[i].name,
+              data: [grossArray[i].gross],
+            };
 
-          this.colChartOptions.series.push(tourChartData);
+            this.colChartOptions.series.push(tourChartData);
+          }
+
+          this.colChartOptionsTemp = this.colChartOptions;
+          Highcharts.chart("col-tour-chart", this.colChartOptionsTemp);
         }
-
-        this.colChartOptionsTemp = this.colChartOptions;
-        Highcharts.chart("col-tour-chart", this.colChartOptionsTemp);
-      }
-    });
+      });
   }
 
   getTotalMonthGrossInStayingService() {
@@ -531,6 +570,14 @@ export class DashboardComponent implements OnInit {
   getTotalMonthGrossInMovingService() {
     this.http
       .get("/api/GetFullReceipt/gross-moving-service")
+      .pipe(
+        catchError((error) => {
+          this.messageService.openFailNotifyDialog(
+            "Hệ thống đang gặp lỗi, vui lòng thử lại"
+          );
+          return of(null); // Return a null observable in case of error
+        })
+      )
       .subscribe((res: any) => {
         if (res) {
           const grossArray = res.data as InMonthGross[];
@@ -553,6 +600,14 @@ export class DashboardComponent implements OnInit {
   getTotalMonthTicketInTour() {
     this.http
       .get("/api/GetFullReceipt/total-ticket-tour")
+      .pipe(
+        catchError((error) => {
+          this.messageService.openFailNotifyDialog(
+            "Hệ thống đang gặp lỗi, vui lòng thử lại"
+          );
+          return of(null); // Return a null observable in case of error
+        })
+      )
       .subscribe((res: any) => {
         if (res) {
           const ticketArray = res.data as InMonthTicket[];
@@ -582,6 +637,14 @@ export class DashboardComponent implements OnInit {
   getTotalMonthTicketInMovingService() {
     this.http
       .get("/api/GetFullReceipt/total-ticket-moving-service")
+      .pipe(
+        catchError((error) => {
+          this.messageService.openFailNotifyDialog(
+            "Hệ thống đang gặp lỗi, vui lòng thử lại"
+          );
+          return of(null); // Return a null observable in case of error
+        })
+      )
       .subscribe((res: any) => {
         if (res) {
           const ticketArray = res.data as InMonthTicket[];
@@ -611,6 +674,14 @@ export class DashboardComponent implements OnInit {
   getTotalMonthTicketInStayingService() {
     this.http
       .get("/api/GetFullReceipt/total-ticket-staying-service")
+      .pipe(
+        catchError((error) => {
+          this.messageService.openFailNotifyDialog(
+            "Hệ thống đang gặp lỗi, vui lòng thử lại"
+          );
+          return of(null); // Return a null observable in case of error
+        })
+      )
       .subscribe((res: any) => {
         if (res) {
           const ticketArray = res.data as InMonthTicket[];
@@ -643,6 +714,14 @@ export class DashboardComponent implements OnInit {
   getUpaidClientInTour() {
     this.http
       .get("/api/GetFullReceipt/tour/unpaid-client")
+      .pipe(
+        catchError((error) => {
+          this.messageService.openFailNotifyDialog(
+            "Hệ thống đang gặp lỗi, vui lòng thử lại"
+          );
+          return of(null); // Return a null observable in case of error
+        })
+      )
       .subscribe((res: any) => {
         if (res) {
           this.tourUnpaidGroup = res.data;
@@ -653,6 +732,14 @@ export class DashboardComponent implements OnInit {
   getUpaidClientInMoving() {
     this.http
       .get("/api/GetFullReceipt/moving-schedule/unpaid-client")
+      .pipe(
+        catchError((error) => {
+          this.messageService.openFailNotifyDialog(
+            "Hệ thống đang gặp lỗi, vui lòng thử lại"
+          );
+          return of(null); // Return a null observable in case of error
+        })
+      )
       .subscribe((res: any) => {
         if (res) {
           this.movingUnpaidGroup = res.data;
@@ -663,6 +750,14 @@ export class DashboardComponent implements OnInit {
   getUpaidClientInStaying() {
     this.http
       .get("/api/GetFullReceipt/staying-schedule/unpaid-client")
+      .pipe(
+        catchError((error) => {
+          this.messageService.openFailNotifyDialog(
+            "Hệ thống đang gặp lỗi, vui lòng thử lại"
+          );
+          return of(null); // Return a null observable in case of error
+        })
+      )
       .subscribe((res: any) => {
         if (res) {
           this.stayingUnpaidGroup = res.data;

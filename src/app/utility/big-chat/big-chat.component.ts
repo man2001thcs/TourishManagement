@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Route } from "@angular/router";
 import { SignalRService } from "../user_service/signalr.service";
 import { GuestMessage, GuestMessageConHistory } from "src/app/model/baseModel";
-import { Subscription } from "rxjs";
+import { Subscription, catchError, of } from "rxjs";
 import { TokenStorageService } from "../user_service/token.service";
 import { HttpClient } from "@angular/common/http";
 import { MessageService } from "../user_service/message.service";
@@ -200,6 +200,14 @@ export class BigChatComponent implements OnInit {
     this.messageService.openLoadingDialog();
     this.http
       .get("/api/GetGuestMessageConHistory/admin", { params: params })
+      .pipe(
+        catchError((error) => {
+          this.messageService.openFailNotifyDialog(
+            "Hệ thống đang gặp lỗi, vui lòng thử lại"
+          );
+          return of(null); // Return a null observable in case of error
+        })
+      )
       .subscribe((response: any) => {
         this.messageService.closeAllDialog();
         if (response) {

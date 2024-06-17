@@ -15,7 +15,8 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { NgbCarouselConfig } from "@ng-bootstrap/ng-bootstrap";
 import { EditorComponent } from "@tinymce/tinymce-angular";
 import { Slider } from "angular-carousel-slider/lib/angular-carousel-slider.component";
-import { Subscription } from "rxjs";
+import { error } from "highcharts";
+import { Subscription, catchError, of } from "rxjs";
 import {
   MovingSchedule,
   SaveFile,
@@ -220,6 +221,14 @@ export class ScheduleDetailComponent implements OnInit {
 
     this.http
       .get("/api/GetFile", { params: payload })
+      .pipe(
+        catchError((error) => {
+          this.messageService.openFailNotifyDialog(
+            "Hệ thống đang gặp lỗi, vui lòng thử lại"
+          );
+          return of(null); // Return a null observable in case of error
+        })
+      )
       .subscribe((response: any) => {
         this.tourImage = response.data;
 
@@ -292,6 +301,14 @@ export class ScheduleDetailComponent implements OnInit {
       this.messageService.openLoadingDialog();
       this.http
         .post("/api/AddReceipt/client", payload)
+        .pipe(
+          catchError((error) => {
+            this.messageService.openFailNotifyDialog(
+              "Hệ thống đang gặp lỗi, vui lòng thử lại"
+            );
+            return of(null); // Return a null observable in case of error
+          })
+        )
         .subscribe((response: any) => {
           if (response) {
             this.messageService.closeAllDialog();
@@ -322,6 +339,14 @@ export class ScheduleDetailComponent implements OnInit {
     this.messageService.openLoadingDialog();
     this.http
       .post("/api/CallPayment/service/request", payload)
+      .pipe(
+        catchError((error) => {
+          this.messageService.openFailNotifyDialog(
+            "Hệ thống đang gặp lỗi, vui lòng thử lại"
+          );
+          return of(null); // Return a null observable in case of error
+        })
+      )
       .subscribe((response: any) => {
         if (response) {
           this.messageService.closeLoadingDialog();
@@ -414,7 +439,7 @@ export class ScheduleDetailComponent implements OnInit {
   scrollToElement(elementId: string): void {
     const element = document.getElementById(elementId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: "smooth" });
     }
   }
 }

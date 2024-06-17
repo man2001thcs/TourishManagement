@@ -18,10 +18,9 @@ export class CanLoadGuardUser {
     let roles = route.data?.['permittedRoles'] as Array<string>;
 
     if (roles) {
-      console.log("canLoad: " + this.tokenService.getUserRole());
       if (roles.indexOf(this.tokenService.getUserRole()) > -1) return true;
       else {
-        console.log("abc");
+        
         //this.router.navigate(['/forbidden']);
         return false;
       }

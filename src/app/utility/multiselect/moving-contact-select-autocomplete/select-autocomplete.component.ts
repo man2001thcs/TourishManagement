@@ -167,7 +167,7 @@ export class MovingContactSelectAutocompleteComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    console.log("Destroy");
+    
     this.store.dispatch(MovingContactListActions.resetMovingContactList());
 
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
@@ -185,12 +185,11 @@ export class MovingContactSelectAutocompleteComponent implements OnInit {
 
   getCurrentContact() {
     if (this.currentContactId.length > 0) {
-      console.log(this.currentContactId);
       this.http
         .get("/api/GetMovingContact/" + this.currentContactId)
         .subscribe((state: any) => {
           if (state) {
-            console.log("abc: ", state);
+            
             this.movingContactIdList.push(state.data.id ?? "");
             this.movingContactNameList.push(state.data.branchName ?? "");
           }

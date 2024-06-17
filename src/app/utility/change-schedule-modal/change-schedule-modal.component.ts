@@ -115,14 +115,11 @@ export class ScheduleChangeModalComponent implements OnInit {
   }
 
   selectChangeSchedule = (event: any) => {
-    console.log(event.data);
+    
     this.scheduleEditList = event.data;
   };
 
   changeSchedule() {
-   
-    console.log(this.stayingScheduleId);
-
     if (this.tourishPlanId.length > 0) {
       let payload = this.tourishPlan;
       payload.tourishScheduleList = this.scheduleEditList;

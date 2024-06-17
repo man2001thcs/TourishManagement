@@ -20,9 +20,9 @@ export class LoginEffects {
       switchMap((action) => {
         return this.storeService.login(action).pipe(
           map((response) => {
-            console.log(response);
+            
             if (response.resultCd === 0) {
-              console.log(response);
+              
               return LoginAction.loginSuccess({
                 response: response,
               });

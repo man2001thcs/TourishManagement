@@ -179,13 +179,13 @@ export class AccountInfoComponent implements OnInit, OnDestroy {
     this.messageService.openLoadingDialog();
     this.store.dispatch(AccountActions.initial());
 
-    //console.log(this.this_book);
+    
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
   }
 
   ngOnDestroy(): void {
-    console.log("Destroy");
+    
     this.store.dispatch(AccountActions.resetAccount());
 
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
@@ -203,7 +203,6 @@ export class AccountInfoComponent implements OnInit, OnDestroy {
   }
 
   formSubmit(): void {
-    console.log(this.editformGroup_info.value);
   }
 
   formSubmit_edit_info(): void {

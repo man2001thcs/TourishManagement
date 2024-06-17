@@ -60,9 +60,9 @@ export class TourishCategoryEffects {
       switchMap((action) => {
         return this.storeService.editTourishCategory(action).pipe(
           map((response) => {
-            console.log("abcd", response);
+            
             if (response.resultCd === 0) {
-              console.log(response);
+              
               return TourishCategoryAction.editTourishCategorySuccess({
                 response: response,
               });

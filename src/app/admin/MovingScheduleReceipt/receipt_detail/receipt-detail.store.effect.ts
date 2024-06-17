@@ -60,9 +60,9 @@ export class MovingReceiptEffects {
       switchMap((action) => {
         return this.storeService.editReceipt(action).pipe(
           map((response) => {
-            console.log("abcd", response);
+            
             if (response.resultCd === 0) {
-              console.log(response);
+              
               return ReceiptAction.editReceiptSuccess({
                 response: response,
               });

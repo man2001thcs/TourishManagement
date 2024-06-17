@@ -59,9 +59,9 @@ export class StayingScheduleEffects {
       switchMap((action) => {
         return this.storeService.editStayingSchedule(action).pipe(
           map((response) => {
-            console.log("abcd", response);
+            
             if (response.resultCd === 0) {
-              console.log(response);
+              
               return StayingScheduleAction.editStayingScheduleSuccess({
                 response: response,
               });

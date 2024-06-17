@@ -119,8 +119,6 @@ export class ReceiptUserDetailComponent implements OnInit, OnDestroy {
           this.messageService.closeLoadingDialog();
           this.getTour(state.totalReceipt?.tourishPlanId);
 
-          console.log(state.totalReceipt?.tourishPlanId);
-
           this.isDisable = this.isPaymentDisable(this.receipt.status + "");
 
           this.editformGroup_info.controls["totalReceiptId"].setValue(
@@ -201,13 +199,13 @@ export class ReceiptUserDetailComponent implements OnInit, OnDestroy {
 
     this.store.dispatch(ReceiptActions.initial());
 
-    //console.log(this.this_book);
+    
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
   }
 
   ngOnDestroy(): void {
-    console.log("Destroy");
+    
     this.store.dispatch(ReceiptActions.resetReceipt());
 
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
@@ -239,13 +237,13 @@ export class ReceiptUserDetailComponent implements OnInit, OnDestroy {
   }
 
   formSubmit(): void {
-    console.log(this.editformGroup_info.value);
+    
   }
 
   formSubmit_edit_info(): void {
     this.isSubmitted = true;
 
-    console.log(this.editformGroup_info.value);
+    
     if (this.editformGroup_info.valid) {
       const payload: FullReceipt = {
         totalReceiptId: this.receipt.totalReceiptId,
@@ -286,10 +284,10 @@ export class ReceiptUserDetailComponent implements OnInit, OnDestroy {
   }
 
   selectChangeReceipt($event: any): any {
-    console.log($event);
+    
     this.editformGroup_info.controls["tourishPlanId"].setValue($event.data[0]);
 
-    console.log(this.editformGroup_info.value);
+    
   }
 
   closeDialog() {

@@ -168,7 +168,7 @@ export class TourishCategoryMultiselectAutocompleteComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    console.log("Destroy");
+    
     this.store.dispatch(TourishCategoryListActions.resetTourishCategoryList());
 
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());

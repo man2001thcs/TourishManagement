@@ -33,8 +33,8 @@
 
 .avatar {
   vertical-align: middle;
-  width: 30px;
-  height: 30px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
 }
 
@@ -284,6 +284,10 @@ button:hover {
   color: white; /* Font color when active */
   background-color: #374462;
   width: 100%;
+}
+
+.button-wrap {
+  margin-right: 20px;
 }
 
 ::ng-deep .mat-form-field-outline-start {

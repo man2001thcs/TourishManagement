@@ -29,7 +29,29 @@
     </span>
   </div>
 
-  <div class="tour-description">
+  <div
+    class="tour-description"
+    style="
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: flex-start;
+    "
+  >
+    <div class="service-item" style="align-self: center; width: 170px">
+      <button
+        mat-flat-button
+        color="primary"
+        style="width: 100%; height: 56px; font-size: 16px; align-self: center"
+        (click)="scrollToElement('payment-form')"
+        [disabled]="!isScheduleAvailable()"
+      >
+        {{ isScheduleAvailable() ? "Đặt ngay" : "Chưa có lịch trình cụ thể" }}
+      </button>
+    </div>
+  </div>
+
+  <div class="tour-description-content">
     <app-tiny-mce-editor
       style="width: 90% !important"
       [blobName]="this.scheduleId"
@@ -53,13 +75,13 @@
         <div class="price-container">
           <p>
             <span style="font-weight: bold">Giá dịch vụ:</span>
-            {{ getTotalPrice() }}.
+            {{ formatVNCurrency(getTotalPrice()) }}.
           </p>
         </div>
 
-        <div class="price-container" style="padding-top: 0 !important;">
-          <p  style="margin-bottom: 0;">
-            <span style="font-weight: bold;">Lưu ý về giá:</span>
+        <div class="price-container" style="padding-top: 0 !important">
+          <p style="margin-bottom: 0">
+            <span style="font-weight: bold">Lưu ý về giá:</span>
           </p>
           <mat-list>
             <mat-list-item
@@ -120,7 +142,7 @@
     </table>
   </div>
 
-  <div class="tour-description">
+  <div class="tour-description" id="payment-form">
     <div class="register-container">
       <div
         class="row tour-register"

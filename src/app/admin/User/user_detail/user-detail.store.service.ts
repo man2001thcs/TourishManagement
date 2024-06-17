@@ -15,7 +15,7 @@ export class UserStoreService {
   }
 
   editUser(payload: any): Observable<any> {
-    console.log("ok");
+    
     return this.http.post("/api/User/Update", payload);
   }
 }

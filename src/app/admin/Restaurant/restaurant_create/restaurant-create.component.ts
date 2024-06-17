@@ -106,7 +106,7 @@ export class RestaurantCreateComponent implements OnInit, OnDestroy {
 
     this.store.dispatch(restaurantActions.initial());
 
-    //console.log(this.this_book);
+    
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     this.createformGroup_info = this.fb.group({
@@ -121,7 +121,7 @@ export class RestaurantCreateComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    console.log("Destroy");
+    
     this.store.dispatch(restaurantActions.resetRestaurant());
 
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());

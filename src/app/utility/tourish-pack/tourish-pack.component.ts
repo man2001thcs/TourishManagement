@@ -76,7 +76,7 @@ export class TourishPackComponent implements OnInit, AfterViewInit {
     let childWidth = parseInt(this.packContainer.nativeElement.offsetWidth, 0);
     // Example logic, you can adjust this according to your needs
     if (childWidth >= 1700) {
-      console.log("here");
+      
       // this.packContainer.nativeElement.style["border-right"] = "30px 18% 30px";
       this.renderer.setStyle(
         this.packContainer.nativeElement,
@@ -121,7 +121,7 @@ export class TourishPackComponent implements OnInit, AfterViewInit {
       .get("/api/GetTourishPlan", { params: params })
       .subscribe((response: any) => {
         this.tourishPLanList = response.data;
-        console.log(response);
+        
         this.length = response.count;
       });
   }

@@ -121,14 +121,13 @@ export class TourishSearchComponent implements OnInit {
       .get("/api/GetTourCategory", { params: params })
       .subscribe((response: any) => {
         this.categoryList = response.data;
-        console.log(response);
+        
         this.length = response.count;
       });
   }
 
   priceRangeChange($event: any) {
     if ($event) {
-      console.log($event.options[0].value);
       this.priceFrom = $event.options[0].value.startPrice;
       this.priceTo = $event.options[0].value.endPrice;
     }
@@ -136,7 +135,6 @@ export class TourishSearchComponent implements OnInit {
 
   categoryChange($event: any) {
     if ($event) {
-      console.log($event.source._value);
       if ($event.source._value.length == 0) this.categoryString = "";
       else {
         this.categoryString = JSON.stringify($event.source._value);

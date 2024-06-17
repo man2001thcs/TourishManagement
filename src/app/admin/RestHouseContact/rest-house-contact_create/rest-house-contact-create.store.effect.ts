@@ -20,9 +20,9 @@ export class RestHouseContactCreateEffects {
       switchMap((action) => {
         return this.storeService.createRestHouseContact(action).pipe(
           map((response) => {
-            console.log("abcd", response);
+            
             if (response.resultCd === 0) {
-              console.log(response);
+              
               return RestHouseContactAction.createRestHouseContactSuccess({
                 response: response,
               });

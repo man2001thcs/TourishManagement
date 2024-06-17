@@ -79,7 +79,6 @@ export class AvatarUploadComponent implements OnInit, OnDestroy {
   }
 
   changeFile(files: any) {
-    console.log(files);
 
     if (files === null || files.length <= 0) {
       return;
@@ -122,13 +121,11 @@ export class AvatarUploadComponent implements OnInit, OnDestroy {
   }
 
   removeOldFile(id: any) {
-    console.log("id: " + id);
     if (id === null) {
       return;
     }
 
     this.imageDeleteList.push(id);
-    console.log(this.imageDeleteList);
   }
 
   undoRemoveOldFile(id: any) {

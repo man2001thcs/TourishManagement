@@ -20,7 +20,7 @@ export class UserMainComponent implements OnInit {
   isNavOpen = true;
 
   checkNavOpen($event: any) {
-    console.log($event);
+    
     if ($event) this.openNav();
     else this.closetNav();
   }
@@ -36,7 +36,7 @@ export class UserMainComponent implements OnInit {
   }
 
   isChatOpen($event:boolean){
-    console.log($event);
+    
     if ($event){
       this.outerChat.nativeElement.style["transform"] = "translate(0, -400px)";
     } else {

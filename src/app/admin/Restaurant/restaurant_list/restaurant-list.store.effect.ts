@@ -20,9 +20,9 @@ export class RestaurantListEffects {
       switchMap((action) => {
         return this.storeService.getRestaurantList(action).pipe(
           map((response) => {
-            console.log(response);
+            
             if (response.resultCd === 0) {
-              console.log(response);
+              
               return RestaurantListAction.getRestaurantListSuccess({
                 response: response,
               });
@@ -65,9 +65,9 @@ export class RestaurantListEffects {
       switchMap((action) => {
         return this.storeService.deleteRestaurant(action).pipe(
           map((response) => {
-            console.log(response);
+            
             if (response.resultCd === 0) {
-              console.log(response);
+              
               return RestaurantListAction.deleteRestaurantSuccess({
                 response: response,
               });

@@ -197,7 +197,7 @@ export class MovingScheduleListComponent
     const dialogRef = this.dialog.open(MovingScheduleCreateComponent, {});
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
+      
 
       this.store.dispatch(
         MovingScheduleListActions.getMovingScheduleList({
@@ -449,5 +449,9 @@ export class MovingScheduleListComponent
       `Ngày ${day} tháng ${month} năm ${year}, ${hour} giờ ` + minuteString;
 
     return chuoiNgayThang;
+  }
+
+  formatVNCurrency(num: number): string {
+    return num.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
   }
 }

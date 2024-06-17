@@ -20,9 +20,9 @@ export class MovingReceiptListEffects {
       switchMap((action) => {
         return this.storeService.getReceiptList(action).pipe(
           map((response) => {
-            console.log(response);
+            
             if (response.resultCd === 0) {
-              console.log(response);
+              
               return ReceiptListAction.getReceiptListSuccess({
                 response: response,
               });
@@ -65,9 +65,9 @@ export class MovingReceiptListEffects {
       switchMap((action) => {
         return this.storeService.deleteReceipt(action).pipe(
           map((response) => {
-            console.log(response);
+            
             if (response.resultCd === 0) {
-              console.log(response);
+              
               return ReceiptListAction.deleteReceiptSuccess({
                 response: response,
               });

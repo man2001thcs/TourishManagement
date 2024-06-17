@@ -76,9 +76,10 @@
       <i
         class="fa fa-bell"
         aria-hidden="true"
-        style="font-size: 22px; color: rgb(105, 104, 104)"
+        style="font-size: 30px; color: rgb(105, 104, 104)"
       ></i>
     </button>
+
     <mat-menu
       #beforeNotifyMenu="matMenu"
       xPosition="before"
@@ -352,7 +353,8 @@
       (closeSearch)="closeSearch($event)"
       style="width: 100%"
     ></app-tourish-auto-search-card>
-    <h6 *ngIf="tourList.length <= 0">Không có kết quả phù hợp</h6>
+    <h6 *ngIf="!isSearchLoading && tourList.length <= 0">Không có kết quả phù hợp</h6>
+    <h6 *ngIf="isSearchLoading">Đang tìm kiếm</h6>
   </div>
 </div>
 

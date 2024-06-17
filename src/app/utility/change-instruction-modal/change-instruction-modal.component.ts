@@ -104,8 +104,6 @@ export class InstructionChangeModalComponent implements OnInit {
               this.movingSchedule = response.data;
               this.instructionList = this.movingSchedule.instructionList ?? [];
               this.instructionEditList = this.instructionList;
-
-              console.log(this.instructionList);
             }
           }
         });
@@ -122,8 +120,6 @@ export class InstructionChangeModalComponent implements OnInit {
               this.instructionList =
                 this.stayingSchedule.instructionList ?? [];
                 this.instructionEditList = this.instructionList;
-
-                console.log(this.instructionList);
             }
           }
         });
@@ -133,14 +129,10 @@ export class InstructionChangeModalComponent implements OnInit {
   }
 
   selectChangeInstruction = (event: any) => {
-    console.log(event.data);
     this.instructionEditList = event.data;
   };
 
   changeInstruction() {
-   
-    console.log(this.stayingScheduleId);
-
     if (this.tourishPlanId.length > 0) {
       let payload = this.tourishPlan;
       payload.instructionList = this.instructionEditList;

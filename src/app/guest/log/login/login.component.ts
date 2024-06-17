@@ -58,8 +58,10 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.tokenStorage.signOut();
+
     this.activated = this._route.snapshot.queryParamMap.get("activated") ?? "";
-    console.log(this.activated);
 
     if (this.activated == "1")
       this.openSnackBar(
@@ -105,13 +107,13 @@ export class LoginComponent implements OnInit {
           this.tokenStorage.saveToken(state.accessToken);
           this.tokenStorage.saveRefreshToken(state.refreshToken);
           this.tokenStorage.saveUser(response);
-          console.log(response);
+          
 
           this.messageService
             .openNotifyDialog("Đăng nhập thành công")
             .subscribe((res) => {
               if (response) {
-                console.log(response);
+                
                 if (response.Role === "New") {
                   this.messageService.openNotifyDialog(
                     "Tài khoản đã liên kết, vui lòng chờ admin xét duyệt"
@@ -153,7 +155,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    console.log("Destroy");
+    
     this.store.dispatch(LoginAction.resetLogin());
 
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
@@ -168,7 +170,6 @@ export class LoginComponent implements OnInit {
 
   valueChange(target: string, event: Event) {
     this.signInformGroup.value[target] = event;
-    console.log(event);
   }
 
   formReset(): void {

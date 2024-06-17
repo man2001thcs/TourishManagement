@@ -178,7 +178,7 @@ export class MovingContactListComponent
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
+      
 
       this.store.dispatch(
         MovingContactListActions.getMovingContactList({
@@ -201,7 +201,7 @@ export class MovingContactListComponent
     const dialogRef = this.dialog.open(MovingContactCreateComponent, {});
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
+      
 
       this.store.dispatch(
         MovingContactListActions.getMovingContactList({
@@ -226,7 +226,7 @@ export class MovingContactListComponent
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
+      
 
       this.store.dispatch(
         MovingContactListActions.getMovingContactList({

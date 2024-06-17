@@ -157,7 +157,6 @@ export class FileUploadComponent implements OnInit, OnDestroy {
   }
 
   changeFile(files: any) {
-    console.log(files);
 
     if (files === null || files.length <= 0) {
       return;
@@ -173,7 +172,6 @@ export class FileUploadComponent implements OnInit, OnDestroy {
 
       if (files) {
         this.filesToUpload.push(files[0]);
-        console.log(this.filesToUpload);
       }
     };
   }
@@ -201,13 +199,11 @@ export class FileUploadComponent implements OnInit, OnDestroy {
   }
 
   removeOldFile(id: any) {
-    console.log("id: " + id);
     if (id === null) {
       return;
     }
 
     this.imageDeleteList.push(id);
-    console.log(this.imageDeleteList);
   }
 
   undoRemoveOldFile(id: any) {
@@ -228,8 +224,6 @@ export class FileUploadComponent implements OnInit, OnDestroy {
         productType: 1,
         fileIdListString: fileListString.toString(),
       };
-
-      console.log(payload);
 
       this.store.dispatch(
         ImageListActions.deleteImage({
@@ -284,7 +278,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    console.log("Destroy");
+    
     this.store.dispatch(ImageListActions.resetImageList());
 
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());

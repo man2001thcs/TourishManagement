@@ -15,7 +15,6 @@ export class AccountStoreService {
   }
 
   editAccount(payload: any): Observable<any> {
-    console.log("ok");
     return this.http.post("/api/User/Update" + payload.phase, payload);
   }
 }

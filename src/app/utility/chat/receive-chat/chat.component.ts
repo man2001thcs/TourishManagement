@@ -55,7 +55,6 @@ export class ReceiveChatComponent implements OnChanges {
 
       this.intervalId = setInterval(() => {      
         this.timeString = this.getTime(this.sendTime);
-        console.log(this.timeString);
       }, 60000);
     }
   }

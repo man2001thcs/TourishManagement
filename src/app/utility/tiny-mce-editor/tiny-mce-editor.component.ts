@@ -114,7 +114,7 @@ export class TinyMceEditorComponent implements OnInit, OnChanges {
 
           // Wait for the promise to resolve
           fileSelectedPromise.then((file) => {
-            console.log("No file selected");
+            
             if (file) {
               // Handle the selected file, for example, log its details
               const reader = new FileReader();
@@ -134,7 +134,7 @@ export class TinyMceEditorComponent implements OnInit, OnChanges {
 
               // You can perform additional logic or trigger further actions with the file here
             } else {
-              console.log("No file selected");
+              
             }
           });
         }
@@ -222,7 +222,7 @@ export class TinyMceEditorComponent implements OnInit, OnChanges {
 
           // Wait for the promise to resolve
           fileSelectedPromise.then((file) => {
-            console.log("No file selected");
+            
             if (file) {
               // Handle the selected file, for example, log its details
               const reader = new FileReader();
@@ -242,7 +242,7 @@ export class TinyMceEditorComponent implements OnInit, OnChanges {
 
               // You can perform additional logic or trigger further actions with the file here
             } else {
-              console.log("No file selected");
+              
             }
           });
         }
@@ -269,7 +269,6 @@ export class TinyMceEditorComponent implements OnInit, OnChanges {
       this.http
         .get(getUrl, { params: payload })
         .subscribe((state: any) => {
-          console.log(state);
           if (state) {
             this.editorContent = state.data;
             this.emitAdjustedData();

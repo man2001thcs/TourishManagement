@@ -10,7 +10,6 @@ import {
 } from "../guard/can-leave-edit.guard";
 import { RouterModule } from "@angular/router";
 
-import { EditDetailResolver } from "../resolver/edit-detail.resolver";
 import { MovingContactListComponent } from "../MovingContact/moving_contact_list/moving_contact-list.component";
 import { RestaurantListComponent } from "../Restaurant/restaurant_list/restaurant-list.component";
 import { RestHouseContactListComponent } from "../RestHouseContact/rest-house-contact_list/rest-house-contact-list.component";

@@ -56,7 +56,7 @@ export class TourishMainComponent implements OnInit {
       .get("/api/GetTourCategory/client", { params: params })
       .subscribe((response: any) => {
         this.categoryList = response.data;
-        console.log(response);
+        
         this.length = response.count;
       });
   }

@@ -13,7 +13,7 @@ export class TourishPlanStoreService {
   }
 
   editTourishPlan(payload: any): Observable<any> {
-    console.log('ok');
+    
     return this.http.put('/api/UpdateTourishPlan/' + payload.id, payload);
   }
 }

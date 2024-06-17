@@ -18,6 +18,11 @@
   border: none !important;
 }
 
+:host ::ng-deep .tour-description-content .tox-tinymce {
+  border-radius: 0 !important;
+  border: none !important;
+}
+
 :host ::ng-deep .schedule-description .tox-tinymce {
   border-radius: 0 !important;
   border: none !important;
@@ -38,6 +43,13 @@
 .tour-description {
   margin-top: 20px;
   background-color: white;
+  padding: 15px 30px 15px;
+  font-size: 16px;
+}
+
+.tour-description-content {
+  margin-top: 20px;
+  background-color: white;
   padding: 15px 10px 15px;
   font-size: 16px;
 }
@@ -45,6 +57,28 @@
 .tour-description h4.tour-name {
   font-weight: bold;
   font-size: 18px;
+}
+
+.service-item {
+  display: flex;
+  width: 135px;
+  flex-direction: column;
+  padding-left: 0px;
+  padding-right: 20px;
+}
+
+.service-item i {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+
+.service-item span {
+  text-wrap:wrap;
+}
+
+.service-item span:first-of-type {
+  font-weight: bold;
 }
 
 .full-width-input {

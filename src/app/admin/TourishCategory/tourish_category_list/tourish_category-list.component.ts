@@ -174,7 +174,7 @@ export class TourishCategoryListComponent
       );
       this.messageService.openLoadingDialog();
 
-      console.log(result);
+      
     });
   }
 
@@ -182,7 +182,7 @@ export class TourishCategoryListComponent
     const dialogRef = this.dialog.open(TourishCategoryCreateComponent, {});
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
+      
 
       this.store.dispatch(
         TourishCategoryListActions.getTourishCategoryList({

@@ -168,7 +168,7 @@ export class MovingScheduleSelectAutocompleteComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    console.log("Destroy");
+    
     this.store.dispatch(
       MovingScheduleListActions.resetMovingScheduleList()
     );
@@ -188,12 +188,11 @@ export class MovingScheduleSelectAutocompleteComponent implements OnInit {
 
   getCurrentContact() {
     if (this.currentContactId.length > 0) {
-      console.log(this.currentContactId);
       this.http
         .get("/api/GetMovingSchedule/" + this.currentContactId)
         .subscribe((state: any) => {
           if (state) {
-            console.log("abc: ", state);
+            
             this.movingScheduleIdList.push(state.data.id ?? "");
             this.movingScheduleNameList.push(state.data.name?? "");
           }

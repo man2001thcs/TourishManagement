@@ -114,7 +114,7 @@ export class StayingScheduleCreateComponent implements OnInit, OnDestroy {
 
     this.store.dispatch(MovingContactActions.initial());
 
-    //console.log(this.this_book);
+    
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     this.createformGroup_info = this.fb.group({
@@ -131,7 +131,7 @@ export class StayingScheduleCreateComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    console.log("Destroy");
+    
     this.store.dispatch(MovingContactActions.resetStayingSchedule());
 
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
@@ -157,7 +157,7 @@ export class StayingScheduleCreateComponent implements OnInit, OnDestroy {
       this.editorContent
     );
 
-    console.log(this.createformGroup_info.value);
+    
 
     if (this.createformGroup_info.valid) {
       const payload: StayingSchedule = {

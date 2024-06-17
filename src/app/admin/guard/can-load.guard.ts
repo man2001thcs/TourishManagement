@@ -18,7 +18,6 @@ export class CanLoadGuardAdmin {
     | boolean
     | UrlTree {
     let roles = route.data?.['permittedRoles'] as Array<string>;
-    console.log(roles);
 
     if (roles) {
       if (roles.indexOf(this.tokenService.getUserRole()) > -1) return true;

@@ -97,7 +97,7 @@ export class NotificationCreateComponent implements OnInit, OnDestroy {
 
     this.store.dispatch(notificationActions.initial());
 
-    //console.log(this.this_book);
+    
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     // content: string;
@@ -113,7 +113,6 @@ export class NotificationCreateComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    console.log("Destroy");
     this.store.dispatch(notificationActions.resetNotification());
 
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
@@ -131,8 +130,10 @@ export class NotificationCreateComponent implements OnInit, OnDestroy {
   formSubmit_create_info(): void {
     this.isSubmitted = true;
 
-    if (this.userReceiveId.length <= 0){
-      this.messageService.openFailNotifyDialog("Vui lòng nhập đối tượng để gửi thông báo");
+    if (this.userReceiveId.length <= 0) {
+      this.messageService.openFailNotifyDialog(
+        "Vui lòng nhập đối tượng để gửi thông báo"
+      );
       return;
     }
 
@@ -164,7 +165,6 @@ export class NotificationCreateComponent implements OnInit, OnDestroy {
   }
 
   selectChangeReceiver($event: any) {
-    console.log($event.data[0]);
     this.userReceiveId = $event.data[0];
   }
 }

@@ -169,7 +169,7 @@ export class NotificationListComponent
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
+      
 
       this.store.dispatch(
         NotificationListActions.getNotificationList({
@@ -191,7 +191,7 @@ export class NotificationListComponent
     const dialogRef = this.dialog.open(NotificationCreateComponent, {});
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
+      
 
       this.store.dispatch(
         NotificationListActions.getNotificationList({
@@ -250,7 +250,7 @@ export class NotificationListComponent
     this.pageSize = e.pageSize;
     this.pageIndex = e.pageIndex;
 
-    console.log(this.pageIndex);
+    
 
     this.store.dispatch(
       NotificationListActions.getNotificationList({

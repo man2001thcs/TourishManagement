@@ -181,7 +181,7 @@ export class DashboardComponent implements OnInit {
     this.colChartOptionsTemp = this.colChartOptions;
     Highcharts.chart("col-tour-chart", this.colChartOptionsTemp);
 
-     this.getTotalMonthGrossInTour();
+    this.getTotalMonthGrossInTour();
   }
 
   loadStayingColChart(): void {
@@ -486,8 +486,6 @@ export class DashboardComponent implements OnInit {
   getTotalMonthGrossInTour() {
     this.http.get("/api/GetFullReceipt/gross-tour").subscribe((res: any) => {
       if (res) {
-        console.log(res);
-
         const grossArray = res.data as InMonthGross[];
 
         for (let i = 0; i < grossArray.length; i++) {
@@ -510,8 +508,6 @@ export class DashboardComponent implements OnInit {
       .get("/api/GetFullReceipt/gross-staying-service")
       .subscribe((res: any) => {
         if (res) {
-          console.log(res);
-
           const grossArray = res.data as InMonthGross[];
 
           for (let i = 0; i < grossArray.length; i++) {
@@ -537,8 +533,6 @@ export class DashboardComponent implements OnInit {
       .get("/api/GetFullReceipt/gross-moving-service")
       .subscribe((res: any) => {
         if (res) {
-          console.log(res);
-
           const grossArray = res.data as InMonthGross[];
 
           for (let i = 0; i < grossArray.length; i++) {
@@ -561,8 +555,6 @@ export class DashboardComponent implements OnInit {
       .get("/api/GetFullReceipt/total-ticket-tour")
       .subscribe((res: any) => {
         if (res) {
-          console.log(res);
-
           const ticketArray = res.data as InMonthTicket[];
 
           const sumTicket = ticketArray.reduce(
@@ -575,7 +567,8 @@ export class DashboardComponent implements OnInit {
             const name =
               ticketArray[i].name +
               ", tổng cộng " +
-              ticketArray[i].totalTicket + " người đặt";
+              ticketArray[i].totalTicket +
+              " người đặt";
 
             this.pieTourChartOptions.series[0].data.push([name, percentage]);
           }
@@ -591,8 +584,6 @@ export class DashboardComponent implements OnInit {
       .get("/api/GetFullReceipt/total-ticket-moving-service")
       .subscribe((res: any) => {
         if (res) {
-          console.log(res);
-
           const ticketArray = res.data as InMonthTicket[];
 
           const sumTicket = ticketArray.reduce(
@@ -605,7 +596,8 @@ export class DashboardComponent implements OnInit {
             const name =
               ticketArray[0].name +
               ", tổng cộng " +
-              ticketArray[0].totalTicket + " người đặt";
+              ticketArray[0].totalTicket +
+              " người đặt";
 
             this.pieMovingChartOptions.series[0].data.push([name, percentage]);
           }
@@ -621,8 +613,6 @@ export class DashboardComponent implements OnInit {
       .get("/api/GetFullReceipt/total-ticket-staying-service")
       .subscribe((res: any) => {
         if (res) {
-          console.log(res);
-
           const ticketArray = res.data as InMonthTicket[];
 
           const sumTicket = ticketArray.reduce(
@@ -635,7 +625,8 @@ export class DashboardComponent implements OnInit {
             const name =
               ticketArray[0].name +
               ", tổng cộng " +
-              ticketArray[0].totalTicket + " người đặt";
+              ticketArray[0].totalTicket +
+              " người đặt";
 
             this.pieStayingChartOptions.series[0].data.push([name, percentage]);
           }

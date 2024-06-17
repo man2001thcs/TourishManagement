@@ -20,9 +20,9 @@ export class StayingScheduleCreateEffects {
       switchMap((action) => {
         return this.storeService.createStayingSchedule(action).pipe(
           map((response) => {
-            console.log("abcd", response);
+            
             if (response.resultCd === 0) {
-              console.log(response);
+              
               return StayingScheduleAction.createStayingScheduleSuccess({
                 response: response,
               });

@@ -20,9 +20,9 @@ export class StayingScheduleListEffects {
       switchMap((action) => {
         return this.storeService.getStayingScheduleList(action).pipe(
           map((response) => {
-            console.log(response);
+            
             if (response.resultCd === 0) {
-              console.log(response);
+              
               return StayingScheduleListAction.getStayingScheduleListSuccess({
                 response: response,
               });
@@ -65,9 +65,9 @@ export class StayingScheduleListEffects {
       switchMap((action) => {
         return this.storeService.deleteStayingSchedule(action).pipe(
           map((response) => {
-            console.log(response);
+            
             if (response.resultCd === 0) {
-              console.log(response);
+              
               return StayingScheduleListAction.deleteStayingScheduleSuccess({
                 response: response,
               });

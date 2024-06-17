@@ -13,7 +13,7 @@ export class MovingContactStoreService {
   }
 
   editMovingContact(payload: any): Observable<any> {
-    console.log('ok');
+    
     return this.http.put('/api/UpdateMovingContact/' + payload.id, payload);
   }
 }

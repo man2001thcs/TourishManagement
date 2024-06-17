@@ -42,6 +42,7 @@ export class TourishSearchPackComponent implements OnInit, OnChanges {
   categoryString = "";
 
   activePage = 1;
+  isFirstSearch = true;
   isLoading = false;
 
   @ViewChild("picker") eatingPicker: any;
@@ -89,7 +90,7 @@ export class TourishSearchPackComponent implements OnInit, OnChanges {
   getTourPack() {
     const params = {
       page: this.pageIndex + 1,
-    pageSize: this.pageSize,
+      pageSize: this.pageSize,
       categoryString: this.categoryString,
       priceFrom: this.priceFrom,
       priceTo: this.priceTo,
@@ -97,11 +98,12 @@ export class TourishSearchPackComponent implements OnInit, OnChanges {
       startingPoint: this.startingPoint,
       endPoint: this.endPoint,
     };
-
+    this.isFirstSearch = true;
     this.http
       .get("/api/GetTourishPlan", { params: params })
       .subscribe((response: any) => {
         if (response) {
+          this.isFirstSearch = false;
           this.tourishPLanList = response.data;
           this.length = response.count;
           this.isLoading = false;

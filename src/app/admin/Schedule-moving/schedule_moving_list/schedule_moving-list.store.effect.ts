@@ -20,9 +20,9 @@ export class MovingScheduleListEffects {
       switchMap((action) => {
         return this.storeService.getMovingScheduleList(action).pipe(
           map((response) => {
-            console.log(response);
+            
             if (response.resultCd === 0) {
-              console.log(response);
+              
               return MovingScheduleListAction.getMovingScheduleListSuccess({
                 response: response,
               });
@@ -65,9 +65,9 @@ export class MovingScheduleListEffects {
       switchMap((action) => {
         return this.storeService.deleteMovingSchedule(action).pipe(
           map((response) => {
-            console.log(response);
+            
             if (response.resultCd === 0) {
-              console.log(response);
+              
               return MovingScheduleListAction.deleteMovingScheduleSuccess({
                 response: response,
               });

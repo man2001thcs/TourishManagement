@@ -157,13 +157,13 @@ export class MovingContactDetailComponent implements OnInit, OnDestroy {
 
     this.store.dispatch(MovingContactActions.initial());
 
-    //console.log(this.this_book);
+    
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
   }
 
   ngOnDestroy(): void {
-    console.log("Destroy");
+    
     this.store.dispatch(MovingContactActions.resetMovingContact());
 
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
@@ -183,7 +183,7 @@ export class MovingContactDetailComponent implements OnInit, OnDestroy {
   }
 
   formSubmit(): void {
-    console.log(this.editformGroup_info.value);
+    
   }
 
   formSubmit_edit_info(): void {

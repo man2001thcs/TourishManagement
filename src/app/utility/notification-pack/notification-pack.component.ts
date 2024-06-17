@@ -166,7 +166,6 @@ export class NotificationPackComponent implements OnInit, OnDestroy {
       .subscribe((response: any) => {
         if (response) {
           this.notificationList = response.data;
-          console.log("notify: ", response);
           this.length = response.count;
           this.firstLoading = false;
 
@@ -263,7 +262,6 @@ export class NotificationPackComponent implements OnInit, OnDestroy {
       .getToken({ vapidKey: environment.firebaseConfig.vapidKey })
       .then((currentToken) => {
         if (currentToken) {
-          console.log("abc", currentToken);
 
           const userId = this.tokenStorage.getUser().Id;
           const payload = {
@@ -274,7 +272,7 @@ export class NotificationPackComponent implements OnInit, OnDestroy {
           this.http
             .post("/api/SaveNotifyFcmToken", payload)
             .subscribe((response: any) => {
-              console.log(response);
+              
             });
         } else {
           console.log(

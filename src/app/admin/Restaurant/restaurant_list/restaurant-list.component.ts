@@ -170,7 +170,7 @@ export class RestaurantListComponent
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
+      
 
       this.store.dispatch(
         RestaurantListActions.getRestaurantList({
@@ -191,7 +191,7 @@ export class RestaurantListComponent
     const dialogRef = this.dialog.open(RestaurantCreateComponent, {});
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
+      
 
       this.store.dispatch(
         RestaurantListActions.getRestaurantList({
@@ -226,7 +226,7 @@ export class RestaurantListComponent
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
+      
 
       this.store.dispatch(
         RestaurantListActions.getRestaurantList({
@@ -273,7 +273,7 @@ export class RestaurantListComponent
     this.pageSize = e.pageSize;
     this.pageIndex = e.pageIndex;
 
-    console.log(this.pageIndex);
+    
 
     this.store.dispatch(
       RestaurantListActions.getRestaurantList({

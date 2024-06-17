@@ -169,7 +169,7 @@ export class RestHouseContactSelectAutocompleteComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    console.log("Destroy");
+    
     this.store.dispatch(
       RestHouseContactListActions.resetRestHouseContactList()
     );
@@ -207,12 +207,11 @@ export class RestHouseContactSelectAutocompleteComponent implements OnInit {
 
   getCurrentContact() {
     if (this.currentContactId.length > 0) {
-      console.log(this.currentContactId);
       this.http
         .get("/api/GetRestHouseContact/" + this.currentContactId)
         .subscribe((state: any) => {
           if (state) {
-            console.log("abc: ", state);
+            
             this.restHouseContactIdList.push(state.data.id ?? "");
             this.restHouseContactNameList.push(state.data.placeBranch ?? "");
           }

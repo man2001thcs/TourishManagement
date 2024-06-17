@@ -40,13 +40,11 @@ export class AuthInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     let ok: string;
-    //console.log("token: " ,this.tokenService.getToken());
+
     if (this.tokenService.getToken() != null) {
       let authReq = req;
 
       const token = this.tokenService.getToken();
-
-      //console.log("token: " ,token);
 
       if (token != null) {
         authReq = this.addTokenHeader(req, token);
@@ -96,58 +94,63 @@ export class AuthInterceptor implements HttpInterceptor {
 
               this.tokenService.signOut();
 
-              this.messageService.openFailNotifyDialog("Có lỗi xảy ra, vui lòng thử lại").subscribe(() => {
-                setTimeout(() => {
-                  this.router.navigate(["/guest/main-page"]);
-                }, 1000);
-              });
+              this.messageService
+                .openFailNotifyDialog("Có lỗi xảy ra, vui lòng thử lại")
+                .subscribe(() => {
+                  setTimeout(() => {
+                    this.router.navigate(["/guest/main-page"]);
+                  }, 1000);
+                });
               return throwError(() => err);
             })
           )
           .subscribe((token: any) => {
-            this.isRefreshing = false;       
+            this.isRefreshing = false;
             if (token.data) {
               this.tokenService.saveToken(token.data.accessToken);
               this.tokenService.saveRefreshToken(token.data.refreshToken);
 
-              this.refreshTokenSubject.next(token.data.refreshToken);        
-              
+              this.refreshTokenSubject.next(token.data.refreshToken);
+
               return next.handle(
                 this.addTokenHeader(request, this.tokenService.getToken())
               );
             } else {
               this.tokenService.signOut();
-        
-              this.messageService.closeAllDialog();
-              this.refreshTokenSubject.next("");   
 
-              this.messageService.openFailNotifyDialog("Phiên đăng nhập đã hết hiệu lực").subscribe(() => {
-                setTimeout(() => {
-                  this.router.navigate(["/guest/main-page"]);
-                }, 1000);
-              });
+              this.messageService.closeAllDialog();
+              this.refreshTokenSubject.next("");
+
+              this.messageService
+                .openFailNotifyDialog("Phiên đăng nhập đã hết hiệu lực")
+                .subscribe(() => {
+                  setTimeout(() => {
+                    this.router.navigate(["/guest/main-page"]);
+                  }, 1000);
+                });
 
               return null;
             }
-
           });
       } else {
         this.isRefreshing = false;
         this.tokenService.signOut();
-        this.refreshTokenSubject.next("");  
+        this.refreshTokenSubject.next("");
 
         this.messageService.closeAllDialog();
-        this.messageService.openFailNotifyDialog("Phiên đăng nhập đã hết hiệu lực").subscribe(() => {
-          setTimeout(() => {
-            this.router.navigate(["/guest/login"]);
-          }, 1000);
-        });
+        this.messageService
+          .openFailNotifyDialog("Phiên đăng nhập đã hết hiệu lực")
+          .subscribe(() => {
+            setTimeout(() => {
+              this.router.navigate(["/guest/login"]);
+            }, 1000);
+          });
       }
     }
   }
 
   private addTokenHeader(request: HttpRequest<any>, token: string) {
-    request.url
+    request.url;
     return request.clone({
       url: environment.backend.baseURL + request.url,
       headers: request.headers.append(TOKEN_HEADER_KEY, "Bearer " + token),

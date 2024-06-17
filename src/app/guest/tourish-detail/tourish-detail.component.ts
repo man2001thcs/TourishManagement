@@ -61,7 +61,6 @@ export class TourishDetailComponent implements OnInit, OnDestroy {
     private sanitizer: DomSanitizer,
     private rendered2: Renderer2,
     private messageService: MessageService,
-    private elementRef: ElementRef,
     public dialog: MatDialog,
     private router: Router,
     private tokenStorageService: TokenStorageService
@@ -100,7 +99,6 @@ export class TourishDetailComponent implements OnInit, OnDestroy {
 
     this.subscriptions.push(
       this._route.paramMap.subscribe((params) => {
-        console.log(params.get("id"));
         this.tourishPlanId = params.get("id") ?? "";
         this.getRatingForTour();
         this.getTourImage();
@@ -216,7 +214,7 @@ export class TourishDetailComponent implements OnInit, OnDestroy {
           this.pushImageToList();
         }
 
-        console.log(response);
+        
       });
   }
 
@@ -275,6 +273,14 @@ export class TourishDetailComponent implements OnInit, OnDestroy {
     }
   }
 
+  getVehicleList(vehicleType: number) {
+    if (!this.tourishPlan || !this.tourishPlan.movingSchedules) {
+      return [];
+    }
+  
+    return this.tourishPlan.movingSchedules.filter(entity => entity.vehicleType === vehicleType);
+  }
+
   register() {
     if (this.tokenStorageService.getUserRole() != "User") {
       this.messageService
@@ -306,7 +312,7 @@ export class TourishDetailComponent implements OnInit, OnDestroy {
               });
 
               dialogRef.afterClosed().subscribe((result) => {
-                console.log(response.data);
+                
                 if (result) {
                   if (response.curId !== null) this.callPayment(response.curId);
                 }
@@ -315,6 +321,13 @@ export class TourishDetailComponent implements OnInit, OnDestroy {
               this.messageService.openMessageNotifyDialog(response.messageCode);
           }
         });
+    }
+  }
+
+  scrollToElement(elementId: string): void {
+    const element = document.getElementById(elementId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
     }
   }
 
@@ -349,7 +362,7 @@ export class TourishDetailComponent implements OnInit, OnDestroy {
       .get("/api/GetTourRating/tourishplan", { params: payload })
       .subscribe((state: any) => {
         if (state) {
-          console.log("abc", state);
+          
           this.ratingAverage = state.averagePoint;
         }
       });
@@ -414,5 +427,9 @@ export class TourishDetailComponent implements OnInit, OnDestroy {
   isScheduleAvailable() {
     if ((this.tourishPlan?.tourishScheduleList ?? []).length > 0) return true;
     else return false;
+  }
+
+  formatVNCurrency(num: number): string {
+    return num.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
   }
 }

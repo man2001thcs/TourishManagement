@@ -68,7 +68,7 @@ export class SchedulePackComponent implements OnInit, AfterViewInit {
     let childWidth = parseInt(this.packContainer.nativeElement.offsetWidth, 0);
     // Example logic, you can adjust this according to your needs
     if (childWidth >= 1700) {
-      console.log("here");
+      
       // this.packContainer.nativeElement.style["border-right"] = "30px 18% 30px";
       this.renderer.setStyle(
         this.packContainer.nativeElement,
@@ -114,7 +114,7 @@ export class SchedulePackComponent implements OnInit, AfterViewInit {
         .get("/api/GetMovingSchedule", { params: params })
         .subscribe((response: any) => {
           this.movingScheduleList = response.data;
-          console.log(response);
+          
           this.length = response.count;
         });
     } else if (this.scheduleType == 2) {
@@ -122,7 +122,7 @@ export class SchedulePackComponent implements OnInit, AfterViewInit {
         .get("/api/GetStayingSchedule", { params: params })
         .subscribe((response: any) => {
           this.stayingScheduleList = response.data;
-          console.log(response);
+          
           this.length = response.count;
         });
     }

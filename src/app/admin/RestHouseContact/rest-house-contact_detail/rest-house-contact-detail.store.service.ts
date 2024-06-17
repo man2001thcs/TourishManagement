@@ -13,7 +13,7 @@ export class RestHouseContactStoreService {
   }
 
   editRestHouseContact(payload: any): Observable<any> {
-    console.log('ok');
+    
     return this.http.put('/api/UpdateRestHouseContact/' + payload.id, payload);
   }
 }

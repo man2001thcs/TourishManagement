@@ -52,7 +52,9 @@ import {
     ]),
   ],
 })
-export class MovingScheduleReceiptListComponent implements OnInit, AfterViewInit, OnDestroy {
+export class MovingScheduleReceiptListComponent
+  implements OnInit, AfterViewInit, OnDestroy
+{
   receiptList!: TotalReceipt[];
   subscriptions: Subscription[] = [];
 
@@ -73,7 +75,7 @@ export class MovingScheduleReceiptListComponent implements OnInit, AfterViewInit
     "branchName",
     "singlePrice",
     //"scheduleId",
-    "createDate"
+    "createDate",
   ];
 
   displayedColumnsWithExpand = [...this.displayedColumns, "expand"];
@@ -193,8 +195,6 @@ export class MovingScheduleReceiptListComponent implements OnInit, AfterViewInit
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
-
       this.store.dispatch(
         ReceiptListActions.getReceiptList({
           payload: {
@@ -213,11 +213,12 @@ export class MovingScheduleReceiptListComponent implements OnInit, AfterViewInit
   }
 
   openAddDialog(): void {
-    const dialogRef = this.dialog.open(MovingScheduleReceiptCreateComponent, {});
+    const dialogRef = this.dialog.open(
+      MovingScheduleReceiptCreateComponent,
+      {}
+    );
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
-
       this.store.dispatch(
         ReceiptListActions.getReceiptList({
           payload: {
@@ -268,9 +269,7 @@ export class MovingScheduleReceiptListComponent implements OnInit, AfterViewInit
     });
   }
 
-  addData(): void {
-    console.log("abc");
-  }
+  addData(): void {}
 
   tourStatusChange($event: number): void {
     this.pageIndex = 0;
@@ -296,12 +295,13 @@ export class MovingScheduleReceiptListComponent implements OnInit, AfterViewInit
     schedule: MovingSchedule,
     fullReceipt: FullReceipt
   ): number {
-    let totalPrice = schedule.singlePrice ?? 0;
+    let totalPrice = 0;
 
     totalPrice =
-    (totalPrice) *
-    (fullReceipt.totalTicket + fullReceipt.totalChildTicket / 2) *
-    (1 - fullReceipt.discountFloat) - fullReceipt.discountAmount;
+      fullReceipt.originalPrice *
+        (fullReceipt.totalTicket + fullReceipt.totalChildTicket / 2) *
+        (1 - fullReceipt.discountFloat) -
+      fullReceipt.discountAmount;
 
     return Math.floor(totalPrice);
   }
@@ -331,7 +331,6 @@ export class MovingScheduleReceiptListComponent implements OnInit, AfterViewInit
   }
 
   selectChangeReceipt($event: any) {
-    console.log($event);
     this.scheduleId = $event.data.idList[0];
     this.store.dispatch(
       ReceiptListActions.getReceiptList({
@@ -376,19 +375,19 @@ export class MovingScheduleReceiptListComponent implements OnInit, AfterViewInit
     );
   }
 
-  getPaymentStatus(input: string){
-    if  (input == "0") return "Đang xác nhận thông tin";
-    else if  (input == "1") return "Đang chờ thanh toán";
-    else if  (input == "2") return "Đã thanh toán";
-    else if  (input == "3") return "Đã hủy";
+  getPaymentStatus(input: string) {
+    if (input == "0") return "Đang xác nhận thông tin";
+    else if (input == "1") return "Đang chờ thanh toán";
+    else if (input == "2") return "Đã thanh toán";
+    else if (input == "3") return "Đã hủy";
     return "Thất bại";
   }
 
-  getPaymentStatusColor(input: string){
-    if  (input == "0") return "#ffea00";
-    else if  (input == "1") return "#ffea00";
-    else if  (input == "2") return "#4caf50";
-    else if  (input == "3") return "#f50057";
+  getPaymentStatusColor(input: string) {
+    if (input == "0") return "#ffea00";
+    else if (input == "1") return "#ffea00";
+    else if (input == "2") return "#4caf50";
+    else if (input == "3") return "#f50057";
     return "Thất bại";
   }
 
@@ -411,5 +410,9 @@ export class MovingScheduleReceiptListComponent implements OnInit, AfterViewInit
       `Ngày ${day} tháng ${month} năm ${year}, ${hour} giờ ` + minuteString;
 
     return chuoiNgayThang;
+  }
+
+  formatVNCurrency(num: number): string {
+    return num.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
   }
 }

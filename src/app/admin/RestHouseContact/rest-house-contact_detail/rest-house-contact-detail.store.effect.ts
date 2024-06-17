@@ -60,9 +60,9 @@ export class RestHouseContactEffects {
       switchMap((action) => {
         return this.storeService.editRestHouseContact(action).pipe(
           map((response) => {
-            console.log("abcd", response);
+            
             if (response.resultCd === 0) {
-              console.log(response);
+              
               return RestHouseContactAction.editRestHouseContactSuccess({
                 response: response,
               });

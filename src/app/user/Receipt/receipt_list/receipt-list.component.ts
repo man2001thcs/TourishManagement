@@ -147,7 +147,7 @@ export class ReceiptUserListComponent
     this.subscriptions.push(
       this.receiptDeleteState.subscribe((state) => {
         if (state) {
-          console.log("abc: ", state);
+          
           this.messageService.openMessageNotifyDialog(state.messageCode);
           this.messageService.closeLoadingDialog();
 
@@ -226,7 +226,7 @@ export class ReceiptUserListComponent
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
+      
 
       const email = this.tokenStorageService.getUser().email;
       this.store.dispatch(
@@ -259,7 +259,7 @@ export class ReceiptUserListComponent
   }
 
   addData(): void {
-    console.log("abc");
+    
   }
 
   tourStatusChange($event: number): void {
@@ -302,7 +302,7 @@ export class ReceiptUserListComponent
     });
 
     totalPrice =
-      totalPrice *
+      fullReceipt.originalPrice *
         (fullReceipt.totalTicket + fullReceipt.totalChildTicket / 2) *
         (1 - fullReceipt.discountFloat) -
       fullReceipt.discountAmount;
@@ -473,5 +473,9 @@ export class ReceiptUserListComponent
       `Ngày ${day} tháng ${month}, ${hour} giờ ` + minuteString;
 
     return chuoiNgayThang;
+  }
+
+  formatVNCurrency(num: number): string {
+    return num.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
   }
 }

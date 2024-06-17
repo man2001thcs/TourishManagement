@@ -33,6 +33,7 @@ export class ScheduleSearchPackComponent implements OnInit, OnChanges {
   @Input()
   priceTo = 2000000;
 
+  isFirstSearch = true;
   activePage = 1;
   isLoading = false;
 
@@ -72,6 +73,7 @@ export class ScheduleSearchPackComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     this.pageIndex = 0;
+    this.isFirstSearch = true;
     this.getTourPack();
   }
 
@@ -91,6 +93,8 @@ export class ScheduleSearchPackComponent implements OnInit, OnChanges {
       endPoint: this.endPoint,
     };
 
+    this.isFirstSearch = true;
+
     if (this.scheduleType == 1) {
       this.movingScheduleList = [];
       this.stayingScheduleList = [];
@@ -99,6 +103,7 @@ export class ScheduleSearchPackComponent implements OnInit, OnChanges {
         .get("/api/GetMovingSchedule", { params: params })
         .subscribe((response: any) => {
           if (response) {
+            this.isFirstSearch = false; 
             this.movingScheduleList = response.data;
             this.length = response.count;
             this.isLoading = false;
@@ -118,6 +123,7 @@ export class ScheduleSearchPackComponent implements OnInit, OnChanges {
         .get("/api/GetStayingSchedule", { params: params })
         .subscribe((response: any) => {
           if (response) {
+            this.isFirstSearch = false; 
             this.stayingScheduleList = response.data;
             this.length = response.count;
             this.isLoading = false;

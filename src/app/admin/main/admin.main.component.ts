@@ -19,7 +19,7 @@ export class AdminMainComponent {
   isNavOpen = true;
 
   checkNavOpen($event: any) {
-    console.log($event);
+    
     if ($event) this.openNav();
     else this.closetNav();
   }

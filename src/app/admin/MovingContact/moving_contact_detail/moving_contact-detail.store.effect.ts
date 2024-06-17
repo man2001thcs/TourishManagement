@@ -60,9 +60,9 @@ export class MovingContactEffects {
       switchMap((action) => {
         return this.storeService.editMovingContact(action).pipe(
           map((response) => {
-            console.log("abcd", response);
+            
             if (response.resultCd === 0) {
-              console.log(response);
+              
               return MovingContactAction.editMovingContactSuccess({
                 response: response,
               });

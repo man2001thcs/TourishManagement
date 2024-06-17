@@ -230,7 +230,7 @@ export class EatingMultiselectAutocompleteComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    console.log("Destroy");
+    
     this.store.dispatch(EatingListActions.resetEatingList());
 
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
@@ -374,16 +374,14 @@ export class EatingMultiselectAutocompleteComponent implements OnInit {
     var index = this.eatingScheduleList.findIndex((entity) => entity.id === id);
 
     if (index > -1) {
-      console.log(this.eatingScheduleList[index]);
       this.eatingScheduleList.splice(index, 1);
     }
 
     var existIndex = this.data_selected_edit.findIndex(
       (entity) => entity.id === id
     );
-    console.log(existIndex);
+
     if (existIndex > -1) {
-      console.log(this.data_selected_edit[existIndex]);
       this.data_selected_edit.splice(existIndex, 1);
     }
 
@@ -439,7 +437,6 @@ export class EatingMultiselectAutocompleteComponent implements OnInit {
   }
 
   outTest(input: any) {
-    console.log(input);
   }
 
   getScheduleEditId(): string {

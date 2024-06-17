@@ -20,9 +20,9 @@ export class RestHouseContactListEffects {
       switchMap((action) => {
         return this.storeService.getRestHouseContactList(action).pipe(
           map((response) => {
-            console.log(response);
+            
             if (response.resultCd === 0) {
-              console.log(response);
+              
               return RestHouseContactListAction.getRestHouseContactListSuccess({
                 response: response,
               });
@@ -65,9 +65,9 @@ export class RestHouseContactListEffects {
       switchMap((action) => {
         return this.storeService.deleteRestHouseContact(action).pipe(
           map((response) => {
-            console.log(response);
+            
             if (response.resultCd === 0) {
-              console.log(response);
+              
               return RestHouseContactListAction.deleteRestHouseContactSuccess({
                 response: response,
               });

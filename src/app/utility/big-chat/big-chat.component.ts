@@ -50,9 +50,9 @@ export class BigChatComponent implements OnInit {
           if (res.data3 !== null && res.data3 !== undefined) {
             var insertMess = res.data3;
 
-            if (insertMess.isClosed){
+            if (insertMess.isClosed) {
               this.isOpen = false;
-            } 
+            }
 
             const guestMessage: GuestMessage = {
               id: res.data3.id,
@@ -173,8 +173,6 @@ export class BigChatComponent implements OnInit {
   }
 
   signalRNotification() {
-    console.log(this.tokenStorageService.getToken());
-
     const adminId = this.tokenStorageService.getUser().Id;
     const queryParameters = {
       adminId: adminId,
@@ -206,7 +204,7 @@ export class BigChatComponent implements OnInit {
         this.messageService.closeAllDialog();
         if (response) {
           this.guestConHistoryList = response.data;
-          console.log(response);
+
           this.guestConLength = response.count;
 
           this.getMessageCon();
@@ -228,7 +226,6 @@ export class BigChatComponent implements OnInit {
         .subscribe((response: any) => {
           this.messageService.closeAllDialog();
           if (response) {
-            console.log(response);
             this.currentGuestConHis = response.data;
 
             var existIndex = this.guestConHistoryList.findIndex(
@@ -245,8 +242,6 @@ export class BigChatComponent implements OnInit {
             }
 
             this.messageList = this.currentGuestConHis.guestMessages ?? [];
-
-            console.log(this.guestConHistoryList);
 
             if (this.currentGuestConHis.guestMessageCon.connected) {
               this.signalRNotification();

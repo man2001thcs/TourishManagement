@@ -1,5 +1,17 @@
 <div class="container">
   <div class="below-title">
+    <div class="service-item" style="align-self: center; width: 170px;">
+      <button
+        mat-flat-button
+        color="primary"
+        style="width: 100%; height: 56px; font-size: 16px; align-self: center"
+        (click)="scrollToElement('payment-form')"
+        [disabled]="!isScheduleAvailable()"
+      >
+        {{ isScheduleAvailable() ? "Đặt ngay" : "Chưa có lịch trình cụ thể" }}
+      </button>
+    </div>
+
     <span *ngIf="this.schedule?.address !== undefined"
       ><i class="fa fa-map-marker" aria-hidden="true"></i> Địa chỉ:
       <span style="font-weight: lighter">{{
@@ -27,28 +39,6 @@
       <i class="fa fa-plane" aria-hidden="true" *ngIf="isPlanePresent"></i>
       <i class="fa fa-train" aria-hidden="true" *ngIf="isTrainPresent"></i>
     </span>
-  </div>
-
-  <div
-    class="tour-description"
-    style="
-      display: flex;
-      flex-direction: row;
-      justify-content: flex-start;
-      align-items: flex-start;
-    "
-  >
-    <div class="service-item" style="align-self: center; width: 170px">
-      <button
-        mat-flat-button
-        color="primary"
-        style="width: 100%; height: 56px; font-size: 16px; align-self: center"
-        (click)="scrollToElement('payment-form')"
-        [disabled]="!isScheduleAvailable()"
-      >
-        {{ isScheduleAvailable() ? "Đặt ngay" : "Chưa có lịch trình cụ thể" }}
-      </button>
-    </div>
   </div>
 
   <div class="tour-description-content">

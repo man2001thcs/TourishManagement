@@ -233,4 +233,8 @@ export class NotificationDetailComponent implements OnInit, OnDestroy {
     let strCapital = str.charAt(0).toUpperCase() + str.slice(1);
     return strCapital.replaceAll(":", "");
   }
+
+  closeDialog() {
+    this.dialog.closeAll();
+  }
 }

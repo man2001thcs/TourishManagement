@@ -97,7 +97,6 @@ export class NotificationCreateComponent implements OnInit, OnDestroy {
 
     this.store.dispatch(notificationActions.initial());
 
-    
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     // content: string;
@@ -166,5 +165,9 @@ export class NotificationCreateComponent implements OnInit, OnDestroy {
 
   selectChangeReceiver($event: any) {
     this.userReceiveId = $event.data[0];
+  }
+
+  closeDialog() {
+    this.dialog.closeAll();
   }
 }

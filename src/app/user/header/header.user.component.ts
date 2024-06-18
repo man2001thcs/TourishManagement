@@ -201,12 +201,12 @@ export class HeaderUserComponent implements OnDestroy {
     this.router.navigate(["/guest/login"]);
   }
 
-  outsideClick(hasClickedOutside: any) {
-    // if (hasClickedOutside && this.isNavOpen) {
-    //   this.countNavClick++;
-    //   console.log(this.countNavClick);
-    //   if (this.countNavClick >= 2) this.closeNav();
-    // }
+  outsideNavClick(hasClickedOutside: any) {
+    if (hasClickedOutside && this.isNavOpen) {
+      this.countNavClick++;
+      console.log(this.countNavClick);
+      if (this.countNavClick >= 1) this.closeNav();
+    }
   }
 
   outsideNotificationClick(hasClickedOutside: any) {

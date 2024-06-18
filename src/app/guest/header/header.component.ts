@@ -211,12 +211,12 @@ export class HeaderComponent implements OnInit {
     this.countSearchClick = 0;
   }
 
-  outsideClick(hasClickedOutside: any) {
-    // if (hasClickedOutside && this.isNavOpen) {
-    //   this.countNavClick++;
-    //   console.log(this.countNavClick);
-    //   if (this.countNavClick >= 2) this.closeNav();
-    // }
+  outsideNavClick(hasClickedOutside: any) {
+    if (hasClickedOutside && this.isNavOpen) {
+      this.countNavClick++;
+      console.log(this.countNavClick);
+      if (this.countNavClick >= 1) this.closeNav();
+    }
   }
 
   outsideAutoCompleteSearchClick(hasClickedOutside: any) {

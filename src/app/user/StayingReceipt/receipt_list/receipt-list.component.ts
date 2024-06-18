@@ -398,6 +398,7 @@ export class StayingReceiptUserListComponent
   }
 
   callPayment(orderId: string, paymentId: string) {
+    console.log("payment: " + paymentId);
     if (paymentId !== null && paymentId.length > 0) {
       this.http
         .get("/api/CallPayment/service/check-request?id=" + orderId)

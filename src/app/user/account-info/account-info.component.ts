@@ -45,7 +45,7 @@ export class UserAccountInfoComponent implements OnInit, OnDestroy {
   isSubmittedInfo = false;
   isSubmittedPassword = false;
   id = "";
-  active = 1;
+  active = 0;
 
   account: User = {
     id: "",
@@ -204,6 +204,7 @@ export class UserAccountInfoComponent implements OnInit, OnDestroy {
   }
 
   formSubmit_edit_info(): void {
+    console.log(this.editformGroup_info.value);
     if (this.active === 0) {
       this.isSubmittedInfo = true;
       if (this.editformGroup_info.valid) {

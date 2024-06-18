@@ -249,7 +249,7 @@ export class HeaderComponent implements OnInit {
     let navigationExtras: NavigationExtras = {
       queryParams: { serviceType: type }, // Replace 'key' and 'value' with your actual query parameters
     };
-    this.router.navigate(["user/" + url], navigationExtras);
+    this.router.navigate(["guest/" + url], navigationExtras);
   }
 
   getBlobUrl() {

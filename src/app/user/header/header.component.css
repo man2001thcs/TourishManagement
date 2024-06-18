@@ -270,6 +270,7 @@ button.nav-button {
   text-align: left;
 
   padding-left: 35px;
+  text-wrap: nowrap;
 }
 
 button:hover {

@@ -121,6 +121,7 @@ button.nav-button {
   font-weight: bolder;
   color: #6b7383;
   text-align: left;
+  text-wrap: nowrap;
 
   padding-left: 35px;
 }

@@ -43,7 +43,7 @@ export class TinyMceEditorComponent implements OnInit, OnChanges {
     this.tinyMceSetting = {
       base_url: "/tinymce", // Root for resources
       suffix: ".min", // Suffix to use when loading resources
-      height: 500,
+      height: 600,
       menubar: true,
       file_picker_types: "file image media",
       plugins: [

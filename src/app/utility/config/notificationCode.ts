@@ -18,7 +18,9 @@ export const SUCCESS_MESSAGE_CODE_EN: Map<string, string> = new Map([
 
 export const SUCCESS_MESSAGE_CODE_VI: Map<string, string> = new Map([
   ["I411", " đã thêm tour: "],
-  ["I412", " đã cập nhật tour: "],
+  ["I412", " đã cập nhật thông tin cơ bản của tour: "],
+  ["I412-schedule", " đã cập nhật lịch trình tour: "],
+  ["I412-new-schedule", " đã thêm lịch trình tour: "],
   ["I413", " đã xóa tour: "],
 
   ["I421", "Thể loại tour thêm thành công"],
@@ -26,7 +28,9 @@ export const SUCCESS_MESSAGE_CODE_VI: Map<string, string> = new Map([
   ["I423", "Thể loại tour xóa thành công"],
 
   ["I431", " đã thêm dịch vụ: "],
-  ["I432", " đã cập nhật dịch vụ: "],
+  ["I432", " đã cập nhật thông tin cơ bản của dịch vụ: "],
+  ["I432-schedule", " đã cập nhật lịch trình của dịch vụ: "],
+  ["I432-new-schedule", " đã thêm lịch trình của dịch vụ: "],
   ["I433", " đã xóa dịch vụ: "],
 
   ["I511", " đã thanh toán cho sản phẩm dịch vụ: "],

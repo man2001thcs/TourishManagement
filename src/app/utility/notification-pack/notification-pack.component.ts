@@ -71,19 +71,6 @@ export class NotificationPackComponent implements OnInit, OnDestroy {
     this.requestPermission();
     this.listen();
     this.signalRNotification();
-
-    this.setTourForm = this.fb.group({
-      name: ["", Validators.compose([Validators.required])],
-      endDate: ["", Validators.compose([Validators.required])],
-      email: ["", Validators.compose([Validators.required])],
-      phoneNumber: ["", Validators.compose([Validators.required])],
-      totalTicket: [0, Validators.compose([Validators.required])],
-      description: [
-        "",
-        Validators.compose([Validators.required, Validators.minLength(3)]),
-      ],
-    });
-
     this.getNotifyPack();
 
     this.subscriptions.push(

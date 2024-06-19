@@ -61,15 +61,37 @@
                 <input
                   matInput
                   status="info"
-                  type="password"
+                  [type]="passwordVisible ? 'text' : 'password'"
                   id="password"
                   placeholder="Mật khẩu"
                   formControlName="password"
                 />
+                <button
+                  mat-icon-button
+                  matSuffix
+                  (click)="
+                    passwordVisible = !passwordVisible;
+                    onClickRevealPassword($event)
+                  "
+                  [attr.aria-label]="'Hide password'"
+                  [attr.aria-pressed]="!passwordVisible"
+                >
+                  <mat-icon>{{
+                    passwordVisible ? "visibility" : "visibility_off"
+                  }}</mat-icon>
+                </button>
               </mat-form-field>
             </div>
 
             <div class="signInAction">
+              <mat-checkbox
+                class="remember-checkbox"
+                formControlName="isRememberMeCheck"
+                ><span style="margin-top: 5px"
+                  >Ghi nhớ đăng nhập</span
+                ></mat-checkbox
+              >
+
               <button
                 mat-flat-button
                 color="primary"

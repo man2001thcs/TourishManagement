@@ -6,11 +6,16 @@ import { GoogleLoginProvider } from "@abacritt/angularx-social-login";
 import { Store } from "@ngrx/store";
 import { LoginUnionActions } from "src/app/guest/log/login/login.store.action";
 import * as LoginAction from "src/app/guest/log/login/login.store.action";
+import { HashService } from "./hash.service";
 
 const TOKEN_KEY = "auth-token";
 const REFRESHTOKEN_KEY = "auth-refreshtoken";
 const USER_KEY = "auth-user";
 const CART_KEY = "auth-user-cart";
+
+const REMEMBER_USERNAME = "auth-user-name";
+const REMEMBER_PASSWORD = "auth-password";
+const REMEMBER_KEY = "roxanna";
 
 const httpOptions = {
   headers: new HttpHeaders({ "Content-Type": "application/json" }),
@@ -37,15 +42,63 @@ export class TokenStorageService {
   constructor(
     private http: HttpClient,
     private store: Store<LoginUnionActions>,
-    private socialAuthService: SocialAuthService
+    private socialAuthService: SocialAuthService,
+    private hashService: HashService
   ) {}
+
+  handleRememberMe(userName: string, password: string) {
+    window.localStorage.removeItem(REMEMBER_USERNAME);
+    window.localStorage.setItem(
+      REMEMBER_USERNAME,
+      this.hashService.encryptedString(userName, REMEMBER_KEY)
+    );
+
+    window.localStorage.removeItem(REMEMBER_PASSWORD);
+    window.localStorage.setItem(
+      REMEMBER_PASSWORD,
+      this.hashService.encryptedString(password, REMEMBER_KEY)
+    );
+  }
+
+  cancelRememberMe() {
+    window.localStorage.removeItem(REMEMBER_USERNAME);
+    window.localStorage.setItem(REMEMBER_USERNAME, "");
+
+    window.localStorage.removeItem(REMEMBER_PASSWORD);
+    window.localStorage.setItem(REMEMBER_PASSWORD, "");
+  }
+
+  returnRememberMe() {
+    let userName = "";
+    if (window.localStorage.getItem(REMEMBER_USERNAME))
+      userName = this.hashService.dencryptedString(
+        window.localStorage.getItem(REMEMBER_USERNAME) ?? "",
+        REMEMBER_KEY
+      );
+
+    let password = "";
+    if (window.localStorage.getItem(REMEMBER_PASSWORD))
+      password = this.hashService.dencryptedString(
+        window.localStorage.getItem(REMEMBER_PASSWORD) ?? "",
+        REMEMBER_KEY
+      );
+
+    return {
+      userName,
+      password,
+    };
+  }
 
   signInWithGoogle() {
     return this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
   }
 
   signOut(): void {
-    window.localStorage.clear();
+    // window.localStorage.clear();
+    window.localStorage.setItem(TOKEN_KEY, "");
+    window.localStorage.setItem(REFRESHTOKEN_KEY, "");
+    window.localStorage.setItem(USER_KEY, "");
+
     this.store.dispatch(LoginAction.resetLogin());
   }
 

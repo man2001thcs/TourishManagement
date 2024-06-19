@@ -3,7 +3,7 @@
 }
 .signInForm {
   background-size: 100% 100%;
-  padding: 30px 50px 10px;
+  padding: 30px 50px 0px;
   height: 460px;
   min-width: 420px !important;
 }
@@ -28,6 +28,10 @@
   align-items: "center";
 }
 
+::ng-deep .mdc-form-field label {
+  margin-bottom: 0 !important;
+} 
+
 .signInForm .signInAction button#sign_in {
   width: 100%;
 }
@@ -35,6 +39,16 @@
 .input-full-width {
   width: 100%;
 }
+
+.full-width-input {
+  margin-bottom: 0px !important;
+}
+
+mat-checkbox.remember-checkbox {
+  margin-left: -10px;
+  margin-bottom: 10px;
+}
+
 h3.error-message {
   font-size: 14px !important;
   word-wrap: break-word;

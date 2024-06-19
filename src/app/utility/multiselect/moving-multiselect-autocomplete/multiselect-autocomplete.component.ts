@@ -246,6 +246,11 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
       this.vehicleType = 1;
     } else if (parseInt($event.target.value) === 2) {
       this.vehicleType = 2;
+    }else if (parseInt($event.target.value) === 3) {
+      this.vehicleType = 3;
+    }
+    else if (parseInt($event.target.value) === 4) {
+      this.vehicleType = 4;
     }
 
     this.movingFormGroup.controls["vehicleType"].setValue(

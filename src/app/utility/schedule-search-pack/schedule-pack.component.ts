@@ -97,6 +97,9 @@ export class ScheduleSearchPackComponent implements OnInit, OnChanges {
 
     this.isFirstSearch = true;
 
+    this.stayingScheduleList = [];
+    this.movingScheduleList = [];
+    
     if (this.scheduleType == 1) {
       this.movingScheduleList = [];
       this.stayingScheduleList = [];

@@ -33,10 +33,10 @@ export class TourishSearchComponent implements OnInit {
   categoryArray: string[] = [];
 
   priceRange: PriceRange[] = [
-    { startPrice: 0, endPrice: 20000000 },
-    { startPrice: 20000000, endPrice: 50000000 },
-    { startPrice: 50000000, endPrice: 100000000 },
-    { startPrice: 100000000, endPrice: 0 },
+    { startPrice: 0, endPrice: 5000000 },
+    { startPrice: 5000000, endPrice: 10000000 },
+    { startPrice: 10000000, endPrice: 200000000 },
+    { startPrice: 200000000, endPrice: 0 },
   ];
 
   subscriptions: Subscription[] = [];
@@ -116,7 +116,7 @@ export class TourishSearchComponent implements OnInit {
   getCategory() {
     const params = {
       page: 1,
-      pageSize: 6,
+      pageSize: 20,
     };
 
     this.http

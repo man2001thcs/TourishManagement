@@ -298,7 +298,7 @@
               mat-raised-button
               color="primary"
               (click)="saveInfomation()"
-              [disabled]="isDisable"
+              *ngIf="!isDisable"
             >
               Lưu
             </button>
@@ -309,7 +309,7 @@
               mat-raised-button
               color="warn"
               type="button"
-              (click)="formReset()"
+              *ngIf="!isDisable"
             >
               Khôi phục
             </button>

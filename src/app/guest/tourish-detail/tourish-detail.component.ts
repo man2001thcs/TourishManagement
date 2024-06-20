@@ -337,19 +337,10 @@ export class TourishDetailComponent implements OnInit, OnDestroy {
             this.messageService.closeAllDialog();
 
             if (response.messageCode == "I511") {
-              const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-                data: {
-                  title: "Bạn có muốn thực hiện thanh toán ngay bây giờ không?",
-                },
-              });
-
-              dialogRef.afterClosed().subscribe((result) => {
-                if (result) {
-                  if (response.curId !== null) this.callPayment(response.curId);
-                }
-              });
-            } else
-              this.messageService.openMessageNotifyDialog(response.messageCode);
+              this.messageService.openNotifyDialog(
+                "Đã gửi yêu cầu thành công, vui lòng chờ hóa đơn được xác nhận để thanh toán"
+              );
+            }
           }
         });
     }

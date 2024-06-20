@@ -108,6 +108,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.imageDeleteState.subscribe((state) => {
         if (state) {
+          console.log(state);
           this.messageService.openMessageNotifyDialog(state.messageCode);
 
           if (state.resultCd === 0) {
@@ -157,7 +158,6 @@ export class FileUploadComponent implements OnInit, OnDestroy {
   }
 
   changeFile(files: any) {
-
     if (files === null || files.length <= 0) {
       return;
     }
@@ -255,7 +255,20 @@ export class FileUploadComponent implements OnInit, OnDestroy {
                 (100 * event.loaded) / (event.total ?? 100)
               );
             else if (event.type === HttpEventType.Response) {
-              this.messageService.openNotifyDialog("Upload thành công");
+              this.imageList = [];
+              this.urlList = [];
+              this.messageService
+                .openNotifyDialog("Upload thành công")
+                .subscribe(() => {
+                  this.store.dispatch(
+                    ImageListActions.getImageList({
+                      payload: {
+                        resourceId: this.productId,
+                        resourceType: this.productType,
+                      },
+                    })
+                  );
+                });
               this.onUploadFinished.emit(event.body);
             }
           },
@@ -278,7 +291,6 @@ export class FileUploadComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    
     this.store.dispatch(ImageListActions.resetImageList());
 
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());

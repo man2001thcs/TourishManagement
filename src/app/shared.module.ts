@@ -83,6 +83,7 @@ import { ReceiveChatComponent } from "./utility/chat/receive-chat/chat.component
 import { SendChatComponent } from "./utility/chat/send-chat/chat.component";
 import { ReceiveBigChatComponent } from "./utility/big-chat/receive-chat/chat.component";
 import { SendBigChatComponent } from "./utility/big-chat/send-chat/chat.component";
+import { MatCheckboxModule } from "@angular/material/checkbox";
 
 @NgModule({
   declarations: [
@@ -192,6 +193,7 @@ import { SendBigChatComponent } from "./utility/big-chat/send-chat/chat.componen
     MatButtonModule,
     MatSelectModule,
     MatButtonToggleModule,
+    MatCheckboxModule,
     MatCardModule,
     MatExpansionModule,
     ImageSliderComponent,

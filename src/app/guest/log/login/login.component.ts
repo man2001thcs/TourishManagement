@@ -30,7 +30,7 @@ export interface DialogSignInData {
 export class LoginComponent implements OnInit {
   signInformGroup!: FormGroup;
   errorMessage = "";
-
+  passwordVisible = false;
   getLoginProfile: Observable<any>;
 
   errorMessageState: Observable<any>;
@@ -39,6 +39,8 @@ export class LoginComponent implements OnInit {
   subscriptions: Subscription[] = [];
   loginProfile: any;
   activated = "1";
+
+  isRememberMeCheck = false;
 
   constructor(
     private fb: FormBuilder,
@@ -58,8 +60,8 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.tokenStorage.signOut();
+    const rememberMe = this.tokenStorage.returnRememberMe();
 
     this.activated = this._route.snapshot.queryParamMap.get("activated") ?? "";
 
@@ -89,8 +91,9 @@ export class LoginComponent implements OnInit {
     });
 
     this.signInformGroup = this.fb.group({
-      userName: [""],
-      password: [""],
+      userName: [rememberMe.userName],
+      password: [rememberMe.password],
+      isRememberMeCheck: [false],
     });
 
     this.subscriptions.push(
@@ -107,13 +110,18 @@ export class LoginComponent implements OnInit {
           this.tokenStorage.saveToken(state.accessToken);
           this.tokenStorage.saveRefreshToken(state.refreshToken);
           this.tokenStorage.saveUser(response);
-          
+
+          if (this.signInformGroup.value.isRememberMeCheck)
+            this.tokenStorage.handleRememberMe(
+              this.signInformGroup.value.userName,
+              this.signInformGroup.value.password
+            );
+          else this.tokenStorage.cancelRememberMe();
 
           this.messageService
             .openNotifyDialog("Đăng nhập thành công")
             .subscribe((res) => {
               if (response) {
-                
                 if (response.Role === "New") {
                   this.messageService.openNotifyDialog(
                     "Tài khoản đã liên kết, vui lòng chờ admin xét duyệt"
@@ -155,7 +163,6 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    
     this.store.dispatch(LoginAction.resetLogin());
 
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
@@ -174,8 +181,8 @@ export class LoginComponent implements OnInit {
 
   formReset(): void {
     this.signInformGroup.setValue({
-      userName: "man2001thcs",
-      password: "123",
+      userName: "",
+      password: "",
       loginPhase: "login",
     });
   }
@@ -215,4 +222,12 @@ export class LoginComponent implements OnInit {
       return true;
     else return false;
   }
+
+  onClickRevealPassword(event: any) {
+    event.preventDefault();
+    // Prevent revealing the password when enter button is pressed.
+    if (event?.pointerType) {
+      this.passwordVisible = !this.passwordVisible;
+    }
+  } 
 }

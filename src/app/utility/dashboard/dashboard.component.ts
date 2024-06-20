@@ -767,7 +767,7 @@ export class DashboardComponent implements OnInit {
 
   calculatePrice(guest: UnpaidGuest) {
     const price =
-      (guest.totalTicket + guest.totalChildTicket) *
+      (guest.totalTicket + guest.totalChildTicket / 2) *
         guest.originalPrice *
         (1 - guest.discountFloat) -
       guest.discountAmount;

@@ -98,7 +98,7 @@ export class HeaderUserComponent implements OnDestroy {
 
     this.id = Number(localStorage.getItem("id")) ?? 0;
     this.showNotification();
-    this.activeItem = getUserHeaderPhase(this.router.url);
+    this.activeItem = getUserHeaderPhase(this.router.url.split('?')[0]);
 
     this.subscriptions.push(
       this.router.events
@@ -107,9 +107,9 @@ export class HeaderUserComponent implements OnDestroy {
           if (event instanceof NavigationEnd) {
             console.log(event.url);
             this.activeItem =
-              getUserHeaderPhase(event.url).length <= 0
+              getUserHeaderPhase(event.url.split('?')[0]).length <= 0
                 ? this.activeItem
-                : getUserHeaderPhase(event.url);
+                : getUserHeaderPhase(event.url.split('?')[0]);
           }
         })
     );

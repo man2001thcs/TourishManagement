@@ -131,6 +131,13 @@ export class MovingReceiptUserListComponent
             })
           );
         }
+
+        if (query.get("complete")) {
+          const complete = parseInt(query.get("complete") ?? "0");
+          if (complete === 1 && parseInt(query.get("active") ?? "0") == 2) this.messageService.openNotifyDialog("Đơn thanh toán đã hoàn thành, vui lòng kiểm tra lại trong mục quản lý hóa đơn");
+
+          if (complete === 1 && parseInt(query.get("active") ?? "0") == 3) this.messageService.openFailNotifyDialog("Đơn thanh toán đã bị hủy, vui lòng kiểm tra lại trong mục quản lý hóa đơn");
+        }
       })
     );
 
@@ -449,7 +456,7 @@ export class MovingReceiptUserListComponent
   }
 
   isPaymentDisable(input: string) {
-    if (input == "2" || input == "3") return true;
+    if (input == "0" || input == "2" || input == "3") return true;
     return false;
   }
 

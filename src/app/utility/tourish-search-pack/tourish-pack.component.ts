@@ -99,6 +99,8 @@ export class TourishSearchPackComponent implements OnInit, OnChanges {
       endPoint: this.endPoint,
     };
     this.isFirstSearch = true;
+    this.tourishPLanList = [];
+    
     this.http
       .get("/api/GetTourishPlan", { params: params })
       .subscribe((response: any) => {

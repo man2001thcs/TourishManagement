@@ -450,7 +450,7 @@ export class ReceiptUserListComponent
   }
 
   isPaymentDisable(input: string) {
-    if (input == "2" || input == "3") return true;
+    if (input == "0" || input == "2" || input == "3") return true;
     return false;
   }
 

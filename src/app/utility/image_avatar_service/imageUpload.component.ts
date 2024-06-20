@@ -245,6 +245,9 @@ export class AvatarUploadComponent implements OnInit, OnDestroy {
       resourceType: this.productType,
     };
 
+    this.imageList = [];
+    this.urlListOld = [];
+
     return this.http
       .get("/api/GetFile", { params: payload })
       .subscribe((state: any) => {

@@ -1,7 +1,7 @@
 .example-card {
     width: 360px;
     height: fit-content;
-    min-height: 420px;    
+    min-height: 360px;    
     white-space: nowrap;
 }
 
@@ -38,7 +38,7 @@
 }
 
 .image-container {
-    height: 270px;
+    height: 220px;
 }
 
 .image-container img {

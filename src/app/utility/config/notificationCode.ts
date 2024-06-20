@@ -36,7 +36,7 @@ export const SUCCESS_MESSAGE_CODE_VI: Map<string, string> = new Map([
   ["I511-user-create", " đã tạo đơn thanh toán cho sản phẩm dịch vụ: "],
   ["I511-user-await", " đã chuyển hóa đơn sang trạng thái thanh toán: "],
   ["I511-user-cancel", " đã hủy đơn thanh toán cho sản phẩm dịch vụ: "],
-  ["I511-user-complete", " đã hoàn tấtthanh toán cho sản phẩm dịch vụ: "],
+  ["I511-user-complete", " đã hoàn tất thanh toán cho sản phẩm dịch vụ: "],
 
   ["I511-admin-create", " đã tạo đơn thanh toán cho sản phẩm dịch vụ: "],
   ["I511-admin-await", " đã xác nhận và chuyển sang trạng thái chờ thanh toán cho hóa đơn: "],

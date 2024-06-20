@@ -63,17 +63,17 @@
         style="margin-right: 12px"
         [disabled]="disabled"
       >
-        Upload File
+        Upload ảnh
       </button>
       <button type="button" class="btn btn-primary" (click)="uploadFile()" [disabled]="disabled">
-        Update image
+        Cập nhật ảnh
       </button>
     </div>
   </div>
 
   <div class="row" style="width: 100%; padding-left: 30px; padding-right: 30px">
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" *ngIf="filesToUpload">
-      <h3 mat-form-label style="font-weight: bold">New image</h3>
+      <h3 mat-form-label style="font-weight: bold">Ảnh mới</h3>
       <div *ngFor="let link of urlList; let index = index">
         <ng-container
           [ngTemplateOutlet]="imageContainer"
@@ -87,7 +87,7 @@
     </div>
 
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" *ngIf="imageList">
-      <h3 mat-form-label style="font-weight: bold">Current image</h3>
+      <h3 mat-form-label style="font-weight: bold">Ảnh hiện tại</h3>
       <div *ngFor="let image of imageList; let index = index">
         <ng-container
           [ngTemplateOutlet]="imageOldContainer"

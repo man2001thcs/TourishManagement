@@ -1,27 +1,18 @@
 <ng-template #imageContainer let-urlLink="urlLink" let-index="index">
-  <div
-    class="row"
-    style="margin-bottom: 15px; margin-right: 12px"
-  >
+  <div class="row" style="margin-bottom: 15px; margin-right: 12px">
     <mat-card class="example-card">
       <div class="image-show">
         <img mat-card-image src="{{ urlLink }}" alt="Photo" />
       </div>
     </mat-card>
   </div>
-  <div
-    class="row"
-    style="margin-bottom: 15px; margin-right: 12px"
-  >
+  <div class="row" style="margin-bottom: 15px; margin-right: 12px">
     <button mat-button (click)="removeFile(index)">Gỡ</button>
   </div>
 </ng-template>
 
 <ng-template #imageOldContainer let-urlLink="urlLink" let-id="id">
-  <div
-    class="row"
-    style="margin-bottom: 15px; margin-right: 12px"
-  >
+  <div class="row" style="margin-bottom: 15px; margin-right: 12px">
     <mat-card class="example-card">
       <div class="image-show">
         <img mat-card-image src="{{ urlLink }}" />
@@ -49,12 +40,17 @@
         class="btn btn-success"
         (click)="file.click()"
         style="margin-right: 12px"
-        [disabled]="filesToUpload.length > 0" 
+        [disabled]="filesToUpload.length > 0"
       >
-        Upload File
+        Upload ảnh
       </button>
-      <button type="button" class="btn btn-primary" (click)="uploadFile()" [disabled]="filesToUpload.length <= 0">
-        Update image
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="uploadFile()"
+        [disabled]="filesToUpload.length < 0"
+      >
+        Cập nhật
       </button>
     </div>
   </div>

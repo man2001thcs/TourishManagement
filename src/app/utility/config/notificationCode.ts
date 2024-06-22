@@ -33,11 +33,13 @@ export const SUCCESS_MESSAGE_CODE_VI: Map<string, string> = new Map([
   ["I432-new-schedule", " đã thêm lịch trình của dịch vụ: "],
   ["I433", " đã xóa dịch vụ: "],
 
+  ["I512-user-create", " đã cập nhật đơn thanh toán cho sản phẩm dịch vụ: "],
   ["I511-user-create", " đã tạo đơn thanh toán cho sản phẩm dịch vụ: "],
   ["I511-user-await", " đã chuyển hóa đơn sang trạng thái thanh toán: "],
   ["I511-user-cancel", " đã hủy đơn thanh toán cho sản phẩm dịch vụ: "],
   ["I511-user-complete", " đã hoàn tất thanh toán cho sản phẩm dịch vụ: "],
 
+  ["I512-admin-create", " đã cập nhật đơn thanh toán cho sản phẩm dịch vụ: "],
   ["I511-admin-create", " đã tạo đơn thanh toán cho sản phẩm dịch vụ: "],
   ["I511-admin-await", " đã xác nhận và chuyển sang trạng thái chờ thanh toán cho hóa đơn: "],
   ["I511-admin-cancel", " đã hủy đơn thanh toán cho sản phẩm dịch vụ: "],

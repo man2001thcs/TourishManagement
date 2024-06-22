@@ -293,6 +293,7 @@ export class MovingReceiptUserListComponent
 
   tourStatusChange($event: number): void {
     this.pageIndex = 0;
+    this.active = $event; 
     const email = this.tokenStorageService.getUser().email;
     this.store.dispatch(
       ReceiptListActions.getReceiptList({

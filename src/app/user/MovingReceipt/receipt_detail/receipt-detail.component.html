@@ -33,11 +33,7 @@
   >
     <div
       class="row"
-      style="
-        display: flex;
-        flex-direction: column !important;
-        flex-wrap: 1;
-      "
+      style="display: flex; flex-direction: column !important; flex-wrap: 1"
     >
       <form [formGroup]="editformGroup_info">
         <div class="row">
@@ -173,10 +169,14 @@
               </div>
             </div>
 
-           <div class="row">
+            <div class="row">
               <mat-form-field appearance="outline" class="full-width-input">
                 <mat-label>Trạng thái đơn</mat-label>
-                <mat-select required formControlName="status" [disabled]="isDisable">
+                <mat-select
+                  required
+                  formControlName="status"
+                  [disabled]="isDisable"
+                >
                   <mat-option [value]="0">Mới tạo</mat-option>
                   <mat-option [value]="1">Chờ thanh toán</mat-option>
                   <mat-option [value]="2">Thanh toán thành công</mat-option>
@@ -255,11 +255,15 @@
             </div>
           </div>
         </div>
-   
 
         <div
           class="row"
-          style="display: flex; flex-direction: column !important; flex-wrap: 1"
+          style="
+            display: flex;
+            flex-direction: column !important;
+            flex-wrap: 1;
+            padding-left: 30px !important;
+          "
         >
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 edit-form">
             <mat-form-field style="width: 90%">
@@ -288,9 +292,15 @@
 
         <div
           class="row"
-          style="display: flex; flex-direction: row !important; flex-wrap: 1; margin-top: 30px; margin-left: 70px !important;"
+          style="
+            display: flex;
+            flex-direction: row !important;
+            flex-wrap: 1;
+            margin-top: 30px;
+            margin-left: 70px !important;
+          "
         >
-          <div style="margin-right: 20px;">
+          <div style="margin-right: 20px">
             <button
               mat-raised-button
               color="primary"

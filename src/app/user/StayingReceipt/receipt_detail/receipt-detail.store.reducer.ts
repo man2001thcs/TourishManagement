@@ -62,6 +62,7 @@ export const reducer = createReducer(
   on(ReceiptAction.resetReceipt, (state) => ({
     ...state,
     hotel: null,
+    messageCode: null,
     hotelReturn: null
   }))
 );

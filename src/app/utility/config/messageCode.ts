@@ -192,16 +192,23 @@ export const ERR_MESSAGE_CODE_VI: Map<string, string> = new Map([
     ["C515", "Tour không còn đủ số vé"],
     ["C515-m", "Dịch vụ không còn đủ số vé, hủy yêu cầu đặt"],
 
-    ["C516-p", "Hóa đơn đang trong tình trạng chờ thanh toán"],
+    ["C516-unauthorized", "Người dùng không có quyền chuyển đổi trạng thái này"],
+    ["C516-p", "Hóa đơn đang trong tình trạng chờ thanh toán, không thể thay đổi thông tin"],
     ["C516-c", "Hóa đơn đã thanh toán, vui lòng liên hệ nhân viên để hỗ trợ"],
     ["C516-h", "Hóa đơn đã hủy, vui lòng đặt lại yêu cầu"],
 
-    ["C517", "Tour đang hoạt động"],
-    ["C518", "Tour đã hoàn thành"],
-    ["C519", "Tour đã hủy"],
-    ["C520", "Không thể tự đổi sang trạng thái hoàn thành"],
+    ["C517-tour", "Lịch trình tour đang hoạt động, không thể thay đổi thông tin"],
+    ["C518-tour", "Lịch trình tour đã hoàn thành, không thể thay đổi thông tin"],
+    ["C519-tour", "Lịch trình tour đã hủy, không thể thay đổi thông tin"],
+
+    ["C520", "Không thể tự đổi lịch trình sang trạng thái hoàn thành"],
     ["C521", "Thanh toán tự động thất bại"],
     ["C522", "Yêu cầu đã được tạo, vui lòng vào mục quản lý hóa đơn để thanh toán"],
+
+    ["C517-service", "Lịch trình dịch vụ đã đi vào hoạt động, không thể thay đổi thông tin"],
+    ["C518-service", "Lịch trình dịch vụ đã hoàn thành, không thể thay đổi thông tin"],
+    ["C519-service", "Lịch trình dịch vụ đã hủy, không thể thay đổi thông tin"],
+   
 
     ["C600", "Tin nhắn không tồn tại"],
     ["C601", "Tin nhắn thêm vào bị lỗi"],
@@ -354,6 +361,7 @@ export const SUCCESS_MESSAGE_CODE_EN: Map<string, string> = new Map([
     ["I511", "Hóa đơn thêm thành công"],
     ["I512", "Hóa đơn cập nhật thành công"],
     ["I513", "Hóa đơn xóa thành công"],
+    ["I513-cancel", "Hóa đơn đã hủy thành công"],
     ["I514", "Thanh toán qua PayOs thành công"],
 
     ["I601", "Tin nhắn thêm thành công"],

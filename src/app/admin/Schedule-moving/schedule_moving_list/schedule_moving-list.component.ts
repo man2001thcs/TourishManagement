@@ -197,8 +197,6 @@ export class MovingScheduleListComponent
     const dialogRef = this.dialog.open(MovingScheduleCreateComponent, {});
 
     dialogRef.afterClosed().subscribe((result) => {
-      
-
       this.store.dispatch(
         MovingScheduleListActions.getMovingScheduleList({
           payload: {
@@ -453,5 +451,14 @@ export class MovingScheduleListComponent
 
   formatVNCurrency(num: number): string {
     return num.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
+  }
+
+  getVehicleType(input: number) {
+    if (input === 0) return "Xe khách";
+    else if (input === 1) return "Máy bay";
+    else if (input === 2) return "Tàu hỏa";
+    else if (input === 3) return "Tàu biển";
+    else if (input === 4) return "Phương tiện địa phương";
+    return "";
   }
 }

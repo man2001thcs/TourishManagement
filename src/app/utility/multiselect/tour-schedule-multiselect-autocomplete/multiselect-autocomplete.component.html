@@ -147,7 +147,7 @@
           id: schedule.id,
           startDate: schedule.startDate,
           endDate: schedule.endDate,
-          planStatus: schedule.planStatus,
+          planStatus: schedule.planStatus  ?? schedule.status,
         }"
       >
       </ng-container>
@@ -160,7 +160,7 @@
           id: schedule.id,
           startDate: schedule.startDate,
           endDate: schedule.endDate,
-          planStatus: schedule.planStatus
+          planStatus: schedule.planStatus ?? schedule.status
         }"
       >
       </ng-container>

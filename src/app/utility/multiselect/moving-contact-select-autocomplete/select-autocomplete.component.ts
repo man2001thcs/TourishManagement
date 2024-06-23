@@ -7,6 +7,9 @@ import {
   Input,
   Output,
   EventEmitter,
+  OnChanges,
+  SimpleChange,
+  SimpleChanges,
 } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { MatAutocompleteSelectedEvent } from "@angular/material/autocomplete";
@@ -34,7 +37,9 @@ import { HttpClient } from "@angular/common/http";
   templateUrl: "select-autocomplete.component.html",
   styleUrls: ["select-autocomplete.component.css"],
 })
-export class MovingContactSelectAutocompleteComponent implements OnInit {
+export class MovingContactSelectAutocompleteComponent
+  implements OnInit, OnChanges
+{
   separatorKeysCodes: number[] = [ENTER, COMMA];
   movingContactCtrl = new FormControl("");
 
@@ -49,7 +54,7 @@ export class MovingContactSelectAutocompleteComponent implements OnInit {
   movingContactNameList: string[] = [];
   movingContactType = 0;
 
-  data!: MovingContact[];
+  data: MovingContact[] = [];
   length: number = 0;
   pageIndex = 0;
   canLoadMore = true;
@@ -167,14 +172,35 @@ export class MovingContactSelectAutocompleteComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    
     this.store.dispatch(MovingContactListActions.resetMovingContactList());
 
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
-  ngOnChanges(): void {
-    this.movingContactType = this.type;
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes["type"]) {
+      this.movingContactType = this.type;
+
+      this.movingContactIdList = [];
+      this.movingContactNameList = [];
+      this.data = [];
+      this.canLoadMore = true;
+      this.isLoading = false;
+      this.currentTotal = 0;
+      this.newSearch = true;
+
+      this.store.dispatch(
+        MovingContactListActions.getMovingContactList({
+          payload: {
+            search: this.searchWord.toLowerCase(),
+            type: this.movingContactType,
+            page: this.pageIndex + 1,
+            pageSize: this.pageSize,
+          },
+        })
+      );
+    }
+
     if (this.data_selected !== undefined) {
       this.movingContactIdList.push(this.data_selected.id ?? "");
       this.movingContactNameList.push(this.data_selected.branchName ?? "");
@@ -189,7 +215,6 @@ export class MovingContactSelectAutocompleteComponent implements OnInit {
         .get("/api/GetMovingContact/" + this.currentContactId)
         .subscribe((state: any) => {
           if (state) {
-            
             this.movingContactIdList.push(state.data.id ?? "");
             this.movingContactNameList.push(state.data.branchName ?? "");
           }

@@ -13,7 +13,7 @@
         "
       >
         <button mat-raised-button (click)="openAddDialog()" class="add-button">
-          Thêm đối tác
+          Thêm dịch vụ
         </button>
         <mat-form-field appearance="outline" class="search-input">
           <input
@@ -109,9 +109,9 @@
           mat-sort-header
           sortActionDescription="Sort by restHouseType"
         >
-          Loại nơi ở
+          Loại nơi nghỉ chân
         </th>
-        <td mat-cell *matCellDef="let element">{{ element.restHouseType }}</td>
+        <td mat-cell *matCellDef="let element">{{  getResthouseType(element.restHouseType) }}</td>
       </ng-container>
 
       <!-- SS Column -->

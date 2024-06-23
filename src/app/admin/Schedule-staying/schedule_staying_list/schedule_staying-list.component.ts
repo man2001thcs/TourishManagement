@@ -457,4 +457,10 @@ export class StayingScheduleListComponent
   formatVNCurrency(num: number): string {
     return num.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
   }
+
+  getResthouseType(input: number) {
+    if (input === 0) return "Homestay";
+    else if (input === 1) return "Khách sạn";
+    return "";
+  }
 }

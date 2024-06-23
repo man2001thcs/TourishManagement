@@ -11,7 +11,7 @@
     "
   >
     <h2 mat-form-label style="font-weight: heavy; color: white">
-      Thêm thông tin đối tác xe chở khách
+      Thêm thông tin dịch vụ
     </h2>
 
     <button
@@ -98,15 +98,18 @@
             <div class="row">
               <mat-form-field appearance="outline" class="full-width-input">
                 <mat-label>Loại phương tiện</mat-label>
-                <select
+                <mat-select
                   matNativeControl
                   required
                   formControlName="vehicleType"
-                  (change)="changeType($event)"
+                  (valueChange)="changeType($event)"
                 >
-                  <option [value]="0">Xe khách</option>
-                  <option [value]="1">Máy bay</option>
-                </select>
+                  <mat-option [value]="0">Xe khách</mat-option>
+                  <mat-option [value]="1">Máy bay</mat-option>
+                  <mat-option [value]="2">Tàu hỏa</mat-option>
+                  <mat-option [value]="3">Tàu biển</mat-option>
+                  <mat-option [value]="4">Phương tiện địa phương</mat-option>
+                </mat-select>
               </mat-form-field>
             </div>
 
@@ -233,27 +236,6 @@
                   "
                   [formGroup]="createformGroup_info"
                   [formGroupControlName]="'singlePrice'"
-                ></app-validation>
-              </div>
-            </div>
-
-            <div class="row">
-              <mat-form-field appearance="outline" class="full-width-input">
-                <mat-label>Loại phương tiện</mat-label>
-                <select matNativeControl required formControlName="vehicleType">
-                  <option value="0">Xe khách</option>
-                  <option value="1">Máy bay</option>
-                </select>
-              </mat-form-field>
-              <div style="margin-top: -20px; margin-bottom: 10px">
-                <app-validation
-                  *ngIf="
-                    this.createformGroup_info.get('vehicleType')?.errors &&
-                    (createformGroup_info.get('vehicleType')?.touched ||
-                      isSubmitted)
-                  "
-                  [formGroup]="createformGroup_info"
-                  [formGroupControlName]="'vehicleType'"
                 ></app-validation>
               </div>
             </div>

@@ -7,6 +7,7 @@ import {
   Input,
   Output,
   EventEmitter,
+  SimpleChanges,
 } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { MatAutocompleteSelectedEvent } from "@angular/material/autocomplete";
@@ -177,25 +178,30 @@ export class RestHouseContactSelectAutocompleteComponent implements OnInit {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
-  ngOnChanges(): void {
-    this.restHouseContactType = this.type;
+  ngOnChanges(changes: SimpleChanges): void {
 
-    this.pageIndex = 0;
-    this.newSearch = true;
-    this.isLoading = true;
-    this.canLoadMore = true;
-    this.currentTotal = 0;
+    if (changes["type"]) {
+      this.restHouseContactType = this.type;
 
-    this.store.dispatch(
-      RestHouseContactListActions.getRestHouseContactList({
-        payload: {
-          search: this.searchWord.toLowerCase(),
-          type: this.restHouseContactType,
-          page: this.pageIndex + 1,
-          pageSize: this.pageSize,
-        },
-      })
-    );
+      this.restHouseContactIdList = [];
+      this.restHouseContactNameList = [];
+      this.data = [];
+      this.canLoadMore = true;
+      this.isLoading = false;
+      this.currentTotal = 0;
+      this.newSearch = true;
+
+      this.store.dispatch(
+        RestHouseContactListActions.getRestHouseContactList({
+          payload: {
+            search: this.searchWord.toLowerCase(),
+            type: this.restHouseContactType,
+            page: this.pageIndex + 1,
+            pageSize: this.pageSize,
+          },
+        })
+      );
+    }
     
     if (this.data_selected !== undefined) {
       this.restHouseContactIdList.push(this.data_selected.id ?? "");

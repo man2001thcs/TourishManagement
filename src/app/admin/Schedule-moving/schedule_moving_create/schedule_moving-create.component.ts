@@ -212,7 +212,8 @@ export class MovingScheduleCreateComponent implements OnInit, OnDestroy {
   }
 
   changeType($event: any) {
-    this.vehicleType = parseInt($event.target.value);
+    console.log($event);
+    this.vehicleType = parseInt($event);
   }
 
   getTinyMceResult($event: any) {

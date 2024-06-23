@@ -15,7 +15,7 @@
         "
       >
       <button mat-raised-button (click)="openAddDialog()" class="add-button">
-        Thêm đối tác
+        Thêm dịch vụ
       </button>
 
         <mat-form-field appearance="outline" class="search-input">
@@ -114,7 +114,7 @@
         >
           Loại phương tiện
         </th>
-        <td mat-cell *matCellDef="let element">{{ element.vehicleType }}</td>
+        <td mat-cell *matCellDef="let element">{{ getVehicleType(element.vehicleType) }}</td>
       </ng-container>
 
       <!-- SS Column -->

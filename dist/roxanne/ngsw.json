@@ -1,10 +1,6 @@
 {
   "configVersion": 1,
-<<<<<<< HEAD
-  "timestamp": 1718899086713,
-=======
-  "timestamp": 1719198763488,
->>>>>>> c35239c (new build)
+  "timestamp": 1719199228203,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -15,35 +11,20 @@
         "ignoreVary": true
       },
       "urls": [
-<<<<<<< HEAD
-        "/162.5de5c89e9a282e53.js",
-        "/240.74e3ebac1e6f45b4.js",
-        "/427.a1cf4e1e4de7109e.js",
-        "/438.c137b66a5f8352cb.js",
-        "/738.971cd712bebc2d46.js",
-        "/835.b3d4bc03ce261f1a.js",
-=======
         "/162.781e4f54936ac7d0.js",
-        "/240.b1ac328e73af6425.js",
-        "/427.77e5f439a0a42527.js",
+        "/240.5887dfd276d15040.js",
+        "/427.91550d3b8dc58519.js",
         "/438.292f97e1a2f9239f.js",
         "/738.ae83c6f2a051a28a.js",
         "/835.03496282fe04ae26.js",
->>>>>>> c35239c (new build)
         "/favicon.ico",
         "/firebase-messaging-sw.js",
         "/index.html",
-        "/main.45c28ba5d0216118.js",
+        "/main.305a5ecd0d721a8d.js",
         "/polyfills.877ca08c23720338.js",
-<<<<<<< HEAD
-        "/runtime.bfe9a4aaccceff6e.js",
-        "/scripts.17942c083fecfbda.js",
-        "/styles.4d8f62f5be1b5387.css"
-=======
-        "/runtime.b63eef38c9e0de7d.js",
+        "/runtime.f6038159c5594f72.js",
         "/scripts.17942c083fecfbda.js",
         "/styles.006a40f90d87a35e.css"
->>>>>>> c35239c (new build)
       ],
       "patterns": []
     },
@@ -74,21 +55,12 @@
   ],
   "dataGroups": [],
   "hashTable": {
-<<<<<<< HEAD
-    "/162.5de5c89e9a282e53.js": "1c05a1595b6a6fa335271b57fac04a26571ade80",
-    "/240.74e3ebac1e6f45b4.js": "9ebdffd10e86621bd773db7fce92bd190508139d",
-    "/427.a1cf4e1e4de7109e.js": "9027a7f485d2030238cbf78847e7c6ea5410742e",
-    "/438.c137b66a5f8352cb.js": "3c27da28df03727e96f3220e58961ed775aecbf2",
-    "/738.971cd712bebc2d46.js": "618e2f5191bdd04322ab735a321eb7bd85ade3cf",
-    "/835.b3d4bc03ce261f1a.js": "06d868eb39096c040350e80ff73cc4fee768f79e",
-=======
     "/162.781e4f54936ac7d0.js": "6f0bdbd290d928674b02e10b0c58040458d146a3",
-    "/240.b1ac328e73af6425.js": "48b5d4db18581ac896b9234994c866695504c40c",
-    "/427.77e5f439a0a42527.js": "60a85c3b743e728122b0d9db025a41a70d9164c3",
+    "/240.5887dfd276d15040.js": "89b64955c1c83845d8e43425dc8d0f163b8a54f9",
+    "/427.91550d3b8dc58519.js": "f9614f58f4fef667978e0af92f905d1b7d38c623",
     "/438.292f97e1a2f9239f.js": "0160b69be35424ab209a96a0a66fff46a3b0f44a",
     "/738.ae83c6f2a051a28a.js": "7b8081c9c00bd3cd6c3d57d7b55e4dfdacbd0b93",
     "/835.03496282fe04ae26.js": "eb3b820e1b9ef934c30e0f767c5402b4a7e9ce5c",
->>>>>>> c35239c (new build)
     "/assets/background-main.jpg": "edd1ef4582e5f4ac5c585d4c3eec0c042d4b7cf9",
     "/assets/book_logo.png": "780d45d2db08cea8ff3a6ce5b61109265136164d",
     "/assets/icons/icon-128x128.png": "dae3b6ed49bdaf4327b92531d4b5b4a5d30c7532",
@@ -103,23 +75,13 @@
     "/assets/tour_favicon.png": "7030126264def0abeb9f1c8e6e27f6de671e9858",
     "/assets/tour_logo.png": "ab668746269e635ed059b1d47dc9306b7a21229a",
     "/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-<<<<<<< HEAD
-    "/firebase-messaging-sw.js": "5a6581c6010bc3c7aab54cee117f9bc9fb83c3f0",
-    "/index.html": "0a44ceff4928213b59f8093ad979a54d36ebd0da",
-    "/main.45c28ba5d0216118.js": "047c52f30b843a3e7c213da2f6af7b6ada115d04",
-    "/polyfills.877ca08c23720338.js": "fddb8c98fb18815c8c1a45ad8fdb2bd9c317ded1",
-    "/runtime.bfe9a4aaccceff6e.js": "dde6b9c8d37c8e8a40e3cd74f8700b39f461b5f1",
-    "/scripts.17942c083fecfbda.js": "d3018478d5bfdc39bc7cab377afdf13b96be31cc",
-    "/styles.4d8f62f5be1b5387.css": "bc98176a9b40d1d962b3b2a9e54e930087bebbd0"
-=======
     "/firebase-messaging-sw.js": "88ee1f20776012bac533846c7d7e141b35403804",
-    "/index.html": "266b71bf8b2ec38375d34d611b83df455508d6e2",
-    "/main.45c28ba5d0216118.js": "047c52f30b843a3e7c213da2f6af7b6ada115d04",
+    "/index.html": "712955c687cc08b41dff3b27c10748def549f9de",
+    "/main.305a5ecd0d721a8d.js": "a2902fa541c3543639cdab672219cb769ff1e949",
     "/polyfills.877ca08c23720338.js": "fddb8c98fb18815c8c1a45ad8fdb2bd9c317ded1",
-    "/runtime.b63eef38c9e0de7d.js": "449d4d38ec4912c7b7c98ebb34d93e5e2f3436b4",
+    "/runtime.f6038159c5594f72.js": "f1b8b07d84f16d9bf6e9c8561a3bbb3f1861b7ce",
     "/scripts.17942c083fecfbda.js": "d3018478d5bfdc39bc7cab377afdf13b96be31cc",
     "/styles.006a40f90d87a35e.css": "8a3a7389169fb81b979ce0245c174d36b222586e"
->>>>>>> c35239c (new build)
   },
   "navigationUrls": [
     {

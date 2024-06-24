@@ -17,6 +17,7 @@ import { TokenStorageService } from "src/app/utility/user_service/token.service"
 import { MessageService } from "src/app/utility/user_service/message.service";
 import {
   FacebookLoginProvider,
+  GoogleLoginProvider,
   SocialAuthService,
   SocialUser,
 } from "@abacritt/angularx-social-login";
@@ -64,10 +65,6 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.tokenStorage.getUser() != null) {
-      this.socialAuthService.signOut();
-    }
-
     this.tokenStorage.signOut();
 
     const rememberMe = this.tokenStorage.returnRememberMe();
@@ -84,7 +81,7 @@ export class LoginComponent implements OnInit {
       this.socialAuthService.authState.subscribe((user: SocialUser) => {
         if (user) {
           if (user.provider === "GOOGLE") {
-            this.socialAuthService.signOut();
+            
             this.store.dispatch(
               LoginAction.login({
                 payload: {
@@ -102,8 +99,7 @@ export class LoginComponent implements OnInit {
             );
             this.messageService.openLoadingDialog();
           } else if (user.provider === "FACEBOOK") {
-            console.log(user);
-            this.socialAuthService.signOut();
+            
             this.store.dispatch(
               LoginAction.login({
                 payload: {
@@ -119,7 +115,6 @@ export class LoginComponent implements OnInit {
                 },
               })
             );
-
             this.messageService.openLoadingDialog();
           }
         }
@@ -138,6 +133,10 @@ export class LoginComponent implements OnInit {
           this.loginProfile = state;
 
           this.messageService.closeLoadingDialog();
+
+          if (this.tokenStorage.getUser() != null) {
+            this.socialAuthService.signOut();
+          }
 
           const response = JSON.parse(
             window.atob(state.accessToken.split(".")[1])
@@ -158,6 +157,7 @@ export class LoginComponent implements OnInit {
             .openNotifyDialog("Đăng nhập thành công")
             .subscribe((res) => {
               if (response) {
+
                 if (response.Role === "New") {
                   this.messageService.openNotifyDialog(
                     "Tài khoản đã liên kết, vui lòng chờ admin xét duyệt"
@@ -245,7 +245,7 @@ export class LoginComponent implements OnInit {
   }
 
   signInWithGoogle() {
-    this.tokenStorage.signInWithGoogle();
+    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
   }
 
   signInWithFB(): void {

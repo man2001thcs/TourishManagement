@@ -12,6 +12,13 @@
   background-size: 100% 100%;
   padding: 30px 50px 10px;
   min-width: 420px !important;
+  display: flex;
+  flex-direction: column;
+}
+
+.btn .fa {
+  margin-top: 3px;
+  float: left;
 }
 
 .signInForm input {

@@ -115,13 +115,19 @@
           type="standard"
           size="medium"
           text="signin_with"
-          style="width: 100% !important"
+          width="400"
           *ngIf="!isLogin()"
+          style="margin-bottom: 15px;"
         >
-          <span class="buttonText">Google</span></asl-google-signin-button
+        </asl-google-signin-button>
+        
+        <button
+          type="button"
+          (click)="signInWithFB()"
+          class="btn btn-primary btn-block"
         >
-
-        <button type="button" (click)="signInWithFB()" class="btn btn-primary btn-block">Signin with Facebook</button>
+        <i class="fa fa-facebook-official" aria-hidden="true"></i>  Đăng nhập với Facebook
+        </button>
 
         <div
           style="
@@ -140,20 +146,10 @@
           mat-button
           color="primary"
           (click)="navigateRegister()"
-          style="margin-bottom: 10px"
+          style="margin-bottom: 10px; ; justify-content: flex-start;"
         >
           Vào trang đăng kí
         </button>
-        <asl-google-signin-button
-          type="standard"
-          size="medium"
-          text="signup_with"
-          style="width: 100% !important"
-          *ngIf="!isLogin()"
-        >
-          <span class="buttonText">Google</span></asl-google-signin-button
-        >
-
         <div
           style="
             display: flex;
@@ -170,7 +166,7 @@
           mat-button
           color="accent"
           (click)="navigateReclaim()"
-          style="margin-bottom: 10px"
+          style="margin-bottom: 10px; text-align: left; justify-content: flex-start;"
         >
           Khôi phục tài khoản
         </button>

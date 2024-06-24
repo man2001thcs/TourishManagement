@@ -96,7 +96,6 @@ export interface MovingSchedule {
   headingPlace: string;
   description: string;
 
-
   createDate?: Date;
   updateDate?: Date;
 
@@ -131,7 +130,6 @@ export interface StayingSchedule {
 
   singlePrice?: number;
   description: string;
-
 
   createDate?: Date;
   updateDate?: Date;
@@ -283,7 +281,7 @@ export interface FullReceipt {
   status: number;
 
   tourishScheduleId?: string;
-  serviceScheduleId?: string; 
+  serviceScheduleId?: string;
 
   tourishSchedule?: TourishSchedule;
   serviceSchedule?: TourishSchedule;
@@ -318,7 +316,7 @@ export interface Notification {
   createDate?: string;
   updateDate?: string;
 
-  isGenerate?: Boolean,
+  isGenerate?: Boolean;
 
   // Relationships
   userCreator?: User;

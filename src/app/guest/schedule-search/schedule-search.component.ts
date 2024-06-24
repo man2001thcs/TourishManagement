@@ -29,6 +29,8 @@ export class ScheduleSearchComponent implements OnInit {
 
   color: ThemePalette = "primary";
 
+  defaultPriceRange: PriceRange = { startPrice: 0, endPrice: 100000000 };
+
   priceRange: PriceRange[] = [
     { startPrice: 0, endPrice: 2000000 },
     { startPrice: 2000000, endPrice: 5000000 },
@@ -41,7 +43,7 @@ export class ScheduleSearchComponent implements OnInit {
   startingDate = "";
   startingPoint = "";
   endPoint = "";
-  priceTo = 20000000;
+  priceTo = 100000000;
   priceFrom = 0;
   categoryString = "";
   scheduleType = 0;
@@ -63,8 +65,9 @@ export class ScheduleSearchComponent implements OnInit {
       this._route.queryParamMap.subscribe((query) => {
         if (query.get("serviceType")) {
           const serviceType = query.get("serviceType") ?? "";
-          
-          if (serviceType=="moving") this.scheduleType = 1; else if (serviceType=="staying") this.scheduleType = 2;
+
+          if (serviceType == "moving") this.scheduleType = 1;
+          else if (serviceType == "staying") this.scheduleType = 2;
         }
 
         if (query.get("startingPoint")) {
@@ -102,7 +105,6 @@ export class ScheduleSearchComponent implements OnInit {
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
-
 
   priceRangeChange($event: any) {
     if ($event) {

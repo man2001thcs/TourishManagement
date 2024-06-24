@@ -1,7 +1,6 @@
 .example-card {
-  height: fit-content;
   white-space: nowrap;
-  min-height: 200px;
+  min-height: 262px !important;
   padding-left: 10px;
   padding-right: 20px;
   width: 100%;

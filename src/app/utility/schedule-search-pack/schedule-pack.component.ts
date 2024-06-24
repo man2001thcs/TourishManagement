@@ -44,7 +44,7 @@ export class ScheduleSearchPackComponent implements OnInit, OnChanges {
   active = 1;
 
   pageIndex = 0;
-  pageSize = 6;
+  pageSize = 4;
   totalPage = 1;
   pageArray: number[] = [1];
 

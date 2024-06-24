@@ -24,13 +24,10 @@
       [address]="schedule.address"
       style="width: 48%"
     ></app-schedule-search-card>
+    
     <div class="loading" *ngIf="isLoading">
       <mat-spinner [diameter]="10"></mat-spinner>
       <h3>Đang tải</h3>
-    </div>
-
-    <div class="empty" *ngIf="isFirstSearch">
-      <h3>Đang tìm kiếm</h3>
     </div>
 
     <div class="empty" *ngIf="!isFirstSearch && scheduleType == 1 && movingScheduleList.length <= 0">

@@ -32,6 +32,10 @@ export class TourishSearchComponent implements OnInit {
 
   categoryArray: string[] = [];
 
+  defaultPriceRange: PriceRange = 
+    { startPrice: 0, endPrice: 100000000 }
+  ;
+
   priceRange: PriceRange[] = [
     { startPrice: 0, endPrice: 5000000 },
     { startPrice: 5000000, endPrice: 10000000 },
@@ -44,7 +48,7 @@ export class TourishSearchComponent implements OnInit {
   startingDate = "";
   startingPoint = "";
   endPoint = "";
-  priceTo = 20000000;
+  priceTo = 100000000;
   priceFrom = 0;
   categoryString = "";
   search = "";

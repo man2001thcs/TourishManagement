@@ -10,7 +10,10 @@ import { AuthorTagDynamicComponent } from "./utility/author-tag-dynamic/author-t
 import { MatAutocompleteModule } from "@angular/material/autocomplete";
 import { MatChipsModule } from "@angular/material/chips";
 import { MatCheckboxModule } from "@angular/material/checkbox";
-import { MatFormFieldModule } from "@angular/material/form-field";
+import {
+  MAT_FORM_FIELD_DEFAULT_OPTIONS,
+  MatFormFieldModule,
+} from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { ReactiveFormsModule } from "@angular/forms";
@@ -36,7 +39,7 @@ import {
   GoogleSigninButtonModule,
 } from "@abacritt/angularx-social-login";
 import { CarouselSlider } from "angular-carousel-slider";
-import { ServiceWorkerModule } from '@angular/service-worker';
+import { ServiceWorkerModule } from "@angular/service-worker";
 import { messaging } from "src/conf/firebase.conf";
 import { MatSelectModule } from "@angular/material/select";
 import { MatGoogleMapsAutocompleteModule } from "@angular-material-extensions/google-maps-autocomplete";
@@ -73,15 +76,15 @@ import { environment } from "src/environments/environment.development";
     MatButtonModule,
     MatSelectModule,
     GoogleSigninButtonModule,
-    ServiceWorkerModule.register('ngsw-worker.js', {
+    ServiceWorkerModule.register("ngsw-worker.js", {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
+      registrationStrategy: "registerWhenStable:30000",
     }),
   ],
   providers: [
-    { provide: 'messaging', useValue: messaging},
+    { provide: "messaging", useValue: messaging },
     {
       provide: "SocialAuthServiceConfig",
       useValue: {
@@ -103,7 +106,10 @@ import { environment } from "src/environments/environment.development";
         },
       } as SocialAuthServiceConfig,
     },
-
+    {
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+      useValue: { subscriptSizing: "dynamic" },
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

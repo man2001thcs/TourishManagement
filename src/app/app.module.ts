@@ -98,7 +98,7 @@ import { environment } from "src/environments/environment.development";
           },
           {
             id: FacebookLoginProvider.PROVIDER_ID,
-            provider: new FacebookLoginProvider("clientId"),
+            provider: new FacebookLoginProvider("1552309825390017"),
           },
         ],
         onError: (err) => {

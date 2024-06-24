@@ -125,6 +125,7 @@ export const ERR_MESSAGE_CODE_VI: Map<string, string> = new Map([
     ["C010", "Tài khoản đã tồn tại"],
     ["C010e", "Email đã được đăng kí, vui lòng kiểm tra lại"],
     ["C010n", "Tài khoản không tồn tại"],
+    ["C010fe", "Tài khoản Facebook chưa được xác thực email, vui lòng xác thực tài khoản trước"],
 
     ["C011", "Cập nhật thông tin không thành công"],
     ["C012", "Cập nhật mật khẩu không thành công"],

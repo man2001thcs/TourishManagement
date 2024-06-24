@@ -41,6 +41,7 @@ export const reducer = createReducer(
 
   on(BooklistAction.loginSystemFailed, (state, { error }) => ({
     ...state,
+    loginProfile: null,
     error: {message: error},
   }))
 );

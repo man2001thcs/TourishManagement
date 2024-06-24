@@ -15,7 +15,11 @@ import {
 import * as LoginAction from "./login.store.action";
 import { TokenStorageService } from "src/app/utility/user_service/token.service";
 import { MessageService } from "src/app/utility/user_service/message.service";
-import { SocialAuthService, SocialUser } from "@abacritt/angularx-social-login";
+import {
+  FacebookLoginProvider,
+  SocialAuthService,
+  SocialUser,
+} from "@abacritt/angularx-social-login";
 import { MatSnackBar } from "@angular/material/snack-bar";
 
 export interface DialogSignInData {
@@ -60,7 +64,12 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.tokenStorage.getUser() != null) {
+      this.socialAuthService.signOut();
+    }
+
     this.tokenStorage.signOut();
+
     const rememberMe = this.tokenStorage.returnRememberMe();
 
     this.activated = this._route.snapshot.queryParamMap.get("activated") ?? "";
@@ -71,24 +80,51 @@ export class LoginComponent implements OnInit {
         "Đóng"
       );
 
-    this.socialAuthService.authState.subscribe((user: SocialUser) => {
-      this.store.dispatch(
-        LoginAction.login({
-          payload: {
-            userName: user.email,
-            password: "None",
-            role: 0,
-            email: user.email,
-            fullName: user.firstName + " " + user.lastName,
-            address: "Chưa có",
-            phoneNumber: "Chưa có",
-            googleToken: user.idToken,
-            loginPhase: "GoogleSignIn",
-          },
-        })
-      );
-      this.messageService.openLoadingDialog();
-    });
+    this.subscriptions.push(
+      this.socialAuthService.authState.subscribe((user: SocialUser) => {
+        if (user) {
+          if (user.provider === "GOOGLE") {
+            this.socialAuthService.signOut();
+            this.store.dispatch(
+              LoginAction.login({
+                payload: {
+                  userName: user.email,
+                  password: "None",
+                  role: 0,
+                  email: user.email,
+                  fullName: user.firstName + " " + user.lastName,
+                  address: "Chưa có",
+                  phoneNumber: "Chưa có",
+                  googleToken: user.idToken,
+                  loginPhase: "GoogleSignIn",
+                },
+              })
+            );
+            this.messageService.openLoadingDialog();
+          } else if (user.provider === "FACEBOOK") {
+            console.log(user);
+            this.socialAuthService.signOut();
+            this.store.dispatch(
+              LoginAction.login({
+                payload: {
+                  userName: user.email,
+                  password: "None",
+                  role: 0,
+                  email: user.email,
+                  fullName: user.firstName + " " + user.lastName,
+                  address: "Chưa có",
+                  phoneNumber: "Chưa có",
+                  googleToken: user.authToken,
+                  loginPhase: "FacebookSignIn",
+                },
+              })
+            );
+
+            this.messageService.openLoadingDialog();
+          }
+        }
+      })
+    );
 
     this.signInformGroup = this.fb.group({
       userName: [rememberMe.userName],
@@ -164,7 +200,6 @@ export class LoginComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.store.dispatch(LoginAction.resetLogin());
-
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
@@ -213,6 +248,11 @@ export class LoginComponent implements OnInit {
     this.tokenStorage.signInWithGoogle();
   }
 
+  signInWithFB(): void {
+    //Facebook Login
+    this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
+  }
+
   isLogin() {
     if (
       this.tokenStorage.getUserRole() == "User" ||
@@ -229,5 +269,5 @@ export class LoginComponent implements OnInit {
     if (event?.pointerType) {
       this.passwordVisible = !this.passwordVisible;
     }
-  } 
+  }
 }

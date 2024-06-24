@@ -135,10 +135,8 @@ export class NotificationSingleComponent implements OnInit {
 
     if (notify.userCreateId == this.tokenStorage.getUser().Id)
       creatorName = "Bạn";
-    else {
-      if (this.tokenStorage.getUserRole() == "User")
-        creatorName = "Admin " + creatorName;
-    }
+    else if (this.tokenStorage.getUserRole() == "User")
+      creatorName = "Admin " + creatorName;
 
     return creatorName + "";
   }

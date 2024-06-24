@@ -30,10 +30,10 @@ export class ScheduleSearchComponent implements OnInit {
   color: ThemePalette = "primary";
 
   priceRange: PriceRange[] = [
-    { startPrice: 0, endPrice: 20000000 },
-    { startPrice: 20000000, endPrice: 50000000 },
-    { startPrice: 50000000, endPrice: 100000000 },
-    { startPrice: 100000000, endPrice: 0 },
+    { startPrice: 0, endPrice: 2000000 },
+    { startPrice: 2000000, endPrice: 5000000 },
+    { startPrice: 5000000, endPrice: 10000000 },
+    { startPrice: 10000000, endPrice: 0 },
   ];
 
   subscriptions: Subscription[] = [];

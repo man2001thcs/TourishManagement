@@ -1,7 +1,4 @@
-<mat-card
-  class="example-card"
-  (click)="navigateToDetail()"
->
+<mat-card class="example-card" (click)="navigateToDetail()">
   <mat-card-content>
     <div
       style="
@@ -49,16 +46,13 @@
 
         <div class="schedule-content-info" *ngIf="startingPlace.length > 0">
           <div class="destination">
-            <p *ngFor="let schedule of serviceScheduleList">
-              {{ getDateFormat(schedule.startDate.toString()) }}
+            <p>
+              {{ getDateFormat(serviceScheduleList[0].startDate.toString()) }}
             </p>
           </div>
           <div class="destination">
-            <p
-              *ngFor="let schedule of serviceScheduleList"
-              style="text-align: end !important"
-            >
-              {{ getDateFormat(schedule.endDate.toString()) }}
+            <p style="text-align: end !important">
+              {{ getDateFormat(serviceScheduleList[0].endDate.toString()) }}
             </p>
           </div>
         </div>
@@ -79,16 +73,13 @@
 
         <div class="schedule-content-info" *ngIf="address.length > 0">
           <div class="destination">
-            <p *ngFor="let schedule of serviceScheduleList">
-              {{ getDateFormat(schedule.startDate.toString()) }}
+            <p>
+              {{ getDateFormat(serviceScheduleList[0].startDate.toString()) }}
             </p>
           </div>
           <div class="destination">
-            <p
-              *ngFor="let schedule of serviceScheduleList"
-              style="text-align: end !important"
-            >
-              {{ getDateFormat(schedule.endDate.toString()) }}
+            <p style="text-align: end !important">
+              {{ getDateFormat(serviceScheduleList[0].endDate.toString()) }}
             </p>
           </div>
         </div>

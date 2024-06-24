@@ -18,11 +18,13 @@
             formControlName="endPoint"
           />
         </mat-form-field>
-        <app-validation
-          *ngIf="isSubmit"
-          [formGroup]="setTourForm"
-          [formGroupControlName]="'endPoint'"
-        ></app-validation>
+        <div class="validation-container">
+          <app-validation
+            *ngIf="isSubmit"
+            [formGroup]="setTourForm"
+            [formGroupControlName]="'endPoint'"
+          ></app-validation>
+        </div>
       </div>
 
       <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 create-form">
@@ -35,11 +37,13 @@
             formControlName="startingPoint"
           />
         </mat-form-field>
-        <app-validation
-          *ngIf="isSubmit"
-          [formGroup]="setTourForm"
-          [formGroupControlName]="'startingPoint'"
-        ></app-validation>
+        <div class="validation-container">
+          <app-validation
+            *ngIf="isSubmit"
+            [formGroup]="setTourForm"
+            [formGroupControlName]="'startingPoint'"
+          ></app-validation>
+        </div>
       </div>
 
       <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 create-form">
@@ -65,11 +69,13 @@
           >
           </ngx-mat-datetime-picker>
         </mat-form-field>
-        <app-validation
-          *ngIf="isSubmit"
-          [formGroup]="setTourForm"
-          [formGroupControlName]="'startingDate'"
-        ></app-validation>
+        <div class="validation-container">
+          <app-validation
+            *ngIf="isSubmit"
+            [formGroup]="setTourForm"
+            [formGroupControlName]="'startingDate'"
+          ></app-validation>
+        </div>
       </div>
 
       <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 create-form">
@@ -78,7 +84,7 @@
           (keyup.enter)="navigateToSearch()"
           mat-raised-button
           color="primary"
-          style="height: 56px; font-size: 14px; width: 100%;"
+          style="height: 56px; font-size: 14px; width: 100%"
         >
           Tìm
         </button>

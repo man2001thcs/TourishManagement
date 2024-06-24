@@ -31,7 +31,12 @@
       </div>
 
       <div class="row">
-        <h2 mat-form-label style="font-weight: heavy; margin-left: 0 !important;">Đăng kí tài khoản</h2>
+        <h2
+          mat-form-label
+          style="font-weight: heavy; margin-left: 0 !important"
+        >
+          Đăng kí tài khoản
+        </h2>
       </div>
 
       <mat-stepper [linear]="true" #stepper>
@@ -56,11 +61,13 @@
                   required
                 />
               </mat-form-field>
-              <app-validation
-                *ngIf="submited"
-                [formGroup]="createformGroup"
-                [formGroupControlName]="'userName'"
-              ></app-validation>
+              <div class="validation-container">
+                <app-validation
+                  *ngIf="submited"
+                  [formGroup]="createformGroup"
+                  [formGroupControlName]="'userName'"
+                ></app-validation>
+              </div>
             </div>
 
             <div class="row">
@@ -74,11 +81,13 @@
                   required
                 />
               </mat-form-field>
-              <app-validation
-                *ngIf="submited"
-                [formGroup]="createformGroup"
-                [formGroupControlName]="'fullName'"
-              ></app-validation>
+              <div class="validation-container">
+                <app-validation
+                  *ngIf="submited"
+                  [formGroup]="createformGroup"
+                  [formGroupControlName]="'fullName'"
+                ></app-validation>
+              </div>
             </div>
 
             <div class="row">
@@ -89,11 +98,13 @@
                   <option value="2">Nhân viên quản lý</option>
                 </select>
               </mat-form-field>
-              <app-validation
-                *ngIf="submited"
-                [formGroup]="createformGroup"
-                [formGroupControlName]="'role'"
-              ></app-validation>
+              <div class="validation-container">
+                <app-validation
+                  *ngIf="submited"
+                  [formGroup]="createformGroup"
+                  [formGroupControlName]="'role'"
+                ></app-validation>
+              </div>
             </div>
 
             <div>
@@ -115,11 +126,13 @@
                   formControlName="email"
                 />
               </mat-form-field>
-              <app-validation
-                *ngIf="this.createformGroup.get('email')?.touched"
-                [formGroup]="createformGroup"
-                [formGroupControlName]="'email'"
-              ></app-validation>
+              <div class="validation-container">
+                <app-validation
+                  *ngIf="this.createformGroup.get('email')?.touched"
+                  [formGroup]="createformGroup"
+                  [formGroupControlName]="'email'"
+                ></app-validation>
+              </div>
             </div>
             <div class="row">
               <mat-form-field appearance="outline" class="full-width-input">
@@ -130,11 +143,13 @@
                   formControlName="address"
                 />
               </mat-form-field>
-              <app-validation
-                *ngIf="this.createformGroup.get('address')?.touched"
-                [formGroup]="createformGroup"
-                [formGroupControlName]="'address'"
-              ></app-validation>
+              <div class="validation-container">
+                <app-validation
+                  *ngIf="this.createformGroup.get('address')?.touched"
+                  [formGroup]="createformGroup"
+                  [formGroupControlName]="'address'"
+                ></app-validation>
+              </div>
             </div>
             <div class="row">
               <mat-form-field appearance="outline" class="full-width-input">
@@ -145,11 +160,13 @@
                   formControlName="phoneNumber"
                 />
               </mat-form-field>
-              <app-validation
-                *ngIf="this.createformGroup.get('phoneNumber')?.touched"
-                [formGroup]="createformGroup"
-                [formGroupControlName]="'phoneNumber'"
-              ></app-validation>
+              <div class="validation-container">
+                <app-validation
+                  *ngIf="this.createformGroup.get('phoneNumber')?.touched"
+                  [formGroup]="createformGroup"
+                  [formGroupControlName]="'phoneNumber'"
+                ></app-validation>
+              </div>
             </div>
 
             <div>
@@ -191,11 +208,13 @@
                   type="password"
                 />
               </mat-form-field>
-              <app-validation
-                *ngIf="this.createformGroup.get('password')?.touched"
-                [formGroup]="createformGroup"
-                [formGroupControlName]="'password'"
-              ></app-validation>
+              <div class="validation-container">
+                <app-validation
+                  *ngIf="this.createformGroup.get('password')?.touched"
+                  [formGroup]="createformGroup"
+                  [formGroupControlName]="'password'"
+                ></app-validation>
+              </div>
             </div>
             <div class="row">
               <mat-form-field appearance="outline" class="full-width-input">
@@ -207,11 +226,13 @@
                   type="password"
                 />
               </mat-form-field>
-              <app-validation
-                *ngIf="this.createformGroup.get('rePassword')?.touched"
-                [formGroup]="createformGroup"
-                [formGroupControlName]="'rePassword'"
-              ></app-validation>
+              <div class="validation-container">
+                <app-validation
+                  *ngIf="this.createformGroup.get('rePassword')?.touched"
+                  [formGroup]="createformGroup"
+                  [formGroupControlName]="'rePassword'"
+                ></app-validation>
+              </div>
             </div>
             <div>
               <button mat-button matStepperPrevious>Trước</button>

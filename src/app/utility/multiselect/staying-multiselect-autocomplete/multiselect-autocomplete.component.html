@@ -261,16 +261,18 @@
               formControlName="address"
             />
           </mat-form-field>
-          <app-validation
-            *ngIf="isSubmit"
-            [formGroup]="stayingFormGroup"
-            [formGroupControlName]="'address'"
-          ></app-validation>
+          <div class="validation-container">
+            <app-validation
+              *ngIf="isSubmit"
+              [formGroup]="stayingFormGroup"
+              [formGroupControlName]="'address'"
+            ></app-validation>
+          </div>
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
           <mat-form-field appearance="outline" class="full-width-input">
-            <mat-label>Số diện thoại hỗ trợ</mat-label>
+            <mat-label>Số điện thoại hỗ trợ</mat-label>
             <input
               matInput
               fullwidth
@@ -278,11 +280,13 @@
               formControlName="supportNumber"
             />
           </mat-form-field>
-          <app-validation
-            *ngIf="isSubmit"
-            [formGroup]="stayingFormGroup"
-            [formGroupControlName]="'supportNumber'"
-          ></app-validation>
+          <div class="validation-container">
+            <app-validation
+              *ngIf="isSubmit"
+              [formGroup]="stayingFormGroup"
+              [formGroupControlName]="'supportNumber'"
+            ></app-validation>
+          </div>
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
@@ -295,11 +299,13 @@
               formControlName="singlePrice"
             />
           </mat-form-field>
-          <app-validation
-            *ngIf="isSubmit"
-            [formGroup]="stayingFormGroup"
-            [formGroupControlName]="'singlePrice'"
-          ></app-validation>
+          <div class="validation-container">
+            <app-validation
+              *ngIf="isSubmit"
+              [formGroup]="stayingFormGroup"
+              [formGroupControlName]="'singlePrice'"
+            ></app-validation>
+          </div>
         </div>
       </div>
 
@@ -375,16 +381,18 @@
               formControlName="address"
             />
           </mat-form-field>
-          <app-validation
-            *ngIf="isSubmit"
-            [formGroup]="editStayingFormGroup"
-            [formGroupControlName]="'address'"
-          ></app-validation>
+          <div class="validation-container">
+            <app-validation
+              *ngIf="isSubmit"
+              [formGroup]="editStayingFormGroup"
+              [formGroupControlName]="'address'"
+            ></app-validation>
+          </div>
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
           <mat-form-field appearance="outline" class="full-width-input">
-            <mat-label>Số diện thoại hỗ trợ</mat-label>
+            <mat-label>Số điện thoại hỗ trợ</mat-label>
             <input
               matInput
               fullwidth
@@ -392,11 +400,13 @@
               formControlName="supportNumber"
             />
           </mat-form-field>
-          <app-validation
-            *ngIf="isSubmit"
-            [formGroup]="editStayingFormGroup"
-            [formGroupControlName]="'supportNumber'"
-          ></app-validation>
+          <div class="validation-container">
+            <app-validation
+              *ngIf="isSubmit"
+              [formGroup]="editStayingFormGroup"
+              [formGroupControlName]="'supportNumber'"
+            ></app-validation>
+          </div>
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
@@ -409,11 +419,13 @@
               formControlName="singlePrice"
             />
           </mat-form-field>
-          <app-validation
-            *ngIf="isSubmit"
-            [formGroup]="editStayingFormGroup"
-            [formGroupControlName]="'singlePrice'"
-          ></app-validation>
+          <div class="validation-container">
+            <app-validation
+              *ngIf="isSubmit"
+              [formGroup]="editStayingFormGroup"
+              [formGroupControlName]="'singlePrice'"
+            ></app-validation>
+          </div>
         </div>
       </div>
 

@@ -7,15 +7,28 @@
         </mat-card-header>
         <mat-card-content>
           <h4>Giá</h4>
-          <mat-selection-list [multiple]="false" (selectionChange)=" priceRangeChange($event)">
-            <mat-list-option [value]="defaultPriceRange">Bất kể giá</mat-list-option>
-            <mat-list-option *ngFor="let price of priceRange"  [value]="price"
-              >Từ {{ formatVNCurrency(price.startPrice) }} - {{ price.endPrice != 0 ? formatVNCurrency(price.endPrice) : "Trở lên" }}</mat-list-option
+          <mat-selection-list
+            [multiple]="false"
+            (selectionChange)="priceRangeChange($event)"
+          >
+            <mat-list-option [value]="defaultPriceRange"
+              >Bất kể giá</mat-list-option
+            >
+            <mat-list-option *ngFor="let price of priceRange" [value]="price"
+              >Từ {{ formatVNCurrency(price.startPrice) }} -
+              {{
+                price.endPrice != 0
+                  ? formatVNCurrency(price.endPrice)
+                  : "Trở lên"
+              }}</mat-list-option
             >
           </mat-selection-list>
           <mat-divider></mat-divider>
           <h4>Loại dịch vụ</h4>
-          <mat-selection-list [multiple]="false" (selectionChange)=" serviceChange($event)">
+          <mat-selection-list
+            [multiple]="false"
+            (selectionChange)="serviceChange($event)"
+          >
             <mat-list-option [value]="1">Vé di chuyển</mat-list-option>
             <mat-list-option [value]="2">Book Homestay/Hotel</mat-list-option>
           </mat-selection-list>
@@ -40,11 +53,13 @@
               formControlName="endPoint"
             />
           </mat-form-field>
-          <app-validation
-            *ngIf="isSubmit"
-            [formGroup]="setTourForm"
-            [formGroupControlName]="'endPoint'"
-          ></app-validation>
+          <div class="validation-container">
+            <app-validation
+              *ngIf="isSubmit"
+              [formGroup]="setTourForm"
+              [formGroupControlName]="'endPoint'"
+            ></app-validation>
+          </div>
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-4 create-form">
@@ -57,11 +72,13 @@
               formControlName="startingPoint"
             />
           </mat-form-field>
-          <app-validation
-            *ngIf="isSubmit"
-            [formGroup]="setTourForm"
-            [formGroupControlName]="'startingPoint'"
-          ></app-validation>
+          <div class="validation-container">
+            <app-validation
+              *ngIf="isSubmit"
+              [formGroup]="setTourForm"
+              [formGroupControlName]="'startingPoint'"
+            ></app-validation>
+          </div>
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 create-form">
@@ -87,11 +104,13 @@
             >
             </ngx-mat-datetime-picker>
           </mat-form-field>
-          <app-validation
-            *ngIf="isSubmit"
-            [formGroup]="setTourForm"
-            [formGroupControlName]="'startingDate'"
-          ></app-validation>
+          <div class="validation-container">
+            <app-validation
+              *ngIf="isSubmit"
+              [formGroup]="setTourForm"
+              [formGroupControlName]="'startingDate'"
+            ></app-validation>
+          </div>
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-1 col-lg-1 create-form">
@@ -114,7 +133,7 @@
       [priceFrom]="priceFrom"
       [priceTo]="priceTo"
       [scheduleType]="scheduleType"
-      style="width: 100%;"
+      style="width: 100%"
     ></app-schedule-search-pack>
   </div>
 </div>

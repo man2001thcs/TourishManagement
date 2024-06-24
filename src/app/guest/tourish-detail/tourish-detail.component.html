@@ -73,11 +73,14 @@
       align-items: flex-start;
     "
   >
-    <div class="service-item" style="align-self: center; width: 170px; margin-right: auto;">
+    <div
+      class="service-item"
+      style="align-self: center; width: 170px; margin-right: auto"
+    >
       <button
         mat-flat-button
         color="primary"
-        style="width: 100%; height: 56px; font-size: 16px; align-self: center; "
+        style="width: 100%; height: 56px; font-size: 16px; align-self: center"
         (click)="scrollToElement('register-form')"
         [disabled]="!isScheduleAvailable()"
       >
@@ -153,7 +156,10 @@
 
   <div class="tour-description">
     <mat-tab-group>
-      <mat-tab label="Lịch trình ăn uống" *ngIf="(tourishPlan?.eatSchedules ?? []).length > 0">
+      <mat-tab
+        label="Lịch trình ăn uống"
+        *ngIf="(tourishPlan?.eatSchedules ?? []).length > 0"
+      >
         <ng-template matTabContent>
           <div
             *ngIf="tourishPlan?.eatSchedules != undefined"
@@ -170,7 +176,10 @@
         </ng-template>
       </mat-tab>
 
-      <mat-tab label="Lịch trình di chuyển" *ngIf="(tourishPlan?.movingSchedules ?? []).length > 0">
+      <mat-tab
+        label="Lịch trình di chuyển"
+        *ngIf="(tourishPlan?.movingSchedules ?? []).length > 0"
+      >
         <ng-template matTabContent>
           <div *ngIf="tourishPlan?.movingSchedules != undefined">
             <app-tiny-mce-editor
@@ -184,7 +193,10 @@
         </ng-template>
       </mat-tab>
 
-      <mat-tab label="Lịch trình nơi ở"*ngIf="(tourishPlan?.stayingSchedules ?? []).length > 0">
+      <mat-tab
+        label="Lịch trình nơi ở"
+        *ngIf="(tourishPlan?.stayingSchedules ?? []).length > 0"
+      >
         <ng-template matTabContent>
           <div *ngIf="tourishPlan?.stayingSchedules != undefined">
             <app-tiny-mce-editor
@@ -338,11 +350,13 @@
               formControlName="totalTicket"
             />
           </mat-form-field>
-          <app-validation
-            *ngIf="this.setTourForm.get('totalTicket')?.touched"
-            [formGroup]="setTourForm"
-            [formGroupControlName]="'totalTicket'"
-          ></app-validation>
+          <div class="validation-container">
+            <app-validation
+              *ngIf="this.setTourForm.get('totalTicket')?.touched"
+              [formGroup]="setTourForm"
+              [formGroupControlName]="'totalTicket'"
+            ></app-validation>
+          </div>
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 create-form">
@@ -356,11 +370,13 @@
               formControlName="totalChildTicket"
             />
           </mat-form-field>
-          <app-validation
-            *ngIf="this.setTourForm.get('totalChildTicket')?.touched"
-            [formGroup]="setTourForm"
-            [formGroupControlName]="'totalChildTicket'"
-          ></app-validation>
+          <div class="validation-container">
+            <app-validation
+              *ngIf="this.setTourForm.get('totalChildTicket')?.touched"
+              [formGroup]="setTourForm"
+              [formGroupControlName]="'totalChildTicket'"
+            ></app-validation>
+          </div>
         </div>
 
         <div

@@ -52,7 +52,9 @@
               <mat-panel-title> Lịch trình mới {{ index + 1 }}</mat-panel-title>
             </mat-expansion-panel-header>
             <p>
-              <span style="font-weight: bold">Người điều khiển phương tiện: </span>
+              <span style="font-weight: bold"
+                >Người điều khiển phương tiện:
+              </span>
               {{ driverName }}
             </p>
             <p>
@@ -113,7 +115,9 @@
               ></mat-panel-title>
             </mat-expansion-panel-header>
             <p>
-              <span style="font-weight: bold">Người điều khiển phương tiện: </span>
+              <span style="font-weight: bold"
+                >Người điều khiển phương tiện:
+              </span>
               {{ driverName }}
             </p>
             <p>
@@ -276,11 +280,13 @@
               formControlName="driverName"
             />
           </mat-form-field>
-          <app-validation
-            *ngIf="isSubmit"
-            [formGroup]="movingFormGroup"
-            [formGroupControlName]="'driverName'"
-          ></app-validation>
+          <div class="validation-container">
+            <app-validation
+              *ngIf="isSubmit"
+              [formGroup]="movingFormGroup"
+              [formGroupControlName]="'driverName'"
+            ></app-validation>
+          </div>
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
@@ -293,11 +299,13 @@
               formControlName="branchName"
             />
           </mat-form-field>
-          <app-validation
-            *ngIf="isSubmit"
-            [formGroup]="movingFormGroup"
-            [formGroupControlName]="'branchName'"
-          ></app-validation>
+          <div class="validation-container">
+            <app-validation
+              *ngIf="isSubmit"
+              [formGroup]="movingFormGroup"
+              [formGroupControlName]="'branchName'"
+            ></app-validation>
+          </div>
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
@@ -310,16 +318,18 @@
               formControlName="vehiclePlate"
             />
           </mat-form-field>
-          <app-validation
-            *ngIf="isSubmit"
-            [formGroup]="movingFormGroup"
-            [formGroupControlName]="'vehiclePlate'"
-          ></app-validation>
+          <div class="validation-container">
+            <app-validation
+              *ngIf="isSubmit"
+              [formGroup]="movingFormGroup"
+              [formGroupControlName]="'vehiclePlate'"
+            ></app-validation>
+          </div>
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
           <mat-form-field appearance="outline" class="full-width-input">
-            <mat-label>Số diện thoại hỗ trợ</mat-label>
+            <mat-label>Số điện thoại hỗ trợ</mat-label>
             <input
               matInput
               fullwidth
@@ -327,11 +337,13 @@
               formControlName="phoneNumber"
             />
           </mat-form-field>
-          <app-validation
-            *ngIf="isSubmit"
-            [formGroup]="movingFormGroup"
-            [formGroupControlName]="'phoneNumber'"
-          ></app-validation>
+          <div class="validation-container">
+            <app-validation
+              *ngIf="isSubmit"
+              [formGroup]="movingFormGroup"
+              [formGroupControlName]="'phoneNumber'"
+            ></app-validation>
+          </div>
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
@@ -344,11 +356,13 @@
               formControlName="startingPlace"
             />
           </mat-form-field>
-          <app-validation
-            *ngIf="isSubmit"
-            [formGroup]="movingFormGroup"
-            [formGroupControlName]="'startingPlace'"
-          ></app-validation>
+          <div class="validation-container">
+            <app-validation
+              *ngIf="isSubmit"
+              [formGroup]="movingFormGroup"
+              [formGroupControlName]="'startingPlace'"
+            ></app-validation>
+          </div>
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
@@ -361,11 +375,13 @@
               formControlName="headingPlace"
             />
           </mat-form-field>
-          <app-validation
-            *ngIf="isSubmit"
-            [formGroup]="movingFormGroup"
-            [formGroupControlName]="'headingPlace'"
-          ></app-validation>
+          <div class="validation-container">
+            <app-validation
+              *ngIf="isSubmit"
+              [formGroup]="movingFormGroup"
+              [formGroupControlName]="'headingPlace'"
+            ></app-validation>
+          </div>
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
@@ -378,16 +394,21 @@
               formControlName="singlePrice"
             />
           </mat-form-field>
-          <app-validation
-            *ngIf="isSubmit"
-            [formGroup]="movingFormGroup"
-            [formGroupControlName]="'singlePrice'"
-          ></app-validation>
+          <div class="validation-container">
+            <app-validation
+              *ngIf="isSubmit"
+              [formGroup]="movingFormGroup"
+              [formGroupControlName]="'singlePrice'"
+            ></app-validation>
+          </div>
         </div>
       </div>
 
       <div *ngIf="movingScheduleEdit == null && movingNameList.length >= 1">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form" style="display: flex; flex-direction: column !important; flex-wrap: 1">
+        <div
+          class="col-xs-12 col-sm-12 col-md-12 col-lg-12 create-form"
+          style="display: flex; flex-direction: column !important; flex-wrap: 1"
+        >
           <app-tiny-mce-editor
             style="width: 90% !important"
             [blobName]="getScheduleEditId()"
@@ -455,11 +476,13 @@
               formControlName="driverName"
             />
           </mat-form-field>
-          <app-validation
-            *ngIf="isSubmit"
-            [formGroup]="editMovingFormGroup"
-            [formGroupControlName]="'driverName'"
-          ></app-validation>
+          <div class="validation-container">
+            <app-validation
+              *ngIf="isSubmit"
+              [formGroup]="editMovingFormGroup"
+              [formGroupControlName]="'driverName'"
+            ></app-validation>
+          </div>
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
@@ -472,16 +495,18 @@
               formControlName="branchName"
             />
           </mat-form-field>
-          <app-validation
-            *ngIf="isSubmit"
-            [formGroup]="movingFormGroup"
-            [formGroupControlName]="'branchName'"
-          ></app-validation>
+          <div class="validation-container">
+            <app-validation
+              *ngIf="isSubmit"
+              [formGroup]="movingFormGroup"
+              [formGroupControlName]="'branchName'"
+            ></app-validation>
+          </div>
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
           <mat-form-field appearance="outline" class="full-width-input">
-            <mat-label>Số diện thoại hỗ trợ</mat-label>
+            <mat-label>Số điện thoại hỗ trợ</mat-label>
             <input
               matInput
               fullwidth
@@ -489,11 +514,13 @@
               formControlName="phoneNumber"
             />
           </mat-form-field>
-          <app-validation
-            *ngIf="isSubmit"
-            [formGroup]="editMovingFormGroup"
-            [formGroupControlName]="'phoneNumber'"
-          ></app-validation>
+          <div class="validation-container">
+            <app-validation
+              *ngIf="isSubmit"
+              [formGroup]="editMovingFormGroup"
+              [formGroupControlName]="'phoneNumber'"
+            ></app-validation>
+          </div>
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
@@ -506,11 +533,13 @@
               formControlName="startingPlace"
             />
           </mat-form-field>
-          <app-validation
-            *ngIf="isSubmit"
-            [formGroup]="movingFormGroup"
-            [formGroupControlName]="'startingPlace'"
-          ></app-validation>
+          <div class="validation-container">
+            <app-validation
+              *ngIf="isSubmit"
+              [formGroup]="movingFormGroup"
+              [formGroupControlName]="'startingPlace'"
+            ></app-validation>
+          </div>
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
@@ -523,11 +552,13 @@
               formControlName="headingPlace"
             />
           </mat-form-field>
-          <app-validation
-            *ngIf="isSubmit"
-            [formGroup]="movingFormGroup"
-            [formGroupControlName]="'headingPlace'"
-          ></app-validation>
+          <div class="validation-container">
+            <app-validation
+              *ngIf="isSubmit"
+              [formGroup]="movingFormGroup"
+              [formGroupControlName]="'headingPlace'"
+            ></app-validation>
+          </div>
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
@@ -540,11 +571,13 @@
               formControlName="singlePrice"
             />
           </mat-form-field>
-          <app-validation
-            *ngIf="isSubmit"
-            [formGroup]="editMovingFormGroup"
-            [formGroupControlName]="'singlePrice'"
-          ></app-validation>
+          <div class="validation-container">
+            <app-validation
+              *ngIf="isSubmit"
+              [formGroup]="editMovingFormGroup"
+              [formGroupControlName]="'singlePrice'"
+            ></app-validation>
+          </div>
         </div>
       </div>
 

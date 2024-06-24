@@ -1,6 +1,6 @@
 <div class="container">
   <div class="below-title">
-    <div class="service-item" style="align-self: center; width: 170px;">
+    <div class="service-item" style="align-self: center; width: 170px">
       <button
         mat-flat-button
         color="primary"
@@ -154,11 +154,13 @@
               formControlName="totalTicket"
             />
           </mat-form-field>
-          <app-validation
-            *ngIf="this.setTourForm.get('totalTicket')?.touched"
-            [formGroup]="setTourForm"
-            [formGroupControlName]="'totalTicket'"
-          ></app-validation>
+          <div class="validation-container">
+            <app-validation
+              *ngIf="this.setTourForm.get('totalTicket')?.touched"
+              [formGroup]="setTourForm"
+              [formGroupControlName]="'totalTicket'"
+            ></app-validation>
+          </div>
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 create-form">
@@ -172,11 +174,13 @@
               formControlName="totalChildTicket"
             />
           </mat-form-field>
-          <app-validation
-            *ngIf="this.setTourForm.get('totalChildTicket')?.touched"
-            [formGroup]="setTourForm"
-            [formGroupControlName]="'totalChildTicket'"
-          ></app-validation>
+          <div class="validation-container">
+            <app-validation
+              *ngIf="this.setTourForm.get('totalChildTicket')?.touched"
+              [formGroup]="setTourForm"
+              [formGroupControlName]="'totalChildTicket'"
+            ></app-validation>
+          </div>
         </div>
 
         <div

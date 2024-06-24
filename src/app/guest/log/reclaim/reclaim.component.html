@@ -56,11 +56,13 @@
                   required
                 />
               </mat-form-field>
-              <app-validation
-                *ngIf="submited"
-                [formGroup]="reclaimFormGroup"
-                [formGroupControlName]="'userName'"
-              ></app-validation>
+              <div class="validation-container">
+                <app-validation
+                  *ngIf="submited"
+                  [formGroup]="reclaimFormGroup"
+                  [formGroupControlName]="'userName'"
+                ></app-validation>
+              </div>
             </div>
             <div>
               <button
@@ -108,11 +110,13 @@
                   type="password"
                 />
               </mat-form-field>
-              <app-validation
-                *ngIf="this.assignPasswordFormGroup.get('password')?.touched"
-                [formGroup]="assignPasswordFormGroup"
-                [formGroupControlName]="'password'"
-              ></app-validation>
+              <div class="validation-container">
+                <app-validation
+                  *ngIf="this.assignPasswordFormGroup.get('password')?.touched"
+                  [formGroup]="assignPasswordFormGroup"
+                  [formGroupControlName]="'password'"
+                ></app-validation>
+              </div>
             </div>
             <div class="row">
               <mat-form-field appearance="outline" class="full-width-input">
@@ -124,11 +128,15 @@
                   type="password"
                 />
               </mat-form-field>
-              <app-validation
-                *ngIf="this.assignPasswordFormGroup.get('rePassword')?.touched"
-                [formGroup]="assignPasswordFormGroup"
-                [formGroupControlName]="'rePassword'"
-              ></app-validation>
+              <div class="validation-container">
+                <app-validation
+                  *ngIf="
+                    this.assignPasswordFormGroup.get('rePassword')?.touched
+                  "
+                  [formGroup]="assignPasswordFormGroup"
+                  [formGroupControlName]="'rePassword'"
+                ></app-validation>
+              </div>
             </div>
             <div>
               <button mat-button matStepperPrevious>Trước</button>

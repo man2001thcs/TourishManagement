@@ -9,7 +9,7 @@ import {
   Output,
   ViewChild,
 } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup } from "@angular/forms";
 import { ThemePalette } from "@angular/material/core";
 import { Notification } from "src/app/model/baseModel";
 import { TokenStorageService } from "../user_service/token.service";
@@ -217,9 +217,6 @@ export class NotificationPackComponent implements OnInit, OnDestroy {
 
     // Adjust to GMT+0
     now.setTime(now.getTime() + offset);
-
-    let isoDate = new Date(now.toISOString());
-
     let timeChanges = (now.valueOf() - sendTime.valueOf()) / 1000;
 
     if (timeChanges < 60) {
@@ -259,7 +256,6 @@ export class NotificationPackComponent implements OnInit, OnDestroy {
       .getToken({ vapidKey: environment.firebaseConfig.vapidKey })
       .then((currentToken) => {
         if (currentToken) {
-
           const userId = this.tokenStorage.getUser().Id;
           const payload = {
             deviceToken: currentToken,
@@ -268,9 +264,7 @@ export class NotificationPackComponent implements OnInit, OnDestroy {
 
           this.http
             .post("/api/SaveNotifyFcmToken", payload)
-            .subscribe((response: any) => {
-              
-            });
+            .subscribe((response: any) => {});
         } else {
           console.log(
             "No registration token available. Request permission to generate one."

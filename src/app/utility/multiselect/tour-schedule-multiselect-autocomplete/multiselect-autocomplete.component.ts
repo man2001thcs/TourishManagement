@@ -157,10 +157,13 @@ export class TourScheduleMultiselectAutocompleteComponent
 
       this.emitAdjustedData();
       this.formReset();
+      this.isNewEdited = false;
     }
   }
 
   clickEditSchedule(id: string): void {
+    this.isNewEdited = false;
+
     var existIndex = this.data_selected_edit.findIndex(
       (entity) => entity.id === id
     );
@@ -296,7 +299,7 @@ export class TourScheduleMultiselectAutocompleteComponent
 
   onClickAddButton() {
     
-    this.isNewEdited = !this.isNewEdited;
+    this.isNewEdited = true;
   }
 
   getDateFormat(isoDateString: string) {

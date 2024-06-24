@@ -32,70 +32,66 @@
       flex-direction: column !important;
     "
   >
-  <div class="container-controller">
-    <div
-      class="row"
-      style="
-        display: flex;
-        flex-direction: row !important;
-        flex-wrap: 1;
-        margin-left: 90px !important;
-        margin-bottom: 20px !important;
-      "
-    >
-      <div>
-        <button
-          mat-raised-button
-          color="primary"
-          (click)="disabled = false"
-          *ngIf="disabled"
-        >
-          Sửa đổi
-        </button>
-      </div>
+    <div class="container-controller">
+      <div
+        class="row"
+        style="
+          display: flex;
+          flex-direction: row !important;
+          flex-wrap: 1;
+          margin-left: 90px !important;
+          margin-bottom: 20px !important;
+        "
+      >
+        <div>
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="disabled = false"
+            *ngIf="disabled"
+          >
+            Sửa đổi
+          </button>
+        </div>
 
-      <div style="margin-right: 20px">
-        <button
-          mat-raised-button
-          color="primary"
-          (click)="formSubmit_edit_info()"
-          *ngIf="!disabled"
-        >
-          Lưu thay đổi
-        </button>
-      </div>
+        <div style="margin-right: 20px">
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="formSubmit_edit_info()"
+            *ngIf="!disabled"
+          >
+            Lưu thay đổi
+          </button>
+        </div>
 
-      <div style="margin-right: 20px">
-        <button
-          mat-raised-button
-          color="danger"
-          (click)="disabled = true"
-          *ngIf="!disabled"
-        >
-          Hủy
-        </button>
-      </div>
+        <div style="margin-right: 20px">
+          <button
+            mat-raised-button
+            color="danger"
+            (click)="disabled = true"
+            *ngIf="!disabled"
+          >
+            Hủy
+          </button>
+        </div>
 
-      <div>
-        <button
-          mat-raised-button
-          color="warn"
-          type="button"
-          (click)="formReset()"
-          *ngIf="!disabled"
-        >
-          Khôi phục ban đầu
-        </button>
+        <div>
+          <button
+            mat-raised-button
+            color="warn"
+            type="button"
+            (click)="formReset()"
+            *ngIf="!disabled"
+          >
+            Khôi phục ban đầu
+          </button>
+        </div>
       </div>
     </div>
-  </div>
     <div
       class="row"
-      style="
-        display: flex;
-        flex-direction: column !important;
-        flex-wrap: 1;
-      "
+      style="display: flex; flex-direction: column !important; flex-wrap: 1"
     >
       <form [formGroup]="editformGroup_info">
         <div class="row">
@@ -127,7 +123,12 @@
             <div class="row">
               <mat-form-field appearance="outline" class="full-width-input">
                 <mat-label>Loại nơi ở</mat-label>
-                <select matNativeControl required formControlName="restHouseType" (change)="changeType($event)">
+                <select
+                  matNativeControl
+                  required
+                  formControlName="restHouseType"
+                  (change)="changeType($event)"
+                >
                   <option [value]="0">Homestay</option>
                   <option [value]="1">Khách sạn</option>
                 </select>
@@ -169,9 +170,7 @@
                   [formGroupControlName]="'placeName'"
                 ></app-validation>
               </div>
-            </div>       
-
-            
+            </div>
           </div>
 
           <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 create-form">
@@ -196,8 +195,8 @@
                   [formGroupControlName]="'supportNumber'"
                 ></app-validation>
               </div>
-            </div>          
-            
+            </div>
+
             <div class="row">
               <mat-form-field appearance="outline" class="full-width-input">
                 <mat-label>Đơn giá</mat-label>
@@ -220,7 +219,7 @@
                 ></app-validation>
               </div>
             </div>
-           
+
             <div class="row">
               <mat-form-field appearance="outline" class="full-width-input">
                 <mat-label>Địa chỉ</mat-label>
@@ -235,19 +234,18 @@
               <app-validation
                 *ngIf="
                   this.editformGroup_info.get('address')?.errors &&
-                  (editformGroup_info.get('address')?.touched ||
-                    isSubmitted)
+                  (editformGroup_info.get('address')?.touched || isSubmitted)
                 "
                 [formGroup]="editformGroup_info"
                 [formGroupControlName]="'address'"
               ></app-validation>
-            </div>                           
+            </div>
           </div>
         </div>
 
         <div class="row">
           <app-tiny-mce-editor
-            style="width: 90% !important"
+            style="width: 94% !important"
             [blobName]="this.data.id"
             [containerName]="'stayingschedule-content-container'"
             (result)="getTinyMceResult($event)"
@@ -257,16 +255,13 @@
             <app-validation
               *ngIf="
                 this.editformGroup_info.get('description')?.errors &&
-                (editformGroup_info.get('description')?.touched ||
-                  isSubmitted)
+                (editformGroup_info.get('description')?.touched || isSubmitted)
               "
               [formGroup]="editformGroup_info"
               [formGroupControlName]="'description'"
             ></app-validation>
           </div>
         </div>
-
-  
       </form>
     </div>
   </div>

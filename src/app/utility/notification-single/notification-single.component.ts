@@ -1,27 +1,20 @@
-import { HttpClient, HttpParams } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import {
-  AfterViewInit,
   Component,
   ElementRef,
   EventEmitter,
   Input,
   OnInit,
   Output,
-  Renderer2,
   ViewChild,
 } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormGroup } from "@angular/forms";
 import { ThemePalette } from "@angular/material/core";
-
-import { NgbCarouselConfig } from "@ng-bootstrap/ng-bootstrap";
 import { Notification, SaveFile } from "src/app/model/baseModel";
 import { TokenStorageService } from "../user_service/token.service";
 import { getViNotifyMessagePhase } from "../config/notificationCode";
-import { SignalRService } from "../user_service/signalr.service";
-import { Subscription, debounceTime, fromEvent } from "rxjs";
-import { SwPush } from "@angular/service-worker";
+import { Subscription } from "rxjs";
 import { environment } from "src/environments/environment";
-import { messaging } from "src/conf/firebase.conf";
 import { FileModel } from "../image_avatar_service/imageUpload.component.model";
 import { Router } from "@angular/router";
 
@@ -62,15 +55,10 @@ export class NotificationSingleComponent implements OnInit {
 
   color: ThemePalette = "primary";
   scrollSubscription!: Subscription;
-  private checkTimer: any; // Variable to hold the timer ID
 
   constructor(
-    private fb: FormBuilder,
-    private renderer: Renderer2,
     private tokenStorage: TokenStorageService,
     private http: HttpClient,
-    private swPush: SwPush,
-    private signalRService: SignalRService,
     private router: Router
   ) {}
 
@@ -148,7 +136,10 @@ export class NotificationSingleComponent implements OnInit {
     if (notify.userCreateId == this.tokenStorage.getUser().Id)
       creatorName = "Bạn";
 
-    if (this.tokenStorage.getUserRole() == "AdminManager" || this.tokenStorage.getUserRole() == "Admin")
+    if (
+      this.tokenStorage.getUserRole() == "AdminManager" ||
+      this.tokenStorage.getUserRole() == "Admin"
+    )
       creatorName = "Admin " + creatorName;
 
     return creatorName + "";

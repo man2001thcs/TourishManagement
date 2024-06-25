@@ -449,4 +449,8 @@ export class EatingMultiselectAutocompleteComponent implements OnInit {
   getTinyMceResult($event: any) {
     this.editorContent = $event.data;
   }
+
+  formatVNCurrency(num: number): string {
+    return num.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
+  }
 }

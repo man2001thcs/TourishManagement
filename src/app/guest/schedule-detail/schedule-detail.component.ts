@@ -11,6 +11,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
+import { faL } from "@fortawesome/free-solid-svg-icons";
 
 import { NgbCarouselConfig } from "@ng-bootstrap/ng-bootstrap";
 import { EditorComponent } from "@tinymce/tinymce-angular";
@@ -50,6 +51,8 @@ export class ScheduleDetailComponent implements OnInit {
   isMovingContactPresent = false;
   isTrainPresent = false;
   isPlanePresent = false;
+  isShipPresent =false;
+  isLocalTransportPresent= false;
 
   schedule?: any;
 
@@ -274,6 +277,10 @@ export class ScheduleDetailComponent implements OnInit {
           this.isPlanePresent = true;
         } else if (this.schedule.vehicleType === 2) {
           this.isTrainPresent = true;
+        } else if (this.schedule.vehicleType === 3) {
+          this.isShipPresent = true;
+        } else if (this.schedule.vehicleType === 4) {
+          this.isLocalTransportPresent = true;
         }
       }
     }

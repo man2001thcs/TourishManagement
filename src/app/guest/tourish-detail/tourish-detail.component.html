@@ -36,11 +36,23 @@
         aria-hidden="true"
         *ngIf="isPlanePresent"
         style="margin-right: 10px"
-      ></i>
+      ></i>   
       <i
         class="fa fa-train"
         aria-hidden="true"
         *ngIf="isTrainPresent"
+        style="margin-right: 10px"
+      ></i>
+      <i
+        class="fa fa-ship"
+        aria-hidden="true"
+        *ngIf="isShipPresent"
+        style="margin-right: 10px"
+      ></i>
+      <i
+        class="fa fa-taxi"
+        aria-hidden="true"
+        *ngIf="isLocalTransportPresent"
         style="margin-right: 10px"
       ></i>
     </span>
@@ -97,11 +109,32 @@
     </div>
 
     <div class="service-item" *ngIf="isMovingContactPresent">
-      <i class="fa fa-train" aria-hidden="true"></i>
+      <i class="fa fa-car" aria-hidden="true"></i>
       <span>Ô tô</span>
       <span *ngFor="let entity of getVehicleList(0)">{{
         entity.branchName
       }}</span>
+    </div>
+
+    <div class="service-item" *ngIf="isTrainPresent">
+      <i class="fa fa-train" aria-hidden="true"></i>
+      <span>Tàu hỏa</span>
+      <span *ngFor="let entity of getVehicleList(2)">{{
+        entity.branchName
+      }}</span>
+    </div>
+
+    <div class="service-item" *ngIf="isShipPresent">
+      <i class="fa fa-ship" aria-hidden="true"></i>
+      <span>Tàu biển</span>
+      <span *ngFor="let entity of getVehicleList(3)">{{
+        entity.branchName
+      }}</span>
+    </div>
+
+    <div class="service-item" *ngIf="isLocalTransportPresent">
+      <i class="fa fa-taxi" aria-hidden="true"></i>
+      <span>Phương tiện địa phương</span>
     </div>
 
     <div

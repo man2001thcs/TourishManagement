@@ -42,6 +42,8 @@ export class TourishDetailComponent implements OnInit, OnDestroy {
   isMovingContactPresent = false;
   isTrainPresent = false;
   isPlanePresent = false;
+  isShipPresent = false;
+  isLocalTransportPresent = false;
 
   tourishPlan?: TourishPlan;
   tourImage: SaveFile[] = [];
@@ -290,6 +292,11 @@ export class TourishDetailComponent implements OnInit, OnDestroy {
           this.isPlanePresent = true;
         } else if (entity.vehicleType === 2) {
           this.isTrainPresent = true;
+        } else if (entity.vehicleType === 3) {
+          this.isShipPresent = true;
+        }
+        else if (entity.vehicleType ===4) {
+          this.isLocalTransportPresent = true;
         }
       });
     }

@@ -61,7 +61,7 @@
             </p>
             <p>
               <span style="font-weight: bold">Giá đơn:</span>
-              {{ singlePrice }}
+              {{  formatVNCurrency(singlePrice) }}
             </p>
             <button
               mat-raised-button
@@ -118,7 +118,7 @@
             </p>
             <p>
               <span style="font-weight: bold">Giá đơn:</span>
-              {{ singlePrice }}
+              {{ formatVNCurrency(singlePrice) }}
             </p>
             <button
               mat-raised-button
@@ -203,7 +203,10 @@
             </mat-form-field>
             <div class="validation-container">
               <app-validation
-                *ngIf="isSubmit"
+                *ngIf="
+                  this.editEatingFormGroup.get('address')?.errors &&
+                  editEatingFormGroup.get('address')?.touched
+                "
                 [formGroup]="editEatingFormGroup"
                 [formGroupControlName]="'address'"
               ></app-validation>
@@ -222,7 +225,10 @@
             </mat-form-field>
             <div class="validation-container">
               <app-validation
-                *ngIf="isSubmit"
+                *ngIf="
+                  this.editEatingFormGroup.get('supportNumber')?.errors &&
+                  editEatingFormGroup.get('supportNumber')?.touched
+                "
                 [formGroup]="editEatingFormGroup"
                 [formGroupControlName]="'supportNumber'"
               ></app-validation>
@@ -241,7 +247,10 @@
             </mat-form-field>
             <div class="validation-container">
               <app-validation
-                *ngIf="isSubmit"
+                *ngIf="
+                  this.editEatingFormGroup.get('singlePrice')?.errors &&
+                  editEatingFormGroup.get('singlePrice')?.touched
+                "
                 [formGroup]="editEatingFormGroup"
                 [formGroupControlName]="'singlePrice'"
               ></app-validation>
@@ -381,7 +390,10 @@
           </mat-form-field>
           <div class="validation-container">
             <app-validation
-              *ngIf="isSubmit"
+              *ngIf="
+                this.eatingFormGroup.get('address')?.errors &&
+                eatingFormGroup.get('address')?.touched
+              "
               [formGroup]="eatingFormGroup"
               [formGroupControlName]="'address'"
             ></app-validation>
@@ -400,7 +412,10 @@
           </mat-form-field>
           <div class="validation-container">
             <app-validation
-              *ngIf="isSubmit"
+              *ngIf="
+                this.eatingFormGroup.get('supportNumber')?.errors &&
+                eatingFormGroup.get('supportNumber')?.touched
+              "
               [formGroup]="eatingFormGroup"
               [formGroupControlName]="'supportNumber'"
             ></app-validation>
@@ -419,7 +434,10 @@
           </mat-form-field>
           <div class="validation-container">
             <app-validation
-              *ngIf="isSubmit"
+              *ngIf="
+                this.eatingFormGroup.get('singlePrice')?.errors &&
+                eatingFormGroup.get('singlePrice')?.touched
+              "
               [formGroup]="eatingFormGroup"
               [formGroupControlName]="'singlePrice'"
             ></app-validation>

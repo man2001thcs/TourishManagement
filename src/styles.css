@@ -22,7 +22,7 @@ body {
 }
 
 mat-form-field {
-  margin-bottom: 20px;
+  margin-bottom: 20px !important;
 }
 
 .validation-container {

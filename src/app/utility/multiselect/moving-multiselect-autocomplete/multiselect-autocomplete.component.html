@@ -67,7 +67,7 @@
             </p>
             <p>
               <span style="font-weight: bold">Giá đơn:</span>
-              {{ singlePrice }}
+              {{ formatVNCurrency(singlePrice) }}
             </p>
             <button
               mat-raised-button
@@ -130,7 +130,7 @@
             </p>
             <p>
               <span style="font-weight: bold">Giá đơn:</span>
-              {{ singlePrice }}
+              {{ formatVNCurrency(singlePrice) }}
             </p>
             <button
               mat-raised-button
@@ -282,7 +282,10 @@
           </mat-form-field>
           <div class="validation-container">
             <app-validation
-              *ngIf="isSubmit"
+              *ngIf="
+                this.movingFormGroup.get('driverName')?.errors &&
+                movingFormGroup.get('driverName')?.touched
+              "
               [formGroup]="movingFormGroup"
               [formGroupControlName]="'driverName'"
             ></app-validation>
@@ -301,7 +304,10 @@
           </mat-form-field>
           <div class="validation-container">
             <app-validation
-              *ngIf="isSubmit"
+              *ngIf="
+                this.movingFormGroup.get('branchName')?.errors &&
+                movingFormGroup.get('branchName')?.touched
+              "
               [formGroup]="movingFormGroup"
               [formGroupControlName]="'branchName'"
             ></app-validation>
@@ -320,7 +326,10 @@
           </mat-form-field>
           <div class="validation-container">
             <app-validation
-              *ngIf="isSubmit"
+              *ngIf="
+                this.movingFormGroup.get('vehiclePlate')?.errors &&
+                movingFormGroup.get('vehiclePlate')?.touched
+              "
               [formGroup]="movingFormGroup"
               [formGroupControlName]="'vehiclePlate'"
             ></app-validation>
@@ -339,7 +348,10 @@
           </mat-form-field>
           <div class="validation-container">
             <app-validation
-              *ngIf="isSubmit"
+              *ngIf="
+                this.movingFormGroup.get('phoneNumber')?.errors &&
+                movingFormGroup.get('phoneNumber')?.touched
+              "
               [formGroup]="movingFormGroup"
               [formGroupControlName]="'phoneNumber'"
             ></app-validation>
@@ -358,7 +370,10 @@
           </mat-form-field>
           <div class="validation-container">
             <app-validation
-              *ngIf="isSubmit"
+              *ngIf="
+                this.movingFormGroup.get('startingPlace')?.errors &&
+                movingFormGroup.get('startingPlace')?.touched
+              "
               [formGroup]="movingFormGroup"
               [formGroupControlName]="'startingPlace'"
             ></app-validation>
@@ -377,7 +392,10 @@
           </mat-form-field>
           <div class="validation-container">
             <app-validation
-              *ngIf="isSubmit"
+              *ngIf="
+                this.movingFormGroup.get('headingPlace')?.errors &&
+                movingFormGroup.get('headingPlace')?.touched
+              "
               [formGroup]="movingFormGroup"
               [formGroupControlName]="'headingPlace'"
             ></app-validation>
@@ -396,7 +414,10 @@
           </mat-form-field>
           <div class="validation-container">
             <app-validation
-              *ngIf="isSubmit"
+              *ngIf="
+                this.movingFormGroup.get('singlePrice')?.errors &&
+                movingFormGroup.get('singlePrice')?.touched
+              "
               [formGroup]="movingFormGroup"
               [formGroupControlName]="'singlePrice'"
             ></app-validation>
@@ -478,7 +499,10 @@
           </mat-form-field>
           <div class="validation-container">
             <app-validation
-              *ngIf="isSubmit"
+              *ngIf="
+                this.editMovingFormGroup.get('driverName')?.errors &&
+                editMovingFormGroup.get('driverName')?.touched
+              "
               [formGroup]="editMovingFormGroup"
               [formGroupControlName]="'driverName'"
             ></app-validation>
@@ -497,8 +521,11 @@
           </mat-form-field>
           <div class="validation-container">
             <app-validation
-              *ngIf="isSubmit"
-              [formGroup]="movingFormGroup"
+              *ngIf="
+                this.editMovingFormGroup.get('branchName')?.errors &&
+                editMovingFormGroup.get('branchName')?.touched
+              "
+              [formGroup]="editMovingFormGroup"
               [formGroupControlName]="'branchName'"
             ></app-validation>
           </div>
@@ -516,7 +543,10 @@
           </mat-form-field>
           <div class="validation-container">
             <app-validation
-              *ngIf="isSubmit"
+              *ngIf="
+                this.editMovingFormGroup.get('phoneNumber')?.errors &&
+                editMovingFormGroup.get('phoneNumber')?.touched
+              "
               [formGroup]="editMovingFormGroup"
               [formGroupControlName]="'phoneNumber'"
             ></app-validation>
@@ -535,8 +565,11 @@
           </mat-form-field>
           <div class="validation-container">
             <app-validation
-              *ngIf="isSubmit"
-              [formGroup]="movingFormGroup"
+              *ngIf="
+                this.editMovingFormGroup.get('startingPlace')?.errors &&
+                editMovingFormGroup.get('startingPlace')?.touched
+              "
+              [formGroup]="editMovingFormGroup"
               [formGroupControlName]="'startingPlace'"
             ></app-validation>
           </div>
@@ -554,8 +587,11 @@
           </mat-form-field>
           <div class="validation-container">
             <app-validation
-              *ngIf="isSubmit"
-              [formGroup]="movingFormGroup"
+              *ngIf="
+                this.editMovingFormGroup.get('headingPlace')?.errors &&
+                editMovingFormGroup.get('headingPlace')?.touched
+              "
+              [formGroup]="editMovingFormGroup"
               [formGroupControlName]="'headingPlace'"
             ></app-validation>
           </div>
@@ -573,7 +609,10 @@
           </mat-form-field>
           <div class="validation-container">
             <app-validation
-              *ngIf="isSubmit"
+              *ngIf="
+                this.editMovingFormGroup.get('singlePrice')?.errors &&
+                editMovingFormGroup.get('singlePrice')?.touched
+              "
               [formGroup]="editMovingFormGroup"
               [formGroupControlName]="'singlePrice'"
             ></app-validation>

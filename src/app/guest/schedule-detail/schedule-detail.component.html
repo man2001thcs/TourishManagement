@@ -36,8 +36,20 @@
         aria-hidden="true"
         *ngIf="isMovingContactPresent"
       ></i>
-      <i class="fa fa-plane" aria-hidden="true" *ngIf="isPlanePresent"></i>
-      <i class="fa fa-train" aria-hidden="true" *ngIf="isTrainPresent"></i>
+      <i class="fa fa-plane" aria-hidden="true" *ngIf="isPlanePresent" style="margin-right: 10px"></i>
+      <i class="fa fa-train" aria-hidden="true" *ngIf="isTrainPresent" style="margin-right: 10px"></i>
+      <i
+        class="fa fa-ship"
+        aria-hidden="true"
+        *ngIf="isShipPresent"
+        style="margin-right: 10px"
+      ></i>
+      <i
+        class="fa fa-taxi"
+        aria-hidden="true"
+        *ngIf="isLocalTransportPresent"
+        style="margin-right: 10px"
+      ></i>
     </span>
   </div>
 

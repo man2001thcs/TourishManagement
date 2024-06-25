@@ -127,7 +127,6 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
       vehiclePlate: ["", Validators.compose([Validators.required])],
       phoneNumber: ["", Validators.compose([Validators.required])],
       branchName: ["", Validators.compose([Validators.required])],
-      status: [0, Validators.compose([Validators.required])],
       singlePrice: [0, Validators.compose([Validators.required])],
       vehicleType: [0, Validators.compose([Validators.required])],
       transportId: ["", Validators.compose([Validators.required])],
@@ -135,7 +134,7 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
       startingPlace: ["", Validators.compose([Validators.required])],
       headingPlace: ["", Validators.compose([Validators.required])],
 
-      description: ["", Validators.compose([Validators.required])],
+      description: [""],
     });
 
     this.editMovingFormGroup = this.fb.group({
@@ -143,7 +142,6 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
       vehiclePlate: ["", Validators.compose([Validators.required])],
       phoneNumber: ["", Validators.compose([Validators.required])],
       branchName: ["", Validators.compose([Validators.required])],
-      status: [0, Validators.compose([Validators.required])],
       singlePrice: [0, Validators.compose([Validators.required])],
       vehicleType: [0, Validators.compose([Validators.required])],
       transportId: ["", Validators.compose([Validators.required])],
@@ -151,7 +149,7 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
       startingPlace: ["", Validators.compose([Validators.required])],
       headingPlace: ["", Validators.compose([Validators.required])],
 
-      description: ["", Validators.compose([Validators.required])],
+      description: [""],
     });
 
     this.subscriptions.push(
@@ -333,6 +331,7 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
 
     this.movingFormGroup.controls["description"].setValue(this.editorContent);
 
+    console.log("check: " + this.movingFormGroup.valid, this.movingFormGroup.value);
     if (this.movingFormGroup.valid && this.movingFormGroup.dirty) {
       const schedule: MovingSchedule = {
         driverName: this.movingFormGroup.value.driverName,
@@ -510,5 +509,9 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
 
   getTinyMceResult($event: any) {
     this.editorContent = $event.data;
+  }
+
+  formatVNCurrency(num: number): string {
+    return num.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
   }
 }

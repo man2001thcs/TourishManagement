@@ -453,4 +453,10 @@ export class EatingMultiselectAutocompleteComponent implements OnInit {
   formatVNCurrency(num: number): string {
     return num.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
   }
+
+  onDisplayName(input: string): string {
+    if (input.length > 30) return input.substring(0, 30) + "...";
+    else return input;
+  }
+
 }

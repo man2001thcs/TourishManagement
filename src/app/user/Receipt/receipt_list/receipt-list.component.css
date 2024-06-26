@@ -68,3 +68,9 @@ tr.example-detail-row {
 .example-element-diagram:last-child {
   margin-bottom: 20px !important;
 }
+
+.example-element-diagram {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}

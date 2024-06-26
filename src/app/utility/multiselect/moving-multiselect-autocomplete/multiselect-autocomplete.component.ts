@@ -488,6 +488,11 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
     return "";
   }
 
+  onDisplayName(input: string): string {
+    if (input.length > 30) return input.substring(0, 30) + "...";
+    else return input;
+  }
+
   isChecked(moving: MovingContact): boolean {
     let movingExist = this.movingScheduleList.find(
       (movingSchedule) => movingSchedule.transportId === moving.id

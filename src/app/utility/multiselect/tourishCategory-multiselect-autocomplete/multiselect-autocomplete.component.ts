@@ -168,7 +168,6 @@ export class TourishCategoryMultiselectAutocompleteComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    
     this.store.dispatch(TourishCategoryListActions.resetTourishCategoryList());
 
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
@@ -268,6 +267,11 @@ export class TourishCategoryMultiselectAutocompleteComponent implements OnInit {
 
   onDisplayAtr(tourishCategory: TourishCategory): string {
     return "";
+  }
+
+  onDisplayName(input: string): string {
+    if (input.length > 30) return input.substring(0, 30) + "...";
+    else return input;
   }
 
   isChecked(tourishCategory: TourishCategory): boolean {

@@ -52,7 +52,7 @@
 
         <div style="display: flex; flex-direction: row; align-items: center">
           <p class="tour-price">{{ formatVNCurrency(tourPrice) }}</p>
-          <p class="tour-history">{{ customerNumber }} khách đã đặt</p>
+          <p class="tour-history">{{ customerNumber === 0 ? "Chưa có khách đặt" : customerNumber + " khách đã đặt"}} </p>
         </div>
       </div>
     </div>

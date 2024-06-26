@@ -161,7 +161,7 @@ export class HeaderUserComponent implements OnDestroy {
           const params = {
             page: 1,
             search: state,
-            pageSize: 6,
+            pageSize: 4,
           };
 
           this.isSearchLoading =true;

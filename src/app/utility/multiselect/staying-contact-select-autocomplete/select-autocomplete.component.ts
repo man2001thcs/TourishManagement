@@ -269,6 +269,11 @@ export class RestHouseContactSelectAutocompleteComponent implements OnInit {
     this.emitAdjustedData();
   }
 
+  onDisplayName(input: string): string {
+    if (input.length > 30) return input.substring(0, 30) + "...";
+    else return input;
+  }
+
   onScroll($event: any) {
     if ($event.reachEnd) {
       if (this.canLoadMore && !this.isLoading) {

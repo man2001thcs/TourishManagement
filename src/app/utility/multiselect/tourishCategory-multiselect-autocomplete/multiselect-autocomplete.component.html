@@ -7,7 +7,7 @@
         (removed)="remove(tourishCategory)"
         style="font-size: 16px"
       >
-        {{ tourishCategory }}
+        {{ onDisplayName(tourishCategory) }}
         <button matChipRemove [attr.aria-label]="'remove ' + tourishCategory" [disabled]="disabled">
           <mat-icon>cancel</mat-icon>
         </button>

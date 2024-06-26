@@ -314,6 +314,11 @@ export class MovingContactSelectAutocompleteComponent
     return "";
   }
 
+  onDisplayName(input: string): string {
+    if (input.length > 30) return input.substring(0, 30) + "...";
+    else return input;
+  }
+
   isChecked(movingContact: MovingContact): boolean {
     let movingContactExist = this.movingContactIdList.find(
       (movingContactId) => movingContactId === movingContact.id

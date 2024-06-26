@@ -221,14 +221,14 @@
           appearance="outline"
           class="full-width-input"
         >
-          <mat-label>Danh sách lịch trình nơi ở</mat-label>
+          <mat-label>Danh sách đối tác</mat-label>
           <mat-chip-grid #chipGrid aria-label="Fruit selection">
             <mat-chip-row
               *ngFor="let moving of movingNameList"
               (removed)="remove(moving)"
               style="font-size: 16px"
             >
-              {{ moving }}
+              {{ onDisplayName(moving) }}
               <button matChipRemove [attr.aria-label]="'remove ' + moving">
                 <mat-icon>cancel</mat-icon>
               </button>
@@ -258,7 +258,7 @@
             >
               <div>
                 <div style="font-weight: bold">
-                  {{ moving.branchName }}
+                  {{ onDisplayName(moving.branchName) }}
                   <mat-icon>{{ isChecked(moving) && "checked" }}</mat-icon>
                 </div>
 

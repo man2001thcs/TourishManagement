@@ -36,7 +36,7 @@
       >
         <div>
           <div style="font-weight: bold">
-            {{ stayingSchedule.name}}
+            {{ onDisplayName(stayingSchedule.name ?? "") }}
             <mat-icon>{{ isChecked(stayingSchedule) && "checked" }}</mat-icon>
           </div>
 

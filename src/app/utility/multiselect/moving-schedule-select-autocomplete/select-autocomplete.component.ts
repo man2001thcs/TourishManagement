@@ -295,6 +295,11 @@ export class MovingScheduleSelectAutocompleteComponent implements OnInit {
     return "";
   }
 
+  onDisplayName(input: string): string {
+    if (input.length > 30) return input.substring(0, 30) + "...";
+    else return input;
+  }
+
   isChecked(movingSchedule: MovingSchedule): boolean {
     let movingScheduleExist = this.movingScheduleIdList.find(
       (movingScheduleId) => movingScheduleId === movingSchedule.id

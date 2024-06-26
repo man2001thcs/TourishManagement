@@ -65,6 +65,12 @@ tr.example-detail-row {
   font-size: 16px;
 }
 
+.example-element-diagram {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
 .example-element-diagram:last-child {
   margin-bottom: 20px !important;
 }

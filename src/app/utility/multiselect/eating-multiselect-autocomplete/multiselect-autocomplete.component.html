@@ -336,7 +336,7 @@
               (removed)="remove(eating)"
               style="font-size: 16px"
             >
-              {{ eating }}
+              {{  onDisplayName(eating) }}
               <button matChipRemove [attr.aria-label]="'remove ' + eating">
                 <mat-icon>cancel</mat-icon>
               </button>
@@ -366,7 +366,7 @@
             >
               <div>
                 <div style="font-weight: bold">
-                  {{ eating.placeBranch }}
+                  {{ onDisplayName(eating.placeBranch) }}
                   <mat-icon>{{ isChecked(eating) && "checked" }}</mat-icon>
                 </div>
 

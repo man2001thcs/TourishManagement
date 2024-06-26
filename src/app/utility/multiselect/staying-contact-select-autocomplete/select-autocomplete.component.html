@@ -7,7 +7,7 @@
         (removed)="remove(restHouseContact)"
         style="font-size: 16px"
       >
-        {{ restHouseContact }}
+        {{ onDisplayName(restHouseContact) }}
         <button matChipRemove [attr.aria-label]="'remove ' + restHouseContact">
           <mat-icon>cancel</mat-icon>
         </button>

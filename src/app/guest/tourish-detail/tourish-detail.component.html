@@ -36,7 +36,7 @@
         aria-hidden="true"
         *ngIf="isPlanePresent"
         style="margin-right: 10px"
-      ></i>   
+      ></i>
       <i
         class="fa fa-train"
         aria-hidden="true"
@@ -190,6 +190,23 @@
   <div class="tour-description">
     <mat-tab-group>
       <mat-tab
+        label="Lịch trình di chuyển"
+        *ngIf="(tourishPlan?.movingSchedules ?? []).length > 0"
+      >
+        <ng-template matTabContent>
+          <div *ngIf="tourishPlan?.movingSchedules != undefined">
+            <app-tiny-mce-editor
+              *ngFor="let eatSchedule of tourishPlan?.movingSchedules"
+              style="z-index: 0"
+              [blobName]="this.eatSchedule.id ?? ''"
+              [containerName]="'movingschedule-content-container'"
+              [editable]="false"
+            ></app-tiny-mce-editor>
+          </div>
+        </ng-template>
+      </mat-tab>
+
+      <mat-tab
         label="Lịch trình ăn uống"
         *ngIf="(tourishPlan?.eatSchedules ?? []).length > 0"
       >
@@ -208,24 +225,6 @@
           </div>
         </ng-template>
       </mat-tab>
-
-      <mat-tab
-        label="Lịch trình di chuyển"
-        *ngIf="(tourishPlan?.movingSchedules ?? []).length > 0"
-      >
-        <ng-template matTabContent>
-          <div *ngIf="tourishPlan?.movingSchedules != undefined">
-            <app-tiny-mce-editor
-              *ngFor="let eatSchedule of tourishPlan?.movingSchedules"
-              style="z-index: 0"
-              [blobName]="this.eatSchedule.id ?? ''"
-              [containerName]="'movingschedule-content-container'"
-              [editable]="false"
-            ></app-tiny-mce-editor>
-          </div>
-        </ng-template>
-      </mat-tab>
-
       <mat-tab
         label="Lịch trình nơi ở"
         *ngIf="(tourishPlan?.stayingSchedules ?? []).length > 0"

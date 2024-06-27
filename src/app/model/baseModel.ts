@@ -316,6 +316,10 @@ export interface Notification {
   createDate?: string;
   updateDate?: string;
 
+  tourishPlanId?: string;
+  movingScheduleId ?: string;
+  stayingScheduleId?: string;
+  
   isGenerate?: Boolean;
 
   // Relationships

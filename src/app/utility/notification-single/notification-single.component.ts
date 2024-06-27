@@ -34,6 +34,9 @@ export class NotificationSingleComponent implements OnInit {
   @Output()
   isInView = new EventEmitter();
 
+  @Output()
+  isOnClick = new EventEmitter<boolean>();
+
   imageList: SaveFile[] = [];
   @ViewChild("singleNotify", { static: false }) singleNotify!: ElementRef;
 
@@ -205,16 +208,36 @@ export class NotificationSingleComponent implements OnInit {
     return (timeChanges / 2592000).toFixed(0) + " tháng trước";
   }
 
-  onClickRedirect(notify: Notification) {
-    if (notify.contentCode?.includes("I41"))
-      this.router.navigate([
-        "admin/tourish-plan/detail/" +
-          this.notification.tourishPlan?.id +
-          "/edit",
-      ]);
-    if (notify.content.includes("Hệ thống nhận được yêu cầu tư vấn mới"))
-      this.router.navigate([
-        "admin/chat/display/" + this.notification.connectionId,
-      ]);
+  onClickRedirect() {
+    if (this.notification) {
+      if (
+        this.tokenStorage.getUserRole() === "Admin" ||
+        this.tokenStorage.getUserRole() === "AdminManager"
+      ) {
+        if (this.notification.contentCode?.includes("I41")) {
+          this.router.navigate([
+            "admin/tourish-plan/detail/" +
+              this.notification.tourishPlanId +
+              "/edit",
+          ]);
+
+          this.isOnClick.emit(true);
+        } else if (
+          this.notification.content.includes(
+            "Hệ thống nhận được yêu cầu tư vấn mới"
+          )
+        ) {
+          this.router.navigate(["admin/chat/list"]);
+          this.isOnClick.emit(true);
+        }
+      } else if (this.tokenStorage.getUserRole() === "User") {
+        if (this.notification.contentCode?.includes("I41")) {
+          this.router.navigate([
+            "user/tour/" + this.notification.tourishPlanId + "/detail",
+          ]);
+          this.isOnClick.emit(true);
+        }
+      }
+    }
   }
 }

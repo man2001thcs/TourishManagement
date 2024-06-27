@@ -81,7 +81,6 @@ export class LoginComponent implements OnInit {
       this.socialAuthService.authState.subscribe((user: SocialUser) => {
         if (user) {
           if (user.provider === "GOOGLE") {
-            
             this.store.dispatch(
               LoginAction.login({
                 payload: {
@@ -99,7 +98,6 @@ export class LoginComponent implements OnInit {
             );
             this.messageService.openLoadingDialog();
           } else if (user.provider === "FACEBOOK") {
-            
             this.store.dispatch(
               LoginAction.login({
                 payload: {
@@ -157,7 +155,6 @@ export class LoginComponent implements OnInit {
             .openNotifyDialog("Đăng nhập thành công")
             .subscribe((res) => {
               if (response) {
-
                 if (response.Role === "New") {
                   this.messageService.openNotifyDialog(
                     "Tài khoản đã liên kết, vui lòng chờ admin xét duyệt"
@@ -263,11 +260,8 @@ export class LoginComponent implements OnInit {
     else return false;
   }
 
-  onClickRevealPassword(event: any) {
-    event.preventDefault();
-    // Prevent revealing the password when enter button is pressed.
-    if (event?.pointerType) {
-      this.passwordVisible = !this.passwordVisible;
-    }
+  onClickRevealPassword($event: any) {
+    $event.preventDefault();
+    this.passwordVisible = !this.passwordVisible;
   }
 }

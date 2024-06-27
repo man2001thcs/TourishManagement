@@ -30,6 +30,7 @@ import { MovingSchedule, StayingSchedule } from "src/app/model/baseModel";
 import { InterestModalComponent } from "src/app/utility/change-interest-modal/change-interest-modal.component";
 import { ScheduleChangeModalComponent } from "src/app/utility/change-schedule-modal/change-schedule-modal.component";
 import { InstructionChangeModalComponent } from "src/app/utility/change-instruction-modal/change-instruction-modal.component";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-stayingScheduleList",
@@ -79,6 +80,7 @@ export class StayingScheduleListComponent
     private adminService: AdminService,
     public dialog: MatDialog,
     private messageService: MessageService,
+    private _route: ActivatedRoute,
     private store: Store<StayingScheduleListState>
   ) {
     this.stayingScheduleListState = this.store.select(getStayingScheduleList);
@@ -88,6 +90,7 @@ export class StayingScheduleListComponent
   }
 
   ngOnInit(): void {
+    
     this.subscriptions.push(
       this.stayingScheduleListState.subscribe((state) => {
         if (state) {
@@ -124,20 +127,43 @@ export class StayingScheduleListComponent
 
     this.store.dispatch(StayingScheduleListActions.initial());
 
-    this.store.dispatch(
-      StayingScheduleListActions.getStayingScheduleList({
-        payload: {
-          page: this.pageIndex + 1,
-          pageSize: this.pageSize,
-          search: this.searchPhase,
-          type: 0,
-          sortBy: this.sortColumn,
-          sortDirection: this.sortDirection,
-        },
+    this.subscriptions.push(
+      this._route.queryParamMap.subscribe((query) => {
+        if (query.get("search-phase")) {
+          this.searchPhase = query.get("search-phase") ?? "";
+        }
+
+        this.store.dispatch(
+          StayingScheduleListActions.getStayingScheduleList({
+            payload: {
+              page: this.pageIndex + 1,
+              pageSize: this.pageSize,
+              search: this.searchPhase,
+              type: 0,
+              sortBy: this.sortColumn,
+              sortDirection: this.sortDirection,
+            },
+          })
+        );
+
+        this.messageService.openLoadingDialog();
       })
     );
 
-    this.messageService.openLoadingDialog();
+    // this.store.dispatch(
+    //   StayingScheduleListActions.getStayingScheduleList({
+    //     payload: {
+    //       page: this.pageIndex + 1,
+    //       pageSize: this.pageSize,
+    //       search: this.searchPhase,
+    //       type: 0,
+    //       sortBy: this.sortColumn,
+    //       sortDirection: this.sortDirection,
+    //     },
+    //   })
+    // );
+
+    // this.messageService.openLoadingDialog();
 
     this.subscriptions.push(
       this.errorMessageState.subscribe((state: any) => {
@@ -196,8 +222,6 @@ export class StayingScheduleListComponent
     const dialogRef = this.dialog.open(StayingScheduleCreateComponent, {});
 
     dialogRef.afterClosed().subscribe((result) => {
-      
-
       this.store.dispatch(
         StayingScheduleListActions.getStayingScheduleList({
           payload: {
@@ -306,8 +330,6 @@ export class StayingScheduleListComponent
 
     this.pageSize = e.pageSize;
     this.pageIndex = e.pageIndex;
-
-    
 
     this.store.dispatch(
       StayingScheduleListActions.getStayingScheduleList({

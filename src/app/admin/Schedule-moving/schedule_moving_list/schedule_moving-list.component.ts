@@ -30,6 +30,7 @@ import { MovingSchedule } from "src/app/model/baseModel";
 import { InterestModalComponent } from "src/app/utility/change-interest-modal/change-interest-modal.component";
 import { ScheduleChangeModalComponent } from "src/app/utility/change-schedule-modal/change-schedule-modal.component";
 import { InstructionChangeModalComponent } from "src/app/utility/change-instruction-modal/change-instruction-modal.component";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-movingScheduleList",
@@ -80,6 +81,7 @@ export class MovingScheduleListComponent
     private adminService: AdminService,
     public dialog: MatDialog,
     private messageService: MessageService,
+    private _route: ActivatedRoute,
     private store: Store<MovingScheduleListState>
   ) {
     this.movingScheduleListState = this.store.select(getMovingScheduleList);
@@ -125,21 +127,6 @@ export class MovingScheduleListComponent
 
     this.store.dispatch(MovingScheduleListActions.initial());
 
-    this.store.dispatch(
-      MovingScheduleListActions.getMovingScheduleList({
-        payload: {
-          page: this.pageIndex + 1,
-          pageSize: this.pageSize,
-          search: this.searchPhase,
-          type: 0,
-          sortBy: this.sortColumn,
-          sortDirection: this.sortDirection,
-        },
-      })
-    );
-
-    this.messageService.openLoadingDialog();
-
     this.subscriptions.push(
       this.errorMessageState.subscribe((state: any) => {
         if (state) {
@@ -158,6 +145,29 @@ export class MovingScheduleListComponent
             this.messageService.openSystemFailNotifyDialog(state);
           }
         }
+      })
+    );
+
+    this.subscriptions.push(
+      this._route.queryParamMap.subscribe((query) => {
+        if (query.get("search-phase")) {
+          this.searchPhase = query.get("search-phase") ?? "";
+        }
+
+        this.store.dispatch(
+          MovingScheduleListActions.getMovingScheduleList({
+            payload: {
+              page: this.pageIndex + 1,
+              pageSize: this.pageSize,
+              search: this.searchPhase,
+              type: 0,
+              sortBy: this.sortColumn,
+              sortDirection: this.sortDirection,
+            },
+          })
+        );
+
+        this.messageService.openLoadingDialog();
       })
     );
   }

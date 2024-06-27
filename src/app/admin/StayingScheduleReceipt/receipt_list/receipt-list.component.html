@@ -10,7 +10,7 @@
         </button>
 
         <app-staying-schedule-select-autocomplete
-          style="width: 40% !important"
+          style="width: 40% !important; margin-bottom: 20px !important;"
           (result)="selectChangeReceipt($event)"
         >
         </app-staying-schedule-select-autocomplete>
@@ -19,6 +19,7 @@
   </mat-card>
 
   <mat-tab-group
+    [selectedIndex]="active"
     (selectedIndexChange)="tourStatusChange($event)"
     style="background-color: white"
   >

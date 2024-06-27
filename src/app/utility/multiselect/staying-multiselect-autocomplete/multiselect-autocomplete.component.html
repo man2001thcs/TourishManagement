@@ -209,7 +209,7 @@
               (removed)="remove(staying)"
               style="font-size: 16px"
             >
-              {{ staying }}
+              {{ onDisplayName(staying) }}
               <button matChipRemove [attr.aria-label]="'remove ' + staying">
                 <mat-icon>cancel</mat-icon>
               </button>
@@ -239,7 +239,7 @@
             >
               <div>
                 <div style="font-weight: bold">
-                  {{ staying.placeBranch }}
+                  {{ onDisplayName(staying.placeBranch) }}
                   <mat-icon>{{ isChecked(staying) && "checked" }}</mat-icon>
                 </div>
 

@@ -36,6 +36,7 @@ import {
   transition,
   trigger,
 } from "@angular/animations";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-receiptList",
@@ -93,6 +94,7 @@ export class ReceiptListComponent implements OnInit, AfterViewInit, OnDestroy {
     private adminService: AdminService,
     public dialog: MatDialog,
     private messageService: MessageService,
+    private _route: ActivatedRoute,
     private store: Store<ReceiptListState>
   ) {
     this.receiptListState = this.store.select(getReceiptList);
@@ -115,7 +117,6 @@ export class ReceiptListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.subscriptions.push(
       this.receiptDeleteState.subscribe((state) => {
         if (state) {
-          
           this.messageService.openMessageNotifyDialog(state.messageCode);
           this.messageService.closeLoadingDialog();
 
@@ -138,22 +139,6 @@ export class ReceiptListComponent implements OnInit, AfterViewInit, OnDestroy {
       })
     );
 
-    this.store.dispatch(ReceiptListActions.initial());
-
-    this.store.dispatch(
-      ReceiptListActions.getReceiptList({
-        payload: {
-          page: this.pageIndex + 1,
-          pageSize: this.pageSize,
-          status: this.active,
-          tourishPlanId: this.tourishPlanId,
-          sortBy: this.sortColumn,
-          sortDirection: this.sortDirection,
-        },
-      })
-    );
-    this.messageService.openLoadingDialog();
-
     this.subscriptions.push(
       this.errorMessageState.subscribe((state: any) => {
         if (state) {
@@ -174,6 +159,50 @@ export class ReceiptListComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       })
     );
+
+    this.store.dispatch(ReceiptListActions.initial());
+
+    this.subscriptions.push(
+      this._route.queryParamMap.subscribe((query) => {
+        if (query.get("active")) {
+          this.active = parseInt(query.get("active") ?? "0");
+
+          if (this.active !== 0) {
+            this.pageIndex = 0;
+            this.pageSize = 5;
+            this.store.dispatch(
+              ReceiptListActions.getReceiptList({
+                payload: {
+                  page: this.pageIndex + 1,
+                  pageSize: this.pageSize,
+                  status: this.active,
+                  tourishPlanId: this.tourishPlanId,
+                  sortBy: this.sortColumn,
+                  sortDirection: this.sortDirection,
+                },
+              })
+            );
+
+            this.messageService.openLoadingDialog();
+          }
+        } else {
+          this.store.dispatch(
+            ReceiptListActions.getReceiptList({
+              payload: {
+                page: this.pageIndex + 1,
+                pageSize: this.pageSize,
+                status: this.active,
+                tourishPlanId: this.tourishPlanId,
+                sortBy: this.sortColumn,
+                sortDirection: this.sortDirection,
+              },
+            })
+          );
+
+          this.messageService.openLoadingDialog();
+        }
+      })
+    );
   }
   ngAfterViewInit(): void {}
 
@@ -190,8 +219,6 @@ export class ReceiptListComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      
-
       this.store.dispatch(
         ReceiptListActions.getReceiptList({
           payload: {
@@ -212,8 +239,6 @@ export class ReceiptListComponent implements OnInit, AfterViewInit, OnDestroy {
     const dialogRef = this.dialog.open(ReceiptCreateComponent, {});
 
     dialogRef.afterClosed().subscribe((result) => {
-      
-
       this.store.dispatch(
         ReceiptListActions.getReceiptList({
           payload: {
@@ -263,15 +288,13 @@ export class ReceiptListComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  addData(): void {
-    
-  }
+  addData(): void {}
 
   tourStatusChange($event: number): void {
     this.pageIndex = 0;
 
     this.active = $event;
-    
+
     this.store.dispatch(
       ReceiptListActions.getReceiptList({
         payload: {
@@ -294,9 +317,10 @@ export class ReceiptListComponent implements OnInit, AfterViewInit, OnDestroy {
     let totalPrice = 0;
 
     totalPrice =
-    (fullReceipt.originalPrice) *
-    (fullReceipt.totalTicket + fullReceipt.totalChildTicket / 2) *
-    (1 - fullReceipt.discountFloat) - fullReceipt.discountAmount;
+      fullReceipt.originalPrice *
+        (fullReceipt.totalTicket + fullReceipt.totalChildTicket / 2) *
+        (1 - fullReceipt.discountFloat) -
+      fullReceipt.discountAmount;
 
     return Math.floor(totalPrice);
   }
@@ -339,7 +363,6 @@ export class ReceiptListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   selectChangeReceipt($event: any) {
-    
     this.pageIndex = 0;
     this.tourishPlanId = $event.data[0];
     this.store.dispatch(
@@ -383,19 +406,19 @@ export class ReceiptListComponent implements OnInit, AfterViewInit, OnDestroy {
     );
   }
 
-  getPaymentStatus(input: string){
-    if  (input == "0") return "Đang xác nhận thông tin";
-    else if  (input == "1") return "Đang chờ thanh toán";
-    else if  (input == "2") return "Đã thanh toán";
-    else if  (input == "3") return "Đã hủy";
+  getPaymentStatus(input: string) {
+    if (input == "0") return "Đang xác nhận thông tin";
+    else if (input == "1") return "Đang chờ thanh toán";
+    else if (input == "2") return "Đã thanh toán";
+    else if (input == "3") return "Đã hủy";
     return "Thất bại";
   }
 
-  getPaymentStatusColor(input: string){
-    if  (input == "0") return "#ffea00";
-    else if  (input == "1") return "#ffea00";
-    else if  (input == "2") return "#4caf50";
-    else if  (input == "3") return "#f50057";
+  getPaymentStatusColor(input: string) {
+    if (input == "0") return "#ffea00";
+    else if (input == "1") return "#ffea00";
+    else if (input == "2") return "#4caf50";
+    else if (input == "3") return "#f50057";
     return "Thất bại";
   }
 

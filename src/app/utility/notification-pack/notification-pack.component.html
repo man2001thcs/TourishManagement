@@ -11,6 +11,7 @@
     [viewChildPack]="notifyPackContainer"
     (isInView)="changeToReadState($event)"
     [ngStyle]="{ width: signleNotifyWidth }"
+    (isOnClick)="handleNotifyOnClick($event)"
   >
   </app-notification-single>
 

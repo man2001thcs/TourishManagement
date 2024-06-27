@@ -30,7 +30,6 @@ import { FileModel } from "src/app/utility/image_avatar_service/imageUpload.comp
   styleUrls: ["./header.component.css"],
 })
 export class HeaderAdminComponent implements OnDestroy {
-  
   @ViewChild("mySidenav")
   myNameElem!: ElementRef;
 
@@ -79,7 +78,7 @@ export class HeaderAdminComponent implements OnDestroy {
   ngOnInit(): void {
     this.id = Number(localStorage.getItem("id")) ?? 0;
     this.showNotification();
-    this.activeItem = getAdminHeaderPhase(this.router.url);
+    this.activeItem = getAdminHeaderPhase(this.router.url.split('?')[0]);
 
     this.subscriptions.push(
       this.router.events
@@ -87,7 +86,7 @@ export class HeaderAdminComponent implements OnDestroy {
         .subscribe((event) => {
           if (event instanceof NavigationEnd) {
             console.log(event.url);
-            this.activeItem = getAdminHeaderPhase(event.url);
+            this.activeItem = getAdminHeaderPhase(this.router.url.split('?')[0]);
           }
         })
     );
@@ -156,7 +155,6 @@ export class HeaderAdminComponent implements OnDestroy {
         "2px solid #EDF1F7";
       this.myNameElem.nativeElement.style["border-right"] = "2px solid #EDF1F7";
     } else {
-      
       this.renderer.setStyle(this.myNameElem.nativeElement, "width", "100%");
       //this.myNameElem.nativeElement.style.width = "100%";
       this.myNameElem.nativeElement.style["margin-top"] = "0px";
@@ -339,5 +337,9 @@ export class HeaderAdminComponent implements OnDestroy {
   setNotifyUnread($event: number) {
     this.notifyUnreadNumber = $event;
     this.cdr.detectChanges();
+  }
+
+  closeNotifyInside($event: boolean) {
+    if ($event) this.closeNotificationNav();
   }
 }

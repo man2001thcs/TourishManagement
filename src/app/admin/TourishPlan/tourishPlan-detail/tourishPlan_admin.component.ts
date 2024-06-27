@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import {
+  Component,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  SimpleChanges,
+} from "@angular/core";
 import {
   ActivatedRouteSnapshot,
   Router,
@@ -201,14 +207,22 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
       })
     );
 
-    this.messageService.openLoadingDialog();
-    this.store.dispatch(
-      TourishPlanActions.getTourishPlan({
-        payload: {
-          id: this.tourishPlanId,
-        },
-      })
-    );
+    this._route.paramMap.subscribe((query) => {
+      this.tourishPlanId = query.get("id") ?? "";
+
+      if (this.tourishPlanId.length > 0) {
+        this.store.dispatch(
+          TourishPlanActions.getTourishPlan({
+            payload: {
+              id: this.tourishPlanId,
+            },
+          })
+        );
+      }
+
+      this.messageService.openLoadingDialog();
+    });
+   
 
     this.store.dispatch(TourishPlanActions.initial());
 
@@ -221,7 +235,6 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    
     this.store.dispatch(TourishPlanActions.resetTourishPlan());
 
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
@@ -345,8 +358,7 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
     return totalPrice;
   }
 
-  uploadFinished(event: any) {
-  }
+  uploadFinished(event: any) {}
 
   checkDeactivate(
     currentRoute: ActivatedRouteSnapshot,
@@ -365,31 +377,26 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
   };
 
   selectChangeSchedule = (event: any) => {
-    
     this.scheduleList = event.data;
   };
 
   selectChangeInstruction = (event: any) => {
-    
     this.instructionList = event.data;
   };
 
   selectChangeStaying = (event: any) => {
-    
     this.editformGroup_info.controls["stayingScheduleString"].setValue(
       JSON.stringify(event.data)
     );
   };
 
   selectChangeEating = (event: any) => {
-    
     this.editformGroup_info.controls["eatingScheduleString"].setValue(
       JSON.stringify(event.data)
     );
   };
 
   selectChangeMoving = (event: any) => {
-    
     this.editformGroup_info.controls["movingScheduleString"].setValue(
       JSON.stringify(event.data)
     );

@@ -32,6 +32,8 @@ export class NotificationPackComponent implements OnInit, OnDestroy {
   @Output() notifyUnreadNumber: EventEmitter<number> =
     new EventEmitter<number>();
 
+  @Output() closeNotifyTab: EventEmitter<boolean> = new EventEmitter<boolean>();
+
   @ViewChild("singleNotify") singleNotifyContainer!: ElementRef;
   @ViewChild("notifyPack") notifyPackContainer!: ElementRef;
 
@@ -317,5 +319,9 @@ export class NotificationPackComponent implements OnInit, OnDestroy {
       notificationId,
       true
     );
+  }
+
+  handleNotifyOnClick($event: boolean) {
+    if ($event) this.closeNotifyTab.emit(true);
   }
 }

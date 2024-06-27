@@ -78,7 +78,7 @@ export class HeaderAdminComponent implements OnDestroy {
   ngOnInit(): void {
     this.id = Number(localStorage.getItem("id")) ?? 0;
     this.showNotification();
-    this.activeItem = getAdminHeaderPhase(this.router.url);
+    this.activeItem = getAdminHeaderPhase(this.router.url.split('?')[0]);
 
     this.subscriptions.push(
       this.router.events
@@ -86,7 +86,7 @@ export class HeaderAdminComponent implements OnDestroy {
         .subscribe((event) => {
           if (event instanceof NavigationEnd) {
             console.log(event.url);
-            this.activeItem = getAdminHeaderPhase(event.url);
+            this.activeItem = getAdminHeaderPhase(this.router.url.split('?')[0]);
           }
         })
     );

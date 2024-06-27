@@ -36,6 +36,7 @@ import {
   transition,
   trigger,
 } from "@angular/animations";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-moving-receiptList",
@@ -97,6 +98,7 @@ export class MovingScheduleReceiptListComponent
     private adminService: AdminService,
     public dialog: MatDialog,
     private messageService: MessageService,
+    private _route: ActivatedRoute,
     private store: Store<ReceiptListState>
   ) {
     this.receiptListState = this.store.select(getReceiptList);
@@ -142,23 +144,6 @@ export class MovingScheduleReceiptListComponent
       })
     );
 
-    this.store.dispatch(ReceiptListActions.initial());
-
-    this.store.dispatch(
-      ReceiptListActions.getReceiptList({
-        payload: {
-          page: this.pageIndex + 1,
-          pageSize: this.pageSize,
-          status: this.active,
-          movingScheduleId: this.scheduleId ?? "",
-          scheduleType: 1,
-          sortBy: this.sortColumn,
-          sortDirection: this.sortDirection,
-        },
-      })
-    );
-    this.messageService.openLoadingDialog();
-
     this.subscriptions.push(
       this.errorMessageState.subscribe((state: any) => {
         if (state) {
@@ -179,6 +164,51 @@ export class MovingScheduleReceiptListComponent
         }
       })
     );
+
+    this.subscriptions.push(
+      this._route.queryParamMap.subscribe((query) => {
+        if (query.get("active")) {
+          this.active = parseInt(query.get("active") ?? "0");
+
+          if (this.active !== 0) {
+            this.pageIndex = 0;
+            this.pageSize = 5;
+
+            this.store.dispatch(
+              ReceiptListActions.getReceiptList({
+                payload: {
+                  page: this.pageIndex + 1,
+                  pageSize: this.pageSize,
+                  status: this.active,
+                  movingScheduleId: this.scheduleId ?? "",
+                  scheduleType: 1,
+                  sortBy: this.sortColumn,
+                  sortDirection: this.sortDirection,
+                },
+              })
+            );
+            this.messageService.openLoadingDialog();
+          }
+        } else {
+          this.store.dispatch(
+            ReceiptListActions.getReceiptList({
+              payload: {
+                page: this.pageIndex + 1,
+                pageSize: this.pageSize,
+                status: this.active,
+                movingScheduleId: this.scheduleId ?? "",
+                scheduleType: 1,
+                sortBy: this.sortColumn,
+                sortDirection: this.sortDirection,
+              },
+            })
+          );
+          this.messageService.openLoadingDialog();
+        }
+      })
+    );
+
+    this.store.dispatch(ReceiptListActions.initial());
   }
   ngAfterViewInit(): void {}
 

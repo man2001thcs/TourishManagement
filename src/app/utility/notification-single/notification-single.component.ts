@@ -16,7 +16,7 @@ import { getViNotifyMessagePhase } from "../config/notificationCode";
 import { Subscription } from "rxjs";
 import { environment } from "src/environments/environment";
 import { FileModel } from "../image_avatar_service/imageUpload.component.model";
-import { Router } from "@angular/router";
+import { NavigationExtras, Router } from "@angular/router";
 
 @Component({
   selector: "app-notification-single",
@@ -222,6 +222,65 @@ export class NotificationSingleComponent implements OnInit {
           ]);
 
           this.isOnClick.emit(true);
+        } else if (this.notification.contentCode?.includes("I43")) {
+          if (this.notification.movingScheduleId !== null) {
+            let navigationExtras: NavigationExtras = {
+              queryParams: { "search-phase": this.notification.objectName }, // Replace 'key' and 'value' with your actual query parameters
+            };
+            this.router.navigate(
+              ["admin/transport/service/list"],
+              navigationExtras
+            );
+            this.isOnClick.emit(true);
+          } else if (this.notification.stayingScheduleId !== null) {
+            let navigationExtras: NavigationExtras = {
+              queryParams: { "search-phase": this.notification.objectName }, // Replace 'key' and 'value' with your actual query parameters
+            };
+            this.router.navigate(
+              ["admin/resthouse/service/list"],
+              navigationExtras
+            );
+            this.isOnClick.emit(true);
+          }
+        } else if (this.notification.contentCode?.includes("I51")) {
+          let active = 0;
+          if (
+            this.notification.contentCode?.includes("I512-admin-create") ||
+            this.notification.contentCode?.includes("I511-admin-create")
+          ) {
+            active = 0;
+          } else if (
+            this.notification.contentCode?.includes("I511-admin-await")
+          ) {
+            active = 1;
+          } else if (
+            this.notification.contentCode?.includes("I511-admin-cancel")
+          ) {
+            active = 3;
+          } else if (
+            this.notification.contentCode?.includes("I511-admin-complete")
+          ) {
+            active = 2;
+          }
+
+          let navigationExtras: NavigationExtras = {
+            queryParams: { active: active }, // Replace 'key' and 'value' with your actual query parameters
+          };
+
+          if (this.notification.tourishPlanId !== null)
+            this.router.navigate(["admin/receipt/list"], navigationExtras);
+          else if (this.notification.movingScheduleId !== null)
+            this.router.navigate(
+              ["admin/moving/receipt/list"],
+              navigationExtras
+            );
+          else if (this.notification.stayingScheduleId !== null)
+            this.router.navigate(
+              ["admin/staying/receipt/list"],
+              navigationExtras
+            );
+
+          this.isOnClick.emit(true);
         } else if (
           this.notification.content.includes(
             "Hệ thống nhận được yêu cầu tư vấn mới"
@@ -235,6 +294,77 @@ export class NotificationSingleComponent implements OnInit {
           this.router.navigate([
             "user/tour/" + this.notification.tourishPlanId + "/detail",
           ]);
+          this.isOnClick.emit(true);
+        }
+
+        if (this.notification.contentCode?.includes("I43")) {
+          if (this.notification.movingScheduleId !== null) {
+            let navigationExtras: NavigationExtras = {
+              queryParams: { "schedule-type": 1 }, // Replace 'key' and 'value' with your actual query parameters
+            };
+            this.router.navigate(
+              [
+                "user/service/" +
+                  this.notification.movingScheduleId +
+                  "/detail",
+              ],
+              navigationExtras
+            );
+            this.isOnClick.emit(true);
+          } else if (this.notification.stayingScheduleId !== null) {
+            let navigationExtras: NavigationExtras = {
+              queryParams: { "schedule-type": 2 }, // Replace 'key' and 'value' with your actual query parameters
+            };
+            this.router.navigate(
+              [
+                "user/service/" +
+                  this.notification.stayingScheduleId +
+                  "/detail",
+              ],
+              navigationExtras
+            );
+            this.isOnClick.emit(true);
+          }
+        }
+
+        if (this.notification.contentCode?.includes("I51")) {
+          let active = 0;
+          if (
+            this.notification.contentCode?.includes("I512-user-create") ||
+            this.notification.contentCode?.includes("I511-user-create")
+          ) {
+            active = 0;
+          } else if (
+            this.notification.contentCode?.includes("I511-user-await")
+          ) {
+            active = 1;
+          } else if (
+            this.notification.contentCode?.includes("I511-user-cancel")
+          ) {
+            active = 3;
+          } else if (
+            this.notification.contentCode?.includes("I511-user-complete")
+          ) {
+            active = 2;
+          }
+
+          let navigationExtras: NavigationExtras = {
+            queryParams: { active: active }, // Replace 'key' and 'value' with your actual query parameters
+          };
+
+          if (this.notification.tourishPlanId !== null)
+            this.router.navigate(["user/receipt/list"], navigationExtras);
+          else if (this.notification.movingScheduleId !== null)
+            this.router.navigate(
+              ["user/moving/receipt/list"],
+              navigationExtras
+            );
+          else if (this.notification.stayingScheduleId !== null)
+            this.router.navigate(
+              ["user/staying/receipt/list"],
+              navigationExtras
+            );
+
           this.isOnClick.emit(true);
         }
       }

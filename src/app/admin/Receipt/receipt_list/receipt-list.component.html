@@ -10,7 +10,7 @@
         </button>
 
         <tourishPlan-multiselect-autocomplete
-          style="width: 40% !important"
+          style="width: 40% !important; margin-bottom: 20px !important;"
           (result)="selectChangeReceipt($event)"
         >
         </tourishPlan-multiselect-autocomplete>
@@ -19,6 +19,7 @@
   </mat-card>
 
   <mat-tab-group
+    [selectedIndex]="active"
     (selectedIndexChange)="tourStatusChange($event)"
     style="background-color: white"
   >
@@ -203,7 +204,11 @@
                 style="width: 100px !important; min-width: 100px !important"
               >
                 <div>
-                  {{ formatVNCurrency(getTotalPriceReceipt(element.tourishPlan, fullReceipt)) }}
+                  {{
+                    formatVNCurrency(
+                      getTotalPriceReceipt(element.tourishPlan, fullReceipt)
+                    )
+                  }}
                 </div>
               </div>
 

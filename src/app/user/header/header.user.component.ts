@@ -479,4 +479,8 @@ export class HeaderUserComponent implements OnDestroy {
   closeSearch($event: boolean) {
     if($event) this.closeAutoCompleteSearch();
   }
+
+  closeNotifyInside($event: boolean) {
+    if ($event) this.closeNotificationNav();
+  }
 }

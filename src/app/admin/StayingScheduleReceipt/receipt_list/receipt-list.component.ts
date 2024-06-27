@@ -36,6 +36,7 @@ import {
   transition,
   trigger,
 } from "@angular/animations";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-staying-receiptList",
@@ -52,7 +53,9 @@ import {
     ]),
   ],
 })
-export class StayingScheduleReceiptListComponent implements OnInit, AfterViewInit, OnDestroy {
+export class StayingScheduleReceiptListComponent
+  implements OnInit, AfterViewInit, OnDestroy
+{
   receiptList!: TotalReceipt[];
   subscriptions: Subscription[] = [];
 
@@ -74,7 +77,7 @@ export class StayingScheduleReceiptListComponent implements OnInit, AfterViewIni
     "supportNumber",
     "singlePrice",
     //"scheduleId",
-    "createDate"
+    "createDate",
   ];
 
   displayedColumnsWithExpand = [...this.displayedColumns, "expand"];
@@ -96,6 +99,7 @@ export class StayingScheduleReceiptListComponent implements OnInit, AfterViewIni
     private adminService: AdminService,
     public dialog: MatDialog,
     private messageService: MessageService,
+    private _route: ActivatedRoute,
     private store: Store<ReceiptListState>
   ) {
     this.receiptListState = this.store.select(getReceiptList);
@@ -141,23 +145,6 @@ export class StayingScheduleReceiptListComponent implements OnInit, AfterViewIni
       })
     );
 
-    this.store.dispatch(ReceiptListActions.initial());
-
-    this.store.dispatch(
-      ReceiptListActions.getReceiptList({
-        payload: {
-          page: this.pageIndex + 1,
-          pageSize: this.pageSize,
-          status: this.active,
-          stayingScheduleId: this.scheduleId ?? "",
-          scheduleType: 2,
-          sortBy: this.sortColumn,
-          sortDirection: this.sortDirection,
-        },
-      })
-    );
-    this.messageService.openLoadingDialog();
-
     this.subscriptions.push(
       this.errorMessageState.subscribe((state: any) => {
         if (state) {
@@ -178,6 +165,51 @@ export class StayingScheduleReceiptListComponent implements OnInit, AfterViewIni
         }
       })
     );
+
+    this.store.dispatch(ReceiptListActions.initial());
+
+    this.subscriptions.push(
+      this._route.queryParamMap.subscribe((query) => {
+        if (query.get("active")) {
+          this.active = parseInt(query.get("active") ?? "0");
+
+          if (this.active !== 0) {
+            this.pageIndex = 0;
+            this.pageSize = 5;
+
+            this.store.dispatch(
+              ReceiptListActions.getReceiptList({
+                payload: {
+                  page: this.pageIndex + 1,
+                  pageSize: this.pageSize,
+                  status: this.active,
+                  stayingScheduleId: this.scheduleId ?? "",
+                  scheduleType: 2,
+                  sortBy: this.sortColumn,
+                  sortDirection: this.sortDirection,
+                },
+              })
+            );
+            this.messageService.openLoadingDialog();
+          }
+        } else {
+          this.store.dispatch(
+            ReceiptListActions.getReceiptList({
+              payload: {
+                page: this.pageIndex + 1,
+                pageSize: this.pageSize,
+                status: this.active,
+                stayingScheduleId: this.scheduleId ?? "",
+                scheduleType: 2,
+                sortBy: this.sortColumn,
+                sortDirection: this.sortDirection,
+              },
+            })
+          );
+          this.messageService.openLoadingDialog();
+        }
+      })
+    );
   }
   ngAfterViewInit(): void {}
 
@@ -194,8 +226,6 @@ export class StayingScheduleReceiptListComponent implements OnInit, AfterViewIni
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      
-
       this.store.dispatch(
         ReceiptListActions.getReceiptList({
           payload: {
@@ -214,11 +244,12 @@ export class StayingScheduleReceiptListComponent implements OnInit, AfterViewIni
   }
 
   openAddDialog(): void {
-    const dialogRef = this.dialog.open(StayingScheduleReceiptCreateComponent, {});
+    const dialogRef = this.dialog.open(
+      StayingScheduleReceiptCreateComponent,
+      {}
+    );
 
     dialogRef.afterClosed().subscribe((result) => {
-      
-
       this.store.dispatch(
         ReceiptListActions.getReceiptList({
           payload: {
@@ -269,9 +300,7 @@ export class StayingScheduleReceiptListComponent implements OnInit, AfterViewIni
     });
   }
 
-  addData(): void {
-    
-  }
+  addData(): void {}
 
   tourStatusChange($event: number): void {
     this.pageIndex = 0;
@@ -301,9 +330,10 @@ export class StayingScheduleReceiptListComponent implements OnInit, AfterViewIni
     let totalPrice = 0;
 
     totalPrice =
-    (fullReceipt.originalPrice) *
-    (fullReceipt.totalTicket + fullReceipt.totalChildTicket / 2) *
-    (1 - fullReceipt.discountFloat) - fullReceipt.discountAmount;
+      fullReceipt.originalPrice *
+        (fullReceipt.totalTicket + fullReceipt.totalChildTicket / 2) *
+        (1 - fullReceipt.discountFloat) -
+      fullReceipt.discountAmount;
 
     return Math.floor(totalPrice);
   }
@@ -333,7 +363,6 @@ export class StayingScheduleReceiptListComponent implements OnInit, AfterViewIni
   }
 
   selectChangeReceipt($event: any) {
-    
     this.scheduleId = $event.data.idList[0];
     this.store.dispatch(
       ReceiptListActions.getReceiptList({
@@ -378,19 +407,19 @@ export class StayingScheduleReceiptListComponent implements OnInit, AfterViewIni
     );
   }
 
-  getPaymentStatus(input: string){
-    if  (input == "0") return "Đang xác nhận thông tin";
-    else if  (input == "1") return "Đang chờ thanh toán";
-    else if  (input == "2") return "Đã thanh toán";
-    else if  (input == "3") return "Đã hủy";
+  getPaymentStatus(input: string) {
+    if (input == "0") return "Đang xác nhận thông tin";
+    else if (input == "1") return "Đang chờ thanh toán";
+    else if (input == "2") return "Đã thanh toán";
+    else if (input == "3") return "Đã hủy";
     return "Thất bại";
   }
 
-  getPaymentStatusColor(input: string){
-    if  (input == "0") return "#ffea00";
-    else if  (input == "1") return "#ffea00";
-    else if  (input == "2") return "#4caf50";
-    else if  (input == "3") return "#f50057";
+  getPaymentStatusColor(input: string) {
+    if (input == "0") return "#ffea00";
+    else if (input == "1") return "#ffea00";
+    else if (input == "2") return "#4caf50";
+    else if (input == "3") return "#f50057";
     return "Thất bại";
   }
 

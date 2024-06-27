@@ -109,39 +109,6 @@ export class StayingReceiptUserListComponent
 
   ngOnInit(): void {
     this.subscriptions.push(
-      this._route.queryParamMap.subscribe((query) => {
-        if (query.get("active")) {
-          this.active = parseInt(query.get("active") ?? "0");
-          this.pageIndex = 0;
-          this.pageSize = 5;
-
-          const email = this.tokenStorageService.getUser().email;
-          this.store.dispatch(
-            ReceiptListActions.getReceiptList({
-              payload: {
-                email: email,
-                page: this.pageIndex + 1,
-                pageSize: this.pageSize,
-                stayingScheduleId: this.scheduleId,
-                scheduleType: 2,
-                status: this.active,
-                sortBy: this.sortColumn,
-                sortDirection: this.sortDirection,
-              },
-            })
-          );
-        }
-
-        if (query.get("complete")) {
-          const complete = parseInt(query.get("complete") ?? "0");
-          if (complete === 1 && parseInt(query.get("active") ?? "0") == 2) this.messageService.openNotifyDialog("Đơn thanh toán đã hoàn thành, vui lòng kiểm tra lại trong mục quản lý hóa đơn");
-
-          if (complete === 1 && parseInt(query.get("active") ?? "0") == 3) this.messageService.openFailNotifyDialog("Đơn thanh toán đã bị hủy, vui lòng kiểm tra lại trong mục quản lý hóa đơn");
-        }
-      })
-    );
-
-    this.subscriptions.push(
       this.receiptListState.subscribe((state) => {
         if (state) {
           this.messageService.closeLoadingDialog();
@@ -179,25 +146,6 @@ export class StayingReceiptUserListComponent
       })
     );
 
-    this.store.dispatch(ReceiptListActions.initial());
-
-    const email = this.tokenStorageService.getUser().email;
-    this.store.dispatch(
-      ReceiptListActions.getReceiptList({
-        payload: {
-          email: email,
-          page: this.pageIndex + 1,
-          pageSize: this.pageSize,
-          status: this.active,
-          stayingScheduleId: this.scheduleId,
-          scheduleType: 2,
-          sortBy: this.sortColumn,
-          sortDirection: this.sortDirection,
-        },
-      })
-    );
-    this.messageService.openLoadingDialog();
-
     this.subscriptions.push(
       this.errorMessageState.subscribe((state: any) => {
         if (state) {
@@ -218,6 +166,65 @@ export class StayingReceiptUserListComponent
         }
       })
     );
+
+    this.store.dispatch(ReceiptListActions.initial());
+
+    this.subscriptions.push(
+      this._route.queryParamMap.subscribe((query) => {
+        if (query.get("active")) {
+          this.active = parseInt(query.get("active") ?? "0");
+          this.pageIndex = 0;
+          this.pageSize = 5;
+
+          const email = this.tokenStorageService.getUser().email;
+          this.store.dispatch(
+            ReceiptListActions.getReceiptList({
+              payload: {
+                email: email,
+                page: this.pageIndex + 1,
+                pageSize: this.pageSize,
+                stayingScheduleId: this.scheduleId,
+                scheduleType: 2,
+                status: this.active,
+                sortBy: this.sortColumn,
+                sortDirection: this.sortDirection,
+              },
+            })
+          );
+          this.messageService.openLoadingDialog();
+        } else {
+          const email = this.tokenStorageService.getUser().email;
+          this.store.dispatch(
+            ReceiptListActions.getReceiptList({
+              payload: {
+                email: email,
+                page: this.pageIndex + 1,
+                pageSize: this.pageSize,
+                stayingScheduleId: this.scheduleId,
+                scheduleType: 2,
+                status: this.active,
+                sortBy: this.sortColumn,
+                sortDirection: this.sortDirection,
+              },
+            })
+          );
+          this.messageService.openLoadingDialog();
+        }
+
+        if (query.get("complete")) {
+          const complete = parseInt(query.get("complete") ?? "0");
+          if (complete === 1 && parseInt(query.get("active") ?? "0") == 2)
+            this.messageService.openNotifyDialog(
+              "Đơn thanh toán đã hoàn thành, vui lòng kiểm tra lại trong mục quản lý hóa đơn"
+            );
+
+          if (complete === 1 && parseInt(query.get("active") ?? "0") == 3)
+            this.messageService.openFailNotifyDialog(
+              "Đơn thanh toán đã bị hủy, vui lòng kiểm tra lại trong mục quản lý hóa đơn"
+            );
+        }
+      })
+    );
   }
   ngAfterViewInit(): void {}
 
@@ -234,7 +241,6 @@ export class StayingReceiptUserListComponent
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      
       const email = this.tokenStorageService.getUser().email;
       this.store.dispatch(
         ReceiptListActions.getReceiptList({
@@ -287,9 +293,7 @@ export class StayingReceiptUserListComponent
     });
   }
 
-  addData(): void {
-    
-  }
+  addData(): void {}
 
   tourStatusChange($event: number): void {
     this.pageIndex = 0;
@@ -320,9 +324,10 @@ export class StayingReceiptUserListComponent
     let totalPrice = 0;
 
     totalPrice =
-    fullReceipt.originalPrice *
-    (fullReceipt.totalTicket + fullReceipt.totalChildTicket / 2) *
-    (1 - fullReceipt.discountFloat) - fullReceipt.discountAmount;
+      fullReceipt.originalPrice *
+        (fullReceipt.totalTicket + fullReceipt.totalChildTicket / 2) *
+        (1 - fullReceipt.discountFloat) -
+      fullReceipt.discountAmount;
 
     return Math.floor(totalPrice);
   }
@@ -354,7 +359,6 @@ export class StayingReceiptUserListComponent
   }
 
   selectChangeReceipt($event: any) {
-    
     this.scheduleId = $event.data.idList[0];
     const email = this.tokenStorageService.getUser().email;
 

@@ -22,7 +22,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./admin/admin.module/admin.module').then((m) => m.AdminModule),
     canLoad: [isAdminGuard],
-    data :{permittedRoles:['Admin']}
+    data :{permittedRoles:['Admin', 'AdminManager']}
   },
   {
     path: 'user',

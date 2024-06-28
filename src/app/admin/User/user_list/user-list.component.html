@@ -7,6 +7,7 @@
 
   <mat-tab-group (selectedIndexChange)="onChangeUserType($event)" style="background-color: white;">
     <mat-tab label="Người dùng"> </mat-tab>
+    <mat-tab label="Tài khoản nhân viên chờ xét duyệt"> </mat-tab>
     <mat-tab label="Quản lý"> </mat-tab>
   </mat-tab-group>
   <div class="table-responsive">
@@ -30,7 +31,7 @@
         </th>
         <td mat-cell *matCellDef="let element">
           <a routerLink="/admin/authorDetail/{{ element.id }}/edit">
-            {{ element.id }}</a
+            {{ getIndex(element.id) }}</a
           >
         </td>
       </ng-container>
@@ -97,7 +98,7 @@
         >
           Vai trờ
         </th>
-        <td mat-cell *matCellDef="let element">{{ element.role }}</td>
+        <td mat-cell *matCellDef="let element">{{ getRolePhase(element.role) }}</td>
       </ng-container>
 
       <ng-container matColumnDef="createDate">

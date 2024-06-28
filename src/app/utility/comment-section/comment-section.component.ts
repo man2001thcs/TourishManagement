@@ -49,6 +49,8 @@ export class CommentSectionComponent implements OnInit, OnChanges {
   isSending = false;
   canLoadMore = true;
 
+  page = 1;
+
   tourishPLanCommentList: TourishComment[] = [];
   length = 0;
 
@@ -90,8 +92,35 @@ export class CommentSectionComponent implements OnInit, OnChanges {
   }
 
   getTourComment() {
+    this.page = 1;
     const params = {
-      page: 1,
+      page: this.page,
+      tourishPlanId: this.tourishPlanId,
+      pageSize: 6,
+    };
+
+    this.isLoading = true;
+    this.http
+      .get("/api/GetTourComment/tourishplan", { params: params })
+      .subscribe((response: any) => {
+        if (response) {
+          this.isLoading = false;
+          this.tourishPLanCommentList = [
+            ...this.tourishPLanCommentList,
+            ...response.data,
+          ];
+          this.length = response.count;
+
+          if (this.tourishPLanCommentList.length >= this.length)
+            this.canLoadMore = false;
+        }
+      });
+  }
+
+  getMoreTourComment() {
+    this.page++;
+    const params = {
+      page: this.page,
       tourishPlanId: this.tourishPlanId,
       pageSize: 6,
     };
@@ -124,6 +153,9 @@ export class CommentSectionComponent implements OnInit, OnChanges {
     };
 
     this.isSending = true;
+
+    this.editorContent = "";
+    
     this.http
       .post("/api/AddTourComment", payload)
       .subscribe((response: any) => {

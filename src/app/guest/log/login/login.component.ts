@@ -122,7 +122,7 @@ export class LoginComponent implements OnInit {
     this.signInformGroup = this.fb.group({
       userName: [rememberMe.userName],
       password: [rememberMe.password],
-      isRememberMeCheck: [false],
+      isRememberMeCheck: [rememberMe.userName.length > 0],
     });
 
     this.subscriptions.push(

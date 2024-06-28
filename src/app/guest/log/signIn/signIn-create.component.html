@@ -50,7 +50,7 @@
               </mat-card>
             </div>
 
-            <div class="row">
+            <div class="row" style="margin-top: 20px;">
               <mat-form-field appearance="outline" class="full-width-input">
                 <mat-label>Tài khoản</mat-label>
                 <input
@@ -63,7 +63,10 @@
               </mat-form-field>
               <div class="validation-container">
                 <app-validation
-                  *ngIf="submited"
+                  *ngIf="
+                    this.createformGroup.get('userName')?.errors &&
+                    (createformGroup.get('userName')?.touched || submited)
+                  "
                   [formGroup]="createformGroup"
                   [formGroupControlName]="'userName'"
                 ></app-validation>
@@ -83,7 +86,10 @@
               </mat-form-field>
               <div class="validation-container">
                 <app-validation
-                  *ngIf="submited"
+                  *ngIf="
+                    this.createformGroup.get('fullName')?.errors &&
+                    (createformGroup.get('fullName')?.touched || submited)
+                  "
                   [formGroup]="createformGroup"
                   [formGroupControlName]="'fullName'"
                 ></app-validation>
@@ -117,7 +123,7 @@
 
         <mat-step label="Điền thông tin liên lạc">
           <form [formGroup]="createformGroup">
-            <div class="row">
+            <div class="row" style="margin-top: 20px;">
               <mat-form-field appearance="outline" class="full-width-input">
                 <mat-label>Email</mat-label>
                 <input
@@ -128,7 +134,10 @@
               </mat-form-field>
               <div class="validation-container">
                 <app-validation
-                  *ngIf="this.createformGroup.get('email')?.touched"
+                  *ngIf="
+                    this.createformGroup.get('email')?.errors &&
+                    (createformGroup.get('email')?.touched || submited)
+                  "
                   [formGroup]="createformGroup"
                   [formGroupControlName]="'email'"
                 ></app-validation>
@@ -145,7 +154,10 @@
               </mat-form-field>
               <div class="validation-container">
                 <app-validation
-                  *ngIf="this.createformGroup.get('address')?.touched"
+                  *ngIf="
+                    this.createformGroup.get('address')?.errors &&
+                    (createformGroup.get('address')?.touched || submited)
+                  "
                   [formGroup]="createformGroup"
                   [formGroupControlName]="'address'"
                 ></app-validation>
@@ -162,7 +174,10 @@
               </mat-form-field>
               <div class="validation-container">
                 <app-validation
-                  *ngIf="this.createformGroup.get('phoneNumber')?.touched"
+                  *ngIf="
+                    this.createformGroup.get('phoneNumber')?.errors &&
+                    (createformGroup.get('phoneNumber')?.touched || submited)
+                  "
                   [formGroup]="createformGroup"
                   [formGroupControlName]="'phoneNumber'"
                 ></app-validation>
@@ -189,7 +204,7 @@
         <mat-step label="Điền mật khẩu">
           <form [formGroup]="createformGroup">
             <div
-              class="row"
+              class="row" 
               *ngIf="createformGroup.errors?.['matchPassword'] &&  !this.createformGroup.get('rePassword')?.invalid"
             >
               <mat-card style="background-color: #f8d7da">
@@ -198,7 +213,7 @@
                 >
               </mat-card>
             </div>
-            <div class="row">
+            <div class="row" style="margin-top: 20px;">
               <mat-form-field appearance="outline" class="full-width-input">
                 <mat-label>Điền mật khẩu</mat-label>
                 <input
@@ -210,7 +225,10 @@
               </mat-form-field>
               <div class="validation-container">
                 <app-validation
-                  *ngIf="this.createformGroup.get('password')?.touched"
+                  *ngIf="
+                    this.createformGroup.get('password')?.errors &&
+                    (createformGroup.get('password')?.touched || submited)
+                  "
                   [formGroup]="createformGroup"
                   [formGroupControlName]="'password'"
                 ></app-validation>
@@ -228,7 +246,10 @@
               </mat-form-field>
               <div class="validation-container">
                 <app-validation
-                  *ngIf="this.createformGroup.get('rePassword')?.touched"
+                  *ngIf="
+                    this.createformGroup.get('rePassword')?.errors &&
+                    (createformGroup.get('rePassword')?.touched || submited)
+                  "
                   [formGroup]="createformGroup"
                   [formGroupControlName]="'rePassword'"
                 ></app-validation>

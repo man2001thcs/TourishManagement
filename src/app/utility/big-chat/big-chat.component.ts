@@ -28,6 +28,8 @@ export class BigChatComponent implements OnInit {
   subscriptions: Subscription[] = [];
   messageList: GuestMessage[] = [];
 
+  set = "twitter";
+
   guestConHistoryList: GuestMessageConHistory[] = [];
   currentGuestConHis!: GuestMessageConHistory;
   guestConLength = 0;
@@ -102,6 +104,8 @@ export class BigChatComponent implements OnInit {
   }
 
   addEmoji(event: any) {
+    console.log(event);
+    
     this.messFb.controls["message"].setValue(
       this.messFb.value.message + event.emoji.native
     );

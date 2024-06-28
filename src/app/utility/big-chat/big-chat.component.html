@@ -56,32 +56,34 @@
       </h3>
 
       <ng-container *ngFor="let message of messageList">
-
         <app-send-big-chat
-        *ngIf="message.side == 1"
-        [content]="message.content"
-        [sendTime]="message.createDate ?? ''"
-        [state]="message.state ?? 3"
-      ></app-send-big-chat>
+          *ngIf="message.side == 1"
+          [content]="message.content"
+          [sendTime]="message.createDate ?? ''"
+          [state]="message.state ?? 3"
+        ></app-send-big-chat>
 
-      <app-receive-big-chat
-        *ngIf="message.side == 2"
-        [content]="message.content"
-        [sendTime]="message.createDate ?? ''"
-        [state]="message.state ?? 3"
-      ></app-receive-big-chat>
+        <app-receive-big-chat
+          *ngIf="message.side == 2"
+          [content]="message.content"
+          [sendTime]="message.createDate ?? ''"
+          [state]="message.state ?? 3"
+        ></app-receive-big-chat>
       </ng-container>
-      
     </div>
 
     <div class="chat-input" [formGroup]="messFb">
       <div class="emoji">
-        <emoji-mart
-          class="emoji-mart"
-          *ngIf="showEmojiPicker"
-          (emojiSelect)="addEmoji($event)"
-          title="Pick your emoji…"
-        ></emoji-mart>
+        <ng-container>
+          <emoji-mart
+            class="emoji-mart"
+            set="google"
+            [isNative]="true"
+            *ngIf="showEmojiPicker"
+            (emojiSelect)="addEmoji($event)"
+            title="Pick your emoji…"
+          ></emoji-mart>
+        </ng-container>
         <button mat-mini-fab (click)="toggleEmojiPicker()">😀</button>
       </div>
 
@@ -95,10 +97,7 @@
           [formGroupControlName]="'messsage'"
         ></app-validation>
       </div>
-      <mat-form-field
-        appearance="outline"
-        class="chat-input-mat"
-      >
+      <mat-form-field appearance="outline" class="chat-input-mat">
         <input
           matInput
           fullwidth
@@ -140,7 +139,9 @@
       *ngFor="let conHis of guestConHistoryList ?? []"
       [guestMessageConHistory]="conHis"
       [isSelected]="conHis.guestMessageCon.connectionID === connectionId"
-      [lastChatInput]="conHis.guestMessageCon.connectionID === connectionId ? newMessage : null"
+      [lastChatInput]="
+        conHis.guestMessageCon.connectionID === connectionId ? newMessage : null
+      "
       (click)="onClickHistory(conHis.guestMessageCon.connectionID)"
     ></app-chat-guest-selector>
   </div>

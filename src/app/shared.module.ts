@@ -34,7 +34,7 @@ import {
   EditorModule,
   TINYMCE_SCRIPT_SRC,
 } from "@tinymce/tinymce-angular";
-import { PickerModule } from "@ctrl/ngx-emoji-mart";
+import { PickerComponent, PickerModule } from "@ctrl/ngx-emoji-mart";
 import { ChatGuestSelectorComponent } from "./utility/chat-guest-selector/chat-guest-selector.component";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { CommentSectionComponent } from "./utility/comment-section/comment-section.component";
@@ -126,6 +126,7 @@ import { MatCheckboxModule } from "@angular/material/checkbox";
     SendBigChatComponent,
   ],
   imports: [
+    PickerModule,
     MatBadgeModule,
     MatListModule,
     MatTabsModule,
@@ -170,7 +171,7 @@ import { MatCheckboxModule } from "@angular/material/checkbox";
 
   exports: [
     MatBadgeModule,
-    PickerModule,
+    PickerComponent,
     MatListModule,
     MatTooltipModule,
     NotificationSingleComponent,
@@ -246,7 +247,8 @@ import { MatCheckboxModule } from "@angular/material/checkbox";
 
     NotFoundComponent,
     ScheduleSearchPackComponent,
-    SchedulePlanSearchCardComponent
+    SchedulePlanSearchCardComponent,
+    
   ],
   providers: [
     { provide: TINYMCE_SCRIPT_SRC, useValue: "tinymce/tinymce.min.js" },

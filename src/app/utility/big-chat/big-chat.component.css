@@ -133,4 +133,5 @@ emoji-mart {
 .emoji {
   position: relative;
   margin-right: 10px;
+  transform-origin: top;
 }

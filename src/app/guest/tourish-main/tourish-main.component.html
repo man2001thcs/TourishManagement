@@ -136,8 +136,22 @@
 
 <div>
   <app-tourish-pack
+    [isTopSellingInMonth]="true"
+    [category]="'Tour hot nhất hiện nay'"
+    [description]="'Tour bán chạy trong tháng'"
+  ></app-tourish-pack>
+
+  <app-tourish-pack
     *ngFor="let category of categoryList"
     [category]="category.name"
     [description]="category.description"
   ></app-tourish-pack>
+
+  <app-schedule-pack [scheduleType]="1" [objectType]="0"></app-schedule-pack>
+
+  <app-schedule-pack [scheduleType]="1" [objectType]="1"></app-schedule-pack>
+
+  <app-schedule-pack [scheduleType]="2" [objectType]="0"></app-schedule-pack>
+
+  <app-schedule-pack [scheduleType]="2" [objectType]="1"></app-schedule-pack>
 </div>

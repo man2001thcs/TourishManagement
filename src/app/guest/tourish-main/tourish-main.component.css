@@ -129,6 +129,10 @@ app-tourish-pack:nth-child(odd) {
   background-color: #ECF0F5 !important;
 }
 
+app-schedule-pack:nth-child(odd) {
+  background-color: #ECF0F5 !important;
+}
+
 h4.tour-name {
   font-weight: bold;
   font-size: 20px;

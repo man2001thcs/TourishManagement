@@ -1,9 +1,9 @@
 <div class="pack-container" id="pack-container" #packContainer>
-  <div class="tourish-pack-description">
-    <h3></h3>
+  <div class="schedule-pack-description">
+    <h3>{{ getTitle() }}</h3>
   </div>
   <div class="schedule-pack">
-    <app-schedule-search-card
+    <app-schedule-card
       *ngFor="let schedule of movingScheduleList"
       [id]="schedule.id ?? ''"
       [scheduleName]="schedule.name ?? ''"
@@ -14,9 +14,9 @@
       [startingPlace]="schedule.startingPlace"
       [headingPlace]="schedule.headingPlace"
       style="width: 48%"
-    ></app-schedule-search-card>
+    ></app-schedule-card>
 
-    <app-schedule-search-card
+    <app-schedule-card
       *ngFor="let schedule of stayingScheduleList"
       [id]="schedule.id ?? ''"
       [scheduleName]="schedule.name ?? ''"
@@ -24,12 +24,13 @@
       [contactId]="schedule.restHouseBranchId"
       [schedulePrice]="schedule.singlePrice ?? 0"
       [serviceScheduleList]="schedule.serviceScheduleList ?? []"
+      [address]="schedule.address"
       style="width: 48%"
-    ></app-schedule-search-card>
+    ></app-schedule-card>
   </div>
 
-  <div class="tourish-button">
-    <button mat-stroked-button style="color: rgb(4, 201, 201); font-size: 16px">
+  <div class="schedule-button">
+    <button mat-stroked-button style="color: rgb(4, 201, 201); font-size: 16px" (click)="navigateCategoryUrl('service-search-page', this.scheduleType)">
       Xem thêm
     </button>
   </div>

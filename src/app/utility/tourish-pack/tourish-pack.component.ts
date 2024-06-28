@@ -32,6 +32,8 @@ export class TourishPackComponent implements OnInit, AfterViewInit {
   category: string = "Du lịch hành hương";
   @Input()
   description: string = "Tìm Về Chốn Thiêng, Lòng Người An Bình";
+  @Input()
+  isTopSellingInMonth: boolean = false;
 
   @ViewChild("picker") eatingPicker: any;
   @ViewChild("packContainer") packContainer!: ElementRef;
@@ -114,11 +116,21 @@ export class TourishPackComponent implements OnInit, AfterViewInit {
   }
 
   getTourPack() {
-    const params = {
+    let params: any = {
       page: 1,
       category: this.category,
       pageSize: 6,
+      sortBy: "createDate"
     };
+
+    if (this.isTopSellingInMonth){
+      params = {
+        page: 1,
+        pageSize: 6,
+        sortBy: "totalTicketInMonth"
+      };
+    }
+    
 
     this.http
       .get("/api/GetTourishPlan", { params: params })

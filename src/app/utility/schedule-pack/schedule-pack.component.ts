@@ -13,6 +13,8 @@ import { ThemePalette } from "@angular/material/core";
 import { catchError, of } from "rxjs";
 import { MovingSchedule, StayingSchedule } from "src/app/model/baseModel";
 import { MessageService } from "../user_service/message.service";
+import { NavigationExtras, Router } from "@angular/router";
+import { TokenStorageService } from "../user_service/token.service";
 
 @Component({
   selector: "app-schedule-pack",
@@ -47,6 +49,8 @@ export class SchedulePackComponent implements OnInit, AfterViewInit {
     private fb: FormBuilder,
     private renderer: Renderer2,
     private messageService: MessageService,
+    private tokenStorageService: TokenStorageService,
+    private router: Router,
     private http: HttpClient
   ) {}
 
@@ -71,7 +75,6 @@ export class SchedulePackComponent implements OnInit, AfterViewInit {
     let childWidth = parseInt(this.packContainer.nativeElement.offsetWidth, 0);
     // Example logic, you can adjust this according to your needs
     if (childWidth >= 1700) {
-      
       // this.packContainer.nativeElement.style["border-right"] = "30px 18% 30px";
       this.renderer.setStyle(
         this.packContainer.nativeElement,
@@ -108,13 +111,14 @@ export class SchedulePackComponent implements OnInit, AfterViewInit {
   getSchedulePack() {
     const params = {
       page: 1,
-      pageSize: 6,
-      type: this.objectType
+      pageSize: 4,
+      type: this.objectType,
     };
 
     if (this.scheduleType == 1) {
       this.http
-        .get("/api/GetMovingSchedule", { params: params }).pipe(
+        .get("/api/GetMovingSchedule", { params: params })
+        .pipe(
           catchError((error) => {
             this.messageService.openFailNotifyDialog(
               "Hệ thống đang gặp lỗi, vui lòng thử lại"
@@ -124,12 +128,13 @@ export class SchedulePackComponent implements OnInit, AfterViewInit {
         )
         .subscribe((response: any) => {
           this.movingScheduleList = response.data;
-          
+
           this.length = response.count;
         });
     } else if (this.scheduleType == 2) {
       this.http
-        .get("/api/GetStayingSchedule", { params: params }).pipe(
+        .get("/api/GetStayingSchedule", { params: params })
+        .pipe(
           catchError((error) => {
             this.messageService.openFailNotifyDialog(
               "Hệ thống đang gặp lỗi, vui lòng thử lại"
@@ -139,7 +144,7 @@ export class SchedulePackComponent implements OnInit, AfterViewInit {
         )
         .subscribe((response: any) => {
           this.stayingScheduleList = response.data;
-          
+
           this.length = response.count;
         });
     }
@@ -158,12 +163,24 @@ export class SchedulePackComponent implements OnInit, AfterViewInit {
 
   getTitle() {
     if (this.scheduleType == 1) {
-      if (this.objectType == 1) return "Vé máy bay"; 
-      if (this.objectType == 0) return "Vé xe"; 
+      if (this.objectType == 1) return "Đặt vé máy bay";
+      if (this.objectType == 0) return "Đặt vé xe khách";
     } else if (this.scheduleType == 2) {
-      if (this.objectType == 1) return "Đặt trước khách sạn"; 
-      if (this.objectType == 0) return "Đặt Homestay khách sạn"; 
+      if (this.objectType == 1) return "Đặt trước khách sạn";
+      if (this.objectType == 0) return "Đặt Homestay khách sạn";
     }
     return "Dịch vụ ";
+  }
+
+  async navigateCategoryUrl(url: string, scheduleType: number) {
+    let schedulePhase = "moving";
+    if (scheduleType == 1) schedulePhase = "moving";
+    else if (scheduleType == 2) schedulePhase = "staying";
+    let navigationExtras: NavigationExtras = {
+      queryParams: { serviceType: schedulePhase }, // Replace 'key' and 'value' with your actual query parameters
+    };
+    if (this.tokenStorageService.getUserRole() == "User") {
+      this.router.navigate(["user/" + url], navigationExtras);
+    } else this.router.navigate(["guest/" + url], navigationExtras);
   }
 }

@@ -9,7 +9,7 @@ const ADMIN_HEADER_CODE: Map<string, string> = new Map([
   ["/admin/receipt/list", "7th"],
   ["/admin/user/list", "8th"],
   ["/admin/chat/list", "9th"],
-  ["/admin/notification/list", "10th"],
+  ["/admin/chat/display", "10th"],
   ["/admin/notification/list", "11th"],
   ["/admin/transport/service/list", "12th"],
   ["/admin/resthouse/service/list", "13th"],

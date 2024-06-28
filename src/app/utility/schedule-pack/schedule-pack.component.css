@@ -17,6 +17,7 @@
 
 app-schedule-card {
   margin: 5px 5px 5px;
+  min-width: 330px;
 }
 
 .schedule-pack-description {

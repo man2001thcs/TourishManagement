@@ -122,7 +122,7 @@ export class LoginComponent implements OnInit {
     this.signInformGroup = this.fb.group({
       userName: [rememberMe.userName],
       password: [rememberMe.password],
-      isRememberMeCheck: [false],
+      isRememberMeCheck: [rememberMe.userName.length > 0],
     });
 
     this.subscriptions.push(
@@ -151,22 +151,35 @@ export class LoginComponent implements OnInit {
             );
           else this.tokenStorage.cancelRememberMe();
 
-          this.messageService
-            .openNotifyDialog("Đăng nhập thành công")
-            .subscribe((res) => {
-              if (response) {
-                if (response.Role === "New") {
-                  this.messageService.openNotifyDialog(
-                    "Tài khoản đã liên kết, vui lòng chờ admin xét duyệt"
-                  );
+          if (response.Role === "AdminTemp") {
+            this.messageService.openFailNotifyDialog(
+              "Vui lòng chờ Admin duyệt tài khoản của bạn"
+            );
+          } else if (response.Role === "New") {
+            this.messageService.openFailNotifyDialog(
+              "Vui lòng truy cập tài khoản email để xác thực tài khoản"
+            );
+          } else {
+            this.messageService
+              .openNotifyDialog("Đăng nhập thành công")
+              .subscribe((res) => {
+                if (response) {
+                  if (response.Role === "New") {
+                    this.messageService.openNotifyDialog(
+                      "Tài khoản đã liên kết, vui lòng chờ admin xét duyệt"
+                    );
+                  }
+                  if (response.Role === "User") {
+                    this.router.navigate(["/user/main-page"]);
+                  } else if (
+                    response.Role === "Admin" ||
+                    response.Role === "AdminManager"
+                  ) {
+                    this.router.navigate(["/admin/dash-board"]);
+                  }
                 }
-                if (response.Role === "User") {
-                  this.router.navigate(["/user/main-page"]);
-                } else if (response.Role === "Admin") {
-                  this.router.navigate(["/admin/dash-board"]);
-                }
-              }
-            });
+              });
+          }
         }
       })
     );

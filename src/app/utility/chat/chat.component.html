@@ -81,6 +81,7 @@
       <div class="emoji">
         <emoji-mart
           class="emoji-mart"
+          [isNative]="true"
           *ngIf="showEmojiPicker"
           (emojiSelect)="addEmoji($event)"
           title="Pick your emoji…"

@@ -12,7 +12,7 @@ export class AboutPageComponent {
   introduction = [
     {
       icon: "info",
-      text: "Thành lập năm 2010, Roxanne Tourist là thành viên của Tập đoàn TMG Việt Nam với hơn 20 năm kinh nghiệm trong lĩnh vực Du lịch – Khách sạn.",
+      text: "Thành lập năm 2024, Roxanne Tourist là thành viên của Tập đoàn TMG Việt Nam với hơn 20 năm kinh nghiệm trong lĩnh vực Du lịch – Khách sạn.",
     },
     {
       icon: "flight_takeoff",
@@ -49,7 +49,7 @@ export class AboutPageComponent {
   ];
 
   contacts = [
-    "Dịch vụ khách hàng, đặt phòng khách sạn: Hotline 1900 1870 – Email: TC@ Roxanne Tourist",
+    "Dịch vụ khách hàng, đặt phòng khách sạn: Hotline 1900 1870 – Email: dochu.quan.ly@gmail.com",
     "Nhà cung cấp liên hệ – Email: dochu8@gmail.com",
     "Liên hệ Marketing – Email: dochu8@gmail.com",
     "Các liên hệ khác: 1900 1870",

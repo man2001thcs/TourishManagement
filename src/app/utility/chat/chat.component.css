@@ -55,6 +55,10 @@ app-send-chat {
   align-self: flex-end !important;
 }
 
+.chat-input-mat {
+  margin-bottom: 0 !important;
+}
+
 .chat-send mat-card {
   background-color: #3084e4;
   color: floralwhite;

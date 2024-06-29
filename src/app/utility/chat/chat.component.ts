@@ -66,7 +66,7 @@ export class ChatComponent {
 
     if (this.tokenStorageService.getUserRole() === "User") {
       this.messRegister.controls["guestName"].setValue(
-        this.tokenStorageService.getUser().unique_name
+        decodeURIComponent(this.tokenStorageService.getUser().unique_name)
       );
 
       this.messRegister.controls["guestEmail"].setValue(
@@ -89,7 +89,6 @@ export class ChatComponent {
     this.subscriptions.push(
       this.signalRService.ClientFeedObservable.subscribe((res: any) => {
         if (res) {
-          
           if (res.data3 !== null && res.data3 !== undefined) {
             var insertMess = res.data3;
 

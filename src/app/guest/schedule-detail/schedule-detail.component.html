@@ -36,8 +36,18 @@
         aria-hidden="true"
         *ngIf="isMovingContactPresent"
       ></i>
-      <i class="fa fa-plane" aria-hidden="true" *ngIf="isPlanePresent" style="margin-right: 10px"></i>
-      <i class="fa fa-train" aria-hidden="true" *ngIf="isTrainPresent" style="margin-right: 10px"></i>
+      <i
+        class="fa fa-plane"
+        aria-hidden="true"
+        *ngIf="isPlanePresent"
+        style="margin-right: 10px"
+      ></i>
+      <i
+        class="fa fa-train"
+        aria-hidden="true"
+        *ngIf="isTrainPresent"
+        style="margin-right: 10px"
+      ></i>
       <i
         class="fa fa-ship"
         aria-hidden="true"
@@ -124,6 +134,7 @@
           <th scope="col">Ngày bắt đầu</th>
           <th scope="col">Ngày kết thúc</th>
           <th scope="col">Tình trạng</th>
+          <th scope="col">Số vé còn lại</th>
         </tr>
       </thead>
       <tbody>
@@ -138,7 +149,10 @@
           <td>
             {{ getDateFormat(timeLine.endDate) }}
           </td>
-          <th>{{ getStatusPhase((timeLine.status ?? "").toString()) }}</th>
+          <td>{{ getStatusPhase((timeLine.status ?? "").toString()) + " " + (isTicketAvailable(timeLine) ? "(Còn vé)" : "(Hết vé)") }}</td>
+          <td>
+            {{ timeLine.remainTicket ?? 0 }}
+          </td>
         </tr>
       </tbody>
     </table>
@@ -205,6 +219,7 @@
               <mat-option
                 *ngFor="let timeLine of schedule?.serviceScheduleList ?? []"
                 [value]="timeLine.id"
+                [disabled]="!isTicketAvailable(timeLine)"
               >
                 {{
                   getDateFormat(timeLine.startDate) +

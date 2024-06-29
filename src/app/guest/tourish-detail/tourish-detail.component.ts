@@ -14,7 +14,12 @@ import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
 import { EditorComponent } from "@tinymce/tinymce-angular";
 import { Subscription, catchError, of, scheduled } from "rxjs";
-import { SaveFile, TourishPlan, User } from "src/app/model/baseModel";
+import {
+  SaveFile,
+  TourishPlan,
+  TourishSchedule,
+  User,
+} from "src/app/model/baseModel";
 import { ConfirmDialogComponent } from "src/app/utility/confirm-dialog/confirm-dialog.component";
 import { MessageService } from "src/app/utility/user_service/message.service";
 import { TokenStorageService } from "src/app/utility/user_service/token.service";
@@ -208,8 +213,10 @@ export class TourishDetailComponent implements OnInit, OnDestroy {
             this.tourishPlan?.tourishScheduleList ?? [];
 
           if (this.tourishPlan.tourishScheduleList.length > 0) {
+            const index = this.tourishPlan.tourishScheduleList.findIndex(entity => entity.remainTicket ?? 0 > 0);
+            if (index > -1)
             this.setTourForm.controls["tourishScheduleId"].setValue(
-              this.tourishPlan?.tourishScheduleList[0].id ?? ""
+              this.tourishPlan?.tourishScheduleList[index].id ?? ""
             );
           }
         }
@@ -294,8 +301,7 @@ export class TourishDetailComponent implements OnInit, OnDestroy {
           this.isTrainPresent = true;
         } else if (entity.vehicleType === 3) {
           this.isShipPresent = true;
-        }
-        else if (entity.vehicleType ===4) {
+        } else if (entity.vehicleType === 4) {
           this.isLocalTransportPresent = true;
         }
       });
@@ -475,5 +481,10 @@ export class TourishDetailComponent implements OnInit, OnDestroy {
 
   formatVNCurrency(num: number): string {
     return num.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
+  }
+
+  isTicketAvailable(tourishSchedule: TourishSchedule) {
+    if (tourishSchedule.remainTicket ?? 0 > 0) return true;
+    return false;
   }
 }

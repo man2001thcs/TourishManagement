@@ -136,9 +136,15 @@ export class LoginComponent implements OnInit {
             this.socialAuthService.signOut();
           }
 
-          const response = JSON.parse(
-            window.atob(state.accessToken.split(".")[1])
-          );
+          // const response = JSON.parse(
+          //   window.atob(state.accessToken.split(".")[1])
+          // );
+
+          const payloadBase64Url = state.accessToken.split(".")[1];
+          const decodedPayload =
+            this.tokenStorage.decodeBase64Url(payloadBase64Url);
+
+          const response = JSON.parse(decodedPayload);
 
           this.tokenStorage.saveToken(state.accessToken);
           this.tokenStorage.saveRefreshToken(state.refreshToken);

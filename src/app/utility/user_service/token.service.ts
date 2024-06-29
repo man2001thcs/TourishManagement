@@ -237,6 +237,12 @@ export class TokenStorageService {
     }
   }
 
+  decodeBase64Url(base64Url: string): string {
+    let decodedData = atob(base64Url.replace(/-/g, '+').replace(/_/g, '/'));
+    decodedData = decodeURIComponent(escape(decodedData));
+    return decodedData;
+  }
+
   // public roleMatch(allowedRoles): boolean {
   //   var isMatch = false;
   //   var payLoad = JSON.parse(window.atob(this.getUser().split('.')[1]));

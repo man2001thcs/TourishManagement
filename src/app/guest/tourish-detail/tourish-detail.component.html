@@ -343,6 +343,7 @@
           <th scope="col">Ngày bắt đầu</th>
           <th scope="col">Ngày kết thúc</th>
           <th scope="col">Tình trạng</th>
+          <th scope="col">Số vé còn lại</th>
         </tr>
       </thead>
       <tbody>
@@ -350,11 +351,14 @@
           *ngFor="let schedule of tourishPlan?.tourishScheduleList; index as i"
         >
           <td scope="row">{{ i + 1 }}</td>
-          <td scope="row">{{ getDateFormat(schedule.startDate) }}</td>
+          <td scope="row">{{ getDateFormat(schedule.startDate)}}</td>
           <td>
-            {{ getDateFormat(schedule.startDate) }}
+            {{ getDateFormat(schedule.endDate) }}
           </td>
-          <th>{{ getStatusPhase((schedule.planStatus ?? "").toString()) }}</th>
+          <td>{{ getStatusPhase((schedule.planStatus ?? "").toString()) + " " + (isTicketAvailable(schedule) ? "(Còn vé)" : "(Hết vé)") }}</td>
+          <td>
+            {{ schedule.remainTicket ?? 0 }}
+          </td>
         </tr>
       </tbody>
     </table>
@@ -421,6 +425,7 @@
               <mat-option
                 *ngFor="let schedule of tourishPlan?.tourishScheduleList ?? []"
                 [value]="schedule.id"
+                [disabled]="!isTicketAvailable(schedule)"
               >
                 {{ getDateFormat(schedule.startDate) }}
               </mat-option>

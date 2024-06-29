@@ -34,10 +34,12 @@
 
 app-send-big-chat {
   align-self: flex-end !important;
+  margin-bottom: 5px;
 }
 
 app-receive-big-chat {
   align-self: flex-start !important;
+  margin-bottom: 5px;
 }
 
 .chat-send mat-card {

@@ -1,46 +1,6 @@
 <div class="big-chat-container">
   <div class="chat-container">
     <div class="chat-content">
-      <ng-template
-        #chat_send_template
-        let-id="id"
-        let-sender="sender"
-        let-receiver="receiver"
-        let-sendTime="sendTime"
-        let-content="content"
-        let-state="state"
-      >
-        <div class="chat-send">
-          <mat-card>
-            <mat-card-content>{{ content }}</mat-card-content>
-          </mat-card>
-          <mat-label
-            ><span class="mess-status">{{ getState(state) }} </span>
-            <span *ngIf="state > 0"> - {{ getTime(sendTime) }}</span></mat-label
-          >
-        </div>
-      </ng-template>
-
-      <ng-template
-        #chat_receive_template
-        let-id="id"
-        let-sender="sender"
-        let-receiver="receiver"
-        let-sendTime="sendTime"
-        let-content="content"
-        let-state="state"
-      >
-        <div class="chat-receive">
-          <mat-card>
-            <mat-card-content>{{ content }}</mat-card-content>
-          </mat-card>
-          <mat-label
-            ><span class="mess-status">{{ getState(state) }} </span>
-            <span *ngIf="state > 0"> - {{ getTime(sendTime) }}</span></mat-label
-          >
-        </div>
-      </ng-template>
-
       <h3
         style="margin-left: 20px; font-weight: bold"
         *ngIf="messageList.length <= 0 && this.connectionId == ''"

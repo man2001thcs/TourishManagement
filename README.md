@@ -1,27 +1,101 @@
-# Roxanne
+### Hướng dẫn deploy Angular Front-end
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.4.
+#### Cách 1: Sử dụng GitHub Actions để triển khai lên Azure Static Web Apps
 
-## Development server
+1. **Tạo một ứng dụng Azure Static Web App:**
+   - Đăng nhập vào [Azure Portal](https://portal.azure.com/).
+   - Tạo một Azure Static Web App mới bằng cách chọn `Create a resource` > `Web` > `Static Web App`.
+   - Lựa chọn `Create` và điền thông tin cơ bản như tên, vùng địa lý, và tài khoản GitHub.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+2. **Cấu hình GitHub Actions:**
+   - Trên repository GitHub của bạn, tạo một workflow mới hoặc sửa đổi workflow hiện tại trong thư mục `.github/workflows`.
 
-## Code scaffolding
+   ```yaml
+   name: Build and Deploy Angular App to Azure Static Web Apps
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+   on:
+     push:
+       branches:
+         - main  # thay đổi tên nhánh tương ứng với tên nhánh của bạn
 
-## Build
+   jobs:
+     build-and-deploy:
+       runs-on: ubuntu-latest
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+       steps:
+       - uses: actions/checkout@v2
 
-## Running unit tests
+       - name: Set up Node.js
+         uses: actions/setup-node@v2
+         with:
+           node-version: '20'
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+       - name: Install dependencies
+         run: npm install
 
-## Running end-to-end tests
+       - name: Build Angular app
+         run: npm run build --prod
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+       - name: Deploy to Azure Static Web Apps
+         uses: azure/static-web-apps-deploy@v1
+         with:
+           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_PROD }}
+           app_location: '/'  # Đường dẫn đến thư mục chứa file build
+           api_location: 'api'  # Nếu có API, điền vào đây
+           output_location: 'dist'  # Thư mục build Angular
+           configuration_location: ''  # Nếu cần, cấu hình thêm
 
-## Further help
+   ```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+   - Đảm bảo rằng bạn đã thiết lập `AZURE_STATIC_WEB_APPS_API_TOKEN_PROD` trong cài đặt `Secrets` của repository để có quyền truy cập vào Azure.
+
+3. **Triển khai:**
+   - Mỗi khi có sự thay đổi trên nhánh `main` (hoặc nhánh được thiết lập trong `on`), GitHub Actions sẽ tự động triển khai ứng dụng Angular của bạn lên Azure Static Web Apps.
+
+#### Cách 2: Build local và triển khai bằng Nginx
+
+1. **Build ứng dụng Angular:**
+   - Mở terminal và di chuyển vào thư mục dự án Angular của bạn.
+   - Chạy lệnh sau để build ứng dụng Angular:
+
+     ```bash
+     npm run build
+     ```
+
+   - Sau khi hoàn thành, thư mục build sẽ nằm trong `dist/` trong thư mục dự án.
+
+2. **Triển khai bằng Nginx:**
+   - Cài đặt Nginx trên máy chủ của bạn nếu chưa có.
+
+   - Sao chép toàn bộ thư mục `dist/` từ bước build Angular vào thư mục root của Nginx (thông thường là `/var/www/html` trên Linux).
+
+   - Cấu hình Nginx để phục vụ ứng dụng Angular:
+     - Mở file cấu hình Nginx (`nginx.conf` hoặc các file cấu hình ảnh hưởng đến việc phục vụ trang web).
+     - Thêm cấu hình sau vào trong phần `server` block của file cấu hình:
+
+       ```nginx
+       server {
+           listen       80;
+           server_name  your_domain.com;  # Thay đổi với tên miền hoặc địa chỉ IP của bạn
+
+           location / {
+               root   /var/www/html/dist;  # Đường dẫn đến thư mục build Angular
+               index  index.html;
+               try_files $uri $uri/ /index.html;
+           }
+
+           # Các cấu hình bổ sung nếu cần
+
+           error_page   500 502 503 504  /50x.html;
+           location = /50x.html {
+               root   html;
+           }
+       }
+       ```
+
+   - Lưu và khởi động lại dịch vụ Nginx để áp dụng cấu hình mới.
+
+3. **Hoàn tất:**
+   - Sau khi triển khai, truy cập vào địa chỉ domain hoặc IP của máy chủ của bạn để kiểm tra ứng dụng Angular đã được triển khai thành công.
+
+Thông qua các hướng dẫn này, bạn có thể triển khai ứng dụng Angular của mình lên Azure Static Web Apps bằng GitHub Actions hoặc triển khai local bằng Nginx tùy thuộc vào yêu cầu và môi trường của dự án.

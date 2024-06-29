@@ -76,3 +76,7 @@ tr.example-detail-row {
   flex-direction: row;
   align-items: center;
 }
+
+.example-element-diagram:last-child {
+  margin-bottom: 20px !important;
+}

@@ -304,6 +304,7 @@ import { InstructionChangeModalComponent } from "src/app/utility/change-instruct
 
 @NgModule({
   declarations: [
+    
     MovingContactCreateComponent,
     MovingContactDetailComponent,
     MovingContactListComponent,

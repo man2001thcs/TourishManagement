@@ -39,3 +39,9 @@
   font-weight: bold;
   font-size: 16px;
 }
+
+.example-element-diagram {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}

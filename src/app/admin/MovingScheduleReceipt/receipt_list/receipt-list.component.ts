@@ -170,25 +170,23 @@ export class MovingScheduleReceiptListComponent
         if (query.get("active")) {
           this.active = parseInt(query.get("active") ?? "0");
 
-          if (this.active !== 0) {
-            this.pageIndex = 0;
-            this.pageSize = 5;
+          this.pageIndex = 0;
+          this.pageSize = 5;
 
-            this.store.dispatch(
-              ReceiptListActions.getReceiptList({
-                payload: {
-                  page: this.pageIndex + 1,
-                  pageSize: this.pageSize,
-                  status: this.active,
-                  movingScheduleId: this.scheduleId ?? "",
-                  scheduleType: 1,
-                  sortBy: this.sortColumn,
-                  sortDirection: this.sortDirection,
-                },
-              })
-            );
-            this.messageService.openLoadingDialog();
-          }
+          this.store.dispatch(
+            ReceiptListActions.getReceiptList({
+              payload: {
+                page: this.pageIndex + 1,
+                pageSize: this.pageSize,
+                status: this.active,
+                movingScheduleId: this.scheduleId ?? "",
+                scheduleType: 1,
+                sortBy: this.sortColumn,
+                sortDirection: this.sortDirection,
+              },
+            })
+          );
+          this.messageService.openLoadingDialog();
         } else {
           this.store.dispatch(
             ReceiptListActions.getReceiptList({

@@ -84,9 +84,13 @@ import { SendChatComponent } from "./utility/chat/send-chat/chat.component";
 import { ReceiveBigChatComponent } from "./utility/big-chat/receive-chat/chat.component";
 import { SendBigChatComponent } from "./utility/big-chat/send-chat/chat.component";
 import { MatCheckboxModule } from "@angular/material/checkbox";
+import { AboutPageComponent } from "./utility/footer/about-page/about-page.component";
+import { PolicyPageComponent } from "./utility/footer/policy/policy.component";
 
 @NgModule({
   declarations: [
+    AboutPageComponent,
+    PolicyPageComponent,
     FooterComponent,
     OutsideClickDirective,
     InViewportDirective,
@@ -221,6 +225,8 @@ import { MatCheckboxModule } from "@angular/material/checkbox";
     CommentTourSingleComponent,
     NotificationPackComponent,
 
+    AboutPageComponent,
+    PolicyPageComponent,
     ChatComponent,
     ReceiveChatComponent,
     SendChatComponent,

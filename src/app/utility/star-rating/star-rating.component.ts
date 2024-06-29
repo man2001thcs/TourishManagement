@@ -39,6 +39,7 @@ export class StarRatingComponent implements OnInit, OnDestroy {
 
   ratingList: any[] = [];
   ratingNumber = 0;
+  isRated = false;
 
   snackBarDuration: number = 2000;
   ratingArr: number[] = [];
@@ -101,13 +102,7 @@ export class StarRatingComponent implements OnInit, OnDestroy {
       .post("/api/SendTourRating", payload)
       .subscribe((response: any) => {
         if (response) {
-          // this.snackBar.open(
-          //   "Bạn đã đánh giá " + rating + " / " + this.starCount,
-          //   "",
-          //   {
-          //     duration: this.snackBarDuration,
-          //   }
-          // );
+          if (!this.isRated) this.ratingNumber++;
           this.ratingUpdated.emit(rating);
         }
       });
@@ -126,7 +121,9 @@ export class StarRatingComponent implements OnInit, OnDestroy {
         if (state) {
           if (state.data?.rating !== undefined) {
             this.showRating = state.data.rating;
+            this.isRated = true;
           } else {
+            this.isRated = false;
             this.showRating = 3;
             this.showColor = "#F7F29A";
           }
@@ -143,7 +140,6 @@ export class StarRatingComponent implements OnInit, OnDestroy {
       .get("/api/GetTourRating/tourishplan", { params: payload })
       .subscribe((state: any) => {
         if (state) {
-          
           this.ratingList = state.data ?? [];
           this.ratingNumber = state.count;
         }

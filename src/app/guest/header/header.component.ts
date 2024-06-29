@@ -234,6 +234,10 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+  navigateRegister() {
+    this.router.navigate(["guest/signIn"]);
+  }
+
   async navigateUrl(url: string) {
     this.router.navigate(["guest/" + url]);
   }

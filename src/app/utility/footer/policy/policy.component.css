@@ -1,0 +1,13 @@
+mat-list-item {
+  align-items: start;
+}
+mat-icon {
+  margin-right: 16px;
+}
+
+div {
+  display: flex;
+  align-items: center;
+  text-wrap: wrap !important;
+  height: fit-content;
+}

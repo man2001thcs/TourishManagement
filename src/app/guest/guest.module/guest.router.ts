@@ -17,6 +17,8 @@ import { TourishSearchComponent } from "../tourish-search/tourish-search.compone
 import { ScheduleSearchComponent } from "../schedule-search/schedule-search.component";
 import { ScheduleDetailComponent } from "../schedule-detail/schedule-detail.component";
 import { NotFoundComponent } from "src/app/utility/not-found-page/404.component";
+import { AboutPageComponent } from "src/app/utility/footer/about-page/about-page.component";
+import { PolicyPageComponent } from "src/app/utility/footer/policy/policy.component";
 
 const routes: Routes = [
   {
@@ -62,6 +64,14 @@ const routes: Routes = [
       {
         path: "service/:id/detail",
         component: ScheduleDetailComponent,
+      },
+      {
+        path: "about-us",
+        component: AboutPageComponent,
+      },
+      {
+        path: "policy",
+        component: PolicyPageComponent,
       },
       { path: "**", pathMatch: "full", component: NotFoundComponent },
     ],

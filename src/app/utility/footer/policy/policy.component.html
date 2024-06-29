@@ -1,0 +1,28 @@
+<div style="width: 100% !important">
+  <mat-card style="margin-bottom: 20px; padding: 10px 50px 10px;">
+    <h1>Chính sách và Điều khoản sử dụng</h1>
+
+    <mat-list>
+      <mat-list-item *ngFor="let item of policyItems">
+        <div matListItemLine>
+          <span style="font-weight: bold">{{ item.title }}</span>
+        </div>
+        <div matListItemLine *ngFor="let description of item.content">{{ description }}</div>
+      </mat-list-item>
+    </mat-list>
+
+    <section class="contact-information">
+      <h1>Liên hệ</h1>
+      <ul>
+        <li>
+          Dịch vụ khách hàng: Hotline 1900 1870 - Email:
+          <a href="mailto:dochu.quan.ly@gmail.com">TC@Roxanne Tourist</a>
+        </li>
+        <li>
+          Nhà cung cấp liên hệ - Email:
+          <a href="mailto:dochu.quan.ly@gmail.com">Market@Roxanne-tour.pro</a>
+        </li>
+      </ul>
+    </section>
+  </mat-card>
+</div>

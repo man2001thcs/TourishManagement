@@ -13,6 +13,8 @@ import { ScheduleSearchComponent } from "src/app/guest/schedule-search/schedule-
 import { ScheduleDetailComponent } from "src/app/guest/schedule-detail/schedule-detail.component";
 import { MovingReceiptUserListComponent } from "../MovingReceipt/receipt_list/receipt-list.component";
 import { StayingReceiptUserListComponent } from "../StayingReceipt/receipt_list/receipt-list.component";
+import { AboutPageComponent } from "src/app/utility/footer/about-page/about-page.component";
+import { PolicyPageComponent } from "src/app/utility/footer/policy/policy.component";
 
 const routes: Routes = [
   {
@@ -54,6 +56,14 @@ const routes: Routes = [
       {
         path: "service/:id/detail",
         component: ScheduleDetailComponent,
+      },
+      {
+        path: "about-us",
+        component: AboutPageComponent,
+      },
+      {
+        path: "policy",
+        component: PolicyPageComponent,
       },
       { path: "**", pathMatch: "full", component: NotFoundComponent },
     ],

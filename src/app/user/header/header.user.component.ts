@@ -164,6 +164,7 @@ export class HeaderUserComponent implements OnDestroy {
             pageSize: 4,
           };
 
+          this.tourList = [];         
           this.isSearchLoading =true;
           this.http
             .get("/api/GetTourishPlan", { params: params })

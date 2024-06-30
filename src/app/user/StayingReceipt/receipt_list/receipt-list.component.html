@@ -57,7 +57,7 @@
 
       <!-- SS Column -->
       <ng-container matColumnDef="singlePrice">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Giá đơn vé hiện tại</th>
+        <th mat-header-cell *matHeaderCellDef>Giá đơn vé hiện tại</th>
         <td mat-cell *matCellDef="let element">
           {{ formatVNCurrency(getTotalPrice(element.stayingSchedule)) }}
         </td>

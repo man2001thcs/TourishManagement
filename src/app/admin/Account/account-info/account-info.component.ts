@@ -48,7 +48,7 @@ export class AccountInfoComponent implements OnInit, OnDestroy {
   isSubmittedInfo = false;
   isSubmittedPassword = false;
   id = "";
-  active = 1;
+  active = 0;
 
   account: User = {
     id: "",
@@ -221,12 +221,14 @@ export class AccountInfoComponent implements OnInit, OnDestroy {
         };
 
         this.messageService.openLoadingDialog();
+
         this.store.dispatch(
           AccountActions.editAccount({
             payload: payload,
           })
         );
       } else {
+        console.log("test: " + this.editformGroup_info.value);
         this.messageService.openFailNotifyDialog(
           "Lỗi giá trị đầu vào. Vui lòng kiểm tra lại"
         );

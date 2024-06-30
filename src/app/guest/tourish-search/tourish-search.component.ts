@@ -164,4 +164,20 @@ export class TourishSearchComponent implements OnInit {
   formatVNCurrency(num: number): string {
     return num.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
   }
+
+  getDateFormat(isoDateString: string) {
+    // Chuyển đổi chuỗi ISO 8601 thành đối tượng Date
+    const ngayThang = new Date(isoDateString);
+
+    // Lấy ngày, tháng, năm, giờ từ đối tượng Date
+    const day = ngayThang.getDate();
+    const month = ngayThang.getMonth() + 1; // Tháng bắt đầu từ 0
+    const year = ngayThang.getFullYear();
+    const hour = ngayThang.getHours();
+    const minute = ngayThang.getHours();
+
+    const chuoiNgayThang = `Ngày ${day} tháng ${month}`;
+
+    return chuoiNgayThang;
+  }
 }

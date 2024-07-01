@@ -128,7 +128,7 @@ export class RestaurantCreateComponent implements OnInit, OnDestroy {
   }
 
   formReset(): void {
-    this.createformGroup_info.setValue({
+    this.createformGroup_info.patchValue({
       placeBranch: "",
       hotlineNumber: "",
       supportEmail: "",

@@ -126,7 +126,7 @@ export class MovingScheduleReceiptCreateComponent implements OnInit, OnDestroy {
   }
 
   formReset(): void {
-    this.createformGroup_info.setValue({
+    this.createformGroup_info.patchValue({
       guestName: "",
       movingScheduleId: "",
       serviceScheduleId: "",

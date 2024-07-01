@@ -169,7 +169,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
   }
 
   formReset(): void {
-    this.editformGroup_info.setValue({
+    this.editformGroup_info.patchValue({
       userName: this.user.userName ?? "",
       phoneNumber: this.user.phoneNumber ?? "",
       email: this.user.email ?? "",

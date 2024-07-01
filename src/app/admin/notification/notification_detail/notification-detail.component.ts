@@ -177,7 +177,7 @@ export class NotificationDetailComponent implements OnInit, OnDestroy {
   }
 
   formReset(): void {
-    this.editformGroup_info.setValue({
+    this.editformGroup_info.patchValue({
       content: this.notification.content ?? "",
       contentCode: this.notification.contentCode ?? "",
       isRead: this.notification.isRead ?? "0",

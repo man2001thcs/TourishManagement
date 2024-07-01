@@ -191,7 +191,7 @@
   <div class="tour-description">
     <mat-tab-group>
       <mat-tab
-        label="Lịch trình di chuyển"
+        label="Lịch trình di chuyển chính"
         *ngIf="(tourishPlan?.movingSchedules ?? []).length > 0"
       >
         <ng-template matTabContent>
@@ -255,6 +255,21 @@
             <span style="font-weight: bold">Tổng giá:</span>
             {{ formatVNCurrency(getTotalPrice()) }}. Dịch vụ bao gồm:
           </p>
+          <h3 *ngIf="(tourishPlan?.movingSchedules ?? []).length > 0">
+            Lịch trình di chuyển chính
+          </h3>
+          <mat-list>
+            <mat-list-item
+              *ngFor="let schedule of tourishPlan?.movingSchedules ?? []"
+            >
+              <span matListItemTitle>Dịch vụ: {{ schedule.branchName }}</span>
+
+              <span matListItemLine
+                >Giá cả: {{ formatVNCurrency(schedule.singlePrice ?? 0) }}</span
+              >
+            </mat-list-item>
+          </mat-list>
+
           <h3 *ngIf="(tourishPlan?.eatSchedules ?? []).length > 0">
             Dịch vụ ăn uống
           </h3>
@@ -270,22 +285,9 @@
               >
             </mat-list-item>
           </mat-list>
-          <h3 *ngIf="(tourishPlan?.movingSchedules ?? []).length > 0">
-            Dịch vụ di chuyển
-          </h3>
-          <mat-list>
-            <mat-list-item
-              *ngFor="let schedule of tourishPlan?.movingSchedules ?? []"
-            >
-              <span matListItemTitle>Dịch vụ: {{ schedule.branchName }}</span>
-
-              <span matListItemLine
-                >Giá cả: {{ formatVNCurrency(schedule.singlePrice ?? 0) }}</span
-              >
-            </mat-list-item>
-          </mat-list>
+          
           <h3 *ngIf="(tourishPlan?.stayingSchedules ?? []).length > 0">
-            Dịch vụ ăn ở
+            Dịch vụ ngủ nghỉ
           </h3>
           <mat-list>
             <mat-list-item

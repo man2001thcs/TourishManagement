@@ -198,7 +198,7 @@ export class MovingScheduleDetailComponent implements OnInit, OnDestroy {
   }
 
   formReset(): void {
-    this.editformGroup_info.setValue({
+    this.editformGroup_info.patchValue({
       id: this.movingSchedule.id ?? "",
       tourishPlanId: this.movingSchedule.tourishPlanId ?? "",
       name: this.movingSchedule.name ?? "",

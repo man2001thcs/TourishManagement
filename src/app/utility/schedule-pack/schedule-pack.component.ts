@@ -167,7 +167,7 @@ export class SchedulePackComponent implements OnInit, AfterViewInit {
       if (this.objectType == 0) return "Đặt vé xe khách";
     } else if (this.scheduleType == 2) {
       if (this.objectType == 1) return "Đặt trước khách sạn";
-      if (this.objectType == 0) return "Đặt Homestay khách sạn";
+      if (this.objectType == 0) return "Đặt Homestay";
     }
     return "Dịch vụ ";
   }

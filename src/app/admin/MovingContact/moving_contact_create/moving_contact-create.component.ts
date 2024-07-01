@@ -127,7 +127,7 @@ export class MovingContactCreateComponent implements OnInit, OnDestroy {
   }
 
   formReset(): void {
-    this.createformGroup_info.setValue({
+    this.createformGroup_info.patchValue({
       branchName: "",
       hotlineNumber: "",
       supportEmail: "",

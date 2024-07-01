@@ -222,7 +222,7 @@ export class MovingReceiptUserDetailComponent implements OnInit, OnDestroy {
   }
 
   formReset(): void {
-    this.editformGroup_info.setValue({
+    this.editformGroup_info.patchValue({
       guestName: this.receipt.guestName ?? "",
       movingScheduleId: this.receipt.movingScheduleId ?? "",
       serviceScheduleId: this.receipt.serviceScheduleId ?? "",

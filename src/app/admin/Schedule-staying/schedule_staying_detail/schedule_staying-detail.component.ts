@@ -178,11 +178,12 @@ export class StayingScheduleDetailComponent implements OnInit, OnDestroy {
   }
 
   formReset(): void {
-    this.editformGroup_info.setValue({
+    this.editformGroup_info.patchValue({
       id: this.stayingSchedule.id ?? "",
       tourishPlanId: this.stayingSchedule.tourishPlanId ?? "",
       name: this.stayingSchedule.name ?? "",
       placeName: this.stayingSchedule.placeName ?? "",
+      address: this.stayingSchedule.address ?? "",
       supportNumber: this.stayingSchedule.supportNumber ?? "",
       singlePrice: this.stayingSchedule.singlePrice ?? 0,
       restHouseType: this.stayingSchedule.restHouseType ?? 0,

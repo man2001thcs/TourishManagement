@@ -193,7 +193,7 @@ export class RestHouseContactDetailComponent implements OnInit, OnDestroy {
   }
 
   formReset(): void {
-    this.editformGroup_info.setValue({
+    this.editformGroup_info.patchValue({
       placeBranch: this.RestHouseContact.placeBranch ?? "",
       hotlineNumber: this.RestHouseContact.hotlineNumber ?? "",
       supportEmail: this.RestHouseContact.supportEmail ?? "",

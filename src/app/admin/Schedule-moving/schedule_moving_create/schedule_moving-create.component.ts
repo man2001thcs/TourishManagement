@@ -141,14 +141,14 @@ export class MovingScheduleCreateComponent implements OnInit, OnDestroy {
   }
 
   formReset(): void {
-    this.createformGroup_info.setValue({
+    this.createformGroup_info.patchValue({
       name: "",
       branchName: "",
       driverName: "",
       vehiclePlate: "",
       phoneNumber: "",
-      singlePrice: null,
-      vehicleType: null,
+      singlePrice: 0,
+      vehicleType: 0,
       transportId: "",
       startingPlace: "",
       headingPlace: "",

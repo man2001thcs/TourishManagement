@@ -222,7 +222,7 @@ export class ReceiptDetailComponent implements OnInit, OnDestroy {
   }
 
   formReset(): void {
-    this.editformGroup_info.setValue({
+    this.editformGroup_info.patchValue({
       guestName: this.receipt.guestName ?? "",
       tourishPlanId: this.receipt.tourishPlanId ?? "",
       tourishScheduleId: this.receipt.tourishScheduleId ?? "",

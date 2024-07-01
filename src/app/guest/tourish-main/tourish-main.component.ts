@@ -52,7 +52,7 @@ export class TourishMainComponent implements OnInit {
   getCategory() {
     const params = {
       page: 1,
-      pageSize: 4,
+      pageSize: 6,
     };
 
     this.http

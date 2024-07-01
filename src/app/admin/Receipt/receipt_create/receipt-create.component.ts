@@ -138,7 +138,7 @@ export class ReceiptCreateComponent implements OnInit, OnDestroy {
   }
 
   formReset(): void {
-    this.createformGroup_info.setValue({
+    this.createformGroup_info.patchValue({
       guestName: "",
       tourishPlanId: "",
       tourishScheduleId: "",

@@ -87,6 +87,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.imageUploadState.subscribe((state) => {
         if (state) {
+          this.messageService.closeLoadingDialog();
           this.imageList = state.data ?? [];
 
           if (this.imageList?.length > 0) {
@@ -108,7 +109,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.imageDeleteState.subscribe((state) => {
         if (state) {
-          console.log(state);
+          this.messageService.closeLoadingDialog();
           this.messageService.openMessageNotifyDialog(state.messageCode);
 
           if (state.resultCd === 0) {
@@ -128,6 +129,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.errorMessageState.subscribe((state) => {
         if (state) {
+          this.messageService.closeLoadingDialog();
           if (state !== "" && state !== null) {
             this.messageService.openMessageNotifyDialog(state);
           }
@@ -138,6 +140,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.errorSystemState.subscribe((state) => {
         if (state) {
+          this.messageService.closeLoadingDialog();
           if (state !== "" && state !== null) {
             this.messageService.openSystemFailNotifyDialog(state);
           }
@@ -147,6 +150,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
 
     this.store.dispatch(ImageListActions.initial());
 
+    this.messageService.openLoadingDialog();
     this.store.dispatch(
       ImageListActions.getImageList({
         payload: {
@@ -242,6 +246,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
       formData.append("productId", this.productId ?? "");
       formData.append("productType", this.productType.toString());
 
+      this.messageService.openLoadingDialog();
       this.http
         .post("/api/FileUpload", formData, {
           reportProgress: true,
@@ -257,6 +262,8 @@ export class FileUploadComponent implements OnInit, OnDestroy {
             else if (event.type === HttpEventType.Response) {
               this.imageList = [];
               this.urlList = [];
+
+              this.messageService.closeLoadingDialog();
               this.messageService
                 .openNotifyDialog("Upload thành công")
                 .subscribe(() => {

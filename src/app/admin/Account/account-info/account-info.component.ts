@@ -192,7 +192,7 @@ export class AccountInfoComponent implements OnInit, OnDestroy {
   }
 
   formReset(): void {
-    this.editformGroup_info.setValue({
+    this.editformGroup_info.patchValue({
       userName: this.account.userName ?? "",
       phoneNumber: this.account.phoneNumber ?? "",
       email: this.account.email ?? "",

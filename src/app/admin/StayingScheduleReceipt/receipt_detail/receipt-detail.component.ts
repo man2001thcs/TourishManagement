@@ -227,7 +227,7 @@ export class StayingScheduleReceiptDetailComponent
   }
 
   formReset(): void {
-    this.editformGroup_info.setValue({
+    this.editformGroup_info.patchValue({
       guestName: this.receipt.guestName ?? "",
       stayingScheduleId: this.receipt.stayingScheduleId ?? "",
       serviceScheduleId: this.receipt.serviceScheduleId ?? "",

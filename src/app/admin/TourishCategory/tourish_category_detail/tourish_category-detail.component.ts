@@ -153,7 +153,7 @@ export class TourishCategoryDetailComponent implements OnInit, OnDestroy {
   }
 
   formReset(): void {
-    this.editformGroup_info.setValue({
+    this.editformGroup_info.patchValue({
       name: this.tourishCategory.name ?? "",
       description: this.tourishCategory.description,
     });

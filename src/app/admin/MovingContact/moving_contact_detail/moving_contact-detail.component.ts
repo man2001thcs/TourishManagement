@@ -170,7 +170,7 @@ export class MovingContactDetailComponent implements OnInit, OnDestroy {
   }
 
   formReset(): void {
-    this.editformGroup_info.setValue({
+    this.editformGroup_info.patchValue({
       branchName: this.MovingContact.branchName ?? "",
       hotlineNumber: this.MovingContact.hotlineNumber ?? "",
       supportEmail: this.MovingContact.supportEmail ?? "",

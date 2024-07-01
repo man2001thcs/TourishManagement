@@ -262,6 +262,20 @@
           </ng-template>
         </mat-tab>
 
+        <mat-tab label="Lịch trình di chuyển chính">
+          <ng-template matTabContent>
+            <div class="row" style="width: 100%; margin-left: 0 !important">
+              <moving-multiselect-autocomplete
+                [disabled]="disabled"
+                [data_selected]="tourishPlan.movingSchedules ?? []"
+                (result)="selectChangeMoving($event)"
+                style="width: 100%"
+              >
+              </moving-multiselect-autocomplete>
+            </div>
+          </ng-template>
+        </mat-tab>
+
         <mat-tab label="Dịch vụ ăn uống">
           <ng-template matTabContent>
             <div class="row" style="width: 100%; margin-left: 0 !important">
@@ -272,20 +286,6 @@
                 style="width: 100%"
               >
               </eating-multiselect-autocomplete>
-            </div>
-          </ng-template>
-        </mat-tab>
-
-        <mat-tab label="Dịch vụ di chuyển">
-          <ng-template matTabContent>
-            <div class="row" style="width: 100%; margin-left: 0 !important">
-              <moving-multiselect-autocomplete
-                [disabled]="disabled"
-                [data_selected]="tourishPlan.movingSchedules ?? []"
-                (result)="selectChangeMoving($event)"
-                style="width: 100%"
-              >
-              </moving-multiselect-autocomplete>
             </div>
           </ng-template>
         </mat-tab>

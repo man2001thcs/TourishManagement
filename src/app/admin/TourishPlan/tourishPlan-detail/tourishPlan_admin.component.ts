@@ -294,9 +294,9 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
   }
 
   formReset_create_info(): void {
-    this.isSubmitting = true;
+    this.isSubmitting = false;
 
-    this.editformGroup_info.setValue({
+    this.editformGroup_info.patchValue({
       tourName: this.tourishPlan.tourName,
 
       startingPoint: this.tourishPlan.startingPoint,

@@ -247,6 +247,8 @@ export class HeaderComponent implements OnInit {
       queryParams: { category: category }, // Replace 'key' and 'value' with your actual query parameters
     };
     this.router.navigate(["guest/" + url], navigationExtras);
+
+    this.closeNav();
   }
 
   async navigateServiceUrl(url: string, type: string) {
@@ -254,6 +256,7 @@ export class HeaderComponent implements OnInit {
       queryParams: { serviceType: type }, // Replace 'key' and 'value' with your actual query parameters
     };
     this.router.navigate(["guest/" + url], navigationExtras);
+    this.closeNav();
   }
 
   getBlobUrl() {

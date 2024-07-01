@@ -12,13 +12,16 @@
       <div class="image-container">
         <img
           mat-card-image
+          (error)="handleImageError($event)"
           src="{{ this.firstImageUrl }}"
-          alt="Photo of a Shiba Inu"
+          alt="Ảnh miêu tả"
         />
       </div>
 
       <div>
-        <p class="tour-name">{{ getTourName(tourName) }}</p>
+        <p class="tour-name" [matTooltip]="tourName">
+          {{ getTourName(tourName) }}
+        </p>
         <div
           style="
             display: flex;
@@ -46,13 +49,27 @@
           >
             {{ getRateString(score) }}
           </p>
-          <p class="tour-judge" style="margin-right: 7px" *ngIf="judgeNumber > 0">|</p>
-          <p class="tour-judge" *ngIf="judgeNumber > 0">{{ judgeNumber }} đánh giá</p>
+          <p
+            class="tour-judge"
+            style="margin-right: 7px"
+            *ngIf="judgeNumber > 0"
+          >
+            |
+          </p>
+          <p class="tour-judge" *ngIf="judgeNumber > 0">
+            {{ judgeNumber }} đánh giá
+          </p>
         </div>
 
         <div style="display: flex; flex-direction: row; align-items: center">
           <p class="tour-price">{{ formatVNCurrency(tourPrice) }}</p>
-          <p class="tour-history">{{ customerNumber === 0 ? "Chưa có khách đặt" : customerNumber + " khách đã đặt"}} </p>
+          <p class="tour-history">
+            {{
+              customerNumber === 0
+                ? "Chưa có khách đặt"
+                : customerNumber + " khách đã đặt"
+            }}
+          </p>
         </div>
       </div>
     </div>

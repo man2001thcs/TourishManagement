@@ -3,11 +3,12 @@
     <img
       mat-card-image
       src="{{ this.firstImageUrl }}"
-      alt="Photo of a Shiba Inu"
+      (error)="handleImageError($event)"
+      alt="Ảnh miêu tả"
     />
   </div>
   <mat-card-content>
-    <p class="tour-name">{{ getTourName(tourName) }}</p>
+    <p class="tour-name" [matTooltip]="tourName">{{ getTourName(tourName) }}</p>
 
     <div
       class="row"

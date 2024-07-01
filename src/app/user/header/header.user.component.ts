@@ -457,6 +457,7 @@ export class HeaderUserComponent implements OnDestroy {
       queryParams: { category: category }, // Replace 'key' and 'value' with your actual query parameters
     };
     this.router.navigate(["user/" + url], navigationExtras);
+    this.closeNav();
   }
 
   async navigateServiceUrl(url: string, type: string) {
@@ -464,6 +465,7 @@ export class HeaderUserComponent implements OnDestroy {
       queryParams: { serviceType: type }, // Replace 'key' and 'value' with your actual query parameters
     };
     this.router.navigate(["user/" + url], navigationExtras);
+    this.closeNav();
   }
 
   setNotifyUnread($event: number) {

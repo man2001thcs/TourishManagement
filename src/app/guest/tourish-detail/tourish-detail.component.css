@@ -60,6 +60,12 @@
   font-size: 18px;
 }
 
+.tour-description-content h4.tour-name {
+  margin-left: 18px;
+  font-weight: bold;
+  font-size: 22px;
+}
+
 .service-item {
   display: flex;
   width: 135px;

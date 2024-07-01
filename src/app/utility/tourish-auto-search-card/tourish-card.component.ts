@@ -142,4 +142,8 @@ export class TourishPlanAutoSearchCardComponent implements OnInit{
   formatVNCurrency(num: number): string {
     return num.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
   }
+
+  handleImageError(event: any) {
+    event.target.src = "../../../assets/no-image.jpg"; // Replace with your placeholder image path
+  }
 }

@@ -11,13 +11,14 @@
       <div class="image-container">
         <img
           mat-card-image
+          (error)="handleImageError($event)"
           src="{{ this.firstImageUrl }}"
-          alt="Photo of a Shiba Inu"
+          alt="Ảnh miêu tả"
         />
       </div>
 
       <div>
-        <p class="tour-name">{{ getTourName(tourName) }}</p>
+        <p class="tour-name" [matTooltip]="tourName">{{ getTourName(tourName) }}</p>
         <div
           style="
             display: flex;

@@ -127,14 +127,18 @@ export class TourishPlanCardComponent implements OnInit {
   }
 
   getTourName(inputString: string) {
-    if (inputString.length <= 32) {
+    if (inputString.length <= 28) {
       return inputString;
     } else {
-      return inputString.substring(0, 32) + "...";
+      return inputString.substring(0, 28) + "...";
     }
   }
 
   formatVNCurrency(num: number): string {
     return num.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
+  }
+
+  handleImageError(event: any) {
+    event.target.src = "../../../assets/no-image.jpg"; // Replace with your placeholder image path
   }
 }

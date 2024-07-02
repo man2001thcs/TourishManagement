@@ -117,11 +117,32 @@ export class NotificationSingleComponent implements OnInit {
     }
 
     if (notify.contentCode !== null) {
-      contentPhase =
-        getViNotifyMessagePhase(notify.contentCode ?? "") + objectName;
+      if (notify.contentCode?.includes("I412-service")) {
+        let updateService = [];
+        if (notify.contentCode?.includes("moving")) {
+          updateService.push("lịch trình di chuyển chính");
+        }
 
-      if ((notify.contentCode ?? "").length <= 0) {
-        contentPhase = " " + notify.content;
+        if (notify.contentCode?.includes("staying")) {
+          updateService.push("dịch vụ ngủ nghỉ");
+        }
+
+        if (notify.contentCode?.includes("eating")) {
+          updateService.push("dịch vụ ăn uống");
+        }
+
+        contentPhase =
+          getViNotifyMessagePhase("I412-service") +
+          updateService.join(", ") +
+          " cho tour: " +
+          objectName;
+      } else {
+        contentPhase =
+          getViNotifyMessagePhase(notify.contentCode ?? "") + objectName;
+
+        if ((notify.contentCode ?? "").length <= 0) {
+          contentPhase = " " + notify.content;
+        }
       }
     } else contentPhase = " " + notify.content;
 

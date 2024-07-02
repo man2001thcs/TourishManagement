@@ -299,4 +299,9 @@ export class HeaderComponent implements OnInit {
   closeSearch($event: boolean) {
     this.closeAutoCompleteSearch();
   }
+
+  async navigateNavUrl(url: string) {
+    this.router.navigate(["guest/" + url]);
+    this.closeNav();
+  }
 }

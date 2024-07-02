@@ -192,6 +192,7 @@
             <button
               class="nav-button"
               ngbNavLink
+              [matTooltip]="category.name"
               (click)="navigateCategoryUrl('search-page', category.name)"
             >
               {{ category.name }}
@@ -275,7 +276,7 @@
             <button
               class="nav-button"
               ngbNavLink
-              (click)="navigateUrl('receipt/list')"
+              (click)="navigateNavUrl('receipt/list')"
             >
               Hóa đơn tour
             </button>
@@ -285,7 +286,7 @@
             <button
               class="nav-button"
               ngbNavLink
-              (click)="navigateUrl('moving/receipt/list')"
+              (click)="navigateNavUrl('moving/receipt/list')"
             >
               Hóa đơn vé di chuyển
             </button>
@@ -295,7 +296,7 @@
             <button
               class="nav-button"
               ngbNavLink
-              (click)="navigateUrl('staying/receipt/list')"
+              (click)="navigateNavUrl('staying/receipt/list')"
             >
               Hóa đơn đặt khách sạn/Homestay
             </button>

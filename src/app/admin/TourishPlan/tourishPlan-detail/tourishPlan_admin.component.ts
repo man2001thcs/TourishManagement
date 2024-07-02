@@ -122,9 +122,9 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
         Validators.compose([Validators.required, Validators.minLength(3)]),
       ],
 
-      movingScheduleString: ["", Validators.compose([Validators.required])],
-      eatingScheduleString: ["", Validators.compose([Validators.required])],
-      stayingScheduleString: ["", Validators.compose([Validators.required])],
+      movingScheduleString: [""],
+      eatingScheduleString: [""],
+      stayingScheduleString: [""],
     });
 
     this.subscriptions.push(
@@ -145,16 +145,12 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
             state.supportNumber
           );
 
-          this.editformGroup_info.controls["eatingScheduleString"].setValue(
-            JSON.stringify(state.eatSchedules)
-          );
+          this.editformGroup_info.controls["eatingScheduleString"].setValue("");
 
-          this.editformGroup_info.controls["movingScheduleString"].setValue(
-            JSON.stringify(state.movingSchedules)
-          );
+          this.editformGroup_info.controls["movingScheduleString"].setValue("");
 
           this.editformGroup_info.controls["stayingScheduleString"].setValue(
-            JSON.stringify(state.stayingSchedules)
+            ""
           );
 
           this.scheduleList = state.tourishScheduleList ?? [];
@@ -222,7 +218,6 @@ export class TourishPlanDetailAdminComponent implements OnInit, OnDestroy {
 
       this.messageService.openLoadingDialog();
     });
-   
 
     this.store.dispatch(TourishPlanActions.initial());
 

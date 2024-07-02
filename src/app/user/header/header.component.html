@@ -192,6 +192,7 @@
             <button
               class="nav-button"
               ngbNavLink
+              [matTooltip]="category.name"
               (click)="navigateCategoryUrl('search-page', category.name)"
             >
               {{ category.name }}

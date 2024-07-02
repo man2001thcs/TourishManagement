@@ -20,6 +20,7 @@ export const SUCCESS_MESSAGE_CODE_VI: Map<string, string> = new Map([
   ["I411", " đã thêm tour: "],
   ["I412", " đã cập nhật thông tin cơ bản của tour: "],
   ["I412-schedule", " đã cập nhật lịch trình tour: "],
+  ["I412-service", " đã thay đổi "],
   ["I412-new-schedule", " đã thêm lịch trình tour: "],
   ["I413", " đã xóa tour: "],
 

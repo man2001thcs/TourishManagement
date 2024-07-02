@@ -18,13 +18,10 @@ const ADMIN_HEADER_CODE: Map<string, string> = new Map([
 ]);
 
 const USER_HEADER_CODE: Map<string, string> = new Map([
-  ["/user/service-search-page", "1st"],
-  ["/user/service-search-page", "2nd"],
-
+  ["/user/service-search-page?serviceType=moving", "1st"],
+  ["/user/service-search-page?serviceType=staying", "2nd"],
   ["/user/receipt/list", "3rd"],
-
   ["/user/moving/receipt/list", "4th"],
-
   ["/user/staying/receipt/list", "5th"],
 ]);
 

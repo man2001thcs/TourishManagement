@@ -119,9 +119,9 @@ export class HeaderUserComponent implements OnDestroy {
         if (query.get("serviceType")) {
           const serviceType = query.get("serviceType") ?? "";
           if (serviceType.length > 0) {
-            if (serviceType == "moving") {
+            if (serviceType === "moving") {
               this.activeItem = "1st";
-            } else if (serviceType == "staying") {
+            } else if (serviceType === "staying") {
               this.activeItem = "2nd";
             }
           }
@@ -365,6 +365,7 @@ export class HeaderUserComponent implements OnDestroy {
 
   async navigateUrl(url: string) {
     this.router.navigate(["user/" + url]);
+
   }
 
   getImageList() {
@@ -465,6 +466,11 @@ export class HeaderUserComponent implements OnDestroy {
       queryParams: { serviceType: type }, // Replace 'key' and 'value' with your actual query parameters
     };
     this.router.navigate(["user/" + url], navigationExtras);
+    this.closeNav();
+  }
+
+  async navigateNavUrl(url: string) {
+    this.router.navigate(["user/" + url]);
     this.closeNav();
   }
 

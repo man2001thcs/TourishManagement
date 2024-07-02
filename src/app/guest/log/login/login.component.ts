@@ -165,6 +165,10 @@ export class LoginComponent implements OnInit {
             this.messageService.openFailNotifyDialog(
               "Vui lòng truy cập tài khoản email để xác thực tài khoản"
             );
+          } else if (response.Role === "Cancelled") {
+            this.messageService.openFailNotifyDialog(
+              "Tài khoản của bạn đã bị khóa, vui lòng liên hệ CSKH để được hỗ trợ"
+            );
           } else {
             this.messageService
               .openNotifyDialog("Đăng nhập thành công")

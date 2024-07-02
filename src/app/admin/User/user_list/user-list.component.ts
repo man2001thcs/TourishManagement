@@ -95,7 +95,6 @@ export class UserListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.subscriptions.push(
       this.userDeleteState.subscribe((state) => {
         if (state) {
-          
           this.messageService.openMessageNotifyDialog(state.messageCode);
 
           if (state.resultCd === 0) {
@@ -167,8 +166,6 @@ export class UserListComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      
-
       this.store.dispatch(
         UserListActions.getUserList({
           payload: {
@@ -257,7 +254,7 @@ export class UserListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onChangeUserType($event: number) {
-    this.userType = $event + 1;
+    this.userType = $event - 1;
     this.pageIndex = 0;
 
     this.userList = [];
@@ -296,17 +293,16 @@ export class UserListComponent implements OnInit, AfterViewInit, OnDestroy {
     return chuoiNgayThang;
   }
 
-
   getIndex(elementId: string) {
     return this.userList.findIndex((el) => el.id === elementId) + 1;
   }
 
   getRolePhase(input: number) {
     if (input === 0) return "Tài khoản mới chờ xác nhận mail";
-    else  if (input === 1) return "Người dùng";
+    else if (input === 1) return "Người dùng";
     else if (input === 2) return "Nhân viên quản lý chờ xác thực";
     else if (input === 3) return "Nhân viên quản lý";
-
+    else if (input === -1) return "Tài khoản bị khóa";
     return "Người dùng";
   }
 }

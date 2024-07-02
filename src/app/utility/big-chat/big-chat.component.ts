@@ -198,7 +198,7 @@ export class BigChatComponent implements OnInit {
   getMessageConList() {
     const params = {
       page: 1,
-      pageSize: 6,
+      pageSize: 1000,
     };
 
     this.messageService.openLoadingDialog();

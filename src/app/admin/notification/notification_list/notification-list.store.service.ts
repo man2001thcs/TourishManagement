@@ -9,7 +9,7 @@ export class NotificationListStoreService {
   constructor(private http: HttpClient) {}
 
   getNotificationList(payload: any): Observable<any> {
-    return this.http.get("/api/GetNotification", {params: payload});
+    return this.http.get("/api/GetNotification/creator", {params: payload});
   }
 
   deleteNotification(payload: any): Observable<any> {

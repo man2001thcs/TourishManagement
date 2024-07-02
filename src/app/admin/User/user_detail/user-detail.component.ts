@@ -208,4 +208,8 @@ export class UserDetailComponent implements OnInit, OnDestroy {
       );
     }
   }
+
+  closeDialog() {
+    this.dialog.closeAll();
+  }
 }

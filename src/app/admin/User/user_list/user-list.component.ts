@@ -197,7 +197,7 @@ export class UserListComponent implements OnInit, AfterViewInit, OnDestroy {
   openDeleteDialog(id: string) {
     const ref = this.dialog.open(ConfirmDialogComponent, {
       data: {
-        title: "Bạn có muốn xóa đối tác này không?",
+        title: "Bạn có muốn xóa người dùng này không?",
       },
     });
 

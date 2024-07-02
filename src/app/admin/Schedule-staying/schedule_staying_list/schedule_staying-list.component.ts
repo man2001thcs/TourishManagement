@@ -306,7 +306,7 @@ export class StayingScheduleListComponent
   openDeleteDialog(id: string) {
     const ref = this.dialog.open(ConfirmDialogComponent, {
       data: {
-        title: "Bạn có muốn xóa đối tác này không?",
+        title: "Bạn có muốn xóa lịch trình này không?",
       },
     });
 

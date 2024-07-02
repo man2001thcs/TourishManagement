@@ -115,7 +115,7 @@ export class ChatGuestSelectorComponent implements OnInit, OnChanges {
 
   getTime(input: string) {
     if (input === "") return "";
-    const sendTime = new Date(input.replace('Z', ''));
+    const sendTime = new Date(input.replace("Z", ""));
 
     const now = new Date(); // Get current date and time
 
@@ -151,9 +151,27 @@ export class ChatGuestSelectorComponent implements OnInit, OnChanges {
 
   getLastMessage() {
     if (this.guestMessageConHistory.guestMessageCon.guestMessages != null) {
-      if (this.guestMessageConHistory.guestMessageCon.guestMessages.length > 0)
-        this.lastMessage =
-          this.guestMessageConHistory.guestMessageCon.guestMessages[0];
+      if (
+        this.guestMessageConHistory.guestMessageCon.guestMessages.length > 0
+      ) {
+        for (
+          let i = 0;
+          i < this.guestMessageConHistory.guestMessageCon.guestMessages.length;
+          i++
+        ) {
+          if (
+            this.guestMessageConHistory.guestMessageCon.guestMessages[i]
+              .side !== 1
+          ) {
+            this.lastMessage =
+              this.guestMessageConHistory.guestMessageCon.guestMessages[i];
+            break;
+          }
+        }
+
+        // this.lastMessage =
+        //   this.guestMessageConHistory.guestMessageCon.guestMessages[0];
+      }
     }
   }
 

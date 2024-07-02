@@ -4,35 +4,34 @@
       <mat-card-title>Yêu cầu tư vấn</mat-card-title>
     </mat-card-header>
     <mat-card-actions>
-
       <div
-      style="
-        flex-direction: row;
-        align-items: center;
-        margin-left: 15px;
-        margin-top: 22px !important;
-      "
-    >
-      <mat-form-field appearance="outline" class="full-width-input">
-        <input
-          #searchInput
-          matInput
-          type="text"
-          fullwidth
-          name="search"
-          id="search"
-          placeholder="Tìm kiếm"
-          [(ngModel)]="searchPhase"
-        />
-      </mat-form-field>
-      <button mat-button status="primary" (click)="search()">
-        <i
-          class="fa fa-search"
-          aria-hidden="true"
-          style="font-size: 15px"
-        ></i>
-      </button>
-    </div>
+        style="
+          flex-direction: row;
+          align-items: center;
+          margin-left: 15px;
+          margin-top: 22px !important;
+        "
+      >
+        <mat-form-field appearance="outline" class="full-width-input">
+          <input
+            #searchInput
+            matInput
+            type="text"
+            fullwidth
+            name="search"
+            id="search"
+            placeholder="Tìm kiếm"
+            [(ngModel)]="searchPhase"
+          />
+        </mat-form-field>
+        <button mat-button status="primary" (click)="search()">
+          <i
+            class="fa fa-search"
+            aria-hidden="true"
+            style="font-size: 15px"
+          ></i>
+        </button>
+      </div>
     </mat-card-actions>
   </mat-card>
 
@@ -56,9 +55,7 @@
           No.
         </th>
         <td mat-cell *matCellDef="let element">
-          <a routerLink="/admin/authorDetail/{{ element.id }}/edit">
-            {{ getIndex(element.id) }}</a
-          >
+          {{ getIndex(element.id) }}
         </td>
       </ng-container>
 
@@ -72,7 +69,9 @@
         >
           Tên khách
         </th>
-        <td mat-cell *matCellDef="let element">{{ element.guestMessageCon.guestName }}</td>
+        <td mat-cell *matCellDef="let element">
+          {{ element.guestMessageCon.guestName }}
+        </td>
       </ng-container>
 
       <!-- SS Column -->
@@ -85,7 +84,9 @@
         >
           Email
         </th>
-        <td mat-cell *matCellDef="let element">{{ element.guestMessageCon.guestEmail }}</td>
+        <td mat-cell *matCellDef="let element">
+          {{ element.guestMessageCon.guestEmail }}
+        </td>
       </ng-container>
 
       <!-- SS Column -->
@@ -98,7 +99,9 @@
         >
           Số điện thoại liên lạc
         </th>
-        <td mat-cell *matCellDef="let element">{{ element.guestMessageCon.guestPhoneNumber }}</td>
+        <td mat-cell *matCellDef="let element">
+          {{ element.guestMessageCon.guestPhoneNumber }}
+        </td>
       </ng-container>
 
       <!-- SS Column -->
@@ -131,7 +134,13 @@
       <ng-container matColumnDef="edit">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let element">
-          <button mat-button (click)="onClickConnect(element.guestMessageCon.connectionID)" [disabled]="element.status != 2">{{connectStatus(element.status)}}</button>
+          <button
+            mat-button
+            (click)="onClickConnect(element.guestMessageCon.connectionID)"
+            [disabled]="element.status != 2"
+          >
+            {{ connectStatus(element.status) }}
+          </button>
         </td>
       </ng-container>
 

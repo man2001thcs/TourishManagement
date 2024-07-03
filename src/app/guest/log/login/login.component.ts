@@ -72,7 +72,7 @@ export class LoginComponent implements OnInit {
 
     this.activated = this._route.snapshot.queryParamMap.get("activated") ?? "";
 
-    this.redirectUrl = this._route.snapshot.queryParamMap.get("redirect-url") ?? "";
+    this.redirectUrl = this._route.snapshot.queryParamMap.get("redirect-url") ?? "/user/main-page";
 
     if (this.activated == "1")
       this.openSnackBar(

@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   Input,
+  OnDestroy,
   OnInit,
   Renderer2,
   ViewChild,
@@ -10,22 +11,11 @@ import {
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-import { ActivatedRoute, Router } from "@angular/router";
-import { faL } from "@fortawesome/free-solid-svg-icons";
-
-import { NgbCarouselConfig } from "@ng-bootstrap/ng-bootstrap";
+import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
 import { EditorComponent } from "@tinymce/tinymce-angular";
-import { Slider } from "angular-carousel-slider/lib/angular-carousel-slider.component";
-import { error } from "highcharts";
-import { Subscription, catchError, of } from "rxjs";
-import {
-  MovingSchedule,
-  SaveFile,
-  TourishSchedule,
-  StayingSchedule,
-  User,
-} from "src/app/model/baseModel";
-import { ConfirmDialogComponent } from "src/app/utility/confirm-dialog/confirm-dialog.component";
+
+import { Subscription, catchError, filter, of } from "rxjs";
+import { SaveFile, TourishSchedule, User } from "src/app/model/baseModel";
 import { MessageService } from "src/app/utility/user_service/message.service";
 import { TokenStorageService } from "src/app/utility/user_service/token.service";
 import { environment } from "src/environments/environment";
@@ -36,7 +26,7 @@ declare let tinymce: any;
   templateUrl: "./schedule-detail.component.html",
   styleUrls: ["./schedule-detail.component.css"],
 })
-export class ScheduleDetailComponent implements OnInit {
+export class ScheduleDetailComponent implements OnInit, OnDestroy {
   @Input()
   data!: string;
 
@@ -67,21 +57,33 @@ export class ScheduleDetailComponent implements OnInit {
   scheduleType = "0";
   subscriptions: Subscription[] = [];
 
+  currentUrl = "";
+
   constructor(
     private fb: FormBuilder,
     private _route: ActivatedRoute,
     private http: HttpClient,
     private sanitizer: DomSanitizer,
-    private rendered2: Renderer2,
     private messageService: MessageService,
-    private elementRef: ElementRef,
     private tokenStorageService: TokenStorageService,
-    private dialog: MatDialog,
     private router: Router
   ) {}
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((sub) => sub.unsubscribe());
+  }
 
   ngOnInit() {
-    // this.scheduleId = this._route.snapshot.paramMap.get("id") ?? "";
+    this.currentUrl = this.router.url;
+
+    this.subscriptions.push(
+      this.router.events
+        .pipe(filter((event) => event instanceof NavigationEnd))
+        .subscribe((event) => {
+          if (event instanceof NavigationEnd) {
+            this.currentUrl = this.router.url;
+          }
+        })
+    );
 
     this.scheduleType =
       this._route.snapshot.queryParamMap.get("schedule-type") ?? "";
@@ -112,6 +114,7 @@ export class ScheduleDetailComponent implements OnInit {
     this.subscriptions.push(
       this._route.paramMap.subscribe((params) => {
         this.scheduleId = params.get("id") ?? "";
+        this.scrollToTop();
         this.getScheduleImage();
         this.getSchedule();
         this.getAccount();
@@ -120,6 +123,10 @@ export class ScheduleDetailComponent implements OnInit {
   }
 
   slides: any[] = [];
+
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 
   getDuration() {
     if ((this.schedule?.serviceScheduleList ?? []).length > 0) {
@@ -297,7 +304,13 @@ export class ScheduleDetailComponent implements OnInit {
     if (this.tokenStorageService.getUserRole() != "User") {
       this.messageService
         .openFailNotifyDialog("Vui lòng đăng nhập để thanh toán!")
-        .subscribe(() => this.router.navigate(["/guest/login"]));
+        .subscribe(() =>
+          this.router.navigate(["/guest/login"], {
+            queryParams: {
+              "redirect-url": this.currentUrl.replace("guest", "user"),
+            },
+          })
+        );
     } else {
       let payload: any = {
         guestName: this.setTourForm.value.name,
@@ -327,11 +340,9 @@ export class ScheduleDetailComponent implements OnInit {
           if (response) {
             this.messageService.closeAllDialog();
             if (response.messageCode == "I511") {
-              if (response.messageCode == "I511") {
-                this.messageService.openNotifyDialog(
-                  "Đã gửi yêu cầu thành công, vui lòng chờ hóa đơn được xác nhận để thanh toán"
-                );
-              }
+              this.messageService.openNotifyDialog(
+                "Đã gửi yêu cầu thành công, vui lòng chờ hóa đơn được xác nhận để thanh toán"
+              );
             } else
               this.messageService.openMessageNotifyDialog(response.messageCode);
           }

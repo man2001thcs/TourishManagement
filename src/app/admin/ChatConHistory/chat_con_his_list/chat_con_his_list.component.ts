@@ -166,6 +166,7 @@ export class GuestMessageConHistoryListComponent
     this.pageSize = e.pageSize;
     this.pageIndex = e.pageIndex;
 
+    
     this.messageService.openLoadingDialog();
     this.store.dispatch(
       GuestMessageConHistoryListActions.getGuestMessageConHistoryList({

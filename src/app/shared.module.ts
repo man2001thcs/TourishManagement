@@ -86,6 +86,7 @@ import { SendBigChatComponent } from "./utility/big-chat/send-chat/chat.componen
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { AboutPageComponent } from "./utility/footer/about-page/about-page.component";
 import { PolicyPageComponent } from "./utility/footer/policy/policy.component";
+import { ServiceCommentSectionComponent } from "./utility/service-comment-section/comment-section.component";
 
 @NgModule({
   declarations: [
@@ -101,6 +102,7 @@ import { PolicyPageComponent } from "./utility/footer/policy/policy.component";
     TinyMceEditorComponent,
     ChatGuestSelectorComponent,
     CommentSectionComponent,
+    ServiceCommentSectionComponent,
     CommentTourSingleComponent,
     NotificationPackComponent,
     ChatComponent,
@@ -222,6 +224,7 @@ import { PolicyPageComponent } from "./utility/footer/policy/policy.component";
     MatProgressSpinnerModule,
     MatSidenavModule,
     CommentSectionComponent,
+    ServiceCommentSectionComponent,
     CommentTourSingleComponent,
     NotificationPackComponent,
 

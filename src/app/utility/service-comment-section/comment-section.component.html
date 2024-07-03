@@ -1,6 +1,6 @@
 <div class="pack-container" id="pack-container" #packContainer>
   <div class="title">
-    <h4 class="tour-name">Bình luận</h4>
+    <h4 class="service-name">Bình luận</h4>
   </div>
   <div class="comment-pack">
     <div class="send-rate">
@@ -14,13 +14,6 @@
         {{ !isSending ? "Gửi" : "Đang gửi" }}
       </button>
 
-      <app-star-rating
-        *ngIf="isUserLogin()"
-        [rating]="rating"
-        [starCount]="starCount"
-        [tourishPlanId]="tourishPlanId"
-        (ratingUpdated)="onRatingChanged($event)"
-      ></app-star-rating>
     </div>
     <app-tiny-mce-editor
       *ngIf="isUserLogin()"
@@ -40,18 +33,18 @@
 
   <div class="comment-list">
     <app-comment-tour-single
-      *ngFor="let tourComment of tourishPLanCommentList"
+      *ngFor="let serviceComment of serviceCommentList"
       style="width: 100%"
-      [blobName]="tourComment.id"
-      [isUserComment]="isUserComment(tourComment.userId)"
-      [blobContainerName]="'tourish-comment-container'"
-      [userId]="tourComment.userId"
-      [senderName]="tourComment.userName"
-      [sendTime]="tourComment.createDate"
+      [blobName]="serviceComment.id"
+      [isUserComment]="isUserComment(serviceComment.userId)"
+      [blobContainerName]="blobContainerName"
+      [userId]="serviceComment.userId"
+      [senderName]="serviceComment.userName"
+      [sendTime]="serviceComment.createDate"
       (delete)="deleteComment($event)"
     />
     <h3
-      *ngIf="tourishPLanCommentList.length <= 0"
+      *ngIf="serviceCommentList.length <= 0"
       style="font-size: 25px; font-weight: bold"
     >
       <i class="fa fa-commenting-o" aria-hidden="true"></i> Không có bình luận
@@ -62,7 +55,7 @@
     <button
       mat-stroked-button
       style="color: rgb(4, 201, 201); font-size: 16px"
-      (click)="getMoreTourComment()"
+      (click)="getMoreServiceComment()"
       [disabled]="isLoading"
       *ngIf="canLoadMore"
     >

@@ -1,9 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Route } from "@angular/router";
 import { SignalRService } from "../user_service/signalr.service";
 import { GuestMessage, GuestMessageConHistory } from "src/app/model/baseModel";
-import { Subscription, catchError, of } from "rxjs";
+import { Subscription, catchError, of, timeout } from "rxjs";
 import { TokenStorageService } from "../user_service/token.service";
 import { HttpClient } from "@angular/common/http";
 import { MessageService } from "../user_service/message.service";
@@ -14,6 +14,8 @@ import { MessageService } from "../user_service/message.service";
   styleUrls: ["./big-chat.component.css"],
 })
 export class BigChatComponent implements OnInit {
+  @ViewChild("chatContent") private chatContent!: ElementRef;
+
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -43,7 +45,7 @@ export class BigChatComponent implements OnInit {
     this.getMessageConList();
 
     this.messFb = this.fb.group({
-      message: ["", Validators.compose([Validators.required])],
+      message: [""],
     });
 
     this.subscriptions.push(
@@ -77,6 +79,12 @@ export class BigChatComponent implements OnInit {
 
                 this.messFb.controls["message"].setValue("");
               }
+
+              setTimeout(() => {
+                const container = this.chatContent.nativeElement;
+                container.scrollTop = container.scrollHeight;
+              }, 500);
+              
             } else if (parseInt(insertMess.state) === 2) {
               let index = this.messageList.findIndex(
                 (mess) => mess.id === res.data3.id
@@ -88,6 +96,11 @@ export class BigChatComponent implements OnInit {
               if (index > -1) {
                 this.messageList[index] = guestMessage;
               } else this.messageList = [...this.messageList, guestMessage];
+
+              setTimeout(() => {
+                const container = this.chatContent.nativeElement;
+                container.scrollTop = container.scrollHeight;
+              }, 500);
             }
           }
         }
@@ -105,7 +118,7 @@ export class BigChatComponent implements OnInit {
 
   addEmoji(event: any) {
     console.log(event);
-    
+
     this.messFb.controls["message"].setValue(
       this.messFb.value.message + event.emoji.native
     );
@@ -155,25 +168,27 @@ export class BigChatComponent implements OnInit {
   }
 
   sendMessage() {
-    const userId = this.tokenStorageService.getUser().Id;
+    if (this.messFb.value.message.length > 0) {
+      const userId = this.tokenStorageService.getUser().Id;
 
-    const guestMessage: GuestMessage = {
-      id: undefined,
-      state: 0,
-      content: this.messFb.value.message,
-      side: 1,
-      createDate: new Date().toISOString(),
-    };
+      const guestMessage: GuestMessage = {
+        id: undefined,
+        state: 0,
+        content: this.messFb.value.message,
+        side: 1,
+        createDate: new Date().toISOString(),
+      };
 
-    this.isSending = true;
-    this.signalRService.invokeTwoInfoFeed(
-      "SendMessageToUser",
-      userId,
-      this.currentGuestConHis.guestMessageCon.guestEmail,
-      guestMessage
-    );
+      this.isSending = true;
+      this.signalRService.invokeTwoInfoFeed(
+        "SendMessageToUser",
+        userId,
+        this.currentGuestConHis.guestMessageCon.guestEmail,
+        guestMessage
+      );
 
-    this.messageList = [...this.messageList, guestMessage];
+      this.messageList = [...this.messageList, guestMessage];
+    }
   }
 
   signalRNotification() {

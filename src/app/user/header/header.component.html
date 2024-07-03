@@ -24,7 +24,11 @@
   </div>
 
   <div class="searchInput">
-    <mat-form-field appearance="outline" class="full-width-input" style="margin-top: 20px;">
+    <mat-form-field
+      appearance="outline"
+      class="full-width-input"
+      style="margin-top: 20px"
+    >
       <input
         #searchInput
         matInput
@@ -100,8 +104,12 @@
   <mat-menu #menu="matMenu">
     <button mat-menu-item (click)="userInfo()">Thông tin tài khoản</button>
     <button mat-menu-item (click)="tourReceipt()">Tour đã đặt</button>
-    <button mat-menu-item (click)="navigateUrl('moving/receipt/list')">Dịch vụ di chuyển đã đặt</button>
-    <button mat-menu-item (click)="navigateUrl('staying/receipt/list')">Khách sạn/Homestay đã đặt</button>
+    <button mat-menu-item (click)="navigateUrl('moving/receipt/list')">
+      Dịch vụ di chuyển đã đặt
+    </button>
+    <button mat-menu-item (click)="navigateUrl('staying/receipt/list')">
+      Khách sạn/Homestay đã đặt
+    </button>
     <button mat-menu-item (click)="signOut()">Đăng xuất</button>
   </mat-menu>
 
@@ -356,7 +364,9 @@
       (closeSearch)="closeSearch($event)"
       style="width: 100%"
     ></app-tourish-auto-search-card>
-    <h6 *ngIf="!isSearchLoading && tourList.length <= 0">Không có kết quả phù hợp</h6>
+    <h6 *ngIf="!isSearchLoading && tourList.length <= 0">
+      Không có kết quả phù hợp
+    </h6>
     <h6 *ngIf="isSearchLoading">Đang tìm kiếm</h6>
   </div>
 </div>
@@ -378,7 +388,7 @@
     </div>
   </div>
   <app-notification-pack
-    style="height: 90%"
+    style="height: 90%; width: 100%"
     (notifyUnreadNumber)="setNotifyUnread($event)"
     [isNotifyOpen]="isNotifyOpen"
     (closeNotifyTab)="closeNotifyInside($event)"

@@ -19,7 +19,7 @@
     </button>
   </div>
   <div #myChat class="chat-box">
-    <div class="chat-content" *ngIf="isChatSet">
+    <div class="chat-content" #chatContent *ngIf="isChatSet">
       <ng-template
         #chat_send_template
         let-id="id"

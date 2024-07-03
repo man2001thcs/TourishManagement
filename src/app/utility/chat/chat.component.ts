@@ -29,6 +29,8 @@ export class ChatComponent {
   @ViewChild("myChat")
   myChat!: ElementRef;
 
+  @ViewChild("chatContent") private chatContent!: ElementRef;
+
   isChatSet = false;
   isWaitingForSet = false;
   adminId = "";
@@ -54,7 +56,7 @@ export class ChatComponent {
 
   ngOnInit(): void {
     this.messFb = this.fb.group({
-      message: ["", Validators.compose([Validators.required])],
+      message: [""],
     });
 
     this.messRegister = this.fb.group({
@@ -113,6 +115,11 @@ export class ChatComponent {
                 this.isSending = false;
                 this.messFb.controls["message"].setValue("");
               }
+              
+              setTimeout(() => {
+                const container = this.chatContent.nativeElement;
+                container.scrollTop = container.scrollHeight;
+              }, 500);
             } else if (parseInt(insertMess.state) === 2) {
               let index = this.messageList.findIndex(
                 (mess) => mess.id === res.data3.id
@@ -122,6 +129,11 @@ export class ChatComponent {
               if (index > -1) {
                 this.messageList[index] = guestMessage;
               } else this.messageList = [...this.messageList, guestMessage];
+
+              setTimeout(() => {
+                const container = this.chatContent.nativeElement;
+                container.scrollTop = container.scrollHeight;
+              }, 500);
             }
           }
         }
@@ -229,32 +241,34 @@ export class ChatComponent {
   }
 
   sendMessage() {
-    const guestMessage: GuestMessage = {
-      state: 0,
-      side: 1,
-      content: this.messFb.value.message,
-      createDate: new Date().toISOString(),
-    };
+    if (this.messFb.value.message.length > 0) {
+      const guestMessage: GuestMessage = {
+        state: 0,
+        side: 1,
+        content: this.messFb.value.message,
+        createDate: new Date().toISOString(),
+      };
 
-    this.isSending = true;
+      this.isSending = true;
 
-    if (this.messRegister.value.isChatWithBot == "0")
-      this.signalRService.invokeTwoInfoFeed(
-        "SendMessageToAdmin",
-        this.adminId,
-        this.messRegister.value.guestEmail,
-        guestMessage
-      );
-    else {
-      this.signalRService.invokeTwoInfoFeed(
-        "SendMessageToBot",
-        "",
-        this.messRegister.value.guestEmail,
-        guestMessage
-      );
+      if (this.messRegister.value.isChatWithBot == "0")
+        this.signalRService.invokeTwoInfoFeed(
+          "SendMessageToAdmin",
+          this.adminId,
+          this.messRegister.value.guestEmail,
+          guestMessage
+        );
+      else {
+        this.signalRService.invokeTwoInfoFeed(
+          "SendMessageToBot",
+          "",
+          this.messRegister.value.guestEmail,
+          guestMessage
+        );
+      }
+
+      this.messageList.push(guestMessage);
     }
-
-    this.messageList.push(guestMessage);
   }
 
   openSignalRHub() {

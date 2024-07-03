@@ -1,6 +1,6 @@
 <div class="big-chat-container">
   <div class="chat-container">
-    <div class="chat-content">
+    <div class="chat-content" #chatContent>
       <h3
         style="margin-left: 20px; font-weight: bold"
         *ngIf="messageList.length <= 0 && this.connectionId == ''"
@@ -63,6 +63,7 @@
           fullwidth
           placeholder="Vd: Bồ Công Anh"
           formControlName="message"
+          (keyup.enter)="sendMessage()"
         />
       </mat-form-field>
 

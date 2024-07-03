@@ -11,9 +11,9 @@ import {
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
 import { EditorComponent } from "@tinymce/tinymce-angular";
-import { Subscription, catchError, of, scheduled } from "rxjs";
+import { Subscription, catchError, filter, of, scheduled } from "rxjs";
 import {
   SaveFile,
   TourishPlan,
@@ -60,6 +60,7 @@ export class TourishDetailComponent implements OnInit, OnDestroy {
   ratingArr: number[] = [];
 
   subscriptions: Subscription[] = [];
+  currentUrl: string = "";
 
   constructor(
     private fb: FormBuilder,
@@ -72,6 +73,7 @@ export class TourishDetailComponent implements OnInit, OnDestroy {
     private router: Router,
     private tokenStorageService: TokenStorageService
   ) {}
+
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => {
       subscription.unsubscribe();
@@ -79,7 +81,18 @@ export class TourishDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // this.tourishPlanId = this._route.snapshot.paramMap.get("id") ?? "";
+    this.currentUrl = this.router.url;
+
+    this.subscriptions.push(
+      this.router.events
+        .pipe(filter((event) => event instanceof NavigationEnd))
+        .subscribe((event) => {
+          if (event instanceof NavigationEnd) {
+            this.currentUrl = this.router.url;
+            console.log("test:" + this.currentUrl);
+          }
+        })
+    );
 
     for (let index = 0; index < 5; index++) {
       this.ratingArr.push(index);
@@ -107,6 +120,7 @@ export class TourishDetailComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this._route.paramMap.subscribe((params) => {
         this.tourishPlanId = params.get("id") ?? "";
+        this.scrollToTop();
         this.getRatingForTour();
         this.getTourImage();
         this.getTour();
@@ -213,13 +227,15 @@ export class TourishDetailComponent implements OnInit, OnDestroy {
             this.tourishPlan?.tourishScheduleList ?? [];
 
           if (this.tourishPlan.tourishScheduleList.length > 0) {
-            const index = this.tourishPlan.tourishScheduleList.findIndex(entity => entity.remainTicket ?? 0 > 0);
-            if (index > -1)
-            this.setTourForm.controls["tourishScheduleId"].setValue(
-              this.tourishPlan?.tourishScheduleList[index].id ?? ""
+            const index = this.tourishPlan.tourishScheduleList.findIndex(
+              (entity) => entity.remainTicket ?? 0 > 0
             );
+            if (index > -1)
+              this.setTourForm.controls["tourishScheduleId"].setValue(
+                this.tourishPlan?.tourishScheduleList[index].id ?? ""
+              );
           }
-        }
+        }       
       });
   }
 
@@ -322,7 +338,13 @@ export class TourishDetailComponent implements OnInit, OnDestroy {
     if (this.tokenStorageService.getUserRole() != "User") {
       this.messageService
         .openFailNotifyDialog("Vui lòng đăng nhập để thanh toán!")
-        .subscribe(() => this.router.navigate(["/guest/login"]));
+        .subscribe(() =>
+          this.router.navigate(["/guest/login"], {
+            queryParams: {
+              "redirect-url": this.currentUrl.replace("guest", "user"),
+            },
+          })
+        );
     } else {
       const payload = {
         guestName: this.setTourForm.value.name,
@@ -353,6 +375,8 @@ export class TourishDetailComponent implements OnInit, OnDestroy {
               this.messageService.openNotifyDialog(
                 "Đã gửi yêu cầu thành công, vui lòng chờ hóa đơn được xác nhận để thanh toán"
               );
+            } else {
+              this.messageService.openMessageNotifyDialog(response.messageCode);
             }
           }
         });
@@ -364,6 +388,10 @@ export class TourishDetailComponent implements OnInit, OnDestroy {
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
+  }
+
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   callPayment(orderId: string) {

@@ -45,6 +45,7 @@ export class LoginComponent implements OnInit {
   loginProfile: any;
   activated = "1";
 
+  redirectUrl = "/user/main-page";
   isRememberMeCheck = false;
 
   constructor(
@@ -70,6 +71,8 @@ export class LoginComponent implements OnInit {
     const rememberMe = this.tokenStorage.returnRememberMe();
 
     this.activated = this._route.snapshot.queryParamMap.get("activated") ?? "";
+
+    this.redirectUrl = this._route.snapshot.queryParamMap.get("redirect-url") ?? "/user/main-page";
 
     if (this.activated == "1")
       this.openSnackBar(
@@ -180,7 +183,7 @@ export class LoginComponent implements OnInit {
                     );
                   }
                   if (response.Role === "User") {
-                    this.router.navigate(["/user/main-page"]);
+                    this.router.navigate([this.redirectUrl]);
                   } else if (
                     response.Role === "Admin" ||
                     response.Role === "AdminManager"

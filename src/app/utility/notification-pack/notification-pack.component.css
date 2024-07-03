@@ -1,6 +1,7 @@
 .notify-pack {
   overflow-y: auto !important;
   height: 100% !important; 
+  width: 100%;
 }
 
 .single-notification {

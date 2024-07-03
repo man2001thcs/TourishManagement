@@ -94,6 +94,8 @@ export class CommentSectionComponent implements OnInit, OnChanges {
   getTourComment() {
     this.page = 1;
     this.tourishPLanCommentList = [];
+    this.canLoadMore = true;
+
     const params = {
       page: this.page,
       tourishPlanId: this.tourishPlanId,
@@ -147,32 +149,39 @@ export class CommentSectionComponent implements OnInit, OnChanges {
   sendComment() {
     const userId = this.tokenStorageService.getUser().Id;
     const name = this.tokenStorageService.getUser().UserName;
-    const payload = {
-      tourishPlanId: this.tourishPlanId,
-      content: this.editorContent,
-      userId: userId,
-    };
 
-    this.isSending = true;
+    if (this.editorContent.length <= 0) {
+      this.messageService.openFailNotifyDialog(
+        "Vui lòng nhập nội dung bình luận"
+      );
+    } else {
+      const payload = {
+        tourishPlanId: this.tourishPlanId,
+        content: this.editorContent,
+        userId: userId,
+      };
 
-    this.editorContent = "";
+      this.isSending = true;
 
-    this.http
-      .post("/api/AddTourComment", payload)
-      .subscribe((response: any) => {
-        if (response) {
-          this.isSending = false;
-          this.messageService.closeAllDialog();
-          this.messageService.openMessageNotifyDialog(response.messageCode);
+      this.editorContent = "";
 
-          var newData = response.data;
-          newData.userName = name;
-          this.tourishPLanCommentList = [
-            newData,
-            ...this.tourishPLanCommentList,
-          ];
-        }
-      });
+      this.http
+        .post("/api/AddTourComment", payload)
+        .subscribe((response: any) => {
+          if (response) {
+            this.isSending = false;
+            this.messageService.closeAllDialog();
+            this.messageService.openMessageNotifyDialog(response.messageCode);
+
+            var newData = response.data;
+            newData.userName = name;
+            this.tourishPLanCommentList = [
+              newData,
+              ...this.tourishPLanCommentList,
+            ];
+          }
+        });
+    }
   }
 
   isUserLogin() {

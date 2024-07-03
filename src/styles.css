@@ -25,6 +25,10 @@ mat-form-field {
   margin-bottom: 20px !important;
 }
 
+mat-paginator mat-form-field {
+  margin-bottom: 0px !important;
+}
+
 .validation-container {
   margin-top: -10px !important;
   margin-bottom: 15px !important;

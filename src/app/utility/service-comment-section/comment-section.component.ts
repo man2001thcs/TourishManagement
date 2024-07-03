@@ -79,7 +79,6 @@ export class ServiceCommentSectionComponent implements OnInit, OnChanges {
 
       this.getServiceComment();
     }
-
   }
 
   ngOnInit() {
@@ -97,8 +96,8 @@ export class ServiceCommentSectionComponent implements OnInit, OnChanges {
   }
 
   getServiceComment() {
-
     this.serviceCommentList = [];
+    this.canLoadMore = true;
     this.page = 1;
     const params = {
       page: this.page,
@@ -156,36 +155,39 @@ export class ServiceCommentSectionComponent implements OnInit, OnChanges {
     const userId = this.tokenStorageService.getUser().Id;
     const name = this.tokenStorageService.getUser().UserName;
 
-    let payload: any = {
-      content: this.editorContent,
-      userId: userId,
-    };
+    if (this.editorContent.length <= 0) {
+      this.messageService.openFailNotifyDialog(
+        "Vui lòng nhập nội dung bình luận"
+      );
+    } else {
+      let payload: any = {
+        content: this.editorContent,
+        userId: userId,
+      };
 
-    if (this.serviceType === 1) {
-      payload.movingScheduleId = this.serviceId;
-    } else if (this.serviceType === 2) {
-      payload.stayingScheduleId = this.serviceId;
+      if (this.serviceType === 1) {
+        payload.movingScheduleId = this.serviceId;
+      } else if (this.serviceType === 2) {
+        payload.stayingScheduleId = this.serviceId;
+      }
+
+      this.isSending = true;
+
+      this.http
+        .post("/api/AddServiceComment", payload)
+        .subscribe((response: any) => {
+          if (response) {
+            this.isSending = false;
+            this.editorContent = "";
+            this.messageService.closeAllDialog();
+            this.messageService.openMessageNotifyDialog(response.messageCode);
+
+            var newData = response.data;
+            newData.userName = name;
+            this.serviceCommentList = [newData, ...this.serviceCommentList];
+          }
+        });
     }
-
-    this.isSending = true;
-
-    this.http
-      .post("/api/AddServiceComment", payload)
-      .subscribe((response: any) => {
-        if (response) {
-          this.isSending = false;
-          this.editorContent = "";
-          this.messageService.closeAllDialog();
-          this.messageService.openMessageNotifyDialog(response.messageCode);
-
-          var newData = response.data;
-          newData.userName = name;
-          this.serviceCommentList = [
-            newData,
-            ...this.serviceCommentList,
-          ];
-        }
-      });
   }
 
   isUserLogin() {

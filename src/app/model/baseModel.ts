@@ -237,6 +237,17 @@ export interface TourishComment {
   updateDate: string;
 }
 
+export interface ServiceComment {
+  id: string;
+  userId: string;
+  userName: string;
+  movingScheduleId?: string;
+  stayingScheduleId?: string;
+  content?: string;
+  createDate: string;
+  updateDate: string;
+}
+
 export interface TotalReceipt {
   totalReceiptId?: string;
   tourishPlanId: string;

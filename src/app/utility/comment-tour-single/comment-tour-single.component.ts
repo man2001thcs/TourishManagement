@@ -3,8 +3,10 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  EventEmitter,
   Input,
   OnInit,
+  Output,
   Renderer2,
   ViewChild,
 } from "@angular/core";
@@ -14,6 +16,8 @@ import { TourishComment } from "src/app/model/baseModel";
 import { MessageService } from "../user_service/message.service";
 import { environment } from "src/environments/environment";
 import { FileModel } from "../image_avatar_service/imageUpload.component.model";
+import { MatDialog } from "@angular/material/dialog";
+import { ConfirmDialogComponent } from "../confirm-dialog/confirm-dialog.component";
 
 @Component({
   selector: "app-comment-tour-single",
@@ -24,6 +28,8 @@ export class CommentTourSingleComponent implements OnInit {
   @Input()
   senderName: string = "";
   @Input()
+  isUserComment = false;
+  @Input()
   sendTime: string = "";
   @Input()
   blobContainerName: string = "";
@@ -32,11 +38,14 @@ export class CommentTourSingleComponent implements OnInit {
   @Input()
   userId: string = "";
 
+  @Output() delete = new EventEmitter<string>();
+
   avatarLink = "";
 
   constructor(
     private fb: FormBuilder,
     private renderer: Renderer2,
+    private dialog: MatDialog,
     private http: HttpClient,
     private messageService: MessageService
   ) {}
@@ -74,6 +83,46 @@ export class CommentTourSingleComponent implements OnInit {
     return (timeChanges / 2592000).toFixed(0) + " tháng trước";
   }
 
+  onDeleteComment() {
+    const ref = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        title: "Bạn có muốn xóa bình luận này không?",
+      },
+    });
+
+    ref.afterClosed().subscribe((result) => {
+      if (result) {
+        if (this.blobContainerName.includes("tourish-comment")) {
+          this.http
+            .delete("/api/DeleteTourComment/" + this.blobName)
+            .subscribe((response: any) => {
+              if (response) {
+                this.messageService.closeAllDialog();
+                this.messageService.openMessageNotifyDialog(
+                  response.messageCode
+                );
+
+                this.delete.emit(this.blobContainerName);
+              }
+            });
+        } else if (this.blobContainerName.includes("service-comment")) {
+          this.http
+            .delete("/api/DeleteServiceComment/" + this.blobName)
+            .subscribe((response: any) => {
+              if (response) {
+                this.messageService.closeAllDialog();
+                this.messageService.openMessageNotifyDialog(
+                  response.messageCode
+                );
+
+                this.delete.emit(this.blobContainerName);
+              }
+            });
+        }
+      }
+    });
+  }
+
   getAvatar() {
     const payload = {
       resourceId: this.userId,
@@ -95,7 +144,7 @@ export class CommentTourSingleComponent implements OnInit {
         }
       });
 
-      this.avatarLink = avatarLink;
+    this.avatarLink = avatarLink;
   }
 
   generateUrl(image: FileModel) {
@@ -108,4 +157,6 @@ export class CommentTourSingleComponent implements OnInit {
       image.fileType
     );
   }
+
+
 }

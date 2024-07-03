@@ -12,7 +12,7 @@ import {
 } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ThemePalette } from "@angular/material/core";
-import { TourishComment } from "src/app/model/baseModel";
+import { ServiceComment } from "src/app/model/baseModel";
 import { MessageService } from "../user_service/message.service";
 import { environment } from "src/environments/environment";
 import { FileModel } from "../image_avatar_service/imageUpload.component.model";
@@ -20,13 +20,15 @@ import { TokenStorageService } from "../user_service/token.service";
 import { StarRatingColor } from "../star-rating/star-rating.component";
 
 @Component({
-  selector: "app-comment-section",
+  selector: "app-service-comment-section",
   templateUrl: "./comment-section.component.html",
   styleUrls: ["./comment-section.component.css"],
 })
-export class CommentSectionComponent implements OnInit, OnChanges {
+export class ServiceCommentSectionComponent implements OnInit, OnChanges {
   @Input()
-  tourishPlanId: string = "";
+  serviceId: string = "";
+  @Input()
+  serviceType: number = 1;
 
   @ViewChild("picker") eatingPicker: any;
   @ViewChild("packContainer") packContainer!: ElementRef;
@@ -36,7 +38,7 @@ export class CommentSectionComponent implements OnInit, OnChanges {
   rating: number = 3;
   starCount: number = 5;
 
-  setTourForm!: FormGroup;
+  setServiceForm!: FormGroup;
   isSubmit = false;
   showSpinners = true;
   showSeconds = false;
@@ -51,7 +53,9 @@ export class CommentSectionComponent implements OnInit, OnChanges {
 
   page = 1;
 
-  tourishPLanCommentList: TourishComment[] = [];
+  blobContainerName = "service-comment-container";
+
+  serviceCommentList: ServiceComment[] = [];
   length = 0;
 
   color: ThemePalette = "primary";
@@ -64,21 +68,22 @@ export class CommentSectionComponent implements OnInit, OnChanges {
     private messageService: MessageService
   ) {}
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes["tourishPlanId"]) {
+    if (changes["serviceId"]) {
       this.editorContent = "";
 
       this.isLoading = false;
       this.isSending = false;
       this.canLoadMore = true;
       this.isSubmit = false;
-      this.tourishPLanCommentList = [];
+      this.serviceCommentList = [];
 
-      this.getTourComment();
+      this.getServiceComment();
     }
+
   }
 
   ngOnInit() {
-    this.setTourForm = this.fb.group({
+    this.setServiceForm = this.fb.group({
       name: ["", Validators.compose([Validators.required])],
       endDate: ["", Validators.compose([Validators.required])],
       email: ["", Validators.compose([Validators.required])],
@@ -91,54 +96,57 @@ export class CommentSectionComponent implements OnInit, OnChanges {
     });
   }
 
-  getTourComment() {
+  getServiceComment() {
+
+    this.serviceCommentList = [];
     this.page = 1;
-    this.tourishPLanCommentList = [];
     const params = {
       page: this.page,
-      tourishPlanId: this.tourishPlanId,
+      serviceId: this.serviceId,
+      serviceType: this.serviceType,
       pageSize: 6,
     };
 
     this.isLoading = true;
     this.http
-      .get("/api/GetTourComment/tourishplan", { params: params })
+      .get("/api/GetServiceComment/service", { params: params })
       .subscribe((response: any) => {
         if (response) {
           this.isLoading = false;
-          this.tourishPLanCommentList = [
-            ...this.tourishPLanCommentList,
+          this.serviceCommentList = [
+            ...this.serviceCommentList,
             ...response.data,
           ];
           this.length = response.count;
 
-          if (this.tourishPLanCommentList.length >= this.length)
+          if (this.serviceCommentList.length >= this.length)
             this.canLoadMore = false;
         }
       });
   }
 
-  getMoreTourComment() {
+  getMoreServiceComment() {
     this.page++;
     const params = {
       page: this.page,
-      tourishPlanId: this.tourishPlanId,
+      serviceId: this.serviceId,
+      serviceType: this.serviceType,
       pageSize: 6,
     };
 
     this.isLoading = true;
     this.http
-      .get("/api/GetTourComment/tourishplan", { params: params })
+      .get("/api/GetServiceComment/service", { params: params })
       .subscribe((response: any) => {
         if (response) {
           this.isLoading = false;
-          this.tourishPLanCommentList = [
-            ...this.tourishPLanCommentList,
+          this.serviceCommentList = [
+            ...this.serviceCommentList,
             ...response.data,
           ];
           this.length = response.count;
 
-          if (this.tourishPLanCommentList.length >= this.length)
+          if (this.serviceCommentList.length >= this.length)
             this.canLoadMore = false;
         }
       });
@@ -147,29 +155,34 @@ export class CommentSectionComponent implements OnInit, OnChanges {
   sendComment() {
     const userId = this.tokenStorageService.getUser().Id;
     const name = this.tokenStorageService.getUser().UserName;
-    const payload = {
-      tourishPlanId: this.tourishPlanId,
+
+    let payload: any = {
       content: this.editorContent,
       userId: userId,
     };
 
+    if (this.serviceType === 1) {
+      payload.movingScheduleId = this.serviceId;
+    } else if (this.serviceType === 2) {
+      payload.stayingScheduleId = this.serviceId;
+    }
+
     this.isSending = true;
 
-    this.editorContent = "";
-
     this.http
-      .post("/api/AddTourComment", payload)
+      .post("/api/AddServiceComment", payload)
       .subscribe((response: any) => {
         if (response) {
           this.isSending = false;
+          this.editorContent = "";
           this.messageService.closeAllDialog();
           this.messageService.openMessageNotifyDialog(response.messageCode);
 
           var newData = response.data;
           newData.userName = name;
-          this.tourishPLanCommentList = [
+          this.serviceCommentList = [
             newData,
-            ...this.tourishPLanCommentList,
+            ...this.serviceCommentList,
           ];
         }
       });
@@ -249,7 +262,7 @@ export class CommentSectionComponent implements OnInit, OnChanges {
   onRatingChanged($event: any) {}
 
   deleteComment($event: string) {
-    this.getTourComment();
+    this.getServiceComment();
   }
 
   isUserComment(userIdInput: string) {

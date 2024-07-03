@@ -52,8 +52,8 @@ export class ScheduleDetailComponent implements OnInit {
   isMovingContactPresent = false;
   isTrainPresent = false;
   isPlanePresent = false;
-  isShipPresent =false;
-  isLocalTransportPresent= false;
+  isShipPresent = false;
+  isLocalTransportPresent = false;
 
   schedule?: any;
 
@@ -199,15 +199,16 @@ export class ScheduleDetailComponent implements OnInit {
         this.tourDescription = this.schedule?.description ?? "";
 
         if (this.schedule) {
-          if ((this.schedule.serviceScheduleList ?? []).length > 0){
-            const scheduleList = this.schedule.serviceScheduleList as TourishSchedule[];
-            const index =  scheduleList.findIndex(entity => entity.remainTicket ?? 0 > 0)
+          if ((this.schedule.serviceScheduleList ?? []).length > 0) {
+            const scheduleList = this.schedule
+              .serviceScheduleList as TourishSchedule[];
+            const index = scheduleList.findIndex(
+              (entity) => entity.remainTicket ?? 0 > 0
+            );
             this.setTourForm.controls["serviceScheduleId"].setValue(
               this.schedule.serviceScheduleList[index].id
             );
           }
-
-            
 
           if (this.schedule?.vehicleType !== undefined) {
             if (this.schedule?.vehicleType === 0) {
@@ -453,5 +454,9 @@ export class ScheduleDetailComponent implements OnInit {
   isTicketAvailable(tourishSchedule: any) {
     if (tourishSchedule?.remainTicket ?? 0 > 0) return true;
     return false;
+  }
+
+  getScheduleType() {
+    return parseInt(this.scheduleType);
   }
 }

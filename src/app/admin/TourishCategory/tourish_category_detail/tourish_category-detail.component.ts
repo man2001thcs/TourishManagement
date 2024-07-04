@@ -1,11 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit } from "@angular/core";
-import { Observable, Subscription, map } from "rxjs";
+import { Observable, Subscription } from "rxjs";
 import { MAT_DIALOG_DATA, MatDialog } from "@angular/material/dialog";
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-} from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { AdminService } from "../../service/admin.service";
 import { TourishCategoryParam } from "./tourish_category-detail.component.model";
@@ -124,13 +120,11 @@ export class TourishCategoryDetailComponent implements OnInit, OnDestroy {
 
     this.store.dispatch(TourishCategoryActions.initial());
 
-    
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
   }
 
   ngOnDestroy(): void {
-    
     this.store.dispatch(TourishCategoryActions.resetTourishCategory());
 
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
@@ -143,9 +137,7 @@ export class TourishCategoryDetailComponent implements OnInit, OnDestroy {
     });
   }
 
-  formSubmit(): void {
-    
-  }
+  formSubmit(): void {}
 
   formSubmit_edit_info(): void {
     this.isSubmitted = true;

@@ -1,5 +1,4 @@
 import { AdminService } from "../../service/admin.service";
-
 import {
   Component,
   OnInit,

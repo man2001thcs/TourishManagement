@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from "@angular/core";
-import { Observable, Subscription, map } from "rxjs";
+import { Observable, Subscription } from "rxjs";
 import {
   ConfirmDialogComponent,
 } from "src/app/utility/confirm-dialog/confirm-dialog.component";

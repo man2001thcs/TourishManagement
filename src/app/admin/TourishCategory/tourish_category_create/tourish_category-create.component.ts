@@ -1,14 +1,9 @@
-import { Response } from "../../../model/response";
 import { Component, Inject, OnDestroy, OnInit } from "@angular/core";
-
-import { Observable, Subscription, map } from "rxjs";
-
+import { Observable, Subscription } from "rxjs";
 import { MAT_DIALOG_DATA, MatDialog } from "@angular/material/dialog";
 import {
   FormBuilder,
-  FormControl,
   FormGroup,
-  Validators,
 } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 
@@ -21,7 +16,6 @@ import {
   getMessage,
   getSysError,
 } from "./tourish_category-create.store.selector";
-
 import { MessageService } from "src/app/utility/user_service/message.service";
 import { TourishCategory } from "src/app/model/baseModel";
 

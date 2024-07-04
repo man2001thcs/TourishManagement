@@ -1,4 +1,3 @@
-import { Response } from "../../../model/response";
 import {
   Component,
   ElementRef,
@@ -6,13 +5,7 @@ import {
   OnInit,
   ViewChild,
 } from "@angular/core";
-import {
-  ActivatedRouteSnapshot,
-  CanDeactivate,
-  Router,
-  RouterStateSnapshot,
-  UrlTree,
-} from "@angular/router";
+import { Router } from "@angular/router";
 import { Observable, Subscription, debounceTime, map } from "rxjs";
 import { ConfirmDialogComponent } from "src/app/utility/confirm-dialog/confirm-dialog.component";
 import { NotifyDialogComponent } from "src/app/utility/notification_admin/notify-dialog.component";
@@ -20,16 +13,12 @@ import { MatDialog } from "@angular/material/dialog";
 import {
   AbstractControl,
   FormBuilder,
-  FormControl,
   FormGroup,
   ValidationErrors,
   ValidatorFn,
   Validators,
 } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
-
-import { User } from "src/app/model/baseModel";
-
 import * as UserActions from "./signIn-create.store.action";
 import { State as UserState } from "./signIn-create.store.reducer";
 import { Store } from "@ngrx/store";
@@ -39,7 +28,7 @@ import {
   getMessage,
   getSysError,
 } from "./signIn-create.store.selector";
-import { HttpClient, HttpParams, HttpRequest } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import {
   getViErrMessagePhase,
   getViMessagePhase,
@@ -56,7 +45,6 @@ export const matchPasswordValidator: ValidatorFn = (
       match = true;
     }
   }
-  
 
   if (match) return { matchPassword: true };
   return null;
@@ -139,7 +127,10 @@ export class UserCreateComponent implements OnInit, OnDestroy {
         ],
 
         role: [0, Validators.compose([Validators.required])],
-        email: ["", Validators.compose([Validators.required, Validators.email])],
+        email: [
+          "",
+          Validators.compose([Validators.required, Validators.email]),
+        ],
         fullName: ["", Validators.compose([Validators.required])],
         address: ["", Validators.compose([Validators.required])],
         phoneNumber: ["", Validators.compose([Validators.required])],
@@ -232,7 +223,6 @@ export class UserCreateComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    
     this.store.dispatch(UserActions.resetUser());
 
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
@@ -257,8 +247,6 @@ export class UserCreateComponent implements OnInit, OnDestroy {
         })
       );
     }
-
-    
   }
 
   formReset_create_info(): void {
@@ -298,7 +286,7 @@ export class UserCreateComponent implements OnInit, OnDestroy {
   }
 
   // selectChange_author = (event: any) => {
-  //   
+  //
   //   this.author_submit = [...event.data];
   //   //console.log(this.author_submit);
   //   this.authorSubmitString = this.author_submit.join(";");

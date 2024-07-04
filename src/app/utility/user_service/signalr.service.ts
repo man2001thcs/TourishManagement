@@ -1,7 +1,5 @@
-import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import {
-  BehaviorSubject,
   Observable,
   Subject,
   catchError,
@@ -14,7 +12,6 @@ import {
   HubConnectionState,
   LogLevel,
 } from "@microsoft/signalr";
-import proxy_config from "../../proxy_config.json";
 import { TokenStorageService } from "src/app/utility/user_service/token.service";
 import { MessageService } from "src/app/utility/user_service/message.service";
 import { Router } from "@angular/router";

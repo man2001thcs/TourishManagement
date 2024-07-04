@@ -1,15 +1,10 @@
 import { Component, Inject, OnDestroy, OnInit } from "@angular/core";
-
-import { Observable, Subscription, map } from "rxjs";
-
+import { Observable, Subscription } from "rxjs";
 import { MAT_DIALOG_DATA, MatDialog } from "@angular/material/dialog";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
-import { Book } from "src/app/model/book";
 import { AdminService } from "../../service/admin.service";
-import { CheckDeactivate } from "../../interface/admin.check_edit";
 import { MovingScheduleParam } from "./schedule_moving-detail.component.model";
-
 import * as MovingScheduleActions from "./schedule_moving-detail.store.action";
 import { State as MovingScheduleState } from "./schedule_moving-detail.store.reducer";
 import { Store } from "@ngrx/store";

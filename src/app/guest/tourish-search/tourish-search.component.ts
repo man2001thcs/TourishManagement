@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, Input, OnInit, ViewChild } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup } from "@angular/forms";
 import { ThemePalette } from "@angular/material/core";
 import { ActivatedRoute } from "@angular/router";
 import { Subscription, catchError, of } from "rxjs";

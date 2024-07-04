@@ -2,18 +2,13 @@ import {
   Component,
   ElementRef,
   EventEmitter,
-  HostListener,
   OnInit,
   Output,
   Renderer2,
-  TemplateRef,
   ViewChild,
 } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
-import { LoginComponent } from "../log/login/login.component";
 import { FormControl, FormGroup } from "@angular/forms";
-import { OnInitEffects } from "@ngrx/effects";
-import { NbDialogService } from "@nebular/theme";
 import { Observable, Subscription, debounceTime } from "rxjs";
 import { UserService } from "src/app/utility/user_service/user.service";
 import { MessageService } from "src/app/utility/user_service/message.service";
@@ -21,7 +16,6 @@ import { NavigationExtras, Router } from "@angular/router";
 import { environment } from "src/environments/environment";
 import { TourishCategory, TourishPlan } from "src/app/model/baseModel";
 import { HttpClient } from "@angular/common/http";
-import { Category } from "src/app/model/book";
 
 @Component({
   selector: "app-guest-header",
@@ -139,8 +133,8 @@ export class HeaderComponent implements OnInit {
       this.myNameElem.nativeElement.style.width = "340px";
       this.myNameElem.nativeElement.style["margin-right"] = "0px";
       this.myNameElem.nativeElement.style["padding-top"] = "0px";
-      this.myNameElem.nativeElement.style["padding-left"] = "25px";
-      this.myNameElem.nativeElement.style["padding-right"] = "0px";
+      this.myNameElem.nativeElement.style["padding-left"] = "10px";
+      this.myNameElem.nativeElement.style["padding-right"] = "10px";
       this.myNameElem.nativeElement.style["border-bottom"] =
         "2px solid #EDF1F7";
       this.myNameElem.nativeElement.style["border-right"] = "2px solid #EDF1F7";

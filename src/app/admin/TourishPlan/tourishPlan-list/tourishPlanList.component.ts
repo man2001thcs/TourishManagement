@@ -1,5 +1,4 @@
 import { AdminService } from "../../service/admin.service";
-import { HashService } from "../../../utility/user_service/hash.service";
 import {
   Component,
   OnInit,
@@ -7,11 +6,9 @@ import {
   AfterViewInit,
   OnDestroy,
 } from "@angular/core";
-import { MatTableDataSource } from "@angular/material/table";
 import { MatSort, Sort } from "@angular/material/sort";
 import { MatPaginator, PageEvent } from "@angular/material/paginator";
 import { TourishPlan } from "./tourishPlanList.component.model";
-import { catchError, map, startWith, switchMap } from "rxjs/operators";
 import { Store } from "@ngrx/store";
 import { Observable, Subscription } from "rxjs";
 import { State as TourishPlanListState } from "./tourishPlanList.store.reducer";

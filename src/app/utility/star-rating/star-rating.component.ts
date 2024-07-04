@@ -4,12 +4,10 @@ import {
   Input,
   Output,
   EventEmitter,
-  ViewEncapsulation,
   ViewChild,
   ElementRef,
   OnDestroy,
 } from "@angular/core";
-import { MatSnackBar } from "@angular/material/snack-bar";
 import { TokenStorageService } from "../user_service/token.service";
 import { HttpClient } from "@angular/common/http";
 import {
@@ -17,8 +15,6 @@ import {
   Subscription,
   debounceTime,
   distinctUntilChanged,
-  fromEvent,
-  switchMap,
 } from "rxjs";
 
 @Component({

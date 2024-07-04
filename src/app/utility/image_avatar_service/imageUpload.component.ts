@@ -1,7 +1,6 @@
 import {
   HttpClient,
   HttpErrorResponse,
-  HttpEvent,
   HttpEventType,
 } from "@angular/common/http";
 import {
@@ -14,10 +13,8 @@ import {
   Output,
   ViewChild,
 } from "@angular/core";
-import { Observable, Subscription, catchError, finalize } from "rxjs";
+import { Subscription, finalize } from "rxjs";
 import { MessageService } from "../user_service/message.service";
-
-import { Store } from "@ngrx/store";
 import { FileModel } from "./imageUpload.component.model";
 import { TokenStorageService } from "../user_service/token.service";
 import { environment } from "src/environments/environment";
@@ -79,7 +76,6 @@ export class AvatarUploadComponent implements OnInit, OnDestroy {
   }
 
   changeFile(files: any) {
-
     if (files === null || files.length <= 0) {
       return;
     }

@@ -108,6 +108,7 @@ img.img-logo {
   overflow-x: auto;
   overflow-y: auto;
   transition: 0.5s;
+  padding-left: 0 !important;
   /* flex-direction: column;
   display: flex;
   align-items: center;

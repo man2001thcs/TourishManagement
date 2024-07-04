@@ -16,19 +16,9 @@ import {
   FormGroup,
   Validators,
 } from "@angular/forms";
-import { MatAutocompleteSelectedEvent } from "@angular/material/autocomplete";
-import { MatChipInputEvent } from "@angular/material/chips";
-import { Observable, Subscription, of, timer } from "rxjs";
-import { debounceTime } from "rxjs/operators";
-
-import { Store } from "@ngrx/store";
-
 import { MessageService } from "../../user_service/message.service";
-import { MovingContact, Instruction } from "src/app/model/baseModel";
-
-import moment from "moment";
+import { Instruction } from "src/app/model/baseModel";
 import { ThemePalette } from "@angular/material/core";
-import { faL } from "@fortawesome/free-solid-svg-icons";
 /**
  * @title Chips Autocomplete
  */

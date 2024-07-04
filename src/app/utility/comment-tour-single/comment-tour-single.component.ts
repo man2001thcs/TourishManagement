@@ -1,18 +1,13 @@
 import { HttpClient } from "@angular/common/http";
 import {
-  AfterViewInit,
   Component,
-  ElementRef,
   EventEmitter,
   Input,
   OnInit,
   Output,
   Renderer2,
-  ViewChild,
 } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { ThemePalette } from "@angular/material/core";
-import { TourishComment } from "src/app/model/baseModel";
+import { FormBuilder } from "@angular/forms";
 import { MessageService } from "../user_service/message.service";
 import { environment } from "src/environments/environment";
 import { FileModel } from "../image_avatar_service/imageUpload.component.model";

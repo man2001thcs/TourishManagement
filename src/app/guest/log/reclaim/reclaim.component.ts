@@ -1,7 +1,4 @@
-import { Response } from "../../../model/response";
 import {
-  AfterContentInit,
-  AfterViewInit,
   Component,
   ElementRef,
   OnDestroy,
@@ -9,18 +6,12 @@ import {
   ViewChild,
 } from "@angular/core";
 import {
-  ActivatedRouteSnapshot,
-  CanDeactivate,
   Router,
-  RouterStateSnapshot,
-  UrlTree,
 } from "@angular/router";
 import {
   Observable,
   Subscription,
   debounceTime,
-  distinctUntilChanged,
-  map,
 } from "rxjs";
 import { ConfirmDialogComponent } from "src/app/utility/confirm-dialog/confirm-dialog.component";
 import { NotifyDialogComponent } from "src/app/utility/notification_admin/notify-dialog.component";
@@ -28,16 +19,12 @@ import { MatDialog } from "@angular/material/dialog";
 import {
   AbstractControl,
   FormBuilder,
-  FormControl,
   FormGroup,
   ValidationErrors,
   ValidatorFn,
   Validators,
 } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
-
-import { User } from "src/app/model/baseModel";
-
 import * as UserActions from "./reclaim.store.action";
 import { State as UserState } from "./reclaim.store.reducer";
 import { Store } from "@ngrx/store";
@@ -48,10 +35,9 @@ import {
   getSysError,
   assignPassword,
 } from "./reclaim.store.selector";
-import { HttpClient, HttpParams, HttpRequest } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import {
-  getViErrMessagePhase,
-  getViMessagePhase,
+  getViErrMessagePhase
 } from "src/app/utility/config/messageCode";
 import { MatStepper } from "@angular/material/stepper";
 

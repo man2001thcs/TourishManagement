@@ -1,8 +1,6 @@
 import { Injectable } from "@angular/core";
-import { User, User_Info } from "../../model/user";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Response } from "../../model/response";
-import { Observable, of, map, catchError, filter } from "rxjs";
+import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
 import { HashService } from "./hash.service";
 @Injectable({
   providedIn: "root",

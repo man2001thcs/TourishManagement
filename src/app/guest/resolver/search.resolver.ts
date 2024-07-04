@@ -1,14 +1,9 @@
-import { HttpParams, HttpParamsOptions, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
-  Router, Resolve,
   RouterStateSnapshot,
   ActivatedRouteSnapshot
 } from '@angular/router';
-import { HttpClient } from '@microsoft/signalr';
 import { Observable, of } from 'rxjs';
-import { Book } from 'src/app/model/book';
-import { Response } from 'src/app/model/response';
 import { UserService } from 'src/app/utility/user_service/user.service';
 @Injectable({
   providedIn: 'root'

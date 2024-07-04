@@ -1,9 +1,7 @@
 import {
   Component,
-  OnChanges,
   OnDestroy,
   OnInit,
-  SimpleChanges,
 } from "@angular/core";
 import {
   ActivatedRouteSnapshot,
@@ -17,7 +15,6 @@ import { MatDialog } from "@angular/material/dialog";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { AdminService } from "../../service/admin.service";
-
 import * as TourishPlanActions from "./tourishPlan-detail.store.action";
 import { State as TourishPlanState } from "./tourishPlan-detail.store.reducer";
 import { Store } from "@ngrx/store";

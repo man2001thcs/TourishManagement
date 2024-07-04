@@ -1,9 +1,9 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { ActivatedRoute, Route } from "@angular/router";
+import { FormBuilder, FormGroup } from "@angular/forms";
+import { ActivatedRoute } from "@angular/router";
 import { SignalRService } from "../user_service/signalr.service";
 import { GuestMessage, GuestMessageConHistory } from "src/app/model/baseModel";
-import { Subscription, catchError, of, timeout } from "rxjs";
+import { Subscription, catchError, of } from "rxjs";
 import { TokenStorageService } from "../user_service/token.service";
 import { HttpClient } from "@angular/common/http";
 import { MessageService } from "../user_service/message.service";

@@ -11,7 +11,7 @@ import {
 import { FormControl } from "@angular/forms";
 import { MatAutocompleteSelectedEvent } from "@angular/material/autocomplete";
 import { MatChipInputEvent } from "@angular/material/chips";
-import { Observable, Subscription, of, timer } from "rxjs";
+import { Observable, Subscription } from "rxjs";
 import { debounceTime } from "rxjs/operators";
 
 import { State as StayingScheduleListState } from "./select-autocomplete.store.reducer";

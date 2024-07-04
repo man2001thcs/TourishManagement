@@ -1,10 +1,7 @@
 import {
-  AfterViewInit,
   Component,
   ElementRef,
   Input,
-  OnChanges,
-  SimpleChanges,
   ViewChild,
 } from "@angular/core";
 import { TokenStorageService } from "../user_service/token.service";

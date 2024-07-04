@@ -1,10 +1,8 @@
-import { User } from "../../model/user";
 import {
   Component,
   ElementRef,
   EventEmitter,
   OnDestroy,
-  OnInit,
   Output,
   Renderer2,
   ViewChild,
@@ -24,8 +22,6 @@ import {
 } from "@angular/router";
 import { Observable, Subscription } from "rxjs";
 import { TokenStorageService } from "src/app/utility/user_service/token.service";
-import { UserService } from "src/app/utility/user_service/user.service";
-
 import { debounceTime, filter } from "rxjs/operators";
 import { getUserHeaderPhase } from "src/app/utility/config/headerCode";
 import { environment } from "src/environments/environment";

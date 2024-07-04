@@ -3,11 +3,9 @@ import {
   ElementRef,
   Input,
   Renderer2,
-  SimpleChanges,
   ViewChild,
 } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
-import moment from "moment";
 import { Subscription, interval } from "rxjs";
 import { GuestMessage, GuestMessageConHistory } from "src/app/model/baseModel";
 

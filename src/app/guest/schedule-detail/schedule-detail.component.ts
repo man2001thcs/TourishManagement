@@ -1,19 +1,15 @@
 import { HttpClient } from "@angular/common/http";
 import {
   Component,
-  ElementRef,
   Input,
   OnDestroy,
   OnInit,
-  Renderer2,
   ViewChild,
 } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { MatDialog } from "@angular/material/dialog";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
 import { EditorComponent } from "@tinymce/tinymce-angular";
-
 import { Subscription, catchError, filter, of } from "rxjs";
 import { SaveFile, TourishSchedule, User } from "src/app/model/baseModel";
 import { MessageService } from "src/app/utility/user_service/message.service";

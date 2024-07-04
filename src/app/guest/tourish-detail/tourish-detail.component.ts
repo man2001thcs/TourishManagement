@@ -1,7 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import {
   Component,
-  ElementRef,
   Input,
   OnDestroy,
   OnInit,
@@ -13,14 +12,13 @@ import { MatDialog } from "@angular/material/dialog";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
 import { EditorComponent } from "@tinymce/tinymce-angular";
-import { Subscription, catchError, filter, of, scheduled } from "rxjs";
+import { Subscription, catchError, filter, of } from "rxjs";
 import {
   SaveFile,
   TourishPlan,
   TourishSchedule,
   User,
 } from "src/app/model/baseModel";
-import { ConfirmDialogComponent } from "src/app/utility/confirm-dialog/confirm-dialog.component";
 import { MessageService } from "src/app/utility/user_service/message.service";
 import { TokenStorageService } from "src/app/utility/user_service/token.service";
 import { environment } from "src/environments/environment";

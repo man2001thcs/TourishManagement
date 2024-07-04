@@ -8,7 +8,6 @@ import {
   ViewChild,
 } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
-import moment from "moment";
 import { Subscription } from "rxjs";
 import { GuestMessage, GuestMessageConHistory } from "src/app/model/baseModel";
 

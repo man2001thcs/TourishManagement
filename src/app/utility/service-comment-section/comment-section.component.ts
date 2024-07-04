@@ -1,6 +1,5 @@
 import { HttpClient } from "@angular/common/http";
 import {
-  AfterViewInit,
   Component,
   ElementRef,
   Input,
@@ -17,7 +16,6 @@ import { MessageService } from "../user_service/message.service";
 import { environment } from "src/environments/environment";
 import { FileModel } from "../image_avatar_service/imageUpload.component.model";
 import { TokenStorageService } from "../user_service/token.service";
-import { StarRatingColor } from "../star-rating/star-rating.component";
 
 @Component({
   selector: "app-service-comment-section",

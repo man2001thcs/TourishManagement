@@ -1,5 +1,4 @@
 import { AdminService } from "../../service/admin.service";
-
 import {
   Component,
   OnInit,
@@ -7,10 +6,8 @@ import {
   AfterViewInit,
   OnDestroy,
 } from "@angular/core";
-import { MatTableDataSource } from "@angular/material/table";
 import { MatSort, Sort } from "@angular/material/sort";
 import { MatPaginator, PageEvent } from "@angular/material/paginator";
-
 import { Store } from "@ngrx/store";
 import { Observable, Subscription } from "rxjs";
 import { State as MovingScheduleListState } from "./schedule_moving-list.store.reducer";

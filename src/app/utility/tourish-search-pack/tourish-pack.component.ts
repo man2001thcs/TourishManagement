@@ -1,26 +1,19 @@
-import { HttpClient, HttpParams } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import {
-  AfterViewInit,
   Component,
   ElementRef,
   Input,
   OnChanges,
-  OnDestroy,
   OnInit,
   Renderer2,
   SimpleChanges,
   ViewChild,
 } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup } from "@angular/forms";
 import { ThemePalette } from "@angular/material/core";
 import { ActivatedRoute } from "@angular/router";
-
-import { NgbCarouselConfig } from "@ng-bootstrap/ng-bootstrap";
-import { Slider } from "angular-carousel-slider/lib/angular-carousel-slider.component";
 import { Subscription } from "rxjs";
 import { TourishPlan } from "src/app/model/baseModel";
-import { messaging } from "src/conf/firebase.conf";
-import { environment } from "src/environments/environment";
 
 @Component({
   selector: "app-tourish-search-pack",

@@ -5,10 +5,9 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { Observable, map } from 'rxjs';
+import { Observable } from 'rxjs';
 import { UserService } from '../../utility/user_service/user.service';
 import { AdminService } from '../service/admin.service';
-import { Book } from 'src/app/model/book';
 @Injectable({
   providedIn: 'root',
 })

@@ -1,4 +1,3 @@
-import { I } from "@angular/cdk/keycodes";
 import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import * as Highcharts from "highcharts";

@@ -1,28 +1,10 @@
 import { TokenStorageService } from "src/app/utility/user_service/token.service";
-import { Component, Inject, OnDestroy, OnInit } from "@angular/core";
-import {
-  ActivatedRouteSnapshot,
-  CanDeactivate,
-  RouterStateSnapshot,
-  UrlTree,
-} from "@angular/router";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Observable, Subscription, map } from "rxjs";
-import {
-  ConfirmDialogComponent,
-  DialogData,
-} from "src/app/utility/confirm-dialog/confirm-dialog.component";
-import { NotifyDialogComponent } from "src/app/utility/notification_admin/notify-dialog.component";
-import { MAT_DIALOG_DATA, MatDialog } from "@angular/material/dialog";
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from "@angular/forms";
+import { MatDialog } from "@angular/material/dialog";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
-import { Book } from "src/app/model/book";
 import { AccountParam } from "./account-info.component.model";
-
 import * as AccountActions from "./account-info.store.action";
 import { State as AccountState } from "./account-info.store.reducer";
 import { Store } from "@ngrx/store";
@@ -69,7 +51,6 @@ export class UserAccountInfoComponent implements OnInit, OnDestroy {
   editAccountState!: Observable<any>;
   subscriptions: Subscription[] = [];
 
-
   constructor(
     private dialog: MatDialog,
     private fb: FormBuilder,
@@ -89,10 +70,7 @@ export class UserAccountInfoComponent implements OnInit, OnDestroy {
     this.editformGroup_info = this.fb.group({
       id: [this.id, Validators.compose([Validators.required])],
       userName: ["", Validators.compose([Validators.required])],
-      phoneNumber: [
-        "",
-        Validators.compose([Validators.required]),
-      ],
+      phoneNumber: ["", Validators.compose([Validators.required])],
       email: ["", Validators.compose([Validators.required])],
       address: ["", Validators.compose([Validators.required])],
       role: [
@@ -176,13 +154,11 @@ export class UserAccountInfoComponent implements OnInit, OnDestroy {
     this.messageService.openLoadingDialog();
     this.store.dispatch(AccountActions.initial());
 
-    
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
   }
 
   ngOnDestroy(): void {
-    
     this.store.dispatch(AccountActions.resetAccount());
 
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
@@ -199,9 +175,7 @@ export class UserAccountInfoComponent implements OnInit, OnDestroy {
     });
   }
 
-  formSubmit(): void {
-    
-  }
+  formSubmit(): void {}
 
   formSubmit_edit_info(): void {
     console.log(this.editformGroup_info.value);

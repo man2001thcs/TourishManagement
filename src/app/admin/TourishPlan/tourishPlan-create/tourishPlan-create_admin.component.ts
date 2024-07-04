@@ -1,8 +1,6 @@
-import { Response } from "../../../model/response";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import {
   ActivatedRouteSnapshot,
-  CanDeactivate,
   Router,
   RouterStateSnapshot,
   UrlTree,
@@ -13,7 +11,6 @@ import { NotifyDialogComponent } from "src/app/utility/notification_admin/notify
 import { MatDialog } from "@angular/material/dialog";
 import {
   FormBuilder,
-  FormControl,
   FormGroup,
   Validators,
 } from "@angular/forms";
@@ -21,13 +18,10 @@ import { ActivatedRoute } from "@angular/router";
 
 import {
   TourishCategoryRelation,
-  TourishPlan,
   TourishSchedule,
 } from "src/app/model/baseModel";
-
 import { AdminService } from "../../service/admin.service";
 import { CheckDeactivate } from "../../interface/admin.check_edit";
-
 import * as TourishPlanActions from "./tourishPlan-create.store.action";
 import { State as TourishPlanState } from "./tourishPlan-create.store.reducer";
 import { Store } from "@ngrx/store";

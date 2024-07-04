@@ -29,8 +29,6 @@ import {
 } from "./multiselect-autocomplete.store.selector";
 import { MessageService } from "../../user_service/message.service";
 import { MovingContact, MovingSchedule } from "src/app/model/baseModel";
-
-import moment from "moment";
 import { ThemePalette } from "@angular/material/core";
 /**
  * @title Chips Autocomplete

@@ -1,21 +1,15 @@
 import {
-  AfterViewInit,
   Component,
   ElementRef,
   EventEmitter,
-  Input,
-  OnChanges,
   Output,
   Renderer2,
-  SimpleChanges,
   ViewChild,
 } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-
-import moment from "moment";
 import { Subscription } from "rxjs";
 import { SignalRService } from "../user_service/signalr.service";
-import { GuestMessage, GuestMessageConHistory } from "src/app/model/baseModel";
+import { GuestMessage} from "src/app/model/baseModel";
 import { TokenStorageService } from "../user_service/token.service";
 import { MatDialog } from "@angular/material/dialog";
 import { ConfirmDialogComponent } from "../confirm-dialog/confirm-dialog.component";

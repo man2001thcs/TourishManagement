@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, Input, OnInit, ViewChild } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup } from "@angular/forms";
 import { ThemePalette } from "@angular/material/core";
 import { Router } from "@angular/router";
 import { catchError, of } from "rxjs";
@@ -56,7 +56,8 @@ export class TourishMainComponent implements OnInit {
     };
 
     this.http
-      .get("/api/GetTourCategory/client", { params: params }).pipe(
+      .get("/api/GetTourCategory/client", { params: params })
+      .pipe(
         catchError((error) => {
           this.messageService.openFailNotifyDialog(
             "Hệ thống đang gặp lỗi, vui lòng thử lại"
@@ -66,7 +67,7 @@ export class TourishMainComponent implements OnInit {
       )
       .subscribe((response: any) => {
         this.categoryList = response.data;
-        
+
         this.length = response.count;
       });
   }

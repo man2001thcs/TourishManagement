@@ -1,28 +1,12 @@
-import { Response } from "../../../model/response";
 import { Component, Inject, OnDestroy, OnInit } from "@angular/core";
-import {
-  ActivatedRouteSnapshot,
-  CanDeactivate,
-  RouterStateSnapshot,
-  UrlTree,
-} from "@angular/router";
 import { Observable, Subscription, map } from "rxjs";
-import {
-  ConfirmDialogComponent,
-  DialogData,
-} from "src/app/utility/confirm-dialog/confirm-dialog.component";
-import { NotifyDialogComponent } from "src/app/utility/notification_admin/notify-dialog.component";
 import { MAT_DIALOG_DATA, MatDialog } from "@angular/material/dialog";
 import {
   FormBuilder,
-  FormControl,
   FormGroup,
   Validators,
 } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
-import { Book } from "src/app/model/book";
-import { AdminService } from "../../service/admin.service";
-import { CheckDeactivate } from "../../interface/admin.check_edit";
 import { StayingScheduleParam } from "./schedule_staying-create.component.model";
 import * as MovingContactActions from "./schedule_staying-create.store.action";
 import { State as schedule_stayingState } from "./schedule_staying-create.store.reducer";
@@ -32,7 +16,6 @@ import {
   getMessage,
   getSysError,
 } from "./schedule_staying-create.store.selector";
-import { FailNotifyDialogComponent } from "src/app/utility/notification_admin/fail-notify-dialog.component";
 import { MessageService } from "src/app/utility/user_service/message.service";
 import { StayingSchedule } from "src/app/model/baseModel";
 import { ThemePalette } from "@angular/material/core";

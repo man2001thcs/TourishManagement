@@ -1,7 +1,6 @@
 import {
   HttpClient,
   HttpErrorResponse,
-  HttpEvent,
   HttpEventType,
 } from "@angular/common/http";
 import {
@@ -14,7 +13,7 @@ import {
   Output,
   ViewChild,
 } from "@angular/core";
-import { Observable, Subscription, catchError, finalize } from "rxjs";
+import { Observable, Subscription, finalize } from "rxjs";
 import { MessageService } from "../user_service/message.service";
 
 import { State as ImageUploadState } from "./imageUpload.store.reducer";

@@ -1,9 +1,7 @@
 import { UserService } from '../../utility/user_service/user.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, Observable, of, map } from 'rxjs';
-import { Book } from 'src/app/model/book';
-import { Response } from 'src/app/model/response';
+import { Observable, of, } from 'rxjs';
 import { HashService } from '../../utility/user_service/hash.service';
 
 @Injectable({

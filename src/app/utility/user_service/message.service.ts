@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import * as CryptoJS from "crypto-js";
 import { NotifyDialogComponent } from "../notification_admin/notify-dialog.component";
 import { FailNotifyDialogComponent } from "../notification_admin/fail-notify-dialog.component";
 import { MatDialog } from "@angular/material/dialog";

@@ -16,7 +16,7 @@ import {
 } from "@angular/forms";
 import { MatAutocompleteSelectedEvent } from "@angular/material/autocomplete";
 import { MatChipInputEvent } from "@angular/material/chips";
-import { Observable, Subscription, of, timer } from "rxjs";
+import { Observable, Subscription} from "rxjs";
 import { debounceTime } from "rxjs/operators";
 
 import { State as EatingListState } from "./multiselect-autocomplete.store.reducer";
@@ -29,8 +29,6 @@ import {
 } from "./multiselect-autocomplete.store.selector";
 import { MessageService } from "../../user_service/message.service";
 import { Restaurant, EatSchedule } from "src/app/model/baseModel";
-
-import moment from "moment";
 import { ThemePalette } from "@angular/material/core";
 
 /**

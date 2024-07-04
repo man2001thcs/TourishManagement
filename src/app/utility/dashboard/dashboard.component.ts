@@ -654,11 +654,11 @@ export class DashboardComponent implements OnInit {
           );
 
           for (let i = 0; i < ticketArray.length; i++) {
-            const percentage = ticketArray[0].totalTicket / sumTicket;
+            const percentage = ticketArray[i].totalTicket / sumTicket;
             const name =
-              ticketArray[0].name +
+              ticketArray[i].name +
               ", tổng cộng " +
-              ticketArray[0].totalTicket +
+              ticketArray[i].totalTicket +
               " người đặt";
 
             this.pieMovingChartOptions.series[0].data.push([name, percentage]);
@@ -691,11 +691,11 @@ export class DashboardComponent implements OnInit {
           );
 
           for (let i = 0; i < ticketArray.length; i++) {
-            const percentage = ticketArray[0].totalTicket / sumTicket;
+            const percentage = ticketArray[i].totalTicket / sumTicket;
             const name =
-              ticketArray[0].name +
+              ticketArray[i].name +
               ", tổng cộng " +
-              ticketArray[0].totalTicket +
+              ticketArray[i].totalTicket +
               " người đặt";
 
             this.pieStayingChartOptions.series[0].data.push([name, percentage]);

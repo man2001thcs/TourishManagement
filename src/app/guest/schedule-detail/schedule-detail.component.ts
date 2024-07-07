@@ -1,11 +1,5 @@
 import { HttpClient } from "@angular/common/http";
-import {
-  Component,
-  Input,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-} from "@angular/core";
+import { Component, Input, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
@@ -121,7 +115,7 @@ export class ScheduleDetailComponent implements OnInit, OnDestroy {
   slides: any[] = [];
 
   scrollToTop() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   getDuration() {
@@ -336,9 +330,16 @@ export class ScheduleDetailComponent implements OnInit, OnDestroy {
           if (response) {
             this.messageService.closeAllDialog();
             if (response.messageCode == "I511") {
-              this.messageService.openNotifyDialog(
-                "Đã gửi yêu cầu thành công, vui lòng chờ hóa đơn được xác nhận để thanh toán"
-              );
+              this.messageService
+                .openNotifyDialog(
+                  "Đã gửi yêu cầu thành công, vui lòng chờ hóa đơn được xác nhận để thanh toán"
+                )
+                .subscribe(() => {
+                  if (this.scheduleType === "1")
+                    this.router.navigate(["user/moving/receipt/list"]);
+                  else if (this.scheduleType === "2")
+                    this.router.navigate(["user/staying/receipt/list"]);
+                });
             } else
               this.messageService.openMessageNotifyDialog(response.messageCode);
           }

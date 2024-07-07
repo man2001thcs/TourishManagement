@@ -372,7 +372,9 @@ export class TourishDetailComponent implements OnInit, OnDestroy {
             if (response.messageCode == "I511") {
               this.messageService.openNotifyDialog(
                 "Đã gửi yêu cầu thành công, vui lòng chờ hóa đơn được xác nhận để thanh toán"
-              );
+              ).subscribe(() => {
+                this.router.navigate(["user/receipt/list"]);
+              });
             } else {
               this.messageService.openMessageNotifyDialog(response.messageCode);
             }

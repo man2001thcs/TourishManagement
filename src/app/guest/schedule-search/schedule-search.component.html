@@ -29,8 +29,8 @@
             [multiple]="false"
             (selectionChange)="serviceChange($event)"
           >
-            <mat-list-option [value]="1">Vé di chuyển</mat-list-option>
-            <mat-list-option [value]="2">Book Homestay/Hotel</mat-list-option>
+            <mat-list-option [value]="1" [selected]="this.scheduleType === 1">Vé di chuyển</mat-list-option>
+            <mat-list-option [value]="2" [selected]="this.scheduleType === 2">Book Homestay/Hotel</mat-list-option>
           </mat-selection-list>
         </mat-card-content>
       </mat-card>
@@ -43,7 +43,7 @@
         [formGroup]="setTourForm"
         style="height: fit-content !important; margin-left: 0 !important;"
       >
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 create-form">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 create-form">
           <mat-form-field appearance="outline" class="full-width-input">
             <mat-label>Bạn muốn đi đâu</mat-label>
             <input
@@ -116,6 +116,26 @@
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 create-form">
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Loại dịch vụ</mat-label>
+            <mat-select formControlName="objectType" *ngIf="this.scheduleType === 1">
+              <mat-option [value]="'-1'">Tất cả</mat-option>
+              <mat-option [value]="'0'">Xe khách</mat-option>
+              <mat-option [value]="'1'">Máy bay</mat-option>
+              <mat-option [value]="'2'">Tàu hỏa</mat-option>
+              <mat-option [value]="'3'">Tàu biển</mat-option>
+              <mat-option [value]="'4'">Phương tiện tại địa điểm du lịch</mat-option>
+            </mat-select>
+
+            <mat-select formControlName="objectType" *ngIf="this.scheduleType === 2">
+              <mat-option [value]="'-1'">Tất cả</mat-option>
+              <mat-option [value]="'0'">Homestay</mat-option>
+              <mat-option [value]="'1'">Khách sạn</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-1 create-form">
           <button
             mat-raised-button
             color="primary"
@@ -131,6 +151,7 @@
     <app-schedule-search-pack
       [startingDate]="startingDate"
       [startingPoint]="startingPoint"
+      [objectType]="objectType"
       [endPoint]="endPoint"
       [priceFrom]="priceFrom"
       [priceTo]="priceTo"

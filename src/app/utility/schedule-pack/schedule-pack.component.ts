@@ -172,12 +172,12 @@ export class SchedulePackComponent implements OnInit, AfterViewInit {
     return "Dịch vụ ";
   }
 
-  async navigateCategoryUrl(url: string, scheduleType: number) {
+  async navigateCategoryUrl(url: string, scheduleType: number, objectType: number) {
     let schedulePhase = "moving";
     if (scheduleType == 1) schedulePhase = "moving";
     else if (scheduleType == 2) schedulePhase = "staying";
     let navigationExtras: NavigationExtras = {
-      queryParams: { serviceType: schedulePhase }, // Replace 'key' and 'value' with your actual query parameters
+      queryParams: { serviceType: schedulePhase, objectType: objectType }, // Replace 'key' and 'value' with your actual query parameters
     };
     if (this.tokenStorageService.getUserRole() == "User") {
       this.router.navigate(["user/" + url], navigationExtras);

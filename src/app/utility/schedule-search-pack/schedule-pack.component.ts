@@ -34,6 +34,9 @@ export class ScheduleSearchPackComponent implements OnInit, OnChanges {
   @Input()
   priceTo = 2000000;
 
+  @Input()
+  objectType = 0;
+
   isFirstSearch = true;
   activePage = 1;
   isLoading = false;
@@ -85,7 +88,7 @@ export class ScheduleSearchPackComponent implements OnInit, OnChanges {
   }
 
   getTourPack() {
-    const params = {
+    let params: any = {
       page: this.pageIndex + 1,
       pageSize: this.pageSize,
       priceFrom: this.priceFrom,
@@ -95,17 +98,20 @@ export class ScheduleSearchPackComponent implements OnInit, OnChanges {
       endPoint: this.endPoint,
     };
 
+    if (this.objectType > -1) params.type = this.objectType;
+
     this.isFirstSearch = true;
 
     this.stayingScheduleList = [];
     this.movingScheduleList = [];
-    
+
     if (this.scheduleType == 1) {
       this.movingScheduleList = [];
       this.stayingScheduleList = [];
 
       this.http
-        .get("/api/GetMovingSchedule", { params: params }).pipe(
+        .get("/api/GetMovingSchedule", { params: params })
+        .pipe(
           catchError((error) => {
             this.messageService.openFailNotifyDialog(
               "Hệ thống đang gặp lỗi, vui lòng thử lại"
@@ -115,7 +121,7 @@ export class ScheduleSearchPackComponent implements OnInit, OnChanges {
         )
         .subscribe((response: any) => {
           if (response) {
-            this.isFirstSearch = false; 
+            this.isFirstSearch = false;
             this.movingScheduleList = response.data;
             this.length = response.count;
             this.isLoading = false;
@@ -132,7 +138,8 @@ export class ScheduleSearchPackComponent implements OnInit, OnChanges {
       this.stayingScheduleList = [];
 
       this.http
-        .get("/api/GetStayingSchedule", { params: params }).pipe(
+        .get("/api/GetStayingSchedule", { params: params })
+        .pipe(
           catchError((error) => {
             this.messageService.openFailNotifyDialog(
               "Hệ thống đang gặp lỗi, vui lòng thử lại"
@@ -142,7 +149,7 @@ export class ScheduleSearchPackComponent implements OnInit, OnChanges {
         )
         .subscribe((response: any) => {
           if (response) {
-            this.isFirstSearch = false; 
+            this.isFirstSearch = false;
             this.stayingScheduleList = response.data;
             this.length = response.count;
             this.isLoading = false;

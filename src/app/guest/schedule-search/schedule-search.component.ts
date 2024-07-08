@@ -47,6 +47,7 @@ export class ScheduleSearchComponent implements OnInit {
   priceFrom = 0;
   categoryString = "";
   scheduleType = 0;
+  objectType = -1;
 
   constructor(
     private fb: FormBuilder,
@@ -59,6 +60,7 @@ export class ScheduleSearchComponent implements OnInit {
       startingDate: [null],
       startingPoint: [""],
       endPoint: [""],
+      objectType : ["-1"]
     });
 
     this.subscriptions.push(
@@ -99,6 +101,13 @@ export class ScheduleSearchComponent implements OnInit {
 
           this.setTourForm.controls["startingDate"].setValue(startingDate);
         }
+
+        if (query.get("objectType")) {
+          const objectType = query.get("objectType") ?? "-1";
+          this.objectType = parseInt(query.get("objectType") ?? "-1");
+
+          this.setTourForm.controls["objectType"].setValue(objectType);
+        }
       })
     );
   }
@@ -124,9 +133,10 @@ export class ScheduleSearchComponent implements OnInit {
   }
 
   onSearch() {
-    this.startingDate = this.setTourForm.value.startingDate;
+    this.startingDate = this.setTourForm.value.startingDate ?? "";
     this.startingPoint = this.setTourForm.value.startingPoint;
     this.endPoint = this.setTourForm.value.endPoint;
+    this.objectType = parseInt(this.setTourForm.value.objectType);
   }
 
   formatVNCurrency(num: number): string {

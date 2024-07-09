@@ -39,6 +39,17 @@
     </mat-card-actions>
   </mat-card>
 
+  <mat-tab-group
+    (selectedIndexChange)="onChangeType($event)"
+    style="background-color: white"
+  >
+    <mat-tab label="Vé xe khách"> </mat-tab>
+    <mat-tab label="Vé máy bay"> </mat-tab>
+    <mat-tab label="Vé tàu hỏa"> </mat-tab>
+    <mat-tab label="Vé tàu biển"> </mat-tab>
+    <mat-tab label="Vé phương tiện di chuyển địa phương"> </mat-tab>
+  </mat-tab-group>
+
   <div class="table-responsive">
     <table
       mat-table

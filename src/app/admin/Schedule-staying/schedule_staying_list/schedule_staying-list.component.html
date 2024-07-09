@@ -38,6 +38,14 @@
     </mat-card-actions>
   </mat-card>
 
+  <mat-tab-group
+    (selectedIndexChange)="onChangeType($event)"
+    style="background-color: white"
+  >
+    <mat-tab label="Home stay"> </mat-tab>
+    <mat-tab label="Khách sạn"> </mat-tab>
+  </mat-tab-group>
+
   <div class="table-responsive">
     <table
       mat-table
@@ -98,7 +106,9 @@
         >
           Đơn giá
         </th>
-        <td mat-cell *matCellDef="let element">{{ formatVNCurrency(element.singlePrice) }}</td>
+        <td mat-cell *matCellDef="let element">
+          {{ formatVNCurrency(element.singlePrice) }}
+        </td>
       </ng-container>
 
       <!-- SS Column -->
@@ -111,7 +121,9 @@
         >
           Loại nơi nghỉ chân
         </th>
-        <td mat-cell *matCellDef="let element">{{  getResthouseType(element.restHouseType) }}</td>
+        <td mat-cell *matCellDef="let element">
+          {{ getResthouseType(element.restHouseType) }}
+        </td>
       </ng-container>
 
       <!-- SS Column -->
@@ -148,7 +160,7 @@
         <td mat-cell *matCellDef="let element">
           <button
             mat-flat-button
-            style="background-color: #F5CF3D;"
+            style="background-color: #f5cf3d"
             (click)="openEditDialog(element.id)"
           >
             <i class="fa fa-pencil" aria-hidden="true"></i>

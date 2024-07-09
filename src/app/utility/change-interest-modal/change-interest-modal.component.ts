@@ -45,7 +45,7 @@ export class InterestModalComponent implements OnInit {
     if (this.resourceType === "TourishPlan") {
       const payload = {
         tourishPlanId: this.resourceId,
-        interestType: 3,
+        interestType: 2,
       };
 
       this.messageService.openLoadingDialog();
@@ -73,7 +73,7 @@ export class InterestModalComponent implements OnInit {
     if (this.resourceType === "MovingSchedule") {
       const payload = {
         scheduleId: this.resourceId,
-        interestType: 0,
+        interestType: 2,
       };
 
       this.messageService.openLoadingDialog();
@@ -101,7 +101,7 @@ export class InterestModalComponent implements OnInit {
     if (this.resourceType === "StayingSchedule") {
       const payload = {
         scheduleId: this.resourceId,
-        interestType: 0,
+        interestType: 2,
       };
 
       this.messageService.openLoadingDialog();

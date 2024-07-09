@@ -43,7 +43,7 @@
         [formGroup]="setTourForm"
         style="height: fit-content !important; margin-left: 0 !important;"
       >
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 create-form">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 create-form">
           <mat-form-field appearance="outline" class="full-width-input">
             <mat-label>Bạn muốn đi đâu</mat-label>
             <input
@@ -60,28 +60,9 @@
               [formGroupControlName]="'endPoint'"
             ></app-validation>
           </div>
-        </div>
+        </div>      
 
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 create-form">
-          <mat-form-field appearance="outline" class="full-width-input">
-            <mat-label>Nơi bắt đầu</mat-label>
-            <input
-              matInput
-              fullwidth
-              placeholder="Vd: Hà Nội"
-              formControlName="startingPoint"
-            />
-          </mat-form-field>
-          <div class="validation-container">
-            <app-validation
-              *ngIf="isSubmit"
-              [formGroup]="setTourForm"
-              [formGroupControlName]="'startingPoint'"
-            ></app-validation>
-          </div>
-        </div>
-
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 create-form">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 create-form">
           <mat-form-field appearance="outline" class="full-width-input">
             <mat-label>{{
               this.startingDate.length > 0 ? getDateFormat(this.startingDate) : "Ngày bắt đầu"
@@ -115,7 +96,7 @@
           </div>
         </div>
 
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 create-form">
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 create-form">
           <mat-form-field appearance="outline" class="full-width-input">
             <mat-label>Loại dịch vụ</mat-label>
             <mat-select formControlName="objectType" *ngIf="this.scheduleType === 1">

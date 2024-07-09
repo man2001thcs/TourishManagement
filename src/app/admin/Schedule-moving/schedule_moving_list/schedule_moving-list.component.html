@@ -40,6 +40,7 @@
   </mat-card>
 
   <mat-tab-group
+    [selectedIndex]="this.type"
     (selectedIndexChange)="onChangeType($event)"
     style="background-color: white"
   >

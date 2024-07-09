@@ -308,6 +308,8 @@ export class TourishPlanListAdminComponent
       tour.tourishInterestList !== null &&
       tour.tourishInterestList !== undefined
     ) {
+      if (tour.tourishInterestList.length <= 0) return "Không quan tâm";
+
       switch (tour.tourishInterestList[0].interestStatus) {
         case 0:
           return "Theo dõi với tư cách người tạo";

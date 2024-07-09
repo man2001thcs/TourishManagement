@@ -48,6 +48,12 @@ img {
   margin-right: 20px;
 }
 
+.image-container img {
+  width: 140px !important;
+  height: auto;
+}
+
+
 .schedule-content {
   display: flex;
   flex-direction: column;

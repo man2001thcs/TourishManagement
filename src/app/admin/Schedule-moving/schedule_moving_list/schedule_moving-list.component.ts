@@ -74,6 +74,8 @@ export class MovingScheduleListComponent
   sortColumn: string = "createDate";
   sortDirection: string = "desc";
 
+  type = 0;
+
   constructor(
     private adminService: AdminService,
     public dialog: MatDialog,
@@ -338,6 +340,26 @@ export class MovingScheduleListComponent
           pageSize: this.pageSize,
           search: this.searchPhase,
           type: 0,
+          sortBy: this.sortColumn,
+          sortDirection: this.sortDirection,
+        },
+      })
+    );
+  }
+
+  onChangeType($event: number) {
+    this.type = $event;
+    this.pageIndex = 0;
+
+    this.movingScheduleList = [];
+    this.messageService.openLoadingDialog();
+    this.store.dispatch(
+      MovingScheduleListActions.getMovingScheduleList({
+        payload: {
+          type: this.type,
+          page: this.pageIndex + 1,
+          pageSize: this.pageSize,
+          search: this.searchPhase,
           sortBy: this.sortColumn,
           sortDirection: this.sortDirection,
         },

@@ -73,6 +73,7 @@ export class StayingScheduleListComponent
   searchPhase = "";
   sortColumn: string = "createDate";
   sortDirection: string = "desc";
+  type: number = 0;
 
   constructor(
     private adminService: AdminService,
@@ -88,7 +89,6 @@ export class StayingScheduleListComponent
   }
 
   ngOnInit(): void {
-    
     this.subscriptions.push(
       this.stayingScheduleListState.subscribe((state) => {
         if (state) {
@@ -299,6 +299,26 @@ export class StayingScheduleListComponent
 
       this.messageService.openLoadingDialog();
     });
+  }
+
+  onChangeType($event: number) {
+    this.type = $event;
+    this.pageIndex = 0;
+
+    this.stayingScheduleList = [];
+    this.messageService.openLoadingDialog();
+    this.store.dispatch(
+      StayingScheduleListActions.getStayingScheduleList({
+        payload: {
+          type: this.type,
+          page: this.pageIndex + 1,
+          pageSize: this.pageSize,
+          search: this.searchPhase,
+          sortBy: this.sortColumn,
+          sortDirection: this.sortDirection,
+        },
+      })
+    );
   }
 
   openDeleteDialog(id: string) {

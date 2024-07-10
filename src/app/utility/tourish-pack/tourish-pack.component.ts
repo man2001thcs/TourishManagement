@@ -92,7 +92,7 @@ export class TourishPackComponent implements OnInit, AfterViewInit {
       this.renderer.setStyle(
         this.packContainer.nativeElement,
         "padding",
-        "30px 13% 30px"
+        "30px 12% 30px"
       );
     } else if (childWidth < 1500 && childWidth >= 1200) {
       this.renderer.setStyle(

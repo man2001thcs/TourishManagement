@@ -69,18 +69,20 @@ export class SchedulePlanSearchCardComponent implements OnInit {
     this.http
       .get("/api/GetFile", { params: payload })
       .subscribe((response: any) => {
-        this.scheduleImage = response.data;
+        if (response) {
+          this.scheduleImage = response.data;
 
-        if (this.scheduleImage.length > 0) {
-          this.pushImageToList(this.scheduleImage[0]);
-        } else {
-          const blankSaveFile: SaveFile = {
-            id: "anonymus",
-            accessSourceId: "",
-            resourceType: this.scheduleType,
-            fileType: ".png",
-          };
-          this.pushImageToList(blankSaveFile);
+          if (this.scheduleImage.length > 0) {
+            this.pushImageToList(this.scheduleImage[0]);
+          } else {
+            const blankSaveFile: SaveFile = {
+              id: "anonymus",
+              accessSourceId: "",
+              resourceType: this.scheduleType,
+              fileType: ".png",
+            };
+            this.pushImageToList(blankSaveFile);
+          }
         }
       });
   }

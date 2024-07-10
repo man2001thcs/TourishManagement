@@ -1,263 +1,202 @@
-<div style="width: 100% !important; padding: 0 3% 0">
-  <mat-card style="margin-bottom: 20px; padding: 10px 10px 10px">
-    <mat-card-header>
-      <mat-card-title>Danh sách hóa đơn đặt vé di chuyển</mat-card-title>
-    </mat-card-header>
-  </mat-card>
+<div class="container-fluid">
+  <div style="width: 100% !important">
+    <mat-card style="margin-bottom: 20px; padding: 10px 10px 10px">
+      <mat-card-header>
+        <mat-card-title>Danh sách hóa đơn đặt vé di chuyển</mat-card-title>
+      </mat-card-header>
+    </mat-card>
 
-  <mat-tab-group
-    [selectedIndex]="active"
-    (selectedIndexChange)="tourStatusChange($event)"
-    style="background-color: white"
-  >
-    <mat-tab label="Hóa đơn mới tạo"> </mat-tab>
-    <mat-tab label="Hóa đơn chờ thanh toán"> </mat-tab>
-    <mat-tab label="Hóa đơn đã hoàn thành"> </mat-tab>
-    <mat-tab label="Hóa đơn đã hủy"> </mat-tab>
-  </mat-tab-group>
+    <mat-tab-group [selectedIndex]="active" (selectedIndexChange)="tourStatusChange($event)"
+      style="background-color: white">
+      <mat-tab label="Hóa đơn mới tạo"> </mat-tab>
+      <mat-tab label="Hóa đơn chờ thanh toán"> </mat-tab>
+      <mat-tab label="Hóa đơn đã hoàn thành"> </mat-tab>
+      <mat-tab label="Hóa đơn đã hủy"> </mat-tab>
+    </mat-tab-group>
 
-  <div class="table-responsive">
-    <table
-      mat-table
-      [dataSource]="receiptList"
-      matSort
-      class="mat-elevation-z8"
-      (matSortChange)="announceSortChange($event)"
-      multiTemplateDataRows
-    >
-      <!-- Position Column -->
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>No.</th>
-        <td mat-cell *matCellDef="let element">
-          {{ getIndex(element.totalReceiptId) }}
-        </td>
-      </ng-container>
+    <div class="table-responsive">
+      <table mat-table [dataSource]="receiptList" matSort class="mat-elevation-z8"
+        (matSortChange)="announceSortChange($event)" multiTemplateDataRows>
+        <!-- Position Column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>No.</th>
+          <td mat-cell *matCellDef="let element">
+            {{ getIndex(element.totalReceiptId) }}
+          </td>
+        </ng-container>
 
-      <!-- SS Column -->
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef>Tên dịch vụ</th>
-        <td mat-cell *matCellDef="let element">
-          {{ element.movingSchedule.name }}
-        </td>
-      </ng-container>
+        <!-- SS Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Tên dịch vụ</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.movingSchedule.name }}
+          </td>
+        </ng-container>
 
-      <ng-container matColumnDef="branchName">
-        <th mat-header-cell *matHeaderCellDef>Đơn vị cung cấp dịch vụ</th>
-        <td mat-cell *matCellDef="let element">
-          {{ element.movingSchedule.branchName }}
-        </td>
-      </ng-container>
+        <ng-container matColumnDef="branchName">
+          <th mat-header-cell *matHeaderCellDef>Đơn vị cung cấp dịch vụ</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.movingSchedule.branchName }}
+          </td>
+        </ng-container>
 
-      <!-- SS Column -->
-      <ng-container matColumnDef="singlePrice">
-        <th mat-header-cell *matHeaderCellDef>Giá đơn vé hiện tại</th>
-        <td mat-cell *matCellDef="let element">
-          {{ formatVNCurrency(getTotalPrice(element.movingSchedule)) }}
-        </td>
-      </ng-container>
+        <!-- SS Column -->
+        <ng-container matColumnDef="singlePrice">
+          <th mat-header-cell *matHeaderCellDef>Giá đơn vé hiện tại</th>
+          <td mat-cell *matCellDef="let element">
+            {{ formatVNCurrency(getTotalPrice(element.movingSchedule)) }}
+          </td>
+        </ng-container>
 
-      <ng-container matColumnDef="phoneNumber">
-        <th mat-header-cell *matHeaderCellDef>Số điện thoại liên lạc hỗ trợ</th>
-        <td mat-cell *matCellDef="let element">
-          {{ element.movingSchedule.phoneNumber }}
-        </td>
-      </ng-container>
+        <ng-container matColumnDef="phoneNumber">
+          <th mat-header-cell *matHeaderCellDef>Số điện thoại liên lạc hỗ trợ</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.movingSchedule.phoneNumber }}
+          </td>
+        </ng-container>
 
-      <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
-      <ng-container matColumnDef="expand">
-        <th mat-header-cell *matHeaderCellDef aria-label="row actions">
-          &nbsp;
-        </th>
-        <td mat-cell *matCellDef="let element">
-          <button
-            mat-icon-button
-            aria-label="expand row"
-            (click)="
+        <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+        <ng-container matColumnDef="expand">
+          <th mat-header-cell *matHeaderCellDef aria-label="row actions">
+            &nbsp;
+          </th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button aria-label="expand row" (click)="
               expandedElement = expandedElement === element ? null : element;
               $event.stopPropagation()
-            "
-          >
-            <mat-icon *ngIf="expandedElement !== element"
-              >keyboard_arrow_down</mat-icon
-            >
-            <mat-icon *ngIf="expandedElement === element"
-              >keyboard_arrow_up</mat-icon
-            >
-          </button>
-        </td>
-      </ng-container>
+            ">
+              <mat-icon *ngIf="expandedElement !== element">keyboard_arrow_down</mat-icon>
+              <mat-icon *ngIf="expandedElement === element">keyboard_arrow_up</mat-icon>
+            </button>
+          </td>
+        </ng-container>
 
-      <!-- "guestName",
+        <!-- "guestName",
       "phoneNumber",
       "totalTicket",
       "discountFloat",
       "discountAmount", -->
 
-      <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
-      <ng-container
-        matColumnDef="expandedDetail"
-        style="width: 100% !important"
-      >
-        <td
-          mat-cell
-          *matCellDef="let element"
-          [attr.colspan]="displayedColumnsWithExpand.length"
-        >
-          <div
-            [@detailExpand]="
+        <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+        <ng-container matColumnDef="expandedDetail" style="width: 100% !important">
+          <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumnsWithExpand.length">
+            <div [@detailExpand]="
               element == expandedElement ? 'expanded' : 'collapsed'
-            "
-          >
-            <div
-              class="example-element-diagram"
-              style="display: flex; flex-direction: row"
-            >
-              <div
-                class="receipt-info"
-                style="width: 70px !important; min-width: 70px !important"
-              >
-                <span style="font-weight: bold">STT</span>
-              </div>
-              <div class="receipt-info">
-                <span style="font-weight: bold">Tên khách</span>
-              </div>
-              <div class="receipt-info">
-                <span style="font-weight: bold">Email</span>
-              </div>
-              <div class="receipt-info">
-                <span style="font-weight: bold">SĐT</span>
-              </div>
-              <div class="receipt-info">
-                <span style="font-weight: bold"
-                  >Số vé (Người lớn > 10 tuổi)</span
-                >
-              </div>
-              <div class="receipt-info">
-                <span style="font-weight: bold">Số vé (Trẻ em)</span>
-              </div>
-              <div class="receipt-info">
-                <span style="font-weight: bold">Tổng giá</span>
+            ">
+              <div class="example-element-diagram" style="display: flex; flex-direction: row">
+                <div class="receipt-info" style="width: 70px !important; min-width: 70px !important">
+                  <span style="font-weight: bold">STT</span>
+                </div>
+                <div class="receipt-info">
+                  <span style="font-weight: bold">Tên khách</span>
+                </div>
+                <div class="receipt-info">
+                  <span style="font-weight: bold">Email</span>
+                </div>
+                <div class="receipt-info">
+                  <span style="font-weight: bold">SĐT</span>
+                </div>
+                <div class="receipt-info">
+                  <span style="font-weight: bold">Số vé (Người lớn > 10 tuổi)</span>
+                </div>
+                <div class="receipt-info">
+                  <span style="font-weight: bold">Số vé (Trẻ em)</span>
+                </div>
+                <div class="receipt-info">
+                  <span style="font-weight: bold">Tổng giá</span>
+                </div>
+
+                <div class="receipt-info">
+                  <span style="font-weight: bold">Tình trạng</span>
+                </div>
+
+                <div class="receipt-info">
+                  <span style="font-weight: bold">Ngày hoàn thành</span>
+                </div>
+
+                <div class="receipt-button"></div>
+
+                <div class="receipt-button"></div>
               </div>
 
-              <div class="receipt-info">
-                <span style="font-weight: bold">Tình trạng</span>
-              </div>
-
-              <div class="receipt-info">
-                <span style="font-weight: bold">Ngày hoàn thành</span>
-              </div>
-
-              <div class="receipt-button"></div>
-
-              <div class="receipt-button"></div>
-            </div>
-
-            <div
-              class="example-element-diagram"
-              style="display: flex; flex-direction: row"
-              *ngFor="let fullReceipt of element.fullReceiptList; index as i"
-            >
-              <div
-                class="receipt-info"
-                style="width: 70px !important; min-width: 70px !important"
-              >
-                <div>{{ i + 1 }}</div>
-              </div>
-              <div class="receipt-info">
-                <div>{{ fullReceipt.guestName }}</div>
-              </div>
-              <div class="receipt-info">
-                <div>{{ fullReceipt.email }}</div>
-              </div>
-              <div class="receipt-info">
-                <div>{{ fullReceipt.phoneNumber }}</div>
-              </div>
-              <div class="receipt-info">
-                <div>{{ fullReceipt.totalTicket }}</div>
-              </div>
-              <div class="receipt-info">
-                <div>{{ fullReceipt.totalChildTicket }}</div>
-              </div>
-              <div class="receipt-info">
-                <div>
-                  {{
+              <div class="example-element-diagram" style="display: flex; flex-direction: row"
+                *ngFor="let fullReceipt of element.fullReceiptList; index as i">
+                <div class="receipt-info" style="width: 70px !important; min-width: 70px !important">
+                  <div>{{ i + 1 }}</div>
+                </div>
+                <div class="receipt-info">
+                  <div>{{ fullReceipt.guestName }}</div>
+                </div>
+                <div class="receipt-info">
+                  <div>{{ fullReceipt.email }}</div>
+                </div>
+                <div class="receipt-info">
+                  <div>{{ fullReceipt.phoneNumber }}</div>
+                </div>
+                <div class="receipt-info">
+                  <div>{{ fullReceipt.totalTicket }}</div>
+                </div>
+                <div class="receipt-info">
+                  <div>{{ fullReceipt.totalChildTicket }}</div>
+                </div>
+                <div class="receipt-info">
+                  <div>
+                    {{
                     formatVNCurrency(
-                      getTotalPriceReceipt(element.movingSchedule, fullReceipt)
+                    getTotalPriceReceipt(element.movingSchedule, fullReceipt)
                     )
-                  }}
+                    }}
+                  </div>
                 </div>
-              </div>
 
-              <div class="receipt-info">
-                <div
-                  [style.color]="getPaymentStatusColor(fullReceipt.status + '')"
-                >
-                  {{ getPaymentStatus(fullReceipt.status + "") }}
+                <div class="receipt-info">
+                  <div [style.color]="getPaymentStatusColor(fullReceipt.status + '')">
+                    {{ getPaymentStatus(fullReceipt.status + "") }}
+                  </div>
                 </div>
-              </div>
 
-              <div class="receipt-info">
-                <div>
-                  {{ getDateFormat(fullReceipt.completeDate ?? "") }}
+                <div class="receipt-info">
+                  <div>
+                    {{ getDateFormat(fullReceipt.completeDate ?? "") }}
+                  </div>
                 </div>
-              </div>
 
-              <div class="receipt-button">
-                <button
-                  mat-flat-button
-                  [disabled]="isPaymentDisable(fullReceipt.status + '')"
-                  (click)="
+                <div class="receipt-button">
+                  <button mat-flat-button [disabled]="isPaymentDisable(fullReceipt.status + '')" (click)="
                     callPayment(
                       fullReceipt.fullReceiptId,
                       fullReceipt.paymentId ?? ''
                     )
-                  "
-                  color="primary"
-                >
-                  <i class="fa fa-credit-card" aria-hidden="true"></i>
-                </button>
-              </div>
+                  " color="primary">
+                    <i class="fa fa-credit-card" aria-hidden="true"></i>
+                  </button>
+                </div>
 
-              <div class="receipt-button">
-                <button
-                  mat-flat-button
-                  (click)="openEditDialog(fullReceipt.fullReceiptId)"
-                  style="background-color: #ffd740"
-                >
-                  <i class="fa fa-pencil" aria-hidden="true"></i>
-                </button>
+                <div class="receipt-button">
+                  <button mat-flat-button (click)="openEditDialog(fullReceipt.fullReceiptId)"
+                    style="background-color: #ffd740">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        </td>
-      </ng-container>
+          </td>
+        </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumnsWithExpand"></tr>
-      <tr
-        mat-row
-        *matRowDef="let element; columns: displayedColumnsWithExpand"
-        class="example-element-row"
-        [class.example-expanded-row]="expandedElement === element"
-        (click)="expandedElement = expandedElement === element ? null : element"
-      ></tr>
-      <tr
-        mat-row
-        *matRowDef="let row; columns: ['expandedDetail']"
-        class="example-detail-row"
-      ></tr>
-    </table>
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsWithExpand"></tr>
+        <tr mat-row *matRowDef="let element; columns: displayedColumnsWithExpand" class="example-element-row"
+          [class.example-expanded-row]="expandedElement === element"
+          (click)="expandedElement = expandedElement === element ? null : element"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+      </table>
+    </div>
+
+    <div class="empty" *ngIf="receiptList.length <= 0">
+      <h3>Không tìm được kết quả phù hợp</h3>
+    </div>
+
+    <mat-paginator [pageSizeOptions]="pageSizeOpstion" [length]="length" (page)="handlePageEvent($event)"
+      showFirstLastButtons aria-label="Select page of periodic elements">
+    </mat-paginator>
   </div>
-
-  <div class="empty" *ngIf="receiptList.length <= 0">
-    <h3>Không tìm được kết quả phù hợp</h3>
-  </div>
-
-  <mat-paginator
-    [pageSizeOptions]="pageSizeOpstion"
-    [length]="length"
-    (page)="handlePageEvent($event)"
-    showFirstLastButtons
-    aria-label="Select page of periodic elements"
-  >
-  </mat-paginator>
 </div>

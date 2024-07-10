@@ -1,11 +1,19 @@
-<div
-  class="container-fluid"
->
+<div class="container-fluid">
   <div style="width: 100% !important">
-    <mat-card style="margin-bottom: 20px; padding: 10px 10px 10px">
+    <mat-card style="margin-bottom: 20px; padding: 10px 10px 20px">
       <mat-card-header>
         <mat-card-title>Danh sách tour đã đặt</mat-card-title>
       </mat-card-header>
+    </mat-card>
+
+    <mat-card style="margin-bottom: 20px; padding: 0px 10px 0px">
+      <mat-card-content style="padding: 16px 16px 0px">
+        <h2 style="margin-bottom: 0;">Lưu ý</h2>
+        <mat-list>
+          <mat-list-item>Thanh toán chỉ có hiệu lực trong vòng từ 7 giờ sáng tới 23 giờ chiều. Sau bảy ngày không thanh toán, hóa đơn sẽ bị hủy.</mat-list-item>
+          <mat-list-item>Hóa đơn khi mới đặt sẽ chuyển trạng thái có thể thanh toán sau hai giờ.</mat-list-item>
+        </mat-list>
+      </mat-card-content>
     </mat-card>
 
     <div
@@ -143,6 +151,10 @@
                 </div>
 
                 <div class="receipt-info">
+                  <span style="font-weight: bold">Trạng thái</span>
+                </div>
+
+                <div class="receipt-info">
                   <span style="font-weight: bold">Ngày hoàn thành</span>
                 </div>
 
@@ -187,6 +199,16 @@
                         getTotalPriceReceipt(element.tourishPlan, fullReceipt)
                       )
                     }}
+                  </div>
+                </div>
+
+                <div class="receipt-info">
+                  <div
+                    [style.color]="
+                      getPaymentStatusColor(fullReceipt.status + '')
+                    "
+                  >
+                    {{ getPaymentStatus(fullReceipt.status + "") }}
                   </div>
                 </div>
 

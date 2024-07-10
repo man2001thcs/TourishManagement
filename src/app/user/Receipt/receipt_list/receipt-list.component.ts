@@ -174,22 +174,6 @@ export class ReceiptUserListComponent
           this.active = parseInt(query.get("active") ?? "0");
           this.pageIndex = 0;
           this.pageSize = 5;
-
-          const email = this.tokenStorageService.getUser().email;
-          this.store.dispatch(
-            ReceiptListActions.getReceiptList({
-              payload: {
-                email: email,
-                page: this.pageIndex + 1,
-                pageSize: this.pageSize,
-                tourishPlanId: this.tourishPlanId,
-                status: this.active,
-                sortBy: this.sortColumn,
-                sortDirection: this.sortDirection,
-              },
-            })
-          );
-          this.messageService.openLoadingDialog();
         } else {
           const email = this.tokenStorageService.getUser().email;
           this.store.dispatch(

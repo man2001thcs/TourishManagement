@@ -119,7 +119,7 @@ export class TourishPlanAutoSearchCardComponent implements OnInit{
       .get("/api/GetFullReceipt/total-ticket-of-tour", { params: payload })
       .subscribe((state: any) => {
         if (state) {
-          this.customerNumber = state.data.totalTicket;
+          this.customerNumber = state.data.totalTicket ?? 0;
         }
       });
   }

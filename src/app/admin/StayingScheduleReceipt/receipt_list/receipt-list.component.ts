@@ -93,6 +93,7 @@ export class StayingScheduleReceiptListComponent
   sortColumn: string = "createdDate";
   sortDirection: string = "desc";
   scheduleId = "";
+  firstLoad = true;
 
   constructor(
     private adminService: AdminService,
@@ -170,25 +171,28 @@ export class StayingScheduleReceiptListComponent
     this.subscriptions.push(
       this._route.queryParamMap.subscribe((query) => {
         if (query.get("active")) {
-          this.active = parseInt(query.get("active") ?? "0");
-
-          this.pageIndex = 0;
-          this.pageSize = 5;
-
-          this.store.dispatch(
-            ReceiptListActions.getReceiptList({
-              payload: {
-                page: this.pageIndex + 1,
-                pageSize: this.pageSize,
-                status: this.active,
-                stayingScheduleId: this.scheduleId ?? "",
-                scheduleType: 2,
-                sortBy: this.sortColumn,
-                sortDirection: this.sortDirection,
-              },
-            })
-          );
-          this.messageService.openLoadingDialog();
+          if (this.firstLoad) {
+            this.firstLoad = false;
+            this.active = parseInt(query.get("active") ?? "0");
+            this.store.dispatch(
+              ReceiptListActions.getReceiptList({
+                payload: {
+                  page: this.pageIndex + 1,
+                  pageSize: this.pageSize,
+                  status: this.active,
+                  stayingScheduleId: this.scheduleId ?? "",
+                  scheduleType: 2,
+                  sortBy: this.sortColumn,
+                  sortDirection: this.sortDirection,
+                },
+              })
+            );
+            this.messageService.openLoadingDialog();
+          } else {
+            this.active = parseInt(query.get("active") ?? "0");
+            this.pageIndex = 0;
+            this.pageSize = 5;
+          }
         } else {
           this.store.dispatch(
             ReceiptListActions.getReceiptList({

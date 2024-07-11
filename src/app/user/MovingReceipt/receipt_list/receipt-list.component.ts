@@ -92,6 +92,7 @@ export class MovingReceiptUserListComponent
   sortColumn: string = "createdDate";
   sortDirection: string = "desc";
   scheduleId = "";
+  firstLoad=true;
 
   constructor(
     public dialog: MatDialog,
@@ -171,9 +172,30 @@ export class MovingReceiptUserListComponent
     this.subscriptions.push(
       this._route.queryParamMap.subscribe((query) => {
         if (query.get("active")) {
-          this.active = parseInt(query.get("active") ?? "0");
-          this.pageIndex = 0;
-          this.pageSize = 5;
+          if (this.firstLoad) {
+            this.firstLoad = false;
+            this.active = parseInt(query.get("active") ?? "0");
+            const email = this.tokenStorageService.getUser().email;
+            this.store.dispatch(
+              ReceiptListActions.getReceiptList({
+                payload: {
+                  email: email,
+                  page: this.pageIndex + 1,
+                  pageSize: this.pageSize,
+                  movingScheduleId: this.scheduleId,
+                  scheduleType: 1,
+                  status: this.active,
+                  sortBy: this.sortColumn,
+                  sortDirection: this.sortDirection,
+                },
+              })
+            );
+            this.messageService.openLoadingDialog();
+          } else {
+            this.active = parseInt(query.get("active") ?? "0");
+            this.pageIndex = 0;
+            this.pageSize = 5;
+          }
         } else {
           const email = this.tokenStorageService.getUser().email;
           this.store.dispatch(

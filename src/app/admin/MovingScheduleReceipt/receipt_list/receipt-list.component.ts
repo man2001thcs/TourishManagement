@@ -92,6 +92,7 @@ export class MovingScheduleReceiptListComponent
   sortColumn: string = "createdDate";
   sortDirection: string = "desc";
   scheduleId = "";
+  firstLoad = true;
 
   constructor(
     private adminService: AdminService,
@@ -167,25 +168,30 @@ export class MovingScheduleReceiptListComponent
     this.subscriptions.push(
       this._route.queryParamMap.subscribe((query) => {
         if (query.get("active")) {
-          this.active = parseInt(query.get("active") ?? "0");
+          if (this.firstLoad) {
+            this.firstLoad = false;
+            this.active = parseInt(query.get("active") ?? "0");
+            this.store.dispatch(
+              ReceiptListActions.getReceiptList({
+                payload: {
+                  page: this.pageIndex + 1,
+                  pageSize: this.pageSize,
+                  status: this.active,
+                  movingScheduleId: this.scheduleId ?? "",
+                  scheduleType: 1,
+                  sortBy: this.sortColumn,
+                  sortDirection: this.sortDirection,
+                },
+              })
+            );
+            this.messageService.openLoadingDialog();
+          } else {
+            this.active = parseInt(query.get("active") ?? "0");
+            console.log(this.active);
 
-          this.pageIndex = 0;
-          this.pageSize = 5;
-
-          this.store.dispatch(
-            ReceiptListActions.getReceiptList({
-              payload: {
-                page: this.pageIndex + 1,
-                pageSize: this.pageSize,
-                status: this.active,
-                movingScheduleId: this.scheduleId ?? "",
-                scheduleType: 1,
-                sortBy: this.sortColumn,
-                sortDirection: this.sortDirection,
-              },
-            })
-          );
-          this.messageService.openLoadingDialog();
+            this.pageIndex = 0;
+            this.pageSize = 5;
+          }
         } else {
           this.store.dispatch(
             ReceiptListActions.getReceiptList({

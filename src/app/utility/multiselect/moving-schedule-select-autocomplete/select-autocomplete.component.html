@@ -7,7 +7,7 @@
         (removed)="remove(movingSchedule)"
         style="font-size: 16px"
       >
-        {{ movingSchedule }}
+        {{ onDisplayName(movingSchedule) }}
         <button matChipRemove [attr.aria-label]="'remove ' + movingSchedule">
           <mat-icon>cancel</mat-icon>
         </button>
@@ -15,7 +15,7 @@
     </mat-chip-grid>
     <input
       *ngIf="movingScheduleNameList.length < 1"
-      placeholder="Chọn tour"
+      placeholder="Chọn dịch vụ"
       #movingScheduleInput
       [formControl]="movingScheduleCtrl"
       [matChipInputFor]="chipGrid"

@@ -289,7 +289,7 @@ export class StayingScheduleSelectAutocompleteComponent implements OnInit {
   }
 
   onDisplayName(input: string): string {
-    if (input.length > 30) return input.substring(0, 30) + "...";
+    if (input.length > 40) return input.substring(0, 40) + "...";
     else return input;
   }
   

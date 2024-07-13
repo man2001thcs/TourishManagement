@@ -18,9 +18,22 @@
         <mat-list>
           <mat-list-item *ngFor="let unpaid of tourUnpaidGroup">
             <span matListItemTitle>{{ unpaid.name }}</span>
-            <span matListItemLine *ngFor="let guest of unpaid.guestList">{{
-              guest.guestName + ". Tổng giá: " + calculatePrice(guest) + " VNĐ."
-            }}</span>
+            <span
+              matListItemLine
+              *ngFor="let guest of unpaid.guestList"
+              [matTooltip]="
+                guest.guestName +
+                '. Tổng giá: ' +
+                calculatePrice(guest) +
+                ' VNĐ.'
+              "
+              >{{
+                guest.guestName +
+                  ". Tổng giá: " +
+                  calculatePrice(guest) +
+                  " VNĐ."
+              }}</span
+            >
           </mat-list-item>
         </mat-list>
       </div>
@@ -40,7 +53,16 @@
         <mat-list>
           <mat-list-item *ngFor="let unpaid of movingUnpaidGroup">
             <span matListItemTitle>{{ unpaid.name }}</span>
-            <span matListItemLine *ngFor="let guest of unpaid.guestList">
+            <span
+              matListItemLine
+              *ngFor="let guest of unpaid.guestList"
+              [matTooltip]="
+                guest.guestName +
+                '. Tổng giá: ' +
+                calculatePrice(guest) +
+                ' VNĐ.'
+              "
+            >
               {{
                 guest.guestName +
                   ". Tổng giá: " +
@@ -67,9 +89,22 @@
         <mat-list>
           <mat-list-item *ngFor="let unpaid of stayingUnpaidGroup">
             <span matListItemTitle>{{ unpaid.name }}</span>
-            <span matListItemLine *ngFor="let guest of unpaid.guestList">{{
-              guest.guestName + ". Tổng giá: " + calculatePrice(guest) + " VNĐ."
-            }}</span>
+            <span
+              matListItemLine
+              *ngFor="let guest of unpaid.guestList"
+              [matTooltip]="
+                guest.guestName +
+                '. Tổng giá: ' +
+                calculatePrice(guest) +
+                ' VNĐ.'
+              "
+              >{{
+                guest.guestName +
+                  ". Tổng giá: " +
+                  calculatePrice(guest) +
+                  " VNĐ."
+              }}</span
+            >
           </mat-list-item>
         </mat-list>
       </div>

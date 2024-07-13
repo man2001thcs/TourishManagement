@@ -195,7 +195,6 @@ export class MovingScheduleCreateComponent implements OnInit, OnDestroy {
   }
 
   changeType($event: any) {
-    console.log($event);
     this.vehicleType = parseInt($event);
   }
 

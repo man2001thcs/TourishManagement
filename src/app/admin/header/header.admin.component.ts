@@ -85,7 +85,6 @@ export class HeaderAdminComponent implements OnDestroy {
         .pipe(filter((event) => event instanceof NavigationEnd))
         .subscribe((event) => {
           if (event instanceof NavigationEnd) {
-            console.log(event.url);
             this.activeItem = getAdminHeaderPhase(this.router.url.split('?')[0]);
           }
         })

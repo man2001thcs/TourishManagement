@@ -208,7 +208,6 @@ export class HeaderComponent implements OnInit {
   outsideNavClick(hasClickedOutside: any) {
     if (hasClickedOutside && this.isNavOpen) {
       this.countNavClick++;
-      console.log(this.countNavClick);
       if (this.countNavClick >= 1) this.closeNav();
     }
   }

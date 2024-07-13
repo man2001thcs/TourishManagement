@@ -104,8 +104,6 @@ export class ScheduleChangeModalComponent implements OnInit {
               this.scheduleList =
                 this.stayingSchedule.serviceScheduleList ?? [];
                 this.scheduleEditList = this.scheduleList;
-
-                console.log(this.scheduleList);
             }
           }
         });

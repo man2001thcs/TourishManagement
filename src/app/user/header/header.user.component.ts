@@ -101,7 +101,6 @@ export class HeaderUserComponent implements OnDestroy {
         .pipe(filter((event) => event instanceof NavigationEnd))
         .subscribe((event) => {
           if (event instanceof NavigationEnd) {
-            console.log(event.url);
             this.activeItem =
               getUserHeaderPhase(event.url.split('?')[0]).length <= 0
                 ? this.activeItem
@@ -201,7 +200,6 @@ export class HeaderUserComponent implements OnDestroy {
   outsideNavClick(hasClickedOutside: any) {
     if (hasClickedOutside && this.isNavOpen) {
       this.countNavClick++;
-      console.log(this.countNavClick);
       if (this.countNavClick >= 1) this.closeNav();
     }
   }

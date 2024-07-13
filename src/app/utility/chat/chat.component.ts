@@ -182,7 +182,6 @@ export class ChatComponent {
   }
 
   toggleEmojiPicker() {
-    console.log(this.showEmojiPicker);
     this.showEmojiPicker = !this.showEmojiPicker;
   }
 

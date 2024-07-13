@@ -329,7 +329,6 @@ export class MovingMultiselectAutocompleteComponent implements OnInit {
 
     this.movingFormGroup.controls["description"].setValue(this.editorContent);
 
-    console.log("check: " + this.movingFormGroup.valid, this.movingFormGroup.value);
     if (this.movingFormGroup.valid && this.movingFormGroup.dirty) {
       const schedule: MovingSchedule = {
         driverName: this.movingFormGroup.value.driverName,

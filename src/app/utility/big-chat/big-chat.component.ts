@@ -112,7 +112,6 @@ export class BigChatComponent implements OnInit {
   message = "";
 
   toggleEmojiPicker() {
-    console.log(this.showEmojiPicker);
     this.showEmojiPicker = !this.showEmojiPicker;
   }
 

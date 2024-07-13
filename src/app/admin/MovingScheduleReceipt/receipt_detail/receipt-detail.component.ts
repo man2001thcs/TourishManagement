@@ -109,8 +109,6 @@ export class MovingScheduleReceiptDetailComponent implements OnInit, OnDestroy {
           this.messageService.closeLoadingDialog();
           this.getSchedule(state.totalReceipt?.movingScheduleId);
 
-          console.log(state.totalReceipt?.movingScheduleId);
-
           this.editformGroup_info.controls["totalReceiptId"].setValue(
             state.totalReceiptId
           );

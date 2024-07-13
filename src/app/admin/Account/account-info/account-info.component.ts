@@ -208,7 +208,6 @@ export class AccountInfoComponent implements OnInit, OnDestroy {
           })
         );
       } else {
-        console.log("test: " + this.editformGroup_info.value);
         this.messageService.openFailNotifyDialog(
           "Lỗi giá trị đầu vào. Vui lòng kiểm tra lại"
         );

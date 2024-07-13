@@ -194,8 +194,6 @@ export class StayingReceiptUserListComponent
             this.messageService.openLoadingDialog();
           } else {
             this.active = parseInt(query.get("active") ?? "0");
-            console.log(this.active);
-
             this.pageIndex = 0;
             this.pageSize = 5;
           }
@@ -416,7 +414,6 @@ export class StayingReceiptUserListComponent
   }
 
   callPayment(orderId: string, paymentId: string) {
-    console.log("payment: " + paymentId);
     if (paymentId !== null && paymentId.length > 0) {
       this.http
         .get("/api/CallPayment/service/check-request?id=" + orderId)

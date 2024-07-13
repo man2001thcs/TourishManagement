@@ -178,7 +178,6 @@ export class UserAccountInfoComponent implements OnInit, OnDestroy {
   formSubmit(): void {}
 
   formSubmit_edit_info(): void {
-    console.log(this.editformGroup_info.value);
     if (this.active === 0) {
       this.isSubmittedInfo = true;
       if (this.editformGroup_info.valid) {

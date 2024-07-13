@@ -70,7 +70,6 @@ export class TourishCategoryDetailComponent implements OnInit, OnDestroy {
       this.tourishCategoryState.subscribe((state) => {
         if (state) {
           this.tourishCategory = state;
-          console.log(state);
           this.messageService.closeLoadingDialog();
 
           this.editformGroup_info.controls["name"].setValue(state.name);

@@ -263,7 +263,6 @@ export class SignalRService {
                 this.url,
                 ""
               );
-              console.log(urlExtend);
 
               this.hubConnection.stop();
               await this.startConnection(urlExtend);

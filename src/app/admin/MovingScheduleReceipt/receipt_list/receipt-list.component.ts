@@ -187,8 +187,6 @@ export class MovingScheduleReceiptListComponent
             this.messageService.openLoadingDialog();
           } else {
             this.active = parseInt(query.get("active") ?? "0");
-            console.log(this.active);
-
             this.pageIndex = 0;
             this.pageSize = 5;
           }

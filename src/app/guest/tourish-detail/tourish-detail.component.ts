@@ -87,7 +87,6 @@ export class TourishDetailComponent implements OnInit, OnDestroy {
         .subscribe((event) => {
           if (event instanceof NavigationEnd) {
             this.currentUrl = this.router.url;
-            console.log("test:" + this.currentUrl);
           }
         })
     );

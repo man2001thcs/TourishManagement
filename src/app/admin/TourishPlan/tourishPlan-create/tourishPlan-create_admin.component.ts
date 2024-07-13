@@ -272,8 +272,6 @@ export class TourishPlanCreateAdminComponent
 
     this.createformGroup.controls["description"].setValue(this.editorContent);
 
-    console.log(this.createformGroup.controls["description"].value);
-
     if (this.createformGroup.valid) {
       this.store.dispatch(
         TourishPlanActions.createTourishPlan({

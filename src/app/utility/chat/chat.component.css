@@ -56,7 +56,7 @@ app-send-chat {
 }
 
 .chat-input-mat {
-  margin-bottom: 10px !important;
+  margin-bottom: 0px !important;
 }
 
 .chat-send mat-card {

@@ -8,17 +8,38 @@
 
     <mat-card style="margin-bottom: 20px; padding: 0px 10px 0px">
       <mat-card-content style="padding: 16px 16px 0px">
-        <h2 style="margin-bottom: 0;"><i class="fa fa-exclamation-circle" aria-hidden="true" style="color: red;"></i> Lưu ý</h2>
+        <h2 style="margin-bottom: 0">
+          <i
+            class="fa fa-exclamation-circle"
+            aria-hidden="true"
+            style="color: red"
+          ></i>
+          Lưu ý
+        </h2>
         <mat-list>
-          <mat-list-item>• Thanh toán chỉ có hiệu lực trong vòng từ 7 giờ sáng tới 23 giờ chiều. Sau bảy ngày không thanh toán, hóa đơn sẽ bị hủy.</mat-list-item>
-          <mat-list-item>• Hóa đơn khi mới đặt sẽ chuyển trạng thái có thể thanh toán sau hai giờ.</mat-list-item>
-          <mat-list-item>• Sau khi hoàn thành chuyển khoản bằng mã QR, vui lòng không thoát trang để hoàn thành việc cập nhật thông tin thanh toán.</mat-list-item>
+          <mat-list-item
+            >• Thanh toán chỉ có hiệu lực trong vòng từ 7 giờ sáng tới 23 giờ
+            chiều. Sau bảy ngày không thanh toán, hóa đơn sẽ bị
+            hủy.</mat-list-item
+          >
+          <mat-list-item
+            >• Hóa đơn khi mới đặt sẽ chuyển trạng thái có thể thanh toán sau
+            hai giờ.</mat-list-item
+          >
+          <mat-list-item
+            >• Sau khi hoàn thành chuyển khoản bằng mã QR, vui lòng không thoát
+            trang để hoàn thành việc cập nhật thông tin thanh
+            toán.</mat-list-item
+          >
         </mat-list>
       </mat-card-content>
     </mat-card>
 
-    <mat-tab-group [selectedIndex]="active" (selectedIndexChange)="tourStatusChange($event)"
-      style="background-color: white">
+    <mat-tab-group
+      [selectedIndex]="active"
+      (selectedIndexChange)="tourStatusChange($event)"
+      style="background-color: white"
+    >
       <mat-tab label="Hóa đơn mới tạo"> </mat-tab>
       <mat-tab label="Hóa đơn chờ thanh toán"> </mat-tab>
       <mat-tab label="Hóa đơn đã hoàn thành"> </mat-tab>
@@ -26,8 +47,14 @@
     </mat-tab-group>
 
     <div class="table-responsive">
-      <table mat-table [dataSource]="receiptList" matSort class="mat-elevation-z8"
-        (matSortChange)="announceSortChange($event)" multiTemplateDataRows>
+      <table
+        mat-table
+        [dataSource]="receiptList"
+        matSort
+        class="mat-elevation-z8"
+        (matSortChange)="announceSortChange($event)"
+        multiTemplateDataRows
+      >
         <!-- Position Column -->
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>No.</th>
@@ -60,7 +87,9 @@
         </ng-container>
 
         <ng-container matColumnDef="phoneNumber">
-          <th mat-header-cell *matHeaderCellDef>Số điện thoại liên lạc hỗ trợ</th>
+          <th mat-header-cell *matHeaderCellDef>
+            Số điện thoại liên lạc hỗ trợ
+          </th>
           <td mat-cell *matCellDef="let element">
             {{ element.movingSchedule.phoneNumber }}
           </td>
@@ -72,12 +101,20 @@
             &nbsp;
           </th>
           <td mat-cell *matCellDef="let element">
-            <button mat-icon-button aria-label="expand row" (click)="
-              expandedElement = expandedElement === element ? null : element;
-              $event.stopPropagation()
-            ">
-              <mat-icon *ngIf="expandedElement !== element">keyboard_arrow_down</mat-icon>
-              <mat-icon *ngIf="expandedElement === element">keyboard_arrow_up</mat-icon>
+            <button
+              mat-icon-button
+              aria-label="expand row"
+              (click)="
+                expandedElement = expandedElement === element ? null : element;
+                $event.stopPropagation()
+              "
+            >
+              <mat-icon *ngIf="expandedElement !== element"
+                >keyboard_arrow_down</mat-icon
+              >
+              <mat-icon *ngIf="expandedElement === element"
+                >keyboard_arrow_up</mat-icon
+              >
             </button>
           </td>
         </ng-container>
@@ -89,13 +126,28 @@
       "discountAmount", -->
 
         <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
-        <ng-container matColumnDef="expandedDetail" style="width: 100% !important">
-          <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumnsWithExpand.length">
-            <div [@detailExpand]="
-              element == expandedElement ? 'expanded' : 'collapsed'
-            ">
-              <div class="example-element-diagram" style="display: flex; flex-direction: row">
-                <div class="receipt-info" style="width: 70px !important; min-width: 70px !important">
+        <ng-container
+          matColumnDef="expandedDetail"
+          style="width: 100% !important"
+        >
+          <td
+            mat-cell
+            *matCellDef="let element"
+            [attr.colspan]="displayedColumnsWithExpand.length"
+          >
+            <div
+              [@detailExpand]="
+                element == expandedElement ? 'expanded' : 'collapsed'
+              "
+            >
+              <div
+                class="example-element-diagram"
+                style="display: flex; flex-direction: row"
+              >
+                <div
+                  class="receipt-info"
+                  style="width: 70px !important; min-width: 70px !important"
+                >
                   <span style="font-weight: bold">STT</span>
                 </div>
                 <div class="receipt-info">
@@ -108,7 +160,9 @@
                   <span style="font-weight: bold">SĐT</span>
                 </div>
                 <div class="receipt-info">
-                  <span style="font-weight: bold">Số vé (Người lớn > 10 tuổi)</span>
+                  <span style="font-weight: bold"
+                    >Số vé (Người lớn > 10 tuổi)</span
+                  >
                 </div>
                 <div class="receipt-info">
                   <span style="font-weight: bold">Số vé (Trẻ em)</span>
@@ -130,9 +184,15 @@
                 <div class="receipt-button"></div>
               </div>
 
-              <div class="example-element-diagram" style="display: flex; flex-direction: row"
-                *ngFor="let fullReceipt of element.fullReceiptList; index as i">
-                <div class="receipt-info" style="width: 70px !important; min-width: 70px !important">
+              <div
+                class="example-element-diagram"
+                style="display: flex; flex-direction: row"
+                *ngFor="let fullReceipt of element.fullReceiptList; index as i"
+              >
+                <div
+                  class="receipt-info"
+                  style="width: 70px !important; min-width: 70px !important"
+                >
                   <div>{{ i + 1 }}</div>
                 </div>
                 <div class="receipt-info">
@@ -153,15 +213,22 @@
                 <div class="receipt-info">
                   <div>
                     {{
-                    formatVNCurrency(
-                    getTotalPriceReceipt(element.movingSchedule, fullReceipt)
-                    )
+                      formatVNCurrency(
+                        getTotalPriceReceipt(
+                          element.movingSchedule,
+                          fullReceipt
+                        )
+                      )
                     }}
                   </div>
                 </div>
 
                 <div class="receipt-info">
-                  <div [style.color]="getPaymentStatusColor(fullReceipt.status + '')">
+                  <div
+                    [style.color]="
+                      getPaymentStatusColor(fullReceipt.status + '')
+                    "
+                  >
                     {{ getPaymentStatus(fullReceipt.status + "") }}
                   </div>
                 </div>
@@ -173,19 +240,29 @@
                 </div>
 
                 <div class="receipt-button">
-                  <button mat-flat-button [disabled]="isPaymentDisable(fullReceipt.status + '')" (click)="
-                    callPayment(
-                      fullReceipt.fullReceiptId,
-                      fullReceipt.paymentId ?? ''
-                    )
-                  " color="primary">
+                  <button
+                    mat-flat-button
+                    [matTooltip]="'Thanh toán'"
+                    [disabled]="isPaymentDisable(fullReceipt.status + '')"
+                    (click)="
+                      callPayment(
+                        fullReceipt.fullReceiptId,
+                        fullReceipt.paymentId ?? ''
+                      )
+                    "
+                    color="primary"
+                  >
                     <i class="fa fa-credit-card" aria-hidden="true"></i>
                   </button>
                 </div>
 
                 <div class="receipt-button">
-                  <button mat-flat-button (click)="openEditDialog(fullReceipt.fullReceiptId)"
-                    style="background-color: #ffd740">
+                  <button
+                    mat-flat-button
+                    [matTooltip]="'Xem thông tin'"
+                    (click)="openEditDialog(fullReceipt.fullReceiptId)"
+                    style="background-color: #ffd740"
+                  >
                     <i class="fa fa-pencil" aria-hidden="true"></i>
                   </button>
                 </div>
@@ -195,10 +272,20 @@
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumnsWithExpand"></tr>
-        <tr mat-row *matRowDef="let element; columns: displayedColumnsWithExpand" class="example-element-row"
+        <tr
+          mat-row
+          *matRowDef="let element; columns: displayedColumnsWithExpand"
+          class="example-element-row"
           [class.example-expanded-row]="expandedElement === element"
-          (click)="expandedElement = expandedElement === element ? null : element"></tr>
-        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+          (click)="
+            expandedElement = expandedElement === element ? null : element
+          "
+        ></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: ['expandedDetail']"
+          class="example-detail-row"
+        ></tr>
       </table>
     </div>
 
@@ -206,8 +293,13 @@
       <h3>Không tìm được kết quả phù hợp</h3>
     </div>
 
-    <mat-paginator [pageSizeOptions]="pageSizeOpstion" [length]="length" (page)="handlePageEvent($event)"
-      showFirstLastButtons aria-label="Select page of periodic elements">
+    <mat-paginator
+      [pageSizeOptions]="pageSizeOpstion"
+      [length]="length"
+      (page)="handlePageEvent($event)"
+      showFirstLastButtons
+      aria-label="Select page of periodic elements"
+    >
     </mat-paginator>
   </div>
 </div>

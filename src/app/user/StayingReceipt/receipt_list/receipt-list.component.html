@@ -173,7 +173,7 @@
                 </div>
 
                 <div class="receipt-button">
-                  <button mat-flat-button [disabled]="isPaymentDisable(fullReceipt.status + '')" (click)="
+                  <button mat-flat-button [matTooltip]="'Thanh toán'" [disabled]="isPaymentDisable(fullReceipt.status + '')" (click)="
                     callPayment(
                       fullReceipt.fullReceiptId,
                       fullReceipt.paymentId ?? ''
@@ -184,7 +184,7 @@
                 </div>
 
                 <div class="receipt-button">
-                  <button mat-flat-button (click)="openEditDialog(fullReceipt.fullReceiptId)"
+                  <button mat-flat-button [matTooltip]="'Xem thông tin'" (click)="openEditDialog(fullReceipt.fullReceiptId)"
                     style="background-color: #ffd740">
                     <i class="fa fa-pencil" aria-hidden="true"></i>
                   </button>
